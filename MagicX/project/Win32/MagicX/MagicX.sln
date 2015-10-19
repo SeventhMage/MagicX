@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MagicX", "MagicX.vcxproj", "{5CD1D659-BD8B-4A99-8D18-60C0B0076E4B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Render", "..\Render\Render.vcxproj", "{CB38AABD-DE73-4C86-86B3-0B303FED465B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Scene", "..\Scene\Scene.vcxproj", "{3E991178-CF44-4A75-BB9F-BED1EE4EBA98}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Device", "..\Device\Device.vcxproj", "{70500A39-E41B-4A40-950B-4E524A6EE6B2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GUI", "..\GUI\GUI.vcxproj", "{F774DCDE-7DFE-4CA7-BF75-812984E806F1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Memory", "..\Memory\Memory.vcxproj", "{BB268AB9-C614-4965-9B1B-7E6F0332B831}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IO", "..\IO\IO.vcxproj", "{B0D28144-8B12-4769-BCC8-833FFFC948E0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo", "..\..\..\examples\Demo\Demo\Demo.vcxproj", "{292EBB52-2F7E-4688-B9BB-B6C5A02BE1FD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5CD1D659-BD8B-4A99-8D18-60C0B0076E4B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5CD1D659-BD8B-4A99-8D18-60C0B0076E4B}.Debug|Win32.Build.0 = Debug|Win32
+		{5CD1D659-BD8B-4A99-8D18-60C0B0076E4B}.Release|Win32.ActiveCfg = Release|Win32
+		{5CD1D659-BD8B-4A99-8D18-60C0B0076E4B}.Release|Win32.Build.0 = Release|Win32
+		{CB38AABD-DE73-4C86-86B3-0B303FED465B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CB38AABD-DE73-4C86-86B3-0B303FED465B}.Debug|Win32.Build.0 = Debug|Win32
+		{CB38AABD-DE73-4C86-86B3-0B303FED465B}.Release|Win32.ActiveCfg = Release|Win32
+		{CB38AABD-DE73-4C86-86B3-0B303FED465B}.Release|Win32.Build.0 = Release|Win32
+		{3E991178-CF44-4A75-BB9F-BED1EE4EBA98}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3E991178-CF44-4A75-BB9F-BED1EE4EBA98}.Debug|Win32.Build.0 = Debug|Win32
+		{3E991178-CF44-4A75-BB9F-BED1EE4EBA98}.Release|Win32.ActiveCfg = Release|Win32
+		{3E991178-CF44-4A75-BB9F-BED1EE4EBA98}.Release|Win32.Build.0 = Release|Win32
+		{70500A39-E41B-4A40-950B-4E524A6EE6B2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{70500A39-E41B-4A40-950B-4E524A6EE6B2}.Debug|Win32.Build.0 = Debug|Win32
+		{70500A39-E41B-4A40-950B-4E524A6EE6B2}.Release|Win32.ActiveCfg = Release|Win32
+		{70500A39-E41B-4A40-950B-4E524A6EE6B2}.Release|Win32.Build.0 = Release|Win32
+		{F774DCDE-7DFE-4CA7-BF75-812984E806F1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F774DCDE-7DFE-4CA7-BF75-812984E806F1}.Debug|Win32.Build.0 = Debug|Win32
+		{F774DCDE-7DFE-4CA7-BF75-812984E806F1}.Release|Win32.ActiveCfg = Release|Win32
+		{F774DCDE-7DFE-4CA7-BF75-812984E806F1}.Release|Win32.Build.0 = Release|Win32
+		{BB268AB9-C614-4965-9B1B-7E6F0332B831}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BB268AB9-C614-4965-9B1B-7E6F0332B831}.Debug|Win32.Build.0 = Debug|Win32
+		{BB268AB9-C614-4965-9B1B-7E6F0332B831}.Release|Win32.ActiveCfg = Release|Win32
+		{BB268AB9-C614-4965-9B1B-7E6F0332B831}.Release|Win32.Build.0 = Release|Win32
+		{B0D28144-8B12-4769-BCC8-833FFFC948E0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B0D28144-8B12-4769-BCC8-833FFFC948E0}.Debug|Win32.Build.0 = Debug|Win32
+		{B0D28144-8B12-4769-BCC8-833FFFC948E0}.Release|Win32.ActiveCfg = Release|Win32
+		{B0D28144-8B12-4769-BCC8-833FFFC948E0}.Release|Win32.Build.0 = Release|Win32
+		{292EBB52-2F7E-4688-B9BB-B6C5A02BE1FD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{292EBB52-2F7E-4688-B9BB-B6C5A02BE1FD}.Debug|Win32.Build.0 = Debug|Win32
+		{292EBB52-2F7E-4688-B9BB-B6C5A02BE1FD}.Release|Win32.ActiveCfg = Release|Win32
+		{292EBB52-2F7E-4688-B9BB-B6C5A02BE1FD}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

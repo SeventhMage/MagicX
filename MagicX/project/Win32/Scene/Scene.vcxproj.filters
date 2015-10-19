@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{9663c577-0cd6-4c7d-96e0-0620d2d488cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scene">
+      <UniqueIdentifier>{b7d73c48-2c80-4d77-a75e-185f27a66c44}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\component\scene\include\IScene.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\scene\include\ISceneNode.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\scene\include\ISkyBox.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\scene\include\ITerrainSceneNode.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\scene\include\ICamera.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\scene\include\IMesh.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\scene\scene\CFrustum.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\scene\scene\CSkyBox.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\scene\scene\CCamera.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\scene\include\CSceneManager.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\component\scene\scene\CFrustum.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\scene\scene\CSceneManager.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\scene\scene\CSkyBox.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\scene\scene\CCamera.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

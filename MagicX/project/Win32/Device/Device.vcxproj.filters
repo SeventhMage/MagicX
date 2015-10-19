@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{14a22fd8-3da6-45a6-bb5b-336f02b207a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="device">
+      <UniqueIdentifier>{f9e6b996-0ecc-4b37-8b7b-d39cf99175f2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\component\device\include\IDevice.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\device\device\CWin32Device.h">
+      <Filter>device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\device\include\CDeviceManager.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\device\include\CRenderDriver.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\device\include\IDeviceDriver.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\component\device\device\CWin32Device.cpp">
+      <Filter>device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\device\device\CDeviceManager.cpp">
+      <Filter>device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\device\device\CRenderDriver.cpp">
+      <Filter>device</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

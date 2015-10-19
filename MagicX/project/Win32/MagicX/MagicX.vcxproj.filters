@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{ebefc6b1-d646-4960-a35a-7f96c1306e4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="magicx">
+      <UniqueIdentifier>{fd2d2ac5-f818-416d-8341-ace81e74cbb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="magicx\mx">
+      <UniqueIdentifier>{f240f952-4718-4390-a95f-481e31bd74bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\common">
+      <UniqueIdentifier>{2ab8f8f4-47b5-41a2-a8c7-63200add0c32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\core">
+      <UniqueIdentifier>{cc04c98c-0a27-4727-99b8-904e06b066c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\scene">
+      <UniqueIdentifier>{4ef81a36-8203-4f56-8047-b2cccdefd271}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\gui">
+      <UniqueIdentifier>{0df73516-cbdd-4049-ad34-e2aa5f915e19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\driver">
+      <UniqueIdentifier>{04ff627f-6561-4925-b295-cb7fea865216}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="magicx\driver">
+      <UniqueIdentifier>{25d8cc83-3ae3-45db-ab1c-6b2e44f713bd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\mx.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\CDriver.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\common\CSingleton.h">
+      <Filter>include\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\common\mxDef.h">
+      <Filter>include\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\common\mxMath.h">
+      <Filter>include\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\core\plane3d.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\core\quaternion.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\core\vector2d.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\core\vector3d.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\core\aabb3d.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\core\coreutil.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\core\matrix44.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\driver\CMXRenderDriver.h">
+      <Filter>include\driver</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\source\mx.cpp">
+      <Filter>magicx\mx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\CDriver.cpp">
+      <Filter>magicx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\driver\CMXRenderDriver.cpp">
+      <Filter>magicx\driver</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

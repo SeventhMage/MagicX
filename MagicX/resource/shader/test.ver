@@ -1,0 +1,12 @@
+#version 330 core
+
+attribute vec3 position;
+attribute vec4 inColor;
+
+varying vec4 color; 
+
+void main()
+{
+	gl_Position = vec4(position, 1.0);
+	color = inColor;
+}

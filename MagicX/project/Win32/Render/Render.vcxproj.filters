@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{671a6726-9dc1-4ed2-a492-589b83f9c51e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer">
+      <UniqueIdentifier>{5d1f09fa-04d0-4b87-91b6-36ecd9119305}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer\opengl">
+      <UniqueIdentifier>{cc8b29b2-f852-4a97-9ac4-7abb6b5cf552}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\component\renderer\include\IShader.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\include\IShaderProgram.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\include\ITexture.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\include\IMaterial.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\renderer\opengl\COpenGLMaterial.h">
+      <Filter>renderer\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\renderer\opengl\COpenGLTexture.h">
+      <Filter>renderer\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\include\IRenderer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\include\Render.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\renderer\opengl\COpenGLRenderer.h">
+      <Filter>renderer\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\include\IGPUBuffer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\renderer\opengl\COpenGLShaderProgram.h">
+      <Filter>renderer\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\renderer\opengl\COpenGLGPUBuffer.h">
+      <Filter>renderer\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\renderer\opengl\COpenGLIndexBufferObject.h">
+      <Filter>renderer\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\renderer\opengl\COpenGLVertexBufferObject.h">
+      <Filter>renderer\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\include\IBufferObject.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\renderer\opengl\COpenGLRenderableObject.h">
+      <Filter>renderer\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\include\IRenderableObject.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\include\ERender.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\renderer\opengl\OpenGLType.h">
+      <Filter>renderer\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\renderer\opengl\COpenGLShader.h">
+      <Filter>renderer\opengl</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLMaterial.cpp">
+      <Filter>renderer\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLTexture.cpp">
+      <Filter>renderer\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\renderer\renderer\Render.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLRenderer.cpp">
+      <Filter>renderer\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLGPUBuffer.cpp">
+      <Filter>renderer\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLIndexBufferObject.cpp">
+      <Filter>renderer\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLVertexBufferObject.cpp">
+      <Filter>renderer\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLRenderableObject.cpp">
+      <Filter>renderer\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLShaderProgram.cpp">
+      <Filter>renderer\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLShader.cpp">
+      <Filter>renderer\opengl</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
