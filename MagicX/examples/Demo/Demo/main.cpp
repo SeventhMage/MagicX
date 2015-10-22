@@ -7,9 +7,13 @@
 #include "glew/gl/glew.h"
 #include "ERender.h"
 #include "CFileStream.h"
+#include "CDeviceManager.h"
 
 using namespace mx::driver;
 using namespace mx::io;
+
+const int FRAMES_PER_SECOND = 50;      ///< FPS:50
+const int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
 
 int main(int argc, char *argv[])
 {
@@ -25,7 +29,18 @@ int main(int argc, char *argv[])
 			0.5f, -0.5f, 0,
 			0, 0.5f, 0,
 		};
-	
+		float color[12] = {
+			1.0f, 0, 0, 1.0f,
+			0, 1.0f, 0, 1.0f,
+			0, 0, 1.0f, 1.0f
+		};
+		
+		float texture[6] = {
+			0, 0,
+			1, 0,
+			0.5, 1
+		};
+		
 		IGPUBuffer *buffer = renderer->CreateGPUBuffer(0);
 		if (buffer)
 		{
@@ -41,17 +56,37 @@ int main(int argc, char *argv[])
 				}
 			}
 			buffer->Begin();
-			buffer->CreateVertexBuffer(renderableObject, triangle, sizeof(triangle), 0, 9, GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
-			buffer->EnableVertexAttrib(VAI_VERTEX, 3/*sizeof(triangle)*/, RVT_FLOAT, 0);
+			buffer->CreateVertexBuffer(renderableObject, NULL, sizeof(triangle) + sizeof(color), 0, 9, GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
+			buffer->AddVertexData(renderableObject, triangle, sizeof(triangle), 0);
+			//buffer->AddVertexData(renderableObject, color, sizeof(color), sizeof(triangle));
+			buffer->AddVertexData(renderableObject, texture, sizeof(color), sizeof(triangle));
+			buffer->EnableVertexAttrib(VAI_VERTEX, 3, RVT_FLOAT, 0);
+			//buffer->EnableVertexAttrib(VAI_COLOR, 4, RVT_FLOAT, sizeof(triangle));
+			buffer->EnableVertexAttrib(VAI_TEXTURE1, 3, RVT_FLOAT, 0);
+
 			buffer->End();
+
+			ITexture *tex = renderer->CreateTexture("media/1.tga", TT_2D);
 		}
 		
-		renderer->Render();
+		uint next_game_tick = device->GetSystemRunTime();
+		int sleep_time = 0;
+		while (device->Run())
+		{
+			renderer->Render();
+			device->SwapBuffers();
 
+			next_game_tick += SKIP_TICKS;
+			sleep_time = next_game_tick - GetTickCount();
+			if (sleep_time >= 0)
+			{
+				device->Sleep(sleep_time);
+			}			 
+		}
 
 	}
 	
-	driver->Run();
+	//driver->Run();
 
 	CDriver::DeleteInstance();
 	return 0;
