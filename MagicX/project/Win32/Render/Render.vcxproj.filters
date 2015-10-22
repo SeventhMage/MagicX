@@ -72,6 +72,9 @@
     <ClInclude Include="..\..\..\component\renderer\renderer\opengl\COpenGLShader.h">
       <Filter>renderer\opengl</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\renderer\opengl\CTGA.h">
+      <Filter>renderer\opengl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLMaterial.cpp">
@@ -102,6 +105,9 @@
       <Filter>renderer\opengl</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLShader.cpp">
+      <Filter>renderer\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\renderer\renderer\opengl\CTGA.cpp">
       <Filter>renderer\opengl</Filter>
     </ClCompile>
   </ItemGroup>

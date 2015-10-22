@@ -39,6 +39,9 @@
     <ClInclude Include="..\..\..\component\scene\include\CSceneManager.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\component\scene\scene\CScene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\component\scene\scene\CFrustum.cpp">
@@ -51,6 +54,9 @@
       <Filter>scene</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\component\scene\scene\CCamera.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\scene\scene\CScene.cpp">
       <Filter>scene</Filter>
     </ClCompile>
   </ItemGroup>

@@ -20,11 +20,13 @@
     <ClInclude Include="..\..\..\component\scene\include\ITerrainSceneNode.h" />
     <ClInclude Include="..\..\..\component\scene\scene\CCamera.h" />
     <ClInclude Include="..\..\..\component\scene\scene\CFrustum.h" />
+    <ClInclude Include="..\..\..\component\scene\scene\CScene.h" />
     <ClInclude Include="..\..\..\component\scene\scene\CSkyBox.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\component\scene\scene\CCamera.cpp" />
     <ClCompile Include="..\..\..\component\scene\scene\CFrustum.cpp" />
+    <ClCompile Include="..\..\..\component\scene\scene\CScene.cpp" />
     <ClCompile Include="..\..\..\component\scene\scene\CSceneManager.cpp" />
     <ClCompile Include="..\..\..\component\scene\scene\CSkyBox.cpp" />
   </ItemGroup>
@@ -32,12 +34,13 @@
     <ProjectGuid>{3E991178-CF44-4A75-BB9F-BED1EE4EBA98}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Scene</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">

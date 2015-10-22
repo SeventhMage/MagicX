@@ -28,6 +28,9 @@
     <Filter Include="magicx\driver">
       <UniqueIdentifier>{25d8cc83-3ae3-45db-ab1c-6b2e44f713bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="magicx\scene">
+      <UniqueIdentifier>{d3ef273c-4ce7-4987-9785-46b5fa316764}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\mx.h">
