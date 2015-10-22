@@ -21,6 +21,13 @@ namespace mx
 			virtual IGPUBuffer *CreateGPUBuffer(int stride);
 			virtual void DestroyGPUBuffer(IGPUBuffer *gpuBuffer);
 
+			virtual ITexture *CreateTexture(const char *filename, TextureType texType);
+
+			virtual void ClearColor(float r, float g, float b, float a);
+			virtual void Clear(uint bit);
+			virtual void Enable(uint bit);
+			virtual void Disable(uint bit);
+
 		private:
 			std::vector<IGPUBuffer *> m_vecBuffer;
 		};

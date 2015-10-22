@@ -14,7 +14,9 @@ namespace mx
 			COpenGLTexture();
 			virtual ~COpenGLTexture();
 
-			virtual bool Create();
+			virtual bool Create(const char *filename, TextureType texType);
+		private:
+			bool Create2D(const char *filename);
 		private:
 			GLuint m_hTexture;
 		};

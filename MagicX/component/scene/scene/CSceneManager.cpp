@@ -34,5 +34,10 @@ namespace mx
 			return m_listScene;
 		}
 
+		IScene * CSceneManager::CreateScene()
+		{
+			return nullptr;
+		}
+
 	}
 }

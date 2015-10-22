@@ -5,8 +5,22 @@ namespace mx
 	namespace scene
 	{
 		CCamera::CCamera()
+			: m_bNeedUpdateView(true)
+			, m_bNeedUpdateProj(true)
+			, m_bOrtho(false)
 		{
 
+		}
+
+		CCamera::CCamera(const CVector3 & position, const CVector3 & direction, const CVector3 & up)
+			:m_bNeedUpdateProj(true)
+			,m_bNeedUpdateView(true)
+			,m_bOrtho(false)
+			,m_position(position)
+			,m_direction(direction)
+			,m_up(up)
+		{
+			Update();
 		}
 
 		CCamera::~CCamera()
@@ -142,7 +156,7 @@ namespace mx
 			m_bOrtho = bOritho;
 		}
 
-		bool CCamera::IsOritho()
+		bool CCamera::IsOritho() const
 		{
 			return m_bOrtho;
 		}

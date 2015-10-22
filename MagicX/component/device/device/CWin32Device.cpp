@@ -1,4 +1,6 @@
 #include "CWin32Device.h"
+#include "../include/CDeviceManager.h"
+#include "../include/IDeviceDriver.h"
 #include "glew/gl/glew.h"
 
 namespace mx
@@ -30,7 +32,11 @@ namespace mx
 				return 0;
 			case WM_SIZE:
 			{
-						
+				IDevice *device = CDeviceManager::Instance()->GetDevice();
+				if (device)
+				{
+					device->OnSize(0, 0, LOWORD(lParam), HIWORD(lParam));
+				}
 			}
 				return 0;
 
@@ -140,7 +146,7 @@ namespace mx
 			UpdateWindow(m_hWnd);
 
 			// fix ugly ATI driver bugs. Thanks to ariaci
-			MoveWindow(m_hWnd, windowLeft, windowTop, realWidth, realHeight, TRUE);			
+			MoveWindow(m_hWnd, windowLeft, windowTop, realWidth, realHeight, TRUE);		
 		}
 
 		CWin32Device::~CWin32Device()
@@ -171,9 +177,27 @@ namespace mx
 			return !bQuit;
 		}
 
+		void CWin32Device::SwapBuffers()
+		{
+			HDC hDC = GetDC(m_hWnd);
+			::SwapBuffers(hDC);
+			ReleaseDC(m_hWnd, hDC);
+		}
+
+		void CWin32Device::OnSize(int iLeft, int iTop, int iWidth, int iHeight)
+		{
+			if (m_deviceDriver[DDT_RENDERER])
+				((CRenderDriver *)m_deviceDriver[DDT_RENDERER])->OnSize(iLeft, iTop, iWidth, iHeight);
+		}
+
 		long CWin32Device::GetSystemRunTime()
 		{
 			return GetTickCount();
+		}
+
+		void CWin32Device::Sleep(unsigned long ms)
+		{
+			::Sleep(ms);
 		}
 
 		bool CWin32Device::SetupDriver(IDeviceDriver *driver)

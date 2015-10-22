@@ -99,6 +99,14 @@ namespace mx
 			RT_DX11,
 		};
 
+		enum TextureType
+		{
+			TT_1D,
+			TT_2D,
+			TT_3D,
+			TT_CUBE,
+		};
+
 	}
 }
 

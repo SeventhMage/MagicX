@@ -52,8 +52,6 @@ namespace mx
 		{
 			glEnableVertexAttribArray(vai);
 			glVertexAttribPointer(vai, size, GetGLVariableType(vertType), false, m_stride, (GLvoid *)offset);
-			GLenum err = glGetError();
-			//////////////////////////////////////////////////////////////////////////
 		}
 
 		void COpenGLGPUBuffer::CreateIndexBuffer(IRenderableObject *object, void * indices, int idxCount, RendererVariableType idxType, GPUBufferMode mode, GPUBufferUsage usage)
@@ -74,6 +72,9 @@ namespace mx
 					IShaderProgram *program = m_vecRenderableObject[i]->GetShaderProgram();
 					if (program)
 						glUseProgram(program->GetHandle());
+					int iTextureUnit = glGetUniformLocation(program->GetHandle(), "textureUnit0");
+					glUniform1i(iTextureUnit, 0);
+					
 					glBindVertexArray(m_hVAO);
 					if (m_vecRenderableObject[i]->IsEnabledIndexBuffer())
 					{
@@ -90,11 +91,12 @@ namespace mx
 						if (vbo)
 						{
 							glBindBuffer(GL_ARRAY_BUFFER, vbo->GetHandle());
-							glDrawArrays(GetGLGPUBufferMode(vbo->GetGPUBufferMode()), vbo->GetGLGPUBufferFirst(), vbo->GetVertexNum());							
+							glDrawArrays(GetGLGPUBufferMode(vbo->GetGPUBufferMode()), vbo->GetGLGPUBufferFirst(), vbo->GetVertexNum());		
 						}
 					}
+
 				}
-			}			
+			}	
 		}
 	}
 }

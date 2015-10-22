@@ -21,9 +21,16 @@ namespace mx
 			virtual IDeviceDriver *GetDeviceDriver(DeviceDriverType driverType);
 
 			virtual long GetSystemRunTime();
+			virtual void Sleep(unsigned long ms);
 
 			virtual bool Run();
-	
+			
+			virtual void SwapBuffers();
+
+			virtual int GetWidth() { return m_uWidth;}
+			virtual int GetHeight() { return m_uHeight; }
+
+			virtual void OnSize(int iLeft, int iTop, int iWidth, int iHeight);
 		private:
 			HWND m_hWnd;
 			uint m_uWidth;

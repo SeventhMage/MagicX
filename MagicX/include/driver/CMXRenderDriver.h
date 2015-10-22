@@ -21,6 +21,8 @@ namespace mx
 			virtual bool SetupLinuxRenderer();
 			virtual bool SetupMacRenderer();
 
+			virtual void OnSize(int iLeft, int iTop, int iWidth, int iHeight);
+
 			IRenderer *GetRenderer(){ return m_renderer; }
 		private:
 			IRenderer *m_renderer;

@@ -100,6 +100,22 @@ namespace mx
 			}
 			return 0;
 		}
+
+		static GLenum GetGLTextureType(TextureType texType)
+		{
+			switch (texType)
+			{
+			case TT_1D:
+				return GL_TEXTURE_1D;
+			case TT_2D:
+				return GL_TEXTURE_2D;
+			case TT_3D:
+				return GL_TEXTURE_3D;
+			case TT_CUBE:
+				return GL_TEXTURE_CUBE_MAP;
+			}
+			return GL_TEXTURE_2D;
+		}
 	}
 }
 

@@ -57,7 +57,8 @@ namespace mx
 		bool COpenGLShaderProgram::Link()
 		{
 			glBindAttribLocation(m_hProgram, VAI_VERTEX, "position");
-			glBindAttribLocation(m_hProgram, VAI_COLOR, "inColor");
+			//glBindAttribLocation(m_hProgram, VAI_COLOR, "inColor");
+			glBindAttribLocation(m_hProgram, VAI_TEXTURE1, "vTexCoord0");
 			//////////////////////////////////////////////////////////////////////////
 
 			GLint testVal;

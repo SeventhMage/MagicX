@@ -17,8 +17,8 @@ namespace mx
 			, m_usage(usage) 
 		{
 			glGenBuffers(1, &m_hVBO);
-			glBindBuffer(GL_VERTEX_ARRAY, m_hVBO);
-			glBufferData(GL_VERTEX_ARRAY, size, vertexes, GetGLGPUBufferUsage(m_usage));
+			glBindBuffer(GL_ARRAY_BUFFER, m_hVBO);
+			glBufferData(GL_ARRAY_BUFFER, size, vertexes, GetGLGPUBufferUsage(m_usage));
 		}
 
 		COpenGLVertexBufferObject::~COpenGLVertexBufferObject()
@@ -28,14 +28,14 @@ namespace mx
 
 		void COpenGLVertexBufferObject::BufferData(void *vertexes, int vertSize)
 		{
-			glBindBuffer(GL_VERTEX_ARRAY, m_hVBO);
-			glBufferData(GL_VERTEX_ARRAY, vertSize, vertexes, GetGLGPUBufferUsage(m_usage));
+			glBindBuffer(GL_ARRAY_BUFFER, m_hVBO);
+			glBufferData(GL_ARRAY_BUFFER, vertSize, vertexes, GetGLGPUBufferUsage(m_usage));
 		}
 
 		void COpenGLVertexBufferObject::BufferSubData(void * data, int size, int offset)
 		{
-			glBindBuffer(GL_VERTEX_ARRAY, m_hVBO);
-			glBufferSubData(GL_VERTEX_ARRAY, offset, size, data);
+			glBindBuffer(GL_ARRAY_BUFFER, m_hVBO);
+			glBufferSubData(GL_ARRAY_BUFFER, offset, size, data);
 		}
 
 	}

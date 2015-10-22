@@ -13,6 +13,7 @@ namespace mx
 		{
 		public:
 			CCamera();
+			CCamera(const CVector3 &position, const CVector3 &direction, const CVector3 &up);
 			virtual ~CCamera();
 			virtual void SetPosition(const CVector3 &position);			
 			virtual void SetDirection(const CVector3 &direction);			
@@ -34,7 +35,7 @@ namespace mx
 			virtual float GetNearClip() const;
 			virtual float GetFarClip() const;
 			virtual float GetAspect() const;
-			virtual bool IsOritho();
+			virtual bool IsOritho()const;
 
 			virtual void Update();
 		protected:

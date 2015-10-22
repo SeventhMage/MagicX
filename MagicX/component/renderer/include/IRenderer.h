@@ -5,6 +5,7 @@
 #include "IGPUBuffer.h"
 #include "IShader.h"
 #include "IShaderProgram.h"
+#include "ITexture.h"
 
 namespace mx
 {
@@ -21,6 +22,13 @@ namespace mx
 			
 			virtual IGPUBuffer *CreateGPUBuffer(int stride) = 0;
 			virtual void DestroyGPUBuffer(IGPUBuffer *gpuBuffer) = 0;			
+
+			virtual ITexture *CreateTexture(const char *filename, TextureType texType) = 0;
+
+			virtual void ClearColor(float r, float g, float b, float a) = 0;
+			virtual void Clear(uint) = 0;
+			virtual void Enable(uint) = 0;
+			virtual void Disable(uint) = 0;
 
 			virtual void Render() = 0;
 		};		

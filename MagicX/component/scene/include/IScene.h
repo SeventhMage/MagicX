@@ -20,11 +20,12 @@ namespace mx
 			virtual void RemoveSceneNode(ISceneNode * pSceneNode) = 0;	
 			virtual void RemoveAll() = 0;
 			
-			virtual bool LoadScene(const char *filename);
+			virtual bool LoadScene(const char *filename) = 0;
 
-			virtual ICamera *CreateCamera(const CVector3 &position, const CVector3 &direction, const CVector3 &up) = 0;			
 			virtual ISkyBox *CreateSkyBox(const char *filename) = 0;
-			virtual ITerrainSceneNode *CreateTerrain(const char *filename);
+			virtual ITerrainSceneNode *CreateTerrain(const char *filename) = 0;
+
+			virtual ICamera *SetupCamera(const CVector3 &position, const CVector3 &direction, const CVector3 &up) = 0;
 
 			virtual void Render() = 0;
 		};

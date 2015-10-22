@@ -3,6 +3,7 @@
 #include "COpenGLVertexBufferObject.h"
 #include "COpenGLIndexBufferObject.h"
 #include "COpenGLGPUBuffer.h"
+#include "COpenGLTexture.h"
 
 namespace mx
 {
@@ -12,7 +13,6 @@ namespace mx
 
 		COpenGLRenderer::COpenGLRenderer()
 		{
-
 		}
 
 		COpenGLRenderer::~COpenGLRenderer()
@@ -63,6 +63,8 @@ namespace mx
 				exit(1);
 			}
 
+			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			GLenum err = glGetError();
 			return true;
 		}
 
@@ -73,6 +75,8 @@ namespace mx
 
 		void COpenGLRenderer::Render()
 		{
+			glClear(GL_COLOR_BUFFER_BIT );
+
 			for (uint i = 0; i < m_vecBuffer.size(); ++i)
 			{
 				if (m_vecBuffer[i])
@@ -99,6 +103,33 @@ namespace mx
 					SAFE_DEL(gpuBuffer);
 				}
 			}
+		}
+
+		ITexture * COpenGLRenderer::CreateTexture(const char * filename, TextureType texType)
+		{
+			ITexture *tex = new COpenGLTexture();
+			tex->Create(filename, texType);
+			return tex;
+		}
+
+		void COpenGLRenderer::ClearColor(float r, float g, float b, float a)
+		{
+			glClearColor(r, g, b, a);
+		}
+
+		void COpenGLRenderer::Clear(uint mask)
+		{
+			glClear(mask);
+		}
+
+		void COpenGLRenderer::Enable(uint cap)
+		{
+			glEnable(cap);
+		}
+
+		void COpenGLRenderer::Disable(uint cap)
+		{
+			glDisable(cap);
 		}
 
 	}

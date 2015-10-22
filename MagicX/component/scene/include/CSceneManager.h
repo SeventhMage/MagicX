@@ -18,6 +18,8 @@ namespace mx
 
 			IScene *GetCurrentScene() const;
 			const std::list<IScene *> &GetSceneList() const;
+
+			IScene *CreateScene();
 		private:
 			CSceneManager();
 			virtual ~CSceneManager();

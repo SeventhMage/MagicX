@@ -27,6 +27,8 @@ namespace mx
 			virtual bool SetupLinuxRenderer(){ return false; }
 			virtual bool SetupMacRenderer(){ return false; }		
 
+			virtual void OnSize(int iLeft, int iTop, int iWidth, int iHeight) {}
+
 		private:
 			DeviceDriverType m_deviceDriverType;
 		};
