@@ -116,6 +116,55 @@ namespace mx
 			}
 			return GL_TEXTURE_2D;
 		}
+
+		static UniformFormat GetUniformFormat(GLenum type)
+		{
+			switch (type)
+			{
+			case GL_FLOAT:
+				return UF_FLOAT;
+				break;
+			case GL_FLOAT_VEC2:
+				return UF_VEC2;
+				break;
+			case GL_FLOAT_VEC3:
+				return UF_VEC3;
+				break;
+			case GL_FLOAT_VEC4:
+				return UF_VEC4;
+				break;
+			case GL_INT:
+				return UF_INT;
+				break;
+			case GL_INT_VEC2:
+				break;
+			case GL_INT_VEC3:
+				break;
+			case GL_INT_VEC4:
+				break;
+			case GL_BOOL:
+				break; 
+			case GL_BOOL_VEC2:
+				break;
+			case GL_BOOL_VEC3:
+				break;
+			case GL_BOOL_VEC4:
+				break;
+			case GL_FLOAT_MAT2:
+				break;
+			case GL_FLOAT_MAT3:
+				break;
+			case GL_FLOAT_MAT4:
+				return UF_MAT4;
+				break;
+			case GL_SAMPLER_2D:
+				return UF_INT;
+				break; 
+			case GL_SAMPLER_CUBE:
+				break;
+			}
+			return UF_UNKNOWN;
+		}
 	}
 }
 

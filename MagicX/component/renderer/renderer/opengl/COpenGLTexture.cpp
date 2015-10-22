@@ -7,6 +7,7 @@ namespace mx
 	namespace render
 	{
 		COpenGLTexture::COpenGLTexture()
+			:m_textureType(TT_2D)
 		{			
 			glGenTextures(1, &m_hTexture);
 		}
@@ -19,6 +20,7 @@ namespace mx
 		bool COpenGLTexture::Create(const char *filename, TextureType texType)
 		{			
 			//glActiveTexture(GL_TEXTURE0);
+			m_textureType = texType;
 			switch (texType)
 			{
 			case TT_1D:
@@ -30,8 +32,7 @@ namespace mx
 				break;
 			case TT_CUBE:
 				break;
-			}
-			
+			}			
 			return false;
 		}
 

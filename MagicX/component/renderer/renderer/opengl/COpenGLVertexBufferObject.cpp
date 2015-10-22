@@ -2,6 +2,7 @@
 #include "COpenGLVertexBufferObject.h"
 #include "COpenGLShaderProgram.h"
 #include "OpenGLType.h"
+#include "GLDebug.h"
 
 namespace mx
 {
@@ -34,8 +35,8 @@ namespace mx
 
 		void COpenGLVertexBufferObject::BufferSubData(void * data, int size, int offset)
 		{
-			glBindBuffer(GL_ARRAY_BUFFER, m_hVBO);
-			glBufferSubData(GL_ARRAY_BUFFER, offset, size, data);
+			GLDebug(glBindBuffer(GL_ARRAY_BUFFER, m_hVBO));
+			GLDebug(glBufferSubData(GL_ARRAY_BUFFER, offset, size, data));
 		}
 
 	}

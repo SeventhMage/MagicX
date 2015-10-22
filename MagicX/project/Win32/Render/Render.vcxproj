@@ -21,6 +21,8 @@
     <ClInclude Include="..\..\..\component\renderer\include\ITexture.h" />
     <ClInclude Include="..\..\..\component\renderer\include\IRenderer.h" />
     <ClInclude Include="..\..\..\component\renderer\include\Render.h" />
+    <ClInclude Include="..\..\..\component\renderer\renderer\CShaderProgram.h" />
+    <ClInclude Include="..\..\..\component\renderer\renderer\opengl\GLDebug.h" />
     <ClInclude Include="..\..\..\component\renderer\renderer\opengl\COpenGLGPUBuffer.h" />
     <ClInclude Include="..\..\..\component\renderer\renderer\opengl\COpenGLIndexBufferObject.h" />
     <ClInclude Include="..\..\..\component\renderer\renderer\opengl\COpenGLMaterial.h" />
@@ -34,6 +36,7 @@
     <ClInclude Include="..\..\..\component\renderer\renderer\opengl\OpenGLType.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\component\renderer\renderer\CShaderProgram.cpp" />
     <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLGPUBuffer.cpp" />
     <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLIndexBufferObject.cpp" />
     <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLMaterial.cpp" />
@@ -79,7 +82,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\..\..\lib</OutDir>
+    <OutDir>..\..\..\lib\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

@@ -3,6 +3,7 @@
 
 #include "../../include/IRenderableObject.h"
 #include "../../include/IBufferObject.h"
+#include "../../Include/ITexture.h"
 
 namespace mx
 {
@@ -21,10 +22,13 @@ namespace mx
 			virtual IBufferObject *GetIndexBufferObject() { return m_IBO; }
 			virtual void EnableIndexBuffer(bool enable) { m_bEnableIndexBuffer = enable; }
 			virtual bool IsEnabledIndexBuffer() { return m_bEnableIndexBuffer; }
+			virtual void BindTexture(int unit = 0);
+			virtual void SetTexture(ITexture *texture, int unit = 0);
 		private:
 			IBufferObject *m_VBO;
 			IBufferObject *m_IBO;
 			IShaderProgram *m_shaderProgram;
+			ITexture *m_texture;
 			bool m_bEnableIndexBuffer;
 		};
 	}

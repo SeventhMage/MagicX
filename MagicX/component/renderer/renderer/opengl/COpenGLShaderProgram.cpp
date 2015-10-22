@@ -1,6 +1,8 @@
 #include "COpenGLShaderProgram.h"
 #include "glew/GL/glew.h"
 #include "COpenGLShader.h"
+#include "OpenGLType.h"
+#include "GLDebug.h"
 
 namespace mx
 {
@@ -60,7 +62,8 @@ namespace mx
 			//glBindAttribLocation(m_hProgram, VAI_COLOR, "inColor");
 			glBindAttribLocation(m_hProgram, VAI_TEXTURE1, "vTexCoord0");
 			//////////////////////////////////////////////////////////////////////////
-
+			
+			
 			GLint testVal;
 			glLinkProgram(m_hProgram);
 			glGetProgramiv(m_hProgram, GL_LINK_STATUS, &testVal);
@@ -71,10 +74,36 @@ namespace mx
 				printf("The program %d failed to link with the following error:%s\n", m_hProgram, infoLog);
 				return false;
 			}
+
+			GLint uniformsNum = 0;
+			GLDebug(glGetProgramiv(m_hProgram, GL_ACTIVE_UNIFORMS, &uniformsNum));
+			if (uniformsNum > 0)
+			{
+				GLint maxLength;
+				glGetProgramiv(m_hProgram, GL_ACTIVE_UNIFORM_MAX_LENGTH, &maxLength);
+				char *name = new char[maxLength];
+				for (int i = 0; i < uniformsNum; ++i)
+				{
+
+					Uniform uniform;
+
+					GLenum type;
+					GLsizei nameLength;
+					glGetActiveUniform(m_hProgram, i, maxLength, &nameLength, &uniform.m_count, &type, name);
+					uniform.m_format = GetUniformFormat(type);
+					uniform.m_name = name;
+
+					m_uniforms[i] = uniform;
+				}
+				delete name;
+			}
+
+
+
 			return true;
 		}
 
-		void COpenGLShaderProgram::setUniform(const char *name, UniformFormat format, void *value)
+		void COpenGLShaderProgram::SetUniform(const char *name, UniformFormat format, void *value)
 		{
 
 		}

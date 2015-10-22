@@ -83,6 +83,7 @@ namespace mx
 
 		enum UniformFormat
 		{
+			UF_UNKNOWN,
 			UF_INT,
 			UF_FLOAT,
 			UF_VEC2,

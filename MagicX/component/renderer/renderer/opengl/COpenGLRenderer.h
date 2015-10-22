@@ -16,6 +16,8 @@ namespace mx
 
 			virtual bool InitRendererWin32(HDC hDC);
 			virtual void SetViewport(int left, int top, int width, int height);
+			virtual void SetModelViewProjectMatrix(const CMatrix4 &mat4);
+
 			virtual void Render();
 
 			virtual IGPUBuffer *CreateGPUBuffer(int stride);
@@ -30,6 +32,7 @@ namespace mx
 
 		private:
 			std::vector<IGPUBuffer *> m_vecBuffer;
+			CMatrix4 m_modelViewProj;
 		};
 	}
 }

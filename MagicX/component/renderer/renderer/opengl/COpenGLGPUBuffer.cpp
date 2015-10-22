@@ -3,6 +3,8 @@
 #include "COpenGLVertexBufferObject.h"
 #include "COpenGLIndexBufferObject.h"
 #include "OpenGLType.h"
+#include "COpenGLShaderProgram.h"
+#include "GLDebug.h"
 
 namespace mx
 {
@@ -69,20 +71,53 @@ namespace mx
 			{
 				if (m_vecRenderableObject[i])
 				{
-					IShaderProgram *program = m_vecRenderableObject[i]->GetShaderProgram();
+					COpenGLShaderProgram *program = (COpenGLShaderProgram *)m_vecRenderableObject[i]->GetShaderProgram();
 					if (program)
-						glUseProgram(program->GetHandle());
-					int iTextureUnit = glGetUniformLocation(program->GetHandle(), "textureUnit0");
-					glUniform1i(iTextureUnit, 0);
+					{
+						GLDebug(glUseProgram(program->GetHandle()));
+
+						const CShaderProgram::UniformArray &uniforms = program->GetUniforms();
+						CShaderProgram::UniformArray::const_iterator cit = uniforms.begin();
+						for (; cit != uniforms.end(); ++cit)
+						{
+							switch (cit->second.m_format)
+							{
+							case UF_FLOAT:
+								glUniform1f(cit->second.m_location, *((float *)cit->second.m_value));
+								break;
+							case UF_INT:
+								GLDebug(glUniform1i(cit->second.m_location, 0));
+								break;
+							case UF_VEC2:
+								break;
+							case UF_VEC3:
+								break;
+							case UF_VEC4:
+								break;
+							case UF_MAT4:
+								GLDebug(glUniformMatrix4fv(cit->second.m_location, 1, GL_FALSE, (const float *)cit->second.m_value));
+								break;
+							case UF_TEXTURE:
+								break;
+							default:
+								break;
+							}
+						}
+					}
+
+					m_vecRenderableObject[i]->BindTexture();
+
 					
-					glBindVertexArray(m_hVAO);
+					
+					GLDebug(glBindVertexArray(m_hVAO));
 					if (m_vecRenderableObject[i]->IsEnabledIndexBuffer())
 					{
 						COpenGLIndexBufferObject *vio = (COpenGLIndexBufferObject *)m_vecRenderableObject[i]->GetIndexBufferObject();
 						if (vio)
 						{
-							glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vio->GetHandle());
-							glDrawElements(GetGLGPUBufferMode(vio->GetGPUBufferMode()), vio->GetVertexNum(), GetGLVariableType(vio->GetIndexType()), vio->GetIndexBufferData());
+							GLDebug(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vio->GetHandle()));
+							GLDebug(glDrawElements(GetGLGPUBufferMode(vio->GetGPUBufferMode()), vio->GetVertexNum(), 
+								GetGLVariableType(vio->GetIndexType()), vio->GetIndexBufferData()));
 						}
 					}
 					else
@@ -90,8 +125,8 @@ namespace mx
 						COpenGLVertexBufferObject *vbo = (COpenGLVertexBufferObject *)m_vecRenderableObject[i]->GetVertexBufferObject();
 						if (vbo)
 						{
-							glBindBuffer(GL_ARRAY_BUFFER, vbo->GetHandle());
-							glDrawArrays(GetGLGPUBufferMode(vbo->GetGPUBufferMode()), vbo->GetGLGPUBufferFirst(), vbo->GetVertexNum());		
+							GLDebug(glBindBuffer(GL_ARRAY_BUFFER, vbo->GetHandle()));
+							GLDebug(glDrawArrays(GetGLGPUBufferMode(vbo->GetGPUBufferMode()), vbo->GetGLGPUBufferFirst(), vbo->GetVertexNum()));
 						}
 					}
 

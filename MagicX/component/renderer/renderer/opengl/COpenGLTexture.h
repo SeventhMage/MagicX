@@ -15,10 +15,13 @@ namespace mx
 			virtual ~COpenGLTexture();
 
 			virtual bool Create(const char *filename, TextureType texType);
+			virtual TextureType GetTextureType() { return m_textureType; }
+			virtual uint GetHandle() { return m_hTexture; }
 		private:
 			bool Create2D(const char *filename);
 		private:
 			GLuint m_hTexture;
+			TextureType m_textureType;
 		};
 	}
 }

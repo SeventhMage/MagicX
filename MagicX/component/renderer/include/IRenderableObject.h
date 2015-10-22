@@ -3,6 +3,7 @@
 
 #include "IShaderProgram.h"
 #include "IBufferObject.h"
+#include "ITexture.h"
 
 namespace mx
 {
@@ -20,6 +21,8 @@ namespace mx
 			virtual IShaderProgram *GetShaderProgram() = 0;
 			virtual void EnableIndexBuffer(bool enable) = 0;
 			virtual bool IsEnabledIndexBuffer() = 0;
+			virtual void BindTexture(int unit = 0) = 0;
+			virtual void SetTexture(ITexture *texture, int unit = 0) = 0;
 		};
 	}
 }

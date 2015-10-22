@@ -2,6 +2,8 @@
 #include "COpenGLVertexBufferObject.h"
 #include "COpenGLIndexBufferObject.h"
 #include "COpenGLShaderProgram.h"
+#include "OpenGLType.h"
+#include "GLDebug.h"
 
 namespace mx
 {
@@ -9,6 +11,7 @@ namespace mx
 	{
 		COpenGLRenderableObject::COpenGLRenderableObject()
 			:m_bEnableIndexBuffer(false)
+			, m_texture(NULL)
 		{
 			m_shaderProgram = new COpenGLShaderProgram();
 		}
@@ -27,5 +30,17 @@ namespace mx
 			m_IBO = new COpenGLIndexBufferObject(indices, idxCount, idxType, mode, usage);
 			m_bEnableIndexBuffer = true;
 		}
+
+		void COpenGLRenderableObject::BindTexture(int unit /* = 0 */)
+		{
+			GLDebug(glActiveTexture(GL_TEXTURE0 + unit));
+			GLDebug(glBindTexture(GetGLTextureType(m_texture->GetTextureType()), m_texture->GetHandle()));
+		}
+
+		void COpenGLRenderableObject::SetTexture(ITexture *texture, int unit /* = 0 */)
+		{
+			m_texture = texture;
+		}
+
 	}
 }
