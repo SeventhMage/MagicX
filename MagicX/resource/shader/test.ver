@@ -1,16 +1,14 @@
 #version 330 core
 
-attribute vec3 position;
-//attribute vec4 inColor;
+attribute vec3 vPosition;
 attribute vec2 vTexCoord0;
-varying vec2 vTex;
-//varying vec4 color; 
 
-//uniform mat4 mvpMatrix;
+varying vec2 vTex;
+
+uniform mat4 mvpMatrix;
 
 void main()
-{
-	gl_Position = vec4(position.xyz, 1.0);
-	//color = inColor;
+{	
+	gl_Position = mvpMatrix * vec4(vPosition.xyz, 1.0);
 	vTex = vTexCoord0;
 }
