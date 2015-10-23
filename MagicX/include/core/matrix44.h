@@ -97,7 +97,7 @@ namespace mx
 			bool getInverse(CMatrix44<T> &out) const;
 			bool getInversePrimitive(CMatrix44<T> &out) const;
 
-			CMatrix44<T> &buildProjectiongMatrixPerspectiveFov(float fieldOfViewRadians, float aspectRatio, float zNear, float zFar);
+			CMatrix44<T> &buildProjectionMatrixPerspectiveFov(float fieldOfViewRadians, float aspectRatio, float zNear, float zFar);
 			CMatrix44<T> &buildProjectionMatrixOrtho(float widthOfViewVolume, float heightOfViewVolume, float zNear, float zFar);
 			CMatrix44<T> &buildCameraLookAtMatrix(const vector3df &position, const vector3df &dir, const vector3df &upVector);			
 			CMatrix44<T> &buildShadowMatrix(const vector3df &light, const plane3df &plane, float point = 1.0f);
@@ -196,7 +196,7 @@ namespace mx
 				m[4] * other[3] + m[5] * other[7] + m[6] * other[11] + m[7] * other[15],
 
 				m[8] * other[0] + m[9] * other[4] + m[10] * other[8] + m[11] * other[12],
-				m[8] * other[1] + m[8] * other[5] + m[10] * other[9] + m[11] * other[13],
+				m[8] * other[1] + m[9] * other[5] + m[10] * other[9] + m[11] * other[13],
 				m[8] * other[2] + m[9] * other[6] + m[10] * other[10] + m[11] * other[14],
 				m[8] * other[3] + m[9] * other[7] + m[10] * other[11] + m[11] * other[15],
 
@@ -289,24 +289,24 @@ namespace mx
 		template <typename T>
 		inline CMatrix44<T> &CMatrix44<T>::setTranslation(const vector3d<T> &translation)
 		{
-			m[12] = translation.x;
-			m[13] = translation.y;
-			m[14] = translation.z;
+			m[3] = translation.x;
+			m[7] = translation.y;
+			m[11] = translation.z;
 			return *this;
 		}
 
 		template <typename T>
 		inline vector3d<T> CMatrix44<T>::getTranslation() const
 		{
-			return vector3d<T>(m[12], m[13], m[14]);
+			return vector3d<T>(m[3], m[7], m[11]);
 		}
 
 		template <typename T>
 		inline CMatrix44<T> &CMatrix44<T>::setInverseTranslation(const vector3d<T> & translation)
 		{
-			m[12] = -translation.x;
-			m[13] = -translation.y;
-			m[14] = -translation.z;
+			m[3] = -translation.x;
+			m[7] = -translation.y;
+			m[11] = -translation.z;
 			return *this;
 		}
 
@@ -396,18 +396,18 @@ namespace mx
 		template <typename T>
 		inline vector3d<T> &CMatrix44<T>::translate(vector3d<T> &vect) const
 		{
-			vect.x += m[12];
-			vect.y += m[13];
-			vect.z += m[14];
+			vect.x += m[3];
+			vect.y += m[7];
+			vect.z += m[11];
 			return vect;
 		}
 
 		template <typename T>
 		inline vector3d<T> &CMatrix44<T>::inverseTranslate(vector3d<T> &vect) const
 		{
-			vect.x -= m[12];
-			vect.y -= m[13];
-			vect.z -= m[14];
+			vect.x -= m[3];
+			vect.y -= m[7];
+			vect.z -= m[11];
 			return vect;
 		}
 
@@ -416,9 +416,9 @@ namespace mx
 		{
 			T temp[3];
 		
-			temp[0] = m[0] * vect.x + m[4] * vect.y + m[8] * vect.z;
-			temp[1] = m[1] * vect.x + m[5] * vect.y + m[9] * vect.z;
-			temp[2] = m[2] * vect.x + m[6] * vect.y + m[10] * vect.z;
+			temp[0] = m[0] * vect.x + m[1] * vect.y + m[2] * vect.z;
+			temp[1] = m[4] * vect.x + m[5] * vect.y + m[6] * vect.z;
+			temp[2] = m[8] * vect.x + m[9] * vect.y + m[10] * vect.z;
 
 			vect.x = temp[0];
 			vect.y = temp[1];
@@ -430,9 +430,9 @@ namespace mx
 		template <typename T>
 		inline vector3d<T> &CMatrix44<T>::rotate(vector3d<T> &out, vector3d<T> &in) const
 		{
-			out.x = m[0] * in.x + m[4] * in.y + m[8] * in.z;
-			out.y = m[1] * in.x + m[5] * in.y + m[9] * in.z;
-			out.z = m[2] * in.x + m[6] * in.y + m[10] * in.z;
+			out.x = m[0] * in.x + m[1] * in.y + m[2] * in.z;
+			out.y = m[4] * in.x + m[5] * in.y + m[6] * in.z;
+			out.z = m[8] * in.x + m[9] * in.y + m[10] * in.z;
 		}
 
 		template <typename T>
@@ -440,9 +440,9 @@ namespace mx
 		{			
 			T temp[3];
 
-			temp[0] = m[0] * vect.x + m[1] * vect.y + m[2] * vect.z;
-			temp[1] = m[4] * vect.x + m[5] * vect.y + m[6] * vect.z;
-			temp[2] = m[8] * vect.x + m[9] * vect.y + m[10] * vect.z;
+			temp[0] = m[0] * vect.x + m[4] * vect.y + m[8] * vect.z;
+			temp[1] = m[1] * vect.x + m[5] * vect.y + m[9] * vect.z;
+			temp[2] = m[2] * vect.x + m[6] * vect.y + m[10] * vect.z;
 
 			vect.x = temp[0];
 			vect.y = temp[1];
@@ -456,9 +456,9 @@ namespace mx
 		{
 			T temp[3];
 
-			temp[0] = m[0] * vect.x + m[4] * vect.y + m[8] * vect.z + m[12];
-			temp[1] = m[1] * vect.x + m[5] * vect.y + m[9] * vect.z + m[13];
-			temp[2] = m[2] * vect.x + m[6] * vect.y + m[10] * vect.z + m[14];
+			temp[0] = m[0] * vect.x + m[1] * vect.y + m[2] * vect.z + m[3];
+			temp[1] = m[4] * vect.x + m[5] * vect.y + m[6] * vect.z + m[7];
+			temp[2] = m[8] * vect.x + m[9] * vect.y + m[10] * vect.z + m[11];
 
 			vect.x = temp[0];
 			vect.y = temp[1];
@@ -470,9 +470,9 @@ namespace mx
 		template <typename T>
 		inline vector3d<T> &CMatrix44<T>::transform(vector3d<T> &out, vector3d<T> &in) const
 		{
-			out.x = m[0] * in.x + m[4] * in.y + m[8] * in.z + m[12];
-			out.y = m[1] * in.x + m[5] * in.y + m[9] * in.z + m[13];
-			out.z = m[2] * in.x + m[6] * in.y + m[10] * in.z + m[14];
+			out.x = m[0] * in.x + m[1] * in.y + m[2] * in.z + m[3];
+			out.y = m[4] * in.x + m[5] * in.y + m[6] * in.z + m[7];
+			out.z = m[8] * in.x + m[9] * in.y + m[10] * in.z + m[11];
 
 			return out;
 		}
@@ -501,7 +501,7 @@ namespace mx
 		}
 
 		template <typename T>
-		inline CMatrix44<T> &CMatrix44<T>::buildProjectiongMatrixPerspectiveFov(float fieldOfViewRadians, float aspectRatio, float zNear, float zFar)
+		inline CMatrix44<T> &CMatrix44<T>::buildProjectionMatrixPerspectiveFov(float fieldOfViewRadians, float aspectRatio, float zNear, float zFar)
 		{
 			const double h = 1.0 / tan(fieldOfViewRadians*0.5);
 			assert(aspectRatio != 0.f);
@@ -530,23 +530,23 @@ namespace mx
 			m[15] = 0;
 #else
 			m[0] = w;
-			m[1] = 0;
-			m[2] = 0;
-			m[3] = 0;
-
 			m[4] = 0;
-			m[5] = (T)h;
-			m[6] = 0;
-			m[7] = 0;
-
 			m[8] = 0;
-			m[9] = 0;
-			m[10] = (T)(zFar+zNear/(zNear-zFar));
-			m[11] = -1;
-
 			m[12] = 0;
+
+			m[1] = 0;
+			m[5] = (T)h;
+			m[9] = 0;
 			m[13] = 0;
-			m[14] = (T)(2.0f*zNear*zFar/(zNear-zFar));
+
+			m[2] = 0;
+			m[6] = 0;
+			m[10] = (T)(zFar+zNear/(zNear-zFar));
+			m[14] = -1;
+
+			m[3] = 0;
+			m[7] = 0;
+			m[11] = (T)(2.0f*zNear*zFar/(zNear-zFar));
 			m[15] = 0;
 #endif
 			return *this;
@@ -607,12 +607,7 @@ namespace mx
 		template <typename T>
 		inline CMatrix44<T> &CMatrix44<T>::buildCameraLookAtMatrix(const vector3df &position, const vector3df &dir, const vector3df &upVector)
 		{
-
-#ifdef MX_LEFT_HANDED_COORDINATE_SYSTEM
-			vector3df zaxis = target - position;
-#else
-			vector3df zaxis = dir;
-#endif
+			vector3df zaxis = -dir;
 			zaxis.normalize();
 
 			vector3df xaxis = upVector.crossProduct(zaxis);
@@ -624,21 +619,21 @@ namespace mx
 			m[0] = (T)xaxis.x;
 			m[1] = (T)yaxis.x;
 			m[2] = (T)zaxis.x;
-			m[3] = 0;
+			m[3] = (T)-xaxis.dotProduct(position);;
 
 			m[4] = (T)xaxis.y;
 			m[5] = (T)yaxis.y;
 			m[6] = (T)zaxis.y;
-			m[7] = 0;
+			m[7] = (T)-yaxis.dotProduct(position);
 
 			m[8] = (T)xaxis.z;
 			m[9] = (T)yaxis.z;
 			m[10] = (T)zaxis.z;
-			m[11] = 0;
+			m[11] = (T)-zaxis.dotProduct(position);
 			
-			m[12] = (T)-xaxis.dotProduct(position); //Get the projection at xaxis of position at first, than get negative.
-			m[13] = (T)-yaxis.dotProduct(position);	//The projection at yaxis of position at first, than get negative.
-			m[14] = (T)-zaxis.dotProduct(position);	//The projection at zaxis of position at first, than get negative.
+			m[12] = 0;// (T)-xaxis.dotProduct(position); //Get the projection at xaxis of position at first, than get negative.
+			m[13] = 0;// (T)-yaxis.dotProduct(position);	//The projection at yaxis of position at first, than get negative.
+			m[14] = 0;// (T)-zaxis.dotProduct(position);	//The projection at zaxis of position at first, than get negative.
 			m[15] = 1;
 
 			return *this;
