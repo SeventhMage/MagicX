@@ -50,10 +50,10 @@ namespace mx
 					bufferObj->BufferSubData(data, size, offset);
 			}
 		}
-		void COpenGLGPUBuffer::EnableVertexAttrib(VertexAttributeIndex vai, int size, RendererVariableType vertType, int offset)
+		void COpenGLGPUBuffer::EnableVertexAttrib(VertexAttributeLocation val, int size, RendererVariableType vertType, int offset)
 		{
-			glEnableVertexAttribArray(vai);
-			glVertexAttribPointer(vai, size, GetGLVariableType(vertType), false, m_stride, (GLvoid *)offset);
+			glEnableVertexAttribArray(val);
+			glVertexAttribPointer(val, size, GetGLVariableType(vertType), false, m_stride, (GLvoid *)offset);
 		}
 
 		void COpenGLGPUBuffer::CreateIndexBuffer(IRenderableObject *object, void * indices, int idxCount, RendererVariableType idxType, GPUBufferMode mode, GPUBufferUsage usage)
@@ -75,34 +75,7 @@ namespace mx
 					if (program)
 					{
 						GLDebug(glUseProgram(program->GetHandle()));
-
-						const CShaderProgram::UniformArray &uniforms = program->GetUniforms();
-						CShaderProgram::UniformArray::const_iterator cit = uniforms.begin();
-						for (; cit != uniforms.end(); ++cit)
-						{
-							switch (cit->second.m_format)
-							{
-							case UF_FLOAT:
-								glUniform1f(cit->second.m_location, *((float *)cit->second.m_value));
-								break;
-							case UF_INT:
-								GLDebug(glUniform1i(cit->second.m_location, 0));
-								break;
-							case UF_VEC2:
-								break;
-							case UF_VEC3:
-								break;
-							case UF_VEC4:
-								break;
-							case UF_MAT4:
-								GLDebug(glUniformMatrix4fv(cit->second.m_location, 1, GL_FALSE, (const float *)cit->second.m_value));
-								break;
-							case UF_TEXTURE:
-								break;
-							default:
-								break;
-							}
-						}
+						program->BindUniform();
 					}
 
 					m_vecRenderableObject[i]->BindTexture();

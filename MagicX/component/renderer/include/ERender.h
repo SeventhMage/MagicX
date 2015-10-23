@@ -47,23 +47,7 @@ namespace mx
 			ST_FRAGMENT,
 
 			ST_COUNT,
-		};
-
-		enum VertexAttributeIndex
-		{
-			VAI_VERTEX = 0,
-			VAI_COLOR,
-			VAI_NORMAL,
-			VAI_TEXTURE1,
-			VAI_TEXTURE2,
-			VAI_TEXTURE3,
-			VAI_TEXTURE4,
-			VAI_TEXTURE5,
-			VAI_TEXTURE6,
-			VAI_TEXTURE7,
-			VAI_TEXTURE8,
-			VAI_TEXTURE9,
-		};
+		};		
 
 		enum RendererVariableType
 		{

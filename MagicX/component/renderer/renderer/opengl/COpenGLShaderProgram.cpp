@@ -3,6 +3,9 @@
 #include "COpenGLShader.h"
 #include "OpenGLType.h"
 #include "GLDebug.h"
+#include "../../Include/SVertexAttribute.h"
+
+#include <stdarg.h>
 
 namespace mx
 {
@@ -58,12 +61,6 @@ namespace mx
 		
 		bool COpenGLShaderProgram::Link()
 		{
-			glBindAttribLocation(m_hProgram, VAI_VERTEX, "position");
-			//glBindAttribLocation(m_hProgram, VAI_COLOR, "inColor");
-			glBindAttribLocation(m_hProgram, VAI_TEXTURE1, "vTexCoord0");
-			//////////////////////////////////////////////////////////////////////////
-			
-			
 			GLint testVal;
 			glLinkProgram(m_hProgram);
 			glGetProgramiv(m_hProgram, GL_LINK_STATUS, &testVal);
@@ -75,12 +72,55 @@ namespace mx
 				return false;
 			}
 
+			GetShaderUniform();		
+
+			return true;
+		}
+
+		void COpenGLShaderProgram::BindUniform()
+		{
+			CShaderProgram::UniformArray::iterator it = m_uniforms.begin();
+			for (; it != m_uniforms.end(); ++it)
+			{
+				Uniform &uniform = it->second;
+				if (uniform.IsDirty())
+				{
+					switch (uniform.m_format)
+					{
+					case UF_FLOAT:
+						GLDebug(glUniform1fv(uniform.m_location, uniform.m_count, (GLfloat *)uniform.m_value));
+						break;
+					case UF_INT:
+						GLDebug(glUniform1iv(uniform.m_location, uniform.m_count, (GLint *)uniform.m_value));
+						break;
+					case UF_VEC2:
+						break;
+					case UF_VEC3:
+						break;
+					case UF_VEC4:
+						break;
+					case UF_MAT4:
+						GLDebug(glUniformMatrix4fv(uniform.m_location, uniform.m_count, GL_FALSE, (GLfloat *)uniform.m_value));
+						break;
+					case UF_TEXTURE:
+						break;
+					default:
+						break;
+					}
+					uniform.Dirty(false);
+				}			
+			}
+		}
+
+		void COpenGLShaderProgram::GetShaderUniform()
+		{
+			//glGetProgramInterface ÐÂ·½Ê½
 			GLint uniformsNum = 0;
 			GLDebug(glGetProgramiv(m_hProgram, GL_ACTIVE_UNIFORMS, &uniformsNum));
 			if (uniformsNum > 0)
 			{
 				GLint maxLength;
-				glGetProgramiv(m_hProgram, GL_ACTIVE_UNIFORM_MAX_LENGTH, &maxLength);
+				GLDebug(glGetProgramiv(m_hProgram, GL_ACTIVE_UNIFORM_MAX_LENGTH, &maxLength));
 				char *name = new char[maxLength];
 				for (int i = 0; i < uniformsNum; ++i)
 				{
@@ -89,23 +129,41 @@ namespace mx
 
 					GLenum type;
 					GLsizei nameLength;
-					glGetActiveUniform(m_hProgram, i, maxLength, &nameLength, &uniform.m_count, &type, name);
+					GLDebug(glGetActiveUniform(m_hProgram, i, maxLength, &nameLength, &uniform.m_count, &type, name));
 					uniform.m_format = GetUniformFormat(type);
 					uniform.m_name = name;
+					uniform.m_size = GetUniformTypeSize(uniform.m_format);
 
 					m_uniforms[i] = uniform;
 				}
 				delete name;
 			}
-
-
-
-			return true;
 		}
 
-		void COpenGLShaderProgram::SetUniform(const char *name, UniformFormat format, void *value)
+		void COpenGLShaderProgram::GetShaderAttribute()
 		{
+			GLint attrNum;
+			GLDebug(glGetProgramiv(m_hProgram, GL_ACTIVE_ATTRIBUTES, &attrNum));
+			if (attrNum)
+			{
 
+			}
+		}
+
+		void COpenGLShaderProgram::BindAttributeLocation(int argc, ...)
+		{
+			va_list argp;
+		
+			int location;
+
+			va_start(argp, argc);
+
+			for (int i = 0; i < argc; ++i)
+			{
+				location = va_arg(argp, int);
+				GLDebug(glBindAttribLocation(m_hProgram, location, g_sVertexAttributeArray[location].attrName));
+			}
+			va_end(argp);
 		}
 
 	}

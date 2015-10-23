@@ -73,7 +73,7 @@ namespace mx
 				if (m_bOrtho)
 					m_matProj.buildProjectionMatrixOrtho(float(m_width), float(m_height), m_nearClip, m_farClip);
 				else
-					m_matProj.buildProjectiongMatrixPerspectiveFov(m_fov, m_aspect, m_nearClip, m_farClip);
+					m_matProj.buildProjectionMatrixPerspectiveFov(m_fov, m_aspect, m_nearClip, m_farClip);
 			}
 
 			if (m_bNeedUpdateProj || m_bNeedUpdateView)

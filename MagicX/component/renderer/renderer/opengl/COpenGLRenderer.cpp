@@ -73,14 +73,9 @@ namespace mx
 			glViewport(left, top, width, height);
 		}
 
-		void COpenGLRenderer::SetModelViewProjectMatrix(const CMatrix4 & mat4)
-		{
-			m_modelViewProj = mat4;
-		}
-
 		void COpenGLRenderer::Render()
 		{
-			glClear(GL_COLOR_BUFFER_BIT );
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			for (uint i = 0; i < m_vecBuffer.size(); ++i)
 			{

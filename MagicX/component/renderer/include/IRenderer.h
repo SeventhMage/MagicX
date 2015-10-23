@@ -19,7 +19,6 @@ namespace mx
 
 			virtual bool InitRendererWin32(HDC hDC) = 0;
 			virtual void SetViewport(int left, int top, int width, int height) = 0;
-			virtual void SetModelViewProjectMatrix(const CMatrix4 &mat4) = 0;
 			virtual IGPUBuffer *CreateGPUBuffer(int stride) = 0;
 			virtual void DestroyGPUBuffer(IGPUBuffer *gpuBuffer) = 0;			
 

@@ -165,6 +165,34 @@ namespace mx
 			}
 			return UF_UNKNOWN;
 		}
+
+		static int GetUniformTypeSize(UniformFormat type)
+		{
+			switch (type)
+			{
+			case UF_UNKNOWN:
+				return 0;
+				
+			case UF_INT:
+				return 4;
+				
+			case UF_FLOAT:
+				return 4;
+			case UF_VEC2:
+				return 8;
+			case UF_VEC3:
+				return 12;
+			case UF_VEC4:
+				return 16;
+			case UF_MAT4:
+				return 64;				
+			case UF_TEXTURE:
+				return 4;
+			default:
+				;
+			}
+			return 0;
+		}
 	}
 }
 
