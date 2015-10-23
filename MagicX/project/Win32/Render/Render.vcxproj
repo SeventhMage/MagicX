@@ -21,6 +21,7 @@
     <ClInclude Include="..\..\..\component\renderer\include\ITexture.h" />
     <ClInclude Include="..\..\..\component\renderer\include\IRenderer.h" />
     <ClInclude Include="..\..\..\component\renderer\include\Render.h" />
+    <ClInclude Include="..\..\..\component\renderer\include\SVertexAttribute.h" />
     <ClInclude Include="..\..\..\component\renderer\renderer\CShaderProgram.h" />
     <ClInclude Include="..\..\..\component\renderer\renderer\opengl\GLDebug.h" />
     <ClInclude Include="..\..\..\component\renderer\renderer\opengl\COpenGLGPUBuffer.h" />
@@ -60,7 +61,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">

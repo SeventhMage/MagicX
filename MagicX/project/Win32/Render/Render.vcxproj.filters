@@ -81,6 +81,9 @@
     <ClInclude Include="..\..\..\component\renderer\renderer\CShaderProgram.h">
       <Filter>renderer</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\include\SVertexAttribute.h">
+      <Filter>renderer\opengl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLMaterial.cpp">
