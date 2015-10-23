@@ -92,6 +92,7 @@ namespace mx
 
 			vector3d<T> &transform(vector3d<T> &vect) const;
 			vector3d<T> &transform(vector3d<T> &out, vector3d<T> &in) const;
+			void transform(float &outx, float &outy, float &outz, float &outw, const vector3d<T> &in) const;
 
 			bool makeInverse();
 			bool getInverse(CMatrix44<T> &out) const;
@@ -185,32 +186,47 @@ namespace mx
 		inline CMatrix44<T> CMatrix44<T>::operator*(const CMatrix44<T> &other) const
 		{
 			return CMatrix44<T>(
-				m[0] * other[0] + m[1] * other[4] + m[2] * other[8] + m[3] * other[12],
-				m[0] * other[1] + m[1] * other[5] + m[2] * other[9] + m[3] * other[13],
-				m[0] * other[2] + m[1] * other[6] + m[2] * other[10] + m[3] * other[14],
-				m[0] * other[3] + m[1] * other[7] + m[2] * other[11] + m[3] * other[15],
+				m[0] * other[0] + m[4] * other[1] + m[8] * other[2] + m[12] * other[3], 
+				m[1] * other[0] + m[5] * other[1] + m[9] * other[2] + m[13] * other[3], 
+				m[2] * other[0] + m[6] * other[1] + m[10] * other[2] + m[14] * other[3], 
+				m[3] * other[0] + m[7] * other[1] + m[11] * other[2] + m[15] * other[3],
+				
+				m[0] * other[4] + m[4] * other[5] + m[8] * other[6] + m[12] * other[7], 
+				m[1] * other[4] + m[5] * other[5] + m[9] * other[6] + m[13] * other[7], 
+				m[2] * other[4] + m[6] * other[5] + m[10] * other[6] + m[14] * other[7],
+				m[3] * other[4] + m[7] * other[5] + m[11] * other[6] + m[15] * other[7],
 
-				m[4] * other[0] + m[5] * other[4] + m[6] * other[8] + m[7] * other[12],
-				m[4] * other[1] + m[5] * other[5] + m[6] * other[9] + m[7] * other[13],
-				m[4] * other[2] + m[5] * other[6] + m[6] * other[10] + m[7] * other[14],
-				m[4] * other[3] + m[5] * other[7] + m[6] * other[11] + m[7] * other[15],
+				m[0] * other[8] + m[4] * other[9] + m[8] * other[10] + m[12] * other[11], 
+				m[1] * other[8] + m[5] * other[9] + m[9] * other[10] + m[13] * other[11],
+				m[2] * other[8] + m[6] * other[9] + m[10] * other[10] + m[14] * other[11], 
+				m[3] * other[8] + m[7] * other[9] + m[11] * other[10] + m[15] * other[11],
 
-				m[8] * other[0] + m[9] * other[4] + m[10] * other[8] + m[11] * other[12],
-				m[8] * other[1] + m[9] * other[5] + m[10] * other[9] + m[11] * other[13],
-				m[8] * other[2] + m[9] * other[6] + m[10] * other[10] + m[11] * other[14],
-				m[8] * other[3] + m[9] * other[7] + m[10] * other[11] + m[11] * other[15],
+				m[0] * other[12] + m[4] * other[13] + m[8] * other[14] + m[12] * other[15],
+				m[1] * other[12] + m[5] * other[13] + m[9] * other[14] + m[13] * other[15],
+				m[2] * other[12] + m[6] * other[13] + m[10] * other[14] + m[14] * other[15],
+				m[3] * other[12] + m[7] * other[13] + m[11] * other[14] + m[15] * other[15]
 
-				m[12] * other[0] + m[13] * other[4] + m[14] * other[8] + m[15] * other[12],
-				m[12] * other[1] + m[13] * other[5] + m[14] * other[9] + m[15] * other[13],
-				m[12] * other[2] + m[13] * other[6] + m[14] * other[10] + m[15] * other[14],
-				m[12] * other[3] + m[13] * other[7] + m[14] * other[11] + m[15] * other[15]
+				
+				
+				
+				
+
+				
+				
+				
+				
+
+				
+				
+			
+				
 				);
 		}
 
 		template <typename T>
 		inline CMatrix44<T> &CMatrix44<T>::operator*=(const CMatrix44<T> &other)
 		{
-			m[0] = m[0] * other[0] + m[1] * other[4] + m[2] * other[8] + m[3] * other[12];
+			/*m[0] = m[0] * other[0] + m[1] * other[4] + m[2] * other[8] + m[3] * other[12];
 			m[1] = m[0] * other[1] + m[1] * other[5] + m[2] * other[9] + m[3] * other[13];
 			m[2] = m[0] * other[2] + m[1] * other[6] + m[2] * other[10] + m[3] * other[14];
 			m[3] = m[0] * other[3] + m[1] * other[7] + m[2] * other[11] + m[3] * other[15];
@@ -228,7 +244,7 @@ namespace mx
 			m[12] = m[12] * other[0] + m[13] * other[4] + m[14] * other[8] + m[15] * other[12];
 			m[13] = m[12] * other[1] + m[13] * other[5] + m[14] * other[9] + m[15] * other[13];
 			m[14] = m[12] * other[2] + m[13] * other[6] + m[14] * other[10] + m[15] * other[14];
-			m[15] = m[12] * other[3] + m[13] * other[7] + m[14] * other[11] + m[15] * other[15];
+			m[15] = m[12] * other[3] + m[13] * other[7] + m[14] * other[11] + m[15] * other[15];*/
 		}
 
 		template <typename T>
@@ -289,24 +305,24 @@ namespace mx
 		template <typename T>
 		inline CMatrix44<T> &CMatrix44<T>::setTranslation(const vector3d<T> &translation)
 		{
-			m[3] = translation.x;
-			m[7] = translation.y;
-			m[11] = translation.z;
+			m[12] = translation.x;
+			m[13] = translation.y;
+			m[14] = translation.z;
 			return *this;
 		}
 
 		template <typename T>
 		inline vector3d<T> CMatrix44<T>::getTranslation() const
 		{
-			return vector3d<T>(m[3], m[7], m[11]);
+			return vector3d<T>(m[12], m[13], m[14]);
 		}
 
 		template <typename T>
 		inline CMatrix44<T> &CMatrix44<T>::setInverseTranslation(const vector3d<T> & translation)
 		{
-			m[3] = -translation.x;
-			m[7] = -translation.y;
-			m[11] = -translation.z;
+			m[12] = -translation.x;
+			m[13] = -translation.y;
+			m[14] = -translation.z;
 			return *this;
 		}
 
@@ -396,18 +412,18 @@ namespace mx
 		template <typename T>
 		inline vector3d<T> &CMatrix44<T>::translate(vector3d<T> &vect) const
 		{
-			vect.x += m[3];
-			vect.y += m[7];
-			vect.z += m[11];
+			vect.x += m[12];
+			vect.y += m[13];
+			vect.z += m[14];
 			return vect;
 		}
 
 		template <typename T>
 		inline vector3d<T> &CMatrix44<T>::inverseTranslate(vector3d<T> &vect) const
 		{
-			vect.x -= m[3];
-			vect.y -= m[7];
-			vect.z -= m[11];
+			vect.x -= m[12];
+			vect.y -= m[13];
+			vect.z -= m[14];
 			return vect;
 		}
 
@@ -416,9 +432,9 @@ namespace mx
 		{
 			T temp[3];
 		
-			temp[0] = m[0] * vect.x + m[1] * vect.y + m[2] * vect.z;
-			temp[1] = m[4] * vect.x + m[5] * vect.y + m[6] * vect.z;
-			temp[2] = m[8] * vect.x + m[9] * vect.y + m[10] * vect.z;
+			temp[0] = m[0] * vect.x + m[4] * vect.y + m[8] * vect.z;
+			temp[1] = m[1] * vect.x + m[5] * vect.y + m[9] * vect.z;
+			temp[2] = m[2] * vect.x + m[6] * vect.y + m[10] * vect.z;
 
 			vect.x = temp[0];
 			vect.y = temp[1];
@@ -430,9 +446,9 @@ namespace mx
 		template <typename T>
 		inline vector3d<T> &CMatrix44<T>::rotate(vector3d<T> &out, vector3d<T> &in) const
 		{
-			out.x = m[0] * in.x + m[1] * in.y + m[2] * in.z;
-			out.y = m[4] * in.x + m[5] * in.y + m[6] * in.z;
-			out.z = m[8] * in.x + m[9] * in.y + m[10] * in.z;
+			out.x = m[0] * in.x + m[4] * in.y + m[8] * in.z;
+			out.y = m[1] * in.x + m[5] * in.y + m[9] * in.z;
+			out.z = m[2] * in.x + m[6] * in.y + m[10] * in.z;
 		}
 
 		template <typename T>
@@ -440,9 +456,9 @@ namespace mx
 		{			
 			T temp[3];
 
-			temp[0] = m[0] * vect.x + m[4] * vect.y + m[8] * vect.z;
-			temp[1] = m[1] * vect.x + m[5] * vect.y + m[9] * vect.z;
-			temp[2] = m[2] * vect.x + m[6] * vect.y + m[10] * vect.z;
+			temp[0] = m[0] * vect.x + m[1] * vect.y + m[2] * vect.z;
+			temp[1] = m[4] * vect.x + m[5] * vect.y + m[6] * vect.z;
+			temp[2] = m[8] * vect.x + m[9] * vect.y + m[10] * vect.z;
 
 			vect.x = temp[0];
 			vect.y = temp[1];
@@ -456,9 +472,9 @@ namespace mx
 		{
 			T temp[3];
 
-			temp[0] = m[0] * vect.x + m[1] * vect.y + m[2] * vect.z + m[3];
-			temp[1] = m[4] * vect.x + m[5] * vect.y + m[6] * vect.z + m[7];
-			temp[2] = m[8] * vect.x + m[9] * vect.y + m[10] * vect.z + m[11];
+			temp[0] = m[0] * vect.x + m[4] * vect.y + m[8] * vect.z + m[12];
+			temp[1] = m[1] * vect.x + m[5] * vect.y + m[9] * vect.z + m[13];
+			temp[2] = m[2] * vect.x + m[6] * vect.y + m[10] * vect.z + m[14];
 
 			vect.x = temp[0];
 			vect.y = temp[1];
@@ -470,11 +486,20 @@ namespace mx
 		template <typename T>
 		inline vector3d<T> &CMatrix44<T>::transform(vector3d<T> &out, vector3d<T> &in) const
 		{
-			out.x = m[0] * in.x + m[1] * in.y + m[2] * in.z + m[3];
-			out.y = m[4] * in.x + m[5] * in.y + m[6] * in.z + m[7];
-			out.z = m[8] * in.x + m[9] * in.y + m[10] * in.z + m[11];
+			out.x = m[0] * in.x + m[4] * in.y + m[8] * in.z + m[12];
+			out.y = m[1] * in.x + m[5] * in.y + m[9] * in.z + m[13];
+			out.z = m[2] * in.x + m[6] * in.y + m[10] * in.z + m[14];
 
 			return out;
+		}
+
+		template<typename T>
+		inline void CMatrix44<T>::transform(float &outx, float &outy, float &outz, float &outw, const vector3d<T>& in) const
+		{
+			outx = m[0] * in.x + m[4] * in.y + m[8] * in.z + m[12];
+			outy = m[1] * in.x + m[5] * in.y + m[9] * in.z + m[13];
+			outz = m[2] * in.x + m[6] * in.y + m[10] * in.z + m[14];
+			outw = m[3] * in.x + m[7] * in.y + m[11] * in.z + m[15];
 		}
 
 		template <typename T>
@@ -507,7 +532,6 @@ namespace mx
 			assert(aspectRatio != 0.f);
 			const T w = static_cast<T>(h / aspectRatio);
 			assert(zNear != zFar);
-
 #ifdef MX_LEFT_HANDED_COORDINATE_SYSTEM
 			m[0] = w;
 			m[1] = 0;
@@ -530,23 +554,23 @@ namespace mx
 			m[15] = 0;
 #else
 			m[0] = w;
-			m[4] = 0;
-			m[8] = 0;
-			m[12] = 0;
-
 			m[1] = 0;
-			m[5] = (T)h;
-			m[9] = 0;
-			m[13] = 0;
-
 			m[2] = 0;
-			m[6] = 0;
-			m[10] = (T)(zFar+zNear/(zNear-zFar));
-			m[14] = -1;
-
 			m[3] = 0;
+
+			m[4] = 0;
+			m[5] = (T)h;
+			m[6] = 0;
 			m[7] = 0;
-			m[11] = (T)(2.0f*zNear*zFar/(zNear-zFar));
+
+			m[8] = 0;
+			m[9] = 0;
+			m[10] = (T)((zFar + zNear) / (zNear - zFar));
+			m[11] = -1;
+
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = (T)(2.0f*zNear*zFar / (zNear - zFar));
 			m[15] = 0;
 #endif
 			return *this;
@@ -617,23 +641,23 @@ namespace mx
 
 
 			m[0] = (T)xaxis.x;
-			m[1] = (T)yaxis.x;
-			m[2] = (T)zaxis.x;
-			m[3] = (T)-xaxis.dotProduct(position);;
+			m[4] = (T)yaxis.x;
+			m[8] = (T)zaxis.x;
+			m[12] = (T)-xaxis.dotProduct(position);
 
-			m[4] = (T)xaxis.y;
+			m[1] = (T)xaxis.y;
 			m[5] = (T)yaxis.y;
-			m[6] = (T)zaxis.y;
-			m[7] = (T)-yaxis.dotProduct(position);
+			m[9] = (T)zaxis.y;
+			m[13] = (T)-yaxis.dotProduct(position);
 
-			m[8] = (T)xaxis.z;
-			m[9] = (T)yaxis.z;
+			m[2] = (T)xaxis.z;
+			m[6] = (T)yaxis.z;
 			m[10] = (T)zaxis.z;
-			m[11] = (T)-zaxis.dotProduct(position);
+			m[14] = -zaxis.dotProduct(position);
 			
-			m[12] = 0;// (T)-xaxis.dotProduct(position); //Get the projection at xaxis of position at first, than get negative.
-			m[13] = 0;// (T)-yaxis.dotProduct(position);	//The projection at yaxis of position at first, than get negative.
-			m[14] = 0;// (T)-zaxis.dotProduct(position);	//The projection at zaxis of position at first, than get negative.
+			m[3] = 0;// (T)-xaxis.dotProduct(position); //Get the projection at xaxis of position at first, than get negative.
+			m[7] = 0;// (T)-yaxis.dotProduct(position);	//The projection at yaxis of position at first, than get negative.
+			m[11] = 0;// (T)-zaxis.dotProduct(position);	//The projection at zaxis of position at first, than get negative.
 			m[15] = 1;
 
 			return *this;

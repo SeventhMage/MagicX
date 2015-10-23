@@ -68,22 +68,22 @@ int main(int argc, char *argv[])
 
 		typedef struct
 		{
-			float x, y, z;			
+			float x, y, z, w;			
 			float u, v;
 		}Vertex;
 
 		Vertex pyramid[9] = {
-			{-5.0f, -5.0f, 5.0f, 0, 1.0f},
-			{5.0f, -5.0f, 5.0f, 1.0f, 1.0f},
-			{0, 5.0f, 0, 0.5f, 0},
+			{-5.0f, -5.0f, 5.0f, 1.0f, 0, 1.0f},
+			{5.0f, -5.0f, 5.0f, 1.0f, 1.0f, 1.0f},
+			{0, 5.0f, 0, 1.0f, 0.5f, 0},
 
-			{ 5.0f, -5.0f, 5.0f, 0.0f, 1.0f },
-			{0, -5.0f, -5.0f, 1.0f, 1.0f},
-			{ 0, 5.0f, 0, 0.5f, 0 },
+			{ 5.0f, -5.0f, 5.0f, 1.0f, 0.0f, 1.0f },
+			{0, -5.0f, -5.0f, 1.0f, 1.0f, 1.0f},
+			{ 0, 5.0f, 0, 1.0f, 0.5f, 0 },
 
-			{ 0, -5.0f, -5.0f, 0.0f, 1.0f },
-			{ -5.0f, -5.0f, 5.0f, 1.0f, 1.0f },
-			{ 0, 5.0f, 0, 0.5f, 0 },
+			{ 0, -5.0f, -5.0f, 1.0f, 0.0f, 1.0f },
+			{ -5.0f, -5.0f, 5.0f, 1.0f, 1.0f, 1.0f },
+			{ 0, 5.0f, 0, 1.0f, 0.5f, 0 },
 		};
 
 		IGPUBuffer *buffer = renderer->CreateGPUBuffer(sizeof(Vertex));
@@ -103,39 +103,32 @@ int main(int argc, char *argv[])
 					shaderProgram->SetUniform("textureUnit0", &iTextureUnit);
 
 					CMatrix4 mat4;
-					mat4.buildProjectionMatrixOrtho(20, 20, 20, -20);
+					mat4.buildProjectionMatrixOrtho(20, 20, 10, -10);
 
 					CMatrix4 projectMat4;										
-					projectMat4.buildProjectionMatrixPerspectiveFov(core::PI / 3.0f, 1.0f * device->GetHeight() / device->GetWidth(), 20, -20.0f);
+					projectMat4.buildProjectionMatrixPerspectiveFov(core::PI / 3.0f, 1.0f * device->GetHeight() / device->GetWidth(), 1, 100.0f);
 					CMatrix4 viewMat4;
 					viewMat4.buildCameraLookAtMatrix(CVector3(0, 0, 5), CVector3(0, 0, -1), CVector3(0, 1, 0));
 					CMatrix4 modelMat4;
-					modelMat4.setTranslation(CVector3(0, 0, 1.0f));
-
+					modelMat4.setTranslation(CVector3(0, 0, -20.0f));
+	
+					CMatrix4 mvpMat4 = projectMat4 * viewMat4 * modelMat4;
 					
-					CMatrix4 mvpMat4 = mat4 * modelMat4;
+					shaderProgram->SetUniform("mvpMatrix", mvpMat4.m);
 
-					CVector3 vectemp;
-					modelMat4.transform(vectemp);
-					viewMat4.transform(vectemp);
-					projectMat4.transform(vectemp);
-					
-					CMatrix4 mvMat4 = projectMat4 * viewMat4 * modelMat4;
+				/*	CMatrix4 mvMat4 = viewMat4 * modelMat4;
 					for (int i = 0; i < 9; ++i)
 					{
-						CVector3 vec3  = CVector3(pyramid[i].x, pyramid[i].y, pyramid[i].z);
-						//mvMat4.transform(vec3);
-						//projectMat4.transform(vec3);
-						//modelMat4.transform(vec3);
-						//viewMat4.transform(vec3);
-						//projectMat4.transform(vec3);
-						pyramid[i].x = vec3.x;
-						pyramid[i].y = vec3.y;
-						pyramid[i].z = vec3.z;
-					}
-				
-					
-					shaderProgram->SetUniform("mvpMatrix", mvMat4.m);
+						CVector3 temp = mvMat4.transform(CVector3(pyramid[i].x, pyramid[i].y, pyramid[i].z));
+						pyramid[i].x = temp.x;
+						pyramid[i].y = temp.y;
+						pyramid[i].z = temp.z;
+						projectMat4.transform(pyramid[i].x, pyramid[i].y, pyramid[i].z, pyramid[i].w, CVector3(pyramid[i].x, pyramid[i].y, pyramid[i].z));
+						pyramid[i].x /= pyramid[i].w;
+						pyramid[i].y /= pyramid[i].w;
+						pyramid[i].z /= pyramid[i].w;
+						pyramid[i].w = 1;
+					}*/
 				}
 			}
 			buffer->Begin();
@@ -143,9 +136,9 @@ int main(int argc, char *argv[])
 			//buffer->AddVertexData(renderableObject, triangle1, sizeof(triangle1), 0);
 			//buffer->AddVertexData(renderableObject, color, sizeof(color), sizeof(triangle));
 			//buffer->AddVertexData(renderableObject, texture, sizeof(texture), sizeof(triangle1));
-			buffer->EnableVertexAttrib(VAL_POSITION, 3, RVT_FLOAT, 0);
+			buffer->EnableVertexAttrib(VAL_POSITION, 4, RVT_FLOAT, 0);
 			//buffer->EnableVertexAttrib(VAI_COLOR, 4, RVT_FLOAT, sizeof(triangle));
-			buffer->EnableVertexAttrib(VAL_TEXTURE0, 2, RVT_FLOAT, sizeof(float) * 3);
+			buffer->EnableVertexAttrib(VAL_TEXTURE0, 2, RVT_FLOAT, sizeof(float) * 4);
 
 			buffer->End();
 
@@ -157,14 +150,14 @@ int main(int argc, char *argv[])
 
 			glEnable(GL_DEPTH_TEST);
 			glEnable(GL_CULL_FACE);
-			glCullFace(GL_BACK);
+			//glCullFace(GL_FRONT);
 			
 			while (device->Run())
 			{				
 				for (int i = 0; i < 9; ++i)
 				{
 					CVector3 vec3 = CVector3(pyramid[i].x, pyramid[i].y, pyramid[i].z);
-					//vec3.rotateXZBy(0.01f);
+					vec3.rotateXZBy(0.01f);
 					
 					pyramid[i].x = vec3.x;
 					pyramid[i].y = vec3.y;
