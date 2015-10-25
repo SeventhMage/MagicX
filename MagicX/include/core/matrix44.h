@@ -3,7 +3,7 @@
 
 #include <cassert>
 
-#include "mxMath.h"
+#include "common/mxMath.h"
 #include "vector3d.h"
 #include "vector2d.h"
 #include "plane3d.h"

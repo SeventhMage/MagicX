@@ -25,8 +25,10 @@ namespace mx
 			// Attempt to open the file
 			pFile = fopen(filename, "rb");
 			if (pFile == NULL)
+			{
+				printf("Openfile %s failed\n", filename);
 				return NULL;
-
+			}
 			// Read in header (binary)
 			fread(&m_tgaHeader, 18/* sizeof(TGAHEADER)*/, 1, pFile);
 

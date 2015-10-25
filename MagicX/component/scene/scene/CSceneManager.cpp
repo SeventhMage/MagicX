@@ -1,4 +1,5 @@
 #include "../include/CSceneManager.h"
+#include "CScene.h"
 
 namespace mx
 {
@@ -11,12 +12,18 @@ namespace mx
 
 		CSceneManager::~CSceneManager()
 		{
-
+			std::list<IScene *>::iterator it = m_listScene.begin();
+			for (; it != m_listScene.end(); ++it)
+				SAFE_DEL(*it);
+			m_listScene.clear();
 		}
 
-		void CSceneManager::Update(uint escapeTime)
+		void CSceneManager::Update(uint elapsedTime)
 		{
-
+			std::list<IScene *>::iterator it = m_listScene.begin();
+			for (; it != m_listScene.end(); ++it)
+				if (*it)
+					(*it)->Update(elapsedTime);
 		}
 
 		void CSceneManager::Render()
@@ -34,9 +41,11 @@ namespace mx
 			return m_listScene;
 		}
 
-		IScene * CSceneManager::CreateScene()
+		IScene * CSceneManager::CreateScene(render::IRenderer * renderer)
 		{
-			return nullptr;
+			m_pCurrentScene = new CScene(renderer);
+			m_listScene.push_back(m_pCurrentScene);
+			return m_pCurrentScene;
 		}
 
 	}

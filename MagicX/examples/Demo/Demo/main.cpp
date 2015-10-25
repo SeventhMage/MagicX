@@ -10,9 +10,12 @@
 #include "CDeviceManager.h"
 #include "SVertexAttribute.h"
 #include "common/mxMath.h"
+#include "CSceneManager.h"
+#include "IScene.h"
 
 using namespace mx::driver;
 using namespace mx::io;
+using namespace mx::scene;
 
 const int FRAMES_PER_SECOND = 50;      ///< FPS:50
 const int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
@@ -106,29 +109,15 @@ int main(int argc, char *argv[])
 					mat4.buildProjectionMatrixOrtho(20, 20, 10, -10);
 
 					CMatrix4 projectMat4;										
-					projectMat4.buildProjectionMatrixPerspectiveFov(core::PI / 3.0f, 1.0f * device->GetHeight() / device->GetWidth(), 1, 100.0f);
+					projectMat4.buildProjectionMatrixPerspectiveFov(core::PI / 2.0f, 1.0f * device->GetHeight() / device->GetWidth(), 1, 100.0f);
 					CMatrix4 viewMat4;
-					viewMat4.buildCameraLookAtMatrix(CVector3(0, 0, 5), CVector3(0, 0, -1), CVector3(0, 1, 0));
+					viewMat4.buildCameraLookAtMatrix(CVector3(0, 0, 0), CVector3(0, 0, -1), CVector3(0, 1, 0));
 					CMatrix4 modelMat4;
 					modelMat4.setTranslation(CVector3(0, 0, -20.0f));
 	
 					CMatrix4 mvpMat4 = projectMat4 * viewMat4 * modelMat4;
 					
 					shaderProgram->SetUniform("mvpMatrix", mvpMat4.m);
-
-				/*	CMatrix4 mvMat4 = viewMat4 * modelMat4;
-					for (int i = 0; i < 9; ++i)
-					{
-						CVector3 temp = mvMat4.transform(CVector3(pyramid[i].x, pyramid[i].y, pyramid[i].z));
-						pyramid[i].x = temp.x;
-						pyramid[i].y = temp.y;
-						pyramid[i].z = temp.z;
-						projectMat4.transform(pyramid[i].x, pyramid[i].y, pyramid[i].z, pyramid[i].w, CVector3(pyramid[i].x, pyramid[i].y, pyramid[i].z));
-						pyramid[i].x /= pyramid[i].w;
-						pyramid[i].y /= pyramid[i].w;
-						pyramid[i].z /= pyramid[i].w;
-						pyramid[i].w = 1;
-					}*/
 				}
 			}
 			buffer->Begin();
@@ -145,12 +134,17 @@ int main(int argc, char *argv[])
 			ITexture *tex = renderer->CreateTexture("media/1.tga", TT_2D);
 			renderableObject->SetTexture(tex);
 
+			CSceneManager::NewInstance();
+			IScene *scene = CSceneManager::Instance()->CreateScene(renderer);
+			if (scene)
+			{
+				scene->SetupCamera(CVector3(0, 0, 0), CVector3(0, 0, -1), CVector3(0, 1, 0), core::PI / 3.0f, 1.0f * device->GetHeight() / device->GetWidth(), 1, 100.0f);
+				//scene->CreateSkyBox("media/pos_z.tga", "media/neg_z.tga", "media/neg_x.tga", "media/pos_x.tga", "media/pos_y.tga", "media/neg_y.tga");
+				scene->CreateSkyBox("media/front.tga", "media/back.tga", "media/left.tga", "media/right.tga", "media/top.tga", "media/cloud.tga");
+			}
+
 			uint next_game_tick = device->GetSystemRunTime();
 			int sleep_time = 0;
-
-			glEnable(GL_DEPTH_TEST);
-			glEnable(GL_CULL_FACE);
-			//glCullFace(GL_FRONT);
 			
 			while (device->Run())
 			{				
@@ -164,8 +158,7 @@ int main(int argc, char *argv[])
 					pyramid[i].z = vec3.z;
 				}
 				buffer->AddVertexData(renderableObject, pyramid, sizeof(pyramid), 0);
-				renderer->Render();
-				device->SwapBuffers();
+			
 
 				next_game_tick += SKIP_TICKS;
 				sleep_time = next_game_tick - GetTickCount();
@@ -173,6 +166,10 @@ int main(int argc, char *argv[])
 				{
 					device->Sleep(sleep_time);
 				}
+
+				CSceneManager::Instance()->Update(next_game_tick);
+				renderer->Render();
+				device->SwapBuffers();
 			}
 		}
 

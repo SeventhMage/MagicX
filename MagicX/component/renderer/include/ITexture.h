@@ -15,7 +15,8 @@ namespace mx
 			virtual ~ITexture(){};
 
 			virtual bool Create(const char *filename, TextureType texType) = 0;
-			virtual TextureType GetTextureType() { return TT_2D; };
+			virtual bool CreateCube(const char *front, const char *back, const char *left, const char *right, const char *top, const char *bottom) = 0;
+			virtual TextureType GetTextureType() = 0;
 			virtual uint GetHandle() = 0;
 		};
 	}

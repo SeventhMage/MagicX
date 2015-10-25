@@ -112,6 +112,13 @@ namespace mx
 			return tex;
 		}
 
+		ITexture * COpenGLRenderer::CreateCubeTexture(const char * front, const char * back, const char * left, const char * right, const char * top, const char * bottom)
+		{
+			ITexture *tex = new COpenGLTexture();
+			tex->CreateCube(front, back, left, right, top, bottom);
+			return tex;
+		}
+
 		void COpenGLRenderer::ClearColor(float r, float g, float b, float a)
 		{
 			glClearColor(r, g, b, a);

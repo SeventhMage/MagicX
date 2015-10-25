@@ -23,6 +23,7 @@ namespace mx
 			virtual void DestroyGPUBuffer(IGPUBuffer *gpuBuffer) = 0;			
 
 			virtual ITexture *CreateTexture(const char *filename, TextureType texType) = 0;
+			virtual ITexture *CreateCubeTexture(const char *front, const char *back, const char *left, const char *right, const char *top, const char *bottom)  = 0;
 
 			virtual void ClearColor(float r, float g, float b, float a) = 0;
 			virtual void Clear(uint) = 0;

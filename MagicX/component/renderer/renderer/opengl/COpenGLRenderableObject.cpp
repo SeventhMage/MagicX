@@ -13,6 +13,8 @@ namespace mx
 			:m_bEnableIndexBuffer(false)
 			, m_texture(NULL)
 		{
+			glEnable(GL_DEPTH_TEST);
+		//	glEnable(GL_CULL_FACE);
 			m_shaderProgram = new COpenGLShaderProgram();
 		}
 		COpenGLRenderableObject::~COpenGLRenderableObject()
@@ -33,8 +35,11 @@ namespace mx
 
 		void COpenGLRenderableObject::BindTexture(int unit /* = 0 */)
 		{
-			GLDebug(glActiveTexture(GL_TEXTURE0 + unit));
-			GLDebug(glBindTexture(GetGLTextureType(m_texture->GetTextureType()), m_texture->GetHandle()));
+			if (m_texture)
+			{
+				GLDebug(glActiveTexture(GL_TEXTURE0 + unit));
+				GLDebug(glBindTexture(GetGLTextureType(m_texture->GetTextureType()), m_texture->GetHandle()));
+			}
 		}
 
 		void COpenGLRenderableObject::SetTexture(ITexture *texture, int unit /* = 0 */)

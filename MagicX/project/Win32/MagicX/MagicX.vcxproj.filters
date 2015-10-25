@@ -16,20 +16,11 @@
     <Filter Include="include\core">
       <UniqueIdentifier>{cc04c98c-0a27-4727-99b8-904e06b066c7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\scene">
-      <UniqueIdentifier>{4ef81a36-8203-4f56-8047-b2cccdefd271}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\gui">
-      <UniqueIdentifier>{0df73516-cbdd-4049-ad34-e2aa5f915e19}</UniqueIdentifier>
-    </Filter>
     <Filter Include="include\driver">
       <UniqueIdentifier>{04ff627f-6561-4925-b295-cb7fea865216}</UniqueIdentifier>
     </Filter>
     <Filter Include="magicx\driver">
       <UniqueIdentifier>{25d8cc83-3ae3-45db-ab1c-6b2e44f713bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="magicx\scene">
-      <UniqueIdentifier>{d3ef273c-4ce7-4987-9785-46b5fa316764}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 #ifndef _MX_VECTOR_2D_H_INC_
 #define _MX_VECTOR_2D_H_INC_
 
-#include "mxMath.h"
+#include "common/mxMath.h"
 
 namespace mx
 {

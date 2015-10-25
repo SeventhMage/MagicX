@@ -13,7 +13,7 @@ namespace mx
 		{
 		public:
 			CCamera();
-			CCamera(const CVector3 &position, const CVector3 &direction, const CVector3 &up);
+			CCamera(const CVector3 &position, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float near, float far);
 			virtual ~CCamera();
 			virtual void SetPosition(const CVector3 &position);			
 			virtual void SetDirection(const CVector3 &direction);			
@@ -35,6 +35,9 @@ namespace mx
 			virtual float GetNearClip() const;
 			virtual float GetFarClip() const;
 			virtual float GetAspect() const;
+			virtual CMatrix4 GetViewMatrix() const { return m_matView; }
+			virtual CMatrix4 GetProjectionMatrix()const { return m_matProj; }
+			virtual CMatrix4 GetViewProjectionMatrix() const { return m_matVP; }
 			virtual bool IsOritho()const;
 
 			virtual void Update();

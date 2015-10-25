@@ -3,6 +3,7 @@
 
 #include "IScene.h"
 #include "common/CSingleton.h"
+#include "IRenderer.h"
 
 namespace mx
 {
@@ -19,7 +20,7 @@ namespace mx
 			IScene *GetCurrentScene() const;
 			const std::list<IScene *> &GetSceneList() const;
 
-			IScene *CreateScene();
+			IScene *CreateScene(render::IRenderer *renderer);
 		private:
 			CSceneManager();
 			virtual ~CSceneManager();
