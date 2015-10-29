@@ -42,6 +42,9 @@
     <ClInclude Include="..\..\..\component\scene\scene\CScene.h">
       <Filter>scene</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\component\scene\include\IWaterSceneNode.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\component\scene\scene\CFrustum.cpp">
