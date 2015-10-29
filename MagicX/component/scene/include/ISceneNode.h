@@ -18,7 +18,7 @@ namespace mx
 			};
 			virtual ~ISceneNode(){};
 			
-			virtual void UpdateImp(uint elapsedTime) = 0;
+			virtual void UpdateImp(int elapsedTime) = 0;
 			virtual void RenderImp() = 0;
 
 			void Render()

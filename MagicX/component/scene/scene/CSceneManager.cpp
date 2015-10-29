@@ -48,5 +48,14 @@ namespace mx
 			return m_pCurrentScene;
 		}
 
+		ITerrainSceneNode * CSceneManager::CreateTerrain(const char * filename)
+		{
+			return nullptr;
+		}
+
+		IWaterSceneNode * CSceneManager::CreateWater(const char * filename)
+		{
+			return nullptr;
+		}
 	}
 }

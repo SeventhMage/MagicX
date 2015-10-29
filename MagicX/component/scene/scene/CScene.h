@@ -23,7 +23,6 @@ namespace mx
 
 			virtual ISkyBox *CreateSkyBox(const char *filename);
 			virtual ISkyBox *CreateSkyBox(const char *front, const char *back, const char * left, const char *right, const char *top, const char *bottom);
-			virtual ITerrainSceneNode *CreateTerrain(const char *filename);
 
 			virtual ICamera *SetupCamera(const CVector3 &position, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float near, float far);
 
@@ -32,6 +31,7 @@ namespace mx
 		private:
 			CCamera *m_pCamera;
 			ISkyBox *m_pSkyBox;
+			ISceneNode *m_pRootNode;
 			render::IRenderer *m_pRenderer;
 		};
 	}

@@ -4,6 +4,8 @@
 #include "IScene.h"
 #include "common/CSingleton.h"
 #include "IRenderer.h"
+#include "ITerrainSceneNode.h"
+#include "IWaterSceneNode.h"
 
 namespace mx
 {
@@ -21,6 +23,11 @@ namespace mx
 			const std::list<IScene *> &GetSceneList() const;
 
 			IScene *CreateScene(render::IRenderer *renderer);
+
+			virtual ITerrainSceneNode *CreateTerrain(const char *filename);
+			virtual IWaterSceneNode *CreateWater(const char *filename);
+
+
 		private:
 			CSceneManager();
 			virtual ~CSceneManager();
