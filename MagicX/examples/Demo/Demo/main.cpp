@@ -134,8 +134,8 @@ int main(int argc, char *argv[])
 			ITexture *tex = renderer->CreateTexture("media/1.tga", TT_2D);
 			renderableObject->SetTexture(tex);
 
-			CSceneManager::NewInstance();
-			IScene *scene = CSceneManager::Instance()->CreateScene(renderer);
+			CSceneManager sceneMgr(renderer);
+			uint scene = CSceneManager::Instance()->CreateScene(renderer);
 			if (scene)
 			{
 				scene->SetupCamera(CVector3(0, 0, 0), CVector3(0, 0, -1), CVector3(0, 1, 0), core::PI / 3.0f, 1.0f * device->GetHeight() / device->GetWidth(), 1, 100.0f);
