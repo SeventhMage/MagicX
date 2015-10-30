@@ -65,7 +65,7 @@ namespace mx
 			return m_up;
 		}
 
-		void CCamera::Update()
+		void CCamera::UpdateImp(int elapsedTime)
 		{
 			if (m_bNeedUpdateView)
 			{				

@@ -2,16 +2,17 @@
 #define _I_CAMERA_H_INC_
 
 #include "common/mxDef.h"
+#include "ISceneNode.h"
 
 namespace mx
 {
 	namespace scene
 	{
-		class ICamera
+		class ICameraSceneNode : public ISceneNode
 		{
 		public:
-			ICamera(){};
-			virtual ~ICamera(){};
+			ICameraSceneNode(){};
+			virtual ~ICameraSceneNode(){};
 
 			
 			virtual const CVector3 &GetPosition() const  = 0;			
@@ -35,9 +36,6 @@ namespace mx
 			virtual void SetFarClip(float far) = 0;
 			virtual void SetAspect(float aspect) = 0;
 			virtual void SetOritho(bool bOritho) = 0;
-
-
-			virtual void Update() = 0;
 		};
 	}
 }

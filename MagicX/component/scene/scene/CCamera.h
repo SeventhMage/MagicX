@@ -1,7 +1,7 @@
 #ifndef _C_CAMERA_H_
 #define _C_CAMERA_H_
 
-#include "../include/ICamera.h"
+#include "../include/ICameraSceneNode.h"
 #include "CFrustum.h"
 #include "common/mxDef.h"
 
@@ -9,7 +9,7 @@ namespace mx
 {
 	namespace scene
 	{
-		class CCamera : public ICamera
+		class CCamera : public ICameraSceneNode
 		{
 		public:
 			CCamera();
@@ -21,8 +21,8 @@ namespace mx
 			virtual void SetWidth(uint width);
 			virtual void SetHeight(uint height);
 			virtual void SetFov(float fov);
-			virtual void SetNearClip(float near);
-			virtual void SetFarClip(float far);
+			virtual void SetNearClip(float nearClip);
+			virtual void SetFarClip(float farClip);
 			virtual void SetAspect(float aspect);
 			virtual void SetOritho(bool bOritho);
 
@@ -40,7 +40,7 @@ namespace mx
 			virtual CMatrix4 GetViewProjectionMatrix() const { return m_matVP; }
 			virtual bool IsOritho()const;
 
-			virtual void Update();
+			virtual void UpdateImp(int elapsedTime);
 		protected:
 			CMatrix4 m_matView;
 			CMatrix4 m_matProj;

@@ -19,17 +19,17 @@ namespace mx
 			virtual ~ISceneNode(){};
 			
 			virtual void UpdateImp(int elapsedTime) = 0;
-			virtual void RenderImp() = 0;
+//			virtual void RenderImp() = 0;
 
-			void Render()
-			{
-				RenderImp();
-				std::list<ISceneNode *>::iterator it = m_listChild.begin();
-				for (; it != m_listChild.end(); ++it)
-				{
-					(*it)->Render();
-				}				
-			}
+// 			void Render()
+// 			{
+// 				RenderImp();
+// 				std::list<ISceneNode *>::iterator it = m_listChild.begin();
+// 				for (; it != m_listChild.end(); ++it)
+// 				{
+// 					(*it)->Render();
+// 				}				
+// 			}
 
 			void Update(uint elapsedTime)
 			{

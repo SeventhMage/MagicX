@@ -5,6 +5,7 @@
 #include "CCamera.h"
 #include "IRenderer.h"
 
+
 namespace mx
 {
 	namespace scene
@@ -21,18 +22,17 @@ namespace mx
 
 			virtual bool LoadScene(const char *filename);
 
-			virtual ISkyBox *CreateSkyBox(const char *filename);
-			virtual ISkyBox *CreateSkyBox(const char *front, const char *back, const char * left, const char *right, const char *top, const char *bottom);
-
-			virtual ICamera *SetupCamera(const CVector3 &position, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float near, float far);
+			virtual void SetupCamera(ICameraSceneNode *camera);
+			virtual void SetupSkyBox(ISkyBoxSceneNode *skybox);
+			virtual void SetupTerrain(ITerrainSceneNode *terrain);
 
 			virtual void Update(int elapsedTime);
-			virtual void Render();
 		private:
-			CCamera *m_pCamera;
-			ISkyBox *m_pSkyBox;
 			ISceneNode *m_pRootNode;
 			render::IRenderer *m_pRenderer;
+			ICameraSceneNode *m_pCamera;			
+			ISkyBoxSceneNode *m_pSkyBox;
+			ITerrainSceneNode *m_pTerrain;
 		};
 	}
 }

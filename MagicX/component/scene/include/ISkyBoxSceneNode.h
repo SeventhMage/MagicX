@@ -1,21 +1,22 @@
-#ifndef _I_SKY_BOX_INC_
-#define _I_SKY_BOX_INC_
+#ifndef _MX_SCENE_I_SKY_BOX_SCENE_NODE_H_
+#define _MX_SCENE_I_SKY_BOX_SCENE_NODE_H_
 
 #include "common/mxDef.h"
+#include "ISceneNode.h"
 
 namespace mx
 {
 	namespace scene
 	{
-		class ISkyBox
+		class ISkyBoxSceneNode : public ISceneNode
 		{
 		public:
-			ISkyBox(){}
-			virtual ~ISkyBox(){}
+			ISkyBoxSceneNode(){}
+			virtual ~ISkyBoxSceneNode(){}
 			
 			virtual bool Create(const char *filename) = 0;
 			virtual bool Create(const char *front, const char *back, const char * left, const char *right, const char *top, const char *bottom)  = 0;
-			virtual void Update(const CMatrix4 &viewMat4, int  elapsedTime) = 0;
+			virtual void UpdateViewProjectMatrix(const CMatrix4 &viewMat4) = 0;
 		};
 	}
 }
