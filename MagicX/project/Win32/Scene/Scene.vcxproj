@@ -12,16 +12,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\component\scene\include\CSceneManager.h" />
-    <ClInclude Include="..\..\..\component\scene\include\ICamera.h" />
+    <ClInclude Include="..\..\..\component\scene\include\ICameraSceneNode.h" />
     <ClInclude Include="..\..\..\component\scene\include\IMesh.h" />
     <ClInclude Include="..\..\..\component\scene\include\IScene.h" />
     <ClInclude Include="..\..\..\component\scene\include\ISceneNode.h" />
-    <ClInclude Include="..\..\..\component\scene\include\ISkyBox.h" />
+    <ClInclude Include="..\..\..\component\scene\include\ISkyBoxSceneNode.h" />
     <ClInclude Include="..\..\..\component\scene\include\ITerrainSceneNode.h" />
     <ClInclude Include="..\..\..\component\scene\include\IWaterSceneNode.h" />
     <ClInclude Include="..\..\..\component\scene\scene\CCamera.h" />
     <ClInclude Include="..\..\..\component\scene\scene\CFrustum.h" />
     <ClInclude Include="..\..\..\component\scene\scene\CScene.h" />
+    <ClInclude Include="..\..\..\component\scene\scene\CSceneNode.h" />
     <ClInclude Include="..\..\..\component\scene\scene\CSkyBox.h" />
   </ItemGroup>
   <ItemGroup>
@@ -29,6 +30,7 @@
     <ClCompile Include="..\..\..\component\scene\scene\CFrustum.cpp" />
     <ClCompile Include="..\..\..\component\scene\scene\CScene.cpp" />
     <ClCompile Include="..\..\..\component\scene\scene\CSceneManager.cpp" />
+    <ClCompile Include="..\..\..\component\scene\scene\CSceneNode.cpp" />
     <ClCompile Include="..\..\..\component\scene\scene\CSkyBox.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -41,7 +43,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
