@@ -35,12 +35,14 @@ namespace mx
 			virtual float GetNearClip() const;
 			virtual float GetFarClip() const;
 			virtual float GetAspect() const;
-			virtual CMatrix4 GetViewMatrix() const { return m_matView; }
-			virtual CMatrix4 GetProjectionMatrix()const { return m_matProj; }
-			virtual CMatrix4 GetViewProjectionMatrix() const { return m_matVP; }
+			virtual CMatrix4 &GetViewMatrix()  { return m_matView; }
+			virtual CMatrix4 &GetProjectionMatrix() { return m_matProj; }
+			virtual const CMatrix4 &GetViewProjectionMatrix() const { return m_matVP; }
 			virtual bool IsOritho()const;
+			virtual void SetNeedUpdateViewMatrix() { m_bNeedUpdateView = true; }
+			virtual void SetNeedUpdateProjectionMatrix() { m_bNeedUpdateProj = true; };
 
-			virtual void UpdateImp(int elapsedTime);
+			virtual void UpdateImp(int elapsedTime, const CMatrix4 &mat4);
 		protected:
 			CMatrix4 m_matView;
 			CMatrix4 m_matProj;

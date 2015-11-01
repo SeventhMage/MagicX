@@ -23,9 +23,9 @@ namespace mx
 			SAFE_DEL(m_IBO);
 			SAFE_DEL(m_shaderProgram);
 		}
-		void COpenGLRenderableObject::CreateVertexBufferObject(void *vertexes, int size, int first, int count, GPUBufferMode mode, GPUBufferUsage usage)
+		void COpenGLRenderableObject::CreateVertexBufferObject(void *vertexes, int size, int first, int vertexCount, GPUBufferMode mode, GPUBufferUsage usage)
 		{
-			m_VBO = new COpenGLVertexBufferObject(vertexes, size, first, count, mode, usage);
+			m_VBO = new COpenGLVertexBufferObject(vertexes, size, first, vertexCount, mode, usage);
 		}
 		void COpenGLRenderableObject::CreateIndexBufferObject(void * indices, int idxCount, RendererVariableType idxType, GPUBufferMode mode, GPUBufferUsage usage)
 		{

@@ -12,14 +12,12 @@ namespace mx
 	CDriver::CDriver()
 	{
 		CDeviceManager::NewInstance();
-		CSceneManager::NewInstance();
 		CGUIManager::NewInstance();
 	}
 
 	CDriver::~CDriver()
 	{
 		CDeviceManager::DeleteInstance();
-		CSceneManager::DeleteInstance();
 		CGUIManager::DeleteInstance();
 	}
 
@@ -34,7 +32,7 @@ namespace mx
 	void CDriver::Run()
 	{
 		IDevice *device = CDeviceManager::Instance()->GetDevice();
-		CSceneManager *sceneManager = CSceneManager::Instance();
+		//CSceneManager *sceneManager = CSceneManager::Instance();
 		CGUIManager *guiManager = CGUIManager::Instance();
 
 		while (device->Run())
@@ -42,10 +40,10 @@ namespace mx
 			static long lastTime = device->GetSystemRunTime();
 			if (device->GetSystemRunTime() - lastTime > 33)
 			{
-				sceneManager->Update(0);
+				//sceneManager->Update(0);
 				guiManager->Update(0);
 
-				sceneManager->Render();
+				//sceneManager->Render();
 				guiManager->Render();
 
 				lastTime = device->GetSystemRunTime();

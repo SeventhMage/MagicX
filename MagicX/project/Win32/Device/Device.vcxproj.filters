@@ -24,6 +24,21 @@
     <ClInclude Include="..\..\..\component\device\include\IDeviceDriver.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\component\device\include\EEvent.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\device\include\IEvent.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\device\include\IKeyEvent.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\device\device\CKeyEvent.h">
+      <Filter>device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\device\include\CEventManager.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\component\device\device\CWin32Device.cpp">
@@ -33,6 +48,12 @@
       <Filter>device</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\component\device\device\CRenderDriver.cpp">
+      <Filter>device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\device\device\CKeyEvent.cpp">
+      <Filter>device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\device\device\CEventManager.cpp">
       <Filter>device</Filter>
     </ClCompile>
   </ItemGroup>

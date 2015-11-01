@@ -19,9 +19,8 @@ namespace mx
 
 			virtual bool Create(const char *filename);
 			virtual bool Create(const char *front, const char *back, const char * left, const char *right, const char *top, const char *bottom);
-			virtual void UpdateViewProjectMatrix(const CMatrix4 &viewMat4);
 
-			virtual void UpdateImp(int elapsedTime);
+			virtual void UpdateImp(int elapsedTime, const CMatrix4 &mat4ViewProj);
 			virtual void RenderImp();
 		private:
 			CString m_filename;

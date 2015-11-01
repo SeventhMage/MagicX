@@ -15,24 +15,24 @@ namespace mx
 
 		COpenGLShaderProgram::COpenGLShaderProgram()
 		{
-			m_hProgram = glCreateProgram();
+			m_hProgram = GLDebug(glCreateProgram());
 		}
 
 		COpenGLShaderProgram::~COpenGLShaderProgram()
 		{
 			for (uint i = 0; i < ST_COUNT; ++i)
 			{
-				glDetachShader(m_hProgram, m_pShader[i]->GetHandle());
+				GLDebug(glDetachShader(m_hProgram, m_pShader[i]->GetHandle()));
 				SAFE_DEL(m_pShader[i]);
 			}
-			glDeleteProgram(m_hProgram);
+			GLDebug(glDeleteProgram(m_hProgram));
 		}
 		
 		bool COpenGLShaderProgram::Attach(IShader *shader)
 		{
 			if (shader)
 			{
-				glAttachShader(m_hProgram, shader->GetHandle());
+				GLDebug(glAttachShader(m_hProgram, shader->GetHandle()));
 				return true;
 			}
 			return false;
@@ -45,7 +45,7 @@ namespace mx
 				m_pShader[shaderType] = new COpenGLShader();
 				m_pShader[shaderType]->Create(filename, shaderType);
 				m_pShader[shaderType]->Compile();
-				glAttachShader(m_hProgram, m_pShader[shaderType]->GetHandle());
+				GLDebug(glAttachShader(m_hProgram, m_pShader[shaderType]->GetHandle()));
 			}			
 			return true;
 		}
@@ -55,15 +55,15 @@ namespace mx
 		{
 			if (shader)
 			{
-				glDetachShader(m_hProgram, shader->GetHandle());
+				GLDebug(glDetachShader(m_hProgram, shader->GetHandle()));
 			}
 		}
 		
 		bool COpenGLShaderProgram::Link()
 		{
 			GLint testVal;
-			glLinkProgram(m_hProgram);
-			glGetProgramiv(m_hProgram, GL_LINK_STATUS, &testVal);
+			GLDebug(glLinkProgram(m_hProgram));
+			GLDebug(glGetProgramiv(m_hProgram, GL_LINK_STATUS, &testVal));
 			if (testVal == GL_FALSE)
 			{
 				char infoLog[1024];

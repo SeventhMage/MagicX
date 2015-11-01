@@ -7,7 +7,7 @@
 #include "ITerrainSceneNode.h"
 #include "IWaterSceneNode.h"
 
-#include <map>
+#include <list>
 
 namespace mx
 {
@@ -23,36 +23,39 @@ namespace mx
 			void Render();
 
 			//创建场景
-			uint CreateScene();
+			IScene *CreateScene();
 
 			//创建场景内对象
-			uint CreateCamera(const CVector3 &position, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float nearClip, float farClip);
-			uint CreateSkyBox(const char *front, const char *back, const char * left, const char *right, const char *top, const char *bottom);
-			uint CreateTerrain(const char *filename);
-			uint CreateWater(const char *filename);
+			ICameraSceneNode *CreateCamera(const CVector3 &position, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float nearClip, float farClip);
+			ISkyBoxSceneNode *CreateSkyBox(const char *front, const char *back, const char * left, const char *right, const char *top, const char *bottom);
+			ITerrainSceneNode *CreateTerrain(const char *filename);
+			ITerrainSceneNode *CreateRandomTerrain(uint width);
+			IWaterSceneNode *CreateWater(const char *filename);
 			
-			void AddSceneNode(uint scene, ISceneNode *sceneNode);
-			void AddWater(uint scene, uint water);
-			void SetupCamera(uint scene, uint camera);
-			void SetupSkyBox(uint scene, uint skybox);
-			void SetupTerrain(uint scene, uint terrain);
+			void DeleteCamera(ICameraSceneNode *camera);
+			void DeleteSkyBox(ISkyBoxSceneNode *skybox);
+			void DeleteTerrain(ITerrainSceneNode *terrain);
+			void DeleteWater(IWaterSceneNode *water);
 
-			void RemoveSceneNode(uint scene, ISceneNode *sceneNode);
-			void RemoveWater(uint scene, uint water);
+			void AddSceneNode(IScene *scene, ISceneNode *sceneNode);
+			void RemoveSceneNode(IScene *scene, ISceneNode *sceneNode);
 
-			void DeleteCamera(uint camera);
-			void DeleteSkyBox(uint skybox);
-			void DeleteTerrain(uint terrain);
+			void SetupCamera(IScene *scene, ICameraSceneNode *camera);
+			void SetupSkyBox(IScene *scene, ISkyBoxSceneNode *skybox);
+			void SetupTerrain(IScene *scene, ITerrainSceneNode *terrain);
+
+			
+
+
 
 
 		private:			
 			render::IRenderer *m_pRenderer;
 
-			std::map<uint, IScene *> m_mapScene;
-
-			std::map<uint, ICameraSceneNode *> m_mapCamera;
-			std::map<uint, ISkyBoxSceneNode *>m_mapSkyBox;
-			std::map<uint, ITerrainSceneNode *>m_mapTerrain;
+			std::list<IScene *> m_listScene;
+			std::list<ICameraSceneNode *> m_listCamera;
+			std::list<ISkyBoxSceneNode *> m_listSkyBox;
+			std::list<ITerrainSceneNode *> m_listTerrain;
 		};
 	}
 }

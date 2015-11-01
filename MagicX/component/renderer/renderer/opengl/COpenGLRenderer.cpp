@@ -139,5 +139,13 @@ namespace mx
 			glDisable(cap);
 		}
 
+		void COpenGLRenderer::PolygonMeshMode(bool bMesh)
+		{
+			if (bMesh)
+				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			else
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
+
 	}
 }

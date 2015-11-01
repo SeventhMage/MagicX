@@ -22,6 +22,7 @@ namespace mx
 				case GL_INVALID_FRAMEBUFFER_OPERATION: printf("File Line Number[%s:%d] GL_INVALID_FRAMEBUFFER_OPERATION\n", filename, lineNum); break;
 				default: printf("File Line Number[%s:%d] unknown error\n", filename, lineNum); break;
 				}
+				assert(0);
 			}
 			
 		}

@@ -11,14 +11,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\component\device\device\CKeyEvent.h" />
     <ClInclude Include="..\..\..\component\device\device\CWin32Device.h" />
     <ClInclude Include="..\..\..\component\device\include\CDeviceManager.h" />
+    <ClInclude Include="..\..\..\component\device\include\CEventManager.h" />
+    <ClInclude Include="..\..\..\component\device\include\IEvent.h" />
+    <ClInclude Include="..\..\..\component\device\include\EEvent.h" />
     <ClInclude Include="..\..\..\component\device\include\IDevice.h" />
     <ClInclude Include="..\..\..\component\device\include\CRenderDriver.h" />
     <ClInclude Include="..\..\..\component\device\include\IDeviceDriver.h" />
+    <ClInclude Include="..\..\..\component\device\include\IKeyEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\component\device\device\CDeviceManager.cpp" />
+    <ClCompile Include="..\..\..\component\device\device\CEventManager.cpp" />
+    <ClCompile Include="..\..\..\component\device\device\CKeyEvent.cpp" />
     <ClCompile Include="..\..\..\component\device\device\CRenderDriver.cpp" />
     <ClCompile Include="..\..\..\component\device\device\CWin32Device.cpp" />
   </ItemGroup>

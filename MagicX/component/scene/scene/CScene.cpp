@@ -37,10 +37,8 @@ namespace mx
 		
 		void CScene::Update(int elapsedTime)
 		{
-			if (m_pSkyBox)
-				m_pSkyBox->UpdateViewProjectMatrix(m_pCamera->GetViewProjectionMatrix());
 			if (m_pRootNode)
-				m_pRootNode->Update(elapsedTime);
+				m_pRootNode->Update(elapsedTime, m_pCamera->GetViewProjectionMatrix());
 		}
 
 		void CScene::SetupCamera(ICameraSceneNode *camera)

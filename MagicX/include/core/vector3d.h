@@ -90,7 +90,7 @@ namespace mx
 				return *this;
 			}
 
-			void rotateXZBy(double radians, const vector3d<T> &center = vector3d<T>())
+			void rotateXZBy(double radians, const vector3d<T> &center = vector3d<T>(0, 1.0f, 0))
 			{
 				double cs = cos(radians);
 				double sn = sin(radians);
@@ -102,7 +102,7 @@ namespace mx
 			}
 
 			//Left-handed coordinate system is the same as right-handed coordinate system.
-			void rotateXYBy(double radians, const vector3d<T> &center = vector3d<T>())
+			void rotateXYBy(double radians, const vector3d<T> &center = vector3d<T>(0, 0, 1.0f))
 			{
 				double cs = cos(radians);
 				double sn = sin(radians);
@@ -115,7 +115,7 @@ namespace mx
 			}
 
 			//Left-handed coordinate system is the same as right-handed coordinate system.
-			void rotateYZBy(double radians, const vector3d<T> &center = vector3d<T>())
+			void rotateYZBy(double radians, const vector3d<T> &center = vector3d<T>(1.0f, 0, 0))
 			{
 				double cs = cos(radians);
 				double sn = sin(radians);

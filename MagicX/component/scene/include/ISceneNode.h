@@ -18,7 +18,7 @@ namespace mx
 			};
 			virtual ~ISceneNode(){};
 			
-			virtual void UpdateImp(int elapsedTime) = 0;
+			virtual void UpdateImp(int elapsedTime, const CMatrix4 &mat4) = 0;
 //			virtual void RenderImp() = 0;
 
 // 			void Render()
@@ -31,13 +31,13 @@ namespace mx
 // 				}				
 // 			}
 
-			void Update(uint elapsedTime)
+			void Update(uint elapsedTime, const CMatrix4 &mat4)
 			{
-				UpdateImp(elapsedTime);
+				UpdateImp(elapsedTime, mat4);
 				std::list<ISceneNode *>::iterator it = m_listChild.begin();
 				for (; it != m_listChild.end(); ++it)
 				{
-					(*it)->Update(elapsedTime);
+					(*it)->Update(elapsedTime, mat4);
 				}
 			}
 

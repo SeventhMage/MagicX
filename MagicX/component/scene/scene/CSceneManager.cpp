@@ -1,6 +1,7 @@
 #include "../include/CSceneManager.h"
 #include "CScene.h"
 #include "CSkyBox.h"
+#include "CTerrainEntity.h"
 
 namespace mx
 {
@@ -14,24 +15,35 @@ namespace mx
 
 		CSceneManager::~CSceneManager()
 		{
-			std::map<uint, IScene *>::iterator itScene = m_mapScene.begin();
-			for (; itScene != m_mapScene.end(); ++itScene)
-				SAFE_DEL(itScene->second);
-			m_mapScene.clear();
+			std::list<ICameraSceneNode *>::iterator itCamera = m_listCamera.begin();
+			for (; itCamera != m_listCamera.end(); ++itCamera)
+				SAFE_DEL(*itCamera);
+			m_listCamera.clear();
 
-			std::map<uint, ISkyBoxSceneNode *>::iterator itSkyBox = m_mapSkyBox.begin();
-			for (; itSkyBox != m_mapSkyBox.end(); ++itSkyBox)
-				SAFE_DEL(itSkyBox->second);
-			m_mapSkyBox.clear();
+			std::list<ISkyBoxSceneNode *>::iterator itSkyBox = m_listSkyBox.begin();
+			for (; itSkyBox != m_listSkyBox.end(); ++itSkyBox)
+				SAFE_DEL(*itSkyBox);
+			m_listSkyBox.clear();
+
+			std::list<ITerrainSceneNode *>::iterator itTerrain = m_listTerrain.begin();
+			for (; itTerrain != m_listTerrain.end(); ++itTerrain)
+				SAFE_DEL(*itTerrain);
+			m_listTerrain.clear();
+
+			std::list<IScene *>::iterator itScene = m_listScene.begin();
+			for (; itScene != m_listScene.end(); ++itScene)
+				SAFE_DEL(*itScene);
+			m_listScene.clear();
+
 		}
 
 		void CSceneManager::Update(uint elapsedTime)
 		{
-			std::map<uint, IScene *>::iterator itScene = m_mapScene.begin();
-			for (; itScene != m_mapScene.end(); ++itScene)
+			std::list<IScene *>::iterator itScene = m_listScene.begin();
+			for (; itScene != m_listScene.end(); ++itScene)
 			{
-				if (itScene->second)
-					itScene->second->Update(elapsedTime);
+				if (*itScene)
+					(*itScene)->Update(elapsedTime);
 			}
 		}
 
@@ -42,115 +54,129 @@ namespace mx
 		}
 
 
-		uint CSceneManager::CreateScene()
+		IScene *CSceneManager::CreateScene()
 		{
 			IScene *scene = new CScene(m_pRenderer);
-			uint key = uint(scene);
-			m_mapScene[key] = scene;
-			return key;
+			m_listScene.push_back(scene);
+			return scene;
 		}
 
-		uint CSceneManager::CreateTerrain(const char * filename)
+		ITerrainSceneNode *CSceneManager::CreateTerrain(const char * filename)
+		{
+		
+			return NULL;
+		}
+
+		ITerrainSceneNode * CSceneManager::CreateRandomTerrain(uint width)
+		{
+			CTerrainEntity *terrain = new CTerrainEntity(m_pRenderer, width);
+			terrain->RandGenerateMesh();
+			m_listTerrain.push_back(terrain);
+			return terrain;
+		}
+
+		IWaterSceneNode *CSceneManager::CreateWater(const char * filename)
 		{
 			return 0;
 		}
 
-		uint CSceneManager::CreateWater(const char * filename)
-		{
-			return 0;
-		}
-
-		uint CSceneManager::CreateSkyBox(const char *front, const char *back, const char * left, const char *right, const char *top, const char *bottom)
+		ISkyBoxSceneNode *CSceneManager::CreateSkyBox(const char *front, const char *back, const char * left, const char *right, const char *top, const char *bottom)
 		{
 			ISkyBoxSceneNode *skybox = new CSkyBox(m_pRenderer);
 			skybox->Create(front, back, left, right, top, bottom);
-			uint key = uint(skybox);
-			m_mapSkyBox[key] = skybox;
-			return key;
+			m_listSkyBox.push_back(skybox);
+			return skybox;
 		}
 
-		uint CSceneManager::CreateCamera(const CVector3 &position, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float nearClip, float farClip)
+		ICameraSceneNode *CSceneManager::CreateCamera(const CVector3 &position, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float nearClip, float farClip)
 		{
 			ICameraSceneNode *camera = new CCamera(position, direction, up, fov, aspect, nearClip, farClip);
-			uint key = uint(camera);
-			m_mapCamera[key] = camera;
-			return key;
+			m_listCamera.push_back(camera);
+			return camera;
 		}
 
-		void CSceneManager::AddSceneNode(uint scene, ISceneNode *sceneNode)
+		void CSceneManager::AddSceneNode(IScene *scene, ISceneNode *sceneNode)
 		{
-			if (m_mapScene.find(scene) != m_mapScene.end())
+			if (scene && sceneNode)
 			{
-				if (m_mapScene[scene])
-					m_mapScene[scene]->AddSceneNode(sceneNode);
+				scene->AddSceneNode(sceneNode);
 			}
 		}
 
-		void CSceneManager::RemoveSceneNode(uint scene, ISceneNode *sceneNode)
+		void CSceneManager::RemoveSceneNode(IScene *scene, ISceneNode *sceneNode)
 		{
-			if (m_mapScene.find(scene) != m_mapScene.end())
+			if (scene && sceneNode)
 			{
-				if (m_mapScene[scene])
-					m_mapScene[scene]->RemoveSceneNode(sceneNode);
+				scene->RemoveSceneNode(sceneNode);
 			}
 		}
 
-		void CSceneManager::AddWater(uint scene, uint water)
+		void CSceneManager::SetupCamera(IScene *scene, ICameraSceneNode *camera)
 		{
-
-		}
-
-		void CSceneManager::RemoveWater(uint scene, uint water)
-		{
-
-		}
-
-		void CSceneManager::SetupCamera(uint scene, uint camera)
-		{
-			if (m_mapScene.find(scene) != m_mapScene.end() && m_mapCamera.find(camera) != m_mapCamera.end())
+			if (scene && camera)
 			{
-				if (m_mapScene[scene] && m_mapCamera[camera])
+				scene->SetupCamera(camera);
+			}
+		}
+
+		void CSceneManager::SetupSkyBox(IScene *scene, ISkyBoxSceneNode *skybox)
+		{
+			if (scene && skybox)
+			{
+				scene->SetupSkyBox(skybox);
+			}
+		}
+
+		void CSceneManager::SetupTerrain(IScene *scene, ITerrainSceneNode *terrain)
+		{
+			if (scene && terrain)
+			{
+				scene->SetupTerrain(terrain);
+			}
+		}
+
+		void CSceneManager::DeleteCamera(ICameraSceneNode *camera)
+		{
+			std::list<ICameraSceneNode *>::iterator it = m_listCamera.begin();
+			for (; it != m_listCamera.end(); ++it)
+			{
+				if (camera == *it)
 				{
-					m_mapScene[scene]->SetupCamera(m_mapCamera[camera]);
+					m_listCamera.erase(it);
+					break;
 				}
 			}
 		}
 
-		void CSceneManager::SetupSkyBox(uint scene, uint skybox)
+		void CSceneManager::DeleteSkyBox(ISkyBoxSceneNode *skybox)
 		{
-			if (m_mapScene.find(scene) != m_mapScene.end() && m_mapSkyBox.find(skybox) != m_mapSkyBox.end())
+			std::list<ISkyBoxSceneNode *>::iterator it = m_listSkyBox.begin();
+			for (; it != m_listSkyBox.end(); ++it)
 			{
-				if (m_mapScene[scene] && m_mapSkyBox[skybox])
+				if (skybox == *it)
 				{
-					m_mapScene[scene]->SetupSkyBox(m_mapSkyBox[skybox]);
+					m_listSkyBox.erase(it);
+					break;
 				}
 			}
 		}
 
-		void CSceneManager::SetupTerrain(uint scene, uint terrain)
+		void CSceneManager::DeleteTerrain(ITerrainSceneNode *terrain)
 		{
-			if (m_mapScene.find(scene) != m_mapScene.end() && m_mapCamera.find(terrain) != m_mapCamera.end())
+			std::list<ITerrainSceneNode *>::iterator it = m_listTerrain.begin();
+			for (; it != m_listTerrain.end(); ++it)
 			{
-				if (m_mapScene[scene] && m_mapTerrain[terrain])
+				if (terrain == *it)
 				{
-					m_mapScene[scene]->SetupTerrain(m_mapTerrain[terrain]);
+					m_listTerrain.erase(it);
+					break;
 				}
 			}
 		}
 
-		void CSceneManager::DeleteCamera(uint camera)
+		void CSceneManager::DeleteWater(IWaterSceneNode * water)
 		{
-			m_mapCamera.erase(camera);
-		}
 
-		void CSceneManager::DeleteSkyBox(uint skybox)
-		{
-			m_mapSkyBox.erase(skybox);
-		}
-
-		void CSceneManager::DeleteTerrain(uint terrain)
-		{
-			m_mapTerrain.erase(terrain);
 		}
 
 	}

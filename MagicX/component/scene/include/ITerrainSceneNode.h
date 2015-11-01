@@ -12,8 +12,6 @@ namespace mx
 		public:
 			ITerrainSceneNode(){}
 			virtual ~ITerrainSceneNode(){}
-
-			virtual bool LoadTerrain(const char *filename) = 0;
 		};
 	}
 }

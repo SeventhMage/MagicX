@@ -16,7 +16,6 @@ namespace mx
 			
 			virtual bool Create(const char *filename) = 0;
 			virtual bool Create(const char *front, const char *back, const char * left, const char *right, const char *top, const char *bottom)  = 0;
-			virtual void UpdateViewProjectMatrix(const CMatrix4 &viewMat4) = 0;
 		};
 	}
 }

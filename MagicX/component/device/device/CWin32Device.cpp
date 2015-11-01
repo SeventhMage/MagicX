@@ -2,6 +2,8 @@
 #include "../include/CDeviceManager.h"
 #include "../include/IDeviceDriver.h"
 #include "glew/gl/glew.h"
+#include "../include/IKeyEvent.h"
+#include "../include/CEventManager.h"
 
 namespace mx
 {
@@ -23,11 +25,60 @@ namespace mx
 
 			case WM_SYSKEYDOWN:
 			case WM_SYSKEYUP:
+				return 0;
 			case WM_KEYDOWN:
+			{
+				IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+				if (event)
+				{
+					switch (wParam)
+					{
+					case VK_SPACE:
+						event->Press(EKP_KEYBOARD_SPACE);
+						break;
+					case 'N':
+					case 'n':
+						event->Press(EKP_KEYBOARD_N);
+						break;
+					}
+					
+				}
+			}
+				return 0;
 			case WM_KEYUP:
 			{
-							
+				IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+				if (event)
+				{
+					switch (wParam)
+					{
+					case VK_SPACE:
+						event->Up(EKP_KEYBOARD_SPACE);
+						break;
+					case 'N':
+					case 'n':
+						event->Up(EKP_KEYBOARD_N);
+						break;
+					}
+
+				}
 								 
+			}
+				return 0;
+			case WM_MOUSEHWHEEL:
+			{
+
+				//收不到消息
+				short zDelta = HIWORD(wParam);
+				if (zDelta > 0)
+				{
+				
+				}
+				else
+				{
+
+				}
+				
 			}
 				return 0;
 			case WM_SIZE:
@@ -71,7 +122,58 @@ namespace mx
 				// get the new codepage used for keyboard input
 			
 				return 0;
+			case WM_LBUTTONDOWN:
+			{
+				IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+				if (event)
+				{
+					event->Press(EKP_MOUSE_LBUTTON);
+				}
 			}
+				
+				return 0;
+			case WM_LBUTTONUP:
+			{
+				IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+				if (event)
+				{
+					event->Up(EKP_MOUSE_LBUTTON);
+				}
+			}
+				return 0;
+			case WM_LBUTTONDBLCLK:
+				return 0;
+			case WM_RBUTTONDOWN:
+			{
+				IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+				if (event)
+				{
+					event->Press(EKP_MOUSE_RBUTTON);
+				}
+			}
+				return 0;
+			case WM_RBUTTONUP:
+			{
+				IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+				if (event)
+				{
+					event->Up(EKP_MOUSE_RBUTTON);
+				}
+			}
+				return 0;
+			case WM_MOUSEMOVE:
+			{				
+				IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+				if (event)
+				{
+					int x = LOWORD(lParam);
+					int y = HIWORD(lParam);
+					event->SetMousePosition(x, y);
+				}
+			}
+				return 0;
+			}
+		
 			return DefWindowProc(hWnd, message, wParam, lParam);
 		}
 
@@ -146,7 +248,7 @@ namespace mx
 			UpdateWindow(m_hWnd);
 
 			// fix ugly ATI driver bugs. Thanks to ariaci
-			MoveWindow(m_hWnd, windowLeft, windowTop, realWidth, realHeight, TRUE);		
+			MoveWindow(m_hWnd, windowLeft, windowTop, realWidth, realHeight, TRUE);
 		}
 
 		CWin32Device::~CWin32Device()

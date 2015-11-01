@@ -29,6 +29,7 @@ namespace mx
 			virtual void Clear(uint) = 0;
 			virtual void Enable(uint) = 0;
 			virtual void Disable(uint) = 0;
+			virtual void PolygonMeshMode(bool bMesh) = 0;
 
 			virtual void Render() = 0;
 		};		

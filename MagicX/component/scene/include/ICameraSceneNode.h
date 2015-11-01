@@ -24,6 +24,9 @@ namespace mx
 			virtual float GetNearClip() const = 0;
 			virtual float GetFarClip() const = 0;
 			virtual float GetAspect() const = 0;
+			virtual CMatrix4 &GetViewMatrix()  = 0;
+			virtual CMatrix4 &GetProjectionMatrix() = 0;
+			virtual const CMatrix4 &GetViewProjectionMatrix() const = 0;
 			virtual bool IsOritho() const = 0;
 
 			virtual void SetPosition(const CVector3 &position) = 0;
@@ -36,6 +39,8 @@ namespace mx
 			virtual void SetFarClip(float far) = 0;
 			virtual void SetAspect(float aspect) = 0;
 			virtual void SetOritho(bool bOritho) = 0;
+			virtual void SetNeedUpdateViewMatrix() = 0;
+			virtual void SetNeedUpdateProjectionMatrix() = 0;
 		};
 	}
 }

@@ -1,5 +1,6 @@
 #include "../include/CDeviceManager.h"
 #include "CWin32Device.h"
+#include "../include/CEventManager.h"
 
 namespace mx
 {
@@ -9,11 +10,12 @@ namespace mx
 		CDeviceManager::CDeviceManager()
 			:m_device(NULL)
 		{
-
+			CEventManager::NewInstance();
 		}
 
 		CDeviceManager::~CDeviceManager()
 		{
+			CEventManager::DeleteInstance();
 			SAFE_DEL(m_device);
 		}
 

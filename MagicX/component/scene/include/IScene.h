@@ -3,7 +3,7 @@
 
 #include "ISceneNode.h"
 #include "ISkyBoxSceneNode.h"
-#include "ICamera.h"
+#include "ICameraSceneNode.h"
 #include "ITerrainSceneNode.h"
 
 namespace mx

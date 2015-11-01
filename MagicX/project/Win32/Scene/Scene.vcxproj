@@ -24,6 +24,7 @@
     <ClInclude Include="..\..\..\component\scene\scene\CScene.h" />
     <ClInclude Include="..\..\..\component\scene\scene\CSceneNode.h" />
     <ClInclude Include="..\..\..\component\scene\scene\CSkyBox.h" />
+    <ClInclude Include="..\..\..\component\scene\scene\CTerrainEntity.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\component\scene\scene\CCamera.cpp" />
@@ -32,6 +33,7 @@
     <ClCompile Include="..\..\..\component\scene\scene\CSceneManager.cpp" />
     <ClCompile Include="..\..\..\component\scene\scene\CSceneNode.cpp" />
     <ClCompile Include="..\..\..\component\scene\scene\CSkyBox.cpp" />
+    <ClCompile Include="..\..\..\component\scene\scene\CTerrainEntity.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3E991178-CF44-4A75-BB9F-BED1EE4EBA98}</ProjectGuid>
@@ -43,7 +45,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">

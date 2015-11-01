@@ -19,7 +19,7 @@ namespace mx
 			if (_instance)
 			{
 				delete _instance;
-				_instance = NULL;
+				_instance = 0;
 			}
 		}
 
@@ -41,7 +41,7 @@ namespace mx
 	};
 
 	template <typename T>
-	T *CSingleton<T>::_instance = NULL;
+	T *CSingleton<T>::_instance = 0;
 }
 
 #endif // !_C_SINGLETON_H_INC_

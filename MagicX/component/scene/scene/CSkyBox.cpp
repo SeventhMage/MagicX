@@ -164,12 +164,8 @@ namespace mx
 			return false;
 		}
 
-		void CSkyBox::UpdateViewProjectMatrix(const CMatrix4 &viewMat4)
-		{
-			m_viewMat4 = viewMat4;			
-		}
 
-		void CSkyBox::UpdateImp(int elapsedTime)
+		void CSkyBox::UpdateImp(int elapsedTime, const CMatrix4 &mat4ViewProj)
 		{
 			static float rotY = .0f;
 			if (rotY > 3.1415926)
@@ -178,9 +174,8 @@ namespace mx
 
 			CMatrix4 mat4Rot;
 			mat4Rot.setRotationRadians(0, rotY, 0);
-
-			CMatrix4 mat4 = m_viewMat4 * mat4Rot;
-
+			CMatrix4 mat4 = mat4ViewProj * mat4Rot;
+			
 			if (m_pRenderableObject)
 			{
 				render::IShaderProgram *shaderProgram = m_pRenderableObject->GetShaderProgram();

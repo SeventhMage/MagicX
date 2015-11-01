@@ -12,6 +12,13 @@
 #include "common/mxMath.h"
 #include "CSceneManager.h"
 #include "IScene.h"
+#include "ICameraSceneNode.h"
+#include "ISkyBoxSceneNode.h"
+#include "ITerrainSceneNode.h"
+#include "IKeyEvent.h"
+#include "CEventManager.h"
+#include "common/mxMath.h"
+#include "common/mxDef.h"
 
 using namespace mx::driver;
 using namespace mx::io;
@@ -24,7 +31,7 @@ int main(int argc, char *argv[])
 {
 	CDriver *driver = CDriver::NewInstance();
 
-	IDevice *device = driver->CreateDevice(800, 600);
+	IDevice *device = driver->CreateDevice(1366, 768);
 	CMXRenderDriver *renderDriver = (CMXRenderDriver *)device->GetDeviceDriver(device::DDT_RENDERER);
 	if (renderDriver)
 	{
@@ -131,23 +138,83 @@ int main(int argc, char *argv[])
 
 			buffer->End();
 
-			ITexture *tex = renderer->CreateTexture("media/1.tga", TT_2D);
+			ITexture *tex = renderer->CreateTexture("texture/1.tga", TT_2D);
 			renderableObject->SetTexture(tex);
 
+			
 			CSceneManager sceneMgr(renderer);
-			uint scene = CSceneManager::Instance()->CreateScene(renderer);
-			if (scene)
-			{
-				scene->SetupCamera(CVector3(0, 0, 0), CVector3(0, 0, -1), CVector3(0, 1, 0), core::PI / 3.0f, 1.0f * device->GetHeight() / device->GetWidth(), 1, 100.0f);
-				//scene->CreateSkyBox("media/pos_z.tga", "media/neg_z.tga", "media/neg_x.tga", "media/pos_x.tga", "media/pos_y.tga", "media/neg_y.tga");
-				scene->CreateSkyBox("media/front.tga", "media/back.tga", "media/left.tga", "media/right.tga", "media/top.tga", "media/cloud.tga");
-			}
+			IScene *scene = sceneMgr.CreateScene();
+			ICameraSceneNode *camera = sceneMgr.CreateCamera(CVector3(0, 20, 0), CVector3(0, 0, -1), CVector3(0, 1, 0), core::PI / 3.0f, 1.0f * device->GetHeight() / device->GetWidth(), 1, 1000.0f);
+			scene->SetupCamera(camera);
+
+			ISkyBoxSceneNode *skybox = sceneMgr.CreateSkyBox("texture/front.tga", "texture/back.tga", "texture/left.tga", "texture/right.tga", "texture/top.tga", "texture/cloud.tga");
+			scene->SetupSkyBox(skybox);
+
+			ITerrainSceneNode *terrain = sceneMgr.CreateRandomTerrain(64);
+			scene->SetupTerrain(terrain);
+			
+			
+			IKeyEvent *keyEvent = CEventManager::Instance()->GetKeyEvent();
+
 
 			uint next_game_tick = device->GetSystemRunTime();
 			int sleep_time = 0;
 			
 			while (device->Run())
-			{				
+			{		
+				if (keyEvent)
+				{
+					static int lastX;
+					static int lastY;
+
+					int currentX = keyEvent->GetMousePositonX();
+					int currentY = keyEvent->GetMousePositionY();
+
+					float rotY = (currentX - lastX) * 2.0f * core::PI / device->GetWidth();
+					float rotX = (currentY - lastY) * 2.0f * core::PI / device->GetWidth();
+
+					if (keyEvent->IsPress(EKP_MOUSE_LBUTTON))
+					{					
+						if (keyEvent->IsPress(EKP_MOUSE_RBUTTON))
+						{
+							CVector3 dir = camera->GetDirection();
+							CVector3 move = (currentX - lastX) * 0.1f * dir.normalize();
+							CVector3 pos = camera->GetPosition();
+							pos += move;
+							camera->SetPosition(pos);
+							
+						}
+						else
+						{							
+							CVector3 xAxis(1, 0, 0);
+							xAxis.rotateXZBy(rotY);
+
+							CVector3 pos = camera->GetPosition();
+							CVector3 dir = camera->GetDirection();
+							CVector3 up = camera->GetUp();
+							pos.rotateXZBy(rotY);
+							dir.rotateXZBy(rotY);
+							up.rotateXZBy(rotY);
+
+							CMatrix4 mat4;
+							mat4.setRotationAxisRadians(rotX, xAxis);
+							mat4.rotate(pos);
+							mat4.rotate(dir);
+							mat4.rotate(up);
+
+							camera->SetPosition(pos);
+							camera->SetDirection(dir);
+							camera->SetUp(up);
+						}
+			
+					}
+				
+					renderer->PolygonMeshMode(keyEvent->IsPress(EKP_KEYBOARD_N));
+
+					lastX = keyEvent->GetMousePositonX();
+					lastY = keyEvent->GetMousePositionY();
+				}
+
 				for (int i = 0; i < 9; ++i)
 				{
 					CVector3 vec3 = CVector3(pyramid[i].x, pyramid[i].y, pyramid[i].z);
@@ -167,8 +234,9 @@ int main(int argc, char *argv[])
 					device->Sleep(sleep_time);
 				}
 
-				CSceneManager::Instance()->Update(next_game_tick);
-				renderer->Render();
+				sceneMgr.Update(next_game_tick);
+				sceneMgr.Render();
+				//renderer->Render();
 				device->SwapBuffers();
 			}
 		}

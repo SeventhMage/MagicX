@@ -10,27 +10,27 @@ namespace mx
 	{
 		
 
-		COpenGLVertexBufferObject::COpenGLVertexBufferObject(void *vertexes, int size, int first, int count, GPUBufferMode mode, GPUBufferUsage usage)
+		COpenGLVertexBufferObject::COpenGLVertexBufferObject(void *vertexes, int size, int first, int vertexCount, GPUBufferMode mode, GPUBufferUsage usage)
 			:m_mode(mode)
 			, m_vertSize(size)
 			, m_first(first)
-			, m_count(count)
+			, m_count(vertexCount)
 			, m_usage(usage) 
 		{
-			glGenBuffers(1, &m_hVBO);
-			glBindBuffer(GL_ARRAY_BUFFER, m_hVBO);
-			glBufferData(GL_ARRAY_BUFFER, size, vertexes, GetGLGPUBufferUsage(m_usage));
+			GLDebug(glGenBuffers(1, &m_hVBO));
+			GLDebug(glBindBuffer(GL_ARRAY_BUFFER, m_hVBO));
+			GLDebug(glBufferData(GL_ARRAY_BUFFER, size, vertexes, GetGLGPUBufferUsage(m_usage)));
 		}
 
 		COpenGLVertexBufferObject::~COpenGLVertexBufferObject()
 		{
-			glDeleteBuffers(1, &m_hVBO);
+			GLDebug(glDeleteBuffers(1, &m_hVBO));
 		}
 
 		void COpenGLVertexBufferObject::BufferData(void *vertexes, int vertSize)
 		{
-			glBindBuffer(GL_ARRAY_BUFFER, m_hVBO);
-			glBufferData(GL_ARRAY_BUFFER, vertSize, vertexes, GetGLGPUBufferUsage(m_usage));
+			GLDebug(glBindBuffer(GL_ARRAY_BUFFER, m_hVBO));
+			GLDebug(glBufferData(GL_ARRAY_BUFFER, vertSize, vertexes, GetGLGPUBufferUsage(m_usage)));
 		}
 
 		void COpenGLVertexBufferObject::BufferSubData(void * data, int size, int offset)

@@ -13,7 +13,7 @@ namespace mx
 			CSceneNode();
 			virtual ~CSceneNode();
 
-			virtual void UpdateImp(int elapsedTime) {};
+			virtual void UpdateImp(int elapsedTime, const CMatrix4 &mat4) {};
 			virtual void RenderImp() {};
 		};
 	}

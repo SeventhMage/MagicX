@@ -29,6 +29,7 @@ namespace mx
 			virtual void Clear(uint bit);
 			virtual void Enable(uint bit);
 			virtual void Disable(uint bit);
+			virtual void PolygonMeshMode(bool bMesh);
 
 		private:
 			std::vector<IGPUBuffer *> m_vecBuffer;

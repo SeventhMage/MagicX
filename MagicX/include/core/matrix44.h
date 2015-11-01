@@ -385,7 +385,30 @@ namespace mx
 		template <typename T>
 		inline CMatrix44<T> &CMatrix44<T>::setRotationAxisRadians(const T radians, const vector3d<T> &axis)
 		{
+			const double c = cos(radians);
+			const double s = sin(radians);
+			const double t = 1.0 - c;
 
+			const double tx = t * axis.x;
+			const double ty = t * axis.y;
+			const double tz = t * axis.z;
+
+			const double sx = s * axis.x;
+			const double sy = s * axis.y;
+			const double sz = s * axis.z;
+
+			m[0] = (T)(tx * axis.x + c);
+			m[1] = (T)(tx * axis.y + sz);
+			m[2] = (T)(tx * axis.z - sy);
+
+			m[4] = (T)(ty * axis.x - sz);
+			m[5] = (T)(ty * axis.y + c);
+			m[6] = (T)(ty * axis.z + sx);
+
+			m[8] = (T)(tz * axis.x + sy);
+			m[9] = (T)(tz * axis.y - sx);
+			m[10] = (T)(tz * axis.z + c);
+			return *this;
 		}
 
 		template <typename T>

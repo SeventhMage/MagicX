@@ -14,12 +14,12 @@ namespace mx
 			:m_stride(stride)
 			,m_bNormalize(bNormalize)
 		{
-			glGenVertexArrays(1, &m_hVAO);
+			GLDebug(glGenVertexArrays(1, &m_hVAO));
 		}
 		
 		COpenGLGPUBuffer::~COpenGLGPUBuffer()
 		{
-			glDeleteVertexArrays(1, &m_hVAO);
+			GLDebug(glDeleteVertexArrays(1, &m_hVAO));
 			for (uint i = 0; i < m_vecRenderableObject.size(); ++i)
 			{
 				SAFE_DEL(m_vecRenderableObject[i]);
@@ -34,12 +34,12 @@ namespace mx
 		}
 		void COpenGLGPUBuffer::Begin()
 		{
-			glBindVertexArray(m_hVAO);
+			GLDebug(glBindVertexArray(m_hVAO));
 		}
-		void COpenGLGPUBuffer::CreateVertexBuffer(IRenderableObject *object, void * vertexes, int size, int first, int count, GPUBufferMode mode, GPUBufferUsage usage)
+		void COpenGLGPUBuffer::CreateVertexBuffer(IRenderableObject *object, void * vertexes, int size, int first, int vertexCount, GPUBufferMode mode, GPUBufferUsage usage)
 		{
 			if (object)
-				object->CreateVertexBufferObject(vertexes, size, first, count, mode, usage);
+				object->CreateVertexBufferObject(vertexes, size, first, vertexCount, mode, usage);
 		}
 		void COpenGLGPUBuffer::AddVertexData(IRenderableObject *object, void * data, int size, int offset)
 		{						
@@ -52,8 +52,8 @@ namespace mx
 		}
 		void COpenGLGPUBuffer::EnableVertexAttrib(VertexAttributeLocation val, int size, RendererVariableType vertType, int offset)
 		{
-			glEnableVertexAttribArray(val);
-			glVertexAttribPointer(val, size, GetGLVariableType(vertType), false, m_stride, (GLvoid *)offset);
+			GLDebug(glEnableVertexAttribArray(val));
+			GLDebug(glVertexAttribPointer(val, size, GetGLVariableType(vertType), false, m_stride, (GLvoid *)offset));
 		}
 
 		void COpenGLGPUBuffer::CreateIndexBuffer(IRenderableObject *object, void * indices, int idxCount, RendererVariableType idxType, GPUBufferMode mode, GPUBufferUsage usage)
@@ -63,7 +63,7 @@ namespace mx
 		}
 		void COpenGLGPUBuffer::End()
 		{
-			glBindVertexArray(0);
+			GLDebug(glBindVertexArray(0));
 		}
 		void COpenGLGPUBuffer::Render()
 		{
