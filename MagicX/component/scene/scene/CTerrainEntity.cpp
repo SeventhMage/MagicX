@@ -45,6 +45,76 @@ namespace mx
 				short height = rand() % 4 - 2;
 				m_pHeightMap[i] = height;
 			}
+			
+			int var = m_uWidth;
+			float zoom = 1.0f;
+			int lefttop = 0;
+			int righttop = m_uWidth;
+			int leftbottom = (m_uWidth + 1) * (m_uWidth + 1);
+			int rightbottom = leftbottom + m_uWidth;
+			while (var > 1)
+			{
+				m_pHeightMap[lefttop] = (rand() % 256 - 128) * zoom;
+				m_pHeightMap[righttop] = (rand() % 256 - 128) * zoom;
+				m_pHeightMap[leftbottom] = (rand() % 256 - 128) * zoom;
+				m_pHeightMap[rightbottom] = (rand() % 256 - 128) * zoom;
+
+				zoom *= 0.5f;
+				m_pHeightMap[(var / 2) * var + var] = (m_pHeightMap[0] + m_pHeightMap[var] + m_pHeightMap[(var + 1) * (var + 1)] + m_pHeightMap[(var + 1) * (var + 1) + var]) / 4 
+					+ (rand() % 256 - 128) * zoom;
+
+				var /= 2;
+			}
+			
+		}
+
+		float CTerrainEntity::RandHeightMap(int left, int top, int right, int bottom, float zoom)
+		{
+			m_pHeightMap[left] = (rand() % 256 - 128) * zoom;
+			m_pHeightMap[top] = (rand() % 256 - 128) * zoom;
+			m_pHeightMap[right] = (rand() % 256 - 128) * zoom;
+			m_pHeightMap[bottom] = (rand() % 256 - 128) * zoom;
+
+			zoom *= 0.5f;
+
+			m_pHeightMap[(left - top) / 2 + top] = (m_pHeightMap[top] + m_pHeightMap[left] + m_pHeightMap[top / (m_uWidth + 1) * (m_uWidth + 1) + left % (m_uWidth + 1)]
+				+ m_pHeightMap[left / (m_uWidth + 1) * (m_uWidth + 1) + (top % (m_uWidth + 1))]) / 4 + (rand() % 256 - 128) * zoom;
+
+			m_pHeightMap[(right - top) / 2 + top] = (m_pHeightMap[top] + m_pHeightMap[right] + m_pHeightMap[top / (m_uWidth + 1) * (m_uWidth + 1) + right % (m_uWidth + 1)]
+				+ m_pHeightMap[right / (m_uWidth + 1) * (m_uWidth + 1) + top % (m_uWidth + 1)]) / 4 + (rand() % 256 - 128) * zoom;
+
+			m_pHeightMap[(bottom - left) / 2 + left] = (m_pHeightMap[left] + m_pHeightMap[bottom] + m_pHeightMap[left / (m_uWidth + 1) * (m_uWidth + 1) + bottom % (m_uWidth + 1)]
+				+ m_pHeightMap[(bottom / (m_uWidth + 1) * (m_uWidth + 1) + left % (m_uWidth + 1))]) / 4 + (rand() % 256 - 128) * zoom;
+
+			m_pHeightMap[(bottom - right) / 2 + right] = (m_pHeightMap[right] + m_pHeightMap[top] + m_pHeightMap[right % (m_uWidth + 1) * (m_uWidth + 1) + bottom % (m_uWidth + 1)]
+				+ m_pHeightMap[bottom / (m_uWidth + 1) * (m_uWidth + 1) + right % (m_uWidth + 1)]) / 4 + (rand() % 256 - 128) * zoom;
+
+			RandHeightMap((((left - top) / 2 + top) / (m_uWidth + 1) - 1) * (m_uWidth + 1) + ((left - top) / 2 + top) % (m_uWidth + 1)
+				, 
+				, (((bottom - left) / 2 + left) / (m_uWidth + 1) - 1) * (m_uWidth + 1) + ((bottom - left) / 2 + left) % (m_uWidth + 1)
+				, (((bottom - right) / 2 + right) / (m_uWidth + 1) - 1) * (m_uWidth + 1) + ((bottom - right) / 2 + right) % (m_uWidth + 1)
+				,zoom
+				);
+			RandHeightMap((((left - top) / 2 + top) / (m_uWidth + 1) - 1) * (m_uWidth + 1) + ((left - top) / 2 + top) % (m_uWidth + 1)
+				, (((right - top) / 2 + top) / (m_uWidth + 1) - 1) * (m_uWidth + 1) + ((right - top) / 2 + top) % (m_uWidth + 1)
+				, (((bottom - left) / 2 + left) / (m_uWidth + 1) - 1) * (m_uWidth + 1) + ((bottom - left) / 2 + left) % (m_uWidth + 1)
+				, (((bottom - right) / 2 + right) / (m_uWidth + 1) - 1) * (m_uWidth + 1) + ((bottom - right) / 2 + right) % (m_uWidth + 1)
+				, zoom
+				);
+			RandHeightMap((((left - top) / 2 + top) / (m_uWidth + 1) - 1) * (m_uWidth + 1) + ((left - top) / 2 + top) % (m_uWidth + 1)
+				, (((right - top) / 2 + top) / (m_uWidth + 1) - 1) * (m_uWidth + 1) + ((right - top) / 2 + top) % (m_uWidth + 1)
+				, (((bottom - left) / 2 + left) / (m_uWidth + 1) - 1) * (m_uWidth + 1) + ((bottom - left) / 2 + left) % (m_uWidth + 1)
+				, (((bottom - right) / 2 + right) / (m_uWidth + 1) - 1) * (m_uWidth + 1) + ((bottom - right) / 2 + right) % (m_uWidth + 1)
+				, zoom
+				);
+			RandHeightMap((((left - top) / 2 + top) / (m_uWidth + 1) - 1) * (m_uWidth + 1) + ((left - top) / 2 + top) % (m_uWidth + 1)
+				, (((right - top) / 2 + top) / (m_uWidth + 1) - 1) * (m_uWidth + 1) + ((right - top) / 2 + top) % (m_uWidth + 1)
+				, (((bottom - left) / 2 + left) / (m_uWidth + 1) - 1) * (m_uWidth + 1) + ((bottom - left) / 2 + left) % (m_uWidth + 1)
+				, (((bottom - right) / 2 + right) / (m_uWidth + 1) - 1) * (m_uWidth + 1) + ((bottom - right) / 2 + right) % (m_uWidth + 1)
+				, zoom
+				);
+			return zoom;
+
 		}
 
 		short CTerrainEntity::GetHeight(uint x, uint y)

@@ -18,6 +18,7 @@ namespace mx
 			void RandGenerateMesh();
 
 			void RandHeightMap();
+			float RandHeightMap(int left, int top, int right, int bottom, float zoom);
 			short GetHeight(uint x, uint y);
 			void GenerateMesh();
 			virtual void UpdateImp(int elapsedTime, const CMatrix4 &mat4ViewProj);
