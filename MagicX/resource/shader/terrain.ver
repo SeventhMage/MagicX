@@ -1,0 +1,12 @@
+#version 330 core
+
+attribute vec3 vPosition;
+
+uniform mat4 mvpMatrix;
+varying vec4 color;
+
+void main()
+{
+	color.rgb = vec3(abs(vPosition.y) / 128, abs(vPosition.y) / 128, abs(vPosition.y) / 128);
+	gl_Position = mvpMatrix * vec4(vPosition.xyz, 1.0);
+}
