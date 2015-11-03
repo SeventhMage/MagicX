@@ -13,7 +13,7 @@ namespace mx
 			, m_pRenderableObject(NULL)
 		{
 			m_pBoxData = new float[108];
-			float r = 50.0f;
+			float r = 200.0f;
 			float vertex[] = {
 				//front
 				-r, r, r,
