@@ -1,10 +1,10 @@
+#include <time.h>
+
 #include "CTerrainEntity.h"
 #include "IGPUBuffer.h"
 #include "IRenderableObject.h"
 #include "IShaderProgram.h"
 
-
-#include <time.h>
 
 
 namespace mx
@@ -44,13 +44,13 @@ namespace mx
 			float zoom = 1.0f;
 			int lefttop = 0;
 			int righttop = m_uWidth;
-			int leftbottom = (m_uWidth + 1) * (m_uWidth + 1);
+			int leftbottom = (m_uWidth + 1) * m_uWidth;
 			int rightbottom = leftbottom + m_uWidth;
 		
-			m_pHeightMap[lefttop] = (rand() % MAX_HEIGHT - 0) * zoom;
-			m_pHeightMap[righttop] = (rand() % MAX_HEIGHT - 0) * zoom;
-			m_pHeightMap[leftbottom] = (rand() % MAX_HEIGHT - 0) * zoom;
-			m_pHeightMap[rightbottom] = (rand() % MAX_HEIGHT - 0) * zoom;
+			m_pHeightMap[lefttop] = (short)GetRandomHeight(zoom);
+			m_pHeightMap[righttop] = (short)GetRandomHeight(zoom);
+			m_pHeightMap[leftbottom] = (short)GetRandomHeight(zoom);
+			m_pHeightMap[rightbottom] = (short)GetRandomHeight(zoom);
 
 			//zoom *= 0.5f;
 
@@ -61,112 +61,49 @@ namespace mx
 
 			//m_pHeightMap[(leftbottom - righttop) / 2 + rightbottom] = zoom * ((m_pHeightMap[lefttop] + m_pHeightMap[righttop] + m_pHeightMap[leftbottom] + m_pHeightMap[rightbottom]) / 4.0f) * (rand() % 256);
 
-			RandHeightMapSD(lefttop, righttop, rightbottom, leftbottom, 1.0f);
+			RandHeightMapSD(lefttop, righttop, rightbottom, leftbottom, 0.5f);
 			
 		}
 
-		float CTerrainEntity::RandHeightMap(int left, int top, int right, int bottom, float zoom)
-		{
-			m_pHeightMap[left] = (rand() % 256 - 0) * zoom;
-			m_pHeightMap[top] = (rand() % 256 - 0) * zoom;
-			m_pHeightMap[right] = (rand() % 256 - 0) * zoom;
-			m_pHeightMap[bottom] = (rand() % 256 - 0) * zoom;
-
-			CVector3 vec3Left(left % (m_uWidth + 1), left / (m_uWidth + 1), 0);
-			CVector3 vec3Top(top % (m_uWidth + 1), top / (m_uWidth + 1), 0);
-			CVector3 vec3Right(right % (m_uWidth + 1), right / (m_uWidth + 1), 0);
-			CVector3 vec3Bottom(bottom % (m_uWidth + 1), bottom / (m_uWidth + 1), 0);
-
-		
-			zoom *= 0.5f;
-
-			m_pHeightMap[(left - top) / 2 + top] = (m_pHeightMap[top] + m_pHeightMap[left] + m_pHeightMap[top / (m_uWidth + 1) * (m_uWidth + 1) + left % (m_uWidth + 1)]
-				+ m_pHeightMap[left / (m_uWidth + 1) * (m_uWidth + 1) + (top % (m_uWidth + 1))]) / 4 + (rand() % 256 - 128) * zoom;
-
-			m_pHeightMap[(right - top) / 2 + top] = (m_pHeightMap[top] + m_pHeightMap[right] + m_pHeightMap[top / (m_uWidth + 1) * (m_uWidth + 1) + right % (m_uWidth + 1)]
-				+ m_pHeightMap[right / (m_uWidth + 1) * (m_uWidth + 1) + top % (m_uWidth + 1)]) / 4 + (rand() % 256 - 128) * zoom;
-
-			m_pHeightMap[(bottom - left) / 2 + left] = (m_pHeightMap[left] + m_pHeightMap[bottom] + m_pHeightMap[left / (m_uWidth + 1) * (m_uWidth + 1) + bottom % (m_uWidth + 1)]
-				+ m_pHeightMap[(bottom / (m_uWidth + 1) * (m_uWidth + 1) + left % (m_uWidth + 1))]) / 4 + (rand() % 256 - 128) * zoom;
-
-			m_pHeightMap[(bottom - right) / 2 + right] = (m_pHeightMap[right] + m_pHeightMap[top] + m_pHeightMap[right % (m_uWidth + 1) * (m_uWidth + 1) + bottom % (m_uWidth + 1)]
-				+ m_pHeightMap[bottom / (m_uWidth + 1) * (m_uWidth + 1) + right % (m_uWidth + 1)]) / 4 + (rand() % 256 - 128) * zoom;
-
-			if (vec3Left.x + 1 == vec3Top.x || vec3Top.y + 1 == vec3Left.y)
-				return zoom;
-
-			CVector3 lefttopMid(((left - top) / 2 + top) % (m_uWidth + 1), ((left - top) / 2 + top) / (m_uWidth + 1), 0);
-			CVector3 righttopMid(((right - top) / 2 + top) % (m_uWidth + 1), ((right - top) / 2 + top) / (m_uWidth + 1), 0);
-			CVector3 leftbottomMid(((bottom - left) / 2 + left) % (m_uWidth + 1), ((bottom - left) / 2 + left) / (m_uWidth + 1), 0);
-			CVector3 rightbottomMid(((bottom - right) / 2 + right) % (m_uWidth + 1), ((bottom - right) / 2 + right) / (m_uWidth + 1), 0);
-
-		
-
-			RandHeightMap(
-				lefttopMid.y * (m_uWidth + 1) + vec3Left.x
-				,vec3Top.y * (m_uWidth + 1) + lefttopMid.x
-				,lefttopMid.y * (m_uWidth + 1) + vec3Top.x
-				,vec3Left.y * (m_uWidth + 1) + lefttopMid.x
-				,zoom
-				);
-			RandHeightMap(
-				righttopMid.y * (m_uWidth + 1) + vec3Top.x
-				,vec3Top.y * (m_uWidth + 1) + righttopMid.x
-				,righttopMid.y * (m_uWidth + 1) + vec3Right.x
-				,vec3Right.y * (m_uWidth + 1) + righttopMid.x
-				,zoom
-				);
-
-			RandHeightMap(
-				leftbottomMid.y * (m_uWidth + 1) + vec3Left.x
-				,vec3Left.y * (m_uWidth + 1) + leftbottomMid.x
-				,leftbottomMid.y * (m_uWidth + 1) + vec3Bottom.x
-				,vec3Bottom.y * (m_uWidth + 1) + leftbottomMid.x
-				,zoom
-				);
-
-			RandHeightMap(
-				rightbottomMid.y * (m_uWidth + 1) + vec3Bottom.x
-				,vec3Right.y * (m_uWidth + 1) + rightbottomMid.x
-				,rightbottomMid.y * (m_uWidth + 1) + vec3Right.x
-				,vec3Bottom.y * (m_uWidth + 1) + rightbottomMid.x
-				,zoom
-				);
-
-			return zoom;
-
-		}
 
 		void CTerrainEntity::RandHeightMapSD(int lefttop, int righttop, int rightbottom, int leftbottom, float zoom)
 		{
 			if (righttop - lefttop <= 1)
 				return;
-			int curmid = (leftbottom - righttop) / 2 + rightbottom;
-			m_pHeightMap[curmid] = (((m_pHeightMap[lefttop] + m_pHeightMap[righttop] + m_pHeightMap[leftbottom] + m_pHeightMap[rightbottom]) / 4.0f) + zoom * (rand() % MAX_HEIGHT));
+			int curmid = (leftbottom - righttop) / 2 + righttop;
+			m_pHeightMap[curmid] = (short)(((m_pHeightMap[lefttop] + m_pHeightMap[righttop] + m_pHeightMap[leftbottom] + m_pHeightMap[rightbottom]) / 4.0f) + GetRandomHeight(zoom));
 			
 			int left = lefttop + (leftbottom - lefttop) / 2;
 			int top = lefttop + (righttop - lefttop) / 2;
 			int right = righttop + (rightbottom - righttop) / 2;
 			int bottom = leftbottom + (rightbottom - leftbottom) / 2;
 			
-			m_pHeightMap[left] =  ((m_pHeightMap[lefttop] + m_pHeightMap[curmid] + m_pHeightMap[leftbottom] + GetLeftHeight(curmid, left)) / 4 + zoom * (rand() % MAX_HEIGHT));
-			m_pHeightMap[top] =  ((m_pHeightMap[lefttop] + m_pHeightMap[curmid] + m_pHeightMap[righttop] + GetTopHeight(curmid, top)) / 4 + zoom * (rand() % MAX_HEIGHT));
-			m_pHeightMap[right] = (m_pHeightMap[curmid], m_pHeightMap[righttop] + m_pHeightMap[rightbottom] + GetRightHeight(right, curmid)) / 4 + zoom * (rand() % MAX_HEIGHT);
-			m_pHeightMap[bottom] = (m_pHeightMap[leftbottom] + m_pHeightMap[curmid] + m_pHeightMap[rightbottom] + GetBottomHeight(bottom, curmid)) / 4 + zoom * (rand() % MAX_HEIGHT);
+			m_pHeightMap[left] = (short)((m_pHeightMap[lefttop] + m_pHeightMap[curmid] + m_pHeightMap[leftbottom] + GetLeftHeight(curmid, left)) / 4 +  GetRandomHeight(zoom));
+			m_pHeightMap[top] = (short)((m_pHeightMap[lefttop] + m_pHeightMap[curmid] + m_pHeightMap[righttop] + GetTopHeight(curmid, top)) / 4 + GetRandomHeight(zoom));
+			m_pHeightMap[right] = (short)((m_pHeightMap[curmid], m_pHeightMap[righttop] + m_pHeightMap[rightbottom] + GetRightHeight(right, curmid)) / 4 + GetRandomHeight(zoom));
+			m_pHeightMap[bottom] = (short)((m_pHeightMap[leftbottom] + m_pHeightMap[curmid] + m_pHeightMap[rightbottom] + GetBottomHeight(bottom, curmid)) / 4 + GetRandomHeight(zoom));
 
+			/*
 			m_pHeightMap[(left - top) / 2 + top] = (m_pHeightMap[top] + m_pHeightMap[left] + m_pHeightMap[top / (m_uWidth + 1) * (m_uWidth + 1) + left % (m_uWidth + 1)]
-				+ m_pHeightMap[left / (m_uWidth + 1) * (m_uWidth + 1) + (top % (m_uWidth + 1))]) / 4 + (rand() % 256 - 128) * zoom;
+				+ m_pHeightMap[left / (m_uWidth + 1) * (m_uWidth + 1) + (top % (m_uWidth + 1))]) / 4 + (rand() % MAX_HEIGHT) * zoom;
 
 			m_pHeightMap[(right - top) / 2 + top] = (m_pHeightMap[top] + m_pHeightMap[right] + m_pHeightMap[top / (m_uWidth + 1) * (m_uWidth + 1) + right % (m_uWidth + 1)]
-				+ m_pHeightMap[right / (m_uWidth + 1) * (m_uWidth + 1) + top % (m_uWidth + 1)]) / 4 + (rand() % 256 - 128) * zoom;
+				+ m_pHeightMap[right / (m_uWidth + 1) * (m_uWidth + 1) + top % (m_uWidth + 1)]) / 4 + (rand() % MAX_HEIGHT) * zoom;
 
 			m_pHeightMap[(bottom - left) / 2 + left] = (m_pHeightMap[left] + m_pHeightMap[bottom] + m_pHeightMap[left / (m_uWidth + 1) * (m_uWidth + 1) + bottom % (m_uWidth + 1)]
-				+ m_pHeightMap[(bottom / (m_uWidth + 1) * (m_uWidth + 1) + left % (m_uWidth + 1))]) / 4 + (rand() % 256 - 128) * zoom;
+				+ m_pHeightMap[(bottom / (m_uWidth + 1) * (m_uWidth + 1) + left % (m_uWidth + 1))]) / 4 + (rand() % MAX_HEIGHT) * zoom;
 
 			m_pHeightMap[(bottom - right) / 2 + right] = (m_pHeightMap[right] + m_pHeightMap[top] + m_pHeightMap[right % (m_uWidth + 1) * (m_uWidth + 1) + bottom % (m_uWidth + 1)]
-				+ m_pHeightMap[bottom / (m_uWidth + 1) * (m_uWidth + 1) + right % (m_uWidth + 1)]) / 4 + (rand() % 256 - 128) * zoom;
+				+ m_pHeightMap[bottom / (m_uWidth + 1) * (m_uWidth + 1) + right % (m_uWidth + 1)]) / 4 + (rand() % MAX_HEIGHT) * zoom;
+				
 
 			RandHeightMapSD((left - top) / 2 + top, (right - top) / 2 + top, (bottom - right) / 2 + right, (bottom - left) / 2 + left, zoom * 0.5f);
+			*/
+
+			RandHeightMapSD(lefttop, top, curmid, left, zoom * 0.5f);
+			RandHeightMapSD(top, righttop, right, curmid, zoom * 0.5f);
+			RandHeightMapSD(curmid, right, rightbottom, bottom, zoom * 0.5f);
+			RandHeightMapSD(left, curmid, bottom, leftbottom, zoom * 0.5f);
 		}
 
 		short CTerrainEntity::GetHeight(uint x, uint y)
@@ -242,36 +179,41 @@ namespace mx
 			}
 		}
 
-		int CTerrainEntity::GetLeftHeight(int high, int low)
+		short CTerrainEntity::GetLeftHeight(uint high, uint low)
 		{
-			int pos = 2 * low - high;
+			uint pos = 2 * low - high;
 			if (pos / (m_uWidth + 1) == low / (m_uWidth + 1))
 				return m_pHeightMap[pos];
-			return 0;
+			return m_pHeightMap[high];
 		}
 
-		int CTerrainEntity::GetTopHeight(int high, int low)
+		short CTerrainEntity::GetTopHeight(uint high, uint low)
 		{
-			int pos = 2 * low - high;
-			if (pos % (m_uWidth + 1) == low % (m_uWidth + 1))
+			uint pos = 2 * low - high;
+			if (pos % (m_uWidth + 1) == low % (m_uWidth + 1) && pos > 0)
 				return m_pHeightMap[pos];
-			return 0;
+			return m_pHeightMap[high];
 		}
 
-		int CTerrainEntity::GetRightHeight(int high, int low)
+		short CTerrainEntity::GetRightHeight(uint high, uint low)
 		{
-			int pos = 2 * (high - low) + low;
+			uint pos = 2 * (high - low) + low;
 			if (pos / (m_uWidth + 1) == low / (m_uWidth + 1))
 				return m_pHeightMap[pos];
-			return 0;
+			return m_pHeightMap[high];
 		}
 
-		int CTerrainEntity::GetBottomHeight(int high, int low)
+		short CTerrainEntity::GetBottomHeight(uint high, uint low)
 		{
-			int pos = 2 * (high - low) + low;
-			if (pos % (m_uWidth + 1) == low % (m_uWidth + 1))
+			uint pos = 2 * (high - low) + low;
+			if (pos % (m_uWidth + 1) == low % (m_uWidth + 1) && pos < (m_uWidth + 1) * (m_uWidth + 1))
 				return m_pHeightMap[pos];
-			return 0;
+			return m_pHeightMap[high];
+		}
+
+		float CTerrainEntity::GetRandomHeight(float zoom)
+		{
+			return zoom * (rand() % MAX_HEIGHT - MAX_HEIGHT * 0.5f);
 		}
 
 

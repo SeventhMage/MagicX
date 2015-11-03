@@ -14,7 +14,7 @@ namespace mx
 		class CSkyBox : public ISkyBoxSceneNode
 		{
 		public:
-			CSkyBox(render::IRenderer *renderer);
+			CSkyBox(render::IRenderer *renderer, float radius);
 			virtual ~CSkyBox();
 
 			virtual bool Create(const char *filename);
@@ -30,6 +30,7 @@ namespace mx
 			render::IRenderableObject *m_pRenderableObject;
 			float *m_pBoxData;
 			CMatrix4 m_viewMat4;
+			float m_fRadius;
 		};
 	}
 }

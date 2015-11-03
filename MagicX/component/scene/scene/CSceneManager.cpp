@@ -80,9 +80,9 @@ namespace mx
 			return 0;
 		}
 
-		ISkyBoxSceneNode *CSceneManager::CreateSkyBox(const char *front, const char *back, const char * left, const char *right, const char *top, const char *bottom)
+		ISkyBoxSceneNode *CSceneManager::CreateSkyBox(const char *front, const char *back, const char * left, const char *right, const char *top, const char *bottom, float radius)
 		{
-			ISkyBoxSceneNode *skybox = new CSkyBox(m_pRenderer);
+			ISkyBoxSceneNode *skybox = new CSkyBox(m_pRenderer, radius);
 			skybox->Create(front, back, left, right, top, bottom);
 			m_listSkyBox.push_back(skybox);
 			return skybox;

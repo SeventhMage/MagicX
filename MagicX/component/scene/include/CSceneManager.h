@@ -27,7 +27,7 @@ namespace mx
 
 			//创建场景内对象
 			ICameraSceneNode *CreateCamera(const CVector3 &position, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float nearClip, float farClip);
-			ISkyBoxSceneNode *CreateSkyBox(const char *front, const char *back, const char * left, const char *right, const char *top, const char *bottom);
+			ISkyBoxSceneNode *CreateSkyBox(const char *front, const char *back, const char * left, const char *right, const char *top, const char *bottom, float radius);
 			ITerrainSceneNode *CreateTerrain(const char *filename);
 			ITerrainSceneNode *CreateRandomTerrain(uint width);
 			IWaterSceneNode *CreateWater(const char *filename);

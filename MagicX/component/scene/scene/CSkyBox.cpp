@@ -6,14 +6,14 @@ namespace mx
 {
 	namespace scene
 	{
-		CSkyBox::CSkyBox(render::IRenderer *renderer)
+		CSkyBox::CSkyBox(render::IRenderer *renderer, float r)
 			:m_pRenderer(renderer)
 			, m_pTexture(NULL)
 			,m_pGPUBuffer(NULL)
 			, m_pRenderableObject(NULL)
+			, m_fRadius(r)
 		{
 			m_pBoxData = new float[108];
-			float r = 200.0f;
 			float vertex[] = {
 				//front
 				-r, r, r,
