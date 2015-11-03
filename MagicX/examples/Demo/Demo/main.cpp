@@ -95,10 +95,12 @@ int main(int argc, char *argv[])
 			{ -5.0f, -5.0f, 5.0f, 1.0f, 1.0f, 1.0f },
 			{ 0, 5.0f, 0, 1.0f, 0.5f, 0 },
 		};
-
+		
 		IGPUBuffer *buffer = renderer->CreateGPUBuffer(sizeof(Vertex));
+		
 		if (buffer)
 		{
+			/*
 			IRenderableObject *renderableObject = buffer->CreateRenderableObject();
 			if (renderableObject)
 			{
@@ -140,17 +142,17 @@ int main(int argc, char *argv[])
 
 			ITexture *tex = renderer->CreateTexture("texture/1.tga", TT_2D);
 			renderableObject->SetTexture(tex);
-
+			*/
 			
 			CSceneManager sceneMgr(renderer);
 			IScene *scene = sceneMgr.CreateScene();
-			ICameraSceneNode *camera = sceneMgr.CreateCamera(CVector3(0, 20, 0), CVector3(0, 0, -1), CVector3(0, 1, 0), core::PI / 3.0f, 1.0f * device->GetHeight() / device->GetWidth(), 1, 1000.0f);
+			ICameraSceneNode *camera = sceneMgr.CreateCamera(CVector3(0, 60, 0), CVector3(0, 0, -1), CVector3(0, 1, 0), core::PI / 3.0f, 1.0f * device->GetHeight() / device->GetWidth(), 1, 5000.0f);
 			scene->SetupCamera(camera);
 
-			ISkyBoxSceneNode *skybox = sceneMgr.CreateSkyBox("texture/front.tga", "texture/back.tga", "texture/left.tga", "texture/right.tga", "texture/top.tga", "texture/cloud.tga");
+			ISkyBoxSceneNode *skybox = sceneMgr.CreateSkyBox("texture/front.tga", "texture/back.tga", "texture/left.tga", "texture/right.tga", "texture/top.tga", "texture/cloud.tga", 500);
 			scene->SetupSkyBox(skybox);
 
-			ITerrainSceneNode *terrain = sceneMgr.CreateRandomTerrain(64);
+			ITerrainSceneNode *terrain = sceneMgr.CreateRandomTerrain(256);
 			scene->SetupTerrain(terrain);
 			
 			
@@ -196,15 +198,18 @@ int main(int argc, char *argv[])
 							dir.rotateXZBy(rotY);
 							up.rotateXZBy(rotY);
 
-							CMatrix4 mat4;
-							mat4.setRotationAxisRadians(rotX, xAxis);
-							mat4.rotate(pos);
-							mat4.rotate(dir);
-							mat4.rotate(up);
+// 
+// 							CMatrix4 mat4;
+// 							mat4.setRotationAxisRadians(rotX, xAxis);
+// 							mat4.rotate(pos);
+// 							mat4.rotate(dir);
+// 							mat4.rotate(up);
 
+							
 							camera->SetPosition(pos);
 							camera->SetDirection(dir);
 							camera->SetUp(up);
+							
 						}
 			
 					}
@@ -215,6 +220,7 @@ int main(int argc, char *argv[])
 					lastY = keyEvent->GetMousePositionY();
 				}
 
+				/*
 				for (int i = 0; i < 9; ++i)
 				{
 					CVector3 vec3 = CVector3(pyramid[i].x, pyramid[i].y, pyramid[i].z);
@@ -225,7 +231,7 @@ int main(int argc, char *argv[])
 					pyramid[i].z = vec3.z;
 				}
 				buffer->AddVertexData(renderableObject, pyramid, sizeof(pyramid), 0);
-			
+			*/
 
 				next_game_tick += SKIP_TICKS;
 				sleep_time = next_game_tick - GetTickCount();
