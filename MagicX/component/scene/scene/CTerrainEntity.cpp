@@ -47,22 +47,25 @@ namespace mx
 			int leftbottom = (m_uWidth + 1) * m_uWidth;
 			int rightbottom = leftbottom + m_uWidth;
 		
-			m_pHeightMap[lefttop] = (short)GetRandomHeight(zoom);
-			m_pHeightMap[righttop] = (short)GetRandomHeight(zoom);
+			m_pHeightMap[lefttop] =  (short)GetRandomHeight(zoom);
+			m_pHeightMap[righttop] =  (short)GetRandomHeight(zoom);
 			m_pHeightMap[leftbottom] = (short)GetRandomHeight(zoom);
-			m_pHeightMap[rightbottom] = (short)GetRandomHeight(zoom);
-
-			//zoom *= 0.5f;
-
-			//int left = (m_uWidth / 2) * (m_uWidth + 1);
-			//int top = m_uWidth / 2;
-			//int right = left + m_uWidth;
-			//int bottom = m_uWidth * (m_uWidth + 1) + (m_uWidth / 2);
-
-			//m_pHeightMap[(leftbottom - righttop) / 2 + rightbottom] = zoom * ((m_pHeightMap[lefttop] + m_pHeightMap[righttop] + m_pHeightMap[leftbottom] + m_pHeightMap[rightbottom]) / 4.0f) * (rand() % 256);
+			m_pHeightMap[rightbottom] =  (short)GetRandomHeight(zoom);
 
 			RandHeightMapSD(lefttop, righttop, rightbottom, leftbottom, 0.5f);
 			
+			FILE *file;
+			fopen_s(&file, "heightMap.txt", "w");
+			if (file)
+			{
+				for (int i = 0; i < m_uWidth + 1; ++i)
+				{
+					for (int j = 0; j < m_uWidth + 1; ++j)
+						fprintf(file, "%-5hd", m_pHeightMap[i * (m_uWidth + 1) + j]);
+					fputc('\n', file);
+				}
+				fclose(file);
+			}
 		}
 
 
@@ -118,29 +121,29 @@ namespace mx
 			{
 				for (uint j = 0; j < m_uWidth; ++j)
 				{
-					m_pMeshData[k++] = (float)i - m_uWidth / 2;
+					m_pMeshData[k++] = (float)j - m_uWidth / 2;
 					m_pMeshData[k++] = (float)GetHeight(j, i);
-					m_pMeshData[k++] = (float)j - m_uWidth / 2;
+					m_pMeshData[k++] = (float)i - m_uWidth / 2; 
 
-					m_pMeshData[k++] = (float)i + 1 - m_uWidth / 2;
+					m_pMeshData[k++] = (float)j - m_uWidth / 2;
 					m_pMeshData[k++] = (float)GetHeight(j, i + 1);
+					m_pMeshData[k++] = (float)i + 1 - m_uWidth / 2; 
+
+					m_pMeshData[k++] = (float)j + 1 - m_uWidth / 2;
+					m_pMeshData[k++] = (float)GetHeight(j + 1, i);
+					m_pMeshData[k++] = (float)i - m_uWidth / 2; 
+
+					m_pMeshData[k++] = (float)j + 1 - m_uWidth / 2;
+					m_pMeshData[k++] = (float)GetHeight(j + 1, i);
+					m_pMeshData[k++] = (float)i - m_uWidth / 2;
+
 					m_pMeshData[k++] = (float)j - m_uWidth / 2;
-
-					m_pMeshData[k++] = (float)i - m_uWidth / 2;
-					m_pMeshData[k++] = (float)GetHeight(j + 1, i);
-					m_pMeshData[k++] = (float)j + 1 - m_uWidth / 2;
-
-					m_pMeshData[k++] = (float)i - m_uWidth / 2;
-					m_pMeshData[k++] = (float)GetHeight(j + 1, i);
-					m_pMeshData[k++] = (float)j + 1 - m_uWidth / 2;
-
-					m_pMeshData[k++] = (float)i + 1 - m_uWidth / 2;
 					m_pMeshData[k++] = (float)GetHeight(j, i + 1);
-					m_pMeshData[k++] = (float)j - m_uWidth / 2;
+					m_pMeshData[k++] = (float)i + 1 - m_uWidth / 2; 
 
-					m_pMeshData[k++] = (float)i + 1 - m_uWidth / 2;
+					m_pMeshData[k++] = (float)j + 1 - m_uWidth / 2;
 					m_pMeshData[k++] = (float)GetHeight(j + 1, i + 1);
-					m_pMeshData[k++] = (float)j + 1 - m_uWidth / 2;
+					m_pMeshData[k++] = (float)i + 1 - m_uWidth / 2; 
 				}
 			}
 
@@ -200,7 +203,7 @@ namespace mx
 			uint pos = 2 * (high - low) + low;
 			if (pos / (m_uWidth + 1) == low / (m_uWidth + 1))
 				return m_pHeightMap[pos];
-			return m_pHeightMap[high];
+			return m_pHeightMap[low];
 		}
 
 		short CTerrainEntity::GetBottomHeight(uint high, uint low)
@@ -208,12 +211,15 @@ namespace mx
 			uint pos = 2 * (high - low) + low;
 			if (pos % (m_uWidth + 1) == low % (m_uWidth + 1) && pos < (m_uWidth + 1) * (m_uWidth + 1))
 				return m_pHeightMap[pos];
-			return m_pHeightMap[high];
+			return m_pHeightMap[low];
 		}
 
 		float CTerrainEntity::GetRandomHeight(float zoom)
 		{
-			return zoom * (rand() % MAX_HEIGHT - MAX_HEIGHT * 0.5f);
+			int scale = (int)(zoom * MAX_HEIGHT);
+			if (scale == 0)
+				return 0;
+			return  (rand() % scale - scale * 0.5f);
 		}
 
 
