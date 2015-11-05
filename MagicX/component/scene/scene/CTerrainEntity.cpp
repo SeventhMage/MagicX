@@ -23,7 +23,7 @@ namespace mx
 			m_pHeightMap = new short[(width + 1) * (width + 1)];
 			memset(m_pHeightMap, 0, sizeof(short) * ((width + 1) * (width + 1)));
 
-			m_pMeshData = new float[6 * 3 * width * width];
+			m_pMeshData = new float[6 * 5 * width * width];
 
 		}
 		CTerrainEntity::~CTerrainEntity()
@@ -126,30 +126,48 @@ namespace mx
 					m_pMeshData[k++] = (float)j - m_uWidth / 2;
 					m_pMeshData[k++] = (float)GetHeight(j, i);
 					m_pMeshData[k++] = (float)i - m_uWidth / 2; 
+					
+					m_pMeshData[k++] = 1.0f * j / (m_uWidth + 1);
+					m_pMeshData[k++] = 1.0f * i / (m_uWidth + 1);
 
 					m_pMeshData[k++] = (float)j - m_uWidth / 2;
 					m_pMeshData[k++] = (float)GetHeight(j, i + 1);
 					m_pMeshData[k++] = (float)i + 1 - m_uWidth / 2; 
+
+					m_pMeshData[k++] = 1.0f * j / (m_uWidth + 1);
+					m_pMeshData[k++] = 1.0f * (i + 1)/ (m_uWidth + 1);
 
 					m_pMeshData[k++] = (float)j + 1 - m_uWidth / 2;
 					m_pMeshData[k++] = (float)GetHeight(j + 1, i);
 					m_pMeshData[k++] = (float)i - m_uWidth / 2; 
 
+					m_pMeshData[k++] = 1.0f * (j +1) / (m_uWidth + 1);
+					m_pMeshData[k++] = 1.0f * i / (m_uWidth + 1);
+
 					m_pMeshData[k++] = (float)j + 1 - m_uWidth / 2;
 					m_pMeshData[k++] = (float)GetHeight(j + 1, i);
 					m_pMeshData[k++] = (float)i - m_uWidth / 2;
+
+					m_pMeshData[k++] = 1.0f * (j + 1) / (m_uWidth + 1);
+					m_pMeshData[k++] = 1.0f * i / (m_uWidth + 1);
 
 					m_pMeshData[k++] = (float)j - m_uWidth / 2;
 					m_pMeshData[k++] = (float)GetHeight(j, i + 1);
 					m_pMeshData[k++] = (float)i + 1 - m_uWidth / 2; 
 
+					m_pMeshData[k++] = 1.0f * j / (m_uWidth + 1);
+					m_pMeshData[k++] = 1.0f * (i + 1) / (m_uWidth + 1);
+
 					m_pMeshData[k++] = (float)j + 1 - m_uWidth / 2;
 					m_pMeshData[k++] = (float)GetHeight(j + 1, i + 1);
 					m_pMeshData[k++] = (float)i + 1 - m_uWidth / 2; 
+
+					m_pMeshData[k++] = 1.0f * (j + 1) / (m_uWidth + 1);
+					m_pMeshData[k++] = 1.0f * (i + 1) / (m_uWidth + 1);
 				}
 			}
 
-			m_pGPUBuffer = m_pRenderer->CreateGPUBuffer(0);
+			m_pGPUBuffer = m_pRenderer->CreateGPUBuffer(5 * sizeof(float));
 			if (m_pGPUBuffer)
 			{
 				m_pRenderableObject = m_pGPUBuffer->CreateRenderableObject();
@@ -160,15 +178,19 @@ namespace mx
 					{
 						shaderProgram->Attach("shader/terrain.ver", render::ST_VERTEX);
 						shaderProgram->Attach("shader/terrain.frg", render::ST_FRAGMENT);
-						shaderProgram->BindAttributeLocation(1, render::VAL_POSITION);
+						shaderProgram->BindAttributeLocation(2, render::VAL_POSITION, render::VAL_TEXTURE0);
 						shaderProgram->Link();
+						int iTextureUnit = 0;
+						shaderProgram->SetUniform("textureUnit0", &iTextureUnit);
 					}
 				}
 				m_pGPUBuffer->Begin();
-				m_pGPUBuffer->CreateVertexBuffer(m_pRenderableObject, m_pMeshData, sizeof(float) * (6 * 3 * m_uWidth * m_uWidth), 0, 6 * 3 * m_uWidth * m_uWidth, render::GBM_TRIANGLES, render::GBU_DYNAMIC_DRAW);
+				m_pGPUBuffer->CreateVertexBuffer(m_pRenderableObject, m_pMeshData, sizeof(float) * (6 * 5 * m_uWidth * m_uWidth), 0, 6 * 3 * m_uWidth * m_uWidth, render::GBM_TRIANGLES, render::GBU_DYNAMIC_DRAW);
 				m_pGPUBuffer->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, 0);
+				m_pGPUBuffer->EnableVertexAttrib(render::VAL_TEXTURE0, 2, render::RVT_FLOAT, sizeof(float) * 3);
 
 				m_pGPUBuffer->End();
+
 
 				m_pTextureGenerator = m_pRenderer->GetTextureGenerator();
 				if (m_pTextureGenerator)
@@ -189,6 +211,7 @@ namespace mx
 				if (shaderProgram)
 				{
 					shaderProgram->SetUniform("mvpMatrix", (void *)mat4ViewProj.m);
+					
 				}
 			}
 		}

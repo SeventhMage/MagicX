@@ -12,10 +12,10 @@ namespace mx
 	{
 		struct SHeightRange
 		{
-			int minRange;
-			int maxRange;
-			int leftMixPos;
-			int rightMixPos;
+			float minRange;
+			float maxRange;
+			float leftMixPos;
+			float rightMixPos;
 		};
 
 		class COpenGLTerrainTextureGenerator : public ITerrainTextureGenerator

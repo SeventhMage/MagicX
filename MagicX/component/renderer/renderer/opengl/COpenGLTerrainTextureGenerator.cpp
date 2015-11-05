@@ -24,11 +24,11 @@ namespace mx
 			float width = range / (imgNum - (imgNum - 1) * m_fMixRate);
 			float mixRange = m_fMixRate * width;
 
-			CTGA *tags = new CTGA[imgNum];
+			CTGA *tgas = new CTGA[imgNum];
 
 			for (uint i = 0; i < imgNum; ++i)
 			{
-				tags[i].ReadTGABits(imgName[i]);
+				tgas[i].ReadTGABits(imgName[i]);
 			}
 
 			SHeightRange *heightRange = new SHeightRange[imgNum];
@@ -38,44 +38,58 @@ namespace mx
 				heightRange[i].minRange = i * (width - m_fMixRate * width);
 				heightRange[i].maxRange = heightRange[i].minRange + width;
 				heightRange[i].leftMixPos = i == 0 ? 0 : heightRange[i].minRange + mixRange;
-				heightRange[i].rightMixPos = i == imgNum - 1 ? heightRange[i].rightMixPos : heightRange[i].maxRange - mixRange;
+				heightRange[i].rightMixPos = i == imgNum - 1 ? heightRange[i].maxRange : heightRange[i].maxRange - mixRange;
 			}
 
-			Byte *destData = new Byte[hmWidth * hmWidth * 8 * 3];
-			uint k = 0;
-			for (uint i = 0; i < hmWidth; ++i)
+			for (int i = 0; i < imgNum; ++i)
 			{
-				for (uint j = 0; j < hmWidth; ++j)
+				heightRange[i].minRange -= 0.5f * range;
+				heightRange[i].maxRange -= 0.5f * range;
+				heightRange[i].leftMixPos -= 0.5f * range;
+				heightRange[i].rightMixPos -= 0.5f * range;
+			}
+
+			uint heightMapSize = (hmWidth - 1) * (hmWidth - 1) * 3;
+			Byte *destData = new Byte[heightMapSize];
+			memset(destData, 0, sizeof(Byte) * heightMapSize);
+			uint k = 0;
+			for (uint i = 0; i < (hmWidth - 1); ++i)
+			{
+				for (uint j = 0; j < (hmWidth - 1) * 3; ++j)
 				{
-					short height = heightMap[i * hmWidth + j];
+					short height = heightMap[i * (hmWidth - 1) + j];
 					for (int p = 0; p < imgNum; ++p)
 					{
-						if (height >= heightRange[i].minRange && height <= heightRange[i].maxRange)
+						if (height >= heightRange[p].minRange && height <= heightRange[p].maxRange)
 						{
 							float rate = 1.0f;
-							if (height < heightRange[i].leftMixPos)							
-								rate = (height - heightRange[i].minRange) / width;															
-							else if (height > heightRange[i].rightMixPos)							
-								rate = (heightRange[i].maxRange - height) / width;								
+							if (height < heightRange[p].leftMixPos)							
+								rate = (height - heightRange[p].minRange) / (heightRange[p].leftMixPos - heightRange[p].minRange);
+							else if (height > heightRange[p].rightMixPos)							
+								rate = (heightRange[p].maxRange - height) / (heightRange[p].maxRange - heightRange[p].rightMixPos);
 							
-							destData[k] = (tags[p].GetData()[(i * 3 * 8 * tags[p].GetWidth()) % tags[p].GetWidth() + j % tags[p].GetWidth()]) * rate;
-							destData[k + 1] = (tags[p].GetData()[(i * 3 * 8 * tags[p].GetWidth()) % tags[p].GetWidth() + (j + 1) % tags[p].GetWidth()]) * rate;
-							destData[k + 2] = (tags[p].GetData()[(i * 3 * 8 * tags[p].GetWidth()) % tags[p].GetWidth() + (j + 2) % tags[p].GetWidth()]) * rate;
+							uint pos = ((i % (tgas[p].GetWidth() * 3)) * 3 * tgas[p].GetWidth()) + j % (tgas[p].GetWidth() * 3);
+
+							destData[k] += (tgas[p].GetData()[pos]) * rate;
 						}
 					}
 					++k;
 				}
 			}
-
+			
 			COpenGLTexture *texture = new COpenGLTexture();
-			if (texture->Create2DBit24(destData, hmWidth, hmWidth))
+			if (texture->Create2DBit24(destData, hmWidth - 1, hmWidth - 1))
+			//if (texture->Create2D("texture/1.tga"))
 			{
 				m_vecTexture.push_back(texture);
-				return texture;
+			}
+			else
+			{
+				SAFE_DEL(texture);
 			}
 			SAFE_DEL_ARRAY(destData);
 			SAFE_DEL_ARRAY(heightRange);
-			return NULL;
+			return texture;
 		}
 
 		void COpenGLTerrainTextureGenerator::DestroyTexture(ITexture *texture)

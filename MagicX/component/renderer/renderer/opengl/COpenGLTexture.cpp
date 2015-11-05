@@ -89,7 +89,7 @@ namespace mx
 			return true;
 		}
 
-		bool COpenGLTexture::Create2DBit24(const Byte *data, int width, int height)
+		bool COpenGLTexture::Create2DBit24(Byte *data, int width, int height)
 		{
 			m_textureType = TT_2D;
 			GLDebug(glBindTexture(GL_TEXTURE_2D, m_hTexture));
