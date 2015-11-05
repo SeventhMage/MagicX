@@ -24,6 +24,7 @@ namespace mx
 
 			virtual ITexture *CreateTexture(const char *filename, TextureType texType);
 			virtual ITexture *CreateCubeTexture(const char *front, const char *back, const char *left, const char *right, const char *top, const char *bottom);
+			virtual void DestroyTexture(ITexture *texture);
 
 			virtual void ClearColor(float r, float g, float b, float a);
 			virtual void Clear(uint bit);
@@ -31,8 +32,10 @@ namespace mx
 			virtual void Disable(uint bit);
 			virtual void PolygonMeshMode(bool bMesh);
 
+			virtual ITerrainTextureGenerator *GetTextureGenerator() { return m_pTerrainTextureGenerator; }
 		private:
 			std::vector<IGPUBuffer *> m_vecBuffer;
+			ITerrainTextureGenerator *m_pTerrainTextureGenerator;
 		};
 	}
 }

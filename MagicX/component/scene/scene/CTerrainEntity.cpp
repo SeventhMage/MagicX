@@ -4,6 +4,7 @@
 #include "IGPUBuffer.h"
 #include "IRenderableObject.h"
 #include "IShaderProgram.h"
+#include "ITerrainTextureGenerator.h"
 
 
 
@@ -16,6 +17,8 @@ namespace mx
 			,m_pRenderer(renderer)
 			, m_pGPUBuffer(NULL)
 			, m_pRenderableObject(NULL)
+			, m_pTexture(NULL)
+			, m_pTextureGenerator(NULL)
 		{
 			m_pHeightMap = new short[(width + 1) * (width + 1)];
 			memset(m_pHeightMap, 0, sizeof(short) * ((width + 1) * (width + 1)));
@@ -28,6 +31,9 @@ namespace mx
 			SAFE_DEL(m_pHeightMap);
 			if (m_pRenderer)
 				m_pRenderer->DestroyGPUBuffer(m_pGPUBuffer);
+			if (m_pTextureGenerator)
+				m_pTextureGenerator->DestroyTexture(m_pTexture);
+			
 		}
 
 		void CTerrainEntity::RandGenerateMesh()
@@ -58,9 +64,9 @@ namespace mx
 			fopen_s(&file, "heightMap.txt", "w");
 			if (file)
 			{
-				for (int i = 0; i < m_uWidth + 1; ++i)
+				for (uint i = 0; i < m_uWidth + 1; ++i)
 				{
-					for (int j = 0; j < m_uWidth + 1; ++j)
+					for (uint j = 0; j < m_uWidth + 1; ++j)
 						fprintf(file, "%-5hd", m_pHeightMap[i * (m_uWidth + 1) + j]);
 					fputc('\n', file);
 				}
@@ -73,6 +79,12 @@ namespace mx
 		{
 			if (righttop - lefttop <= 1)
 				return;
+
+			//short maxValue = 0;
+			//short minValue = 0;
+
+			//short range = GetMaxAndmin(maxValue, minValue, m_pHeightMap[lefttop], m_pHeightMap[righttop], m_pHeightMap[rightbottom], m_pHeightMap[leftbottom]);
+
 			int curmid = (leftbottom - righttop) / 2 + righttop;
 			m_pHeightMap[curmid] = (short)(((m_pHeightMap[lefttop] + m_pHeightMap[righttop] + m_pHeightMap[leftbottom] + m_pHeightMap[rightbottom]) / 4.0f) + GetRandomHeight(zoom));
 			
@@ -81,27 +93,17 @@ namespace mx
 			int right = righttop + (rightbottom - righttop) / 2;
 			int bottom = leftbottom + (rightbottom - leftbottom) / 2;
 			
-			m_pHeightMap[left] = (short)((m_pHeightMap[lefttop] + m_pHeightMap[curmid] + m_pHeightMap[leftbottom] + GetLeftHeight(curmid, left)) / 4 +  GetRandomHeight(zoom));
+			// range = GetMaxAndmin(maxValue, minValue, m_pHeightMap[lefttop], m_pHeightMap[curmid], m_pHeightMap[rightbottom], GetLeftHeight(curmid, left));
+			m_pHeightMap[left] = (short)((m_pHeightMap[lefttop] + m_pHeightMap[curmid] + m_pHeightMap[leftbottom] + GetLeftHeight(curmid, left)) / 4 + GetRandomHeight(zoom));
+			
+			 //range = GetMaxAndmin(maxValue, minValue, m_pHeightMap[lefttop], m_pHeightMap[curmid], m_pHeightMap[righttop], GetLeftHeight(curmid, top));
 			m_pHeightMap[top] = (short)((m_pHeightMap[lefttop] + m_pHeightMap[curmid] + m_pHeightMap[righttop] + GetTopHeight(curmid, top)) / 4 + GetRandomHeight(zoom));
+			
+			//range = GetMaxAndmin(maxValue, minValue, m_pHeightMap[curmid], m_pHeightMap[righttop], m_pHeightMap[rightbottom], GetLeftHeight(right, curmid));
 			m_pHeightMap[right] = (short)((m_pHeightMap[curmid], m_pHeightMap[righttop] + m_pHeightMap[rightbottom] + GetRightHeight(right, curmid)) / 4 + GetRandomHeight(zoom));
+			
+			 //range = GetMaxAndmin(maxValue, minValue, m_pHeightMap[leftbottom], m_pHeightMap[curmid], m_pHeightMap[rightbottom], GetLeftHeight(bottom, curmid));
 			m_pHeightMap[bottom] = (short)((m_pHeightMap[leftbottom] + m_pHeightMap[curmid] + m_pHeightMap[rightbottom] + GetBottomHeight(bottom, curmid)) / 4 + GetRandomHeight(zoom));
-
-			/*
-			m_pHeightMap[(left - top) / 2 + top] = (m_pHeightMap[top] + m_pHeightMap[left] + m_pHeightMap[top / (m_uWidth + 1) * (m_uWidth + 1) + left % (m_uWidth + 1)]
-				+ m_pHeightMap[left / (m_uWidth + 1) * (m_uWidth + 1) + (top % (m_uWidth + 1))]) / 4 + (rand() % MAX_HEIGHT) * zoom;
-
-			m_pHeightMap[(right - top) / 2 + top] = (m_pHeightMap[top] + m_pHeightMap[right] + m_pHeightMap[top / (m_uWidth + 1) * (m_uWidth + 1) + right % (m_uWidth + 1)]
-				+ m_pHeightMap[right / (m_uWidth + 1) * (m_uWidth + 1) + top % (m_uWidth + 1)]) / 4 + (rand() % MAX_HEIGHT) * zoom;
-
-			m_pHeightMap[(bottom - left) / 2 + left] = (m_pHeightMap[left] + m_pHeightMap[bottom] + m_pHeightMap[left / (m_uWidth + 1) * (m_uWidth + 1) + bottom % (m_uWidth + 1)]
-				+ m_pHeightMap[(bottom / (m_uWidth + 1) * (m_uWidth + 1) + left % (m_uWidth + 1))]) / 4 + (rand() % MAX_HEIGHT) * zoom;
-
-			m_pHeightMap[(bottom - right) / 2 + right] = (m_pHeightMap[right] + m_pHeightMap[top] + m_pHeightMap[right % (m_uWidth + 1) * (m_uWidth + 1) + bottom % (m_uWidth + 1)]
-				+ m_pHeightMap[bottom / (m_uWidth + 1) * (m_uWidth + 1) + right % (m_uWidth + 1)]) / 4 + (rand() % MAX_HEIGHT) * zoom;
-				
-
-			RandHeightMapSD((left - top) / 2 + top, (right - top) / 2 + top, (bottom - right) / 2 + right, (bottom - left) / 2 + left, zoom * 0.5f);
-			*/
 
 			RandHeightMapSD(lefttop, top, curmid, left, zoom * 0.5f);
 			RandHeightMapSD(top, righttop, right, curmid, zoom * 0.5f);
@@ -167,6 +169,15 @@ namespace mx
 				m_pGPUBuffer->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, 0);
 
 				m_pGPUBuffer->End();
+
+				m_pTextureGenerator = m_pRenderer->GetTextureGenerator();
+				if (m_pTextureGenerator)
+				{
+					char *filename[] = {"texture/grass.tga", "texture/land.tga", "texture/snow.tga"};
+					
+					m_pTexture = m_pTextureGenerator->GenerateTextureBit24(m_pHeightMap, m_uWidth + 1, MAX_HEIGHT, filename, 3);
+					m_pRenderableObject->SetTexture(m_pTexture);
+				}
 			}
 		}
 
@@ -220,6 +231,25 @@ namespace mx
 			if (scale == 0)
 				return 0;
 			return  (rand() % scale - scale * 0.5f);
+		}
+
+		short CTerrainEntity::GetMaxAndmin(short &maxValue, short &minValue, short value1, short value2, short value3, short value4)
+		{
+			maxValue = minValue = value1;
+			maxValue = max(maxValue, value2);
+			maxValue = max(maxValue, value3);
+			maxValue = max(maxValue, value4);
+
+			minValue = min(minValue, value2);
+			minValue = min(minValue, value3);
+			minValue = min(minValue, value4);
+
+			return maxValue - minValue;
+		}
+
+		float CTerrainEntity::GetRandomHeight(short base, short range)
+		{
+			return float (rand() % range + base);
 		}
 
 

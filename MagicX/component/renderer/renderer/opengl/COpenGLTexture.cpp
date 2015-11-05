@@ -89,5 +89,27 @@ namespace mx
 			return true;
 		}
 
+		bool COpenGLTexture::Create2DBit24(const Byte *data, int width, int height)
+		{
+			m_textureType = TT_2D;
+			GLDebug(glBindTexture(GL_TEXTURE_2D, m_hTexture));
+
+			if (data)
+			{
+				//需要提出来
+				GLDebug(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
+				GLDebug(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
+				GLDebug(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+				GLDebug(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+
+				GLDebug(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data));
+
+				GLDebug(glGenerateMipmap(GL_TEXTURE_2D));
+
+				return true;
+			}
+			return false;
+		}
+
 	}
 }

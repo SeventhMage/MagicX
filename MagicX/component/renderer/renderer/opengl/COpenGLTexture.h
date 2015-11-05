@@ -16,6 +16,7 @@ namespace mx
 
 			virtual bool Create(const char *filename, TextureType texType);
 			virtual bool Create2D(const char *filename);
+			virtual bool Create2DBit24(const Byte *data, int width, int height);
 			virtual bool CreateCube(const char *front, const char *back, const char *left, const char *right, const char *top, const char *bottom);
 			virtual TextureType GetTextureType() { return m_textureType; }
 			virtual uint GetHandle() { return m_hTexture; }			

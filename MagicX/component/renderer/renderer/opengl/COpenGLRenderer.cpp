@@ -4,6 +4,7 @@
 #include "COpenGLIndexBufferObject.h"
 #include "COpenGLGPUBuffer.h"
 #include "COpenGLTexture.h"
+#include "COpenGLTerrainTextureGenerator.h"
 
 namespace mx
 {
@@ -11,8 +12,9 @@ namespace mx
 	{
 
 
-		COpenGLRenderer::COpenGLRenderer()
+		COpenGLRenderer::COpenGLRenderer()			
 		{
+			m_pTerrainTextureGenerator = new COpenGLTerrainTextureGenerator();
 		}
 
 		COpenGLRenderer::~COpenGLRenderer()
@@ -21,6 +23,7 @@ namespace mx
 			{
 				SAFE_DEL(m_vecBuffer[i]);
 			}
+			SAFE_DEL(m_pTerrainTextureGenerator);
 		}
 
 		bool COpenGLRenderer::InitRendererWin32(HDC hDC)
@@ -147,6 +150,11 @@ namespace mx
 				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			//glEnable(GL_CULL_FACE);
 			//glCullFace(GL_FRONT);
+		}
+
+		void COpenGLRenderer::DestroyTexture(ITexture *texture)
+		{
+			SAFE_DEL(texture);
 		}
 
 	}

@@ -40,6 +40,7 @@ namespace mx
 			int GetComponents() const { return m_iComponents; }
 			uint GetFormat() const { return m_uFormat; }
 			unsigned long GetImageSize() { return m_lImageSize; }
+			GLbyte *GetData()const { return m_pData; }
 		private:
 			CString m_filename;
 			TGAHEADER m_tgaHeader;

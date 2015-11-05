@@ -28,11 +28,14 @@ namespace mx
 			short GetRightHeight(uint high, uint low);
 			short GetBottomHeight(uint high, uint low);
 			float GetRandomHeight(float zoom);
+			float GetRandomHeight(short base, short range);
+			short GetMaxAndmin(short &maxValue, short &minValue, short value1, short value2, short value3, short value4);
 		private:
 			uint m_uWidth;			//大小：m_uWidth * m_uWidth
 			short *m_pHeightMap;		//高度图
 			float *m_pMeshData;
-			render::ITexture *m_pTextureArray;
+			render::ITerrainTextureGenerator *m_pTextureGenerator;
+			render::ITexture *m_pTexture;
 			render::IRenderer *m_pRenderer;
 			render::IGPUBuffer *m_pGPUBuffer;
 			render::IRenderableObject *m_pRenderableObject;

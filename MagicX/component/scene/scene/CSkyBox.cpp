@@ -120,8 +120,8 @@ namespace mx
 
 		CSkyBox::~CSkyBox()
 		{
-			SAFE_DEL(m_pTexture);
-			SAFE_DEL(m_pGPUBuffer);
+			m_pRenderer->DestroyTexture(m_pTexture);
+			m_pRenderer->DestroyGPUBuffer(m_pGPUBuffer);			
 			SAFE_DEL_ARRAY(m_pBoxData);
 		}
 
