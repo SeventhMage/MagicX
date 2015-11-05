@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\component\renderer\include\ITerrainTextureGenerator.h" />
     <ClInclude Include="..\..\..\component\renderer\include\ERender.h" />
     <ClInclude Include="..\..\..\component\renderer\include\IBufferObject.h" />
     <ClInclude Include="..\..\..\component\renderer\include\IMaterial.h" />
@@ -23,6 +24,7 @@
     <ClInclude Include="..\..\..\component\renderer\include\Render.h" />
     <ClInclude Include="..\..\..\component\renderer\include\SVertexAttribute.h" />
     <ClInclude Include="..\..\..\component\renderer\renderer\CShaderProgram.h" />
+    <ClInclude Include="..\..\..\component\renderer\renderer\opengl\COpenGLTerrainTextureGenerator.h" />
     <ClInclude Include="..\..\..\component\renderer\renderer\opengl\GLDebug.h" />
     <ClInclude Include="..\..\..\component\renderer\renderer\opengl\COpenGLGPUBuffer.h" />
     <ClInclude Include="..\..\..\component\renderer\renderer\opengl\COpenGLIndexBufferObject.h" />
@@ -45,6 +47,7 @@
     <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLRenderer.cpp" />
     <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLShader.cpp" />
     <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLShaderProgram.cpp" />
+    <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLTerrainTextureGenerator.cpp" />
     <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLTexture.cpp" />
     <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLVertexBufferObject.cpp" />
     <ClCompile Include="..\..\..\component\renderer\renderer\opengl\CTGA.cpp" />

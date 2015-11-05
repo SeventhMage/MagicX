@@ -84,6 +84,12 @@
     <ClInclude Include="..\..\..\component\renderer\include\SVertexAttribute.h">
       <Filter>renderer\opengl</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\include\ITerrainTextureGenerator.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\renderer\renderer\opengl\COpenGLTerrainTextureGenerator.h">
+      <Filter>renderer\opengl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLMaterial.cpp">
@@ -121,6 +127,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\component\renderer\renderer\CShaderProgram.cpp">
       <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLTerrainTextureGenerator.cpp">
+      <Filter>renderer\opengl</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
