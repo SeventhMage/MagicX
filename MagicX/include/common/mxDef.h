@@ -21,7 +21,7 @@ namespace mx
 
 	typedef std::string CString;
 
-	typedef unsigned char Byte;
+	typedef char Byte;
 	typedef unsigned int uint;
 }
 
