@@ -21,7 +21,7 @@ namespace mx
 		bool COpenGLTexture::Create(const char *filename, TextureType texType)
 		{			
 			//glActiveTexture(GL_TEXTURE0);
-			m_textureType = texType;
+			
 			switch (texType)
 			{
 			case TT_1D:
@@ -39,6 +39,7 @@ namespace mx
 
 		bool COpenGLTexture::Create2D(const char *filename)
 		{
+			m_textureType = TT_2D;
 			GLDebug(glBindTexture(GL_TEXTURE_2D, m_hTexture));
 
 			CTGA tga;
