@@ -43,7 +43,7 @@ namespace mx
 			GLDebug(glBindTexture(GL_TEXTURE_2D, m_hTexture));
 
 			CTGA tga;
-			GLbyte *pBytes = tga.ReadTGABits(filename);
+			GLubyte *pBytes = tga.ReadTGABits(filename);
 
 			if (pBytes)
 			{
@@ -80,7 +80,7 @@ namespace mx
 			CTGA tga[6];
 			for (int i = 0; i < 6; i++)
 			{
-				GLbyte *pBytes = tga[i].ReadTGABits(names[i]);
+				GLubyte *pBytes = tga[i].ReadTGABits(names[i]);
 				GLDebug(glTexImage2D(cube[i], 0, tga[i].GetComponents(), tga[i].GetWidth(), tga[i].GetHeight(), 0,
 					tga[i].GetFormat(), GL_UNSIGNED_BYTE, pBytes));
 			}

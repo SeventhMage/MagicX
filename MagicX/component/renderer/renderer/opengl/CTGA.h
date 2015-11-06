@@ -34,13 +34,14 @@ namespace mx
 			CTGA();
 			~CTGA();
 
-			GLbyte *ReadTGABits(const char *filename);
+			GLubyte *ReadTGABits(const char *filename);
+			void WriteTGAFile(const char *filename, char *data, int widht , int height);
 			int GetWidth() const { return m_iWidth; }
 			int GetHeight() const { return m_iHeight; }
 			int GetComponents() const { return m_iComponents; }
 			uint GetFormat() const { return m_uFormat; }
 			unsigned long GetImageSize() { return m_lImageSize; }
-			GLbyte *GetData()const { return m_pData; }
+			GLubyte *GetData()const { return m_pData; }
 		private:
 			CString m_filename;
 			TGAHEADER m_tgaHeader;
@@ -49,7 +50,7 @@ namespace mx
 			int m_iHeight;
 			int m_iComponents;
 			uint m_uFormat;
-			GLbyte *m_pData;
+			GLubyte *m_pData;
 		};
 	}
 }

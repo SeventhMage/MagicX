@@ -58,7 +58,7 @@ namespace mx
 			m_pHeightMap[leftbottom] = (short)GetRandomHeight(zoom);
 			m_pHeightMap[rightbottom] =  (short)GetRandomHeight(zoom);
 
-			RandHeightMapSD(lefttop, righttop, rightbottom, leftbottom, 0.5f);
+			RandHeightMapSD(lefttop, righttop, rightbottom, leftbottom, .5f);
 			
 			FILE *file;
 			fopen_s(&file, "heightMap.txt", "w");
@@ -195,8 +195,7 @@ namespace mx
 				m_pTextureGenerator = m_pRenderer->GetTextureGenerator();
 				if (m_pTextureGenerator)
 				{
-					char *filename[] = {"texture/grass.tga", "texture/land.tga", "texture/snow.tga"};
-					
+					char *filename[] = {"texture/land.tga", "texture/terrain2.tga", "texture/detail2.tga"};					
 					m_pTexture = m_pTextureGenerator->GenerateTextureBit24(m_pHeightMap, m_uWidth + 1, MAX_HEIGHT, filename, 3);
 					m_pRenderableObject->SetTexture(m_pTexture);
 				}
@@ -250,7 +249,7 @@ namespace mx
 
 		float CTerrainEntity::GetRandomHeight(float zoom)
 		{
-			int scale = (int)(zoom * MAX_HEIGHT);
+			int scale = (int)(zoom * (MAX_HEIGHT + 1));
 			if (scale == 0)
 				return 0;
 			return  (rand() % scale - scale * 0.5f);

@@ -17,7 +17,7 @@ namespace mx
 		CTGA::~CTGA()
 		{
 		}
-		GLbyte * CTGA::ReadTGABits(const char * filename)
+		GLubyte * CTGA::ReadTGABits(const char * filename)
 		{
 			FILE *pFile;			// File pointer
 			short sDepth;			// Pixel depth;
@@ -27,6 +27,7 @@ namespace mx
 			if (pFile == NULL)
 			{
 				printf("Openfile %s failed\n", filename);
+				assert(false);
 				return NULL;
 			}
 			// Read in header (binary)
@@ -51,22 +52,27 @@ namespace mx
 			// Put some validity checks here. Very simply, I only understand
 			// or care about 8, 24, or 32 bit targa's.
 			if (m_tgaHeader.bits != 8 && m_tgaHeader.bits != 24 && m_tgaHeader.bits != 32)
+			{
+				assert(false);
 				return NULL;
-
+			}
 			// Calculate size of image buffer
 			m_lImageSize = m_tgaHeader.width * m_tgaHeader.height * sDepth;
 
 			// Allocate memory and check for success
-			m_pData = (GLbyte*)malloc(m_lImageSize * sizeof(GLbyte));
+			m_pData = (GLubyte*)malloc(m_lImageSize * sizeof(GLubyte));
 			if (m_pData == NULL)
+			{
+				assert(false);
 				return NULL;
-
+			}
 			// Read in the bits
 			// Check for read error. This should catch RLE or other 
 			// weird formats that I don't want to recognize
 			if (fread(m_pData, m_lImageSize, 1, pFile) != 1)
 			{
 				free(m_pData);
+				assert(false);
 				return NULL;
 			}
 
@@ -111,5 +117,29 @@ namespace mx
 			// Return pointer to image data
 			return m_pData;
 		}
+
+		void CTGA::WriteTGAFile(const char *filename, char *data, int width, int height)
+		{
+			FILE *pFile = NULL;
+			fopen_s(&pFile, filename, "w");
+			if (pFile)
+			{
+				m_tgaHeader.identsize = 0;
+				m_tgaHeader.colorMapType = 0;
+				m_tgaHeader.imageType = 2;
+				m_tgaHeader.colorMapStart = 0;
+				m_tgaHeader.colorMapLength = 0;
+				m_tgaHeader.xstart = 0;
+				m_tgaHeader.ystart = 0;
+				m_tgaHeader.width = width;
+				m_tgaHeader.height = height;
+				m_tgaHeader.bits = 24;
+				m_tgaHeader.descriptor = 32;
+				fwrite(&m_tgaHeader, sizeof(m_tgaHeader), 1, pFile);
+				fwrite(data, width * height * 3, 1, pFile);
+				fclose(pFile);
+			}
+		}
+
 	}
 }

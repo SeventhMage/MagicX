@@ -55,7 +55,7 @@ namespace mx
 			uint k = 0;
 			for (uint i = 0; i < (hmWidth - 1); ++i)
 			{
-				for (uint j = 0; j < (hmWidth - 1) * 3; ++j)
+				for (uint j = 0; j < (hmWidth - 1); ++j)
 				{
 					short height = heightMap[i * (hmWidth - 1) + j];
 					for (int p = 0; p < imgNum; ++p)
@@ -63,20 +63,27 @@ namespace mx
 						if (height >= heightRange[p].minRange && height <= heightRange[p].maxRange)
 						{
 							float rate = 1.0f;
-							if (height < heightRange[p].leftMixPos)							
+							if (height < heightRange[p].leftMixPos)
 								rate = (height - heightRange[p].minRange) / (heightRange[p].leftMixPos - heightRange[p].minRange);
-							else if (height > heightRange[p].rightMixPos)							
+							else if (height > heightRange[p].rightMixPos)
 								rate = (heightRange[p].maxRange - height) / (heightRange[p].maxRange - heightRange[p].rightMixPos);
 							
-							uint pos = ((i % (tgas[p].GetWidth() * 3)) * 3 * tgas[p].GetWidth()) + j % (tgas[p].GetWidth() * 3);
-
-							destData[k] += (tgas[p].GetData()[pos]) * rate;
+							uint pos = /*i * tgas[p].GetWidth() * 3 + j * 3*/ ((i % (tgas[p].GetWidth() * 3)) * 3 * tgas[p].GetWidth()) + (j * 3) % (tgas[p].GetWidth() * 3);
+							
+							destData[k] += (tgas[p].GetData()[pos++]) * rate;						
+							destData[k+1] += (tgas[p].GetData()[pos++]) * rate;							
+							destData[k+2] += (tgas[p].GetData()[pos++]) * rate;
 						}
 					}
-					++k;
+					k += 3;
 				}
 			}
-			
+// 			for (uint i = 0; i < tgas[1].GetImageSize(); ++i)
+// 			{
+// 				//printf("%-5d%-5d", destData[i], tgas[1].GetData()[i]);
+// 				if (abs(destData[i] != tgas[1].GetData()[i]))
+// 					getchar();
+// 			}
 			COpenGLTexture *texture = new COpenGLTexture();
 			if (texture->Create2DBit24(destData, hmWidth - 1, hmWidth - 1))
 			//if (texture->Create2D("texture/1.tga"))
@@ -87,6 +94,9 @@ namespace mx
 			{
 				SAFE_DEL(texture);
 			}
+			CTGA tgaWrite;
+			
+			tgaWrite.WriteTGAFile("terrainmap.tga", (char *)destData, hmWidth - 1, hmWidth - 1);
 			SAFE_DEL_ARRAY(destData);
 			SAFE_DEL_ARRAY(heightRange);
 			return texture;
