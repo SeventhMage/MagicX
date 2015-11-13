@@ -196,10 +196,17 @@ namespace mx
 					forwards.y * pseudoMatrix[5] +
 					forwards.z * pseudoMatrix[8]));
 			}
-
-			T x;
-			T y;
-			T z;
+			union
+			{
+				struct  
+				{
+					T x, y, z;
+				};
+				T v[3];
+			};
+// 			T x;
+// 			T y;
+// 			T z;
 		};
 
 		template <>
