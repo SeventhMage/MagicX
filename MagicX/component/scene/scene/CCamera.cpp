@@ -25,7 +25,7 @@ namespace mx
 			,m_farClip(far)
 		{
 			CMatrix4 mat4;
-			UpdateImp(0, mat4);
+			UpdateImp(0, mat4, mat4);
 		}
 
 		CCamera::~CCamera()
@@ -66,7 +66,7 @@ namespace mx
 			return m_up;
 		}
 
-		void CCamera::UpdateImp(int elapsedTime, const CMatrix4 &mat4)
+		void CCamera::UpdateImp(int elapsedTime, const CMatrix4 &mat4MVP, const CMatrix4 &mat4MV)
 		{
 			if (m_bNeedUpdateView)
 			{				

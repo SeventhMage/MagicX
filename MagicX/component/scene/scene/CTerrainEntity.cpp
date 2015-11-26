@@ -23,7 +23,7 @@ namespace mx
 			m_pHeightMap = new short[(width + 1) * (width + 1)];
 			memset(m_pHeightMap, 0, sizeof(short) * ((width + 1) * (width + 1)));
 
-			m_pMeshData = new float[6 * 5 * width * width];
+			m_pMeshData = new CMesh((width+1) * (width+1), (width + 1) * 2 * width);
 
 		}
 		CTerrainEntity::~CTerrainEntity()
@@ -33,7 +33,7 @@ namespace mx
 				m_pRenderer->DestroyGPUBuffer(m_pGPUBuffer);
 			if (m_pTextureGenerator)
 				m_pTextureGenerator->DestroyTexture(m_pTexture);
-			
+			SAFE_DEL(m_pMeshData);
 		}
 
 		void CTerrainEntity::RandGenerateMesh()
@@ -58,7 +58,7 @@ namespace mx
 			m_pHeightMap[leftbottom] = (short)GetRandomHeight(zoom);
 			m_pHeightMap[rightbottom] =  (short)GetRandomHeight(zoom);
 
-			RandHeightMapSD(lefttop, righttop, rightbottom, leftbottom, .5f);
+			RandHeightMapSD(lefttop, righttop, rightbottom, leftbottom, 0.5f);
 			
 			FILE *file;
 			fopen_s(&file, "heightMap.txt", "w");
@@ -80,11 +80,6 @@ namespace mx
 			if (righttop - lefttop <= 1)
 				return;
 
-			//short maxValue = 0;
-			//short minValue = 0;
-
-			//short range = GetMaxAndmin(maxValue, minValue, m_pHeightMap[lefttop], m_pHeightMap[righttop], m_pHeightMap[rightbottom], m_pHeightMap[leftbottom]);
-
 			int curmid = (leftbottom - righttop) / 2 + righttop;
 			m_pHeightMap[curmid] = (short)(((m_pHeightMap[lefttop] + m_pHeightMap[righttop] + m_pHeightMap[leftbottom] + m_pHeightMap[rightbottom]) / 4.0f) + GetRandomHeight(zoom));
 			
@@ -93,16 +88,16 @@ namespace mx
 			int right = righttop + (rightbottom - righttop) / 2;
 			int bottom = leftbottom + (rightbottom - leftbottom) / 2;
 			
-			// range = GetMaxAndmin(maxValue, minValue, m_pHeightMap[lefttop], m_pHeightMap[curmid], m_pHeightMap[rightbottom], GetLeftHeight(curmid, left));
+			
 			m_pHeightMap[left] = (short)((m_pHeightMap[lefttop] + m_pHeightMap[curmid] + m_pHeightMap[leftbottom] + GetLeftHeight(curmid, left)) / 4 + GetRandomHeight(zoom));
 			
-			 //range = GetMaxAndmin(maxValue, minValue, m_pHeightMap[lefttop], m_pHeightMap[curmid], m_pHeightMap[righttop], GetLeftHeight(curmid, top));
+			
 			m_pHeightMap[top] = (short)((m_pHeightMap[lefttop] + m_pHeightMap[curmid] + m_pHeightMap[righttop] + GetTopHeight(curmid, top)) / 4 + GetRandomHeight(zoom));
 			
-			//range = GetMaxAndmin(maxValue, minValue, m_pHeightMap[curmid], m_pHeightMap[righttop], m_pHeightMap[rightbottom], GetLeftHeight(right, curmid));
+			
 			m_pHeightMap[right] = (short)((m_pHeightMap[curmid], m_pHeightMap[righttop] + m_pHeightMap[rightbottom] + GetRightHeight(right, curmid)) / 4 + GetRandomHeight(zoom));
 			
-			 //range = GetMaxAndmin(maxValue, minValue, m_pHeightMap[leftbottom], m_pHeightMap[curmid], m_pHeightMap[rightbottom], GetLeftHeight(bottom, curmid));
+			
 			m_pHeightMap[bottom] = (short)((m_pHeightMap[leftbottom] + m_pHeightMap[curmid] + m_pHeightMap[rightbottom] + GetBottomHeight(bottom, curmid)) / 4 + GetRandomHeight(zoom));
 
 			RandHeightMapSD(lefttop, top, curmid, left, zoom * 0.5f);
@@ -118,56 +113,64 @@ namespace mx
 
 		void CTerrainEntity::GenerateMesh()
 		{
+			//生成顶点
+			SVertex *pVertices = m_pMeshData->GetVertices();			
 			int k = 0;
 			for (uint i = 0; i < m_uWidth; ++i)
 			{
 				for (uint j = 0; j < m_uWidth; ++j)
 				{
-					m_pMeshData[k++] = (float)j - m_uWidth / 2;
-					m_pMeshData[k++] = (float)GetHeight(j, i);
-					m_pMeshData[k++] = (float)i - m_uWidth / 2; 
-					
-					m_pMeshData[k++] = 1.0f * j / (m_uWidth + 1);
-					m_pMeshData[k++] = 1.0f * i / (m_uWidth + 1);
-
-					m_pMeshData[k++] = (float)j - m_uWidth / 2;
-					m_pMeshData[k++] = (float)GetHeight(j, i + 1);
-					m_pMeshData[k++] = (float)i + 1 - m_uWidth / 2; 
-
-					m_pMeshData[k++] = 1.0f * j / (m_uWidth + 1);
-					m_pMeshData[k++] = 1.0f * (i + 1)/ (m_uWidth + 1);
-
-					m_pMeshData[k++] = (float)j + 1 - m_uWidth / 2;
-					m_pMeshData[k++] = (float)GetHeight(j + 1, i);
-					m_pMeshData[k++] = (float)i - m_uWidth / 2; 
-
-					m_pMeshData[k++] = 1.0f * (j +1) / (m_uWidth + 1);
-					m_pMeshData[k++] = 1.0f * i / (m_uWidth + 1);
-
-					m_pMeshData[k++] = (float)j + 1 - m_uWidth / 2;
-					m_pMeshData[k++] = (float)GetHeight(j + 1, i);
-					m_pMeshData[k++] = (float)i - m_uWidth / 2;
-
-					m_pMeshData[k++] = 1.0f * (j + 1) / (m_uWidth + 1);
-					m_pMeshData[k++] = 1.0f * i / (m_uWidth + 1);
-
-					m_pMeshData[k++] = (float)j - m_uWidth / 2;
-					m_pMeshData[k++] = (float)GetHeight(j, i + 1);
-					m_pMeshData[k++] = (float)i + 1 - m_uWidth / 2; 
-
-					m_pMeshData[k++] = 1.0f * j / (m_uWidth + 1);
-					m_pMeshData[k++] = 1.0f * (i + 1) / (m_uWidth + 1);
-
-					m_pMeshData[k++] = (float)j + 1 - m_uWidth / 2;
-					m_pMeshData[k++] = (float)GetHeight(j + 1, i + 1);
-					m_pMeshData[k++] = (float)i + 1 - m_uWidth / 2; 
-
-					m_pMeshData[k++] = 1.0f * (j + 1) / (m_uWidth + 1);
-					m_pMeshData[k++] = 1.0f * (i + 1) / (m_uWidth + 1);
+					pVertices[k].vPosition = CVector3((float)j - m_uWidth / 2, (float)GetHeight(j, i), (float)i - m_uWidth / 2);
+					pVertices[k].u = 1.0f * j / (m_uWidth + 1);
+					pVertices[k].v = 1.0f * i / (m_uWidth + 1);
+					++k;
 				}
 			}
 
-			m_pGPUBuffer = m_pRenderer->CreateGPUBuffer(5 * sizeof(float));
+			//生成索引
+			uint i = 0;
+			int z = 0;
+			uint *pIndices = m_pMeshData->GetIndices();
+			while (z < m_uWidth - 1)
+			{
+				for (int x = 0; x < m_uWidth; x++)
+				{
+					pIndices[i++] = x + z * m_uWidth;
+					pIndices[i++] = x + (z + 1) * m_uWidth;
+				}
+				z++;
+
+				if (z < m_uWidth - 1)
+				{
+					for (int x = m_uWidth - 1; x >= 0; x--)
+					{
+						pIndices[i++] = x + (z + 1) * m_uWidth;
+						pIndices[i++] = x + z * m_uWidth;
+					}
+				}
+				z++;
+			}
+
+
+			//生成法线
+			for (uint i = 0; i < m_pMeshData->GetIndicesNum() - 3; i += 3) 
+			{
+				unsigned int Index0 = pIndices[i];
+				unsigned int Index1 = pIndices[i + 1];
+				unsigned int Index2 = pIndices[i + 2];
+				CVector3 v1 = pVertices[Index1].vPosition - pVertices[Index0].vPosition;
+				CVector3 v2 = pVertices[Index2].vPosition - pVertices[Index0].vPosition;
+				CVector3 vNormal = v1.crossProduct(v2);
+				vNormal.normalize();
+				pVertices[Index0].vNormal += vNormal;
+				pVertices[Index1].vNormal += vNormal;
+				pVertices[Index2].vNormal += vNormal;
+			}
+			for (unsigned int i = 0; i < m_pMeshData->GetVerticesNum(); ++i) {
+				pVertices[i].vNormal.normalize();
+			}
+
+			m_pGPUBuffer = m_pRenderer->CreateGPUBuffer(sizeof(SVertex));
 			if (m_pGPUBuffer)
 			{
 				m_pRenderableObject = m_pGPUBuffer->CreateRenderableObject();
@@ -178,16 +181,21 @@ namespace mx
 					{
 						shaderProgram->Attach("shader/terrain.ver", render::ST_VERTEX);
 						shaderProgram->Attach("shader/terrain.frg", render::ST_FRAGMENT);
-						shaderProgram->BindAttributeLocation(2, render::VAL_POSITION, render::VAL_TEXTURE0);
+						shaderProgram->BindAttributeLocation(3, render::VAL_POSITION, render::VAL_TEXTURE0, render::VAL_NORMAL);
 						shaderProgram->Link();
 						int iTextureUnit = 0;
 						shaderProgram->SetUniform("textureUnit0", &iTextureUnit);
+						shaderProgram->SetUniform("ambientColor", CVector3(0.8f, 0.8f, 0.8f).v);
+						shaderProgram->SetUniform("diffuseColor", CVector3(0.1f, 0.1f, 1.f).v);
+						shaderProgram->SetUniform("specularColor", CVector3(1.0f, 1.0f, 1.0f).v);
 					}
 				}
 				m_pGPUBuffer->Begin();
-				m_pGPUBuffer->CreateVertexBuffer(m_pRenderableObject, m_pMeshData, sizeof(float) * (6 * 5 * m_uWidth * m_uWidth), 0, 6 * 3 * m_uWidth * m_uWidth, render::GBM_TRIANGLES, render::GBU_DYNAMIC_DRAW);
+				m_pGPUBuffer->CreateVertexBuffer(m_pRenderableObject, m_pMeshData->GetVertices(), m_pMeshData->GetVerticesNum() * sizeof(SVertex), 0, m_pMeshData->GetVerticesNum(), render::GBM_TRIANGLE_STKIP, render::GBU_DYNAMIC_DRAW);
+				m_pGPUBuffer->CreateIndexBuffer(m_pRenderableObject, m_pMeshData->GetIndices(), m_pMeshData->GetIndicesNum(), render::RVT_UINT, m_pMeshData->GetVerticesNum(), render::GBM_TRIANGLE_STKIP, render::GBU_DYNAMIC_DRAW);
 				m_pGPUBuffer->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, 0);
-				m_pGPUBuffer->EnableVertexAttrib(render::VAL_TEXTURE0, 2, render::RVT_FLOAT, sizeof(float) * 3);
+				m_pGPUBuffer->EnableVertexAttrib(render::VAL_TEXTURE0, 2, render::RVT_FLOAT, sizeof(float) * 6);
+				m_pGPUBuffer->EnableVertexAttrib(render::VAL_NORMAL, 3, render::RVT_FLOAT, sizeof(float) * 3);
 
 				m_pGPUBuffer->End();
 
@@ -195,22 +203,24 @@ namespace mx
 				m_pTextureGenerator = m_pRenderer->GetTextureGenerator();
 				if (m_pTextureGenerator)
 				{
-					char *filename[] = {"texture/land.tga", "texture/terrain2.tga", "texture/detail2.tga"};					
+					char *filename[] = {"texture/land.tga", "texture/grass.tga", "texture/snow.tga"};					
 					m_pTexture = m_pTextureGenerator->GenerateTextureBit24(m_pHeightMap, m_uWidth + 1, MAX_HEIGHT, filename, 3);
 					m_pRenderableObject->SetTexture(m_pTexture);
 				}
 			}
 		}
 
-		void CTerrainEntity::UpdateImp(int elapsedTime, const CMatrix4 &mat4ViewProj)
+		void CTerrainEntity::UpdateImp(int elapsedTime, const CMatrix4 &mat4MVP, const CMatrix4 &mat4MV)
 		{
 			if (m_pRenderableObject)
 			{
 				render::IShaderProgram *shaderProgram = m_pRenderableObject->GetShaderProgram();
 				if (shaderProgram)
 				{
-					shaderProgram->SetUniform("mvpMatrix", (void *)mat4ViewProj.m);
-					
+					shaderProgram->SetUniform("mvpMatrix", (void *)mat4MVP.m);
+					shaderProgram->SetUniform("mvMatrix", (void *)mat4MV.m);
+					shaderProgram->SetUniform("normalMatrix", (void *)mat4MV.m);
+					shaderProgram->SetUniform("vLightPosition", (void *)CVector3(100, 100, 100).v);
 				}
 			}
 		}

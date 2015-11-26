@@ -4,6 +4,7 @@
 #include "../include/ITerrainSceneNode.h"
 #include "ITexture.h"
 #include "IRenderer.h"
+#include "CMesh.h"
 
 namespace mx
 {
@@ -20,8 +21,8 @@ namespace mx
 			void RandHeightMap();
 			void RandHeightMapSD(int lefttop, int righttop, int rightbottom, int leftbottom, float zoom);
 			short GetHeight(uint x, uint y);
-			void GenerateMesh();
-			virtual void UpdateImp(int elapsedTime, const CMatrix4 &mat4ViewProj);
+			void GenerateMesh();	
+			virtual void UpdateImp(int elapsedTime, const CMatrix4 &mat4MVP, const CMatrix4 &mat4MV);
 		private:
 			short GetLeftHeight(uint high, uint low);
 			short GetTopHeight(uint high, uint low);
@@ -33,13 +34,13 @@ namespace mx
 		private:
 			uint m_uWidth;			//大小：m_uWidth * m_uWidth
 			short *m_pHeightMap;		//高度图
-			float *m_pMeshData;
+			CMesh *m_pMeshData;
 			render::ITerrainTextureGenerator *m_pTextureGenerator;
 			render::ITexture *m_pTexture;
 			render::IRenderer *m_pRenderer;
 			render::IGPUBuffer *m_pGPUBuffer;
 			render::IRenderableObject *m_pRenderableObject;
-			static const int MAX_HEIGHT = 64;
+			static const int MAX_HEIGHT = 256;
 		};
 	}
 }

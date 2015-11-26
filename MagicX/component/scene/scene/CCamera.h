@@ -42,7 +42,7 @@ namespace mx
 			virtual void SetNeedUpdateViewMatrix() { m_bNeedUpdateView = true; }
 			virtual void SetNeedUpdateProjectionMatrix() { m_bNeedUpdateProj = true; };
 
-			virtual void UpdateImp(int elapsedTime, const CMatrix4 &mat4);
+			virtual void UpdateImp(int elapsedTime, const CMatrix4 &mat4MVP, const CMatrix4 &mat4MV);
 		protected:
 			CMatrix4 m_matView;
 			CMatrix4 m_matProj;
