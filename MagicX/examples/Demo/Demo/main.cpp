@@ -96,11 +96,13 @@ int main(int argc, char *argv[])
 			{ 0, 5.0f, 0, 1.0f, 0.5f, 0 },
 		};
 		
+		uint indices[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+		/*
 		IGPUBuffer *buffer = renderer->CreateGPUBuffer(sizeof(Vertex));
 		
 		if (buffer)
 		{
-			/*
+			
 			IRenderableObject *renderableObject = buffer->CreateRenderableObject();
 			if (renderableObject)
 			{
@@ -131,6 +133,7 @@ int main(int argc, char *argv[])
 			}
 			buffer->Begin();
 			buffer->CreateVertexBuffer(renderableObject, pyramid, sizeof(pyramid), 0, 9, GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
+			buffer->CreateIndexBuffer(renderableObject, indices, 9, RVT_UINT, 9, GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
 			//buffer->AddVertexData(renderableObject, triangle1, sizeof(triangle1), 0);
 			//buffer->AddVertexData(renderableObject, color, sizeof(color), sizeof(triangle));
 			//buffer->AddVertexData(renderableObject, texture, sizeof(texture), sizeof(triangle1));
@@ -146,7 +149,7 @@ int main(int argc, char *argv[])
 			
 			CSceneManager sceneMgr(renderer);
 			IScene *scene = sceneMgr.CreateScene();
-			ICameraSceneNode *camera = sceneMgr.CreateCamera(CVector3(0, 60, 0), CVector3(0, 0, -1), CVector3(0, 1, 0), core::PI / 3.0f, 1.0f * device->GetHeight() / device->GetWidth(), 1, 5000.0f);
+			ICameraSceneNode *camera = sceneMgr.CreateCamera(CVector3(0, 50, 0), CVector3(0, 0, -1), CVector3(0, 1, 0), core::PI / 3.0f, 1.0f * device->GetHeight() / device->GetWidth(), 1, 5000.0f);
 			scene->SetupCamera(camera);
 
 			ISkyBoxSceneNode *skybox = sceneMgr.CreateSkyBox("texture/front.tga", "texture/back.tga", "texture/left.tga", "texture/right.tga", "texture/top.tga", "texture/cloud.tga", 500);
@@ -198,12 +201,12 @@ int main(int argc, char *argv[])
 							dir.rotateXZBy(rotY);
 							up.rotateXZBy(rotY);
 
-// 
-// 							CMatrix4 mat4;
-// 							mat4.setRotationAxisRadians(rotX, xAxis);
-// 							mat4.rotate(pos);
-// 							mat4.rotate(dir);
-// 							mat4.rotate(up);
+ /*
+ 							CMatrix4 mat4;
+ 							mat4.setRotationAxisRadians(rotX, xAxis);
+ 							mat4.rotate(pos);
+ 							mat4.rotate(dir);
+ 							mat4.rotate(up);*/
 
 							
 							camera->SetPosition(pos);
@@ -249,7 +252,7 @@ int main(int argc, char *argv[])
 
 	
 
-	}
+	//}
 	
 	//driver->Run();
 
