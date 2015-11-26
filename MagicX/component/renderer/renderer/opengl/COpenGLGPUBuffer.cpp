@@ -56,10 +56,10 @@ namespace mx
 			GLDebug(glVertexAttribPointer(val, size, GetGLVariableType(vertType), false, m_stride, (GLvoid *)offset));
 		}
 
-		void COpenGLGPUBuffer::CreateIndexBuffer(IRenderableObject *object, void * indices, int idxCount, RendererVariableType idxType, GPUBufferMode mode, GPUBufferUsage usage)
+		void COpenGLGPUBuffer::CreateIndexBuffer(IRenderableObject *object, void * indices, uint idsCount, RendererVariableType idsType, uint vertNum, GPUBufferMode mode, GPUBufferUsage usage)
 		{
 			if (object)
-				object->CreateIndexBufferObject(indices, idxCount, idxType, mode, usage);
+				object->CreateIndexBufferObject(indices, idsCount, idsType, vertNum, mode, usage);
 		}
 		void COpenGLGPUBuffer::End()
 		{
@@ -89,8 +89,8 @@ namespace mx
 						if (vio)
 						{
 							GLDebug(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vio->GetHandle()));
-							GLDebug(glDrawElements(GetGLGPUBufferMode(vio->GetGPUBufferMode()), vio->GetVertexNum(), 
-								GetGLVariableType(vio->GetIndexType()), vio->GetIndexBufferData()));
+							GLDebug(glDrawElements(GetGLGPUBufferMode(vio->GetGPUBufferMode()), vio->GetVerticesNum(),
+								GetGLVariableType(vio->GetIndexType()),0));
 						}
 					}
 					else

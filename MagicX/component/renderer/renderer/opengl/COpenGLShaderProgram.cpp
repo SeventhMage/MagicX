@@ -94,10 +94,13 @@ namespace mx
 						GLDebug(glUniform1iv(uniform.m_location, uniform.m_count, (GLint *)uniform.m_value));
 						break;
 					case UF_VEC2:
+						GLDebug(glUniform2fv(uniform.m_location, uniform.m_count, (GLfloat *)uniform.m_value));
 						break;
 					case UF_VEC3:
+						GLDebug(glUniform3fv(uniform.m_location, uniform.m_count, (GLfloat *)uniform.m_value));
 						break;
 					case UF_VEC4:
+						GLDebug(glUniform4fv(uniform.m_location, uniform.m_count, (GLfloat *)uniform.m_value));
 						break;
 					case UF_MAT4:
 						GLDebug(glUniformMatrix4fv(uniform.m_location, uniform.m_count, GL_FALSE, (GLfloat *)uniform.m_value));
@@ -133,6 +136,7 @@ namespace mx
 					uniform.m_format = GetUniformFormat(type);
 					uniform.m_name = name;
 					uniform.m_size = GetUniformTypeSize(uniform.m_format);
+					uniform.m_location = i;
 
 					m_uniforms[i] = uniform;
 				}

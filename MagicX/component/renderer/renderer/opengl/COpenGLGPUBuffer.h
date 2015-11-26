@@ -24,7 +24,7 @@ namespace mx
 			virtual void CreateVertexBuffer(IRenderableObject *object, void *vertexes, int size, int first, int vertexCount, GPUBufferMode mode, GPUBufferUsage usage);
 			virtual void AddVertexData(IRenderableObject *object, void *data, int size, int offset);
 			virtual void EnableVertexAttrib(VertexAttributeLocation vai, int size, RendererVariableType vertType, int offset);
-			virtual void CreateIndexBuffer(IRenderableObject *object, void *indices, int idxCount, RendererVariableType idxType, GPUBufferMode mode, GPUBufferUsage usage);
+			virtual void CreateIndexBuffer(IRenderableObject *object, void *indices, uint idsCount, RendererVariableType idxType, uint vertNum, GPUBufferMode mode, GPUBufferUsage usage);
 			virtual void End();
 
 			virtual void Render();

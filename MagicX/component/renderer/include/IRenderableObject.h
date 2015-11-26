@@ -15,7 +15,7 @@ namespace mx
 			virtual ~IRenderableObject() {};
 
 			virtual void CreateVertexBufferObject(void *vertexes, int size, int first, int count, GPUBufferMode mode, GPUBufferUsage usage) = 0;
-			virtual void CreateIndexBufferObject(void *indices, int idxCount, RendererVariableType idxType, GPUBufferMode mode, GPUBufferUsage usage) = 0;
+			virtual void CreateIndexBufferObject(void *indices, uint idsCount, RendererVariableType idsType, uint vertCount, GPUBufferMode mode, GPUBufferUsage usage) = 0;
 			virtual IBufferObject *GetVertexBufferObject() = 0;
 			virtual IBufferObject *GetIndexBufferObject() = 0;
 			virtual IShaderProgram *GetShaderProgram() = 0;

@@ -16,7 +16,7 @@ namespace mx
 			virtual ~COpenGLRenderableObject();
 
 			virtual void CreateVertexBufferObject(void *vertexes, int size, int first, int vertexCount, GPUBufferMode mode, GPUBufferUsage usage);
-			virtual void CreateIndexBufferObject(void *indices, int idxCount, RendererVariableType idxType, GPUBufferMode mode, GPUBufferUsage usage);
+			virtual void CreateIndexBufferObject(void *indices, uint idsCount, RendererVariableType idsType, uint vertCount, GPUBufferMode mode, GPUBufferUsage usage);
 			virtual IShaderProgram *GetShaderProgram() { return m_shaderProgram; }
 			virtual IBufferObject *GetVertexBufferObject() { return m_VBO; }
 			virtual IBufferObject *GetIndexBufferObject() { return m_IBO; }

@@ -41,6 +41,40 @@ namespace mx
 			return GL_FLOAT;
 		}
 
+		static uint GetGLVariableSize(RendererVariableType vat)
+		{
+			switch (vat)
+			{
+			case RVT_BYTE:
+				return 1;
+			case RVT_UBYTE:
+				return 1;
+			case RVT_SHORT:
+				return 2;
+			case RVT_USHORT:
+				return 2;
+			case RVT_INT:
+				return 4;
+			case RVT_UINT:
+				return 4;
+			case RVT_FIXED:
+				return 4;
+			case RVT_FLOAT:
+				return 4;
+			case RVT_HALF_FLOAT:
+				return 4;
+			case RVT_DOUBLE:
+				return 8;
+			case RVT_INT_2_10_10_10_REV:
+				return 4;
+			case RVT_UINT_2_10_10_10_REV:
+				return 4;
+			default:
+				break;
+			}
+			return 4;
+		}
+
 		static int GetGLGPUBufferMode(GPUBufferMode mode)
 		{
 			switch (mode)

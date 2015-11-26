@@ -27,9 +27,9 @@ namespace mx
 		{
 			m_VBO = new COpenGLVertexBufferObject(vertexes, size, first, vertexCount, mode, usage);
 		}
-		void COpenGLRenderableObject::CreateIndexBufferObject(void * indices, int idxCount, RendererVariableType idxType, GPUBufferMode mode, GPUBufferUsage usage)
+		void COpenGLRenderableObject::CreateIndexBufferObject(void * indices, uint idsCount, RendererVariableType idsType, uint vertCount, GPUBufferMode mode, GPUBufferUsage usage)
 		{
-			m_IBO = new COpenGLIndexBufferObject(indices, idxCount, idxType, mode, usage);
+			m_IBO = new COpenGLIndexBufferObject(indices, idsCount, idsType, vertCount, mode, usage);
 			m_bEnableIndexBuffer = true;
 		}
 
