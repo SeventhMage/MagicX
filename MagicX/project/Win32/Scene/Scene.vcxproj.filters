@@ -51,6 +51,9 @@
     <ClInclude Include="..\..\..\component\scene\scene\CTerrainEntity.h">
       <Filter>scene</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\component\scene\scene\CMesh.h">
+      <Filter>scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\component\scene\scene\CFrustum.cpp">
@@ -72,6 +75,9 @@
       <Filter>scene</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\component\scene\scene\CTerrainEntity.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\scene\scene\CMesh.cpp">
       <Filter>scene</Filter>
     </ClCompile>
   </ItemGroup>

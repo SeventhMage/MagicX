@@ -21,6 +21,7 @@
     <ClInclude Include="..\..\..\component\scene\include\IWaterSceneNode.h" />
     <ClInclude Include="..\..\..\component\scene\scene\CCamera.h" />
     <ClInclude Include="..\..\..\component\scene\scene\CFrustum.h" />
+    <ClInclude Include="..\..\..\component\scene\scene\CMesh.h" />
     <ClInclude Include="..\..\..\component\scene\scene\CScene.h" />
     <ClInclude Include="..\..\..\component\scene\scene\CSceneNode.h" />
     <ClInclude Include="..\..\..\component\scene\scene\CSkyBox.h" />
@@ -29,6 +30,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\component\scene\scene\CCamera.cpp" />
     <ClCompile Include="..\..\..\component\scene\scene\CFrustum.cpp" />
+    <ClCompile Include="..\..\..\component\scene\scene\CMesh.cpp" />
     <ClCompile Include="..\..\..\component\scene\scene\CScene.cpp" />
     <ClCompile Include="..\..\..\component\scene\scene\CSceneManager.cpp" />
     <ClCompile Include="..\..\..\component\scene\scene\CSceneNode.cpp" />
