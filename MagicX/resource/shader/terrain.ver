@@ -20,7 +20,8 @@ void main()
 	vVaryingNormal = (normalMatrix * vNormal).xyz;
 	vec4 vPosition4 = mvMatrix * vec4(vPosition.xyz, 1.0f);
 	vec3 vPosition3 = vPosition4.xyz / vPosition4.w;
-	vVaryingLightDir = normalize(vLightPosition - vPosition3);
+	vec3 vViewLight = mat3(mvMatrix) * vLightPosition;
+	vVaryingLightDir = normalize(vViewLight - vPosition3);
 	
 	vTex = vTexCoord0;
 	
