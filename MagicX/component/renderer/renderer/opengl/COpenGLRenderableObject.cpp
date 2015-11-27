@@ -14,7 +14,7 @@ namespace mx
 			, m_texture(NULL)
 		{
 			glEnable(GL_DEPTH_TEST);
-		//	glEnable(GL_CULL_FACE);
+			glEnable(GL_CULL_FACE);
 			m_shaderProgram = new COpenGLShaderProgram();
 		}
 		COpenGLRenderableObject::~COpenGLRenderableObject()

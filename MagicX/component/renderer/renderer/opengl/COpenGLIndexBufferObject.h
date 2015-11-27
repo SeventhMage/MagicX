@@ -22,6 +22,7 @@ namespace mx
 			virtual GPUBufferMode GetGPUBufferMode() { return m_gpuBufferMode; }
 			virtual GPUBufferUsage GetGPUBufferUsage() { return m_gpuBufferUsage; }
 			virtual int GetVerticesNum() { return m_uVerticesNum; }
+			virtual int GetIndicesNum() { return m_uIndicesNum; }
 			virtual uint GetHandle() { return m_IBO; }
 
 			
@@ -33,6 +34,7 @@ namespace mx
 			GPUBufferMode m_gpuBufferMode;
 			GPUBufferUsage m_gpuBufferUsage;
 			uint m_uVerticesNum;
+			uint m_uIndicesNum;
 		};
 	}
 }

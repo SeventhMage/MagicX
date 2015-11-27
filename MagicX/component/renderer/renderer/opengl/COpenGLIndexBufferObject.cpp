@@ -11,6 +11,7 @@ namespace mx
 			:m_gpuBufferMode(mode)
 			, m_gpuBufferUsage(usage)
 			, m_uVerticesNum(vertCount)
+			, m_uIndicesNum(idsCount)
 		{
 			GLDebug(glGenBuffers(1, &m_IBO));
 			GLDebug(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO));

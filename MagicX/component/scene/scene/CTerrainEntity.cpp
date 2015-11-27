@@ -185,8 +185,8 @@ namespace mx
 						shaderProgram->Link();
 						int iTextureUnit = 0;
 						shaderProgram->SetUniform("textureUnit0", &iTextureUnit);
-						shaderProgram->SetUniform("ambientColor", CVector3(0.8f, 0.8f, 0.8f).v);
-						shaderProgram->SetUniform("diffuseColor", CVector3(0.1f, 0.1f, 1.f).v);
+						shaderProgram->SetUniform("ambientColor", CVector3(.2f, .2f, .2f).v);
+						shaderProgram->SetUniform("diffuseColor", CVector3(0.8f, 0.8f, 0.8f).v);
 						shaderProgram->SetUniform("specularColor", CVector3(1.0f, 1.0f, 1.0f).v);
 					}
 				}
@@ -203,7 +203,7 @@ namespace mx
 				m_pTextureGenerator = m_pRenderer->GetTextureGenerator();
 				if (m_pTextureGenerator)
 				{
-					char *filename[] = {"texture/land.tga", "texture/grass.tga", "texture/snow.tga"};					
+					char *filename[] = {"texture/land.tga", "texture/land.tga", "texture/land.tga"};					
 					m_pTexture = m_pTextureGenerator->GenerateTextureBit24(m_pHeightMap, m_uWidth + 1, MAX_HEIGHT, filename, 3);
 					m_pRenderableObject->SetTexture(m_pTexture);
 				}
@@ -220,7 +220,13 @@ namespace mx
 					shaderProgram->SetUniform("mvpMatrix", (void *)mat4MVP.m);
 					shaderProgram->SetUniform("mvMatrix", (void *)mat4MV.m);
 					shaderProgram->SetUniform("normalMatrix", (void *)mat4MV.m);
-					shaderProgram->SetUniform("vLightPosition", (void *)CVector3(100, 100, 100).v);
+					static float rot = 0.1f;
+					if (rot > 3.14159)
+						rot = .0;
+					rot += 0.01f;
+					CVector3 vLight(0, -500, 0);
+					vLight.rotateXYBy(rot);
+					shaderProgram->SetUniform("vLightPosition", (void *)vLight.v);
 				}
 			}
 		}

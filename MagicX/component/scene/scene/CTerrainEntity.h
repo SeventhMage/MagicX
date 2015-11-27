@@ -40,7 +40,7 @@ namespace mx
 			render::IRenderer *m_pRenderer;
 			render::IGPUBuffer *m_pGPUBuffer;
 			render::IRenderableObject *m_pRenderableObject;
-			static const int MAX_HEIGHT = 256;
+			static const int MAX_HEIGHT = 128;
 		};
 	}
 }

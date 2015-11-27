@@ -89,7 +89,7 @@ namespace mx
 						if (vio)
 						{
 							GLDebug(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vio->GetHandle()));
-							GLDebug(glDrawElements(GetGLGPUBufferMode(vio->GetGPUBufferMode()), vio->GetVerticesNum(),
+							GLDebug(glDrawElements(GetGLGPUBufferMode(vio->GetGPUBufferMode()), vio->GetIndicesNum(),
 								GetGLVariableType(vio->GetIndexType()),0));
 						}
 					}
