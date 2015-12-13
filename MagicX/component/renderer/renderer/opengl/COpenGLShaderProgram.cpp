@@ -22,8 +22,11 @@ namespace mx
 		{
 			for (uint i = 0; i < ST_COUNT; ++i)
 			{
-				GLDebug(glDetachShader(m_hProgram, m_pShader[i]->GetHandle()));
-				SAFE_DEL(m_pShader[i]);
+				if (m_pShader[i])
+				{
+					GLDebug(glDetachShader(m_hProgram, m_pShader[i]->GetHandle()));
+					SAFE_DEL(m_pShader[i]);
+				}				
 			}
 			GLDebug(glDeleteProgram(m_hProgram));
 		}
