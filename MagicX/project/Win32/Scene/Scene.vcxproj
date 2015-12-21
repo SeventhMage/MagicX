@@ -11,7 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\component\scene\include\CSkeletalAnimation.h" />
+    <ClInclude Include="..\..\..\component\scene\include\AnimationType.h" />
+    <ClInclude Include="..\..\..\component\scene\include\IAnimation.h" />
+    <ClInclude Include="..\..\..\component\scene\include\CEntity.h" />
     <ClInclude Include="..\..\..\component\scene\include\CSceneManager.h" />
+    <ClInclude Include="..\..\..\component\scene\include\CVertexAnimation.h" />
     <ClInclude Include="..\..\..\component\scene\include\ICameraSceneNode.h" />
     <ClInclude Include="..\..\..\component\scene\include\IMesh.h" />
     <ClInclude Include="..\..\..\component\scene\include\IScene.h" />
@@ -29,13 +34,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\component\scene\scene\CCamera.cpp" />
+    <ClCompile Include="..\..\..\component\scene\scene\CEntity.cpp" />
     <ClCompile Include="..\..\..\component\scene\scene\CFrustum.cpp" />
     <ClCompile Include="..\..\..\component\scene\scene\CMesh.cpp" />
     <ClCompile Include="..\..\..\component\scene\scene\CScene.cpp" />
     <ClCompile Include="..\..\..\component\scene\scene\CSceneManager.cpp" />
     <ClCompile Include="..\..\..\component\scene\scene\CSceneNode.cpp" />
+    <ClCompile Include="..\..\..\component\scene\scene\CSkeletalAnimation.cpp" />
     <ClCompile Include="..\..\..\component\scene\scene\CSkyBox.cpp" />
     <ClCompile Include="..\..\..\component\scene\scene\CTerrainEntity.cpp" />
+    <ClCompile Include="..\..\..\component\scene\scene\CVertexAnimation.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3E991178-CF44-4A75-BB9F-BED1EE4EBA98}</ProjectGuid>

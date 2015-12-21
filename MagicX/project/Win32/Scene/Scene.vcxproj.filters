@@ -7,6 +7,12 @@
     <Filter Include="scene">
       <UniqueIdentifier>{b7d73c48-2c80-4d77-a75e-185f27a66c44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\animation">
+      <UniqueIdentifier>{b5c81a6b-bf5e-4ad3-b3de-807f980433ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scene\animation">
+      <UniqueIdentifier>{8a29e942-f19f-4981-8707-3a3ba4554f50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\component\scene\include\IScene.h">
@@ -54,6 +60,21 @@
     <ClInclude Include="..\..\..\component\scene\scene\CMesh.h">
       <Filter>scene</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\component\scene\include\CEntity.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\scene\include\CVertexAnimation.h">
+      <Filter>include\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\scene\include\IAnimation.h">
+      <Filter>include\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\scene\include\CSkeletalAnimation.h">
+      <Filter>include\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\scene\include\AnimationType.h">
+      <Filter>include\animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\component\scene\scene\CFrustum.cpp">
@@ -79,6 +100,15 @@
     </ClCompile>
     <ClCompile Include="..\..\..\component\scene\scene\CMesh.cpp">
       <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\scene\scene\CEntity.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\scene\scene\CVertexAnimation.cpp">
+      <Filter>scene\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\scene\scene\CSkeletalAnimation.cpp">
+      <Filter>scene\animation</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
