@@ -44,7 +44,9 @@ namespace mx
 			void SetupSkyBox(IScene *scene, ISkyBoxSceneNode *skybox);
 			void SetupTerrain(IScene *scene, ITerrainSceneNode *terrain);
 
-			
+			//Íø¸ñÊý¾Ý
+			IMesh *LoadMesh(const char *filename);
+			void UnLoadMesh(IMesh *mesh);
 
 
 

@@ -224,8 +224,8 @@ namespace mx
 					if (rot > 3.14159)
 						rot = .0;
 					rot += 0.01f;
-					CVector3 vLight(0, -500, 0);
-					vLight.rotateXYBy(rot);
+					CVector3 vLight(0, 500, 0);
+					vLight.rotateXZBy(rot);
 					shaderProgram->SetUniform("vLightPosition", (void *)vLight.v);
 				}
 			}

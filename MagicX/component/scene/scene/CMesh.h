@@ -9,15 +9,15 @@ namespace mx
 		class CMesh : public IMesh
 		{
 		public:
-			CMesh(uint vertNum, uint idsNum);
+			CMesh(uint vertNum, uint idsNum);			
 			virtual ~CMesh();
 
 			SVertex *GetVertices() { return m_pVertices; }
 			uint *GetIndices() { return m_pIndices; }
 			uint GetVerticesNum() { return m_uVertNum; }
-			uint GetIndicesNum() { return m_uIdsNum; }
+			uint GetIndicesNum() { return m_uIdsNum; }			
 		private:
-			SVertex *m_pVertices;
+			SVertex *m_pVertices;			
 			uint *m_pIndices;
 			uint m_uVertNum;
 			uint m_uIdsNum;
