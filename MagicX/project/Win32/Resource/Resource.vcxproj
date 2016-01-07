@@ -142,9 +142,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\component\resource\include\CPLGLoader.h" />
     <ClInclude Include="..\..\..\component\resource\include\CResourceManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\component\resource\resource\CPLGLoader.cpp" />
     <ClCompile Include="..\..\..\component\resource\resource\CResourceManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
