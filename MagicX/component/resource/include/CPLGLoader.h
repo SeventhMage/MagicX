@@ -1,6 +1,8 @@
 #ifndef _MX_RESOURCE_C_PLG_LOADER_H_
 #define _MX_RESOURCE_C_PLG_LOADER_H_
 
+#include <stdio.h>
+
 namespace mx
 {
 	namespace resource
@@ -58,8 +60,10 @@ namespace mx
 			Vertex *GetVertices();
 			Polygon *GetPolygons();
 		private:
+			char *GetLinePLG(char *buffer, int maxlength, FILE *fp);
+		private:
 			char *filename[MAX_FILE_NAME];
-			PLG *m_plg;
+			PLG m_plg;
 		};
 	}
 }
