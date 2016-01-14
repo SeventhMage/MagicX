@@ -23,6 +23,7 @@
     <ClInclude Include="..\..\..\component\renderer\include\IRenderer.h" />
     <ClInclude Include="..\..\..\component\renderer\include\Render.h" />
     <ClInclude Include="..\..\..\component\renderer\include\SVertexAttribute.h" />
+    <ClInclude Include="..\..\..\component\renderer\renderer\CMaterial.h" />
     <ClInclude Include="..\..\..\component\renderer\renderer\CShaderProgram.h" />
     <ClInclude Include="..\..\..\component\renderer\renderer\opengl\COpenGLTerrainTextureGenerator.h" />
     <ClInclude Include="..\..\..\component\renderer\renderer\opengl\GLDebug.h" />
@@ -39,6 +40,7 @@
     <ClInclude Include="..\..\..\component\renderer\renderer\opengl\OpenGLType.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\component\renderer\renderer\CMaterial.cpp" />
     <ClCompile Include="..\..\..\component\renderer\renderer\CShaderProgram.cpp" />
     <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLGPUBuffer.cpp" />
     <ClCompile Include="..\..\..\component\renderer\renderer\opengl\COpenGLIndexBufferObject.cpp" />
