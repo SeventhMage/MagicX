@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="opengl">
+      <UniqueIdentifier>{38e0147c-aac6-42f1-a71a-a3fc5c8d5238}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render">
+      <UniqueIdentifier>{0aef2ce6-392d-47f2-962b-d2e080c5cba4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\component\render\opengl\COpenGLDriver.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\render\opengl\COpenGLRenderer.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\render\CRenderList.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\component\render\opengl\COpenGLDriver.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\render\opengl\COpenGLRenderer.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\render\CRenderList.h">
+      <Filter>render</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

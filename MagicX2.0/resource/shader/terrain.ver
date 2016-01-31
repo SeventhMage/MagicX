@@ -1,0 +1,29 @@
+#version 330 core
+
+attribute vec3 vPosition;
+attribute vec2 vTexCoord0;
+attribute vec4 vNormal;
+
+uniform mat4 mvpMatrix;
+uniform mat4 mvMatrix;
+uniform mat4 normalMatrix;
+uniform vec3 vLightPosition;
+
+varying vec4 color;
+varying vec2 vTex;
+
+smooth out vec3 vVaryingNormal;
+smooth out vec3 vVaryingLightDir;
+
+void main()
+{
+	vVaryingNormal = (normalMatrix * vNormal).xyz;
+	vec4 vPosition4 = mvMatrix * vec4(vPosition.xyz, 1.0f);
+	vec3 vPosition3 = vPosition4.xyz / vPosition4.w;
+	vec3 vViewLight = mat3(mvMatrix) * vLightPosition;
+	vVaryingLightDir = normalize(vViewLight - vPosition3);
+	
+	vTex = vTexCoord0;
+	
+	gl_Position = mvpMatrix * vec4(vPosition.xyz, 1.0);
+}

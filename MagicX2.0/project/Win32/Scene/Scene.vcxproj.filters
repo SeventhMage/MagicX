@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="inc">
+      <UniqueIdentifier>{f945920a-b507-404e-bbad-6cab39007e3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scene">
+      <UniqueIdentifier>{f0c908f2-5f8c-41b2-b9d5-096dd4964470}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\component\scene\CCamera.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\component\scene\CCamera.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

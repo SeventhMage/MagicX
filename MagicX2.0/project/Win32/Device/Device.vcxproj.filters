@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="win32">
+      <UniqueIdentifier>{69ddab05-3ae5-4ce5-b4d3-9f52c35934e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="device">
+      <UniqueIdentifier>{79382d5e-9075-41ba-a9cc-7996ddb10cda}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\component\device\win32\CWin32Device.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\device\CKeyEvent.h">
+      <Filter>device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\device\CEventManager.h">
+      <Filter>device</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\component\device\win32\CWin32Device.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\device\CKeyEvent.cpp">
+      <Filter>device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\device\CEventManager.cpp">
+      <Filter>device</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
