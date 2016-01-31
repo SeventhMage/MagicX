@@ -10,7 +10,9 @@ namespace mx
 		public:
 			CRenderList();
 			~CRenderList();
-		
+
+			int state;				//渲染列表的状态
+			int attr;				//渲染列表的属性
 		};
 	}
 }

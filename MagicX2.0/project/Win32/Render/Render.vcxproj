@@ -52,9 +52,10 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>../../../include</AdditionalIncludeDirectories>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -84,14 +85,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\component\render\CMaterial.cpp" />
     <ClCompile Include="..\..\..\component\render\CRenderList.cpp" />
+    <ClCompile Include="..\..\..\component\render\CShaderProgram.cpp" />
     <ClCompile Include="..\..\..\component\render\opengl\COpenGLDriver.cpp" />
+    <ClCompile Include="..\..\..\component\render\opengl\COpenGLGPUBuffer.cpp" />
+    <ClCompile Include="..\..\..\component\render\opengl\COpenGLIndexBufferObject.cpp" />
+    <ClCompile Include="..\..\..\component\render\opengl\COpenGLMaterial.cpp" />
+    <ClCompile Include="..\..\..\component\render\opengl\COpenGLRenderableObject.cpp" />
     <ClCompile Include="..\..\..\component\render\opengl\COpenGLRenderer.cpp" />
+    <ClCompile Include="..\..\..\component\render\opengl\COpenGLShader.cpp" />
+    <ClCompile Include="..\..\..\component\render\opengl\COpenGLShaderProgram.cpp" />
+    <ClCompile Include="..\..\..\component\render\opengl\COpenGLTerrainTextureGenerator.cpp" />
+    <ClCompile Include="..\..\..\component\render\opengl\COpenGLTexture.cpp" />
+    <ClCompile Include="..\..\..\component\render\opengl\COpenGLVertexBufferObject.cpp" />
+    <ClCompile Include="..\..\..\component\render\opengl\CTGA.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\component\render\CMaterial.h" />
     <ClInclude Include="..\..\..\component\render\CRenderList.h" />
+    <ClInclude Include="..\..\..\component\render\CShaderProgram.h" />
     <ClInclude Include="..\..\..\component\render\opengl\COpenGLDriver.h" />
+    <ClInclude Include="..\..\..\component\render\opengl\COpenGLGPUBuffer.h" />
+    <ClInclude Include="..\..\..\component\render\opengl\COpenGLIndexBufferObject.h" />
+    <ClInclude Include="..\..\..\component\render\opengl\COpenGLMaterial.h" />
+    <ClInclude Include="..\..\..\component\render\opengl\COpenGLRenderableObject.h" />
     <ClInclude Include="..\..\..\component\render\opengl\COpenGLRenderer.h" />
+    <ClInclude Include="..\..\..\component\render\opengl\COpenGLShader.h" />
+    <ClInclude Include="..\..\..\component\render\opengl\COpenGLShaderProgram.h" />
+    <ClInclude Include="..\..\..\component\render\opengl\COpenGLTerrainTextureGenerator.h" />
+    <ClInclude Include="..\..\..\component\render\opengl\COpenGLTexture.h" />
+    <ClInclude Include="..\..\..\component\render\opengl\COpenGLVertexBufferObject.h" />
+    <ClInclude Include="..\..\..\component\render\opengl\CTGA.h" />
+    <ClInclude Include="..\..\..\component\render\opengl\GLDebug.h" />
+    <ClInclude Include="..\..\..\component\render\opengl\OpenGLType.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -18,6 +18,42 @@
     <ClCompile Include="..\..\..\component\render\CRenderList.cpp">
       <Filter>render</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\component\render\CMaterial.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\render\CShaderProgram.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\render\opengl\COpenGLMaterial.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\render\opengl\COpenGLRenderableObject.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\render\opengl\COpenGLShader.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\render\opengl\COpenGLShaderProgram.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\render\opengl\COpenGLTerrainTextureGenerator.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\render\opengl\COpenGLTexture.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\render\opengl\COpenGLVertexBufferObject.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\render\opengl\CTGA.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\render\opengl\COpenGLGPUBuffer.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\render\opengl\COpenGLIndexBufferObject.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\component\render\opengl\COpenGLDriver.h">
@@ -28,6 +64,48 @@
     </ClInclude>
     <ClInclude Include="..\..\..\component\render\CRenderList.h">
       <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\render\CMaterial.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\render\CShaderProgram.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\render\opengl\COpenGLMaterial.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\render\opengl\COpenGLRenderableObject.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\render\opengl\COpenGLShader.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\render\opengl\COpenGLShaderProgram.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\render\opengl\COpenGLTerrainTextureGenerator.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\render\opengl\COpenGLTexture.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\render\opengl\COpenGLVertexBufferObject.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\render\opengl\CTGA.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\render\opengl\GLDebug.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\render\opengl\OpenGLType.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\render\opengl\COpenGLGPUBuffer.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\render\opengl\COpenGLIndexBufferObject.h">
+      <Filter>opengl</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

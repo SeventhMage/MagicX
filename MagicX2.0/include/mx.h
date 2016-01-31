@@ -3,9 +3,31 @@
 
 #include "mxDef.h"
 #include "mxType.h"
+
+#include "core/CBoundingBox.h"
+#include "core/CFrustum.h"
+#include "core/CMatrix4.h"
+#include "core/CPlane3.h"
+#include "core/CQuaternion.h"
+#include "core/CSingleton.h"
+#include "core/CVector2.h"
+#include "core/CVector3.h"
+
 #include "device/IDevice.h"
+
 #include "resource/IMesh.h"
 #include "resource/CResourceManager.h"
+
+#include "render/IMaterial.h"
+#include "render/IBufferObject.h"
+#include "render/IGPUBuffer.h"
+#include "render/IRenderer.h"
+#include "render/IShader.h"
+#include "render/IRenderableObject.h"
+#include "render/IShaderProgram.h"
+#include "render/ITexture.h"
+#include "render/SColor.h"
+#include "render/SVertexAttribute.h"
 
 namespace mx
 {

@@ -4,7 +4,7 @@
 namespace mx
 {
 	typedef unsigned int uint;
-
+	typedef unsigned char byte;
 }
 
 #endif
