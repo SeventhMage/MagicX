@@ -46,13 +46,16 @@ int main(int argc, char *argv[])
 			IShaderProgram *shaderProgram = renderableObject->GetShaderProgram();
 			if (shaderProgram)
 			{
-				shaderProgram->Attach("shader/test.ver", ST_VERTEX);
-				shaderProgram->Attach("shader/test.frg", ST_FRAGMENT);
-				shaderProgram->BindAttributeLocation(2, VAL_POSITION, VAL_TEXTURE0);
-				shaderProgram->Link();
+				//shaderProgram->Attach("shader/test.ver", ST_VERTEX);
+				//shaderProgram->Attach("shader/test.frg", ST_FRAGMENT);
+				//shaderProgram->BindAttributeLocation(2, VAL_POSITION, VAL_TEXTURE0);
+				//shaderProgram->Link();
+
+				shaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_MODULATE);
+
 				int iTextureUnit = 0;
 				shaderProgram->SetUniform("textureUnit0", &iTextureUnit);
-
+				
 				CMatrix4 mat4;
 				//mat4.buildProjectionMatrixOrthoRH(20, 20, 10, -10);
 

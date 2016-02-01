@@ -4,10 +4,21 @@
     <Filter Include="src">
       <UniqueIdentifier>{9aaace56-2a49-4d23-b628-ca6380e2db8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="inc">
+      <UniqueIdentifier>{68f28c71-a1d0-493e-b398-4940e471e4b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="generator.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="generator.h">
+      <Filter>inc</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
