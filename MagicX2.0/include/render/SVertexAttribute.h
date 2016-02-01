@@ -31,7 +31,7 @@ namespace mx
 
 		static SVertexAttribute g_sVertexAttributeArray[VAL_NUM]
 		{
-			{ VAL_POSITION, "vPosition" },
+			{ VAL_POSITION, "vVertex" },
 			{ VAL_COLOR, "vColor" },
 			{ VAL_NORMAL, "vNormal" },
 			{ VAL_TEXTURE0, "vTexCoord0" },
