@@ -46,6 +46,15 @@ namespace mx
 			}
 			return m_hShader;
 		}
+
+		uint COpenGLShader::CreateBySource(const char *shaderSource, ShaderType type)
+		{
+			m_hShader = GLDebug(glCreateShader(GetGLShaderType(type)));
+			GLchar *fsStringPtr[1];
+			fsStringPtr[0] = (GLchar *)shaderSource;
+			glShaderSource(m_hShader, 1, (const GLchar **)fsStringPtr, NULL);
+			return m_hShader;
+		}
 		
 		bool COpenGLShader::Compile()
 		{

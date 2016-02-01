@@ -12,9 +12,10 @@ namespace mx
 		public:
 			COpenGLShaderProgram();
 			virtual ~COpenGLShaderProgram();
-			
+			virtual void CreateStandShader(E_STAND_SHADER standShader);
 			virtual bool Attach(const char *filename, ShaderType shaderType);
 			virtual bool Attach(IShader *shader);
+			virtual bool AttachSource(const char *shaderSrc, ShaderType shaderType);
 			virtual void Detach(IShader *shader);
 			virtual bool Link();
 			virtual uint GetHandle() { return m_hProgram; }

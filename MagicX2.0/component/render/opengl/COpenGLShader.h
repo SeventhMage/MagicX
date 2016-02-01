@@ -16,6 +16,7 @@ namespace mx
 			virtual ~COpenGLShader();
 
 			virtual uint Create(const char *filename, ShaderType type);
+			virtual uint CreateBySource(const char *shaderSource, ShaderType type);
 			virtual bool Compile();
 			virtual uint GetHandle() { return m_hShader; }
 			virtual ShaderLang GetShaderLang() { return SL_GLSL; }

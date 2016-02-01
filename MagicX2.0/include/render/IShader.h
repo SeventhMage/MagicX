@@ -15,6 +15,7 @@ namespace mx
 			virtual ~IShader(){};
 			
 			virtual uint Create(const char *filename, ShaderType shaderTpe) = 0;
+			virtual uint CreateBySource(const char *shaderSrc, ShaderType shaderType) = 0;
 			virtual bool Compile() = 0;
 			virtual uint GetHandle() = 0;
 			virtual ShaderLang GetShaderLang() = 0;
