@@ -31,6 +31,14 @@ namespace mx
 			CMesh();
 			virtual ~CMesh();
 
+			virtual byte *GetVerticesData() const;
+			virtual uint GetVerticesSize() const;
+			virtual uint GetVerticesCount() const;
+			virtual uint GetVertexStride() const;
+			virtual byte *GetIndicesData() const;
+			virtual uint GetIndicesSize() const;
+			virtual uint GetIndicesCount() const;
+
 			void CalculateBoundingBox();
 			void CalculateRadius();
 		private:

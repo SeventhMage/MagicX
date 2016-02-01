@@ -79,9 +79,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\component\scene\CCamera.h" />
+    <ClInclude Include="..\..\..\component\scene\CObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\component\scene\CCamera.cpp" />
+    <ClCompile Include="..\..\..\component\scene\CObject.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

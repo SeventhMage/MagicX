@@ -63,7 +63,7 @@
       <AdditionalDependencies>../../../lib/glew32.lib;../../../lib/glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalDependencies>../../../lib/glew32.lib;../../../lib/glew32s.lib;opengl32.lib</AdditionalDependencies>
+      <AdditionalDependencies>../../../lib/glew32.lib;opengl32.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

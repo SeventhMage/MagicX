@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MagicX", "MagicX\MagicX.vcxproj", "{1FE7F5CB-83CB-488B-BE5E-05A06FD8CB9E}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Resource", "..\Resource\Resource.vcxproj", "{469AD7A5-1A23-4F9D-B0FD-2A0F35F12CBC}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Scene", "..\Scene\Scene.vcxproj", "{380313E9-0304-40D3-ADC8-30103CA4B771}"
@@ -15,16 +13,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Render", "..\Render\Render.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo", "..\..\..\examples\Demo\Demo.vcxproj", "{A84AEC46-BDB2-4427-BFD1-C38255881586}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MagicX", "MagicX.vcxproj", "{CF82F9BE-6986-4C88-B65E-724CEFDB7461}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1FE7F5CB-83CB-488B-BE5E-05A06FD8CB9E}.Debug|Win32.ActiveCfg = Debug|Win32
-		{1FE7F5CB-83CB-488B-BE5E-05A06FD8CB9E}.Debug|Win32.Build.0 = Debug|Win32
-		{1FE7F5CB-83CB-488B-BE5E-05A06FD8CB9E}.Release|Win32.ActiveCfg = Release|Win32
-		{1FE7F5CB-83CB-488B-BE5E-05A06FD8CB9E}.Release|Win32.Build.0 = Release|Win32
 		{469AD7A5-1A23-4F9D-B0FD-2A0F35F12CBC}.Debug|Win32.ActiveCfg = Debug|Win32
 		{469AD7A5-1A23-4F9D-B0FD-2A0F35F12CBC}.Debug|Win32.Build.0 = Debug|Win32
 		{469AD7A5-1A23-4F9D-B0FD-2A0F35F12CBC}.Release|Win32.ActiveCfg = Release|Win32
@@ -45,6 +41,10 @@ Global
 		{A84AEC46-BDB2-4427-BFD1-C38255881586}.Debug|Win32.Build.0 = Debug|Win32
 		{A84AEC46-BDB2-4427-BFD1-C38255881586}.Release|Win32.ActiveCfg = Release|Win32
 		{A84AEC46-BDB2-4427-BFD1-C38255881586}.Release|Win32.Build.0 = Release|Win32
+		{CF82F9BE-6986-4C88-B65E-724CEFDB7461}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CF82F9BE-6986-4C88-B65E-724CEFDB7461}.Debug|Win32.Build.0 = Debug|Win32
+		{CF82F9BE-6986-4C88-B65E-724CEFDB7461}.Release|Win32.ActiveCfg = Release|Win32
+		{CF82F9BE-6986-4C88-B65E-724CEFDB7461}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

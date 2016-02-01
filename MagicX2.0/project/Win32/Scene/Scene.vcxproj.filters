@@ -12,9 +12,15 @@
     <ClInclude Include="..\..\..\component\scene\CCamera.h">
       <Filter>inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\component\scene\CObject.h">
+      <Filter>inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\component\scene\CCamera.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\scene\CObject.cpp">
       <Filter>scene</Filter>
     </ClCompile>
   </ItemGroup>

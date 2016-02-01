@@ -29,5 +29,40 @@ namespace mx
 
 		}
 
+		byte * CMesh::GetVerticesData() const
+		{
+			return 0;
+		}
+
+		mx::uint CMesh::GetVerticesSize() const
+		{
+			return 0;
+		}
+
+		mx::uint CMesh::GetVerticesCount() const
+		{
+			return 0;
+		}
+
+		mx::uint CMesh::GetVertexStride() const
+		{
+			return 0;
+		}
+
+		byte * CMesh::GetIndicesData() const
+		{
+			return 0;
+		}
+
+		mx::uint CMesh::GetIndicesSize() const
+		{
+			return 0;
+		}
+
+		mx::uint CMesh::GetIndicesCount() const
+		{
+			return 0;
+		}
+
 	}
 }

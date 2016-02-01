@@ -55,7 +55,9 @@ int main(int argc, char *argv[])
 
 				int iTextureUnit = 0;
 				shaderProgram->SetUniform("textureUnit0", &iTextureUnit);
-				
+
+				float vColor[] = {1, 1, 1, 1};
+				shaderProgram->SetUniform("vColor", vColor);
 				CMatrix4 mat4;
 				//mat4.buildProjectionMatrixOrthoRH(20, 20, 10, -10);
 

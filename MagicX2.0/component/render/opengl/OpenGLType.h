@@ -2,6 +2,8 @@
 #define _MX_RENDER_OPENGL_TYPE_H_
 
 #include "glew/GL/glew.h"
+#include "render/ERender.h"
+#include "mxType.h"
 
 namespace mx
 {
