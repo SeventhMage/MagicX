@@ -87,6 +87,23 @@
   <ItemGroup>
     <ClInclude Include="generator.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\project\Win32\Device\Device.vcxproj">
+      <Project>{f582ab1e-211c-4bdd-b00b-0644fd1ed2bc}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\project\Win32\MagicX\MagicX\MagicX.vcxproj">
+      <Project>{1fe7f5cb-83cb-488b-be5e-05a06fd8cb9e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\project\Win32\Render\Render.vcxproj">
+      <Project>{87c89e0a-7d0a-4abb-80dc-23e887369cde}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\project\Win32\Resource\Resource.vcxproj">
+      <Project>{469ad7a5-1a23-4f9d-b0fd-2a0f35f12cbc}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\project\Win32\Scene\Scene.vcxproj">
+      <Project>{380313e9-0304-40d3-adc8-30103ca4b771}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
