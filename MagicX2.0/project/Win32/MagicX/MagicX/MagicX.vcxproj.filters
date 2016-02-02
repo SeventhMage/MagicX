@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="inc">
+      <UniqueIdentifier>{93871841-0c78-427b-a3a0-7234cc96f446}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\render">
+      <UniqueIdentifier>{f9c53aad-d3bf-47b1-b716-2a96a8fbd882}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\magix">
+      <UniqueIdentifier>{16a02c8a-b214-4db7-b331-a57662d881c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\io">
+      <UniqueIdentifier>{810e2ab2-c3f9-400a-8724-d616089cc3e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\net">
+      <UniqueIdentifier>{c5f74ff9-6537-4cb0-97d8-cddde3fa3bbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\animation">
+      <UniqueIdentifier>{ad3817c2-4629-4397-ac85-4df28d3bb09c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\physics">
+      <UniqueIdentifier>{5f0505ae-d2b5-4a13-be52-cdfbd349b985}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\ai">
+      <UniqueIdentifier>{768e4ae0-0346-4e23-89cf-dc46f8d6b083}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\physics\collision">
+      <UniqueIdentifier>{e57b0e4c-ad7b-4bb6-9cba-f17d7a17e4a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\navigation">
+      <UniqueIdentifier>{361ed6cd-d53d-4f6f-a3db-f3251226895c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\resource">
+      <UniqueIdentifier>{31f568ad-5e83-487e-a5cd-07e8a3d31f7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="magicx">
+      <UniqueIdentifier>{bd6007a0-7e0c-4093-8fa8-04052d2a6cd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="magicx\resource">
+      <UniqueIdentifier>{b7947717-a665-43e5-bb36-a336dc490796}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\core">
+      <UniqueIdentifier>{15324ffe-fdb5-4711-9933-403fd362cf30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\scene">
+      <UniqueIdentifier>{1fe293e5-e3cc-4aff-95a9-f4c2d6d5b91f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\device">
+      <UniqueIdentifier>{18b75544-5ffb-4ada-9bca-bb5bbf4841c6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\include\mx.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\resource\IResourceLoader.h">
+      <Filter>inc\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\resource\CResourceManager.h">
+      <Filter>inc\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\resource\Polygon.h">
+      <Filter>inc\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\resource\Attribute.h">
+      <Filter>inc\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\CPlane3.h">
+      <Filter>inc\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\CQuaternion.h">
+      <Filter>inc\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\CVector2.h">
+      <Filter>inc\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\CVector3.h">
+      <Filter>inc\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\CMatrix4.h">
+      <Filter>inc\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\mxDef.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\mxType.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\ICamera.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\CFrustum.h">
+      <Filter>inc\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\CBoundingBox.h">
+      <Filter>inc\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\device\IDevice.h">
+      <Filter>inc\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\device\IDeviceDriver.h">
+      <Filter>inc\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IRenderDriver.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\device\IKeyEvent.h">
+      <Filter>inc\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\device\EEvent.h">
+      <Filter>inc\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\device\IEvent.h">
+      <Filter>inc\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\CSingleton.h">
+      <Filter>inc\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IRenderer.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\SColor.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\IReferenceCount.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\resource\IMesh.h">
+      <Filter>inc\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\resource\IImage.h">
+      <Filter>inc\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IMaterial.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IRenderableObject.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IShader.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IShaderProgram.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\ITerrainTextureGenerator.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\ITexture.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\SVertexAttribute.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\ERender.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IBufferObject.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IGPUBuffer.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\EStandShader.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\resource\CResourceManager.cpp">
+      <Filter>magicx\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\mx.cpp">
+      <Filter>magicx</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
