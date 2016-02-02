@@ -13,7 +13,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Render", "..\Render\Render.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo", "..\..\..\examples\Demo\Demo.vcxproj", "{A84AEC46-BDB2-4427-BFD1-C38255881586}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MagicX", "MagicX.vcxproj", "{CF82F9BE-6986-4C88-B65E-724CEFDB7461}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MagicX", "MagicX\MagicX.vcxproj", "{1FE7F5CB-83CB-488B-BE5E-05A06FD8CB9E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glew", "..\glew\glew.vcxproj", "{71165BDE-2360-46FD-AF14-43BBFB5E70B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +43,14 @@ Global
 		{A84AEC46-BDB2-4427-BFD1-C38255881586}.Debug|Win32.Build.0 = Debug|Win32
 		{A84AEC46-BDB2-4427-BFD1-C38255881586}.Release|Win32.ActiveCfg = Release|Win32
 		{A84AEC46-BDB2-4427-BFD1-C38255881586}.Release|Win32.Build.0 = Release|Win32
-		{CF82F9BE-6986-4C88-B65E-724CEFDB7461}.Debug|Win32.ActiveCfg = Debug|Win32
-		{CF82F9BE-6986-4C88-B65E-724CEFDB7461}.Debug|Win32.Build.0 = Debug|Win32
-		{CF82F9BE-6986-4C88-B65E-724CEFDB7461}.Release|Win32.ActiveCfg = Release|Win32
-		{CF82F9BE-6986-4C88-B65E-724CEFDB7461}.Release|Win32.Build.0 = Release|Win32
+		{1FE7F5CB-83CB-488B-BE5E-05A06FD8CB9E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1FE7F5CB-83CB-488B-BE5E-05A06FD8CB9E}.Debug|Win32.Build.0 = Debug|Win32
+		{1FE7F5CB-83CB-488B-BE5E-05A06FD8CB9E}.Release|Win32.ActiveCfg = Release|Win32
+		{1FE7F5CB-83CB-488B-BE5E-05A06FD8CB9E}.Release|Win32.Build.0 = Release|Win32
+		{71165BDE-2360-46FD-AF14-43BBFB5E70B9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{71165BDE-2360-46FD-AF14-43BBFB5E70B9}.Debug|Win32.Build.0 = Debug|Win32
+		{71165BDE-2360-46FD-AF14-43BBFB5E70B9}.Release|Win32.ActiveCfg = Release|Win32
+		{71165BDE-2360-46FD-AF14-43BBFB5E70B9}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

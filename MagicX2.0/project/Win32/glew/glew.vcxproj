@@ -10,6 +10,14 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\glew\gl\glew.h" />
+    <ClInclude Include="..\..\..\include\glew\gl\glxew.h" />
+    <ClInclude Include="..\..\..\include\glew\gl\wglew.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\include\glew\glew.c" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{71165BDE-2360-46FD-AF14-43BBFB5E70B9}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -17,7 +25,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -41,7 +49,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>../../../dll</OutDir>
+    <OutDir>../../../lib</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -55,6 +63,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions> /D _CRT_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>../../../include/glew</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -80,16 +89,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\component\renderer\renderer\opengl\glew\GL\glew.h" />
-    <ClInclude Include="..\..\..\component\renderer\renderer\opengl\glew\GL\glxew.h" />
-    <ClInclude Include="..\..\..\component\renderer\renderer\opengl\glew\GL\wglew.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\component\renderer\renderer\opengl\glew\glew.c" />
-    <ClCompile Include="..\..\..\component\renderer\renderer\opengl\glew\glewinfo.c" />
-    <ClCompile Include="..\..\..\component\renderer\renderer\opengl\glew\visualinfo.c" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

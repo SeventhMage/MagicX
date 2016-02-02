@@ -11,24 +11,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\component\renderer\renderer\opengl\glew\GL\glxew.h">
+    <ClInclude Include="..\..\..\include\glew\gl\glxew.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\component\renderer\renderer\opengl\glew\GL\wglew.h">
+    <ClInclude Include="..\..\..\include\glew\gl\wglew.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\component\renderer\renderer\opengl\glew\GL\glew.h">
+    <ClInclude Include="..\..\..\include\glew\gl\glew.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\component\renderer\renderer\opengl\glew\glew.c">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\component\renderer\renderer\opengl\glew\glewinfo.c">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\component\renderer\renderer\opengl\glew\visualinfo.c">
+    <ClCompile Include="..\..\..\include\glew\glew.c">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
