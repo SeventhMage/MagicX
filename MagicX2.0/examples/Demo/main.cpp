@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 
 	IRenderer *renderer = device->GetRenderer();
 	CMeshManager *pMeshMgr = new CMeshManager(renderer);
-	IMesh *mesh = (IMesh *)pMeshMgr->LoadResource("plg/cube1.plg");
+	IMesh *mesh = (IMesh *)pMeshMgr->LoadResource("plg/tank1.plg");
 
 	typedef struct
 	{
@@ -102,12 +102,8 @@ int main(int argc, char *argv[])
 		{
 			if (renderer)
 			{
-				renderer->DrawLine(CVector3(0, 0, 0), CVector3(100, 100, 100));
-				
-				if (mesh)
-				{
-					renderer->DrawMesh(mesh);
-				}
+				mesh->rotateXZBy(0.05f);
+				mesh->Update(next_game_tick);
 				renderer->Render();
 			}
 			device->Sleep(sleep_time);

@@ -36,15 +36,6 @@ namespace mx
 			GLDebug(glBindVertexArray(m_hVAO));
 		}
 
-		void COpenGLGPUBuffer::AddVertexData(IRenderableObject *object, void * data, int size, int offset)
-		{						
-			if (object)
-			{
-				IBufferObject *bufferObj = object->GetVertexBufferObject();
-				if (bufferObj)
-					bufferObj->BufferSubData(data, size, offset);
-			}
-		}
 		void COpenGLGPUBuffer::EnableVertexAttrib(VertexAttributeLocation val, int size, RendererVariableType vertType, int stride, int offset)
 		{
 			GLDebug(glEnableVertexAttribArray(val));

@@ -217,8 +217,8 @@ namespace mx
 
 			AdjustWindowRect(&clientSize, style, FALSE);
 
-			const int realWidth = clientSize.right - clientSize.left;
-			const int realHeight = clientSize.bottom - clientSize.top;
+			int realWidth = clientSize.right - clientSize.left;
+			int realHeight = clientSize.bottom - clientSize.top;
 
 			int windowLeft = (GetSystemMetrics(SM_CXSCREEN) - realWidth) / 2;
 			int windowTop = (GetSystemMetrics(SM_CYSCREEN) - realHeight) / 2;
@@ -232,6 +232,11 @@ namespace mx
 			{
 				windowLeft = 0;
 				windowTop = 0;
+				HWND hDesk = GetDesktopWindow();
+				RECT rc;
+				GetWindowRect(hDesk, &rc);
+				realWidth = rc.right;
+				realHeight = rc.bottom;
 			}
 
 			// create window
@@ -241,7 +246,7 @@ namespace mx
 			ShowWindow(m_hWnd, SW_SHOWNORMAL);
 			UpdateWindow(m_hWnd);
 
-			// fix ugly ATI driver bugs. Thanks to ariaci
+			// fix ugly ATI driver bugs.
 			MoveWindow(m_hWnd, windowLeft, windowTop, realWidth, realHeight, TRUE);
 		}
 

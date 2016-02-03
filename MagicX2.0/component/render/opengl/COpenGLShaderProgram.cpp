@@ -36,9 +36,9 @@ namespace mx
 		// This shader applies the given model view matrix to the verticies, 
 		// and uses a uniform color value.
 		static const char *szFlatShaderVP = "uniform mat4 mvpMatrix;"
-			"attribute vec4 vVertex;"
+			"attribute vec3 vVertex;"
 			"void main(void) "
-			"{ gl_Position = mvpMatrix * vVertex; "
+			"{ gl_Position = mvpMatrix * vec4(vVertex.xyz, 1.0f); "
 			"}";
 
 		static const char *szFlatShaderFP =

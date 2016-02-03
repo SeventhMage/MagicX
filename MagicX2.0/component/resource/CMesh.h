@@ -33,17 +33,15 @@ namespace mx
 			virtual ~CMesh();
 
 			virtual bool Load(const char *filename);
-
-			virtual byte *GetVerticesData() const;
-			virtual uint GetVerticesSize() const;
-			virtual uint GetVerticesCount() const;
-			virtual uint GetVertexStride() const;
-			virtual byte *GetIndicesData() const;
-			virtual uint GetIndicesSize() const;
-			virtual uint GetIndicesCount() const;
+			virtual void rotateXZBy(double radians, const CVector3 &center = CVector3(0, 1.0f, 0));
+			virtual void rotateXYBy(double radians, const CVector3 &center = CVector3(0, 0, 1.0f));
+			virtual void rotateYZBy(double radians, const CVector3 &center = CVector3(1.0f, 0, 0));
+			virtual void Update(uint deltaTime);
 
 			void CalculateBoundingBox();
 			void CalculateRadius();
+		private:
+			void CreatePLXRenderable(uint idx);
 		private:
 			uint m_uId;
 			char m_szName[MAX_FILE_NAME];
@@ -65,10 +63,8 @@ namespace mx
 			uint m_uTriangleNum;
 			Triangle *m_pTriangleList;
 
-			float *m_pVerticesData;
-			int *m_pIndecisData;
-
 			render::IGPUBuffer *m_pGPUBuffer;
+			render::IRenderableObject *m_pRenderableObject;
 		};
 	}
 }

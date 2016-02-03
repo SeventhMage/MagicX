@@ -20,8 +20,7 @@ namespace mx
 
 			virtual IRenderableObject *CreateRenderableObject();
 
-			virtual void Begin();			
-			virtual void AddVertexData(IRenderableObject *object, void *data, int size, int offset);
+			virtual void Begin();						
 			virtual void EnableVertexAttrib(VertexAttributeLocation vai, int size, RendererVariableType vertType, int stride, int offset);			
 			virtual void End();
 

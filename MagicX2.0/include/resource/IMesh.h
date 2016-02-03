@@ -1,6 +1,7 @@
 #ifndef _MX_RESOURCE_IMESH_H_
 #define _MX_RESOURCE_IMESH_H_
 
+#include "core/CVector3.h"
 #include "IResource.h"
 #include "mxType.h"
 
@@ -8,17 +9,15 @@ namespace mx
 {
 	namespace resource
 	{
+		using core::CVector3;
 		class IMesh : public IResource
 		{
 		public:
 			virtual ~IMesh(){}
-			virtual byte *GetVerticesData() const = 0;
-			virtual uint GetVerticesSize() const = 0;
-			virtual uint GetVerticesCount() const = 0;
-			virtual uint GetVertexStride() const = 0;
-			virtual byte *GetIndicesData() const = 0;
-			virtual uint GetIndicesSize() const = 0;
-			virtual uint GetIndicesCount() const = 0;
+			virtual void rotateXZBy(double radians, const CVector3 &center = CVector3(0, 1.0f, 0)) = 0;
+			virtual void rotateXYBy(double radians, const CVector3 &center = CVector3(0, 0, 1.0f)) = 0;
+			virtual void rotateYZBy(double radians, const CVector3 &center = CVector3(1.0f, 0, 0)) = 0;
+			virtual void Update(uint deltaTime) = 0;
 		};
 	}
 }

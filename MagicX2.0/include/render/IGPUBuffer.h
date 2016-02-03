@@ -17,8 +17,7 @@ namespace mx
 			virtual ~IGPUBuffer(){};
 
 			virtual void Begin() = 0;
-			virtual IRenderableObject *CreateRenderableObject() = 0;			
-			virtual void AddVertexData(IRenderableObject *object, void *data, int size, int offset) = 0;
+			virtual IRenderableObject *CreateRenderableObject() = 0;						
 			virtual void EnableVertexAttrib(VertexAttributeLocation vai, int size, RendererVariableType vertType, int stride, int offset) = 0;			
 			virtual void End() = 0;
 
