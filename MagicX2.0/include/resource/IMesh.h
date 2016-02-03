@@ -1,14 +1,14 @@
 #ifndef _MX_RESOURCE_IMESH_H_
 #define _MX_RESOURCE_IMESH_H_
 
-#include "IReferenceCount.h"
+#include "IResource.h"
 #include "mxType.h"
 
 namespace mx
 {
 	namespace resource
 	{
-		class IMesh : public IReferenceCount
+		class IMesh : public IResource
 		{
 		public:
 			virtual ~IMesh(){}

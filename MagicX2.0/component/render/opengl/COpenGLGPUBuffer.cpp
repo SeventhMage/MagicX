@@ -10,9 +10,8 @@ namespace mx
 {
 	namespace render
 	{
-		COpenGLGPUBuffer::COpenGLGPUBuffer(int stride, bool bNormalize)
-			:m_stride(stride)
-			,m_bNormalize(bNormalize)
+		COpenGLGPUBuffer::COpenGLGPUBuffer(bool bNormalize)		
+			:m_bNormalize(bNormalize)
 		{
 			GLDebug(glGenVertexArrays(1, &m_hVAO));
 		}
@@ -36,11 +35,7 @@ namespace mx
 		{
 			GLDebug(glBindVertexArray(m_hVAO));
 		}
-		void COpenGLGPUBuffer::CreateVertexBuffer(IRenderableObject *object, void * vertexes, int size, int first, int vertexCount, GPUBufferMode mode, GPUBufferUsage usage)
-		{
-			if (object)
-				object->CreateVertexBufferObject(vertexes, size, first, vertexCount, mode, usage);
-		}
+
 		void COpenGLGPUBuffer::AddVertexData(IRenderableObject *object, void * data, int size, int offset)
 		{						
 			if (object)
@@ -50,23 +45,19 @@ namespace mx
 					bufferObj->BufferSubData(data, size, offset);
 			}
 		}
-		void COpenGLGPUBuffer::EnableVertexAttrib(VertexAttributeLocation val, int size, RendererVariableType vertType, int offset)
+		void COpenGLGPUBuffer::EnableVertexAttrib(VertexAttributeLocation val, int size, RendererVariableType vertType, int stride, int offset)
 		{
 			GLDebug(glEnableVertexAttribArray(val));
-			GLDebug(glVertexAttribPointer(val, size, GetGLVariableType(vertType), false, m_stride, (GLvoid *)offset));
+			GLDebug(glVertexAttribPointer(val, size, GetGLVariableType(vertType), false, stride, (GLvoid *)offset));
 		}
 
-		void COpenGLGPUBuffer::CreateIndexBuffer(IRenderableObject *object, void * indices, uint idsCount, RendererVariableType idsType, uint vertNum, GPUBufferMode mode, GPUBufferUsage usage)
-		{
-			if (object)
-				object->CreateIndexBufferObject(indices, idsCount, idsType, vertNum, mode, usage);
-		}
 		void COpenGLGPUBuffer::End()
 		{
 			GLDebug(glBindVertexArray(0));
 		}
 		void COpenGLGPUBuffer::Render()
 		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 			for (uint i = 0; i < m_vecRenderableObject.size(); ++i)
 			{
 				if (m_vecRenderableObject[i])

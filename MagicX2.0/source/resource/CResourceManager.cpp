@@ -9,27 +9,37 @@ namespace mx
 	{
 
 
-		IMesh * CResourceManager::LoadResource(const char *filename)
+		CResourceManager::~CResourceManager()
 		{
-			IMesh *pMesh = NULL;
-			const char *extPos = strrchr(filename, '.');
-			if (extPos)
+			ResourceMap::iterator it = m_mapResource.begin();
+			for (; it != m_mapResource.end(); ++it)
 			{
-				if (0 == strcmp(extPos, ".plg") || 0 == strcmp(extPos, ".plx"))
-				{					
-					CPLXLoader loader;
-					pMesh = loader.LoadResource(filename);
-				}
+				if (it->second)
+					delete it->second;
 			}
-			return pMesh;
+			m_mapResource.clear();
 		}
 
-		void CResourceManager::UnLoadResource(IMesh *pMesh)
+		IResource * CResourceManager::LoadResource(const char *filename)
 		{
-			if (pMesh)
+			IResource *pResource = NULL;
+			if (m_mapResource.find(filename) != m_mapResource.end())
 			{
-				delete pMesh;
-				pMesh = NULL;
+				return m_mapResource[filename];
+			}
+			else
+			{
+				m_mapResource[filename] = CreateResource(filename);
+				return m_mapResource[filename];
+			}			
+		}
+
+		void CResourceManager::UnLoadResource(const char *filename)
+		{
+			if (m_mapResource.find(filename) != m_mapResource.end())
+			{
+				delete m_mapResource[filename];
+				m_mapResource.erase(filename);
 			}
 		}
 

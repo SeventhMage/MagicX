@@ -25,7 +25,7 @@ namespace mx
 
 			virtual void Render();
 
-			virtual IGPUBuffer *CreateGPUBuffer(int stride);
+			virtual IGPUBuffer *CreateGPUBuffer();
 			virtual void DestroyGPUBuffer(IGPUBuffer *gpuBuffer);
 
 			virtual ITexture *CreateTexture(const char *filename, TextureType texType);

@@ -17,6 +17,7 @@
 
 #include "resource/IMesh.h"
 #include "resource/CResourceManager.h"
+#include "resource/CMeshManager.h"
 
 #include "render/IMaterial.h"
 #include "render/IBufferObject.h"

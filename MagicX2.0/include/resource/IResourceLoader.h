@@ -1,7 +1,7 @@
 #ifndef _MX_RESOURCE_IRESOURCELOADER_H_
 #define _MX_RESOURCE_IRESOURCELOADER_H_
 
-#include "IMesh.h"
+#include "IResource.h"
 
 namespace mx
 {
@@ -13,7 +13,7 @@ namespace mx
 			IResourceLoader(){}
 			virtual ~IResourceLoader(){}	
 
-			virtual IMesh *LoadResource(const char *filename) = 0;
+			virtual bool LoadResource(const char *filename, IResource *pResource) = 0;
 		};
 	}
 }

@@ -24,7 +24,7 @@ namespace mx
 			virtual void DrawRenderList() = 0;
 
 
-			virtual IGPUBuffer *CreateGPUBuffer(int stride) = 0;
+			virtual IGPUBuffer *CreateGPUBuffer() = 0;
 			virtual void DestroyGPUBuffer(IGPUBuffer *gpuBuffer) = 0;
 
 			virtual ITexture *CreateTexture(const char *filename, TextureType texType) = 0;

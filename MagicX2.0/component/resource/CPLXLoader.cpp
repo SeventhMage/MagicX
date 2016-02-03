@@ -75,10 +75,11 @@ namespace mx
 			return num;
 		}
 
-		IMesh *CPLXLoader::LoadResource(const char *filename)
-		{
-			CMesh *pMesh = new CMesh();
-			
+		bool CPLXLoader::LoadResource(const char *filename, IResource *pResource)
+		{						
+			bool bRet = false;
+
+			CMesh *pMesh = (CMesh *)pResource;
 			pMesh->m_uState = OBJECT_STATE_ACTIVE | OBJECT_STATE_VISIBLE;
 
 			pMesh->m_vWorldPos.x = pMesh->m_vWorldPos.y = pMesh->m_vWorldPos.z = 0;
@@ -97,13 +98,23 @@ namespace mx
 					pMesh->m_pvLocalList = new CVector3[pMesh->m_uVerticesNum];
 					pMesh->m_pTriangleList = new Triangle[pMesh->m_uTriangleNum];
 
+					pMesh->m_pVerticesData = new float[pMesh->m_uVerticesNum * sizeof(float) * 4];
+					pMesh->m_pIndecisData = new int[pMesh->m_uTriangleNum * sizeof(int) * 3];
+
+					memset(pMesh->m_pVerticesData, 0, pMesh->m_uVerticesNum * sizeof(float)* 4);
+					memset(pMesh->m_pIndecisData, 0, pMesh->m_uTriangleNum * sizeof(int)* 3);
+
 					//加载顶点数
-					for (int i = 0; i < pMesh->m_uVerticesNum; ++i)
+					for (uint i = 0, j = 0; i < pMesh->m_uVerticesNum; ++i)
 					{
 						string = GetLinePLG(buf, MAX_BUF, fp);
 						if (string)
 						{
 							sscanf(string, "%f %f %f", &pMesh->m_pvLocalList[i].x, &pMesh->m_pvLocalList[i].y, &pMesh->m_pvLocalList[i].z);
+							pMesh->m_pVerticesData[j++] = pMesh->m_pvLocalList[i].x;
+							pMesh->m_pVerticesData[j++] = pMesh->m_pvLocalList[i].y;
+							pMesh->m_pVerticesData[j++] = pMesh->m_pvLocalList[i].z;
+							pMesh->m_pVerticesData[j++] = 1.0f;
 						}
 					}
 
@@ -111,22 +122,28 @@ namespace mx
 
 					char tempBuf[MAX_BUF] = { 0 };
 					//加载多边形
-					for (int i = 0; i < pMesh->m_uTriangleNum; ++i)
+					for (uint i = 0, j = 0; i < pMesh->m_uTriangleNum; ++i)
 					{
 						string = GetLinePLG(buf, MAX_BUF, fp);
 						int indecesNum = 0;
-						sscanf(string, "%d %d %d %d %d", &pMesh->m_pTriangleList[i].attr, &indecesNum, &pMesh->m_pTriangleList[i].indices[1], &pMesh->m_pTriangleList[i].indices[2], &pMesh->m_pTriangleList[i].indices[3]);
+						sscanf(string, "%x %d %d %d %d", &pMesh->m_pTriangleList[i].attr, &indecesNum, &pMesh->m_pTriangleList[i].indices[0], &pMesh->m_pTriangleList[i].indices[1], &pMesh->m_pTriangleList[i].indices[2]);
 						pMesh->m_pTriangleList[i].state = POLY_STATE_ACTIVE;
+						pMesh->m_pIndecisData[j++] = pMesh->m_pTriangleList[i].indices[0];
+						pMesh->m_pIndecisData[j++] = pMesh->m_pTriangleList[i].indices[1];
+						pMesh->m_pIndecisData[j++] = pMesh->m_pTriangleList[i].indices[2];
 					}
 				}
 
 				fclose(fp);
+
+				bRet = true;
 			}
 			else
 			{
 				printf("Error:open file %s failed.\n", filename);
+				bRet = false;
 			}
-			return pMesh;
+			return bRet;
 		}
 
 	}

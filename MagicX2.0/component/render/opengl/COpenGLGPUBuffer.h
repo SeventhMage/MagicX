@@ -15,16 +15,14 @@ namespace mx
 		class COpenGLGPUBuffer : public IGPUBuffer
 		{
 		public:
-			COpenGLGPUBuffer(int stride, bool bNormalize = false);
+			COpenGLGPUBuffer(bool bNormalize = false);
 			virtual ~COpenGLGPUBuffer();
 
 			virtual IRenderableObject *CreateRenderableObject();
 
-			virtual void Begin();
-			virtual void CreateVertexBuffer(IRenderableObject *object, void *vertexes, int size, int first, int vertexCount, GPUBufferMode mode, GPUBufferUsage usage);
+			virtual void Begin();			
 			virtual void AddVertexData(IRenderableObject *object, void *data, int size, int offset);
-			virtual void EnableVertexAttrib(VertexAttributeLocation vai, int size, RendererVariableType vertType, int offset);
-			virtual void CreateIndexBuffer(IRenderableObject *object, void *indices, uint idsCount, RendererVariableType idxType, uint vertNum, GPUBufferMode mode, GPUBufferUsage usage);
+			virtual void EnableVertexAttrib(VertexAttributeLocation vai, int size, RendererVariableType vertType, int stride, int offset);			
 			virtual void End();
 
 			virtual void Render();
@@ -32,7 +30,6 @@ namespace mx
 		private:
 			std::vector<IRenderableObject *> m_vecRenderableObject;
 			GLuint m_hVAO;
-			int m_stride;
 			bool m_bNormalize;
 		};
 	}

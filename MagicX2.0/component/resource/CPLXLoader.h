@@ -33,12 +33,13 @@ namespace mx
 #define PLX_SHADER_MODE_GOURAUD_FLAG 0x4000	//gouraud着色
 #define PLX_SHADER_MODE_PHONE_FLAG	0x6000	//phone着色
 
+		//plx loader
 		class CPLXLoader : public IResourceLoader
 		{
 		public:
 			CPLXLoader();
 			virtual ~CPLXLoader();		
-			virtual IMesh *LoadResource(const char *filename);
+			virtual bool LoadResource(const char *filename, IResource *pResource);
 		private:
 			char *GetLinePLG(char *buffer, int maxlength, FILE *fp);
 			const char *GetSplitParam(char *outStr, int outSize, const char *inStr, char ch);

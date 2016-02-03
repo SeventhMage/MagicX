@@ -3,19 +3,29 @@
 
 #include "core/CSingleton.h"
 #include "IResourceLoader.h"
-#include "IMesh.h"
+#include "IResource.h"
+
+#include <map>
+#include <string>
 
 namespace mx
 {
 	namespace resource
 	{
-		class CResourceManager : public CSingleton<CResourceManager>
+		class CResourceManager
 		{
 		public:
+			typedef std::map<std::string, IResource *> ResourceMap;
 			CResourceManager(){}
-			virtual ~CResourceManager(){}
-			IMesh *LoadResource(const char *filename);
-			void UnLoadResource(IMesh *pMesh);
+			virtual ~CResourceManager();						
+
+			IResource *LoadResource(const char *filename);
+			void UnLoadResource(const char *filename);
+
+		protected:
+			virtual IResource *CreateResource(const char *filename){ return 0; }
+		protected:
+			ResourceMap m_mapResource;
 		};
 	}
 }

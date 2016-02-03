@@ -6,6 +6,7 @@
 #include "core/CVector3.h"
 #include "core/CBoundingBox.h"
 #include "resource/IMesh.h"
+#include "render/IGPUBuffer.h"
 
 namespace mx
 {
@@ -28,8 +29,10 @@ namespace mx
 		{
 			friend class CPLXLoader;
 		public:
-			CMesh();
+			CMesh(render::IGPUBuffer *pGPUBuffer);
 			virtual ~CMesh();
+
+			virtual bool Load(const char *filename);
 
 			virtual byte *GetVerticesData() const;
 			virtual uint GetVerticesSize() const;
@@ -61,6 +64,11 @@ namespace mx
 
 			uint m_uTriangleNum;
 			Triangle *m_pTriangleList;
+
+			float *m_pVerticesData;
+			int *m_pIndecisData;
+
+			render::IGPUBuffer *m_pGPUBuffer;
 		};
 	}
 }

@@ -28,7 +28,7 @@ namespace mx
 			if (_instance)
 				return _instance;
 			else
-				return new T;
+				return NewInstance();
 		}
 
 	protected:

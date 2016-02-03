@@ -57,9 +57,9 @@ namespace mx
 			}
 		}
 
-		IGPUBuffer * COpenGLRenderer::CreateGPUBuffer(int stride)
+		IGPUBuffer * COpenGLRenderer::CreateGPUBuffer()
 		{
-			IGPUBuffer *buffer = new COpenGLGPUBuffer(stride);
+			IGPUBuffer *buffer = new COpenGLGPUBuffer();
 			m_vecBuffer.push_back(buffer);
 			return buffer;
 		}

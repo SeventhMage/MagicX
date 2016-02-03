@@ -11,7 +11,8 @@ int main(int argc, char *argv[])
 	IDevice *device = CreateDevice(100, 100, 800, 600, false);
 
 	IRenderer *renderer = device->GetRenderer();
-	IMesh *mesh = CResourceManager::Instance()->LoadResource("plg/cube1.plg");
+	CMeshManager *pMeshMgr = new CMeshManager(renderer);
+	IMesh *mesh = (IMesh *)pMeshMgr->LoadResource("plg/cube1.plg");
 
 	typedef struct
 	{
@@ -35,7 +36,7 @@ int main(int argc, char *argv[])
 			
 	uint indices[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
 		
-	IGPUBuffer *buffer = renderer->CreateGPUBuffer(sizeof(Vertex));
+	IGPUBuffer *buffer = NULL;// renderer->CreateGPUBuffer();
 			
 	if (buffer)
 	{
@@ -72,18 +73,19 @@ int main(int argc, char *argv[])
 
 				shaderProgram->SetUniform("mvpMatrix", mvpMat4.m);
 			}
-		}
-		buffer->Begin();
-		buffer->CreateVertexBuffer(renderableObject, pyramid, sizeof(pyramid), 0, 9, GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
-		buffer->CreateIndexBuffer(renderableObject, indices, 9, RVT_UINT, 9, GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
-		//buffer->AddVertexData(renderableObject, triangle1, sizeof(triangle1), 0);
-		//buffer->AddVertexData(renderableObject, color, sizeof(color), sizeof(triangle));
-		//buffer->AddVertexData(renderableObject, texture, sizeof(texture), sizeof(triangle1));
-		buffer->EnableVertexAttrib(VAL_POSITION, 4, RVT_FLOAT, 0);
-		//buffer->EnableVertexAttrib(VAI_COLOR, 4, RVT_FLOAT, sizeof(triangle));
-		buffer->EnableVertexAttrib(VAL_TEXTURE0, 2, RVT_FLOAT, sizeof(float)* 4);
+			buffer->Begin();
+			renderableObject->CreateVertexBufferObject(pyramid, sizeof(pyramid), 0, 9, GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
+			renderableObject->CreateIndexBufferObject(indices, 9, RVT_UINT, 9, GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
+			//buffer->AddVertexData(renderableObject, triangle1, sizeof(triangle1), 0);
+			//buffer->AddVertexData(renderableObject, color, sizeof(color), sizeof(triangle));
+			//buffer->AddVertexData(renderableObject, texture, sizeof(texture), sizeof(triangle1));
+			buffer->EnableVertexAttrib(VAL_POSITION, 4, RVT_FLOAT, sizeof(Vertex), 0);
+			//buffer->EnableVertexAttrib(VAI_COLOR, 4, RVT_FLOAT, sizeof(triangle));
+			buffer->EnableVertexAttrib(VAL_TEXTURE0, 2, RVT_FLOAT, sizeof(Vertex), sizeof(float)* 4);
 
-		buffer->End();
+			buffer->End();
+
+		}
 
 		ITexture *tex = renderer->CreateTexture("texture/1.tga", TT_2D);
 		renderableObject->SetTexture(tex);
