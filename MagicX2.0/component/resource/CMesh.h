@@ -16,12 +16,12 @@ namespace mx
 
 		typedef struct STriangle
 		{
-			int state;	//状态信息
-			int attr;	//物理属性
-			int color;	//颜色
+			uint state;	//状态信息
+			uint attr;	//物理属性
+			uint color;	//颜色
 
 			CVector3 *vList;	//顶点列表
-			int indices[3];		//索引
+			uint indices[3];		//索引
 		}Triangle, *PTriangle;
 
 

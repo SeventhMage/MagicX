@@ -126,7 +126,7 @@ namespace mx
 							int g = (pMesh->m_pTriangleList[i].attr & 0x00f0) >> 4;
 							int b = pMesh->m_pTriangleList[i].attr & 0x000f;
 
-							pMesh->m_pTriangleList[i].color = render::SColor(255.0f, r * 16, g * 16, b * 16).color;
+							pMesh->m_pTriangleList[i].color = render::SColor(255, r * 16, g * 16, b * 16).color;
 						}
 					}
 				}
