@@ -43,16 +43,21 @@
     <ClInclude Include="..\..\..\..\include\render\SColor.h" />
     <ClInclude Include="..\..\..\..\include\render\SVertexAttribute.h" />
     <ClInclude Include="..\..\..\..\include\resource\Attribute.h" />
+    <ClInclude Include="..\..\..\..\include\resource\CMeshManager.h" />
     <ClInclude Include="..\..\..\..\include\resource\IImage.h" />
     <ClInclude Include="..\..\..\..\include\resource\IMesh.h" />
+    <ClInclude Include="..\..\..\..\include\resource\IResource.h" />
     <ClInclude Include="..\..\..\..\include\resource\IResourceLoader.h" />
     <ClInclude Include="..\..\..\..\include\resource\CResourceManager.h" />
     <ClInclude Include="..\..\..\..\include\resource\Polygon.h" />
+    <ClInclude Include="..\..\..\..\include\scene\CSceneManager.h" />
     <ClInclude Include="..\..\..\..\include\scene\ICamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\mx.cpp" />
+    <ClCompile Include="..\..\..\..\source\resource\CMeshManager.cpp" />
     <ClCompile Include="..\..\..\..\source\resource\CResourceManager.cpp" />
+    <ClCompile Include="..\..\..\..\source\scene\CSceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Device\Device.vcxproj">
