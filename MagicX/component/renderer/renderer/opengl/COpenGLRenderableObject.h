@@ -4,6 +4,7 @@
 #include "../../include/IRenderableObject.h"
 #include "../../include/IBufferObject.h"
 #include "../../Include/ITexture.h"
+#include "../../include/IShaderProgram.h"
 
 namespace mx
 {

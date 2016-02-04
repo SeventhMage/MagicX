@@ -45,8 +45,8 @@ namespace mx
 			void SetupTerrain(IScene *scene, ITerrainSceneNode *terrain);
 
 			//Íø¸ñÊý¾Ý
-			IMesh *LoadMesh(const char *filename);
-			void UnLoadMesh(IMesh *mesh);
+			//IMesh *LoadMesh(const char *filename);
+			//void UnLoadMesh(IMesh *mesh);
 
 
 

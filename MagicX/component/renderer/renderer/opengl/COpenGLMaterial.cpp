@@ -5,7 +5,7 @@ namespace mx
 	namespace render
 	{
 		COpenGLMaterial::COpenGLMaterial()
-			:m_shaderProgram(NULL)
+			:m_pShaderProgram(NULL)
 		{
 
 		}

@@ -135,16 +135,16 @@ namespace mx
 			}
 		}
 
-		IMesh * CSceneManager::LoadMesh(const char * filename)
-		{
-			CMesh *pMesh = new CMesh(filename);
-			return pMesh;
-		}
+		//IMesh * CSceneManager::LoadMesh(const char * filename)
+		//{
+		//	CMesh *pMesh = new CMesh(filename);
+		//	return pMesh;
+		//}
 
-		void CSceneManager::UnLoadMesh(IMesh * mesh)
-		{
-			SAFE_DEL(mesh)
-		}
+		//void CSceneManager::UnLoadMesh(IMesh * mesh)
+		//{
+		//	SAFE_DEL(mesh)
+		//}
 
 		void CSceneManager::DeleteCamera(ICameraSceneNode *camera)
 		{

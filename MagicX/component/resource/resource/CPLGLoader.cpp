@@ -71,7 +71,7 @@ namespace mx
 		}
 		char * CPLGLoader::GetLinePLG(char * buffer, int maxlength, FILE * fp)
 		{
-			if (fp and buffer)
+			if (fp && buffer)
 			{
 				int index = 0;
 				int length = 0;
