@@ -11,11 +11,14 @@ namespace mx
 	{
 		COpenGLRenderableObject::COpenGLRenderableObject()
 			:m_bEnableIndexBuffer(false)
+			, m_uPolygonMode(PM_FILL)
 			, m_texture(NULL)
 		{
-			glEnable(GL_DEPTH_TEST);
-			glEnable(GL_CULL_FACE);
 			m_shaderProgram = new COpenGLShaderProgram();
+			for (uint i = 0; i < RA_NUM; ++i)
+			{
+				m_bRenderAttrs[i] = true;
+			}
 		}
 		COpenGLRenderableObject::~COpenGLRenderableObject()
 		{

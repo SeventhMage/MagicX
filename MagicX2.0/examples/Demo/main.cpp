@@ -9,10 +9,10 @@ const int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
 int main(int argc, char *argv[])
 {
 	IDevice *device = CreateDevice(100, 100, 800, 600, false);
-
+	IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
 	IRenderer *renderer = device->GetRenderer();
 	CMeshManager *pMeshMgr = new CMeshManager(renderer);
-	IMesh *mesh = (IMesh *)pMeshMgr->LoadResource("plg/tank1.plg");
+	IMesh *mesh = (IMesh *)pMeshMgr->LoadResource("plg/house.plg");
 
 	typedef struct
 	{
@@ -102,14 +102,21 @@ int main(int argc, char *argv[])
 		{
 			if (renderer)
 			{
-				mesh->rotateXZBy(0.05f);
+				mesh->rotateXZBy(0.01f);
 				mesh->Update(next_game_tick);
 				renderer->Render();
+				device->SwapBuffers();
 			}
 			device->Sleep(sleep_time);
 		}
 
-		device->SwapBuffers();
+		if (event)
+		{
+			if (event->IsPress(EKP_KEYBOARD_ESC))
+			{
+				exit(1);
+			}
+		}
 	}
 
 	DestroyDevice(device);

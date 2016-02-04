@@ -34,6 +34,8 @@ namespace mx
 								   case VK_SPACE:
 									   event->Press(EKP_KEYBOARD_SPACE);
 									   break;
+								   case VK_ESCAPE:
+									   event->Press(EKP_KEYBOARD_ESC);
 								   case 'N':
 								   case 'n':
 									   event->Press(EKP_KEYBOARD_N);

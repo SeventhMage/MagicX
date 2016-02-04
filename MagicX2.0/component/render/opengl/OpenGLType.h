@@ -229,6 +229,38 @@ namespace mx
 			}
 			return 0;
 		}
+
+		static GLenum GetGLPolygonMode(PolygonMode pm)
+		{
+			switch (pm)
+			{
+			case PM_POINT:
+				return GL_POINT;
+			case PM_LINE:
+				return GL_LINE;
+			case PM_FILL:
+				return GL_FILL;
+			default:
+				break;
+			}
+			return PM_FILL;
+		}
+
+		static GLenum GetGLRenderAttr(RenderAttribute attr)
+		{
+			switch (attr)
+			{
+			case RA_CULL_FACE:
+				return GL_CULL_FACE;
+				break;
+			case RA_DEPTH_TEST:
+				return GL_DEPTH_TEST;
+				break;
+			default:
+				break;
+			}
+			return GL_INVALID_ENUM;
+		}
 	}
 }
 

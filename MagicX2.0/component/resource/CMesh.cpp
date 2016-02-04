@@ -98,6 +98,8 @@ namespace mx
 			m_pRenderableObject = m_pGPUBuffer->CreateRenderableObject();
 			if (m_pRenderableObject)
 			{
+				m_pRenderableObject->SetPolygonMode(PM_LINE);
+				m_pRenderableObject->Disable(RA_CULL_FACE);
 				render::IShaderProgram *shaderProgram = m_pRenderableObject->GetShaderProgram();
 				if (shaderProgram)
 				{
@@ -107,7 +109,7 @@ namespace mx
 					CMatrix4 viewMat4;
 					viewMat4.buildCameraLookAtMatrix(CVector3(0, 0, 0), CVector3(0, 0, -1), CVector3(0, 1, 0));
 					CMatrix4 modelMat4;
-					modelMat4.setTranslation(CVector3(0, 0, -500.0f));
+					modelMat4.setTranslation(CVector3(0, 0, -50.0f));
 
 					CMatrix4 mvpMat4 = projectMat4 * viewMat4 * modelMat4;
 

@@ -22,7 +22,12 @@ namespace mx
 			virtual void EnableIndexBuffer(bool enable) = 0;
 			virtual bool IsEnabledIndexBuffer() = 0;
 			virtual void BindTexture(int unit = 0) = 0;
+			virtual void Enable(RenderAttribute attr) = 0;
+			virtual void Disable(RenderAttribute attr) = 0;
+			virtual bool IsEnabled(RenderAttribute attr) = 0;
 			virtual void SetTexture(ITexture *texture, int unit = 0) = 0;
+			virtual void SetPolygonMode(PolygonMode pm) = 0;
+			virtual PolygonMode GetPolygonMode() = 0;
 		};
 	}
 }

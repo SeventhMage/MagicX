@@ -26,7 +26,7 @@ namespace mx
 			
 		}
 		IRenderableObject * COpenGLGPUBuffer::CreateRenderableObject()
-		{
+		{					
 			IRenderableObject *object = new COpenGLRenderableObject();
 			m_vecRenderableObject.push_back(object);
 			return object;
@@ -47,12 +47,20 @@ namespace mx
 			GLDebug(glBindVertexArray(0));
 		}
 		void COpenGLGPUBuffer::Render()
-		{
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		{			
 			for (uint i = 0; i < m_vecRenderableObject.size(); ++i)
 			{
 				if (m_vecRenderableObject[i])
 				{
+					for (uint j = 0; j < RA_NUM; ++j)
+					{						
+						if (m_vecRenderableObject[j]->IsEnabled((RenderAttribute)j))
+						{
+							GLenum attr = GetGLRenderAttr((RenderAttribute)j);
+							glEnable(attr);
+						}
+					}
+					glPolygonMode(GL_FRONT_AND_BACK, GetGLPolygonMode(m_vecRenderableObject[i]->GetPolygonMode()));
 					COpenGLShaderProgram *program = (COpenGLShaderProgram *)m_vecRenderableObject[i]->GetShaderProgram();
 					if (program)
 					{

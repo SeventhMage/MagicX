@@ -24,11 +24,18 @@ namespace mx
 			virtual bool IsEnabledIndexBuffer() { return m_bEnableIndexBuffer; }
 			virtual void BindTexture(int unit = 0);
 			virtual void SetTexture(ITexture *texture, int unit = 0);
+			virtual void Enable(RenderAttribute attr) { m_bRenderAttrs[attr] = true; }
+			virtual void Disable(RenderAttribute attr) { m_bRenderAttrs[attr] = false; }
+			virtual bool IsEnabled(RenderAttribute attr) { return m_bRenderAttrs[attr]; }
+			virtual void SetPolygonMode(PolygonMode pm) { m_uPolygonMode = pm; }
+			virtual PolygonMode GetPolygonMode() { return m_uPolygonMode; }
 		private:
 			IBufferObject *m_VBO;
 			IBufferObject *m_IBO;
 			IShaderProgram *m_shaderProgram;
-			ITexture *m_texture;
+			ITexture *m_texture;			
+			PolygonMode m_uPolygonMode;
+			bool m_bRenderAttrs[RA_NUM];
 			bool m_bEnableIndexBuffer;
 		};
 	}

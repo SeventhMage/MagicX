@@ -14,6 +14,10 @@
 #include "core/CVector3.h"
 
 #include "device/IDevice.h"
+#include "device/EEvent.h"
+#include "device/IEvent.h"
+#include "device/IKeyEvent.h"
+#include "device/CEventManager.h"
 
 #include "resource/IMesh.h"
 #include "resource/CResourceManager.h"

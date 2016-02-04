@@ -92,6 +92,20 @@ namespace mx
 			TT_CUBE,
 		};
 
+		enum PolygonMode
+		{
+			PM_POINT,
+			PM_LINE,
+			PM_FILL,
+		};
+
+		enum RenderAttribute
+		{
+			RA_CULL_FACE = 0,
+			RA_DEPTH_TEST,
+
+			RA_NUM,
+		};
 	}
 }
 

@@ -11,7 +11,7 @@ namespace mx
 
 		COpenGLRenderer::COpenGLRenderer()
 		{
-
+			glEnable(GL_DEPTH_TEST);
 		}
 
 		COpenGLRenderer::~COpenGLRenderer()
