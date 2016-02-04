@@ -52,14 +52,11 @@
     <Filter Include="magicx\scene">
       <UniqueIdentifier>{0dabc826-5d13-411e-b0b4-84814218c5e2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="inc\resource\model">
-      <UniqueIdentifier>{d482ce71-87da-466d-8474-4d2a3819d941}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="magicx\resource\model">
-      <UniqueIdentifier>{51010e69-ba68-4500-b088-1f361d28f8f1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="magicx\render">
       <UniqueIdentifier>{6a53520a-9200-488f-b80d-65687407b8f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="magicx\device">
+      <UniqueIdentifier>{db1cc22c-f768-4b73-9696-0fc3c77c6546}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -98,9 +95,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\mxType.h">
       <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\include\scene\ICamera.h">
-      <Filter>inc\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\core\CFrustum.h">
       <Filter>inc\core</Filter>
@@ -180,11 +174,32 @@
     <ClInclude Include="..\..\..\..\include\resource\IResource.h">
       <Filter>inc\resource</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\include\resource\IMesh.h">
-      <Filter>inc\resource\model</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\include\resource\CMeshManager.h">
-      <Filter>inc\resource\model</Filter>
+      <Filter>inc\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\resource\IMesh.h">
+      <Filter>inc\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\ISceneNode.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\ISkyBox.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\ITerrain.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\IWater.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\IScene.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\ICamera.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\device\CEventManager.h">
+      <Filter>inc\device</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -198,7 +213,10 @@
       <Filter>magicx\scene</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\resource\CMeshManager.cpp">
-      <Filter>magicx\resource\model</Filter>
+      <Filter>magicx\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\device\CEventManager.cpp">
+      <Filter>magicx\device</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

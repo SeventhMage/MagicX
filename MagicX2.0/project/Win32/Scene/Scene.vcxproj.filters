@@ -12,7 +12,19 @@
     <ClInclude Include="..\..\..\component\scene\CCamera.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\component\scene\CObject.h">
+    <ClInclude Include="..\..\..\component\scene\CSceneNode.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\scene\CSkyBox.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\scene\CEntity.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\scene\CRandomTerrain.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\component\scene\CScene.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
@@ -20,7 +32,16 @@
     <ClCompile Include="..\..\..\component\scene\CCamera.cpp">
       <Filter>scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\component\scene\CObject.cpp">
+    <ClCompile Include="..\..\..\component\scene\CSceneNode.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\scene\CSkyBox.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\scene\CRondomTerrain.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\component\scene\CScene.cpp">
       <Filter>scene</Filter>
     </ClCompile>
   </ItemGroup>

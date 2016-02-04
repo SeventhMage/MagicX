@@ -15,18 +15,12 @@
     <ClInclude Include="..\..\..\component\device\CKeyEvent.h">
       <Filter>device</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\component\device\CEventManager.h">
-      <Filter>device</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\component\device\win32\CWin32Device.cpp">
       <Filter>win32</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\component\device\CKeyEvent.cpp">
-      <Filter>device</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\component\device\CEventManager.cpp">
       <Filter>device</Filter>
     </ClCompile>
   </ItemGroup>

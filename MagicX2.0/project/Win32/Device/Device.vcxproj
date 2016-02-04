@@ -78,12 +78,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\component\device\CEventManager.h" />
     <ClInclude Include="..\..\..\component\device\CKeyEvent.h" />
     <ClInclude Include="..\..\..\component\device\win32\CWin32Device.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\component\device\CEventManager.cpp" />
     <ClCompile Include="..\..\..\component\device\CKeyEvent.cpp" />
     <ClCompile Include="..\..\..\component\device\win32\CWin32Device.cpp" />
   </ItemGroup>

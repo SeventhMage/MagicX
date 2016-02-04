@@ -79,11 +79,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\component\scene\CCamera.h" />
-    <ClInclude Include="..\..\..\component\scene\CObject.h" />
+    <ClInclude Include="..\..\..\component\scene\CEntity.h" />
+    <ClInclude Include="..\..\..\component\scene\CScene.h" />
+    <ClInclude Include="..\..\..\component\scene\CSceneNode.h" />
+    <ClInclude Include="..\..\..\component\scene\CSkyBox.h" />
+    <ClInclude Include="..\..\..\component\scene\CRandomTerrain.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\component\scene\CCamera.cpp" />
-    <ClCompile Include="..\..\..\component\scene\CObject.cpp" />
+    <ClCompile Include="..\..\..\component\scene\CScene.cpp" />
+    <ClCompile Include="..\..\..\component\scene\CSceneNode.cpp" />
+    <ClCompile Include="..\..\..\component\scene\CSkyBox.cpp" />
+    <ClCompile Include="..\..\..\component\scene\CRondomTerrain.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -19,6 +19,7 @@
     <ClInclude Include="..\..\..\..\include\core\CSingleton.h" />
     <ClInclude Include="..\..\..\..\include\core\CVector2.h" />
     <ClInclude Include="..\..\..\..\include\core\CVector3.h" />
+    <ClInclude Include="..\..\..\..\include\device\CEventManager.h" />
     <ClInclude Include="..\..\..\..\include\device\EEvent.h" />
     <ClInclude Include="..\..\..\..\include\device\IDevice.h" />
     <ClInclude Include="..\..\..\..\include\device\IDeviceDriver.h" />
@@ -52,8 +53,14 @@
     <ClInclude Include="..\..\..\..\include\resource\Polygon.h" />
     <ClInclude Include="..\..\..\..\include\scene\CSceneManager.h" />
     <ClInclude Include="..\..\..\..\include\scene\ICamera.h" />
+    <ClInclude Include="..\..\..\..\include\scene\IScene.h" />
+    <ClInclude Include="..\..\..\..\include\scene\ISceneNode.h" />
+    <ClInclude Include="..\..\..\..\include\scene\ISkyBox.h" />
+    <ClInclude Include="..\..\..\..\include\scene\ITerrain.h" />
+    <ClInclude Include="..\..\..\..\include\scene\IWater.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\device\CEventManager.cpp" />
     <ClCompile Include="..\..\..\..\source\mx.cpp" />
     <ClCompile Include="..\..\..\..\source\resource\CMeshManager.cpp" />
     <ClCompile Include="..\..\..\..\source\resource\CResourceManager.cpp" />
