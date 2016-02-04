@@ -1,5 +1,5 @@
 #include "resource/CResourceManager.h"
-#include "resource/CPLXLoader.h"
+
 
 #include <string.h>
 
@@ -42,6 +42,5 @@ namespace mx
 				m_mapResource.erase(filename);
 			}
 		}
-
 	}
 }
