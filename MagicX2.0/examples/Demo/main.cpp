@@ -1,4 +1,5 @@
 #include "mx.h"
+#include "generator.h"
 
 using namespace mx;
 
@@ -8,89 +9,24 @@ const int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
 
 int main(int argc, char *argv[])
 {
-	IDevice *device = CreateDevice(100, 100, 800, 600, false);
+	IDevice *device = CreateDevice(100, 50, 1024, 720, false);
 	IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
 	IRenderer *renderer = device->GetRenderer();
 	CMeshManager *pMeshMgr = new CMeshManager(renderer);
-	IMesh *mesh = (IMesh *)pMeshMgr->LoadResource("plg/house.plg");
+	IMesh *mesh = (IMesh *)pMeshMgr->LoadResource("plg/house.plg");		
 
-	typedef struct
-	{
-		float x, y, z, w;			
-		float u, v;
-	}Vertex;
+	//CreateExample_1(renderer);
 
-	Vertex pyramid[9] = {
-		{-5.0f, -5.0f, 5.0f, 1.0f, 0, 1.0f},
-		{5.0f, -5.0f, 5.0f, 1.0f, 1.0f, 1.0f},
-		{0, 5.0f, 0, 1.0f, 0.5f, 0},
+	CSceneManager *pSceneMgr = new CSceneManager(renderer);
+	IScene *pScene = pSceneMgr->CreateScene();
+
+	ICamera *pCamera = pSceneMgr->CreateCamera(CVector3(0, 20, 0), CVector3(0, 0, -1), CVector3(0, 1, 0), PI / 2, 1.0f * device->GetHeight() / device->GetWidth(), 1.0f, 5000.0f);
+	pScene->SetupCamera(pCamera);
+	ISkyBox *pSkyBox = pSceneMgr->CreateSkyBox("texture/front.tga", "texture/back.tga", "texture/left.tga", "texture/right.tga", "texture/top.tga", "texture/cloud.tga", 500);
+	pScene->SetupSkyBox(pSkyBox);
+	ITerrain *pTerrain = pSceneMgr->CreateRandomTerrain(128);
+	pScene->SetupTerrain(pTerrain);
 	
-		{ 5.0f, -5.0f, 5.0f, 1.0f, 0.0f, 1.0f },
-		{0, -5.0f, -5.0f, 1.0f, 1.0f, 1.0f},
-		{ 0, 5.0f, 0, 1.0f, 0.5f, 0 },
-	
-		{ 0, -5.0f, -5.0f, 1.0f, 0.0f, 1.0f },
-		{ -5.0f, -5.0f, 5.0f, 1.0f, 1.0f, 1.0f },
-		{ 0, 5.0f, 0, 1.0f, 0.5f, 0 },
-	};
-			
-	uint indices[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-		
-	IGPUBuffer *buffer = NULL;// renderer->CreateGPUBuffer();
-			
-	if (buffer)
-	{
-
-		IRenderableObject *renderableObject = buffer->CreateRenderableObject();
-		if (renderableObject)
-		{
-			IShaderProgram *shaderProgram = renderableObject->GetShaderProgram();
-			if (shaderProgram)
-			{
-				//shaderProgram->Attach("shader/test.ver", ST_VERTEX);
-				//shaderProgram->Attach("shader/test.frg", ST_FRAGMENT);
-				//shaderProgram->BindAttributeLocation(2, VAL_POSITION, VAL_TEXTURE0);
-				//shaderProgram->Link();
-
-				shaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_MODULATE);
-
-				int iTextureUnit = 0;
-				shaderProgram->SetUniform("textureUnit0", &iTextureUnit);
-
-				float vColor[] = {1, 1, 1, 1};
-				shaderProgram->SetUniform("vColor", vColor);
-				CMatrix4 mat4;
-				//mat4.buildProjectionMatrixOrthoRH(20, 20, 10, -10);
-
-				CMatrix4 projectMat4;
-				projectMat4.buildProjectionMatrixPerspectiveFovRH(PI / 2.0f, 1.0f * device->GetHeight() / device->GetWidth(), 1, 100.0f);
-				CMatrix4 viewMat4;
-				viewMat4.buildCameraLookAtMatrix(CVector3(0, 0, 0), CVector3(0, 0, -1), CVector3(0, 1, 0));
-				CMatrix4 modelMat4;
-				modelMat4.setTranslation(CVector3(0, 0, -20.0f));
-
-				CMatrix4 mvpMat4 = projectMat4 * viewMat4 * modelMat4;
-
-				shaderProgram->SetUniform("mvpMatrix", mvpMat4.m);
-			}
-			buffer->Begin();
-			renderableObject->CreateVertexBufferObject(pyramid, sizeof(pyramid), 0, 9, GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
-			renderableObject->CreateIndexBufferObject(indices, 9, RVT_UINT, 9, GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
-			//buffer->AddVertexData(renderableObject, triangle1, sizeof(triangle1), 0);
-			//buffer->AddVertexData(renderableObject, color, sizeof(color), sizeof(triangle));
-			//buffer->AddVertexData(renderableObject, texture, sizeof(texture), sizeof(triangle1));
-			buffer->EnableVertexAttrib(VAL_POSITION, 4, RVT_FLOAT, sizeof(Vertex), 0);
-			//buffer->EnableVertexAttrib(VAI_COLOR, 4, RVT_FLOAT, sizeof(triangle));
-			buffer->EnableVertexAttrib(VAL_TEXTURE0, 2, RVT_FLOAT, sizeof(Vertex), sizeof(float)* 4);
-
-			buffer->End();
-
-		}
-
-		ITexture *tex = renderer->CreateTexture("texture/1.tga", TT_2D);
-		renderableObject->SetTexture(tex);
-
-	}
 
 	uint next_game_tick = device->GetSystemRunTime();
 	int sleep_time = 0;
@@ -100,9 +36,11 @@ int main(int argc, char *argv[])
 		sleep_time = next_game_tick - GetTickCount();
 		if (sleep_time >= 0)
 		{
+			pSceneMgr->Update(next_game_tick);
 			if (renderer)
 			{
 				mesh->rotateXZBy(0.01f);
+				mesh->rotateYZBy(0.005f);
 				mesh->Update(next_game_tick);
 				renderer->Render();
 				device->SwapBuffers();
@@ -112,6 +50,59 @@ int main(int argc, char *argv[])
 
 		if (event)
 		{
+			static int lastX;
+			static int lastY;
+
+			int currentX = event->GetMousePositonX();
+			int currentY = event->GetMousePositionY();
+
+			float rotY = (currentX - lastX) * 2.0f * PI / device->GetWidth();
+			float rotX = (currentY - lastY) * 2.0f * PI / device->GetWidth();
+
+			if (event->IsPress(EKP_MOUSE_LBUTTON))
+			{
+				if (event->IsPress(EKP_MOUSE_RBUTTON))
+				{
+					CVector3 dir = pCamera->GetDirection();
+					CVector3 move = dir.normalize() * (currentX - lastX) * 0.1f;
+					CVector3 pos = pCamera->GetPosition();
+					pos += move;
+					pCamera->SetPosition(pos);
+
+				}
+				else
+				{
+					CVector3 xAxis(1, 0, 0);
+					xAxis.rotateXZBy(rotY);
+
+					CVector3 pos = pCamera->GetPosition();
+					CVector3 dir = pCamera->GetDirection();
+					CVector3 up = pCamera->GetUp();
+					pos.rotateXZBy(rotY);
+					dir.rotateXZBy(rotY);
+					up.rotateXZBy(rotY);
+
+					/*
+					CMatrix4 mat4;
+					mat4.setRotationAxisRadians(rotX, xAxis);
+					mat4.rotate(pos);
+					mat4.rotate(dir);
+					mat4.rotate(up);*/
+
+
+					pCamera->SetPosition(pos);
+					pCamera->SetDirection(dir);
+					pCamera->SetUp(up);
+
+				}
+
+			}
+
+			renderer->PolygonMeshMode(event->IsPress(EKP_KEYBOARD_N));
+
+			lastX = event->GetMousePositonX();
+			lastY = event->GetMousePositionY();
+		
 			if (event->IsPress(EKP_KEYBOARD_ESC))
 			{
 				exit(1);
