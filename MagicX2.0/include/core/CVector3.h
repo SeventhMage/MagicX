@@ -204,6 +204,8 @@ namespace mx
 				};
 			};
 		};
+		
+		inline CVector3 operator*(const float scalar, const CVector3 &vector) { return vector * scalar; }
 	}
 }
 

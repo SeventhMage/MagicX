@@ -241,6 +241,74 @@ namespace mx
 
 			}
 
+			CMatrix4 &setInverseTranslation(const CVector3  &translation)
+			{
+				m[12] = -translation.x;
+				m[13] = -translation.y;
+				m[14] = -translation.z;
+				return *this;
+			}
+
+			CMatrix4 &setRotationRadiansRH(const float rotateX, const float rotateY, const float rotateZ)
+			{
+				const double cr = cos(rotateX);
+				const double sr = sin(rotateX);
+				const double cp = cos(rotateY);
+				const double sp = sin(rotateY);
+				const double cy = cos(rotateZ);
+				const double sy = sin(rotateZ);
+
+				m[0] = (float)(cp * cy);
+				m[4] = (float)(-cp * sy);
+				m[8] = (float)(sp);
+
+				m[1] = (float)(sr * sp * cy + cr * sy);
+				m[5] = (float)(-sr * sp * sy + cr * cy);
+				m[9] = (float)(-sr * cp);
+
+				m[2] = (float)(-cr * sp * cy + sr * sy);
+				m[6] = (float)(cr * sp * sy + sr * cy);
+				m[10] = (float)(cr * cp);
+
+				return *this;
+			}
+
+			CMatrix4 &setRotationRadiansLH(const float rotateX, const float rotateY, const float rotateZ)
+			{
+				const double cr = cos(rotateX);
+				const double sr = sin(rotateX);
+				const double cp = cos(rotateY);
+				const double sp = sin(rotateY);
+				const double cy = cos(rotateZ);
+				const double sy = sin(rotateZ);
+
+				m[0] = (float)(cp * cy);
+				m[1] = (float)(cp * sy);
+				m[2] = (float)(-sp);
+
+				m[4] = (float)(sr * sp * cy - cr * sy);
+				m[5] = (float)(sr * sp * sy + cr * cy);
+				m[6] = (float)(sr * cp);
+
+				m[8] = (float)(cr * sp * cy + sr * sy);
+				m[9] = (float)(cr * sp * sy - sr * cy);
+				m[10] = (float)(cr * cp);
+
+				return *this;
+			}
+
+			inline CVector3 getTranslation() const
+			{
+				return CVector3(m[12], m[13], m[14]);
+			}
+
+			inline CMatrix4 &setScale(const CVector3 &scale)
+			{
+				m[0] = scale.x;
+				m[5] = scale.y;
+				m[10] = scale.z;
+			}
+
 			float m[16];
 		};
 	}

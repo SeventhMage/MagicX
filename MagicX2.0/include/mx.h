@@ -34,10 +34,18 @@
 #include "render/SColor.h"
 #include "render/SVertexAttribute.h"
 
+#include "scene/CSceneManager.h"
+#include "scene/ICamera.h"
+#include "scene/ISkyBox.h"
+#include "scene/ITerrain.h"
+#include "scene/IWater.h"
+#include "scene/IScene.h"
+#include "scene/ISceneNode.h"
+
 namespace mx
 {
 	using namespace mx::device;
-	using namespace mx::device;
+	using namespace mx::scene;
 	using namespace mx::render;
 	using namespace mx::core;
 	using namespace mx::resource;
