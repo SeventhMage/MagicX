@@ -4,7 +4,6 @@
 #include "resource/IResourceLoader.h"
 #include "core/CVector3.h"
 #include "resource/Polygon.h"
-#include "resource/IMesh.h"
 
 #include <stdio.h>
 

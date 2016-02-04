@@ -53,14 +53,14 @@ namespace mx
 				if (m_vecRenderableObject[i])
 				{
 					for (uint j = 0; j < RA_NUM; ++j)
-					{						
-						if (m_vecRenderableObject[j]->IsEnabled((RenderAttribute)j))
-						{
-							GLenum attr = GetGLRenderAttr((RenderAttribute)j);
+					{		
+						GLenum attr = GetGLRenderAttr((RenderAttribute)j);
+						if (m_vecRenderableObject[i]->IsEnabled((RenderAttribute)j))
 							glEnable(attr);
-						}
+						else
+							glDisable(attr);
 					}
-					glPolygonMode(GL_FRONT_AND_BACK, GetGLPolygonMode(m_vecRenderableObject[i]->GetPolygonMode()));
+					//glPolygonMode(GL_FRONT_AND_BACK, GetGLPolygonMode(m_vecRenderableObject[i]->GetPolygonMode()));
 					COpenGLShaderProgram *program = (COpenGLShaderProgram *)m_vecRenderableObject[i]->GetShaderProgram();
 					if (program)
 					{

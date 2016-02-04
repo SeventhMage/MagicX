@@ -98,8 +98,8 @@ namespace mx
 			m_pRenderableObject = m_pGPUBuffer->CreateRenderableObject();
 			if (m_pRenderableObject)
 			{
-				m_pRenderableObject->SetPolygonMode(PM_LINE);
-				m_pRenderableObject->Disable(RA_CULL_FACE);
+				//m_pRenderableObject->SetPolygonMode(PM_LINE);
+				//m_pRenderableObject->Disable(RA_CULL_FACE);
 				render::IShaderProgram *shaderProgram = m_pRenderableObject->GetShaderProgram();
 				if (shaderProgram)
 				{

@@ -1,6 +1,6 @@
 #include "CWin32Device.h"
 #include "device/IKeyEvent.h"
-#include "../CEventManager.h"
+#include "device/CEventManager.h"
 #include "render/IRenderDriver.h"
 
 namespace mx

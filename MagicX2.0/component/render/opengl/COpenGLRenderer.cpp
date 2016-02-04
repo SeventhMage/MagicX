@@ -3,6 +3,7 @@
 #include "COpenGLTexture.h"
 #include "COpenGLGPUBuffer.h"
 #include "mxDef.h"
+#include "COpenGLTerrainTextureGenerator.h"
 
 namespace mx
 {
@@ -12,11 +13,12 @@ namespace mx
 		COpenGLRenderer::COpenGLRenderer()
 		{
 			glEnable(GL_DEPTH_TEST);
+			m_pTerrainTextureGenerator = new COpenGLTerrainTextureGenerator();
 		}
 
 		COpenGLRenderer::~COpenGLRenderer()
 		{
-
+			SAFE_DEL(m_pTerrainTextureGenerator);
 		}
 
 		void COpenGLRenderer::DrawLine(const core::CVector3 &vFrom, const core::CVector3 &vTo, const SColor &color)
