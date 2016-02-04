@@ -194,7 +194,7 @@ namespace mx
 			wcex.hInstance = hInstance;
 			wcex.hIcon = NULL;
 			wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
-			wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+			wcex.hbrBackground = NULL;// (HBRUSH)(COLOR_WINDOW + 1);
 			wcex.lpszMenuName = 0;
 			wcex.lpszClassName = ClassName;
 			wcex.hIconSm = 0;

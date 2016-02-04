@@ -1,6 +1,8 @@
 #ifndef _MX_RESOURCE_CMESH_H_
 #define _MX_RESOURCE_CMESH_H_
 
+#include <vector>
+
 #include "mxDef.h"
 #include "mxType.h"
 #include "core/CVector3.h"
@@ -36,7 +38,7 @@ namespace mx
 			virtual void rotateXZBy(double radians, const CVector3 &center = CVector3(0, 1.0f, 0));
 			virtual void rotateXYBy(double radians, const CVector3 &center = CVector3(0, 0, 1.0f));
 			virtual void rotateYZBy(double radians, const CVector3 &center = CVector3(1.0f, 0, 0));
-			virtual void Update(uint deltaTime);
+			virtual void Update(uint deltaTime, const CMatrix4 &mat4VP);
 
 			void CalculateBoundingBox();
 			void CalculateRadius();
@@ -64,7 +66,7 @@ namespace mx
 			Triangle *m_pTriangleList;
 
 			render::IGPUBuffer *m_pGPUBuffer;
-			render::IRenderableObject *m_pRenderableObject;
+			std::vector<render::IRenderableObject *> m_pRenderableObject;
 		};
 	}
 }

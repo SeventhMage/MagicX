@@ -9,7 +9,7 @@ const int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
 
 int main(int argc, char *argv[])
 {
-	IDevice *device = CreateDevice(100, 50, 1024, 720, false);
+	IDevice *device = CreateDevice(100, 50, 1024, 720, true);
 	IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
 	IRenderer *renderer = device->GetRenderer();
 	CMeshManager *pMeshMgr = new CMeshManager(renderer);
@@ -20,11 +20,11 @@ int main(int argc, char *argv[])
 	CSceneManager *pSceneMgr = new CSceneManager(renderer);
 	IScene *pScene = pSceneMgr->CreateScene();
 
-	ICamera *pCamera = pSceneMgr->CreateCamera(CVector3(0, 20, 0), CVector3(0, 0, -1), CVector3(0, 1, 0), PI / 2, 1.0f * device->GetHeight() / device->GetWidth(), 1.0f, 5000.0f);
+	ICamera *pCamera = pSceneMgr->CreateCamera(CVector3(0, 40, 0), CVector3(0, 0, -1), CVector3(0, 1, 0), PI / 2, 1.0f * device->GetHeight() / device->GetWidth(), 1.0f, 5000.0f);
 	pScene->SetupCamera(pCamera);
 	ISkyBox *pSkyBox = pSceneMgr->CreateSkyBox("texture/front.tga", "texture/back.tga", "texture/left.tga", "texture/right.tga", "texture/top.tga", "texture/cloud.tga", 500);
 	pScene->SetupSkyBox(pSkyBox);
-	ITerrain *pTerrain = pSceneMgr->CreateRandomTerrain(128);
+	ITerrain *pTerrain = pSceneMgr->CreateRandomTerrain(256);
 	pScene->SetupTerrain(pTerrain);
 	
 
@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 			{
 				mesh->rotateXZBy(0.01f);
 				mesh->rotateYZBy(0.005f);
-				mesh->Update(next_game_tick);
+				mesh->Update(next_game_tick, pCamera->GetViewProjectionMatrix());
 				renderer->Render();
 				device->SwapBuffers();
 			}
