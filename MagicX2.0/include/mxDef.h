@@ -21,6 +21,7 @@ namespace mx
 #define DEG_TO_RAD(x)	((x)*DEGTORAD)
 #define RAD_TO_DEG(x)	((x)*RADTODEG)
 #define FLOAT_EQUAL(a, b) (((a) - (b) > -ROUNDING_ERROR_FLOAT) && ((a) - (b) < ROUNDING_ERROR_FLOAT))
+#define ISZERO(a) ((a) > -ROUNDING_ERROR_FLOAT && (a) < ROUNDING_ERROR_FLOAT)
 
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))

@@ -26,7 +26,10 @@ namespace mx
 			virtual void SetupSkyBox(ISkyBox *skybox) = 0;
 			virtual void SetupTerrain(ITerrain *terrain) = 0;
 
+			virtual ICamera *GetCamera() = 0;
+
 			virtual void Update(int elapsedTime) = 0;
+			virtual void Render() = 0;
 		};
 	}
 }

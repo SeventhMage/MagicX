@@ -23,7 +23,10 @@ namespace mx
 			, m_pRenderableObject(NULL)
 			, m_pTexture(NULL)
 			, m_pTextureGenerator(NULL)
+			, m_maxHeight(128)
 		{
+			if (m_pRenderer)
+				m_pRenderer->Increase();
 			m_pHeightMap = new short[(width + 1) * (width + 1)];
 			memset(m_pHeightMap, 0, sizeof(short) * ((width + 1) * (width + 1)));
 			
@@ -45,6 +48,8 @@ namespace mx
 			SAFE_DEL_ARRAY(m_pMeshData->pVertices);
 			SAFE_DEL_ARRAY(m_pMeshData->pIndices);
 			SAFE_DEL(m_pMeshData)
+			if (m_pRenderer)
+				m_pRenderer->Decrease();
 		}
 
 		void CRandomTerrain::RandGenerateMesh()
@@ -215,7 +220,7 @@ namespace mx
 				if (m_pTextureGenerator)
 				{
 					char *filename[] = {"texture/grass.tga", "texture/grass.tga", "texture/land.tga"};					
-					m_pTexture = m_pTextureGenerator->GenerateTextureBit24(m_pHeightMap, m_uWidth + 1, MAX_HEIGHT, filename, 3);
+					m_pTexture = m_pTextureGenerator->GenerateTextureBit24(m_pHeightMap, m_uWidth + 1, m_maxHeight, filename, 3);
 					m_pRenderableObject->SetTexture(m_pTexture);
 				}
 			}
@@ -276,7 +281,7 @@ namespace mx
 
 		float CRandomTerrain::GetRandomHeight(float zoom)
 		{
-			int scale = (int)(zoom * (MAX_HEIGHT + 1));
+			int scale = (int)(zoom * (m_maxHeight + 1));
 			if (scale == 0)
 				return 0;
 			return  (rand() % scale - scale * 0.5f);

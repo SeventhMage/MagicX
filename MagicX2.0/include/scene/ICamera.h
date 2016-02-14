@@ -4,6 +4,8 @@
 #include "mxType.h"
 #include "core/CVector3.h"
 #include "core/CMatrix4.h"
+#include "core/CFrustum.h"
+#include "scene/ISceneNode.h"
 
 namespace mx
 {
@@ -11,6 +13,7 @@ namespace mx
 	{
 		using core::CVector3;
 		using core::CMatrix4;
+		using core::CFrustum;
 		class ICamera
 		{
 		public:
@@ -30,6 +33,8 @@ namespace mx
 			virtual CMatrix4 &GetViewMatrix()  = 0;
 			virtual CMatrix4 &GetProjectionMatrix() = 0;
 			virtual const CMatrix4 &GetViewProjectionMatrix() const = 0;
+			virtual const CFrustum &GetFrustum() const = 0;
+			virtual float GetDistance() const = 0;
 			virtual bool IsOritho() const = 0;
 
 			virtual void SetPosition(const CVector3 &position) = 0;
@@ -44,6 +49,8 @@ namespace mx
 			virtual void SetOritho(bool bOritho) = 0;
 			virtual void SetNeedUpdateViewMatrix() = 0;
 			virtual void SetNeedUpdateProjectionMatrix() = 0;
+			virtual void SetDistance(float fDis) = 0;
+			virtual ISceneNode *GetFocus() = 0;
 		};
 	}
 }

@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>../../../lib</OutDir>
+    <OutDir>../../../lib/</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -79,7 +79,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\component\scene\CCamera.h" />
-    <ClInclude Include="..\..\..\component\scene\CEntity.h" />
     <ClInclude Include="..\..\..\component\scene\CScene.h" />
     <ClInclude Include="..\..\..\component\scene\CSceneNode.h" />
     <ClInclude Include="..\..\..\component\scene\CSkyBox.h" />

@@ -12,36 +12,39 @@ namespace mx
 	{
 		using core::CVector3;
 		using core::CMatrix4;
+		class IScene;
 		class ISceneNode
 		{
 		public:
 			ISceneNode()
 				:m_pNodeParent(NULL)
+				, m_pSceneParent(NULL)
 				, m_bVisible(true)
+				, m_bActive(true)
 			{
 			};
 			virtual ~ISceneNode(){};
 			
-			virtual void UpdateImp(int elapsedTime, const CMatrix4 &mat4MVP, const CMatrix4 &mat4MV) = 0;
-//			virtual void RenderImp() = 0;
+			virtual void UpdateImp(int elapsedTime) = 0;
+			virtual void RenderImp() = 0;
 
-// 			void Render()
-// 			{
-// 				RenderImp();
-// 				std::list<ISceneNode *>::iterator it = m_listChild.begin();
-// 				for (; it != m_listChild.end(); ++it)
-// 				{
-// 					(*it)->Render();
-// 				}				
-// 			}
+ 			void Render()
+ 			{
+ 				RenderImp();
+ 				std::list<ISceneNode *>::iterator it = m_listChild.begin();
+ 				for (; it != m_listChild.end(); ++it)
+ 				{
+ 					(*it)->Render();
+ 				}				
+ 			}
 
-			void Update(uint elapsedTime, const CMatrix4 &mat4MVP, const CMatrix4 &mat4MV)
+			void Update(uint elapsedTime)
 			{
-				UpdateImp(elapsedTime, mat4MVP, mat4MV);
+				UpdateImp(elapsedTime);
 				std::list<ISceneNode *>::iterator it = m_listChild.begin();
 				for (; it != m_listChild.end(); ++it)
 				{
-					(*it)->Update(elapsedTime, mat4MVP, mat4MV);
+					(*it)->Update(elapsedTime);
 				}
 			}
 
@@ -60,6 +63,12 @@ namespace mx
 			{
 				m_listChild.push_back(child);
 			}
+
+			void SetScene(IScene *pScene)
+			{
+				m_pSceneParent = pScene;
+			}
+
 			void Remove()
 			{
 				if (m_pNodeParent)
@@ -92,7 +101,7 @@ namespace mx
 
 			CVector3 GetAbslutePosition() const
 			{
-				return m_absluateTransformation.getTranslation();
+				return m_absluateTransformation.GetTranslation();
 			}
 
 			void SetScale(const CVector3 &scale)
@@ -113,12 +122,12 @@ namespace mx
 			{
 				CMatrix4 mat;
 
-				mat.setTranslation(GetPosition());
-				mat.setTranslation(GetRotation());
+				mat.SetTranslation(GetPosition());
+				mat.SetRotationRadiansRH(GetRotation().x, GetRotation().y, GetRotation().z);
 				if (m_relativeScale != CVector3(1.0f, 1.0f, 1.0f))
 				{
 					CMatrix4 smat;
-					smat.setScale(m_relativeScale);
+					smat.SetScale(m_relativeScale);
 					mat = mat * smat;
 				}
 				return mat;
@@ -129,10 +138,14 @@ namespace mx
 				m_bVisible = visible;
 			}
 
-			bool GetVisible()const
+			bool IsVisible()const
 			{
 				return m_bVisible;
 			}
+
+			//3D检测后，可见为true, 不可见为false
+			void SetActive(bool bActive) { m_bActive = bActive; }
+			bool IsActive() const { return m_bActive; }		
 
 			const std::string &GetName() const
 			{
@@ -152,6 +165,7 @@ namespace mx
 		protected:
 			ISceneNode *m_pNodeParent;
 			std::list<ISceneNode *> m_listChild;
+			IScene *m_pSceneParent;
 
 			CMatrix4 m_absluateTransformation;
 			CVector3 m_relativePosition;
@@ -159,6 +173,7 @@ namespace mx
 			CVector3 m_relativeScale;						
 			std::string m_name;
 			bool m_bVisible;
+			bool m_bActive;
 		};
 	}
 }

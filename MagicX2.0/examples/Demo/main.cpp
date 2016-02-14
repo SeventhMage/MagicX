@@ -1,6 +1,7 @@
 #include "mx.h"
 #include "generator.h"
 
+
 using namespace mx;
 
 
@@ -9,25 +10,40 @@ const int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
 
 int main(int argc, char *argv[])
 {
-	IDevice *device = CreateDevice(100, 50, 1024, 720, true);
+	CPlane3 plane(CVector3(1.0f, 0, 0), CVector3(0, 1.0f, 0), CVector3(0, 0, 1.0f));
+
+	IDevice *device = CreateDevice(100, 50, 1024, 720, false);
 	IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
 	IRenderer *renderer = device->GetRenderer();
-	CMeshManager *pMeshMgr = new CMeshManager(renderer);
-	IMesh *mesh = (IMesh *)pMeshMgr->LoadResource("plg/house.plg");		
-
+	renderer->Increase();
 	//CreateExample_1(renderer);
 
-	CSceneManager *pSceneMgr = new CSceneManager(renderer);
+	CSceneManager *pSceneMgr = CSceneManager::NewInstance();
 	IScene *pScene = pSceneMgr->CreateScene();
-
-	ICamera *pCamera = pSceneMgr->CreateCamera(CVector3(0, 40, 0), CVector3(0, 0, -1), CVector3(0, 1, 0), PI / 2, 1.0f * device->GetHeight() / device->GetWidth(), 1.0f, 5000.0f);
+	CVector3 vDir(0, 0, -1);
+	CVector3 vUp(0, 1, 0);
+	//vUp.rotateYZBy(DEG_TO_RAD(30.0f));
+	//vDir.rotateYZBy(DEG_TO_RAD(30.0f));
+	ICamera *pCamera = pSceneMgr->CreateCamera(CVector3(0, 40, 40), vDir, vUp, PI / 2, 1.0f * device->GetWidth() / device->GetHeight(), 1.0f, 5000.0f);
 	pScene->SetupCamera(pCamera);
-	ISkyBox *pSkyBox = pSceneMgr->CreateSkyBox("texture/front.tga", "texture/back.tga", "texture/left.tga", "texture/right.tga", "texture/top.tga", "texture/cloud.tga", 500);
+	ISkyBox *pSkyBox = pSceneMgr->CreateSkyBox(renderer, "texture/front.tga", "texture/back.tga", "texture/left.tga", "texture/right.tga", "texture/top.tga", "texture/cloud.tga", 500);
 	pScene->SetupSkyBox(pSkyBox);
-	ITerrain *pTerrain = pSceneMgr->CreateRandomTerrain(256);
+	ITerrain *pTerrain = pSceneMgr->CreateRandomTerrain(renderer, 256);
 	pScene->SetupTerrain(pTerrain);
 	
+	CMeshManager meshMgr;
+	IMesh *mesh = (IMesh *)meshMgr.LoadResource("plg/tower2.plg");
+	CMeshNodeManager meshNodeMgr(renderer);
+	CMeshNode *pMeshNode = meshNodeMgr.CreateMeshNode(mesh);
+	//pMeshNode->SetPosition(CVector3(100, 100, 100));
+	pScene->AddSceneNode(pMeshNode);
+	//CVector3 vDir(0, 0, -1);
+	//CVector3 vUp(0, 1, 0);	
+	vUp.rotateYZBy(DEG_TO_RAD(30.0f));
+	vDir.rotateYZBy(DEG_TO_RAD(30.0f));
 
+	ICamera *pFocusCam = pSceneMgr->CreateCamera(40.0f, pMeshNode, vDir, vUp, PI * 0.5f, 1.0f * device->GetWidth() / device->GetHeight(), 1.0f, 1000.0f);
+	//pScene->SetupCamera(pFocusCam);
 	uint next_game_tick = device->GetSystemRunTime();
 	int sleep_time = 0;
 	while (device->Run())
@@ -41,7 +57,7 @@ int main(int argc, char *argv[])
 			{
 				mesh->rotateXZBy(0.01f);
 				mesh->rotateYZBy(0.005f);
-				mesh->Update(next_game_tick, pCamera->GetViewProjectionMatrix());
+
 				renderer->Render();
 				device->SwapBuffers();
 			}
@@ -59,28 +75,33 @@ int main(int argc, char *argv[])
 			float rotY = (currentX - lastX) * 2.0f * PI / device->GetWidth();
 			float rotX = (currentY - lastY) * 2.0f * PI / device->GetWidth();
 
-			if (event->IsPress(EKP_MOUSE_LBUTTON))
+			ICamera *pCamera = pScene->GetCamera();
+			if (event->IsPress(EKP_MOUSE_LBUTTON) || event->IsPress(EKP_MOUSE_RBUTTON))
 			{
-				if (event->IsPress(EKP_MOUSE_RBUTTON))
+				if (event->IsPress(EKP_MOUSE_LBUTTON) && event->IsPress(EKP_MOUSE_RBUTTON))
 				{
 					CVector3 dir = pCamera->GetDirection();
-					CVector3 move = dir.normalize() * (currentX - lastX) * 0.1f;
+					CVector3 move = dir.normalize() * float(currentX - lastX) * 0.1f;
 					CVector3 pos = pCamera->GetPosition();
 					pos += move;
 					pCamera->SetPosition(pos);
+					//pCamera->SetDistance(float(currentX - lastX) * 0.1f);
 
 				}
 				else
 				{
 					CVector3 xAxis(1, 0, 0);
-					xAxis.rotateXZBy(rotY);
+					CVector3 vYRot(0, 1.0f, 0);
+					/*if (pCamera->GetFocus())
+						vYRot.y = pCamera->GetFocus()->GetPosition().y - 1.0f;*/
+					xAxis.rotateXZBy(rotY, vYRot);
 
 					CVector3 pos = pCamera->GetPosition();
 					CVector3 dir = pCamera->GetDirection();
 					CVector3 up = pCamera->GetUp();
-					pos.rotateXZBy(rotY);
-					dir.rotateXZBy(rotY);
-					up.rotateXZBy(rotY);
+					pos.rotateXZBy(rotY, vYRot);
+					dir.rotateXZBy(rotY, vYRot);
+					up.rotateXZBy(rotY, vYRot);
 
 					/*
 					CMatrix4 mat4;
@@ -109,7 +130,9 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
-
+	CEventManager::DeleteInstance();
+	CSceneManager::DeleteInstance();
 	DestroyDevice(device);
+	renderer->Decrease();
 	return 0;
 }

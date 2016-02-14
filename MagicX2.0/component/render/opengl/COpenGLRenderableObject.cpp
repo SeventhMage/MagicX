@@ -13,6 +13,7 @@ namespace mx
 			:m_bEnableIndexBuffer(false)
 			, m_uPolygonMode(PM_FILL)
 			, m_texture(NULL)
+			, m_bActive(true)
 		{
 			m_shaderProgram = new COpenGLShaderProgram();
 			for (uint i = 0; i < RA_NUM; ++i)

@@ -19,6 +19,7 @@ namespace mx
 			virtual ~COpenGLGPUBuffer();
 
 			virtual IRenderableObject *CreateRenderableObject();
+			virtual RenderableTable &GetRenderableObject(){ return m_vecRenderableObject; }
 
 			virtual void Begin();						
 			virtual void EnableVertexAttrib(VertexAttributeLocation vai, int size, RendererVariableType vertType, int stride, int offset);			
@@ -27,7 +28,7 @@ namespace mx
 			virtual void Render();
 
 		private:
-			std::vector<IRenderableObject *> m_vecRenderableObject;
+			RenderableTable m_vecRenderableObject;
 			GLuint m_hVAO;
 			bool m_bNormalize;
 		};

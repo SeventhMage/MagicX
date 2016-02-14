@@ -50,7 +50,7 @@ namespace mx
 		{			
 			for (uint i = 0; i < m_vecRenderableObject.size(); ++i)
 			{
-				if (m_vecRenderableObject[i])
+				if (m_vecRenderableObject[i] && m_vecRenderableObject[i]->IsActive())
 				{
 					for (uint j = 0; j < RA_NUM; ++j)
 					{		

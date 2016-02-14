@@ -3,9 +3,12 @@
 
 #include <assert.h>
 #include <string.h>
+#include <float.h>
 
 #include "CVector3.h"
 #include "CPlane3.h"
+#include "mxType.h"
+
 
 namespace mx
 {
@@ -14,7 +17,7 @@ namespace mx
 		class CMatrix4
 		{
 		public:
-			CMatrix4(){ makeIdentity(); }
+			CMatrix4(){ MakeIdentity(); }
 			CMatrix4(float m11, float m12, float m13, float m14, 
 					float m21, float m22, float m23, float m24,
 					float m31, float m32, float m33, float m34,
@@ -34,7 +37,7 @@ namespace mx
 				}
 			}
 
-			inline CMatrix4 &makeIdentity()
+			inline CMatrix4 &MakeIdentity()
 			{
 				memset(m, 0, sizeof(m));
 				m[0] = m[5] = m[10] = m[15] = 1.0f;
@@ -51,6 +54,15 @@ namespace mx
 				return m[index];
 			}
 
+			float operator()(const uint row, const uint col) const
+			{
+				return m[row * 4 + col];
+			}
+
+			float &operator()(const uint row, const uint col)
+			{
+				return m[row * 4 + col];
+			}
 
 			inline CMatrix4 operator*(const CMatrix4 &other) const
 			{
@@ -77,7 +89,7 @@ namespace mx
 					);
 			}
 
-			CMatrix4 &setTranslation(const CVector3 &translation)
+			CMatrix4 &SetTranslation(const CVector3 &translation)
 			{
 				m[12] = translation.x;
 				m[13] = translation.y;
@@ -85,11 +97,11 @@ namespace mx
 				return *this;
 			}
 
-			CMatrix4 &buildProjectionMatrixPerspectiveFovRH(float fieldOfViewRadians, float aspectRatio, float zNear, float zFar)
+			CMatrix4 &BuildProjectionMatrixPerspectiveFovRH(float fieldOfViewRadians, float aspectRatio, float zNear, float zFar)
 			{
-				const double h = 1.0 / tan(fieldOfViewRadians*0.5);
+				const float w = static_cast<float>(1.0 / tan(fieldOfViewRadians*0.5));
 				assert(aspectRatio != 0.f);
-				const float w = static_cast<float>(h / aspectRatio);
+				const float h = static_cast<float>(w / aspectRatio);
 				assert(zNear != zFar);
 
 				m[0] = w;
@@ -115,9 +127,9 @@ namespace mx
 				return *this;
 			}
 
-			CMatrix4 &buildProjectionMatrixPerspectiveFovLH(float fieldOfViewRadians, float aspectRatio, float zNear, float zFar)
+			CMatrix4 &BuildProjectionMatrixPerspectiveFovLH(float fieldOfViewRadians, float aspectRatio, float zNear, float zFar)
 			{
-				const double h = 1.0 / tan(fieldOfViewRadians*0.5);
+				const float h = static_cast<float>(1.0 / tan(fieldOfViewRadians*0.5));
 				assert(aspectRatio != 0.f);
 				const float w = static_cast<float>(h / aspectRatio);
 				assert(zNear != zFar);
@@ -145,7 +157,7 @@ namespace mx
 				return *this;
 			}
 
-			CMatrix4 &buildProjectionMatrixOrthoRH(float widthOfViewVolume, float heightOfViewVolume, float zNear, float zFar)
+			CMatrix4 &BuildProjectionMatrixOrthoRH(float widthOfViewVolume, float heightOfViewVolume, float zNear, float zFar)
 			{
 				assert(widthOfViewVolume != 0.f);
 				assert(heightOfViewVolume != 0.f);
@@ -174,7 +186,7 @@ namespace mx
 				return *this;
 			}
 
-			CMatrix4 &buildProjectionMatrixOrthoLH(float widthOfViewVolume, float heightOfViewVolume, float zNear, float zFar)
+			CMatrix4 &BuildProjectionMatrixOrthoLH(float widthOfViewVolume, float heightOfViewVolume, float zNear, float zFar)
 			{
 				assert(widthOfViewVolume != 0.f);
 				assert(heightOfViewVolume != 0.f);
@@ -203,7 +215,7 @@ namespace mx
 				return *this;
 			}
 
-			CMatrix4 &buildCameraLookAtMatrix(const CVector3 &position, const CVector3 &dir, const CVector3 &upVector)
+			CMatrix4 &BuildCameraLookAtMatrix(const CVector3 &position, const CVector3 &dir, const CVector3 &upVector)
 			{
 				CVector3 zaxis = -dir;
 				zaxis.normalize();
@@ -236,12 +248,12 @@ namespace mx
 
 				return *this;
 			}
-			CMatrix4 &buildShadowMatrix(const CVector3 &light, const CPlane3 &plane, float point = 1.0f)
+			CMatrix4 &BuildShadowMatrix(const CVector3 &light, const CPlane3 &plane, float point = 1.0f)
 			{
 
 			}
 
-			CMatrix4 &setInverseTranslation(const CVector3  &translation)
+			CMatrix4 &SetInverseTranslation(const CVector3  &translation)
 			{
 				m[12] = -translation.x;
 				m[13] = -translation.y;
@@ -249,7 +261,7 @@ namespace mx
 				return *this;
 			}
 
-			CMatrix4 &setRotationRadiansRH(const float rotateX, const float rotateY, const float rotateZ)
+			CMatrix4 &SetRotationRadiansRH(const float rotateX, const float rotateY, const float rotateZ)
 			{
 				const double cr = cos(rotateX);
 				const double sr = sin(rotateX);
@@ -273,7 +285,7 @@ namespace mx
 				return *this;
 			}
 
-			CMatrix4 &setRotationRadiansLH(const float rotateX, const float rotateY, const float rotateZ)
+			CMatrix4 &SetRotationRadiansLH(const float rotateX, const float rotateY, const float rotateZ)
 			{
 				const double cr = cos(rotateX);
 				const double sr = sin(rotateX);
@@ -297,16 +309,157 @@ namespace mx
 				return *this;
 			}
 
-			inline CVector3 getTranslation() const
+			inline CVector3 GetTranslation() const
 			{
 				return CVector3(m[12], m[13], m[14]);
 			}
 
-			inline CMatrix4 &setScale(const CVector3 &scale)
+			inline bool GetInverse(CMatrix4 &out) const
+			{
+				/// Calculates the inverse of this Matrix
+				/// The inverse is calculated using Cramers rule.
+				/// If no inverse exists then 'false' is returned.
+
+				const CMatrix4 &m = *this;
+
+				float d = (m(0, 0) * m(1, 1) - m(0, 1) * m(1, 0)) * (m(2, 2) * m(3, 3) - m(2, 3) * m(3, 2)) -
+					(m(0, 0) * m(1, 2) - m(0, 2) * m(1, 0)) * (m(2, 1) * m(3, 3) - m(2, 3) * m(3, 1)) +
+					(m(0, 0) * m(1, 3) - m(0, 3) * m(1, 0)) * (m(2, 1) * m(3, 2) - m(2, 2) * m(3, 1)) +
+					(m(0, 1) * m(1, 2) - m(0, 2) * m(1, 1)) * (m(2, 0) * m(3, 3) - m(2, 3) * m(3, 0)) -
+					(m(0, 1) * m(1, 3) - m(0, 3) * m(1, 1)) * (m(2, 0) * m(3, 2) - m(2, 2) * m(3, 0)) +
+					(m(0, 2) * m(1, 3) - m(0, 3) * m(1, 2)) * (m(2, 0) * m(3, 1) - m(2, 1) * m(3, 0));
+
+				if (ISZERO(d))
+					return false;
+
+				d = 1 / d;
+
+				out(0, 0) = d * (m(1, 1) * (m(2, 2) * m(3, 3) - m(2, 3) * m(3, 2)) +
+					m(1, 2) * (m(2, 3) * m(3, 1) - m(2, 1) * m(3, 3)) +
+					m(1, 3) * (m(2, 1) * m(3, 2) - m(2, 2) * m(3, 1)));
+				out(0, 1) = d * (m(2, 1) * (m(0, 2) * m(3, 3) - m(0, 3) * m(3, 2)) +
+					m(2, 2) * (m(0, 3) * m(3, 1) - m(0, 1) * m(3, 3)) +
+					m(2, 3) * (m(0, 1) * m(3, 2) - m(0, 2) * m(3, 1)));
+				out(0, 2) = d * (m(3, 1) * (m(0, 2) * m(1, 3) - m(0, 3) * m(1, 2)) +
+					m(3, 2) * (m(0, 3) * m(1, 1) - m(0, 1) * m(1, 3)) +
+					m(3, 3) * (m(0, 1) * m(1, 2) - m(0, 2) * m(1, 1)));
+				out(0, 3) = d * (m(0, 1) * (m(1, 3) * m(2, 2) - m(1, 2) * m(2, 3)) +
+					m(0, 2) * (m(1, 1) * m(2, 3) - m(1, 3) * m(2, 1)) +
+					m(0, 3) * (m(1, 2) * m(2, 1) - m(1, 1) * m(2, 2)));
+				out(1, 0) = d * (m(1, 2) * (m(2, 0) * m(3, 3) - m(2, 3) * m(3, 0)) +
+					m(1, 3) * (m(2, 2) * m(3, 0) - m(2, 0) * m(3, 2)) +
+					m(1, 0) * (m(2, 3) * m(3, 2) - m(2, 2) * m(3, 3)));
+				out(1, 1) = d * (m(2, 2) * (m(0, 0) * m(3, 3) - m(0, 3) * m(3, 0)) +
+					m(2, 3) * (m(0, 2) * m(3, 0) - m(0, 0) * m(3, 2)) +
+					m(2, 0) * (m(0, 3) * m(3, 2) - m(0, 2) * m(3, 3)));
+				out(1, 2) = d * (m(3, 2) * (m(0, 0) * m(1, 3) - m(0, 3) * m(1, 0)) +
+					m(3, 3) * (m(0, 2) * m(1, 0) - m(0, 0) * m(1, 2)) +
+					m(3, 0) * (m(0, 3) * m(1, 2) - m(0, 2) * m(1, 3)));
+				out(1, 3) = d * (m(0, 2) * (m(1, 3) * m(2, 0) - m(1, 0) * m(2, 3)) +
+					m(0, 3) * (m(1, 0) * m(2, 2) - m(1, 2) * m(2, 0)) +
+					m(0, 0) * (m(1, 2) * m(2, 3) - m(1, 3) * m(2, 2)));
+				out(2, 0) = d * (m(1, 3) * (m(2, 0) * m(3, 1) - m(2, 1) * m(3, 0)) +
+					m(1, 0) * (m(2, 1) * m(3, 3) - m(2, 3) * m(3, 1)) +
+					m(1, 1) * (m(2, 3) * m(3, 0) - m(2, 0) * m(3, 3)));
+				out(2, 1) = d * (m(2, 3) * (m(0, 0) * m(3, 1) - m(0, 1) * m(3, 0)) +
+					m(2, 0) * (m(0, 1) * m(3, 3) - m(0, 3) * m(3, 1)) +
+					m(2, 1) * (m(0, 3) * m(3, 0) - m(0, 0) * m(3, 3)));
+				out(2, 2) = d * (m(3, 3) * (m(0, 0) * m(1, 1) - m(0, 1) * m(1, 0)) +
+					m(3, 0) * (m(0, 1) * m(1, 3) - m(0, 3) * m(1, 1)) +
+					m(3, 1) * (m(0, 3) * m(1, 0) - m(0, 0) * m(1, 3)));
+				out(2, 3) = d * (m(0, 3) * (m(1, 1) * m(2, 0) - m(1, 0) * m(2, 1)) +
+					m(0, 0) * (m(1, 3) * m(2, 1) - m(1, 1) * m(2, 3)) +
+					m(0, 1) * (m(1, 0) * m(2, 3) - m(1, 3) * m(2, 0)));
+				out(3, 0) = d * (m(1, 0) * (m(2, 2) * m(3, 1) - m(2, 1) * m(3, 2)) +
+					m(1, 1) * (m(2, 0) * m(3, 2) - m(2, 2) * m(3, 0)) +
+					m(1, 2) * (m(2, 1) * m(3, 0) - m(2, 0) * m(3, 1)));
+				out(3, 1) = d * (m(2, 0) * (m(0, 2) * m(3, 1) - m(0, 1) * m(3, 2)) +
+					m(2, 1) * (m(0, 0) * m(3, 2) - m(0, 2) * m(3, 0)) +
+					m(2, 2) * (m(0, 1) * m(3, 0) - m(0, 0) * m(3, 1)));
+				out(3, 2) = d * (m(3, 0) * (m(0, 2) * m(1, 1) - m(0, 1) * m(1, 2)) +
+					m(3, 1) * (m(0, 0) * m(1, 2) - m(0, 2) * m(1, 0)) +
+					m(3, 2) * (m(0, 1) * m(1, 0) - m(0, 0) * m(1, 1)));
+				out(3, 3) = d * (m(0, 0) * (m(1, 1) * m(2, 2) - m(1, 2) * m(2, 1)) +
+					m(0, 1) * (m(1, 2) * m(2, 0) - m(1, 0) * m(2, 2)) +
+					m(0, 2) * (m(1, 0) * m(2, 1) - m(1, 1) * m(2, 0)));
+
+				return true;
+			}
+
+			inline void GetTransposed(CMatrix4 &o) const
+			{
+				o[0] = m[0];
+				o[1] = m[4];
+				o[2] = m[8];
+				o[3] = m[12];
+
+				o[4] = m[1];
+				o[5] = m[5];
+				o[6] = m[9];
+				o[7] = m[13];
+
+				o[8] = m[2];
+				o[9] = m[6];
+				o[10] = m[10];
+				o[11] = m[14];
+
+				o[12] = m[3];
+				o[13] = m[7];
+				o[14] = m[11];
+				o[15] = m[15];
+			}
+
+			inline CMatrix4 &SetScale(const CVector3 &scale)
 			{
 				m[0] = scale.x;
 				m[5] = scale.y;
 				m[10] = scale.z;
+			}
+
+			inline void TransformVect(CVector3 &vect) const
+			{
+				float vector[3];
+
+				vector[0] = vect.x*m[0] + vect.y*m[4] + vect.z*m[8] + m[12];
+				vector[1] = vect.x*m[1] + vect.y*m[5] + vect.z*m[9] + m[13];
+				vector[2] = vect.x*m[2] + vect.y*m[6] + vect.z*m[10] + m[14];
+
+				vect.x = vector[0];
+				vect.y = vector[1];
+				vect.z = vector[2];
+			}
+
+			inline void TransformVect(CVector3 &out, const CVector3 &in) const
+			{
+				out.x = in.x*m[0] + in.y*m[4] + in.z*m[8] + m[12];
+				out.y = in.x*m[1] + in.y*m[5] + in.z*m[9] + m[13];
+				out.z = in.x*m[2] + in.y*m[6] + in.z*m[10] + m[14];
+			}
+
+			inline void TransformVect(float *out, const CVector3 &in) const
+			{
+				out[0] = in.x*m[0] + in.y*m[4] + in.z*m[8] + m[12];
+				out[1] = in.x*m[1] + in.y*m[5] + in.z*m[9] + m[13];
+				out[2] = in.x*m[2] + in.y*m[6] + in.z*m[10] + m[14];
+				out[3] = in.x*m[3] + in.y*m[7] + in.z*m[11] + m[15];
+			}
+
+			inline void TransformPlane(CPlane3 &plane) const
+			{
+				CVector3 member;
+				// Transform the plane member point, i.e. rotate, translate and scale it.
+				TransformVect(member, plane.GetMemberPoint());
+
+				// Transform the normal by the transposed inverse of the matrix
+				CMatrix4 transposedInverse;
+				if (!this->GetInverse(transposedInverse))
+					memset(transposedInverse.m, 0, 16 * sizeof(float));
+				else
+					GetTransposed(transposedInverse);
+				CVector3 normal = plane.m_vNormal;
+				transposedInverse.TransformVect(normal);
+
+				plane.SetPlane(member, normal);
 			}
 
 			float m[16];

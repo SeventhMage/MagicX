@@ -201,6 +201,18 @@
     <ClInclude Include="..\..\..\..\include\device\CEventManager.h">
       <Filter>inc\device</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\CMeshNode.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\CMeshNodeManager.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\CSphereMeshNode.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\CEntity.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\resource\CResourceManager.cpp">
@@ -217,6 +229,18 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\device\CEventManager.cpp">
       <Filter>magicx\device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene\CMeshNode.cpp">
+      <Filter>magicx\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene\CMeshNodeManager.cpp">
+      <Filter>magicx\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene\CSphereMeshNode.cpp">
+      <Filter>magicx\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene\CEntity.cpp">
+      <Filter>magicx\scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -49,7 +49,8 @@ namespace mx
 			short GetMaxAndmin(short &maxValue, short &minValue, short value1, short value2, short value3, short value4);
 		private:
 			uint m_uWidth;			//大小：m_uWidth * m_uWidth
-			short *m_pHeightMap;		//高度图
+			int m_maxHeight;
+			short *m_pHeightMap;		//高度图			
 			SMesh *m_pMeshData;
 
 			render::ITerrainTextureGenerator *m_pTextureGenerator;
@@ -57,7 +58,7 @@ namespace mx
 			render::IRenderer *m_pRenderer;
 			render::IGPUBuffer *m_pGPUBuffer;
 			render::IRenderableObject *m_pRenderableObject;
-			static const int MAX_HEIGHT = 64;
+			
 		};
 	}
 }

@@ -6,51 +6,40 @@
 #include "mxDef.h"
 #include "mxType.h"
 #include "core/CVector3.h"
-#include "core/CBoundingBox.h"
 #include "resource/IMesh.h"
-#include "render/IGPUBuffer.h"
 
 namespace mx
 {
 	namespace resource
 	{
 		using namespace mx::core;
-
-		typedef struct STriangle
-		{
-			uint state;	//状态信息
-			uint attr;	//物理属性
-			uint color;	//颜色
-
-			CVector3 *vList;	//顶点列表
-			uint indices[3];		//索引
-		}Triangle, *PTriangle;
-
-
 		class CMesh : public IMesh
 		{
 			friend class CPLXLoader;
 		public:
-			CMesh(render::IGPUBuffer *pGPUBuffer);
+			CMesh();
 			virtual ~CMesh();
 
 			virtual bool Load(const char *filename);
 			virtual void rotateXZBy(double radians, const CVector3 &center = CVector3(0, 1.0f, 0));
 			virtual void rotateXYBy(double radians, const CVector3 &center = CVector3(0, 0, 1.0f));
 			virtual void rotateYZBy(double radians, const CVector3 &center = CVector3(1.0f, 0, 0));
-			virtual void Update(uint deltaTime, const CMatrix4 &mat4VP);
 
-			void CalculateBoundingBox();
+			virtual const CVector3 &GetWorldPosition() const { return m_vWorldPos; }
+			virtual const float GetMaxRadius() const { return m_fMaxRadius; }
+
+			virtual Triangle *GetTrianglesList() const { return m_pTriangleList; }
+			virtual CVector3 *GetVertices() const { return m_pvLocalList; }
+			virtual uint GetVerticesNum() const { return m_uVerticesNum; }
+			virtual uint GetTrianglesNum() const { return m_uTriangleNum; }
 			void CalculateRadius();
-		private:
-			void CreatePLXRenderable(uint idx);
+
 		private:
 			uint m_uId;
 			char m_szName[MAX_FILE_NAME];
 			uint m_uState;
 			uint m_uAttr;
 
-			CBoundingBox m_boundingBox;
 			float m_fAvgRadius;
 			float m_fMaxRadius;
 
@@ -64,9 +53,6 @@ namespace mx
 
 			uint m_uTriangleNum;
 			Triangle *m_pTriangleList;
-
-			render::IGPUBuffer *m_pGPUBuffer;
-			std::vector<render::IRenderableObject *> m_pRenderableObject;
 		};
 	}
 }

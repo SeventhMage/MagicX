@@ -2,6 +2,7 @@
 #define _MX_RENDER_IRENDERER_H_
 
 #include "core/CVector3.h"
+#include "IReferenceCount.h"
 #include "resource/IMesh.h"
 #include "resource/IImage.h"
 #include "SColor.h"
@@ -12,7 +13,7 @@ namespace mx
 {
 	namespace render
 	{
-		class IRenderer
+		class IRenderer : public IReferenceCount
 		{
 		public:
 			virtual ~IRenderer(){};

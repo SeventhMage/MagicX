@@ -18,9 +18,6 @@
     <ClInclude Include="..\..\..\component\scene\CSkyBox.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\component\scene\CEntity.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\component\scene\CRandomTerrain.h">
       <Filter>inc</Filter>
     </ClInclude>

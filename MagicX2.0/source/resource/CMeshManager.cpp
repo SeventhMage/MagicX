@@ -6,10 +6,8 @@ namespace mx
 	namespace resource
 	{
 
-		CMeshManager::CMeshManager(render::IRenderer *pRenderer)
-			:m_pRenderer(pRenderer)
+		CMeshManager::CMeshManager()
 		{
-			m_pGPUBuffer = m_pRenderer->CreateGPUBuffer();
 		}
 
 		CMeshManager::~CMeshManager()
@@ -19,7 +17,7 @@ namespace mx
 
 		IResource * CMeshManager::CreateResource(const char *filename)
 		{
-			IMesh *pMesh = new CMesh(m_pGPUBuffer);
+			IMesh *pMesh = new CMesh();
 			pMesh->Load(filename);
 			return pMesh;
 		}

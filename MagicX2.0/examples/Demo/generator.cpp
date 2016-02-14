@@ -53,11 +53,11 @@ namespace mx
 					//mat4.buildProjectionMatrixOrthoRH(20, 20, 10, -10);
 
 					CMatrix4 projectMat4;
-					projectMat4.buildProjectionMatrixPerspectiveFovRH(PI / 2.0f, 1.0f * 600 / 800, 1, 100.0f);
+					projectMat4.BuildProjectionMatrixPerspectiveFovRH(PI / 2.0f, 1.0f * 600 / 800, 1, 100.0f);
 					CMatrix4 viewMat4;
-					viewMat4.buildCameraLookAtMatrix(CVector3(0, 0, 0), CVector3(0, 0, -1), CVector3(0, 1, 0));
+					viewMat4.BuildCameraLookAtMatrix(CVector3(0, 0, 0), CVector3(0, 0, -1), CVector3(0, 1, 0));
 					CMatrix4 modelMat4;
-					modelMat4.setTranslation(CVector3(0, 0, -20.0f));
+					modelMat4.SetTranslation(CVector3(0, 0, -20.0f));
 
 					CMatrix4 mvpMat4 = projectMat4 * viewMat4 * modelMat4;
 

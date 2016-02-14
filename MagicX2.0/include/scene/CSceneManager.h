@@ -13,10 +13,10 @@ namespace mx
 {
 	namespace scene
 	{
-		class CSceneManager
+		class CSceneManager : public CSingleton<CSceneManager>
 		{
 		public:
-			CSceneManager(render::IRenderer *pRenderer);
+			CSceneManager();
 			virtual ~CSceneManager();
 
 			void Update(uint escapeTime);
@@ -26,9 +26,10 @@ namespace mx
 
 			//创建场景内对象
 			ICamera *CreateCamera(const CVector3 &position, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float nearClip, float farClip);
-			ISkyBox *CreateSkyBox(const char *front, const char *back, const char * left, const char *right, const char *top, const char *bottom, float radius);
+			ICamera *CreateCamera(float fDistance, ISceneNode *pFocusNode, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float nearClip, float farClip);
+			ISkyBox *CreateSkyBox(render::IRenderer *pRenderer, const char *front, const char *back, const char * left, const char *right, const char *top, const char *bottom, float radius);
 			ITerrain *CreateTerrain(const char *filename);
-			ITerrain *CreateRandomTerrain(uint width);
+			ITerrain *CreateRandomTerrain(render::IRenderer *pRenderer, uint width);
 			IWater *CreateWater(const char *filename);
 			
 			void DeleteCamera(ICamera *camera);
@@ -44,7 +45,6 @@ namespace mx
 			void SetupTerrain(IScene *scene, ITerrain *terrain);
 
 		private:			
-			render::IRenderer *m_pRenderer;
 			std::list<IScene *> m_listScene;
 			std::list<ICamera *> m_listCamera;
 			std::list<ISkyBox *> m_listSkyBox;

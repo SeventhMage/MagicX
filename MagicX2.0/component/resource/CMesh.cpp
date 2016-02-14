@@ -12,9 +12,9 @@ namespace mx
 	{
 		using namespace render;
 
-		CMesh::CMesh(render::IGPUBuffer *pGPUBuffer)
+		CMesh::CMesh()
 			:m_uId(0), m_uState(0), m_uAttr(0), m_fAvgRadius(0), m_fMaxRadius(0), m_uVerticesNum(0), m_pvLocalList(0)
-			, m_pvTransList(0), m_uTriangleNum(0), m_pTriangleList(0), m_pGPUBuffer(pGPUBuffer), m_pRenderableObject(NULL)
+			, m_pvTransList(0), m_uTriangleNum(0), m_pTriangleList(0)
 		{
 			memset(m_szName, 0, sizeof(m_szName));
 		}
@@ -26,14 +26,15 @@ namespace mx
 			SAFE_DEL_ARRAY(m_pTriangleList);
 		}
 
-		void CMesh::CalculateBoundingBox()
-		{
-
-		}
-
 		void CMesh::CalculateRadius()
 		{
-
+			for (uint i = 0; i < m_uVerticesNum; ++i)
+			{
+				float length = m_pvLocalList[i].getLengthSQ();
+				if (length > m_fMaxRadius)
+					m_fMaxRadius = length;
+			}
+			m_fMaxRadius = sqrt(m_fMaxRadius);
 		}
 
 		bool CMesh::Load(const char *filename)
@@ -46,10 +47,6 @@ namespace mx
 				{
 					CPLXLoader loader;
 					loader.LoadResource(filename, this);					
-					for (uint i = 0; i < m_uTriangleNum; ++i)
-					{
-						CreatePLXRenderable(i);
-					}
 					bRet = true;
 				}
 			}
@@ -80,53 +77,5 @@ namespace mx
 				m_pvLocalList[i].rotateYZBy(radians, center);
 			}
 		}
-
-		void CMesh::Update(uint deltaTime, const CMatrix4 &mat4VP)
-		{
-			for (uint i = 0; i < m_uTriangleNum; ++i)
-			{
-				if (m_pRenderableObject[i])
-				{
-					render::IShaderProgram *shaderProgram = m_pRenderableObject[i]->GetShaderProgram();
-					if (shaderProgram)
-					{
-						CMatrix4 modelMat4;
-						modelMat4.setTranslation(CVector3(0, 20.0f, 0));
-						CMatrix4 mat4 = mat4VP * modelMat4;
-						shaderProgram->SetUniform("mvpMatrix", &mat4.m);
-					}
-
-					IBufferObject *bufferObject = m_pRenderableObject[i]->GetVertexBufferObject();
-					if (bufferObject)
-					{
-						bufferObject->BufferData(m_pvLocalList, sizeof(CVector3)* m_uVerticesNum);
-					}
-				}
-			}
-		}
-
-		void CMesh::CreatePLXRenderable(uint idx)
-		{
-			m_pRenderableObject.insert(m_pRenderableObject.end(), m_pGPUBuffer->CreateRenderableObject());
-			if (m_pRenderableObject[idx])
-			{							
-				render::IShaderProgram *shaderProgram = m_pRenderableObject[idx]->GetShaderProgram();
-				if (shaderProgram)
-				{
-					shaderProgram->CreateStandShader(ESS_SHADER_FLAT);
-					
-					SColor color(m_pTriangleList[idx].color);
-					float fColor[] = { color.GetRed() / 255.0f, color.GetGreen() / 255.0f, color.GetBlue() / 255.0f, color.GetAlpha() / 255.0f};
-					shaderProgram->SetUniform("vColor", fColor);
-				}
-				
-				m_pGPUBuffer->Begin();
-				m_pRenderableObject[idx]->CreateVertexBufferObject(m_pvLocalList, sizeof(CVector3)* m_uVerticesNum, 0, m_uVerticesNum, GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
-				m_pRenderableObject[idx]->CreateIndexBufferObject(m_pTriangleList[idx].indices, 3, RVT_UINT, m_uVerticesNum, GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
-				m_pGPUBuffer->EnableVertexAttrib(VAL_POSITION, 3, RVT_FLOAT, sizeof(CVector3), 0);
-				m_pGPUBuffer->End();
-			}
-		}
-
 	}
 }

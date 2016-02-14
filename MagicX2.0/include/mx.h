@@ -41,6 +41,8 @@
 #include "scene/IWater.h"
 #include "scene/IScene.h"
 #include "scene/ISceneNode.h"
+#include "scene/CMeshNode.h"
+#include "scene/CMeshNodeManager.h"
 
 namespace mx
 {

@@ -4,7 +4,7 @@ namespace mx
 {
 	namespace scene
 	{
-		CSceneNode::CSceneNode()
+		CSceneNode::CSceneNode()			
 		{
 		}
 		CSceneNode::~CSceneNode()

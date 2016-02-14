@@ -13,14 +13,11 @@ namespace mx
 		class CMeshManager : public CResourceManager
 		{
 		public:
-			CMeshManager(render::IRenderer *pRenderer);
+			CMeshManager();
 			virtual ~CMeshManager();			
 
 		protected:
 			virtual IResource *CreateResource(const char *filename);
-		private:
-			render::IGPUBuffer *m_pGPUBuffer;
-			render::IRenderer *m_pRenderer;
 		};
 	}
 }

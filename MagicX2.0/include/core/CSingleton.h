@@ -35,7 +35,7 @@ namespace mx
 		CSingleton<T>() {}
 		CSingleton<T>(const CSingleton<T> &){}
 		CSingleton<T> &operator = (const CSingleton<T> &) { return *this; }
-		~CSingleton<T>(){}
+		virtual ~CSingleton<T>(){}
 
 		static T *_instance;
 	};

@@ -13,8 +13,8 @@ namespace mx
 
 		COpenGLDriver::~COpenGLDriver()
 		{
-			delete m_pRenderer;
-			m_pRenderer = NULL;
+			if (m_pRenderer)			
+				m_pRenderer->Decrease();						
 		}
 #ifdef WIN32
 		bool COpenGLDriver::SetupWin32Driver(HDC hDC)

@@ -28,6 +28,8 @@ namespace mx
 			virtual void SetTexture(ITexture *texture, int unit = 0) = 0;
 			virtual void SetPolygonMode(PolygonMode pm) = 0;
 			virtual PolygonMode GetPolygonMode() = 0;
+			virtual void SetActive(bool bActive) = 0;
+			virtual bool IsActive() = 0;
 		};
 	}
 }

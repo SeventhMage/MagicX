@@ -26,7 +26,10 @@ namespace mx
 			virtual void SetupSkyBox(ISkyBox *skybox);
 			virtual void SetupTerrain(ITerrain *terrain);
 
+			virtual ICamera *GetCamera() { return m_pCamera; };
+
 			virtual void Update(int elapsedTime);
+			virtual void Render();
 		private:
 			ISceneNode *m_pRootNode;
 			render::IRenderer *m_pRenderer;

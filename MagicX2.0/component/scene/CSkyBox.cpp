@@ -14,6 +14,8 @@ namespace mx
 			, m_pRenderableObject(NULL)
 			, m_fRadius(r)
 		{
+			if (m_pRenderer)
+				m_pRenderer->Increase();
 			m_pBoxData = new float[108];
 			float vertex[] = {
 				//front
@@ -124,6 +126,8 @@ namespace mx
 			m_pRenderer->DestroyTexture(m_pTexture);
 			m_pRenderer->DestroyGPUBuffer(m_pGPUBuffer);			
 			SAFE_DEL_ARRAY(m_pBoxData);
+			if (m_pRenderer)
+				m_pRenderer->Decrease();
 		}
 
 		bool CSkyBox::Create(const char * filename)
@@ -175,7 +179,7 @@ namespace mx
 			rotY += 0.01f * elapsedTime / 1000;
 
 			core::CMatrix4 mat4Rot;
-			mat4Rot.setRotationRadiansRH(0, rotY, 0);
+			mat4Rot.SetRotationRadiansRH(0, rotY, 0);
 			core::CMatrix4 mat4 = mat4MVP * mat4Rot;
 			
 			if (m_pRenderableObject)

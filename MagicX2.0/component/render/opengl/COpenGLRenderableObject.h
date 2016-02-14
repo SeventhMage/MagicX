@@ -29,6 +29,8 @@ namespace mx
 			virtual bool IsEnabled(RenderAttribute attr) { return m_bRenderAttrs[attr]; }
 			virtual void SetPolygonMode(PolygonMode pm) { m_uPolygonMode = pm; }
 			virtual PolygonMode GetPolygonMode() { return m_uPolygonMode; }
+			virtual void SetActive(bool bActive) { m_bActive = bActive; }
+			virtual bool IsActive() { return m_bActive; }
 		private:
 			IBufferObject *m_VBO;
 			IBufferObject *m_IBO;
@@ -37,6 +39,7 @@ namespace mx
 			PolygonMode m_uPolygonMode;
 			bool m_bRenderAttrs[RA_NUM];
 			bool m_bEnableIndexBuffer;
+			bool m_bActive;
 		};
 	}
 }

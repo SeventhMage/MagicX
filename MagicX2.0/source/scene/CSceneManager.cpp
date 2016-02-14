@@ -7,8 +7,7 @@ namespace mx
 {
 	namespace scene
 	{
-		CSceneManager::CSceneManager(render::IRenderer *pRenderer)
-			:m_pRenderer(pRenderer)
+		CSceneManager::CSceneManager()			
 		{
 
 		}
@@ -43,7 +42,10 @@ namespace mx
 			for (; itScene != m_listScene.end(); ++itScene)
 			{
 				if (*itScene)
+				{
 					(*itScene)->Update(elapsedTime);
+					(*itScene)->Render();
+				}
 			}
 		}
 
@@ -60,9 +62,9 @@ namespace mx
 			return NULL;
 		}
 
-		ITerrain * CSceneManager::CreateRandomTerrain(uint width)
+		ITerrain * CSceneManager::CreateRandomTerrain(render::IRenderer *pRenderer, uint width)
 		{
-			CRandomTerrain *terrain = new CRandomTerrain(m_pRenderer, width);
+			CRandomTerrain *terrain = new CRandomTerrain(pRenderer, width);
 			terrain->RandGenerateMesh();
 			m_listTerrain.push_back(terrain);
 			return terrain;
@@ -73,9 +75,9 @@ namespace mx
 			return 0;
 		}
 
-		ISkyBox *CSceneManager::CreateSkyBox(const char *front, const char *back, const char * left, const char *right, const char *top, const char *bottom, float radius)
+		ISkyBox *CSceneManager::CreateSkyBox(render::IRenderer *pRenderer, const char *front, const char *back, const char * left, const char *right, const char *top, const char *bottom, float radius)
 		{
-			ISkyBox *skybox = new CSkyBox(m_pRenderer, radius);
+			ISkyBox *skybox = new CSkyBox(pRenderer, radius);
 			skybox->Create(front, back, left, right, top, bottom);
 			m_listSkyBox.push_back(skybox);
 			return skybox;
@@ -84,6 +86,14 @@ namespace mx
 		ICamera *CSceneManager::CreateCamera(const CVector3 &position, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float nearClip, float farClip)
 		{
 			ICamera *camera = new CCamera(position, direction, up, fov, aspect, nearClip, farClip);
+			m_listCamera.push_back(camera);
+			return camera;
+		}
+
+
+		ICamera * CSceneManager::CreateCamera(float fDistance, ISceneNode *pFocusNode, const CVector3 &vDirection, const CVector3 &vUp, float fov, float aspect, float nearClip, float farClip)
+		{
+			ICamera *camera = new CCamera(fDistance, pFocusNode, vDirection, vUp, fov, aspect, nearClip, farClip);
 			m_listCamera.push_back(camera);
 			return camera;
 		}

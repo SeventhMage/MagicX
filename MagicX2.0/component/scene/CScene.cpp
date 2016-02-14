@@ -11,6 +11,8 @@ namespace mx
 			, m_pSkyBox(NULL)
 		{
 			m_pRootNode = new CSceneNode();
+			m_pRootNode->SetScene(this);
+
 		}
 		CScene::~CScene()
 		{
@@ -21,6 +23,7 @@ namespace mx
 		void CScene::AddSceneNode(ISceneNode * pSceneNode)
 		{
 			m_pRootNode->AddChild(pSceneNode);
+			pSceneNode->SetScene(this);
 		}
 		void CScene::RemoveSceneNode(ISceneNode * pSceneNode)
 		{
@@ -43,7 +46,13 @@ namespace mx
 			if (m_pTerrain)
 				m_pTerrain->Update(elapsedTime, m_pCamera->GetViewProjectionMatrix(), m_pCamera->GetViewMatrix());
 			if (m_pRootNode)
-				m_pRootNode->Update(elapsedTime, m_pCamera->GetViewProjectionMatrix(), m_pCamera->GetViewMatrix());
+				m_pRootNode->Update(elapsedTime);
+		}
+
+		void CScene::Render()
+		{
+			if (m_pRootNode)
+				m_pRootNode->Render();
 		}
 
 		void CScene::SetupCamera(ICamera *camera)

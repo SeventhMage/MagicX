@@ -51,7 +51,11 @@
     <ClInclude Include="..\..\..\..\include\resource\IResourceLoader.h" />
     <ClInclude Include="..\..\..\..\include\resource\CResourceManager.h" />
     <ClInclude Include="..\..\..\..\include\resource\Polygon.h" />
+    <ClInclude Include="..\..\..\..\include\scene\CEntity.h" />
+    <ClInclude Include="..\..\..\..\include\scene\CMeshNode.h" />
+    <ClInclude Include="..\..\..\..\include\scene\CMeshNodeManager.h" />
     <ClInclude Include="..\..\..\..\include\scene\CSceneManager.h" />
+    <ClInclude Include="..\..\..\..\include\scene\CSphereMeshNode.h" />
     <ClInclude Include="..\..\..\..\include\scene\ICamera.h" />
     <ClInclude Include="..\..\..\..\include\scene\IScene.h" />
     <ClInclude Include="..\..\..\..\include\scene\ISceneNode.h" />
@@ -64,7 +68,11 @@
     <ClCompile Include="..\..\..\..\source\mx.cpp" />
     <ClCompile Include="..\..\..\..\source\resource\CMeshManager.cpp" />
     <ClCompile Include="..\..\..\..\source\resource\CResourceManager.cpp" />
+    <ClCompile Include="..\..\..\..\source\scene\CEntity.cpp" />
+    <ClCompile Include="..\..\..\..\source\scene\CMeshNode.cpp" />
+    <ClCompile Include="..\..\..\..\source\scene\CMeshNodeManager.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSceneManager.cpp" />
+    <ClCompile Include="..\..\..\..\source\scene\CSphereMeshNode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Device\Device.vcxproj">
@@ -111,7 +119,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>../../../../lib</OutDir>
+    <OutDir>../../../../lib/</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
