@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 	pScene->SetupTerrain(pTerrain);
 	
 	CMeshManager meshMgr;
-	IMesh *mesh = (IMesh *)meshMgr.LoadResource("plg/tower2.plg");
+	IMesh *mesh = (IMesh *)meshMgr.LoadResource("plg/house.plg");
 	CMeshNodeManager meshNodeMgr(renderer);
 	CMeshNode *pMeshNode = meshNodeMgr.CreateMeshNode(mesh);
 	//pMeshNode->SetPosition(CVector3(100, 100, 100));

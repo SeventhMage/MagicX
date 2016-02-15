@@ -47,7 +47,7 @@ namespace mx
 
 			float GetDistance(const CVector3 &vPos) const
 			{
-				return vPos.dotProduct(m_vNormal);
+				return vPos.dotProduct(m_vNormal) - m_fDistance;
 			}
 
 			CVector3 GetMemberPoint() const

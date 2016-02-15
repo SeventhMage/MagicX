@@ -32,6 +32,9 @@ namespace mx
 				float xmin, xmax, ymin, ymax;
 				float xFmin, xFmax, yFmin, yFmax;
 
+				fNear = -fNear;
+				fFar = -fFar;
+
 				ymax = fNear * float(tan(fFov * 0.5f));
 				ymin = -ymax;
 				xmin = ymin * fAspect;
@@ -84,22 +87,22 @@ namespace mx
 			}
 			
 			bool CullSphere(const CVector3 &pos, float radius) const
-			{
-				//float fNDis = m_planeClip[F_NEAR_PLANE].GetDistance(pos);
-				//float fFDis = m_planeClip[F_FAR_PLANE].GetDistance(pos);
-				float fLDis = m_planeClip[F_LEFT_PLANE].GetDistance(pos);
-				float fRDis = m_planeClip[F_RIGHT_PLANE].GetDistance(pos);
-				float fTDis = m_planeClip[F_TOP_PLANE].GetDistance(pos);
-				float fBDis = m_planeClip[F_BOTTOM_PLANE].GetDistance(pos);
-				
-				if (pos.z + radius < -m_vFLB.z || pos.z - radius > -m_vNLB.z)
+			{				
+/*				if (pos.z + radius < -m_vFLB.z || pos.z - radius > -m_vNLB.z)
 					return true;
 				float testX = 0.5f * (m_vNRT.x - m_vNLT.x) * pos.z / -m_vNLT.z;
 				if (pos.x - radius > testX || pos.x + radius < -testX)
 					return true;
 				float testY = 0.5f * (m_vNRT.y - m_vNRB.y) * pos.z / -m_vNLT.z;
 				if (pos.y - radius > testY || pos.y + radius < -testY)
-					return true;				
+					return true;	*/			
+
+				for (uint i = 0; i < F_PLANE_COUNT; ++i)
+				{
+					float dis = m_planeClip[i].GetDistance(pos);
+					if (dis < -radius)
+						return true;
+				}
 
 				return false;
 			}
@@ -115,12 +118,13 @@ namespace mx
 		private:
 			void CreatePlane()
 			{
-				m_planeClip[F_NEAR_PLANE].SetPlane(m_vNLB, m_vNRB, m_vNRT);
-				m_planeClip[F_FAR_PLANE].SetPlane(m_vFLB, m_vFRT, m_vFRB);
-				m_planeClip[F_LEFT_PLANE].SetPlane(m_vFLB, m_vNLB, m_vNLT);
-				m_planeClip[F_RIGHT_PLANE].SetPlane(m_vNRB, m_vFRB, m_vFRT);
-				m_planeClip[F_TOP_PLANE].SetPlane(m_vNLT, m_vNRT, m_vFRT);
-				m_planeClip[F_BOTTOM_PLANE].SetPlane(m_vFLB, m_vFRB, m_vNLB);
+				//right hand
+				m_planeClip[F_NEAR_PLANE].SetPlane(m_vNRB, m_vNLB, m_vNRT);
+				m_planeClip[F_FAR_PLANE].SetPlane(m_vFLB, m_vFRB, m_vFRT);
+				m_planeClip[F_LEFT_PLANE].SetPlane(m_vNLB, m_vFLB, m_vNLT);
+				m_planeClip[F_RIGHT_PLANE].SetPlane(m_vNRB, m_vFRT, m_vFRB);
+				m_planeClip[F_TOP_PLANE].SetPlane(m_vNLT, m_vFRT, m_vNRT);
+				m_planeClip[F_BOTTOM_PLANE].SetPlane(m_vFRB, m_vFLB, m_vNLB);
 			}
 		private:
 			CVector3 m_vNLB;
