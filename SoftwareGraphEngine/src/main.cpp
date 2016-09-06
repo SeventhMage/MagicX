@@ -13,8 +13,9 @@ int main(char *agrc, char *argv[])
 	VECTOR4D vPos = { 0.0f, 0.0f, 0.0f, 0.0f };
 	VECTOR4D vRot = { 0.0f, 0.0f, 0.0f, 0.0f };
 
-	Load_OBJECT4DV1_PLG(&obj, "model/cube1.pkg", &vScale, &vPos, &vRot);
+	Load_OBJECT4DV1_PLG(&obj, "model/cube1.plg", &vScale, &vPos, &vRot);
 	
 	Close_Error_File();
+	getchar();
 	return 0;
 }

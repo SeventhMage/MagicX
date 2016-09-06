@@ -60,7 +60,7 @@ int Close_Error_File(void)
 	if (fp_error)
 	{
 		// write close file string
-		Write_Error("\nClosing Error Output File.");
+		Write_Error("\nClosing Error Output File.\n");
 
 		if (fp_error != stdout || fp_error != stderr)
 		{

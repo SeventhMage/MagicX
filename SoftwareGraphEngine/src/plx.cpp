@@ -56,7 +56,7 @@ int Load_OBJECT4DV1_PLG(OBJECT4DV1_PTR obj, char *filename, VECTOR4D_PTR scale, 
 		return 0;
 	}
 
-	sscanf_s(token_string, "%s %d %d", obj->name, &obj->num_vertices, &obj->num_polys);
+	sscanf(token_string, "%s %d %d", obj->name, &obj->num_vertices, &obj->num_polys);
 
 	for (int vertex = 0; vertex < obj->num_vertices; ++vertex)
 	{
@@ -65,7 +65,7 @@ int Load_OBJECT4DV1_PLG(OBJECT4DV1_PTR obj, char *filename, VECTOR4D_PTR scale, 
 			printf("PLG file error with file %s.\n", filename);
 			return 0;
 		}
-		sscanf_s(token_string, "%f %f %f", &obj->vlist_local[vertex].x, &obj->vlist_local[vertex].y, &obj->vlist_local[vertex].z);
+		sscanf(token_string, "%f %f %f", &obj->vlist_local[vertex].x, &obj->vlist_local[vertex].y, &obj->vlist_local[vertex].z);
 		obj->vlist_local[vertex].w = 1;
 		obj->vlist_local[vertex].x *= scale->x;
 		obj->vlist_local[vertex].y *= scale->y;
@@ -87,11 +87,11 @@ int Load_OBJECT4DV1_PLG(OBJECT4DV1_PTR obj, char *filename, VECTOR4D_PTR scale, 
 			printf("PLG file error with file %s.\n", filename);
 			return 0;
 		}
-		sscanf_s(token_string, "%s %d %d %d %d", tmp_string, &poly_num_verts,
+		sscanf(token_string, "%s %d %d %d %d", tmp_string, &poly_num_verts,
 			&obj->plist[poly].vert[0], &obj->plist[poly].vert[1],
 			&obj->plist[poly].vert[2]);
 		if (tmp_string[0] == '0' && toupper(tmp_string[1] == 'X'))
-			sscanf_s(tmp_string, "%x", &poly_surface_desc);
+			sscanf(tmp_string, "%x", &poly_surface_desc);
 		else
 			poly_surface_desc = atoi(tmp_string);
 
