@@ -67,25 +67,25 @@ namespace mx
 			inline CMatrix4 operator*(const CMatrix4 &other) const
 			{
 				return CMatrix4(
-					m[0] * other[0] + m[4] * other[1] + m[8] * other[2] + m[12] * other[3],
-					m[1] * other[0] + m[5] * other[1] + m[9] * other[2] + m[13] * other[3],
-					m[2] * other[0] + m[6] * other[1] + m[10] * other[2] + m[14] * other[3],
-					m[3] * other[0] + m[7] * other[1] + m[11] * other[2] + m[15] * other[3],
+					m[0] * other[0] + m[1] * other[4] + m[2] * other[8] + m[3] * other[12],
+					m[0] * other[1] + m[1] * other[5] + m[2] * other[9] + m[3] * other[13],
+					m[0] * other[2] + m[1] * other[6] + m[2] * other[10] + m[3] * other[14],
+					m[0] * other[3] + m[1] * other[7] + m[2] * other[11] + m[3] * other[15],
 
-					m[0] * other[4] + m[4] * other[5] + m[8] * other[6] + m[12] * other[7],
-					m[1] * other[4] + m[5] * other[5] + m[9] * other[6] + m[13] * other[7],
-					m[2] * other[4] + m[6] * other[5] + m[10] * other[6] + m[14] * other[7],
-					m[3] * other[4] + m[7] * other[5] + m[11] * other[6] + m[15] * other[7],
+					m[4] * other[0] + m[5] * other[4] + m[6] * other[8] + m[7] * other[12],
+					m[4] * other[1] + m[5] * other[5] + m[6] * other[9] + m[7] * other[13],
+					m[4] * other[2] + m[5] * other[6] + m[6] * other[10] + m[7] * other[14],
+					m[4] * other[3] + m[5] * other[7] + m[6] * other[11] + m[7] * other[15],
 
-					m[0] * other[8] + m[4] * other[9] + m[8] * other[10] + m[12] * other[11],
-					m[1] * other[8] + m[5] * other[9] + m[9] * other[10] + m[13] * other[11],
-					m[2] * other[8] + m[6] * other[9] + m[10] * other[10] + m[14] * other[11],
-					m[3] * other[8] + m[7] * other[9] + m[11] * other[10] + m[15] * other[11],
+					m[8] * other[0] + m[9] * other[4] + m[10] * other[8] + m[11] * other[12],
+					m[8] * other[1] + m[9] * other[5] + m[10] * other[9] + m[11] * other[13],
+					m[8] * other[2] + m[9] * other[6] + m[10] * other[10] + m[11] * other[14],
+					m[8] * other[3] + m[9] * other[7] + m[10] * other[11] + m[11] * other[15],
 
-					m[0] * other[12] + m[4] * other[13] + m[8] * other[14] + m[12] * other[15],
-					m[1] * other[12] + m[5] * other[13] + m[9] * other[14] + m[13] * other[15],
-					m[2] * other[12] + m[6] * other[13] + m[10] * other[14] + m[14] * other[15],
-					m[3] * other[12] + m[7] * other[13] + m[11] * other[14] + m[15] * other[15]
+					m[12] * other[0] + m[13] * other[4] + m[14] * other[8] + m[15] * other[12],
+					m[12] * other[1] + m[13] * other[5] + m[14] * other[9] + m[15] * other[13],
+					m[12] * other[2] + m[13] * other[6] + m[14] * other[10] + m[15] * other[14],
+					m[12] * other[3] + m[13] * other[7] + m[14] * other[11] + m[15] * other[15]
 					);
 			}
 
@@ -227,17 +227,17 @@ namespace mx
 
 
 				m[0] = (float)xaxis.x;
-				m[4] = (float)yaxis.x;
-				m[8] = (float)zaxis.x;
+				m[1] = (float)yaxis.x;
+				m[2] = (float)zaxis.x;
 				m[12] = (float)-xaxis.dotProduct(position);
 
-				m[1] = (float)xaxis.y;
+				m[4] = (float)xaxis.y;
 				m[5] = (float)yaxis.y;
-				m[9] = (float)zaxis.y;
+				m[6] = (float)zaxis.y;
 				m[13] = (float)-yaxis.dotProduct(position);
 
-				m[2] = (float)xaxis.z;
-				m[6] = (float)yaxis.z;
+				m[8] = (float)xaxis.z;
+				m[9] = (float)yaxis.z;
 				m[10] = (float)zaxis.z;
 				m[14] = -zaxis.dotProduct(position);
 

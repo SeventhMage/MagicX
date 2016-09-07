@@ -49,7 +49,7 @@ namespace mx
 									{
 										CMatrix4 modelMat4;
 										modelMat4.SetTranslation(GetPosition());
-										CMatrix4 mat4 = pCamera->GetViewProjectionMatrix() * modelMat4;
+										CMatrix4 mat4 = modelMat4 * pCamera->GetViewProjectionMatrix();
 										shaderProgram->SetUniform("mvpMatrix", &mat4.m);
 									}
 

@@ -136,7 +136,7 @@ namespace mx
 
 			if (m_bNeedUpdateProj || m_bNeedUpdateView)
 			{
-				m_matVP = m_matProj * m_matView;
+				m_matVP = m_matView * m_matProj;
 				
 				//frustum¸üÐÂ
 				

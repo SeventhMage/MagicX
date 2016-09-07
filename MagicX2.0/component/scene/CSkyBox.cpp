@@ -180,7 +180,7 @@ namespace mx
 
 			core::CMatrix4 mat4Rot;
 			mat4Rot.SetRotationRadiansRH(0, rotY, 0);
-			core::CMatrix4 mat4 = mat4MVP * mat4Rot;
+			core::CMatrix4 mat4 = mat4Rot * mat4MVP;
 			
 			if (m_pRenderableObject)
 			{
