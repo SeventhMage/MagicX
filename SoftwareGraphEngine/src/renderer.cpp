@@ -92,11 +92,11 @@ void Transform_OBJECT4DV1(OBJECT4DV1_PTR obj, MATRIX4X4_PTR mt, int coord_select
 		Mat_Mul_VECTOR4D_4X4(&obj->ux, mt, &vresult);
 		VECTOR4D_COPY(&obj->ux, &vresult);
 
-		Mat_Mul_VECTOR4D_4X4(&obj->yx, mt, &vresult);
-		VECTOR4D_COPY(&obj->yx, &vresult);
+		Mat_Mul_VECTOR4D_4X4(&obj->uy, mt, &vresult);
+		VECTOR4D_COPY(&obj->uy, &vresult);
 
-		Mat_Mul_VECTOR4D_4X4(&obj->zx, mt, &vresult);
-		VECTOR4D_COPY(&obj->zx, &vresult);
+		Mat_Mul_VECTOR4D_4X4(&obj->uz, mt, &vresult);
+		VECTOR4D_COPY(&obj->uz, &vresult);
 	}
 }
 
@@ -152,9 +152,18 @@ void Model_To_World_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, POINT4D_PTR wor
 				continue;
 			for (int vertex = 0; vertex < 3; ++vertex)
 			{
-				VECTOR4D_Add(&curr_poly->tlist[vertex], world_pos, &curr_poly->tvlist[vertex]);
+				VECTOR4D_Add(&curr_poly->tvlist[vertex], world_pos, &curr_poly->tvlist[vertex]);
 			}
 		}
 
+	}
+}
+
+void World_To_Camera_OBJECT4DV1(CAM4DV1_PTR cam, OBJECT4DV1_PTR obj)
+{
+	for (int vertex = 0; vertex < obj->num_vertices; ++vertex)
+	{
+		POINT4D presult;
+		//Mat_Mul_VECTOR4D_4X4(&obj->vlist_trans)
 	}
 }
