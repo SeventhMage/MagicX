@@ -41,6 +41,7 @@ void Init_CAM4DV1(CAM4DV1_PTR cam, int cam_attr, POINT4D_PTR cam_pos, VECTOR4D_P
 
 	float tan_fov_div2 = tan(DEG_TO_RAD(fov / 2));
 	cam->view_dist = 0.5f * cam->viewplane_width * tan_fov_div2;
+	//cam->view_dist = 0.5f * cam->viewplane_width / tan_fov_div2;
 
 	if (fov == 90.0)
 	{
