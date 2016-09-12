@@ -52,4 +52,15 @@ void Perspective_To_Screen_OBJECT4DV1(OBJECT4DV1_PTR obj, CAM4DV1_PTR cam);
 void Build_Perspective_To_Screen_4D_MATRIX4X4(CAM4DV1_PTR cam, MATRIX4X4_PTR m);
 //3D透视坐标到屏幕坐标矩阵
 void Build_Camera_To_Screen_MATRIX4X4(CAM4DV1_PTR cam, MATRIX4X4_PTR m);
+//渲染列表透视坐标到屏幕坐标的变换
+void Perspective_To_Screen_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, CAM4DV1_PTR cam);
+//物体的相机坐标到屏幕坐标的变换
+void Camera_To_Perspective_Screen_OBJECT4DV1(OBJECT4DV1_PTR obj, CAM4DV1_PTR cam);
+//渲染列表的相机坐标到屏幕坐标的变换
+void Camera_To_Perspective_Screen_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, CAM4DV1_PTR cam);
+//绘制线框物体
+void Draw_OBJECT4DV1_Wire16(OBJECT4DV1_PTR obj, unsigned char *video_buffer, int lpitch);
+//绘制线框渲染列表
+void Draw_RENDERLIST4DV1_Wire16(RENDERLIST4DV1_PTR rend_list, unsigned char *video_buffer, int lpitch);
+
 #endif

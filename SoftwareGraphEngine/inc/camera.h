@@ -24,6 +24,7 @@ typedef struct CAM4DV1_TYPE
 	POINT4D target;		//UVN模型的目标位置
 		
 	float view_dist;	//视距
+	float viewport_dist;
 
 	float fov;			//视野
 
