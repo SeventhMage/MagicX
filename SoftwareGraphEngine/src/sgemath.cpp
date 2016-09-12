@@ -47,15 +47,15 @@ FIXP16 FIXP16_MUL(FIXP16 fp1, FIXP16 fp2)
 
 	//FIXP16 fp_prod; // return the product
 
-	_asm {
-		mov eax, fp1      // move into eax fp2
-			imul fp2          // multiply fp1*fp2
-			shrd eax, edx, 16 // result is in 32:32 format 
-			// residing at edx:eax
-			// shift it into eax alone 16:16
-			// result is sitting in eax
-	} // end asm
-
+	//_asm {
+	//	mov eax, fp1      // move into eax fp2
+	//		imul fp2          // multiply fp1*fp2
+	//		shrd eax, edx, 16 // result is in 32:32 format 
+	//		// residing at edx:eax
+	//		// shift it into eax alone 16:16
+	//		// result is sitting in eax
+	//} // end asm
+	return 0;
 } // end FIXP16_MUL
 
 ///////////////////////////////////////////////////////////////
@@ -65,16 +65,16 @@ FIXP16 FIXP16_DIV(FIXP16 fp1, FIXP16 fp2)
 	// this function computes the quotient fp1/fp2 using
 	// 64 bit math, so as not to loose precision
 
-	_asm {
-		mov eax, fp1      // move dividend into eax
-			cdq               // sign extend it to edx:eax
-			shld edx, eax, 16 // now shift 16:16 into position in edx
-			sal eax, 16       // and shift eax into position since the
-			// shld didn't move it -- DUMB! uPC
-			idiv fp2          // do the divide
-			// result is sitting in eax     
-	} // end asm
-
+	//_asm {
+	//	mov eax, fp1      // move dividend into eax
+	//		cdq               // sign extend it to edx:eax
+	//		shld edx, eax, 16 // now shift 16:16 into position in edx
+	//		sal eax, 16       // and shift eax into position since the
+	//		// shld didn't move it -- DUMB! uPC
+	//		idiv fp2          // do the divide
+	//		// result is sitting in eax     
+	//} // end asm
+	return 0;
 } // end FIXP16_DIV
 
 ///////////////////////////////////////////////////////////////

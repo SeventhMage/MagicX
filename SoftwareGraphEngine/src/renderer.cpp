@@ -1,7 +1,9 @@
 #include "renderer.h"
 #include "tool.h"
+#include "draw.h"
 
 #include <math.h>
+
 
 void Transform_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, MATRIX4X4_PTR mt, int coord_select)
 {
@@ -398,4 +400,104 @@ void Build_Camera_To_Screen_MATRIX4X4(CAM4DV1_PTR cam, MATRIX4X4_PTR m)
 					0, -beta, 0, 0,
 					alpha, beta, 1, 1,
 					0, 0, 0, 0);
+}
+
+void Perspective_To_Screen_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, CAM4DV1_PTR cam)
+{
+	for (int poly = 0; poly < rend_list->num_polys; ++poly)
+	{
+		POLYF4DV1_PTR curr_poly = rend_list->poly_ptrs[poly];
+		if (curr_poly)
+		{
+			if (!(curr_poly->state & POLY4DV1_STATE_ACTIVE) || (curr_poly->state & POLY4DV1_STATE_CLIPPED) 
+				|| (curr_poly->state & POLY4DV1_STATE_BACKFACE))
+				continue;
+			float alpha = (0.5 * cam->viewport_width - 0.5);
+			float beta = (0.5 * cam->viewplane_height - 0.5);
+
+			for (int vertex = 0; vertex < 3; ++vertex)
+			{
+				curr_poly->tvlist[vertex].x = alpha + alpha * curr_poly->tvlist[vertex].x;
+				curr_poly->tvlist[vertex].y = beta - beta * curr_poly->tvlist[vertex].y;
+			}
+		}
+	}
+}
+
+void Camera_To_Perspective_Screen_OBJECT4DV1(OBJECT4DV1_PTR obj, CAM4DV1_PTR cam)
+{
+	float alpha = 0.5 * cam->viewplane_width - 0.5;
+	float beta = 0.5 * cam->viewplane_height - 0.5;
+
+	for (int vertex = 0; vertex < obj->num_vertices; ++vertex)
+	{
+		float z = obj->vlist_trans[vertex].z;
+		obj->vlist_trans[vertex].x = cam->viewport_dist * obj->vlist_trans[vertex].x / z;
+		obj->vlist_trans[vertex].y = cam->viewport_dist * cam->aspect_ratio * obj->vlist_trans[vertex].y / z;
+		
+		obj->vlist_trans[vertex].x = obj->vlist_trans[vertex].x + alpha;
+		obj->vlist_trans[vertex].y = -obj->vlist_trans[vertex].y + beta;
+	}
+}
+
+void Camera_To_Perspective_Screen_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, CAM4DV1_PTR cam)
+{
+	float alpha = 0.5 * cam->viewplane_width - 0.5;
+	float beta = 0.5 * cam->viewplane_height - 0.5;
+
+	for (int poly = 0; poly < rend_list->num_polys; ++poly)
+	{
+		POLYF4DV1_PTR curr_poly = rend_list->poly_ptrs[poly];
+		if (curr_poly)
+		{
+			if (!(curr_poly->state & POLY4DV1_STATE_ACTIVE) || (curr_poly->state & POLY4DV1_STATE_CLIPPED)
+				|| (curr_poly->state & POLY4DV1_STATE_BACKFACE))
+				continue;
+			for (int vertex = 0; vertex < 3; ++vertex)
+			{
+				float z = curr_poly->tvlist[vertex].z;
+				curr_poly->tvlist[vertex].x = cam->viewport_dist * curr_poly->tvlist[vertex].x / z;
+				curr_poly->tvlist[vertex].y = cam->viewport_dist * cam->aspect_ratio * curr_poly->tvlist[vertex].y / z;
+
+				curr_poly->tvlist[vertex].x = curr_poly->tvlist[vertex].x + alpha;
+				curr_poly->tvlist[vertex].y = -curr_poly->tvlist[vertex].y + beta;
+			}
+		}
+	}
+}
+
+void Draw_OBJECT4DV1_Wire16(OBJECT4DV1_PTR obj, unsigned char *video_buffer, int lpitch)
+{
+	for (int poly = 0; poly < obj->num_polys; ++poly)
+	{
+		if (!(obj->plist[poly].state & POLY4DV1_STATE_ACTIVE) || (obj->plist[poly].state & POLY4DV1_STATE_BACKFACE)
+			|| (obj->plist[poly].state & POLY4DV1_STATE_CLIPPED))
+			continue;
+		int vindex_0 = obj->plist[poly].vert[0];
+		int vindex_1 = obj->plist[poly].vert[1];
+		int vindex_2 = obj->plist[poly].vert[2];
+
+		Draw_Clip_Line16(obj->vlist_trans[vindex_0].x, obj->vlist_trans[vindex_0].y, obj->vlist_trans[vindex_1].x,
+			obj->vlist_trans[vindex_1].y, obj->plist[poly].color, video_buffer, lpitch);
+		Draw_Clip_Line16(obj->vlist_trans[vindex_1].x, obj->vlist_trans[vindex_1].y, obj->vlist_trans[vindex_2].x,
+			obj->vlist_trans[vindex_2].y, obj->plist[poly].color, video_buffer, lpitch);
+		Draw_Clip_Line16(obj->vlist_trans[vindex_2].x, obj->vlist_trans[vindex_2].y, obj->vlist_trans[vindex_0].x,
+			obj->vlist_trans[vindex_0].y, obj->plist[poly].color, video_buffer, lpitch);
+	}
+}
+
+void Draw_RENDERLIST4DV1_Wire16(RENDERLIST4DV1_PTR rend_list, unsigned char *video_buffer, int lpitch)
+{
+	for (int poly = 0; poly < rend_list->num_polys; ++poly)
+	{
+		if (!(rend_list->poly_ptrs[poly]->state & POLY4DV1_STATE_ACTIVE) || (rend_list->poly_ptrs[poly]->state & POLY4DV1_STATE_BACKFACE)
+			|| (rend_list->poly_ptrs[poly]->state & POLY4DV1_STATE_CLIPPED))
+			continue;
+		Draw_Clip_Line16(rend_list->poly_ptrs[poly]->vlist[0].x, rend_list->poly_ptrs[poly]->vlist[0].y, rend_list->poly_ptrs[poly]->vlist[1].x,
+			rend_list->poly_ptrs[poly]->vlist[1].y, rend_list->poly_ptrs[poly]->color, video_buffer, lpitch);
+		Draw_Clip_Line16(rend_list->poly_ptrs[poly]->vlist[1].x, rend_list->poly_ptrs[poly]->vlist[1].y, rend_list->poly_ptrs[poly]->vlist[2].x,
+			rend_list->poly_ptrs[poly]->vlist[2].y, rend_list->poly_ptrs[poly]->color, video_buffer, lpitch);
+		Draw_Clip_Line16(rend_list->poly_ptrs[poly]->vlist[2].x, rend_list->poly_ptrs[poly]->vlist[2].y, rend_list->poly_ptrs[poly]->vlist[0].x,
+			rend_list->poly_ptrs[poly]->vlist[0].y, rend_list->poly_ptrs[poly]->color, video_buffer, lpitch);
+	}
 }
