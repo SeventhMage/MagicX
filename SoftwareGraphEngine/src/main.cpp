@@ -1,10 +1,7 @@
 #include "sge.h"
-#include "GL/glew.h"
-#include "GL/freeglut.h"
-#include "LoadShaders.h"
+#include <assert.h>
 
-
-#pragma comment (lib, "glew32s.lib")
+#pragma comment(lib, "glew32s.lib")
 
 enum VAO_IDs
 {
@@ -15,6 +12,7 @@ enum VAO_IDs
 enum Buffer_IDs
 {
 	ArrayBuffer,
+	ElementBuffer,
 	NumBuffers,
 };
 
@@ -30,48 +28,94 @@ OBJECT4DV1 obj;
 
 CAM4DV1 cam;
 
+GLuint *indexBuffer = NULL;
+
+UCHAR *buffer = NULL;
+
+
+int ImageWidth, ImageHeight;
+
+static void LoadBmp()
+{
+	// 打开文件
+	FILE* pFile = fopen("image/grass1.bmp", "rb");
+	if (pFile == 0)
+		exit(0);
+	// 读取图象的大小信息
+	fseek(pFile, 0x0012, SEEK_SET);
+	
+	fread(&ImageWidth, sizeof(ImageWidth), 1, pFile);
+	fread(&ImageHeight, sizeof(ImageHeight), 1, pFile);
+	// 计算像素数据长度
+	int PixelLength = ImageWidth * 3;
+	while (PixelLength % 4 != 0)
+		++PixelLength;
+	PixelLength *= ImageHeight;
+	// 读取像素数据
+	buffer = (GLubyte*)malloc(PixelLength);
+	if (buffer == 0)
+		exit(0);
+	fseek(pFile, 54, SEEK_SET);
+	fread(buffer, PixelLength, 1, pFile);
+	// 关闭文件
+	fclose(pFile);
+}
+
+
 static void init()
 {
-	glClearColor(1, 0, 0, 0);
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LESS);
-
-	// set function pointer to something
+	Build_Sin_Cos_Tables();
 	RGB16Bit = RGB16Bit565;
 
-	VECTOR4D cam_pos = {0, 0, -10};
-	VECTOR4D cam_dir = {0, 180, 0};
+	glClearColor(0, 0, 0, 1);
+	//glEnable(GL_CULL_FACE);
+	//glCullFace(GL_BACK);
+
+	//glEnable(GL_DEPTH_TEST);
+	//glDepthFunc(GL_LESS);
+	
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	VECTOR4D cam_pos = {0, 0, 200};
+	VECTOR4D cam_dir = {0, 0, 0};
 	VECTOR4D cam_tar = { 0, 0, 0 };
 
 	Init_CAM4DV1(&cam, 0, &cam_pos, &cam_dir, &cam_tar, 1.0f, 500.0f, 90, WINDOW_WIDTH, WINDOW_HEIGHT);
 
+	VECTOR4D vScale = { 1.0f, 1.0f, 1.0f, 1.0f };
+	VECTOR4D vPos = { 0.0f, 0, 0, 1.0f };
+	VECTOR4D vRot = { 0.0f, 0.0f, 0.0f, 1.0f };
+
+	Load_OBJECT4DV1_PLG(&obj, "model/tank3.plg", &vScale, &vPos, &vRot);
+
+	indexBuffer = new GLuint[obj.num_polys * 3];
+
+	//buffer = new UCHAR[WINDOW_HEIGHT * WINDOW_WIDTH];
+
+	//LoadBmp();
+
 	glGenVertexArrays(NumVAOs, VAOs);
 	glBindVertexArray(VAOs[VAO_1]);
 
-	VECTOR4D vScale = { 1.0f, 1.0f, 1.0f, 1.0f };
-	VECTOR4D vPos = { 0.0f, 0.0f, 0.0f, 0.0f };
-	VECTOR4D vRot = { 0.0f, 0.0f, 0.0f, 0.0f };
-
-	Load_OBJECT4DV1_PLG(&obj, "model/cube1.plg", &vScale, &vPos, &vRot);
-
-
 	glGenBuffers(NumBuffers, Buffers);
 	glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(POINT4D)* obj.num_vertices, obj.vlist_trans, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(POINT4D)* obj.num_vertices, NULL, GL_DYNAMIC_DRAW);
+	
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Buffers[ElementBuffer]);	
+
+	glVertexAttribPointer(vPosition, 4, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(vPosition);
+
+
 
 	ShaderInfo shaders[] = {
-		{GL_VERTEX_SHADER, "shader/common.vert"},
+		{ GL_VERTEX_SHADER, "shader/common.vert" },
 		{ GL_FRAGMENT_SHADER, "shader/common.frag" },
-		{GL_NONE, NULL}
+		{ GL_NONE, NULL }
 	};
 
 	GLuint program = LoadShaders(shaders);
 	glUseProgram(program);
-	glVertexAttribPointer(vPosition, 4, GL_FLOAT, GL_FALSE, 0, 0);
-	glEnableVertexAttribArray(vPosition);
 }
 
 static void resize(int width, int height)
@@ -82,17 +126,44 @@ static void resize(int width, int height)
 
 static void display(void)
 {
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	glBindVertexArray(VAOs[VAO_1]);
-	glDrawArrays(GL_TRIANGLES, 0, obj.num_vertices);
-	glFlush();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
+	//cam.dir.y += 0.05;
+	//if (cam.dir.y > 360)
+	//	cam.dir.y = 0;
 	
 	Build_CAM4DV1_Matrix_Euler(&cam, CAM_ROT_SEQ_ZYX);
-
+	
 	Model_To_World_OBJECT4DV1(&obj);
-	World_To_Camera_OBJECT4DV1(&cam, &obj);
+	Cull_OBJECT4DV1(&obj, &cam, CULL_OBJECT_X_PLANE | CULL_OBJECT_Y_PLANE | CULL_OBJECT_Z_PLANE);
+	Remove_Backfaces_OBJECT4DV1(&obj, &cam);
+	World_To_Camera_OBJECT4DV1(&obj, &cam);
 	Camera_To_Perspective_Screen_OBJECT4DV1(&obj, &cam);
+	//memset(buffer, 0, sizeof(UCHAR)* WINDOW_WIDTH * WINDOW_HEIGHT);
+	//Draw_OBJECT4DV1_Wire16(&obj, buffer, WINDOW_WIDTH);
+	glBindVertexArray(VAOs[VAO_1]);
+	glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(POINT4D)* obj.num_vertices, obj.vlist_trans, GL_DYNAMIC_DRAW);
+	//glDrawArrays(GL_TRIANGLES, 0, obj.num_polys);
+
+	int polys = 0;
+	for (int i = 0, j = 0; i < obj.num_polys; ++i)
+	{
+		if (!(obj.plist[i].state & POLY4DV1_STATE_ACTIVE) || (obj.plist[i].state & POLY4DV1_STATE_CLIPPED)
+			|| (obj.plist[i].state & POLY4DV1_STATE_BACKFACE))
+			continue;
+		indexBuffer[j++] = obj.plist[i].vert[0];
+		indexBuffer[j++] = obj.plist[i].vert[1];
+		indexBuffer[j++] = obj.plist[i].vert[2];
+		++polys;
+	}
+
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint)* 3 * polys, indexBuffer, GL_STATIC_DRAW);
+
+	glDrawElements(GL_TRIANGLES, polys * 3, GL_UNSIGNED_INT, 0);
+	glFlush();
+	
+	//glDrawPixels(ImageWidth, ImageHeight, GL_BGR_EXT, GL_UNSIGNED_BYTE, buffer);
 
 	glutSwapBuffers();
 }
@@ -133,12 +204,25 @@ key(unsigned char key, int x, int y)
 	case 'R':
 	case 'r':break;
 
-	case 'S':
-	case 's':
-		break;
-
 	case 'N':
 	case 'n':break;
+
+	case 'W':
+	case 'w':
+		--cam.pos.z;					
+		break;
+	case 'S':
+	case 's':		
+		++cam.pos.z;
+		break;
+	case 'A':
+	case 'a':
+		--cam.pos.x;
+		break;
+	case 'D':
+	case 'd':
+		++cam.pos.x;
+		break;
 
 	default:
 		break;
@@ -177,7 +261,7 @@ int main(int argc, char *argv[])
 	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	glutInitWindowPosition(40, 40);
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH | GLUT_MULTISAMPLE);
+	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_MULTISAMPLE);
 
 	glutCreateWindow("My Window");
 
@@ -201,6 +285,6 @@ int main(int argc, char *argv[])
 	glutMainLoop();
 
 	Close_Error_File();
-	getchar();
+	
 	return 0;
 }

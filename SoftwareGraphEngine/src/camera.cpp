@@ -23,7 +23,7 @@ void Init_CAM4DV1(CAM4DV1_PTR cam, int cam_attr, POINT4D_PTR cam_pos, VECTOR4D_P
 	cam->far_clip_z = far_clip_z;
 
 	cam->viewport_width = viewport_width;
-	cam->viewplane_height = viewport_height;
+	cam->viewport_height = viewport_height;
 
 	cam->viewport_center_x = (viewport_width - 1) / 2;
 	cam->viewport_center_y = (viewport_height - 1) / 2;
@@ -94,7 +94,7 @@ void Build_CAM4DV1_Matrix_Euler(CAM4DV1_PTR cam, int cam_rot_seq)
 	//Ïà»úÆ½ÒÆ¾ØÕóµÄÄæ¾ØÕó
 	Mat_Init_4X4(&mt_inv, 1, 0, 0, 0,
 		0, 1, 0, 0,
-		0, 0, 0, 1,
+		0, 0, 1, 0,
 		-cam->pos.x, -cam->pos.y, -cam->pos.z, 1);
 
 	//Ðý×ª¾ØÕó
@@ -105,17 +105,20 @@ void Build_CAM4DV1_Matrix_Euler(CAM4DV1_PTR cam, int cam_rot_seq)
 
 	float cos_theta = Fast_Cos(theta_x); //cos(-x) = cos(x)
 	float sin_theta = -Fast_Sin(theta_x);	//sin(-x) = -sin(x)
-
 	Mat_Init_4X4(&mx_inv, 1, 0, 0, 0,
 		0, cos_theta, sin_theta, 0,
 		0, -sin_theta, cos_theta, 0,
 		0, 0, 0, 1);
 
-	Mat_Init_4X4(&mx_inv, cos_theta, 0, -sin_theta, 0,
+	cos_theta = Fast_Cos(theta_y); //cos(-x) = cos(x)
+	sin_theta = -Fast_Sin(theta_y);	//sin(-x) = -sin(x)
+	Mat_Init_4X4(&my_inv, cos_theta, 0, -sin_theta, 0,
 		0, 1, 0, 0,
 		sin_theta, 0, cos_theta, 0,
 		0, 0, 0, 1);
 
+	cos_theta = Fast_Cos(theta_z); //cos(-x) = cos(x)
+	sin_theta = -Fast_Sin(theta_z);	//sin(-x) = -sin(x)
 	Mat_Init_4X4(&mz_inv, 
 		cos_theta, sin_theta, 0, 0,
 		-sin_theta, cos_theta, 0, 0,

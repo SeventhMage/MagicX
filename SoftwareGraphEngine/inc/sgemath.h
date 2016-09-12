@@ -542,6 +542,7 @@ inline void QUAT_COPY(QUAT_PTR qdst, QUAT_PTR qsrc)
 // PROTOTYPES /////////////////////////////////////////////
 
 // trig functions
+void Build_Sin_Cos_Tables(void);
 float Fast_Sin(float theta);
 float Fast_Cos(float theta);
 

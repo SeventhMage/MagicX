@@ -14,7 +14,10 @@ AUX_SOURCE_DIRECTORY(src DIR_SRCS)
 #SET(SGE_SRC ${DIR_SRCS})
 
 #set extern libraries
-#SET(LIBRARIES libm.so)
+SET(LIBRARIES lib)
+
+#add link library
+LINK_DIRECTORIES(${PROJECT_SOURCE_DIR}/lib)
 
 file(GLOB_RECURSE DIR_INC  *.h *.hpp)
 
@@ -26,6 +29,5 @@ ADD_EXECUTABLE(Engine ${DIR_SRCS} ${DIR_INC})
 
 SET(EXECUTABLE_OUTPUT_PATH ../bin)
 SET(LIBRARY_OUTPUT_PATH lib)
-#add link library
-#TARGET_LINK_LIBRARIES(../bin/bin ${LIBRARIES})
+
 

@@ -164,7 +164,7 @@ void Model_To_World_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, POINT4D_PTR wor
 	}
 }
 
-void World_To_Camera_OBJECT4DV1(CAM4DV1_PTR cam, OBJECT4DV1_PTR obj)
+void World_To_Camera_OBJECT4DV1(OBJECT4DV1_PTR obj, CAM4DV1_PTR cam)
 {
 	for (int vertex = 0; vertex < obj->num_vertices; ++vertex)
 	{
@@ -201,9 +201,9 @@ bool Cull_OBJECT4DV1(OBJECT4DV1_PTR obj, CAM4DV1_PTR cam, int cull_flags)
 
 	if (cull_flags & CULL_OBJECT_X_PLANE)
 	{
-		float posz_view_width = 0.5f * cam->viewplane_width * sphere_pos.z / cam->view_dist;
-		float clip_width = obj->max_radius / Fast_Cos(cam->fov * 0.5f);
-		if ((sphere_pos.x - clip_width > posz_view_width) || (sphere_pos.x + clip_width < posz_view_width))
+		float posz_view_width = fabs(0.5f * cam->viewplane_width * sphere_pos.z / cam->view_dist);
+		float clip_width = fabs(obj->max_radius / Fast_Cos(cam->fov * 0.5f));
+		if ((sphere_pos.x - clip_width > posz_view_width) || (sphere_pos.x + clip_width < -posz_view_width))
 		{
 			SET_BIT(obj->state, OBJECT4DV1_STATE_CULLED);
 			return true;
@@ -212,9 +212,9 @@ bool Cull_OBJECT4DV1(OBJECT4DV1_PTR obj, CAM4DV1_PTR cam, int cull_flags)
 
 	if (cull_flags & CULL_OBJECT_Y_PLANE)
 	{
-		float posz_view_height = 0.5f * cam->viewplane_height * sphere_pos.z / cam->view_dist;
-		float clip_height = obj->max_radius / Fast_Cos((cam->fov / cam->aspect_ratio) * 0.5f);
-		if ((sphere_pos.y - clip_height > posz_view_height) || (sphere_pos.x + clip_height < posz_view_height))
+		float posz_view_height = fabs(0.5f * cam->viewplane_height * sphere_pos.z / cam->view_dist);
+		float clip_height = fabs(obj->max_radius / Fast_Cos((cam->fov / cam->aspect_ratio) * 0.5f));
+		if ((sphere_pos.y - clip_height > posz_view_height) || (sphere_pos.x + clip_height < -posz_view_height))
 		{
 			SET_BIT(obj->state, OBJECT4DV1_STATE_CULLED);
 			return true;
@@ -254,7 +254,7 @@ void Remove_Backfaces_OBJECT4DV1(OBJECT4DV1_PTR obj, CAM4DV1_PTR cam)
 	{
 		POLY4DV1_PTR curr_poly = &obj->plist[poly];
 		if (!(curr_poly->state & POLY4DV1_STATE_ACTIVE) || (curr_poly->state & POLY4DV1_STATE_BACKFACE)
-			|| (curr_poly->state & POLY4DV1_STATE_CLIPPED) || (curr_poly->state & POLY4DV1_ATTR_2SIDED))
+			|| (curr_poly->state & POLY4DV1_STATE_CLIPPED) || (curr_poly->attr & POLY4DV1_ATTR_2SIDED))
 			continue;
 		int vindex_0 = curr_poly->vert[0];
 		int vindex_1 = curr_poly->vert[1];
@@ -283,7 +283,7 @@ void Remove_Backfaces_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, CAM4DV1_PTR c
 		if (curr_poly)
 		{
 			if (!(curr_poly->state & POLY4DV1_STATE_ACTIVE) || (curr_poly->state & POLY4DV1_STATE_BACKFACE)
-				|| (curr_poly->state & POLY4DV1_STATE_CLIPPED) || (curr_poly->state & POLY4DV1_ATTR_2SIDED))
+				|| (curr_poly->state & POLY4DV1_STATE_CLIPPED) || (curr_poly->attr & POLY4DV1_ATTR_2SIDED))
 				continue;
 
 			VECTOR4D u, v, n;
@@ -431,12 +431,13 @@ void Camera_To_Perspective_Screen_OBJECT4DV1(OBJECT4DV1_PTR obj, CAM4DV1_PTR cam
 
 	for (int vertex = 0; vertex < obj->num_vertices; ++vertex)
 	{
-		float z = obj->vlist_trans[vertex].z;
-		obj->vlist_trans[vertex].x = cam->viewport_dist * obj->vlist_trans[vertex].x / z;
-		obj->vlist_trans[vertex].y = cam->viewport_dist * cam->aspect_ratio * obj->vlist_trans[vertex].y / z;
-		
-		obj->vlist_trans[vertex].x = obj->vlist_trans[vertex].x + alpha;
-		obj->vlist_trans[vertex].y = -obj->vlist_trans[vertex].y + beta;
+		float z = fabs(obj->vlist_trans[vertex].z);
+		obj->vlist_trans[vertex].x = cam->view_dist * obj->vlist_trans[vertex].x / z;
+		obj->vlist_trans[vertex].y = cam->view_dist * cam->aspect_ratio * obj->vlist_trans[vertex].y / z;
+		obj->vlist_trans[vertex].z = .0f;
+
+		//obj->vlist_trans[vertex].x = obj->vlist_trans[vertex].x + alpha;
+		//obj->vlist_trans[vertex].y = -obj->vlist_trans[vertex].y + beta;
 	}
 }
 

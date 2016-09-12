@@ -9,5 +9,8 @@
 #include "camera.h"
 #include "renderer.h"
 
+#include "GL/glew.h"
+#include "GL/freeglut.h"
+#include "LoadShaders.h"
 
 #endif

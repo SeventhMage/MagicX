@@ -88,8 +88,7 @@ int Load_OBJECT4DV1_PLG(OBJECT4DV1_PTR obj, char *filename, VECTOR4D_PTR scale, 
 			return 0;
 		}
 		sscanf(token_string, "%s %d %d %d %d", tmp_string, &poly_num_verts,
-			&obj->plist[poly].vert[0], &obj->plist[poly].vert[1],
-			&obj->plist[poly].vert[2]);
+			&obj->plist[poly].vert[0], &obj->plist[poly].vert[1], &obj->plist[poly].vert[2]);
 		if (tmp_string[0] == '0' && toupper(tmp_string[1] == 'X'))
 			sscanf(tmp_string, "%x", &poly_surface_desc);
 		else
