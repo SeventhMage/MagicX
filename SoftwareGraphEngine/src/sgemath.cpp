@@ -2294,6 +2294,229 @@ float Fast_Distance_3D(float fx, float fy, float fz)
 
 } // end Fast_Distance_3D
 
+void Build_XYZ_Rotation_MATRIX4X4(float theta_x, // euler angles
+	float theta_y,
+	float theta_z,
+	MATRIX4X4_PTR mrot) // output 
+{
+	// this helper function takes a set if euler angles and computes
+	// a rotation matrix from them, usefull for object and camera
+	// work, also  we will do a little testing in the function to determine
+	// the rotations that need to be performed, since there's no
+	// reason to perform extra matrix multiplies if the angles are
+	// zero!
+
+	MATRIX4X4 mx, my, mz, mtmp;       // working matrices
+	float sin_theta = 0, cos_theta = 0;   // used to initialize matrices
+	int rot_seq = 0;                  // 1 for x, 2 for y, 4 for z
+
+	// step 0: fill in with identity matrix
+	MAT_IDENTITY_4X4(mrot);
+
+	// step 1: based on zero and non-zero rotation angles, determine
+	// rotation sequence
+	if (fabs(theta_x) > EPSILON_E5) // x
+		rot_seq = rot_seq | 1;
+
+	if (fabs(theta_y) > EPSILON_E5) // y
+		rot_seq = rot_seq | 2;
+
+	if (fabs(theta_z) > EPSILON_E5) // z
+		rot_seq = rot_seq | 4;
+
+	// now case on sequence
+	switch (rot_seq)
+	{
+	case 0: // no rotation
+	{
+				// what a waste!
+				return;
+	} break;
+
+	case 1: // x rotation
+	{
+				// compute the sine and cosine of the angle
+				cos_theta = Fast_Cos(theta_x);
+				sin_theta = Fast_Sin(theta_x);
+
+				// set the matrix up 
+				Mat_Init_4X4(&mx, 1, 0, 0, 0,
+					0, cos_theta, sin_theta, 0,
+					0, -sin_theta, cos_theta, 0,
+					0, 0, 0, 1);
+
+				// that's it, copy to output matrix
+				MAT_COPY_4X4(&mx, mrot);
+				return;
+
+	} break;
+
+	case 2: // y rotation
+	{
+				// compute the sine and cosine of the angle
+				cos_theta = Fast_Cos(theta_y);
+				sin_theta = Fast_Sin(theta_y);
+
+				// set the matrix up 
+				Mat_Init_4X4(&my, cos_theta, 0, -sin_theta, 0,
+					0, 1, 0, 0,
+					sin_theta, 0, cos_theta, 0,
+					0, 0, 0, 1);
+
+
+				// that's it, copy to output matrix
+				MAT_COPY_4X4(&my, mrot);
+				return;
+
+	} break;
+
+	case 3: // xy rotation
+	{
+				// compute the sine and cosine of the angle for x
+				cos_theta = Fast_Cos(theta_x);
+				sin_theta = Fast_Sin(theta_x);
+
+				// set the matrix up 
+				Mat_Init_4X4(&mx, 1, 0, 0, 0,
+					0, cos_theta, sin_theta, 0,
+					0, -sin_theta, cos_theta, 0,
+					0, 0, 0, 1);
+
+				// compute the sine and cosine of the angle for y
+				cos_theta = Fast_Cos(theta_y);
+				sin_theta = Fast_Sin(theta_y);
+
+				// set the matrix up 
+				Mat_Init_4X4(&my, cos_theta, 0, -sin_theta, 0,
+					0, 1, 0, 0,
+					sin_theta, 0, cos_theta, 0,
+					0, 0, 0, 1);
+
+				// concatenate matrices 
+				Mat_Mul_4X4(&mx, &my, mrot);
+				return;
+
+	} break;
+
+	case 4: // z rotation
+	{
+				// compute the sine and cosine of the angle
+				cos_theta = Fast_Cos(theta_z);
+				sin_theta = Fast_Sin(theta_z);
+
+				// set the matrix up 
+				Mat_Init_4X4(&mz, cos_theta, sin_theta, 0, 0,
+					-sin_theta, cos_theta, 0, 0,
+					0, 0, 1, 0,
+					0, 0, 0, 1);
+
+
+				// that's it, copy to output matrix
+				MAT_COPY_4X4(&mz, mrot);
+				return;
+
+	} break;
+
+	case 5: // xz rotation
+	{
+				// compute the sine and cosine of the angle x
+				cos_theta = Fast_Cos(theta_x);
+				sin_theta = Fast_Sin(theta_x);
+
+				// set the matrix up 
+				Mat_Init_4X4(&mx, 1, 0, 0, 0,
+					0, cos_theta, sin_theta, 0,
+					0, -sin_theta, cos_theta, 0,
+					0, 0, 0, 1);
+
+				// compute the sine and cosine of the angle z
+				cos_theta = Fast_Cos(theta_z);
+				sin_theta = Fast_Sin(theta_z);
+
+				// set the matrix up 
+				Mat_Init_4X4(&mz, cos_theta, sin_theta, 0, 0,
+					-sin_theta, cos_theta, 0, 0,
+					0, 0, 1, 0,
+					0, 0, 0, 1);
+
+				// concatenate matrices 
+				Mat_Mul_4X4(&mx, &mz, mrot);
+				return;
+
+	} break;
+
+	case 6: // yz rotation
+	{
+				// compute the sine and cosine of the angle y
+				cos_theta = Fast_Cos(theta_y);
+				sin_theta = Fast_Sin(theta_y);
+
+				// set the matrix up 
+				Mat_Init_4X4(&my, cos_theta, 0, -sin_theta, 0,
+					0, 1, 0, 0,
+					sin_theta, 0, cos_theta, 0,
+					0, 0, 0, 1);
+
+				// compute the sine and cosine of the angle z
+				cos_theta = Fast_Cos(theta_z);
+				sin_theta = Fast_Sin(theta_z);
+
+				// set the matrix up 
+				Mat_Init_4X4(&mz, cos_theta, sin_theta, 0, 0,
+					-sin_theta, cos_theta, 0, 0,
+					0, 0, 1, 0,
+					0, 0, 0, 1);
+
+				// concatenate matrices 
+				Mat_Mul_4X4(&my, &mz, mrot);
+				return;
+
+	} break;
+
+	case 7: // xyz rotation
+	{
+				// compute the sine and cosine of the angle x
+				cos_theta = Fast_Cos(theta_x);
+				sin_theta = Fast_Sin(theta_x);
+
+				// set the matrix up 
+				Mat_Init_4X4(&mx, 1, 0, 0, 0,
+					0, cos_theta, sin_theta, 0,
+					0, -sin_theta, cos_theta, 0,
+					0, 0, 0, 1);
+
+				// compute the sine and cosine of the angle y
+				cos_theta = Fast_Cos(theta_y);
+				sin_theta = Fast_Sin(theta_y);
+
+				// set the matrix up 
+				Mat_Init_4X4(&my, cos_theta, 0, -sin_theta, 0,
+					0, 1, 0, 0,
+					sin_theta, 0, cos_theta, 0,
+					0, 0, 0, 1);
+
+				// compute the sine and cosine of the angle z
+				cos_theta = Fast_Cos(theta_z);
+				sin_theta = Fast_Sin(theta_z);
+
+				// set the matrix up 
+				Mat_Init_4X4(&mz, cos_theta, sin_theta, 0, 0,
+					-sin_theta, cos_theta, 0, 0,
+					0, 0, 1, 0,
+					0, 0, 0, 1);
+
+				// concatenate matrices, watch order!
+				Mat_Mul_4X4(&mx, &my, &mtmp);
+				Mat_Mul_4X4(&mtmp, &mz, mrot);
+
+	} break;
+
+	default: break;
+
+	} // end switch
+
+} // end Build_XYZ_Rotation_MATRIX4X4                            
+
 ///////////////////////////////////////////////////////////////////////////////
 
 

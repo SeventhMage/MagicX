@@ -20,7 +20,7 @@ int Draw_Line16(int x0, int y0, int x1, int y1, int color, unsigned char *vb_sta
 		error,          // the discriminant i.e. error i.e. decision variable
 		index;          // used for looping
 
-	int lpitch_2 = lpitch >> 1; // USHORT strided lpitch
+	int lpitch_2 = lpitch; // USHORT strided lpitch
 
 	// pre-compute first pixel address in video buffer based on 16bit data
 	USHORT *vb_start2 = (USHORT *)vb_start + x0 + y0*lpitch_2;
@@ -387,4 +387,127 @@ int Clip_Line(int &x1, int &y1, int &x2, int &y2)
 	y2 = yc2;
 
 	return(1);
+}
+
+int Draw_Clip_Line(int x0, int y0, int x1, int y1, int color, unsigned char *dest_buffer, int lpitch)
+{
+	if (Clip_Line(x0, y0, x1, y1))
+		Draw_Line(x0, y0, x1, y1, color, dest_buffer, lpitch);
+	return 1;
+}
+
+int Draw_Line(int x0, int y0, int x1, int y1, int color, unsigned char *vb_start, int lpitch)
+{
+	int dx,             // difference in x's
+		dy,             // difference in y's
+		dx2,            // dx,dy * 2
+		dy2,
+		x_inc,          // amount in pixel space to move during drawing
+		y_inc,          // amount in pixel space to move during drawing
+		error,          // the discriminant i.e. error i.e. decision variable
+		index;          // used for looping
+	
+
+	// pre-compute first pixel address in video buffer based on 16bit data
+	UINT *vb_start2 = (UINT *)vb_start + x0 + y0*lpitch;
+
+	// compute horizontal and vertical deltas
+	dx = x1 - x0;
+	dy = y1 - y0;
+
+	// test which direction the line is going in i.e. slope angle
+	if (dx >= 0)
+	{
+		x_inc = 1;
+
+	} // end if line is moving right
+	else
+	{
+		x_inc = -1;
+		dx = -dx;  // need absolute value
+
+	} // end else moving left
+
+	// test y component of slope
+
+	if (dy >= 0)
+	{
+		y_inc = lpitch;
+	} // end if line is moving down
+	else
+	{
+		y_inc = -lpitch;
+		dy = -dy;  // need absolute value
+
+	} // end else moving up
+
+	// compute (dx,dy) * 2
+	dx2 = dx << 1;
+	dy2 = dy << 1;
+
+	// now based on which delta is greater we can draw the line
+	if (dx > dy)
+	{
+		// initialize error term
+		error = dy2 - dx;
+
+		// draw the line
+		for (index = 0; index <= dx; index++)
+		{
+			// set the pixel
+			*vb_start2 = (UINT)color;
+
+			// test if error has overflowed
+			if (error >= 0)
+			{
+				error -= dx2;
+
+				// move to next line
+				vb_start2 += y_inc;
+
+			} // end if error overflowed
+
+			// adjust the error term
+			error += dy2;
+
+			// move to the next pixel
+			vb_start2 += x_inc;
+
+		} // end for
+
+	} // end if |slope| <= 1
+	else
+	{
+		// initialize error term
+		error = dx2 - dy;
+
+		// draw the line
+		for (index = 0; index <= dy; index++)
+		{
+			// set the pixel
+			*vb_start2 = (UINT)color;
+
+			// test if error overflowed
+			if (error >= 0)
+			{
+				error -= dy2;
+
+				// move to next line
+				vb_start2 += x_inc;
+
+			} // end if error overflowed
+
+			// adjust the error term
+			error += dx2;
+
+			// move to the next pixel
+			vb_start2 += y_inc;
+
+		} // end for
+
+	} // end else |slope| > 1
+
+	// return success
+	return(1);
+
 }

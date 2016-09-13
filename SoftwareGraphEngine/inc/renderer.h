@@ -13,6 +13,10 @@
 #define CULL_OBJECT_Z_PLANE			0x0004
 #define CULL_OBJECT_XYZ_PLANE		(CULL_OBJECT_X_PLANE | CULL_OBJECT_Y_PLANE | CULL_OBJECT_Z_PLANE)
 
+void Rotate_XYZ_OBJECT4DV1(OBJECT4DV1_PTR obj, // object to rotate
+	float theta_x,      // euler angles
+	float theta_y,
+	float theta_z);
 
 //通过矩阵对渲染列表多边形顶点进行变换
 void Transform_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, MATRIX4X4_PTR mt, int coord_select);
