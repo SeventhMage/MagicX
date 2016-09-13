@@ -30,7 +30,7 @@ CAM4DV1 cam;
 
 GLuint *indexBuffer = NULL;
 
-UCHAR *buffer = NULL;
+unsigned int *buffer = NULL;
 
 
 int ImageWidth, ImageHeight;
@@ -52,7 +52,7 @@ static void LoadBmp()
 		++PixelLength;
 	PixelLength *= ImageHeight;
 	// ¶ÁÈ¡ÏñËØÊý¾Ý
-	buffer = (GLubyte*)malloc(PixelLength);
+	buffer = (UINT*)malloc(PixelLength);
 	if (buffer == 0)
 		exit(0);
 	fseek(pFile, 54, SEEK_SET);
@@ -67,7 +67,7 @@ static void init()
 	Build_Sin_Cos_Tables();
 	RGB16Bit = RGB16Bit565;
 
-	glClearColor(0, 0, 0, 1);
+	glClearColor(1, 1, 1, 1);
 	//glEnable(GL_CULL_FACE);
 	//glCullFace(GL_BACK);
 
@@ -88,34 +88,36 @@ static void init()
 
 	Load_OBJECT4DV1_PLG(&obj, "model/tank3.plg", &vScale, &vPos, &vRot);
 
-	indexBuffer = new GLuint[obj.num_polys * 3];
 
-	//buffer = new UCHAR[WINDOW_HEIGHT * WINDOW_WIDTH];
+	buffer = new unsigned int[WINDOW_HEIGHT * WINDOW_WIDTH];
+	memset(buffer, 0, sizeof(UINT)* WINDOW_HEIGHT * WINDOW_WIDTH);
 
 	//LoadBmp();
 
-	glGenVertexArrays(NumVAOs, VAOs);
-	glBindVertexArray(VAOs[VAO_1]);
 
-	glGenBuffers(NumBuffers, Buffers);
-	glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(POINT4D)* obj.num_vertices, NULL, GL_DYNAMIC_DRAW);
-	
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Buffers[ElementBuffer]);	
+	//indexBuffer = new GLuint[obj.num_polys * 3];
+	//glGenVertexArrays(NumVAOs, VAOs);
+	//glBindVertexArray(VAOs[VAO_1]);
 
-	glVertexAttribPointer(vPosition, 4, GL_FLOAT, GL_FALSE, 0, 0);
-	glEnableVertexAttribArray(vPosition);
+	//glGenBuffers(NumBuffers, Buffers);
+	//glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(POINT4D)* obj.num_vertices, NULL, GL_DYNAMIC_DRAW);
+	//
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Buffers[ElementBuffer]);	
+
+	//glVertexAttribPointer(vPosition, 4, GL_FLOAT, GL_FALSE, 0, 0);
+	//glEnableVertexAttribArray(vPosition);
 
 
 
-	ShaderInfo shaders[] = {
-		{ GL_VERTEX_SHADER, "shader/common.vert" },
-		{ GL_FRAGMENT_SHADER, "shader/common.frag" },
-		{ GL_NONE, NULL }
-	};
+	//ShaderInfo shaders[] = {
+	//	{ GL_VERTEX_SHADER, "shader/common.vert" },
+	//	{ GL_FRAGMENT_SHADER, "shader/common.frag" },
+	//	{ GL_NONE, NULL }
+	//};
 
-	GLuint program = LoadShaders(shaders);
-	glUseProgram(program);
+	//GLuint program = LoadShaders(shaders);
+	//glUseProgram(program);
 }
 
 static void resize(int width, int height)
@@ -139,31 +141,35 @@ static void display(void)
 	Remove_Backfaces_OBJECT4DV1(&obj, &cam);
 	World_To_Camera_OBJECT4DV1(&obj, &cam);
 	Camera_To_Perspective_Screen_OBJECT4DV1(&obj, &cam);
-	//memset(buffer, 0, sizeof(UCHAR)* WINDOW_WIDTH * WINDOW_HEIGHT);
-	//Draw_OBJECT4DV1_Wire16(&obj, buffer, WINDOW_WIDTH);
-	glBindVertexArray(VAOs[VAO_1]);
-	glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(POINT4D)* obj.num_vertices, obj.vlist_trans, GL_DYNAMIC_DRAW);
-	//glDrawArrays(GL_TRIANGLES, 0, obj.num_polys);
-
-	int polys = 0;
-	for (int i = 0, j = 0; i < obj.num_polys; ++i)
+	memset(buffer, 0, sizeof(unsigned int)* WINDOW_WIDTH * WINDOW_HEIGHT);
+	for (int i = 0; i < WINDOW_WIDTH * WINDOW_HEIGHT; ++i)
 	{
-		if (!(obj.plist[i].state & POLY4DV1_STATE_ACTIVE) || (obj.plist[i].state & POLY4DV1_STATE_CLIPPED)
-			|| (obj.plist[i].state & POLY4DV1_STATE_BACKFACE))
-			continue;
-		indexBuffer[j++] = obj.plist[i].vert[0];
-		indexBuffer[j++] = obj.plist[i].vert[1];
-		indexBuffer[j++] = obj.plist[i].vert[2];
-		++polys;
+		buffer[i] = 0xff00ff00;
 	}
+	Draw_OBJECT4DV1_Wire16(&obj, (UCHAR *)buffer, WINDOW_WIDTH);
+	//glBindVertexArray(VAOs[VAO_1]);
+	//glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(POINT4D)* obj.num_vertices, obj.vlist_trans, GL_DYNAMIC_DRAW);
+	////glDrawArrays(GL_TRIANGLES, 0, obj.num_polys);
 
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint)* 3 * polys, indexBuffer, GL_STATIC_DRAW);
+	//int polys = 0;
+	//for (int i = 0, j = 0; i < obj.num_polys; ++i)
+	//{
+	//	if (!(obj.plist[i].state & POLY4DV1_STATE_ACTIVE) || (obj.plist[i].state & POLY4DV1_STATE_CLIPPED)
+	//		|| (obj.plist[i].state & POLY4DV1_STATE_BACKFACE))
+	//		continue;
+	//	indexBuffer[j++] = obj.plist[i].vert[0];
+	//	indexBuffer[j++] = obj.plist[i].vert[1];
+	//	indexBuffer[j++] = obj.plist[i].vert[2];
+	//	++polys;
+	//}
 
-	glDrawElements(GL_TRIANGLES, polys * 3, GL_UNSIGNED_INT, 0);
-	glFlush();
-	
-	//glDrawPixels(ImageWidth, ImageHeight, GL_BGR_EXT, GL_UNSIGNED_BYTE, buffer);
+	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint)* 3 * polys, indexBuffer, GL_STATIC_DRAW);
+
+	//glDrawElements(GL_TRIANGLES, polys * 3, GL_UNSIGNED_INT, 0);
+	//glFlush();
+
+	glDrawPixels(WINDOW_WIDTH, WINDOW_HEIGHT, GL_BGRA, GL_UNSIGNED_BYTE, buffer);
 
 	glutSwapBuffers();
 }
