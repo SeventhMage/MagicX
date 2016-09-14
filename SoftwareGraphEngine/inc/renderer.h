@@ -3,6 +3,7 @@
 
 #include "polygon.h"
 #include "camera.h"
+#include "typedef.h"
 
 #define TRANSFORM_LOCAL_ONLY       0
 #define TRANSFORM_TRANS_ONLY       1
@@ -11,7 +12,7 @@
 #define CULL_OBJECT_X_PLANE			0x0001
 #define CULL_OBJECT_Y_PLANE			0x0002
 #define CULL_OBJECT_Z_PLANE			0x0004
-#define CULL_OBJECT_XYZ_PLANE		(CULL_OBJECT_X_PLANE | CULL_OBJECT_Y_PLANE | CULL_OBJECT_Z_PLANE)
+#define CULL_OBJECT_XYZ_PLANES		(CULL_OBJECT_X_PLANE | CULL_OBJECT_Y_PLANE | CULL_OBJECT_Z_PLANE)
 
 void Rotate_XYZ_OBJECT4DV1(OBJECT4DV1_PTR obj, // object to rotate
 	float theta_x,      // euler angles
@@ -66,5 +67,12 @@ void Camera_To_Perspective_Screen_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, C
 void Draw_OBJECT4DV1_Wire(OBJECT4DV1_PTR obj, unsigned char *video_buffer, int lpitch);
 //绘制线框渲染列表
 void Draw_RENDERLIST4DV1_Wire16(RENDERLIST4DV1_PTR rend_list, unsigned char *video_buffer, int lpitch);
-
+//绘制实心物体
+void Draw_OBJECT4DV1_Solid(OBJECT4DV1_PTR obj, UCHAR *video_buffer, int lpitch);
+//绘制实心渲染列表
+void Draw_RENDERLIST4DV1_Solid(RENDERLIST4DV1_PTR rend_list, UCHAR *video_buffer, int lpitch);
+//插入多边形到渲染列表
+int Insert_POLY4DV1_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, POLY4DV1_PTR poly);
+//插入对象到渲染列表
+int Insert_OBJECT4DV1_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, OBJECT4DV1_PTR obj, int insert_local = 0);
 #endif

@@ -92,7 +92,7 @@ typedef struct RENDERLIST4DV1_TYP
 	int attr;	//渲染列表的属性
 
 	POLYF4DV1_PTR poly_ptrs[RENDERLIST4DV1_MAX_POLYS];	//渲染列表
-	POLYF4DV1 poly_data;					//多边形数据
+	POLYF4DV1 poly_data[RENDERLIST4DV1_MAX_POLYS];		//多边形数据
 	int num_polys;						//渲染列表中包含的多边形数目
 }RENDERLIST4DV1, *RENDERLIST4DV1_PTR;
  

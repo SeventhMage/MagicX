@@ -341,7 +341,7 @@ void Remove_Backfaces_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, CAM4DV1_PTR c
 			VECTOR4D u, v, n;
 
 			VECTOR4D_Build(&curr_poly->tvlist[0], &curr_poly->tvlist[1], &u);
-			VECTOR4D_Build(&curr_poly->tvlist[0], &curr_poly->tvlist[1], &v);
+			VECTOR4D_Build(&curr_poly->tvlist[0], &curr_poly->tvlist[2], &v);
 
 			VECTOR4D_Cross(&u, &v, &n);
 
@@ -421,8 +421,8 @@ void Convert_From_Homogeneous4D_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list)
 
 void Perspective_To_Screen_OBJECT4DV1(OBJECT4DV1_PTR obj, CAM4DV1_PTR cam)
 {
-	float alpha = 0.5 * (cam->viewport_width - 0.5);
-	float beta = 0.5 * (cam->viewport_height - 0.5);
+	float alpha = 0.5f * (cam->viewport_width - 0.5f);
+	float beta = 0.5f * (cam->viewport_height - 0.5f);
 
 	for (int vertex = 0; vertex < obj->num_vertices; ++vertex)
 	{
@@ -433,8 +433,8 @@ void Perspective_To_Screen_OBJECT4DV1(OBJECT4DV1_PTR obj, CAM4DV1_PTR cam)
 
 void Build_Perspective_To_Screen_4D_MATRIX4X4(CAM4DV1_PTR cam, MATRIX4X4_PTR m)
 {
-	float alpha = 0.5 * cam->viewport_width - 0.5;
-	float beta = 0.5 * cam->viewport_height - 0.5;
+	float alpha = 0.5f * cam->viewport_width - 0.5f;
+	float beta = 0.5f * cam->viewport_height - 0.5f;
 
 	Mat_Init_4X4(m, alpha, 0, 0, 0,
 		0, -beta, 0, 0,
@@ -445,8 +445,8 @@ void Build_Perspective_To_Screen_4D_MATRIX4X4(CAM4DV1_PTR cam, MATRIX4X4_PTR m)
 
 void Build_Camera_To_Screen_MATRIX4X4(CAM4DV1_PTR cam, MATRIX4X4_PTR m)
 {
-	float alpha = 0.5 * cam->viewport_width - 0.5;
-	float beta = 0.5 * cam->viewport_height - 0.5;
+	float alpha = 0.5f * cam->viewport_width - 0.5f;
+	float beta = 0.5f * cam->viewport_height - 0.5f;
 
 	Mat_Init_4X4(m, alpha, 0, 0, 0,
 					0, -beta, 0, 0,
@@ -464,8 +464,8 @@ void Perspective_To_Screen_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, CAM4DV1_
 			if (!(curr_poly->state & POLY4DV1_STATE_ACTIVE) || (curr_poly->state & POLY4DV1_STATE_CLIPPED) 
 				|| (curr_poly->state & POLY4DV1_STATE_BACKFACE))
 				continue;
-			float alpha = (0.5 * cam->viewport_width - 0.5);
-			float beta = (0.5 * cam->viewplane_height - 0.5);
+			float alpha = (0.5 * cam->viewport_width - 0.5f);
+			float beta = (0.5 * cam->viewport_height - 0.5f);
 
 			for (int vertex = 0; vertex < 3; ++vertex)
 			{
@@ -478,8 +478,8 @@ void Perspective_To_Screen_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, CAM4DV1_
 
 void Camera_To_Perspective_Screen_OBJECT4DV1(OBJECT4DV1_PTR obj, CAM4DV1_PTR cam)
 {
-	float alpha = 0.5 * cam->viewport_width - 0.5;
-	float beta = 0.5 * cam->viewport_height - 0.5;
+	float alpha = 0.5f * cam->viewport_width - 0.5f;
+	float beta = 0.5f* cam->viewport_height - 0.5f;
 
 	for (int vertex = 0; vertex < obj->num_vertices; ++vertex)
 	{
@@ -489,14 +489,15 @@ void Camera_To_Perspective_Screen_OBJECT4DV1(OBJECT4DV1_PTR obj, CAM4DV1_PTR cam
 		obj->vlist_trans[vertex].z = .0f;
 
 		obj->vlist_trans[vertex].x = obj->vlist_trans[vertex].x + alpha;
-		obj->vlist_trans[vertex].y = -obj->vlist_trans[vertex].y + beta;
+		obj->vlist_trans[vertex].y = obj->vlist_trans[vertex].y + beta; //glDrawPixels()ÆÁÄ»×óÏÂ½ÇÎª0£¬ 0
+		//obj->vlist_trans[vertex].y = -obj->vlist_trans[vertex].y + beta;
 	}
 }
 
 void Camera_To_Perspective_Screen_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, CAM4DV1_PTR cam)
 {
-	float alpha = 0.5 * cam->viewplane_width - 0.5;
-	float beta = 0.5 * cam->viewplane_height - 0.5;
+	float alpha = 0.5f * cam->viewport_width - 0.5f;
+	float beta = 0.5f * cam->viewport_height - 0.5f;
 
 	for (int poly = 0; poly < rend_list->num_polys; ++poly)
 	{
@@ -513,7 +514,8 @@ void Camera_To_Perspective_Screen_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, C
 				curr_poly->tvlist[vertex].y = cam->viewport_dist * cam->aspect_ratio * curr_poly->tvlist[vertex].y / z;
 
 				curr_poly->tvlist[vertex].x = curr_poly->tvlist[vertex].x + alpha;
-				curr_poly->tvlist[vertex].y = -curr_poly->tvlist[vertex].y + beta;
+				curr_poly->tvlist[vertex].y = curr_poly->tvlist[vertex].y + beta;//glDrawPixels()ÆÁÄ»×óÏÂ½ÇÎª0£¬ 0
+				//curr_poly->tvlist[vertex].y = -curr_poly->tvlist[vertex].y + beta;
 			}
 		}
 	}
@@ -553,4 +555,129 @@ void Draw_RENDERLIST4DV1_Wire16(RENDERLIST4DV1_PTR rend_list, unsigned char *vid
 		Draw_Clip_Line(rend_list->poly_ptrs[poly]->vlist[2].x, rend_list->poly_ptrs[poly]->vlist[2].y, rend_list->poly_ptrs[poly]->vlist[0].x,
 			rend_list->poly_ptrs[poly]->vlist[0].y, rend_list->poly_ptrs[poly]->color, video_buffer, lpitch);
 	}
+}
+
+void Draw_OBJECT4DV1_Solid(OBJECT4DV1_PTR obj, UCHAR *video_buffer, int lpitch)
+{	
+	for (int poly = 0; poly < obj->num_polys; poly++)
+	{
+		if (!(obj->plist[poly].state & POLY4DV1_STATE_ACTIVE) ||
+			(obj->plist[poly].state & POLY4DV1_STATE_CLIPPED) ||
+			(obj->plist[poly].state & POLY4DV1_STATE_BACKFACE))
+			continue; 
+
+		int vindex_0 = obj->plist[poly].vert[0];
+		int vindex_1 = obj->plist[poly].vert[1];
+		int vindex_2 = obj->plist[poly].vert[2];
+		
+		Draw_Triangle_2D(obj->vlist_trans[vindex_0].x, obj->vlist_trans[vindex_0].y,
+			obj->vlist_trans[vindex_1].x, obj->vlist_trans[vindex_1].y,
+			obj->vlist_trans[vindex_2].x, obj->vlist_trans[vindex_2].y,
+			obj->plist[poly].color, video_buffer, lpitch);
+
+	}
+}
+
+void Draw_RENDERLIST4DV1_Solid(RENDERLIST4DV1_PTR rend_list, UCHAR *video_buffer, int lpitch)
+{
+	for (int poly = 0; poly < rend_list->num_polys; poly++)
+	{
+		if (!(rend_list->poly_ptrs[poly]->state & POLY4DV1_STATE_ACTIVE) ||
+			(rend_list->poly_ptrs[poly]->state & POLY4DV1_STATE_CLIPPED) ||
+			(rend_list->poly_ptrs[poly]->state & POLY4DV1_STATE_BACKFACE))
+			continue;
+		
+		Draw_Triangle_2D(rend_list->poly_ptrs[poly]->tvlist[0].x, rend_list->poly_ptrs[poly]->tvlist[0].y,
+			rend_list->poly_ptrs[poly]->tvlist[1].x, rend_list->poly_ptrs[poly]->tvlist[1].y,
+			rend_list->poly_ptrs[poly]->tvlist[2].x, rend_list->poly_ptrs[poly]->tvlist[2].y,
+			rend_list->poly_ptrs[poly]->color, video_buffer, lpitch);
+
+	}
+}
+
+int Insert_POLY4DV1_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, POLY4DV1_PTR poly)
+{
+	if (rend_list->num_polys >= RENDERLIST4DV1_MAX_POLYS)
+		return(0);
+
+	rend_list->poly_ptrs[rend_list->num_polys] = &rend_list->poly_data[rend_list->num_polys];
+	
+	rend_list->poly_data[rend_list->num_polys].state = poly->state;
+	rend_list->poly_data[rend_list->num_polys].attr = poly->attr;
+	rend_list->poly_data[rend_list->num_polys].color = poly->color;
+
+	VECTOR4D_COPY(&rend_list->poly_data[rend_list->num_polys].tvlist[0],
+		&poly->vlist[poly->vert[0]]);
+
+	VECTOR4D_COPY(&rend_list->poly_data[rend_list->num_polys].tvlist[1],
+		&poly->vlist[poly->vert[1]]);
+
+	VECTOR4D_COPY(&rend_list->poly_data[rend_list->num_polys].tvlist[2],
+		&poly->vlist[poly->vert[2]]);
+	
+	VECTOR4D_COPY(&rend_list->poly_data[rend_list->num_polys].vlist[0],
+		&poly->vlist[poly->vert[0]]);
+
+	VECTOR4D_COPY(&rend_list->poly_data[rend_list->num_polys].vlist[1],
+		&poly->vlist[poly->vert[1]]);
+
+	VECTOR4D_COPY(&rend_list->poly_data[rend_list->num_polys].vlist[2],
+		&poly->vlist[poly->vert[2]]);
+
+	if (rend_list->num_polys == 0)
+	{		
+		rend_list->poly_data[0].next = NULL;
+		rend_list->poly_data[0].prev = NULL;
+	}
+	else
+	{		
+		rend_list->poly_data[rend_list->num_polys].next = NULL;
+		rend_list->poly_data[rend_list->num_polys].prev =
+			&rend_list->poly_data[rend_list->num_polys - 1];
+		
+		rend_list->poly_data[rend_list->num_polys - 1].next =
+			&rend_list->poly_data[rend_list->num_polys];
+	}
+	
+	rend_list->num_polys++;
+
+	return(1);
+
+}
+
+int Insert_OBJECT4DV1_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, OBJECT4DV1_PTR obj, int insert_local)
+{
+	if (!(obj->state & OBJECT4DV1_STATE_ACTIVE) ||
+		(obj->state & OBJECT4DV1_STATE_CULLED) ||
+		!(obj->state & OBJECT4DV1_STATE_VISIBLE))
+		return(0);
+	
+	for (int poly = 0; poly < obj->num_polys; poly++)
+	{		
+		POLY4DV1_PTR curr_poly = &obj->plist[poly];
+		
+		if (!(curr_poly->state & POLY4DV1_STATE_ACTIVE) ||
+			(curr_poly->state & POLY4DV1_STATE_CLIPPED) ||
+			(curr_poly->state & POLY4DV1_STATE_BACKFACE))
+			continue; 
+
+		POINT4D_PTR vlist_old = curr_poly->vlist;
+
+		if (insert_local)
+			curr_poly->vlist = obj->vlist_local;
+		else
+			curr_poly->vlist = obj->vlist_trans;
+		
+		if (!Insert_POLY4DV1_RENDERLIST4DV1(rend_list, curr_poly))
+		{			
+			curr_poly->vlist = vlist_old;
+			
+			return(0);
+		}
+		
+		curr_poly->vlist = vlist_old;
+
+	}	
+	return(1);
+
 }

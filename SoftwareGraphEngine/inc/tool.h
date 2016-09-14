@@ -31,7 +31,9 @@
 #define _RGB24BIT(a,r,g,b) ((b) + ((g) << 8) + ((r) << 16) )
 
 // this builds a 32 bit color value in A.8.8.8 format (8-bit alpha mode)
-#define _RGB32BIT(a,r,g,b) ((b) + ((g) << 8) + ((r) << 16) + ((a) << 24))
+#define _ARGB32BIT(a,r,g,b) ((b) + ((g) << 8) + ((r) << 16) + ((a) << 24))
+
+#define _RGBA32BIT(r, g, b, a) ((a) + ((b) << 8) + ((g) << 16) + ((r) << 24))
 
 #define SET_BIT(word,bit_flag)   ((word)=((word) | (bit_flag)))
 #define RESET_BIT(word,bit_flag) ((word)=((word) & (~bit_flag)))
@@ -60,4 +62,91 @@ extern USHORT(*RGB16Bit)(int r, int g, int b);
 // root functions
 extern USHORT RGB16Bit565(int r, int g, int b);
 extern USHORT RGB16Bit555(int r, int g, int b);
+
+typedef struct RGBAV1_TYPE
+{
+	union
+	{
+		int rgba;
+		unsigned char rgba_M[4];
+		struct
+		{
+			unsigned char a;
+			unsigned char b;
+			unsigned char g;
+			unsigned char r;
+		};
+	};
+}RGBAV1, *RGBAV1_PTR;
+
+// container structure for bitmaps .BMP file
+typedef struct BITMAP_FILE_TAG
+{
+	BITMAPFILEHEADER bitmapfileheader;  // this contains the bitmapfile header
+	BITMAPINFOHEADER bitmapinfoheader;  // this is all the info including the palette
+	PALETTEENTRY     palette[256];      // we will store the palette here
+	UCHAR            *buffer;           // this is a pointer to the data
+
+} BITMAP_FILE, *BITMAP_FILE_PTR;
+
+// the simple bitmap image
+typedef struct BITMAP_IMAGE_TYP
+{
+	int state;          // state of bitmap
+	int attr;           // attributes of bitmap
+	int x, y;            // position of bitmap
+	int width, height;  // size of bitmap
+	int num_bytes;      // total bytes of bitmap
+	int bpp;            // bits per pixel
+	UCHAR *buffer;      // pixels of bitmap
+
+} BITMAP_IMAGE, *BITMAP_IMAGE_PTR;
+
+// blinking light structure
+typedef struct BLINKER_TYP
+{
+	// user sets these
+	int color_index;         // index of color to blink
+	PALETTEENTRY on_color;   // RGB value of "on" color
+	PALETTEENTRY off_color;  // RGB value of "off" color
+	int on_time;             // number of frames to keep "on" 
+	int off_time;            // number of frames to keep "off"
+
+	// internal member
+	int counter;             // counter for state transitions
+	int state;               // state of light, -1 off, 1 on, 0 dead
+} BLINKER, *BLINKER_PTR;
+
+// bitmap defines
+#define BITMAP_ID            0x4D42 // universal id for a bitmap
+#define BITMAP_STATE_DEAD    0
+#define BITMAP_STATE_ALIVE   1
+#define BITMAP_STATE_DYING   2 
+#define BITMAP_ATTR_LOADED   128
+
+#define BITMAP_EXTRACT_MODE_CELL  0
+#define BITMAP_EXTRACT_MODE_ABS   1
+
+#define MAX_COLORS_PALETTE  256
+
+// simple bitmap image functions
+int Create_Bitmap(BITMAP_IMAGE_PTR image, int x, int y, int width, int height, int bpp = 8);
+int Destroy_Bitmap(BITMAP_IMAGE_PTR image);
+int Draw_Bitmap(BITMAP_IMAGE_PTR source_bitmap, UCHAR *dest_buffer, int lpitch, int transparent);
+int Draw_Bitmap16(BITMAP_IMAGE_PTR source_bitmap, UCHAR *dest_buffer, int lpitch, int transparent);
+int Load_Image_Bitmap(BITMAP_IMAGE_PTR image, BITMAP_FILE_PTR bitmap, int cx, int cy, int mode);
+int Load_Image_Bitmap16(BITMAP_IMAGE_PTR image, BITMAP_FILE_PTR bitmap, int cx, int cy, int mode);
+int Scroll_Bitmap(BITMAP_IMAGE_PTR image, int dx, int dy = 0);
+
+int Copy_Bitmap(BITMAP_IMAGE_PTR dest_bitmap, int dest_x, int dest_y,
+	BITMAP_IMAGE_PTR source_bitmap, int source_x, int source_y,
+	int width, int height);
+
+int Flip_Bitmap(UCHAR *image, int bytes_per_line, int height);
+
+// bitmap file functions
+int Load_Bitmap_File(BITMAP_FILE_PTR bitmap, char *filename);
+int Unload_Bitmap_File(BITMAP_FILE_PTR bitmap);
+
+
 #endif

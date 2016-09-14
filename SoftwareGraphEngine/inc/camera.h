@@ -10,6 +10,9 @@
 #define CAM_ROT_SEQ_ZYX 4
 #define CAM_ROT_SEQ_ZXY 5
 
+#define CAM_MODEL_EULER            0x0008
+#define CAM_MODEL_UVN              0x0010
+
 #define UVN_MODE_SIMPLE 0
 #define UVN_MODE_SPHERICAL 1
 
