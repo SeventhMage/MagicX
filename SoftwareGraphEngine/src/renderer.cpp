@@ -519,7 +519,7 @@ void Camera_To_Perspective_Screen_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, C
 	}
 }
 
-void Draw_OBJECT4DV1_Wire16(OBJECT4DV1_PTR obj, unsigned char *video_buffer, int lpitch)
+void Draw_OBJECT4DV1_Wire(OBJECT4DV1_PTR obj, unsigned char *video_buffer, int lpitch)
 {
 	for (int poly = 0; poly < obj->num_polys; ++poly)
 	{

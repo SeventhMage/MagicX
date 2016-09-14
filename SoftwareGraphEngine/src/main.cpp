@@ -86,7 +86,7 @@ static void init()
 	VECTOR4D vPos = { 0.0f, 0, 0, 1.0f };
 	VECTOR4D vRot = { 0.0f, 0.0f, 0.0f, 1.0f };
 
-	Load_OBJECT4DV1_PLG(&obj, "model/tank1.plg", &vScale, &vPos, &vRot);
+	Load_OBJECT4DV1_PLG(&obj, "model/towerg1.plg", &vScale, &vPos, &vRot);
 
 
 	buffer = new UINT[WINDOW_HEIGHT * WINDOW_WIDTH];
@@ -135,7 +135,7 @@ static void display(void)
 	//	cam.dir.y = 0;
 	
 	Build_CAM4DV1_Matrix_Euler(&cam, CAM_ROT_SEQ_ZYX);
-	Rotate_XYZ_OBJECT4DV1(&obj, 0, 1, 0);
+	Rotate_XYZ_OBJECT4DV1(&obj, 0, 0.5, 0);
 	Model_To_World_OBJECT4DV1(&obj);
 	Reset_OBJECT4DV1(&obj);
 	Cull_OBJECT4DV1(&obj, &cam, CULL_OBJECT_X_PLANE | CULL_OBJECT_Y_PLANE | CULL_OBJECT_Z_PLANE);
@@ -147,7 +147,7 @@ static void display(void)
 	{
 		buffer[i] = 0xffffffff;
 	}
-	Draw_OBJECT4DV1_Wire16(&obj, (UCHAR *)buffer, WINDOW_WIDTH);
+	Draw_OBJECT4DV1_Wire(&obj, (UCHAR *)buffer, WINDOW_WIDTH);
 	//glBindVertexArray(VAOs[VAO_1]);
 	//glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
 	//glBufferData(GL_ARRAY_BUFFER, sizeof(POINT4D)* obj.num_vertices, obj.vlist_trans, GL_DYNAMIC_DRAW);
