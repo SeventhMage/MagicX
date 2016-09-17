@@ -204,21 +204,21 @@ static void display(void)
 	if (keyboard_state['W'] || keyboard_state['w'])
 	{
 		// move forward
-		cam.pos.x += tank_speed*Fast_Sin(cam.dir.y);
-		cam.pos.z += tank_speed*Fast_Cos(cam.dir.y);
+		cam.pos.x -= tank_speed*Fast_Sin(cam.dir.y);
+		cam.pos.z -= tank_speed*Fast_Cos(cam.dir.y);
 	} // end if
 
 	if (keyboard_state['S'] || keyboard_state['s'])
 	{
 		// move backward
-		cam.pos.x -= tank_speed*Fast_Sin(cam.dir.y);
-		cam.pos.z -= tank_speed*Fast_Cos(cam.dir.y);
+		cam.pos.x += tank_speed*Fast_Sin(cam.dir.y);
+		cam.pos.z += tank_speed*Fast_Cos(cam.dir.y);
 	} // end if
 
 	// rotate
 	if (keyboard_state['D'] || keyboard_state['d'])
 	{
-		cam.dir.y += 3;
+		cam.dir.y -= 0.1;
 
 		// add a little turn to object
 		if ((turning += 2) > 15)
@@ -228,7 +228,7 @@ static void display(void)
 
 	if (keyboard_state['a'] || keyboard_state['A'])
 	{
-		cam.dir.y -= 3;
+		cam.dir.y += 0.11;
 
 		// add a little turn to object
 		if ((turning -= 2) < -15)
@@ -318,9 +318,8 @@ static void display(void)
 			// so we can insert it into the rendering list
 			// perform local/model to world transform
 			Model_To_World_OBJECT4DV1(&obj_tank, TRANSFORM_TRANS_ONLY);
-
 			// insert the object into render list
-			//Insert_OBJECT4DV1_RENDERLIST4DV1(&rend_list, &obj_tank);			
+			Insert_OBJECT4DV1_RENDERLIST4DV1(&rend_list, &obj_tank);			
 		} // end if
 
 	} // end for
@@ -342,6 +341,8 @@ static void display(void)
 
 	// perform world transform
 	Model_To_World_OBJECT4DV1(&obj_player, TRANSFORM_TRANS_ONLY);
+
+	Cull_OBJECT4DV1(&obj_player, &cam, CULL_OBJECT_XYZ_PLANES);
 
 	// insert the object into render list
 	Insert_OBJECT4DV1_RENDERLIST4DV1(&rend_list, &obj_player);	
@@ -366,13 +367,13 @@ static void display(void)
 			Model_To_World_OBJECT4DV1(&obj_tower);
 
 			// insert the object into render list
-			//Insert_OBJECT4DV1_RENDERLIST4DV1(&rend_list, &obj_tower);			
+			Insert_OBJECT4DV1_RENDERLIST4DV1(&rend_list, &obj_tower);			
 		} // end if
 
 	} // end for
 
 	// seed number generator so that modulation of markers is always the same
-	//srand(13);
+	srand(13);
 
 	// insert the ground markers into the world
 	for (int index_x = 0; index_x < NUM_POINTS_X; index_x++)
@@ -395,7 +396,7 @@ static void display(void)
 			Model_To_World_OBJECT4DV1(&obj_marker);
 
 			// insert the object into render list
-			//Insert_OBJECT4DV1_RENDERLIST4DV1(&rend_list, &obj_marker);		
+			Insert_OBJECT4DV1_RENDERLIST4DV1(&rend_list, &obj_marker);		
 		} // end if
 
 	} // end for
@@ -408,7 +409,7 @@ static void display(void)
 
 	Camera_To_Perspective_Screen_RENDERLIST4DV1(&rend_list, &cam);
 
-	//Draw_RENDERLIST4DV1_Wire16(&rend_list, (UCHAR *)buffer, WINDOW_WIDTH);
+	Draw_RENDERLIST4DV1_Solid(&rend_list, (UCHAR *)buffer, WINDOW_WIDTH);
 
 	glDrawPixels(WINDOW_WIDTH, WINDOW_HEIGHT, GL_BGRA, GL_UNSIGNED_BYTE, buffer);
 

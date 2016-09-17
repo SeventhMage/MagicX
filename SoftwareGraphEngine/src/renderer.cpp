@@ -275,7 +275,7 @@ bool Cull_OBJECT4DV1(OBJECT4DV1_PTR obj, CAM4DV1_PTR cam, int cull_flags)
 
 	if (cull_flags & CULL_OBJECT_Z_PLANE)
 	{
-		if ((fabs(sphere_pos.z) + obj->max_radius) < cam->near_clip_z || (fabs(sphere_pos.z - obj->max_radius) > cam->far_clip_z))
+		if ((sphere_pos.z - obj->max_radius) > -cam->near_clip_z || (sphere_pos.z + obj->max_radius < -cam->far_clip_z))
 		{
 			SET_BIT(obj->state, OBJECT4DV1_STATE_CULLED);
 			return true;
@@ -347,7 +347,8 @@ void Remove_Backfaces_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, CAM4DV1_PTR c
 
 			VECTOR4D view;
 			VECTOR4D_Build(&curr_poly->tvlist[0], &cam->pos, &view);
-
+			VECTOR4D_Normalize(&view);
+			VECTOR4D_Normalize(&n);
 			float dot = VECTOR4D_Dot(&view, &n);
 			if (dot <= 0)
 				SET_BIT(curr_poly->state, POLY4DV1_STATE_BACKFACE);
@@ -509,7 +510,7 @@ void Camera_To_Perspective_Screen_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, C
 				continue;
 			for (int vertex = 0; vertex < 3; ++vertex)
 			{
-				float z = curr_poly->tvlist[vertex].z;
+				float z = fabs(curr_poly->tvlist[vertex].z);
 				curr_poly->tvlist[vertex].x = cam->viewport_dist * curr_poly->tvlist[vertex].x / z;
 				curr_poly->tvlist[vertex].y = cam->viewport_dist * cam->aspect_ratio * curr_poly->tvlist[vertex].y / z;
 
@@ -548,12 +549,12 @@ void Draw_RENDERLIST4DV1_Wire16(RENDERLIST4DV1_PTR rend_list, unsigned char *vid
 		if (!(rend_list->poly_ptrs[poly]->state & POLY4DV1_STATE_ACTIVE) || (rend_list->poly_ptrs[poly]->state & POLY4DV1_STATE_BACKFACE)
 			|| (rend_list->poly_ptrs[poly]->state & POLY4DV1_STATE_CLIPPED))
 			continue;
-		Draw_Clip_Line(rend_list->poly_ptrs[poly]->vlist[0].x, rend_list->poly_ptrs[poly]->vlist[0].y, rend_list->poly_ptrs[poly]->vlist[1].x,
-			rend_list->poly_ptrs[poly]->vlist[1].y, rend_list->poly_ptrs[poly]->color, video_buffer, lpitch);
-		Draw_Clip_Line(rend_list->poly_ptrs[poly]->vlist[1].x, rend_list->poly_ptrs[poly]->vlist[1].y, rend_list->poly_ptrs[poly]->vlist[2].x,
-			rend_list->poly_ptrs[poly]->vlist[2].y, rend_list->poly_ptrs[poly]->color, video_buffer, lpitch);
-		Draw_Clip_Line(rend_list->poly_ptrs[poly]->vlist[2].x, rend_list->poly_ptrs[poly]->vlist[2].y, rend_list->poly_ptrs[poly]->vlist[0].x,
-			rend_list->poly_ptrs[poly]->vlist[0].y, rend_list->poly_ptrs[poly]->color, video_buffer, lpitch);
+		Draw_Clip_Line(rend_list->poly_ptrs[poly]->tvlist[0].x, rend_list->poly_ptrs[poly]->tvlist[0].y, rend_list->poly_ptrs[poly]->tvlist[1].x,
+			rend_list->poly_ptrs[poly]->tvlist[1].y, rend_list->poly_ptrs[poly]->color, video_buffer, lpitch);
+		Draw_Clip_Line(rend_list->poly_ptrs[poly]->tvlist[1].x, rend_list->poly_ptrs[poly]->tvlist[1].y, rend_list->poly_ptrs[poly]->tvlist[2].x,
+			rend_list->poly_ptrs[poly]->tvlist[2].y, rend_list->poly_ptrs[poly]->color, video_buffer, lpitch);
+		Draw_Clip_Line(rend_list->poly_ptrs[poly]->tvlist[2].x, rend_list->poly_ptrs[poly]->tvlist[2].y, rend_list->poly_ptrs[poly]->tvlist[0].x,
+			rend_list->poly_ptrs[poly]->tvlist[0].y, rend_list->poly_ptrs[poly]->color, video_buffer, lpitch);
 	}
 }
 
