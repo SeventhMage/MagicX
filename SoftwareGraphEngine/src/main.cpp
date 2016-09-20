@@ -58,7 +58,24 @@ tanks[NUM_TANKS];
 
 RENDERLIST4DV1 rend_list; // the render list
 
+int min_clip_y = 0;
+int max_clip_y = WINDOW_HEIGHT;
+
+int min_clip_x = 0;
+int max_clip_x = WINDOW_WIDTH;
+
 int ImageWidth, ImageHeight;
+
+int g_width, g_height;
+
+static void AllocBuffer(int size)
+{
+	if (buffer)
+		delete[]buffer;
+	buffer = new UINT[size];
+	memset(buffer, 0, sizeof(UINT)* size);
+
+}
 
 static void LoadBmp()
 {
@@ -99,7 +116,7 @@ static void init()
 	//glEnable(GL_DEPTH_TEST);
 	//glDepthFunc(GL_LESS);
 	
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	VECTOR4D cam_pos = {0, 40, 0, 1};
 	VECTOR4D cam_dir = {0, 0, 0, 1};
@@ -109,7 +126,7 @@ static void init()
 
 	VECTOR4D vscale = { 1.0f, 1.0f, 1.0f, 1.0f };
 	VECTOR4D vpos = { 0.0f, 0, 0, 1.0f };
-	VECTOR4D vrot = { 0.0f, 0.0f, 0.0f, 1.0f };
+	VECTOR4D vrot = { 0.0f, 180.0f, 0.0f, 1.0f };
 
 	//Load_OBJECT4DV1_PLG(&obj, "model/towerg1.plg", &vScale, &vPos, &vRot);
 
@@ -149,9 +166,7 @@ static void init()
 		towers[index].z = RAND_RANGE(-UNIVERSE_RADIUS, UNIVERSE_RADIUS);
 	} // end for
 
-	buffer = new UINT[WINDOW_HEIGHT * WINDOW_WIDTH];
-	memset(buffer, 0, sizeof(UINT)* WINDOW_HEIGHT * WINDOW_WIDTH);
-
+	
 	//LoadBmp();
 
 
@@ -178,11 +193,19 @@ static void init()
 
 	//GLuint program = LoadShaders(shaders);
 	//glUseProgram(program);
-}
+} 
 
 static void resize(int width, int height)
 {
 	glViewport(0, 0, width, height);
+	g_width = width;
+	g_height = height;
+	min_clip_y = 0;
+	max_clip_y = height;
+	min_clip_x = 0;
+	max_clip_x = width;
+	Init_CAM4DV1(&cam, CAM_MODEL_EULER, &cam.pos, &cam.dir, &cam.target, 1.0f, 12000.0f, 90, width, height);
+	AllocBuffer(width * height);
 }
 
 
@@ -221,18 +244,18 @@ static void display(void)
 		cam.dir.y -= 0.1;
 
 		// add a little turn to object
-		if ((turning += 2) > 15)
-			turning = 15;
+		if ((turning -= 2) < -15)
+			turning = -15;
 
 	} // end if
 
 	if (keyboard_state['a'] || keyboard_state['A'])
 	{
-		cam.dir.y += 0.11;
+		cam.dir.y += 0.1;
 
 		// add a little turn to object
-		if ((turning -= 2) < -15)
-			turning = -15;
+		if ((turning += 2) > 15)
+			turning = 15;
 
 	} // end if
 	else // center heading again
@@ -258,9 +281,9 @@ static void display(void)
 	//World_To_Camera_OBJECT4DV1(&obj, &cam);
 	//Camera_To_Perspective_Screen_OBJECT4DV1(&obj, &cam);
 	//memset(buffer, 0, sizeof(UINT)* WINDOW_WIDTH * WINDOW_HEIGHT);
-	for (int i = 0; i < WINDOW_WIDTH * WINDOW_HEIGHT; ++i)
+	for (int i = 0; i < g_width * g_height; ++i)
 	{
-		buffer[i] = 0xffffffff;
+		buffer[i] = 0;// 0xffffffff;
 	}
 	//Draw_OBJECT4DV1_Solid(&obj, (UCHAR *)buffer, WINDOW_WIDTH);
 	//Draw_OBJECT4DV1_Wire(&obj, (UCHAR *)buffer, WINDOW_WIDTH);
@@ -329,9 +352,9 @@ static void display(void)
 	Reset_OBJECT4DV1(&obj_player);
 
 	// set position of tank
-	obj_player.world_pos.x = cam.pos.x + 300 * Fast_Sin(cam.dir.y);
+	obj_player.world_pos.x = cam.pos.x - 300 * Fast_Sin(cam.dir.y);
 	obj_player.world_pos.y = cam.pos.y - 70;
-	obj_player.world_pos.z = cam.pos.z + 300 * Fast_Cos(cam.dir.y);
+	obj_player.world_pos.z = cam.pos.z - 300 * Fast_Cos(cam.dir.y);
 
 	// generate rotation matrix around y axis
 	Build_XYZ_Rotation_MATRIX4X4(0, cam.dir.y + turning, 0, &mrot);
@@ -409,9 +432,9 @@ static void display(void)
 
 	Camera_To_Perspective_Screen_RENDERLIST4DV1(&rend_list, &cam);
 
-	Draw_RENDERLIST4DV1_Solid(&rend_list, (UCHAR *)buffer, WINDOW_WIDTH);
+	Draw_RENDERLIST4DV1_Solid(&rend_list, (UCHAR *)buffer, g_width);
 
-	glDrawPixels(WINDOW_WIDTH, WINDOW_HEIGHT, GL_BGRA, GL_UNSIGNED_BYTE, buffer);
+	glDrawPixels(g_width, g_height, GL_BGRA, GL_UNSIGNED_BYTE, buffer);
 
 	glutSwapBuffers();
 }

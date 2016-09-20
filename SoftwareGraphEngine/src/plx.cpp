@@ -1,6 +1,7 @@
 #include "plx.h"
 #include "tool.h"
 #include <ctype.h>
+#include "renderer.h"
 
 // 跳过注释和空行，返回一行数据，文件为空反回NULL
 char *Get_Line_PLG(char *buffer, int maxlength, FILE *fp)
@@ -54,7 +55,7 @@ int Load_OBJECT4DV1_PLG(OBJECT4DV1_PTR obj, char *filename, VECTOR4D_PTR scale, 
 	{
 		printf("PLG file error with file %s.\n", filename);
 		return 0;
-	}
+	}	
 
 	sscanf(token_string, "%s %d %d", obj->name, &obj->num_vertices, &obj->num_polys);
 
@@ -71,6 +72,10 @@ int Load_OBJECT4DV1_PLG(OBJECT4DV1_PTR obj, char *filename, VECTOR4D_PTR scale, 
 		obj->vlist_local[vertex].y *= scale->y;
 		obj->vlist_local[vertex].z *= scale->z;
 	}
+
+	MATRIX4X4 mrot;
+	Build_XYZ_Rotation_MATRIX4X4(rot->x, rot->y, rot->z, &mrot);
+	Transform_OBJECT4DV1(obj, &mrot, TRANSFORM_LOCAL_ONLY, 1);
 
 	//计算平均半径和最大半径
 	Compute_OBJECT4DV1_Radius(obj);
