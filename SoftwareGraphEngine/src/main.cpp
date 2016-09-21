@@ -109,7 +109,7 @@ static void init()
 	Build_Sin_Cos_Tables();
 	RGB16Bit = RGB16Bit565;
 
-	glClearColor(0, 0, 0, 1);
+	//glClearColor(0, 0, 0, 1);
 	//glEnable(GL_CULL_FACE);
 	//glCullFace(GL_BACK);
 
@@ -197,7 +197,7 @@ static void init()
 
 static void resize(int width, int height)
 {
-	glViewport(0, 0, width, height);
+	//glViewport(0, 0, width, height);
 	g_width = width;
 	g_height = height;
 	min_clip_y = 0;
@@ -211,7 +211,7 @@ static void resize(int width, int height)
 
 static void display(void)
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
 	static float view_angle = 0;
 	static float camera_distance = 6000;
 	static VECTOR4D pos = { 0, 0, 0, 0 };
