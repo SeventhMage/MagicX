@@ -44,6 +44,7 @@ UINT *buffer = NULL;
 #define NUM_TOWERS        96 * 2
 #define NUM_TANKS         24 * 2
 #define TANK_SPEED        8 * 2
+#define TANK_ROTATE_SPEED 1
 
 
 int keyboard_state[256];
@@ -241,7 +242,7 @@ static void display(void)
 	// rotate
 	if (keyboard_state['D'] || keyboard_state['d'])
 	{
-		cam.dir.y -= 0.1;
+		cam.dir.y -= TANK_ROTATE_SPEED;
 
 		// add a little turn to object
 		if ((turning -= 2) < -15)
@@ -251,7 +252,7 @@ static void display(void)
 
 	if (keyboard_state['a'] || keyboard_state['A'])
 	{
-		cam.dir.y += 0.1;
+		cam.dir.y += TANK_ROTATE_SPEED;
 
 		// add a little turn to object
 		if ((turning += 2) > 15)
