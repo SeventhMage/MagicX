@@ -34,16 +34,16 @@ GLuint *indexBuffer = NULL;
 UINT *buffer = NULL;
 
 // defines for the game universe
-#define UNIVERSE_RADIUS   4000
+#define UNIVERSE_RADIUS   8000
 
 #define POINT_SIZE        200
 #define NUM_POINTS_X      (2*UNIVERSE_RADIUS/POINT_SIZE)
 #define NUM_POINTS_Z      (2*UNIVERSE_RADIUS/POINT_SIZE)
 #define NUM_POINTS        (NUM_POINTS_X*NUM_POINTS_Z)
 
-#define NUM_TOWERS        96
-#define NUM_TANKS         24
-#define TANK_SPEED        15
+#define NUM_TOWERS        96 * 2
+#define NUM_TANKS         24 * 2
+#define TANK_SPEED        8 * 2
 
 
 int keyboard_state[256];

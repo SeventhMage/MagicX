@@ -3,6 +3,7 @@
 #include "typedef.h"
 
 #include <string.h>
+#include <algorithm>
 
 int Draw_Clip_Line16(int x0, int y0, int x1, int y1, int color, unsigned char *dest_buffer, int lpitch)
 {
@@ -658,8 +659,9 @@ void Draw_Top_Tri(int x1, int y1, int x2, int y2, int x3, int y3, int color, uns
 		for (temp_y = y1; temp_y <= y3; temp_y++, dest_addr += mempitch)
 		{
 			// draw the line
-			memset(dest_addr + (UINT)(xs), color, ((UINT)((int)xe - (int)xs + 1)) * sizeof(UINT));
-
+			//memset(dest_addr + (UINT)(xs), color, ((UINT)((int)xe - (int)xs + 1)) * sizeof(UINT));
+			
+			std::fill_n((dest_addr + (UINT)(xs)), ((UINT)((int)xe - (int)xs) + 1), color);
 			// adjust starting point and ending point
 			xs += dx_left;
 			xe += dx_right;
@@ -700,8 +702,8 @@ void Draw_Top_Tri(int x1, int y1, int x2, int y2, int x3, int y3, int color, uns
 			}
 
 			// draw the line
-			memset(dest_addr + (UINT)(left), color, (UINT)(right - left + 1) * sizeof(UINT));
-
+			//memset(dest_addr + (UINT)(left), color, (UINT)(right - left + 1) * sizeof(UINT));
+			std::fill_n((dest_addr + (UINT)(left)), ((UINT)((int)right - (int)left) + 1), color);
 		} // end for
 
 	} // end else x clipping needed
@@ -776,8 +778,8 @@ void Draw_Bottom_Tri(int x1, int y1, int x2, int y2, int x3, int y3, int color, 
 		for (temp_y = y1; temp_y <= y3; temp_y++, dest_addr += mempitch)
 		{
 			// draw the line
-			memset(dest_addr + (unsigned int)(xs), color, (unsigned int)((int)xe - (int)xs + 1) * sizeof(unsigned int));
-
+			//memset(dest_addr + (unsigned int)(xs), color, (unsigned int)((int)xe - (int)xs + 1) * sizeof(unsigned int));
+			std::fill_n((dest_addr + (UINT)(xs)), ((UINT)((int)xe - (int)xs) + 1), color);
 			// adjust starting point and ending point
 			xs += dx_left;
 			xe += dx_right;
@@ -817,8 +819,8 @@ void Draw_Bottom_Tri(int x1, int y1, int x2, int y2, int x3, int y3, int color, 
 					continue;
 			}
 			// draw the line
-			memset(dest_addr + (unsigned int)(left), color, (unsigned int)(right - left + 1) * sizeof(unsigned int));
-
+			//memset(dest_addr + (unsigned int)(left), color, (unsigned int)(right - left + 1) * sizeof(unsigned int));
+			std::fill_n((dest_addr + (UINT)(left)), ((UINT)((int)right - (int)left) + 1), color);
 		} // end for
 
 	} // end else x clipping needed

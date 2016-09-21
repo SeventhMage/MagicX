@@ -580,7 +580,7 @@ void Draw_OBJECT4DV1_Solid(OBJECT4DV1_PTR obj, UCHAR *video_buffer, int lpitch)
 }
 
 void Draw_RENDERLIST4DV1_Solid(RENDERLIST4DV1_PTR rend_list, UCHAR *video_buffer, int lpitch)
-{
+{	
 	for (int poly = 0; poly < rend_list->num_polys; poly++)
 	{
 		if (!(rend_list->poly_ptrs[poly]->state & POLY4DV1_STATE_ACTIVE) ||
