@@ -4,6 +4,7 @@
 #include "polygon.h"
 #include "camera.h"
 #include "typedef.h"
+#include "light.h"
 
 #define TRANSFORM_LOCAL_ONLY       0
 #define TRANSFORM_TRANS_ONLY       1
@@ -13,6 +14,11 @@
 #define CULL_OBJECT_Y_PLANE			0x0002
 #define CULL_OBJECT_Z_PLANE			0x0004
 #define CULL_OBJECT_XYZ_PLANES		(CULL_OBJECT_X_PLANE | CULL_OBJECT_Y_PLANE | CULL_OBJECT_Z_PLANE)
+
+//z排序标记
+#define SORT_POLYLIST_AVGZ			0	//平均z值排序
+#define SORT_POLYLIST_NEARZ			1	//最小z值排序
+#define SORT_POLYLIST_FARZ			2	//最大z值排序
 
 void Rotate_XYZ_OBJECT4DV1(OBJECT4DV1_PTR obj, // object to rotate
 	float theta_x,      // euler angles
@@ -75,4 +81,8 @@ void Draw_RENDERLIST4DV1_Solid(RENDERLIST4DV1_PTR rend_list, UCHAR *video_buffer
 int Insert_POLY4DV1_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, POLY4DV1_PTR poly);
 //插入对象到渲染列表
 int Insert_OBJECT4DV1_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, OBJECT4DV1_PTR obj, int insert_local = 0);
+//渲染列表排序
+void Sort_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, int sort_method);
+//光照渲染列表
+void Light_RENDERLIST_World(RENDERLIST4DV1_PTR rend_list, CAM4DV1_PTR cam, LIGHTV1_PTR	lights, int max_lights);
 #endif

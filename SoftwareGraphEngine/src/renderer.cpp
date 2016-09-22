@@ -682,3 +682,387 @@ int Insert_OBJECT4DV1_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, OBJECT4DV1_PT
 	return(1);
 
 }
+
+static int Compare_AvgZ_POLY4DV1(const void *arg1, const void *arg2)
+{	
+	POLYF4DV1_PTR poly_1 = *((POLYF4DV1_PTR *)(arg1));
+	POLYF4DV1_PTR poly_2 = *((POLYF4DV1_PTR *)(arg2));
+
+	float z1 = 0.3333f * (poly_1->tvlist[0].z + poly_1->tvlist[1].z + poly_1->tvlist[2].z);
+	float z2 = 0.3333f * (poly_2->tvlist[0].z + poly_2->tvlist[1].z + poly_2->tvlist[2].z);
+	if (z1 > z2)
+		return 1;
+	else if (z1 < z2)
+		return -1;
+	else
+		return 0;
+}
+
+static int Compare_FarZ_POLY4DV1(const void *arg1, const void *arg2)
+{
+	POLYF4DV1_PTR poly_1 = *((POLYF4DV1_PTR *)(arg1));
+	POLYF4DV1_PTR poly_2 = *((POLYF4DV1_PTR *)(arg2));
+
+	float z1 =  MIN(MIN(poly_1->tvlist[0].z, poly_1->tvlist[1].z), poly_1->tvlist[2].z);
+	float z2 = MIN(MIN(poly_2->tvlist[0].z, poly_2->tvlist[1].z), poly_2->tvlist[2].z);
+	if (z1 > z2)
+		return 1;
+	else if (z1 < z2)
+		return -1;
+	else
+		return 0;
+}
+
+static int Compare_NearZ_POLY4DV1(const void *arg1, const void *arg2)
+{
+	POLYF4DV1_PTR poly_1 = *((POLYF4DV1_PTR *)(arg1));
+	POLYF4DV1_PTR poly_2 = *((POLYF4DV1_PTR *)(arg2));
+
+	float z1 = MAX(MAX(poly_1->tvlist[0].z, poly_1->tvlist[1].z), poly_1->tvlist[2].z);
+	float z2 = MAX(MAX(poly_2->tvlist[0].z, poly_2->tvlist[1].z), poly_2->tvlist[2].z);
+	if (z1 > z2)
+		return 1;
+	else if (z1 < z2)
+		return -1;
+	else
+		return 0;
+}
+
+void Sort_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, int sort_method)
+{
+	switch (sort_method)
+	{
+	case SORT_POLYLIST_AVGZ:
+		qsort(rend_list->poly_ptrs, rend_list->num_polys, sizeof(POLY4DV1_PTR), Compare_AvgZ_POLY4DV1);
+		break;
+	case SORT_POLYLIST_NEARZ:
+		qsort(rend_list->poly_ptrs, rend_list->num_polys, sizeof(POLY4DV1_PTR), Compare_NearZ_POLY4DV1);
+		break;
+	case SORT_POLYLIST_FARZ:
+		qsort(rend_list->poly_ptrs, rend_list->num_polys, sizeof(POLY4DV1_PTR), Compare_FarZ_POLY4DV1);
+		break;
+	default:
+		break;
+	}
+}
+
+void Light_RENDERLIST4DV1_World(RENDERLIST4DV1_PTR rend_list, CAM4DV1_PTR cam, LIGHTV1_PTR lights, int max_lights)
+{
+	unsigned int r_base, g_base, b_base,  // base color being lit
+		r_sum, g_sum, b_sum,   // sum of lighting process over all lights
+		shaded_color;            // final color
+
+	float dp,     // dot product 
+		dist,   // distance from light to surface
+		i,      // general intensities
+		nl,     // length of normal
+		atten;  // attenuation computations
+
+
+	// for each valid poly, light it...
+	for (int poly = 0; poly < rend_list->num_polys; poly++)
+	{
+		// acquire polygon
+		POLYF4DV1_PTR curr_poly = rend_list->poly_ptrs[poly];
+
+		// light this polygon if and only if it's not clipped, not culled,
+		// active, and visible
+		if (!(curr_poly->state & POLY4DV1_STATE_ACTIVE) ||
+			(curr_poly->state & POLY4DV1_STATE_CLIPPED) ||
+			(curr_poly->state & POLY4DV1_STATE_BACKFACE))
+			continue; // move onto next poly
+
+
+		// we will use the transformed polygon vertex list since the backface removal
+		// only makes sense at the world coord stage further of the pipeline 
+
+		// test the lighting mode of the polygon (use flat for flat, gouraud))
+		if (curr_poly->attr & POLY4DV1_ATTR_SHADE_MODE_FLAT || curr_poly->attr & POLY4DV1_ATTR_SHADE_MODE_GOURAUD)
+		{
+			// step 1: extract the base color out in RGB mode
+			RGBAV1 rgba;
+			rgba.rgba = curr_poly->color;
+			r_base = rgba.r;
+			g_base = rgba.g;
+			b_base = rgba.g;
+
+			// initialize color sum
+			r_sum = 0;
+			g_sum = 0;
+			b_sum = 0;
+
+			// loop thru lights
+			for (int curr_light = 0; curr_light < max_lights; curr_light++)
+			{
+				// is this light active
+				if (lights[curr_light].state == LIGHTV1_STATE_OFF)
+					continue;
+
+				// what kind of light are we dealing with
+				if (lights[curr_light].attr & LIGHTV1_ATTR_AMBIENT)
+				{
+					// simply multiply each channel against the color of the 
+					// polygon then divide by 256 to scale back to 0..255
+					// use a shift in real life!!! >> 8
+					r_sum += ((lights[curr_light].c_ambient.r * r_base) / 256);
+					g_sum += ((lights[curr_light].c_ambient.g * g_base) / 256);
+					b_sum += ((lights[curr_light].c_ambient.b * b_base) / 256);
+
+					// there better only be one ambient light!
+
+				} // end if
+				else
+				if (lights[curr_light].attr & LIGHTV1_ATTR_INFINITE)
+				{
+					// infinite lighting, we need the surface normal, and the direction
+					// of the light source
+
+					// we need to compute the normal of this polygon face, and recall
+					// that the vertices are in cw order, u=p0->p1, v=p0->p2, n=uxv
+					VECTOR4D u, v, n;
+
+					// build u, v
+					VECTOR4D_Build(&curr_poly->tvlist[0], &curr_poly->tvlist[1], &u);
+					VECTOR4D_Build(&curr_poly->tvlist[0], &curr_poly->tvlist[2], &v);
+
+					// compute cross product
+					VECTOR4D_Cross(&u, &v, &n);
+
+					// at this point, we are almost ready, but we have to normalize the normal vector!
+					// this is a key optimization we can make later, we can pre-compute the length of all polygon
+					// normals, so this step can be optimized
+					// compute length of normal
+					nl = VECTOR4D_Length_Fast(&n);
+
+					// ok, recalling the lighting model for infinite lights
+					// I(d)dir = I0dir * Cldir
+					// and for the diffuse model
+					// Itotald =   Rsdiffuse*Idiffuse * (n . l)
+					// so we basically need to multiple it all together
+					// notice the scaling by 128, I want to avoid floating point calculations, not because they 
+					// are slower, but the conversion to and from cost cycles
+
+					dp = VECTOR4D_Dot(&n, &lights[curr_light].dir);
+
+					// only add light if dp > 0
+					if (dp > 0)
+					{
+						i = 128 * dp / nl;
+						r_sum += (lights[curr_light].c_diffuse.r * r_base * i) / (256 * 128);
+						g_sum += (lights[curr_light].c_diffuse.g * g_base * i) / (256 * 128);
+						b_sum += (lights[curr_light].c_diffuse.b * b_base * i) / (256 * 128);
+					} // end if
+
+				} // end if infinite light
+				else
+				if (lights[curr_light].attr & LIGHTV1_ATTR_POINT)
+				{
+					// perform point light computations
+					// light model for point light is once again:
+					//              I0point * Clpoint
+					//  I(d)point = ___________________
+					//              kc +  kl*d + kq*d2              
+					//
+					//  Where d = |p - s|
+					// thus it's almost identical to the infinite light, but attenuates as a function
+					// of distance from the point source to the surface point being lit
+
+					// we need to compute the normal of this polygon face, and recall
+					// that the vertices are in cw order, u=p0->p1, v=p0->p2, n=uxv
+					VECTOR4D u, v, n, l;
+
+					// build u, v
+					VECTOR4D_Build(&curr_poly->tvlist[0], &curr_poly->tvlist[1], &u);
+					VECTOR4D_Build(&curr_poly->tvlist[0], &curr_poly->tvlist[2], &v);
+
+					// compute cross product
+					VECTOR4D_Cross(&u, &v, &n);
+
+					// at this point, we are almost ready, but we have to normalize the normal vector!
+					// this is a key optimization we can make later, we can pre-compute the length of all polygon
+					// normals, so this step can be optimized
+					// compute length of normal
+					nl = VECTOR4D_Length_Fast(&n);
+
+					// compute vector from surface to light
+					VECTOR4D_Build(&curr_poly->tvlist[0], &lights[curr_light].pos, &l);
+
+					// compute distance and attenuation
+					dist = VECTOR4D_Length_Fast(&l);
+
+					// and for the diffuse model
+					// Itotald =   Rsdiffuse*Idiffuse * (n . l)
+					// so we basically need to multiple it all together
+					// notice the scaling by 128, I want to avoid floating point calculations, not because they 
+					// are slower, but the conversion to and from cost cycles
+					dp = VECTOR4D_Dot(&n, &l);
+
+					// only add light if dp > 0
+					if (dp > 0)
+					{
+						atten = (lights[curr_light].kc + lights[curr_light].kl*dist + lights[curr_light].kq*dist*dist);
+
+						i = 128 * dp / (nl * dist * atten);
+
+						r_sum += (lights[curr_light].c_diffuse.r * r_base * i) / (256 * 128);
+						g_sum += (lights[curr_light].c_diffuse.g * g_base * i) / (256 * 128);
+						b_sum += (lights[curr_light].c_diffuse.b * b_base * i) / (256 * 128);
+					} // end if
+
+				} // end if point
+				else
+				if (lights[curr_light].attr & LIGHTV1_ATTR_SPOTLIGHT1)
+				{
+					// perform spotlight/point computations simplified model that uses
+					// point light WITH a direction to simulate a spotlight
+					// light model for point light is once again:
+					//              I0point * Clpoint
+					//  I(d)point = ___________________
+					//              kc +  kl*d + kq*d2              
+					//
+					//  Where d = |p - s|
+					// thus it's almost identical to the infinite light, but attenuates as a function
+					// of distance from the point source to the surface point being lit
+
+					// we need to compute the normal of this polygon face, and recall
+					// that the vertices are in cw order, u=p0->p1, v=p0->p2, n=uxv
+					VECTOR4D u, v, n, l;
+
+					// build u, v
+					VECTOR4D_Build(&curr_poly->tvlist[0], &curr_poly->tvlist[1], &u);
+					VECTOR4D_Build(&curr_poly->tvlist[0], &curr_poly->tvlist[2], &v);
+
+					// compute cross product (we need -n, so do vxu)
+					VECTOR4D_Cross(&v, &u, &n);
+
+					// at this point, we are almost ready, but we have to normalize the normal vector!
+					// this is a key optimization we can make later, we can pre-compute the length of all polygon
+					// normals, so this step can be optimized
+					// compute length of normal
+					nl = VECTOR4D_Length_Fast(&n);
+
+					// compute vector from surface to light
+					VECTOR4D_Build(&curr_poly->tvlist[0], &lights[curr_light].pos, &l);
+
+					// compute distance and attenuation
+					dist = VECTOR4D_Length_Fast(&l);
+
+					// and for the diffuse model
+					// Itotald =   Rsdiffuse*Idiffuse * (n . l)
+					// so we basically need to multiple it all together
+					// notice the scaling by 128, I want to avoid floating point calculations, not because they 
+					// are slower, but the conversion to and from cost cycles
+
+					// note that I use the direction of the light here rather than a the vector to the light
+					// thus we are taking orientation into account which is similar to the spotlight model
+					dp = VECTOR4D_Dot(&n, &lights[curr_light].dir);
+
+					// only add light if dp > 0
+					if (dp > 0)
+					{
+						atten = (lights[curr_light].kc + lights[curr_light].kl*dist + lights[curr_light].kq*dist*dist);
+
+						i = 128 * dp / (nl * atten);
+
+						r_sum += (lights[curr_light].c_diffuse.r * r_base * i) / (256 * 128);
+						g_sum += (lights[curr_light].c_diffuse.g * g_base * i) / (256 * 128);
+						b_sum += (lights[curr_light].c_diffuse.b * b_base * i) / (256 * 128);
+					} // end if
+
+				} // end if spotlight1
+				else
+				if (lights[curr_light].attr & LIGHTV1_ATTR_SPOTLIGHT2) // simple version
+				{
+					// perform spot light computations
+					// light model for spot light simple version is once again:
+					//         	     I0spotlight * Clspotlight * MAX( (l . s), 0)^pf                     
+					// I(d)spotlight = __________________________________________      
+					//               		 kc + kl*d + kq*d2        
+					// Where d = |p - s|, and pf = power factor
+
+					// thus it's almost identical to the point, but has the extra term in the numerator
+					// relating the angle between the light source and the point on the surface
+
+					// we need to compute the normal of this polygon face, and recall
+					// that the vertices are in cw order, u=p0->p1, v=p0->p2, n=uxv
+					VECTOR4D u, v, n, d, s;
+
+					// build u, v
+					VECTOR4D_Build(&curr_poly->tvlist[0], &curr_poly->tvlist[1], &u);
+					VECTOR4D_Build(&curr_poly->tvlist[0], &curr_poly->tvlist[2], &v);
+
+					// compute cross product (v x u, to invert n)
+					VECTOR4D_Cross(&v, &u, &n);
+
+					// at this point, we are almost ready, but we have to normalize the normal vector!
+					// this is a key optimization we can make later, we can pre-compute the length of all polygon
+					// normals, so this step can be optimized
+					// compute length of normal
+					nl = VECTOR4D_Length_Fast(&n);
+
+					// and for the diffuse model
+					// Itotald =   Rsdiffuse*Idiffuse * (n . l)
+					// so we basically need to multiple it all together
+					// notice the scaling by 128, I want to avoid floating point calculations, not because they 
+					// are slower, but the conversion to and from cost cycles
+					dp = VECTOR4D_Dot(&n, &lights[curr_light].dir);
+
+					// only add light if dp > 0
+					if (dp > 0)
+					{
+						// compute vector from light to surface (different from l which IS the light dir)
+						VECTOR4D_Build(&lights[curr_light].pos, &curr_poly->tvlist[0], &s);
+
+						// compute length of s (distance to light source) to normalize s for lighting calc
+						dist = VECTOR4D_Length_Fast(&s);
+
+						// compute spot light term (s . l)
+						float dpsl = VECTOR4D_Dot(&s, &lights[curr_light].dir) / dist;
+
+						// proceed only if term is positive
+						if (dpsl > 0)
+						{
+							// compute attenuation
+							atten = (lights[curr_light].kc + lights[curr_light].kl*dist + lights[curr_light].kq*dist*dist);
+
+							// for speed reasons, pf exponents that are less that 1.0 are out of the question, and exponents
+							// must be integral
+							float dpsl_exp = dpsl;
+
+							// exponentiate for positive integral powers
+							for (int e_index = 1; e_index < (int)lights[curr_light].pf; e_index++)
+								dpsl_exp *= dpsl;
+
+							// now dpsl_exp holds (dpsl)^pf power which is of course (s . l)^pf 
+
+							i = 128 * dp * dpsl_exp / (nl * atten);
+
+							r_sum += (lights[curr_light].c_diffuse.r * r_base * i) / (256 * 128);
+							g_sum += (lights[curr_light].c_diffuse.g * g_base * i) / (256 * 128);
+							b_sum += (lights[curr_light].c_diffuse.b * b_base * i) / (256 * 128);
+
+						} // end if
+
+					} // end if
+
+				} // end if spot light
+
+			} // end for light
+
+			// make sure colors aren't out of range
+			if (r_sum > 255) r_sum = 255;
+			if (g_sum > 255) g_sum = 255;
+			if (b_sum > 255) b_sum = 255;
+
+			// write the color over current color
+			curr_poly->color = RGB16Bit(r_sum, g_sum, b_sum);
+
+		} // end if
+		else // assume POLY4DV1_ATTR_SHADE_MODE_CONSTANT
+		{
+			// emmisive shading only, do nothing
+			// ...
+		} // end if
+
+	} // end for poly
+}

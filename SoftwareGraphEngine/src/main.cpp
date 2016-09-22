@@ -34,7 +34,7 @@ GLuint *indexBuffer = NULL;
 UINT *buffer = NULL;
 
 // defines for the game universe
-#define UNIVERSE_RADIUS   8000
+#define UNIVERSE_RADIUS   10000
 
 #define POINT_SIZE        200
 #define NUM_POINTS_X      (2*UNIVERSE_RADIUS/POINT_SIZE)
@@ -430,6 +430,8 @@ static void display(void)
 
 	// apply world to camera transform
 	World_To_Camera_RENDERLIST4DV1(&rend_list, &cam);
+
+	Sort_RENDERLIST4DV1(&rend_list, SORT_POLYLIST_NEARZ);
 
 	Camera_To_Perspective_Screen_RENDERLIST4DV1(&rend_list, &cam);
 
