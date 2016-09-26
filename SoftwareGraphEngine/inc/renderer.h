@@ -84,5 +84,5 @@ int Insert_OBJECT4DV1_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, OBJECT4DV1_PT
 //渲染列表排序
 void Sort_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, int sort_method);
 //光照渲染列表
-void Light_RENDERLIST_World(RENDERLIST4DV1_PTR rend_list, CAM4DV1_PTR cam, LIGHTV1_PTR	lights, int max_lights);
+void Light_RENDERLIST4DV1_World(RENDERLIST4DV1_PTR rend_list, CAM4DV1_PTR cam, LIGHTV1_PTR	lights, int max_lights);
 #endif

@@ -1,39 +1,22 @@
+#include <Windows.h>
 #include "sge.h"
-#include <assert.h>
-#include <time.h>
-#include <math.h>
-#pragma comment(lib, "glew32s.lib")
 
-enum VAO_IDs
-{
-	VAO_1,
-	NumVAOs,
-};
+static const int FRAMES_PER_SECOND = 60;      ///< FPS:50
+static const int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
 
-enum Buffer_IDs
-{
-	ArrayBuffer,
-	ElementBuffer,
-	NumBuffers,
-};
+static int g_width, g_height;
 
-enum Attrib_IDs
-{
-	vPosition = 0
-};
+static bool bFullScreen = false;
 
-GLuint VAOs[NumVAOs];
-GLuint Buffers[NumBuffers];
+static HWND hWnd;
 
-OBJECT4DV1 obj;
+static OBJECT4DV1 obj;
 
-CAM4DV1 cam;
+static CAM4DV1 cam;
 
-GLuint *indexBuffer = NULL;
 
-UINT *buffer = NULL;
+static UINT *buffer = NULL;
 
-// defines for the game universe
 #define UNIVERSE_RADIUS   10000
 
 #define POINT_SIZE        200
@@ -47,28 +30,37 @@ UINT *buffer = NULL;
 #define TANK_ROTATE_SPEED 1
 
 
-int keyboard_state[256];
+static bool keyboard_state[256];
 
-OBJECT4DV1     obj_tower,    // used to hold the master tower
+static OBJECT4DV1     obj_tower,    // used to hold the master tower
 obj_tank,     // used to hold the master tank
 obj_marker,   // the ground marker
 obj_player;   // the player object             
 
-POINT4D        towers[NUM_TOWERS],
+static POINT4D        towers[NUM_TOWERS],
 tanks[NUM_TANKS];
 
-RENDERLIST4DV1 rend_list; // the render list
+static RENDERLIST4DV1 rend_list; // the render list
 
-//int min_clip_y = 0;
-//int max_clip_y = WINDOW_HEIGHT;
-//
-//int min_clip_x = 0;
-//int max_clip_x = WINDOW_WIDTH;
+int min_clip_y = 0;
+int max_clip_y = WINDOW_HEIGHT;
 
-int ImageWidth, ImageHeight;
+int min_clip_x = 0;
+int max_clip_x = WINDOW_WIDTH;
 
-static int g_width, g_height;
+void InitObject();
+void InitWindow();
+void Run();
+void Update(int delta);
 
+int main(int argc, char *argv[])
+{
+	InitWindow();
+	InitObject();
+	Run();
+
+	return 0;
+}
 
 static void AllocBuffer(int size)
 {
@@ -79,58 +71,226 @@ static void AllocBuffer(int size)
 
 }
 
-static void LoadBmp()
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	// 打开文件
-	FILE* pFile = fopen("image/grass1.bmp", "rb");
-	if (pFile == 0)
-		exit(0);
-	// 读取图象的大小信息
-	fseek(pFile, 0x0012, SEEK_SET);
-	
-	fread(&ImageWidth, sizeof(ImageWidth), 1, pFile);
-	fread(&ImageHeight, sizeof(ImageHeight), 1, pFile);
-	// 计算像素数据长度
-	int PixelLength = ImageWidth * 3;
-	while (PixelLength % 4 != 0)
-		++PixelLength;
-	PixelLength *= ImageHeight;
-	// 读取像素数据
-	buffer = (UINT*)malloc(PixelLength);
-	if (buffer == 0)
-		exit(0);
-	fseek(pFile, 54, SEEK_SET);
-	fread(buffer, PixelLength, 1, pFile);
-	// 关闭文件
-	fclose(pFile);
+	switch (message)
+	{
+	case WM_PAINT:
+	{
+					 PAINTSTRUCT ps;
+					 BeginPaint(hWnd, &ps);
+					 EndPaint(hWnd, &ps);
+	}
+		return 0;
+	case WM_ERASEBKGND:
+		return 0;
+
+	case WM_SYSKEYDOWN:
+	case WM_SYSKEYUP:
+		return 0;
+	case WM_KEYDOWN:
+	{
+					   keyboard_state[wParam] = true;
+
+	}
+		return 0;
+	case WM_KEYUP:
+	{
+					 keyboard_state[wParam] = false;
+
+	}
+		return 0;
+	case WM_MOUSEHWHEEL:
+	{
+
+						   short zDelta = HIWORD(wParam);
+						   if (zDelta > 0)
+						   {
+
+						   }
+						   else
+						   {
+
+						   }
+
+	}
+		return 0;
+	case WM_SIZE:
+	{
+					g_width = LOWORD(lParam);
+					g_height = HIWORD(lParam);
+	}
+		return 0;
+
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return 0;
+
+	case WM_LBUTTONDOWN:
+	{
+
+	}
+
+		return 0;
+	case WM_LBUTTONUP:
+	{
+
+	}
+		return 0;
+	case WM_LBUTTONDBLCLK:
+		return 0;
+	case WM_RBUTTONDOWN:
+	{
+
+	}
+		return 0;
+	case WM_RBUTTONUP:
+	{
+
+	}
+		return 0;
+	case WM_MOUSEMOVE:
+	{
+						 int x = LOWORD(lParam);
+						 int y = HIWORD(lParam);
+	}
+		return 0;
+	}
+
+	return DefWindowProc(hWnd, message, wParam, lParam);
+}
+
+void InitWindow()
+{
+	HINSTANCE hInstance = GetModuleHandle(0);
+
+
+	// Register Class
+	WNDCLASSEX wcex;
+	wcex.cbSize = sizeof(WNDCLASSEX);
+	wcex.style = CS_HREDRAW | CS_VREDRAW;
+	wcex.lpfnWndProc = WndProc;
+	wcex.cbClsExtra = 0;
+	wcex.cbWndExtra = 0;
+	wcex.hInstance = hInstance;
+	wcex.hIcon = NULL;
+	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wcex.hbrBackground = NULL;// (HBRUSH)(COLOR_WINDOW + 1);
+	wcex.lpszMenuName = 0;
+	wcex.lpszClassName = "sge";
+	wcex.hIconSm = 0;
+
+	// if there is an icon, load it
+	wcex.hIcon = (HICON)LoadImage(hInstance, __TEXT(""), IMAGE_ICON, 0, 0, LR_LOADFROMFILE);
+
+	RegisterClassEx(&wcex);
+
+	// calculate client size
+
+	RECT clientSize;
+	clientSize.top = 0;
+	clientSize.left = 0;
+	clientSize.right = WINDOW_WIDTH;
+	clientSize.bottom = WINDOW_HEIGHT;
+
+	DWORD style = WS_POPUP;
+
+	if (!bFullScreen)
+		style = WS_SYSMENU | WS_BORDER | WS_CAPTION | WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
+
+	AdjustWindowRect(&clientSize, style, FALSE);
+
+	int realWidth = clientSize.right - clientSize.left;
+	int realHeight = clientSize.bottom - clientSize.top;
+
+	int windowLeft = (GetSystemMetrics(SM_CXSCREEN) - realWidth) / 2;
+	int windowTop = (GetSystemMetrics(SM_CYSCREEN) - realHeight) / 2;
+
+	if (windowLeft < 0)
+		windowLeft = 0;
+	if (windowTop < 0)
+		windowTop = 0;	// make sure window menus are in screen on creation
+
+	if (bFullScreen)
+	{
+		windowLeft = 0;
+		windowTop = 0;
+		HWND hDesk = GetDesktopWindow();
+		RECT rc;
+		GetWindowRect(hDesk, &rc);
+		realWidth = rc.right;
+		realHeight = rc.bottom;
+	}
+
+	// create window
+	hWnd = CreateWindow("sge", __TEXT(""), style, windowLeft, windowTop,
+		realWidth, realHeight, NULL, NULL, hInstance, NULL);
+
+	ShowWindow(hWnd, SW_SHOWNORMAL);
+	UpdateWindow(hWnd);
+
+	// fix ugly ATI driver bugs.
+	MoveWindow(hWnd, windowLeft, windowTop, realWidth, realHeight, TRUE);
+
 }
 
 
-static void init()
+void Run()
+{
+	UINT next_game_tick = GetTickCount();
+	int sleep_time = 0;
+
+	bool bQuit = false;
+	while (true)
+	{
+		MSG msg;
+		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+		{
+
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+
+
+			if (msg.message == WM_QUIT)
+				bQuit = true;
+		}
+		else
+		{								
+			UINT cur_time = GetTickCount();
+			sleep_time = next_game_tick - cur_time;
+			if (sleep_time <= 0)
+			{
+				next_game_tick = GetTickCount() + SKIP_TICKS;
+				Update(SKIP_TICKS - sleep_time);				
+			}
+			else
+			{
+				::Sleep(sleep_time);
+			}
+		}
+		if (bQuit)
+			break;
+	}
+}
+
+
+
+void InitObject()
 {
 	Build_Sin_Cos_Tables();
-	RGB16Bit = RGB16Bit565;
 
-	//glClearColor(0, 0, 0, 1);
-	//glEnable(GL_CULL_FACE);
-	//glCullFace(GL_BACK);
+	AllocBuffer(WINDOW_WIDTH * WINDOW_HEIGHT);
 
-	//glEnable(GL_DEPTH_TEST);
-	//glDepthFunc(GL_LESS);
-	
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-	VECTOR4D cam_pos = {0, 40, 40, 1};
-	VECTOR4D cam_dir = {0, 0, 0, 1};
-	VECTOR4D cam_tar = { 0, 0, 0, 1};
+	VECTOR4D cam_pos = { 0, 40, 40, 1 };
+	VECTOR4D cam_dir = { 0, 0, 0, 1 };
+	VECTOR4D cam_tar = { 0, 0, 0, 1 };
 
 	Init_CAM4DV1(&cam, CAM_MODEL_EULER, &cam_pos, &cam_dir, &cam_tar, 1.0f, 12000.0f, 90, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 	VECTOR4D vscale = { 1.0f, 1.0f, 1.0f, 1.0f };
 	VECTOR4D vpos = { 0.0f, 0, 0, 1.0f };
 	VECTOR4D vrot = { 0.0f, 180.0f, 0.0f, 1.0f };
-
-	//Load_OBJECT4DV1_PLG(&obj, "model/towerg1.plg", &vScale, &vPos, &vRot);
+	
 
 	// load the master tank object
 	VECTOR4D_INITXYZ(&vscale, 0.75, 0.75, 0.75);
@@ -176,71 +336,30 @@ static void init()
 
 	RGBAV1 diffuse;
 	diffuse.a = 255;
-	diffuse.r = 255;
-	diffuse.g = 255;
-	diffuse.b = 255;
+	diffuse.r = 200;
+	diffuse.g = 200;
+	diffuse.b = 200;
 
 	RGBAV1 specular;
 	specular.a = 255;
 	specular.r = 255;
 	specular.g = 255;
 	specular.b = 255;
-	
 
-	VECTOR4D lightPos = {200, 200, 200, 1};
+
+	VECTOR4D lightPos = { 200, 200, 200, 1 };
 	VECTOR4D lightDir = { 1, 1, 1, 1 };
 
-	//Init_Light_LIGHTV1(0, LIGHTV1_STATE_ON, LIGHTV1_ATTR_AMBIENT, ambient, diffuse, specular, &lightPos, &lightDir, 0, 0, 0, 0, 0, 0);
-	Init_Light_LIGHTV1(0, LIGHTV1_STATE_ON, LIGHTV1_ATTR_INFINITE, ambient, diffuse, specular, &lightPos, &lightDir, 0, 0, 0, 0, 0, 0);
+	Init_Light_LIGHTV1(0, LIGHTV1_STATE_ON, LIGHTV1_ATTR_AMBIENT, ambient, diffuse, specular, &lightPos, &lightDir, 0, 0, 0, 0, 0, 0);
+	Init_Light_LIGHTV1(1, LIGHTV1_STATE_ON, LIGHTV1_ATTR_INFINITE, ambient, diffuse, specular, &lightPos, &lightDir, 0, 0, 0, 0, 0, 0);
 	//Init_Light_LIGHTV1(0, LIGHTV1_STATE_ON, LIGHTV1_ATTR_POINT, ambient, diffuse, specular, &lightPos, &lightDir, 1, 0, 0, 0, 0, 0);
 	//Init_Light_LIGHTV1(0, LIGHTV1_STATE_ON, LIGHTV1_ATTR_SPOTLIGHT1, ambient, diffuse, specular, &lightPos, &lightDir, 1, 0, 0, 5, 20, 10);
 	//Init_Light_LIGHTV1(0, LIGHTV1_STATE_ON, LIGHTV1_ATTR_SPOTLIGHT2, ambient, diffuse, specular, &lightPos, &lightDir, 1, 0, 0, 30, 60, 10);
-
-	//LoadBmp();
-
-
-	//indexBuffer = new GLuint[obj.num_polys * 3];
-	//glGenVertexArrays(NumVAOs, VAOs);
-	//glBindVertexArray(VAOs[VAO_1]);
-
-	//glGenBuffers(NumBuffers, Buffers);
-	//glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(POINT4D)* obj.num_vertices, NULL, GL_DYNAMIC_DRAW);
-	//
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Buffers[ElementBuffer]);	
-
-	//glVertexAttribPointer(vPosition, 4, GL_FLOAT, GL_FALSE, 0, 0);
-	//glEnableVertexAttribArray(vPosition);
-
-
-
-	//ShaderInfo shaders[] = {
-	//	{ GL_VERTEX_SHADER, "shader/common.vert" },
-	//	{ GL_FRAGMENT_SHADER, "shader/common.frag" },
-	//	{ GL_NONE, NULL }
-	//};
-
-	//GLuint program = LoadShaders(shaders);
-	//glUseProgram(program);
-} 
-
-static void resize(int width, int height)
-{
-	//glViewport(0, 0, width, height);
-	g_width = width;
-	g_height = height;
-	min_clip_y = 0;
-	max_clip_y = height;
-	min_clip_x = 0;
-	max_clip_x = width;
-	Init_CAM4DV1(&cam, CAM_MODEL_EULER, &cam.pos, &cam.dir, &cam.target, 1.0f, 1000.0f, 90, width, height);
-	AllocBuffer(width * height);
 }
 
 
-static void display(void)
+void Update(int delta)
 {
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
 	static float view_angle = 0;
 	static float camera_distance = 6000;
 	static VECTOR4D pos = { 0, 0, 0, 0 };
@@ -297,51 +416,16 @@ static void display(void)
 
 	} // end else
 
-	//cam.dir.y += 0.05;
-	//if (cam.dir.y > 360)
-	//	cam.dir.y = 0;
 	
-	//Build_CAM4DV1_Matrix_Euler(&cam, CAM_ROT_SEQ_ZYX);
-	//Rotate_XYZ_OBJECT4DV1(&obj, 0, 1, 0);
-	//Model_To_World_OBJECT4DV1(&obj);
-	//Reset_OBJECT4DV1(&obj);
-	//Cull_OBJECT4DV1(&obj, &cam, CULL_OBJECT_X_PLANE | CULL_OBJECT_Y_PLANE | CULL_OBJECT_Z_PLANE);
-	//Remove_Backfaces_OBJECT4DV1(&obj, &cam);
-	//World_To_Camera_OBJECT4DV1(&obj, &cam);
-	//Camera_To_Perspective_Screen_OBJECT4DV1(&obj, &cam);
-	//memset(buffer, 0, sizeof(UINT)* WINDOW_WIDTH * WINDOW_HEIGHT);
 	for (int i = 0; i < g_width * g_height; ++i)
 	{
 		buffer[i] = 0;// 0xffffffff;
 	}
-	//Draw_OBJECT4DV1_Solid(&obj, (UCHAR *)buffer, WINDOW_WIDTH);
-	//Draw_OBJECT4DV1_Wire(&obj, (UCHAR *)buffer, WINDOW_WIDTH);
-	//glBindVertexArray(VAOs[VAO_1]);
-	//glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(POINT4D)* obj.num_vertices, obj.vlist_trans, GL_DYNAMIC_DRAW);
-	////glDrawArrays(GL_TRIANGLES, 0, obj.num_polys);
-
-	//int polys = 0;
-	//for (int i = 0, j = 0; i < obj.num_polys; ++i)
-	//{Z
-	//	if (!(obj.plist[i].state & POLY4DV1_STATE_ACTIVE) || (obj.plist[i].state & POLY4DV1_STATE_CLIPPED)
-	//		|| (obj.plist[i].state & POLY4DV1_STATE_BACKFACE))
-	//		continue;
-	//	indexBuffer[j++] = obj.plist[i].vert[0];
-	//	indexBuffer[j++] = obj.plist[i].vert[1];
-	//	indexBuffer[j++] = obj.plist[i].vert[2];
-	//	++polys;
-	//}
-
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint)* 3 * polys, indexBuffer, GL_STATIC_DRAW);
-
-	//glDrawElements(GL_TRIANGLES, polys * 3, GL_UNSIGNED_INT, 0);
-	//glFlush();	
 
 	Reset_RENDERLIST4DV1(&rend_list);
 
 	static MATRIX4X4 mrot;   // general rotation matrix
-	
+
 	// generate camera matrix
 	Build_CAM4DV1_Matrix_Euler(&cam, CAM_ROT_SEQ_ZYX);
 
@@ -370,7 +454,7 @@ static void display(void)
 			// perform local/model to world transform
 			Model_To_World_OBJECT4DV1(&obj_tank, TRANSFORM_TRANS_ONLY);
 			// insert the object into render list
-			Insert_OBJECT4DV1_RENDERLIST4DV1(&rend_list, &obj_tank);			
+			Insert_OBJECT4DV1_RENDERLIST4DV1(&rend_list, &obj_tank);
 		} // end if
 
 	} // end for
@@ -382,14 +466,18 @@ static void display(void)
 	// set position of tank
 	obj_player.world_pos.x = cam.pos.x - 300 * Fast_Sin(cam.dir.y);
 	obj_player.world_pos.y = cam.pos.y - 70;
-	obj_player.world_pos.z = cam.pos.z - 300 * Fast_Cos(cam.dir.y);	
+	obj_player.world_pos.z = cam.pos.z - 300 * Fast_Cos(cam.dir.y);
 
 	// generate rotation matrix around y axis
 	Build_XYZ_Rotation_MATRIX4X4(0, cam.dir.y + turning, 0, &mrot);
 
-	
-	//lights[0].pos.x = 300 * Fast_Sin(cam.dir.y);	
-	//lights[0].pos.z = 300 * Fast_Cos(cam.dir.y);
+
+	//static int deg = 0;
+	//deg += 1;
+	//if (deg > 360)
+	//	deg = 0;
+	//lights[0].pos.x = 300 * Fast_Sin(deg);	
+	//lights[0].pos.z = 300 * Fast_Cos(deg);
 
 	// rotate the local coords of the object
 	Transform_OBJECT4DV1(&obj_player, &mrot, TRANSFORM_LOCAL_TO_TRANS, 1);
@@ -400,7 +488,7 @@ static void display(void)
 	Cull_OBJECT4DV1(&obj_player, &cam, CULL_OBJECT_XYZ_PLANES);
 
 	// insert the object into render list
-	Insert_OBJECT4DV1_RENDERLIST4DV1(&rend_list, &obj_player);	
+	Insert_OBJECT4DV1_RENDERLIST4DV1(&rend_list, &obj_player);
 
 	// insert the towers in the world
 	for (int index = 0; index < NUM_TOWERS; index++)
@@ -422,7 +510,7 @@ static void display(void)
 			Model_To_World_OBJECT4DV1(&obj_tower);
 
 			// insert the object into render list
-			Insert_OBJECT4DV1_RENDERLIST4DV1(&rend_list, &obj_tower);			
+			Insert_OBJECT4DV1_RENDERLIST4DV1(&rend_list, &obj_tower);
 		} // end if
 
 	} // end for
@@ -451,7 +539,7 @@ static void display(void)
 			Model_To_World_OBJECT4DV1(&obj_marker);
 
 			// insert the object into render list
-			Insert_OBJECT4DV1_RENDERLIST4DV1(&rend_list, &obj_marker);		
+			Insert_OBJECT4DV1_RENDERLIST4DV1(&rend_list, &obj_marker);
 		} // end if
 
 	} // end for
@@ -464,140 +552,28 @@ static void display(void)
 
 	Sort_RENDERLIST4DV1(&rend_list, SORT_POLYLIST_NEARZ);
 
-	Light_RENDERLIST4DV1_World(&rend_list, &cam, lights, 1);
+	Light_RENDERLIST4DV1_World(&rend_list, &cam, lights, 2);
 
 	Camera_To_Perspective_Screen_RENDERLIST4DV1(&rend_list, &cam);
 
 	Draw_RENDERLIST4DV1_Solid(&rend_list, (UCHAR *)buffer, g_width);
-
-	glDrawPixels(g_width, g_height, GL_BGRA, GL_UNSIGNED_BYTE, buffer);
-
-	glutSwapBuffers();
-}
-
-static void keyDown(unsigned char key, int x, int y)
-{
-	keyboard_state[key] = true;
-	switch (key)
-	{
-	case 27:
-	case 'Q':
-	case 'q': glutLeaveMainLoop();      break;
-
-	case 'I':
-	case 'i':        break;
-
-	case '=':
-	case '+':                   break;
-
-	case '-':
-	case '_': break;
-
-	case ',':
-	case '<': break;
-
-	case '.':
-	case '>': break;
-
-	case '9':
-	case '(': break;
-
-	case '0':
-	case ')':break;
-
-	case 'P':
-	case 'p':break;
-
-	case 'R':
-	case 'r':break;
-
-	case 'N':
-	case 'n':break;
-
-	case 'W':
-	case 'w':
+	
+	HDC hdc = GetDC(hWnd);
 		
-		break;
-	case 'S':
-	case 's':		
-		
-		break;
-	case 'A':
-	case 'a':
-		
-		break;
-	case 'D':
-	case 'd':
-		
-		break;
+	HDC mdc = CreateCompatibleDC(hdc);
+	CreateCompatibleBitmap(mdc, 0, 0);
+	HBITMAP hBitmap = CreateBitmap(g_width, g_height, 1, 32, buffer);
+	SelectObject(mdc, hBitmap);
 
-	default:
-		break;
-	}
+	char buf[256] = { 0 };	
+	itoa(1000 / delta, buf, 10);
+	TextOut(mdc, 0, 0, buf, strlen(buf));
 
-	glutPostRedisplay();
+	BitBlt(hdc, 0, 0, g_width, g_height, mdc, 0, 0, SRCCOPY);		
+
+	::SwapBuffers(hdc);
+
+	DeleteObject(hBitmap);
+	DeleteDC(mdc);
+	DeleteDC(hdc);	
 }
-
-
-static void keyUp(unsigned char key, int x, int y)
-{
-	keyboard_state[key] = false;
-}
-
-static void special(int key, int x, int y)
-{
-	switch (key)
-	{
-	case GLUT_KEY_PAGE_UP:  break;
-	case GLUT_KEY_PAGE_DOWN:break;
-	case GLUT_KEY_UP:break;
-	case GLUT_KEY_DOWN:break;
-
-	case GLUT_KEY_RIGHT: break;
-	case GLUT_KEY_LEFT: break;
-
-	default:
-		break;
-	}
-}
-
-static void
-idle(void)
-{
-	glutPostRedisplay();
-}
-
-//int main(int argc, char *argv[])
-//{
-//	Open_Error_File("ERROR.TXT", stdout);
-//
-//	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-//	glutInitWindowPosition(40, 40);
-//	glutInit(&argc, argv);
-//	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_MULTISAMPLE);
-//
-//	glutCreateWindow("My Window");
-//
-//	glutReshapeFunc(resize);
-//	glutDisplayFunc(display);
-//	glutKeyboardFunc(keyDown);
-//	glutKeyboardUpFunc(keyUp);
-//	glutSpecialFunc(special);
-//	glutIdleFunc(idle);
-//
-//	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
-//
-//
-//	if (glewInit())
-//	{
-//		exit(-1);
-//	}
-//
-//	init();
-//
-//	glutMainLoop();
-//
-//	Close_Error_File();
-//
-//	return 0;
-//}

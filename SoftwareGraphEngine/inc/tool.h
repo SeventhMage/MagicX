@@ -79,6 +79,22 @@ typedef struct RGBAV1_TYPE
 	};
 }RGBAV1, *RGBAV1_PTR;
 
+typedef struct ARGBV1_TYPE
+{
+	union
+	{
+		int argb;
+		unsigned char rgba_M[4];
+		struct
+		{
+			unsigned char b;
+			unsigned char g;
+			unsigned char r;
+			unsigned char a;
+		};
+	};
+}ARGBV1, *ARGBV1_PTR;
+
 // container structure for bitmaps .BMP file
 typedef struct BITMAP_FILE_TAG
 {

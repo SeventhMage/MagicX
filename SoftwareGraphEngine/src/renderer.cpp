@@ -266,10 +266,10 @@ bool Cull_OBJECT4DV1(OBJECT4DV1_PTR obj, CAM4DV1_PTR cam, int cull_flags)
 	{
 		float posz_view_height = fabs(0.5f * cam->viewplane_height * sphere_pos.z / cam->view_dist);
 		float clip_height = fabs(obj->max_radius / Fast_Cos((cam->fov / cam->aspect_ratio) * 0.5f));
-		if ((sphere_pos.y - clip_height > posz_view_height) || (sphere_pos.x + clip_height < -posz_view_height))
+		if ((sphere_pos.y - clip_height > posz_view_height) || (sphere_pos.y + clip_height < -posz_view_height))
 		{
 			SET_BIT(obj->state, OBJECT4DV1_STATE_CULLED);
-			return true;
+			return false;
 		}
 	}
 
@@ -515,8 +515,8 @@ void Camera_To_Perspective_Screen_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, C
 				curr_poly->tvlist[vertex].y = cam->viewport_dist * cam->aspect_ratio * curr_poly->tvlist[vertex].y / z;
 
 				curr_poly->tvlist[vertex].x = curr_poly->tvlist[vertex].x + alpha;
-				curr_poly->tvlist[vertex].y = curr_poly->tvlist[vertex].y + beta;//glDrawPixels()ÆÁÄ»×óÏÂ½ÇÎª0£¬ 0
-				//curr_poly->tvlist[vertex].y = -curr_poly->tvlist[vertex].y + beta;
+				//curr_poly->tvlist[vertex].y = curr_poly->tvlist[vertex].y + beta;//glDrawPixels()ÆÁÄ»×óÏÂ½ÇÎª0£¬ 0
+				curr_poly->tvlist[vertex].y = -curr_poly->tvlist[vertex].y + beta;
 			}
 		}
 	}
@@ -780,11 +780,11 @@ void Light_RENDERLIST4DV1_World(RENDERLIST4DV1_PTR rend_list, CAM4DV1_PTR cam, L
 		if (curr_poly->attr & POLY4DV1_ATTR_SHADE_MODE_FLAT || curr_poly->attr & POLY4DV1_ATTR_SHADE_MODE_GOURAUD)
 		{
 			// step 1: extract the base color out in RGB mode
-			RGBAV1 rgba;
-			rgba.rgba = curr_poly->color;
+			ARGBV1 rgba;
+			rgba.argb = curr_poly->color;
 			r_base = rgba.r;
 			g_base = rgba.g;
-			b_base = rgba.g;
+			b_base = rgba.b;
 
 			// initialize color sum
 			r_sum = 0;
@@ -847,10 +847,10 @@ void Light_RENDERLIST4DV1_World(RENDERLIST4DV1_PTR rend_list, CAM4DV1_PTR cam, L
 					// only add light if dp > 0
 					if (dp > 0)
 					{
-						i = 128 * dp / nl;
-						r_sum += (lights[curr_light].c_diffuse.r * r_base * i) / (256 * 128);
-						g_sum += (lights[curr_light].c_diffuse.g * g_base * i) / (256 * 128);
-						b_sum += (lights[curr_light].c_diffuse.b * b_base * i) / (256 * 128);
+						i = 256 * dp / nl;
+						r_sum += (lights[curr_light].c_diffuse.r * r_base * i) / (256 * 256);
+						g_sum += (lights[curr_light].c_diffuse.g * g_base * i) / (256 * 256);
+						b_sum += (lights[curr_light].c_diffuse.b * b_base * i) / (256 * 256);
 					} // end if
 
 				} // end if infinite light
@@ -902,11 +902,12 @@ void Light_RENDERLIST4DV1_World(RENDERLIST4DV1_PTR rend_list, CAM4DV1_PTR cam, L
 					{
 						atten = (lights[curr_light].kc + lights[curr_light].kl*dist + lights[curr_light].kq*dist*dist);
 
-						i = 128 * dp / (nl * dist * atten);
+						i = 256 * dp / (nl * dist * atten);
+						//i = 256 * dp / (nl * atten);
 
-						r_sum += (lights[curr_light].c_diffuse.r * r_base * i) / (256 * 128);
-						g_sum += (lights[curr_light].c_diffuse.g * g_base * i) / (256 * 128);
-						b_sum += (lights[curr_light].c_diffuse.b * b_base * i) / (256 * 128);
+						r_sum += (lights[curr_light].c_diffuse.r * r_base * i) / (256 * 256);
+						g_sum += (lights[curr_light].c_diffuse.g * g_base * i) / (256 * 256);
+						b_sum += (lights[curr_light].c_diffuse.b * b_base * i) / (256 * 256);
 					} // end if
 
 				} // end if point
@@ -933,7 +934,7 @@ void Light_RENDERLIST4DV1_World(RENDERLIST4DV1_PTR rend_list, CAM4DV1_PTR cam, L
 					VECTOR4D_Build(&curr_poly->tvlist[0], &curr_poly->tvlist[2], &v);
 
 					// compute cross product (we need -n, so do vxu)
-					VECTOR4D_Cross(&v, &u, &n);
+					VECTOR4D_Cross(&u, &v, &n);
 
 					// at this point, we are almost ready, but we have to normalize the normal vector!
 					// this is a key optimization we can make later, we can pre-compute the length of all polygon
@@ -962,11 +963,11 @@ void Light_RENDERLIST4DV1_World(RENDERLIST4DV1_PTR rend_list, CAM4DV1_PTR cam, L
 					{
 						atten = (lights[curr_light].kc + lights[curr_light].kl*dist + lights[curr_light].kq*dist*dist);
 
-						i = 128 * dp / (nl * atten);
+						i = 256 * dp / (nl * atten);
 
-						r_sum += (lights[curr_light].c_diffuse.r * r_base * i) / (256 * 128);
-						g_sum += (lights[curr_light].c_diffuse.g * g_base * i) / (256 * 128);
-						b_sum += (lights[curr_light].c_diffuse.b * b_base * i) / (256 * 128);
+						r_sum += (lights[curr_light].c_diffuse.r * r_base * i) / (256 * 256);
+						g_sum += (lights[curr_light].c_diffuse.g * g_base * i) / (256 * 256);
+						b_sum += (lights[curr_light].c_diffuse.b * b_base * i) / (256 * 256);
 					} // end if
 
 				} // end if spotlight1
@@ -992,7 +993,7 @@ void Light_RENDERLIST4DV1_World(RENDERLIST4DV1_PTR rend_list, CAM4DV1_PTR cam, L
 					VECTOR4D_Build(&curr_poly->tvlist[0], &curr_poly->tvlist[2], &v);
 
 					// compute cross product (v x u, to invert n)
-					VECTOR4D_Cross(&v, &u, &n);
+					VECTOR4D_Cross(&u, &v, &n);
 
 					// at this point, we are almost ready, but we have to normalize the normal vector!
 					// this is a key optimization we can make later, we can pre-compute the length of all polygon
@@ -1011,7 +1012,7 @@ void Light_RENDERLIST4DV1_World(RENDERLIST4DV1_PTR rend_list, CAM4DV1_PTR cam, L
 					if (dp > 0)
 					{
 						// compute vector from light to surface (different from l which IS the light dir)
-						VECTOR4D_Build(&lights[curr_light].pos, &curr_poly->tvlist[0], &s);
+						VECTOR4D_Build(&curr_poly->tvlist[0], &lights[curr_light].pos, &s);
 
 						// compute length of s (distance to light source) to normalize s for lighting calc
 						dist = VECTOR4D_Length_Fast(&s);
@@ -1035,11 +1036,11 @@ void Light_RENDERLIST4DV1_World(RENDERLIST4DV1_PTR rend_list, CAM4DV1_PTR cam, L
 
 							// now dpsl_exp holds (dpsl)^pf power which is of course (s . l)^pf 
 
-							i = 128 * dp * dpsl_exp / (nl * atten);
+							i = 256 * dp * dpsl_exp / (nl * atten);
 
-							r_sum += (lights[curr_light].c_diffuse.r * r_base * i) / (256 * 128);
-							g_sum += (lights[curr_light].c_diffuse.g * g_base * i) / (256 * 128);
-							b_sum += (lights[curr_light].c_diffuse.b * b_base * i) / (256 * 128);
+							r_sum += (lights[curr_light].c_diffuse.r * r_base * i) / (256 * 256);
+							g_sum += (lights[curr_light].c_diffuse.g * g_base * i) / (256 * 256);
+							b_sum += (lights[curr_light].c_diffuse.b * b_base * i) / (256 * 256);
 
 						} // end if
 
@@ -1055,7 +1056,7 @@ void Light_RENDERLIST4DV1_World(RENDERLIST4DV1_PTR rend_list, CAM4DV1_PTR cam, L
 			if (b_sum > 255) b_sum = 255;
 
 			// write the color over current color
-			curr_poly->color = RGB16Bit(r_sum, g_sum, b_sum);
+			curr_poly->color = _ARGB32BIT(255, r_sum, g_sum, b_sum);
 
 		} // end if
 		else // assume POLY4DV1_ATTR_SHADE_MODE_CONSTANT

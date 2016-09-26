@@ -8,6 +8,8 @@
 #include "tool.h"
 #include "camera.h"
 #include "renderer.h"
+#include "light.h"
+#include "material.h"
 
 #include "GL/glew.h"
 #include "GL/freeglut.h"

@@ -113,10 +113,10 @@ int Load_OBJECT4DV1_PLG(OBJECT4DV1_PTR obj, char *filename, VECTOR4D_PTR scale, 
 		if ((poly_surface_desc & PLX_COLOR_MODE_RGB_FLAG))
 		{
 			SET_BIT(obj->plist[poly].attr, POLY4DV1_ATTR_RGB16);
-			int red = ((poly_surface_desc & 0x0f00) >> 8);
-			int green = ((poly_surface_desc & 0x00f0) >> 4);
-			int blue = (poly_surface_desc & 0x000f);
-			obj->plist[poly].color = RGB16Bit(red * 16, green * 16, blue * 16);
+			int red = ((poly_surface_desc & 0x0f00) >> 8) * 16;
+			int green = ((poly_surface_desc & 0x00f0) >> 4) * 16;
+			int blue = (poly_surface_desc & 0x000f) * 16;
+			obj->plist[poly].color = _ARGB32BIT(255, red, green, blue);
 		}
 		else
 		{
