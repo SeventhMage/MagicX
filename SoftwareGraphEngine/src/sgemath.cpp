@@ -2250,7 +2250,7 @@ int Intersect_Parm_Line3D_Plane3D(PARMLINE3D_PTR pline,
 
 ////////////////////////////////////////////////////////////////////////////
 
-int Fast_Distance_2D(int x, int y)
+inline int Fast_Distance_2D(int x, int y)
 {
 	// this function computes the distance from 0,0 to x,y with 3.5% error
 
@@ -2268,7 +2268,7 @@ int Fast_Distance_2D(int x, int y)
 
 ///////////////////////////////////////////////////////////////////////////////
 
-float Fast_Distance_3D(float fx, float fy, float fz)
+inline float Fast_Distance_3D(float fx, float fy, float fz)
 {
 	// this function computes the distance from the origin to x,y,z
 

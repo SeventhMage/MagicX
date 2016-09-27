@@ -72,7 +72,7 @@ void Camera_To_Perspective_Screen_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list, C
 //绘制线框物体
 void Draw_OBJECT4DV1_Wire(OBJECT4DV1_PTR obj, unsigned char *video_buffer, int lpitch);
 //绘制线框渲染列表
-void Draw_RENDERLIST4DV1_Wire16(RENDERLIST4DV1_PTR rend_list, unsigned char *video_buffer, int lpitch);
+void Draw_RENDERLIST4DV1_Wire(RENDERLIST4DV1_PTR rend_list, unsigned char *video_buffer, int lpitch);
 //绘制实心物体
 void Draw_OBJECT4DV1_Solid(OBJECT4DV1_PTR obj, UCHAR *video_buffer, int lpitch);
 //绘制实心渲染列表

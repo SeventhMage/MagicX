@@ -702,8 +702,8 @@ void FIXP16_Print(FIXP16 fp);
 
 
 // math functions
-int Fast_Distance_2D(int x, int y);
-float Fast_Distance_3D(float x, float y, float z);
+inline int Fast_Distance_2D(int x, int y);
+inline float Fast_Distance_3D(float x, float y, float z);
 
 
 void Build_XYZ_Rotation_MATRIX4X4(float theta_x, // euler angles

@@ -556,6 +556,7 @@ void Update(int delta)
 
 	Camera_To_Perspective_Screen_RENDERLIST4DV1(&rend_list, &cam);
 
+	//Draw_RENDERLIST4DV1_Wire(&rend_list, (UCHAR *)buffer, g_width);
 	Draw_RENDERLIST4DV1_Solid(&rend_list, (UCHAR *)buffer, g_width);
 	
 	HDC hdc = GetDC(hWnd);

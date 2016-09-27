@@ -542,7 +542,7 @@ void Draw_OBJECT4DV1_Wire(OBJECT4DV1_PTR obj, unsigned char *video_buffer, int l
 	}
 }
 
-void Draw_RENDERLIST4DV1_Wire16(RENDERLIST4DV1_PTR rend_list, unsigned char *video_buffer, int lpitch)
+void Draw_RENDERLIST4DV1_Wire(RENDERLIST4DV1_PTR rend_list, unsigned char *video_buffer, int lpitch)
 {
 	for (int poly = 0; poly < rend_list->num_polys; ++poly)
 	{
