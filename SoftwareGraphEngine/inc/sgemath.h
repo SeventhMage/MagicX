@@ -5,6 +5,7 @@
 #define _SGE_MATH_H_
 
 #include <string.h>
+#include "tool.h"
 
 // DEFINES & CONSTANTS /////////////////////////////////////
 
@@ -19,6 +20,8 @@
 #define PARM_LINE_INTERSECT_IN_SEGMENT  1
 #define PARM_LINE_INTERSECT_OUT_SEGMENT 2
 #define PARM_LINE_INTERSECT_EVERYWHERE  3
+
+#define FCMP(a,b) ( (fabs(a-b) < EPSILON_E3) ? 1 : 0)
 
 // TYPES //////////////////////////////////////////////////
 
@@ -711,4 +714,38 @@ void Build_XYZ_Rotation_MATRIX4X4(float theta_x, // euler angles
 	float theta_z,
 	MATRIX4X4_PTR mrot); // output 
 
+
+inline void VERTEX4DTV1_COPY(VERTEX4DTV1_PTR vdst, VERTEX4DTV1_PTR vsrc)
+{
+	*vdst = *vsrc;
+}
+
+inline void VERTEX4DTV1_INIT(VERTEX4DTV1_PTR vdst, VERTEX4DTV1_PTR vsrc)
+{
+	*vdst = *vsrc;
+}
+
+inline float VECTOR4D_Length_Fast2(VECTOR4D_PTR va)
+{
+	// this function computes the distance from the origin to x,y,z
+
+	int temp;  // used for swaping
+	int x, y, z; // used for algorithm
+
+	// make sure values are all positive
+	x = fabs(va->x) * 1024;
+	y = fabs(va->y) * 1024;
+	z = fabs(va->z) * 1024;
+
+	// sort values
+	if (y < x) SWAP(x, y, temp)
+	if (z < y) SWAP(y, z, temp)
+	if (y < x) SWAP(x, y, temp)
+
+		int dist = (z + 11 * (y >> 5) + (x >> 2));
+
+	// compute distance with 8% error
+	return((float)(dist >> 10));
+
+} // end VECTOR4D_Length_Fast2
 #endif

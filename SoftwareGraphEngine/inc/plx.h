@@ -25,5 +25,6 @@
 #define PLX_SHADE_MODE_PHONG_FLAG		0x6000		//phong
 
 int Load_OBJECT4DV1_PLG(OBJECT4DV1_PTR obj, char *filename, VECTOR4D_PTR scale, VECTOR4D_PTR pos, VECTOR4D_PTR rot);
-
+int Load_OBJECT4DV2_PLG(OBJECT4DV2_PTR obj, char *filename, VECTOR4D_PTR scale, VECTOR4D_PTR pos, VECTOR4D_PTR rot, int vertex_flags = 0);
+int Load_OBJECT4DV2_COB(OBJECT4DV2_PTR obj, char *filename, VECTOR4D_PTR scale, VECTOR4D_PTR pos, VECTOR4D_PTR rot, int vertex_flags = 0);
 #endif

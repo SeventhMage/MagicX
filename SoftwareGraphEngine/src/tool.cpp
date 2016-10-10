@@ -771,4 +771,177 @@ int Flip_Bitmap(UCHAR *image, int bytes_per_line, int height)
 
 } // end Flip_Bitmap
 
+char *Extract_Filename_From_Path(char *filepath, char *filename)
+{
+	// this function extracts the filename from a complete path and file
+	// "../folder/.../filname.ext"
+	// the function operates by scanning backward and looking for the first 
+	// occurance of "\" or "/" then copies the filename from there to the end
+	// test of filepath is valid
+	if (!filepath || strlen(filepath) == 0)
+		return(NULL);
+
+	int index_end = strlen(filepath) - 1;
+
+	// find filename
+	while ((filepath[index_end] != '\\') &&
+		(filepath[index_end] != '/') &&
+		(filepath[index_end] > 0))
+		index_end--;
+
+	// copy file name out into filename var
+	memcpy(filename, &filepath[index_end + 1], strlen(filepath) - index_end);
+
+	// return result
+	return(filename);
+}
+
 ///////////////////////////////////////////////////////////
+
+int Load_Bitmap_File2(BITMAP_FILE_PTR bitmap, char *filename)
+{
+	// simply checks the file extension and calls the appropriate loader
+	// .bmp or .pcx of course there must be a file extension!
+
+	char _filename[256]; // temp string
+
+	// copy string and upcase it
+	strcpy(_filename, filename);
+	_strupr(_filename);
+
+	// check for bmp
+	if (strstr(_filename, ".BMP"))
+		return(Load_Bitmap_File(bitmap, _filename));
+	else // pcx?
+	if (strstr(_filename, ".PCX"))
+		return(Load_Bitmap_PCX_File(bitmap, _filename));
+	else // serious trouble
+		return(0);
+
+} // end Load_Bitmap_File2
+
+////////////////////////////////////////////////////////////////////////////
+
+int Load_Bitmap_PCX_File(BITMAP_FILE_PTR bitmap, char *filename)
+{
+	// this function loads a PCX file into the bitmap file structure. The function
+	// has three main parts: 1. load the PCX header, 2. load the image data and
+	// decompress it and 3. load the palette data 
+
+	FILE *fp;               // the file pointer used to open the PCX file
+
+	PCX_HEADER pcx_header;  // pcx file header
+
+	int num_bytes,          // number of bytes in current RLE run
+		index,              // loop variable
+		count,              // the total number of bytes decompressed
+		width,              // width of image in pixels
+		height,             // height of image in pixels
+		bits_per_pixel,     // bits per pixel
+		bytes_per_pixel;
+
+	UCHAR data;             // the current pixel data
+
+	// open the file, test if it exists
+	if ((fp = fopen(filename, "rb")) == NULL)
+	{
+		return(0);
+	} // end if couldn't find file
+
+	// load the header
+	for (index = 0; index < sizeof(PCX_HEADER); index++)
+	{
+		((UCHAR *)&pcx_header)[index] = (UCHAR)getc(fp);
+	} // end for index
+
+	// compute statistics
+	width = (pcx_header.xmax - pcx_header.xmin) + 1;
+	height = (pcx_header.ymax - pcx_header.ymin) + 1;
+
+	// allocate memory
+	bitmap->buffer = (UCHAR *)malloc(width*height);
+
+	// compute bit stuff, not needed since it's ALWAYS 8-bit
+	bits_per_pixel = pcx_header.bits_per_pixel;
+	bytes_per_pixel = bits_per_pixel / 8;
+
+	// loop while width*height bytes haven't been decompressed
+	for (count = 0; count < width * height;)
+	{
+		// get the first piece of data
+		data = (UCHAR)getc(fp);
+
+		// is this a RLE run?
+		if (data >= 192 && data <= 255)
+		{
+			// compute number of bytes in run
+			num_bytes = data - 192;
+
+			// get the actual data for the run
+			data = (UCHAR)getc(fp);
+
+			// replicate data in buffer num_bytes times
+			while (num_bytes-- > 0)
+			{
+				bitmap->buffer[count++] = data;
+			} // end while
+
+		} // end if rle
+		else
+		{
+			// actual data, just copy it into buffer at next location
+			bitmap->buffer[count++] = data;
+		} // end else not rle
+
+	} // end for
+
+	// move to end of file then back up 768 bytes i.e. to begining of palette
+	fseek(fp, -768L, SEEK_END);
+
+	// load the PCX pallete into the VGA color registers
+	for (index = 0; index < 256; index++)
+	{
+		// get the red component
+		bitmap->palette[index].peRed = (unsigned char)getc(fp);
+
+		// get the green component
+		bitmap->palette[index].peGreen = (unsigned char)getc(fp);
+
+		// get the blue component
+		bitmap->palette[index].peBlue = (unsigned char)getc(fp);
+
+		// always set the flags word to this
+		bitmap->palette[index].peFlags = PC_NOCOLLAPSE;
+
+	} // end for index
+
+	// time to close the file
+	fclose(fp);
+
+	// now fill in bitmap BMP header fields with translated information from 
+	// pcx file, sneaky, but has to be done...
+	bitmap->bitmapinfoheader.biBitCount = bits_per_pixel;
+	bitmap->bitmapinfoheader.biSizeImage = width*height*bytes_per_pixel;
+	bitmap->bitmapinfoheader.biWidth = width;
+	bitmap->bitmapinfoheader.biHeight = height;
+	bitmap->bitmapinfoheader.biClrUsed = 256;
+	bitmap->bitmapinfoheader.biClrImportant = 256;
+
+#if 1
+	// write the file info out 
+	printf("\nfilename:%s \nsize=%d \nwidth=%d \nheight=%d \nbitsperpixel=%d \ncolors=%d \nimpcolors=%d",
+		filename,
+		bitmap->bitmapinfoheader.biSizeImage,
+		bitmap->bitmapinfoheader.biWidth,
+		bitmap->bitmapinfoheader.biHeight,
+		bitmap->bitmapinfoheader.biBitCount,
+		bitmap->bitmapinfoheader.biClrUsed,
+		bitmap->bitmapinfoheader.biClrImportant);
+#endif
+
+	// success
+	return(1);
+
+} // end Load_Bitmap_PCX_File
+
+//////////////////////////////////////////////////////////

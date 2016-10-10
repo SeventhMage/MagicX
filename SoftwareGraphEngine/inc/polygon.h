@@ -2,6 +2,11 @@
 #define _SGE_POLYGON_H_
 
 #include "sgemath.h"
+#include "tool.h"
+
+//////////////////////////////////////////////////////////////////////////
+//POLY4DV1																//
+//////////////////////////////////////////////////////////////////////////
 
 //多边形和多边形面的属性
 #define POLY4DV1_ATTR_2SIDED		0x0001
@@ -99,5 +104,256 @@ typedef struct RENDERLIST4DV1_TYP
 void Reset_RENDERLIST4DV1(RENDERLIST4DV1_PTR rend_list);
 
 float Compute_OBJECT4DV1_Radius(OBJECT4DV1_PTR obj);
+
+
+//////////////////////////////////////////////////////////////////////////
+//POLY4DV2																//
+//////////////////////////////////////////////////////////////////////////
+
+#define TRI_TYPE_NONE           0
+#define TRI_TYPE_FLAT_TOP       1 
+#define TRI_TYPE_FLAT_BOTTOM	2
+#define TRI_TYPE_FLAT_MASK      3
+#define TRI_TYPE_GENERAL        4
+#define INTERP_LHS              0
+#define INTERP_RHS              1
+#define MAX_VERTICES_PER_POLY   6
+
+#define POLY4DV2_ATTR_2SIDED                0x0001
+#define POLY4DV2_ATTR_TRANSPARENT           0x0002
+#define POLY4DV2_ATTR_8BITCOLOR             0x0004
+#define POLY4DV2_ATTR_RGB16                 0x0008
+#define POLY4DV2_ATTR_RGB24                 0x0010
+
+#define POLY4DV2_ATTR_SHADE_MODE_PURE       0x0020
+#define POLY4DV2_ATTR_SHADE_MODE_CONSTANT   0x0020 // (alias)
+#define POLY4DV2_ATTR_SHADE_MODE_EMISSIVE   0x0020 // (alias)
+
+#define POLY4DV2_ATTR_SHADE_MODE_FLAT       0x0040
+#define POLY4DV2_ATTR_SHADE_MODE_GOURAUD    0x0080
+#define POLY4DV2_ATTR_SHADE_MODE_PHONG      0x0100
+#define POLY4DV2_ATTR_SHADE_MODE_FASTPHONG  0x0100 // (alias)
+#define POLY4DV2_ATTR_SHADE_MODE_TEXTURE    0x0200 
+
+//材质
+#define POLY4DV2_ATTR_ENABLE_MATERIAL       0x0800
+#define POLY4DV2_ATTR_DISABLE_MATERIAL      0x1000
+
+#define POLY4DV2_STATE_NULL               0x0000
+#define POLY4DV2_STATE_ACTIVE             0x0001  
+#define POLY4DV2_STATE_CLIPPED            0x0002  
+#define POLY4DV2_STATE_BACKFACE           0x0004  
+#define POLY4DV2_STATE_LIT                0x0008
+
+#define VERTEX_FLAGS_OVERRIDE_MASK          0xf000
+#define VERTEX_FLAGS_OVERRIDE_CONSTANT      0x1000
+#define VERTEX_FLAGS_OVERRIDE_EMISSIVE      0x1000 //(alias)
+#define VERTEX_FLAGS_OVERRIDE_PURE          0x1000
+#define VERTEX_FLAGS_OVERRIDE_FLAT          0x2000
+#define VERTEX_FLAGS_OVERRIDE_GOURAUD       0x4000
+#define VERTEX_FLAGS_OVERRIDE_TEXTURE       0x8000
+
+#define VERTEX_FLAGS_INVERT_TEXTURE_U       0x0080
+#define VERTEX_FLAGS_INVERT_TEXTURE_V       0x0100
+#define VERTEX_FLAGS_INVERT_SWAP_UV         0x0800
+
+#define OBJECT4DV2_MAX_VERTICES           4096  // 64
+#define OBJECT4DV2_MAX_POLYS              8192 // 128
+
+#define OBJECT4DV2_STATE_NULL             0x0000
+#define OBJECT4DV2_STATE_ACTIVE           0x0001
+#define OBJECT4DV2_STATE_VISIBLE          0x0002 
+#define OBJECT4DV2_STATE_CULLED           0x0004
+
+#define OBJECT4DV2_ATTR_SINGLE_FRAME      0x0001 // 单帧对象
+#define OBJECT4DV2_ATTR_MULTI_FRAME       0x0002 // 多帧对象
+#define OBJECT4DV2_ATTR_TEXTURES          0x0004
+
+#define RENDERLIST4DV2_MAX_POLYS          32768
+
+#define VERTEX4DTV1_ATTR_NULL             0x0000
+#define VERTEX4DTV1_ATTR_POINT            0x0001
+#define VERTEX4DTV1_ATTR_NORMAL           0x0002
+#define VERTEX4DTV1_ATTR_TEXTURE          0x0004
+
+#define RASTERIZER_ACCURATE    0
+#define RASTERIZER_FAST        1
+#define RASTERIZER_FASTEST     2
+
+#define RASTERIZER_MODE        RASTERIZER_ACCURATE
+
+
+//顶点结构
+typedef struct VECTOR2DI_TYP
+{
+	union
+	{
+		int M[2];
+		
+		struct
+		{
+			int x, y;
+		};
+
+	};
+
+} VECTOR2DI, POINT2DI, *VECTOR2DI_PTR, *POINT2DI_PTR;
+
+typedef struct VECTOR3DI_TYP
+{
+	union
+	{
+		int M[3];
+
+		struct
+		{
+			int x, y, z;
+		};
+	};
+
+} VECTOR3DI, POINT3DI, *VECTOR3DI_PTR, *POINT3DI_PTR;
+
+typedef struct VECTOR4DI_TYP
+{
+	union
+	{
+		int M[4];
+
+		struct
+		{
+			int x, y, z, w;
+		};
+	};
+
+} VECTOR4DI, POINT4DI, *VECTOR4DI_PTR, *POINT4DI_PTR;
+
+typedef struct VERTEX4DTV1_TYP
+{
+	union
+	{
+		float M[12];
+
+		struct
+		{
+			float x, y, z, w;
+			float nx, ny, nz, nw;
+			float u0, v0;
+
+			float i;
+			int   attr;
+		};
+		
+		struct
+		{
+			POINT4D  v;
+			VECTOR4D n;
+			POINT2D  t;
+		};
+	};
+
+} VERTEX4DTV1, *VERTEX4DTV1_PTR;
+
+typedef struct POLYF4DV2_TYP
+{
+	int      state;
+	int      attr;
+	int      color;
+	int      lit_color[3];
+
+	BITMAP_IMAGE_PTR texture;
+
+	int      mati;
+
+	float    nlength;
+	VECTOR4D normal;
+
+	float    avg_z;
+
+	VERTEX4DTV1 vlist[3];
+	VERTEX4DTV1 tvlist[3];
+
+	POLYF4DV2_TYP *next;
+	POLYF4DV2_TYP *prev;
+
+} POLYF4DV2, *POLYF4DV2_PTR;
+
+
+typedef struct POLY4DV2_TYP
+{
+	int state;
+	int attr;
+	int color;
+	int lit_color[3];	
+
+	BITMAP_IMAGE_PTR texture;
+
+	int mati;
+
+	VERTEX4DTV1_PTR vlist;
+	POINT2D_PTR     tlist;
+	int vert[3];
+	int text[3];
+	float nlength;
+
+} POLY4DV2, *POLY4DV2_PTR;
+
+typedef struct OBJECT4DV2_TYP
+{
+	int   id;
+	char  name[64];
+	int   state;
+	int   attr;
+	int   mati;
+	float *avg_radius;
+	float *max_radius;
+
+	POINT4D world_pos;
+
+	VECTOR4D dir;
+
+	VECTOR4D ux, uy, uz;
+
+	int num_vertices;
+	int num_frames;
+	int total_vertices;
+	int curr_frame;
+
+	VERTEX4DTV1_PTR vlist_local;
+	VERTEX4DTV1_PTR vlist_trans;
+
+	VERTEX4DTV1_PTR head_vlist_local;
+	VERTEX4DTV1_PTR head_vlist_trans;
+
+	POINT2D_PTR tlist;
+
+	BITMAP_IMAGE_PTR texture; 
+
+	int num_polys;
+	POLY4DV2_PTR plist;
+
+	int   ivar1, ivar2; 
+	float fvar1, fvar2;
+
+	int Set_Frame(int frame);
+
+} OBJECT4DV2, *OBJECT4DV2_PTR;
+
+
+typedef struct RENDERLIST4DV2_TYP
+{
+	int state;
+	int attr;
+
+	POLYF4DV2_PTR poly_ptrs[RENDERLIST4DV2_MAX_POLYS];
+
+	POLYF4DV2 poly_data[RENDERLIST4DV2_MAX_POLYS];
+
+	int num_polys;
+
+} RENDERLIST4DV2, *RENDERLIST4DV2_PTR;
+
+int Destroy_OBJECT4DV2(OBJECT4DV2_PTR obj);
+int Init_OBJECT4DV2(OBJECT4DV2_PTR obj, int _num_vertices, int _num_polys, int _num_frames, int destroy = 0);
+
 
 #endif

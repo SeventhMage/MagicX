@@ -3,6 +3,7 @@
 
 #include <Windows.h>
 #include <stdio.h>
+#include "sgemath.h"
 
 // pi defines
 #define PI         ((float)3.141592654f)
@@ -50,6 +51,7 @@
 #define RAD_TO_DEG(rads) ((rads)*180.0/PI)
 
 #define RAND_RANGE(x,y) ( (x) + (rand()%((y)-(x)+1)))
+
 
 //日志文件
 int Open_Error_File(char *filename, FILE *fp_override = 0);
@@ -164,5 +166,10 @@ int Flip_Bitmap(UCHAR *image, int bytes_per_line, int height);
 int Load_Bitmap_File(BITMAP_FILE_PTR bitmap, char *filename);
 int Unload_Bitmap_File(BITMAP_FILE_PTR bitmap);
 
+int Load_Bitmap_File2(BITMAP_FILE_PTR bitmap, char *filename);
+
+int Load_Bitmap_PCX_File(BITMAP_FILE_PTR bitmap, char *filename);
+
+char *Extract_Filename_From_Path(char *filepath, char *filename);
 
 #endif
