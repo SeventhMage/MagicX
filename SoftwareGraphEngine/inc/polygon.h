@@ -2,7 +2,6 @@
 #define _SGE_POLYGON_H_
 
 #include "sgemath.h"
-#include "tool.h"
 
 //////////////////////////////////////////////////////////////////////////
 //POLY4DV1																//
@@ -37,16 +36,41 @@
 //渲染列表中多边形数
 #define RENDERLIST4DV1_MAX_POLYS          32768
 
-typedef struct POLY_EX_TYP_1
+// a 2D vertex
+typedef struct VERTEX2DI_TYP
 {
-	POINT3D v[3];
-}POLY_EX_1, *POLY_EX_1_PTR;
+	int x, y; // the vertex
+} VERTEX2DI, *VERTEX2DI_PTR;
 
-typedef struct POLY_EX_TYP_2
+// a 2D vertex
+typedef struct VERTEX2DF_TYP
 {
-	POINT3D_PTR vlist;
-	int vertices[3];
-}POLY_EX_2, *POLY_EX_2_PTR;
+	float x, y; // the vertex
+} VERTEX2DF, *VERTEX2DF_PTR;
+
+
+// a 2D polygon
+typedef struct POLYGON2D_TYP
+{
+	int state;        // state of polygon
+	int num_verts;    // number of vertices
+	int x0, y0;        // position of center of polygon  
+	int xv, yv;        // initial velocity
+	DWORD color;      // could be index or PALETTENTRY
+	VERTEX2DF *vlist; // pointer to vertex list
+
+} POLYGON2D, *POLYGON2D_PTR;
+
+//typedef struct POLY_EX_TYP_1
+//{
+//	POINT3D v[3];
+//}POLY_EX_1, *POLY_EX_1_PTR;
+//
+//typedef struct POLY_EX_TYP_2
+//{
+//	POINT3D_PTR vlist;
+//	int vertices[3];
+//}POLY_EX_2, *POLY_EX_2_PTR;
 
 typedef struct POLY4DV1_TYP
 {
@@ -144,6 +168,18 @@ float Compute_OBJECT4DV1_Radius(OBJECT4DV1_PTR obj);
 #define POLY4DV2_STATE_CLIPPED            0x0002  
 #define POLY4DV2_STATE_BACKFACE           0x0004  
 #define POLY4DV2_STATE_LIT                0x0008
+
+#define VERTEX_FLAGS_INVERT_X               0x0001   // inverts the Z-coordinates
+#define VERTEX_FLAGS_INVERT_Y               0x0002   // inverts the Z-coordinates
+#define VERTEX_FLAGS_INVERT_Z               0x0004   // inverts the Z-coordinates
+#define VERTEX_FLAGS_SWAP_YZ                0x0008   // transforms a RHS model to a LHS model
+#define VERTEX_FLAGS_SWAP_XZ                0x0010   
+#define VERTEX_FLAGS_SWAP_XY                0x0020
+#define VERTEX_FLAGS_INVERT_WINDING_ORDER   0x0040   // invert winding order from cw to ccw or ccw to cc
+
+
+#define VERTEX_FLAGS_TRANSFORM_LOCAL        0x0200   // if file format has local transform then do it!
+#define VERTEX_FLAGS_TRANSFORM_LOCAL_WORLD  0x0400  // if file format has local to world then do it!
 
 #define VERTEX_FLAGS_OVERRIDE_MASK          0xf000
 #define VERTEX_FLAGS_OVERRIDE_CONSTANT      0x1000
@@ -355,5 +391,14 @@ typedef struct RENDERLIST4DV2_TYP
 int Destroy_OBJECT4DV2(OBJECT4DV2_PTR obj);
 int Init_OBJECT4DV2(OBJECT4DV2_PTR obj, int _num_vertices, int _num_polys, int _num_frames, int destroy = 0);
 
+inline void VERTEX4DTV1_COPY(VERTEX4DTV1_PTR vdst, VERTEX4DTV1_PTR vsrc)
+{
+	*vdst = *vsrc;
+}
+
+inline void VERTEX4DTV1_INIT(VERTEX4DTV1_PTR vdst, VERTEX4DTV1_PTR vsrc)
+{
+	*vdst = *vsrc;
+}
 
 #endif

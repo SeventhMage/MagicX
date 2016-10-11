@@ -5,6 +5,7 @@
 #define _SGE_MATH_H_
 
 #include <string.h>
+#include <math.h>
 #include "tool.h"
 
 // DEFINES & CONSTANTS /////////////////////////////////////
@@ -714,16 +715,6 @@ void Build_XYZ_Rotation_MATRIX4X4(float theta_x, // euler angles
 	float theta_z,
 	MATRIX4X4_PTR mrot); // output 
 
-
-inline void VERTEX4DTV1_COPY(VERTEX4DTV1_PTR vdst, VERTEX4DTV1_PTR vsrc)
-{
-	*vdst = *vsrc;
-}
-
-inline void VERTEX4DTV1_INIT(VERTEX4DTV1_PTR vdst, VERTEX4DTV1_PTR vsrc)
-{
-	*vdst = *vsrc;
-}
 
 inline float VECTOR4D_Length_Fast2(VECTOR4D_PTR va)
 {

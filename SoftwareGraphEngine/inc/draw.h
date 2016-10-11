@@ -1,7 +1,10 @@
+// draw.h包含了所有光栅化的操作
+
 #ifndef _SGE_DRAW_H_
 #define _SGE_DRAW_H_
 
 #include "tool.h"
+#include "polygon.h"
 
 int Clip_Line(int &x1, int &y1, int &x2, int &y2);
 int Draw_Clip_Line16(int x0, int y0, int x1, int y1, int color, unsigned char *dest_buffer, int lpitch);
@@ -51,4 +54,13 @@ void Draw_Triangle_2D2(float x1, float y1,
 	float x3, float y3,
 	int color,
 	UCHAR *dest_buffer, int mempitch);
+
+void Draw_Textured_Triangle(POLYF4DV2_PTR face, UCHAR *dest_buffer, int mem_pitch);
+
+void Draw_Textured_Triangle16(POLYF4DV2_PTR face, UCHAR *dest_buffer, int mem_pitch);
+
+void Draw_Textured_TriangleFS16(POLYF4DV2_PTR face, UCHAR *_dest_buffer, int mem_pitch);
+
+void Draw_Gouraud_Triangle16(POLYF4DV2_PTR face, UCHAR *_dest_buffer, int mem_pitch);
+
 #endif

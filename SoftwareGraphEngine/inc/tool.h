@@ -3,7 +3,6 @@
 
 #include <Windows.h>
 #include <stdio.h>
-#include "sgemath.h"
 
 // pi defines
 #define PI         ((float)3.141592654f)
@@ -35,6 +34,9 @@
 #define _ARGB32BIT(a,r,g,b) ((b) + ((g) << 8) + ((r) << 16) + ((a) << 24))
 
 #define _RGBA32BIT(r, g, b, a) ((a) + ((b) << 8) + ((g) << 16) + ((r) << 24))
+
+#define _RGB565FROM16BIT(RGB, r,g,b) { *r = ( ((RGB) >> 11) & 0x1f); *g = (((RGB) >> 5) & 0x3f); *b = ((RGB) & 0x1f); }
+
 
 #define SET_BIT(word,bit_flag)   ((word)=((word) | (bit_flag)))
 #define RESET_BIT(word,bit_flag) ((word)=((word) & (~bit_flag)))
@@ -165,10 +167,6 @@ int Flip_Bitmap(UCHAR *image, int bytes_per_line, int height);
 // bitmap file functions
 int Load_Bitmap_File(BITMAP_FILE_PTR bitmap, char *filename);
 int Unload_Bitmap_File(BITMAP_FILE_PTR bitmap);
-
-int Load_Bitmap_File2(BITMAP_FILE_PTR bitmap, char *filename);
-
-int Load_Bitmap_PCX_File(BITMAP_FILE_PTR bitmap, char *filename);
 
 char *Extract_Filename_From_Path(char *filepath, char *filename);
 

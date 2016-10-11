@@ -2,6 +2,11 @@
 #include "tool.h"
 #include <ctype.h>
 #include "renderer.h"
+#include "parser.h"
+#include "material.h"
+
+char texture_path[80] = "./texture"; // root path to ALL textures, make current directory for now
+BITMAP_FILE          bitmap16bit;
 
 // 跳过注释和空行，返回一行数据，文件为空反回NULL
 char *Get_Line_PLG(char *buffer, int maxlength, FILE *fp)
@@ -1454,38 +1459,20 @@ int Load_OBJECT4DV2_COB(OBJECT4DV2_PTR obj,   // pointer to object
 		// we need to know what color depth we are dealing with, so check
 		// the bits per pixel, this assumes that the system has already
 		// made the call to DDraw_Init() or set the bit depth
-		if (screen_bpp == 16)
-		{
-			// cool, 16 bit mode
-			SET_BIT(obj->plist[curr_poly].attr, POLY4DV1_ATTR_RGB16);
+		// cool, 16 bit mode
+		SET_BIT(obj->plist[curr_poly].attr, POLY4DV1_ATTR_RGB16);
 
-			// test if this is a textured poly, if so override the color to WHITE,
-			// so we get maximum reflection in lighting stage
-			if (materials[poly_material[curr_poly]].attr & MATV1_ATTR_SHADE_MODE_TEXTURE)
-				obj->plist[curr_poly].color = RGB16Bit(255, 255, 255);
-			else
-				obj->plist[curr_poly].color = RGB16Bit(materials[poly_material[curr_poly]].color.r,
-				materials[poly_material[curr_poly]].color.g,
-				materials[poly_material[curr_poly]].color.b);
-			Write_Error("\nPolygon 16-bit");
-		} // end
+		// test if this is a textured poly, if so override the color to WHITE,
+		// so we get maximum reflection in lighting stage
+		if (materials[poly_material[curr_poly]].attr & MATV1_ATTR_SHADE_MODE_TEXTURE)
+			obj->plist[curr_poly].color = _ARGB32BIT(255, 255, 255, 255);
 		else
-		{
-			// 8 bit mode
-			SET_BIT(obj->plist[curr_poly].attr, POLY4DV1_ATTR_8BITCOLOR);
+			obj->plist[curr_poly].color = _ARGB32BIT(255, materials[poly_material[curr_poly]].color.r,
+			materials[poly_material[curr_poly]].color.g,
+			materials[poly_material[curr_poly]].color.b);
+		Write_Error("\nPolygon 32-bit");
 
-			// test if this is a textured poly, if so override the color to WHITE,
-			// so we get maximum reflection in lighting stage
-			if (materials[poly_material[curr_poly]].attr & MATV1_ATTR_SHADE_MODE_TEXTURE)
-				obj->plist[curr_poly].color = RGBto8BitIndex(255, 255, 255, palette, 0);
-			else
-				obj->plist[curr_poly].color = RGBto8BitIndex(materials[poly_material[curr_poly]].color.r,
-				materials[poly_material[curr_poly]].color.g,
-				materials[poly_material[curr_poly]].color.b,
-				palette, 0);
 
-			Write_Error("\nPolygon 8-bit, index=%d", obj->plist[curr_poly].color);
-		} // end else
 
 		// now set all the shading flags
 		// figure out which shader to use
@@ -1557,7 +1544,7 @@ int Load_OBJECT4DV2_COB(OBJECT4DV2_PTR obj,   // pointer to object
 	// now fix up all texture coordinates
 	if (obj->texture)
 	{
-		for (tvertex = 0; tvertex < num_texture_vertices; tvertex++)
+		for (int tvertex = 0; tvertex < num_texture_vertices; tvertex++)
 		{
 			// step 1: scale the texture coordinates by the texture size
 			int texture_size = obj->texture->width;

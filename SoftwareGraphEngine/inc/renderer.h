@@ -1,3 +1,4 @@
+// renderer.h 包含了所有渲染管线的操作
 #ifndef _SGE_RENDERER_H_
 #define _SGE_RENDERER_H_
 
@@ -106,7 +107,7 @@ void Rotate_XYZ_OBJECT4DV2(OBJECT4DV2_PTR obj,
 
 void Model_To_World_OBJECT4DV2(OBJECT4DV2_PTR obj, int coord_select = TRANSFORM_LOCAL_TO_TRANS, int all_frames = 0);
 
-int Cull_OBJECT4DV2(OBJECT4DV2_PTR obj, CAM4DV1_PTR cam, int cull_flags);
+bool Cull_OBJECT4DV2(OBJECT4DV2_PTR obj, CAM4DV1_PTR cam, int cull_flags);
 
 void Remove_Backfaces_OBJECT4DV2(OBJECT4DV2_PTR obj, CAM4DV1_PTR cam);
 
@@ -139,7 +140,7 @@ int Insert_POLYF4DV2_RENDERLIST4DV2(RENDERLIST4DV2_PTR rend_list,
 
 int Insert_OBJECT4DV2_RENDERLIST4DV2(RENDERLIST4DV2_PTR rend_list,
 	OBJECT4DV2_PTR obj,
-	int insert_local);
+	int insert_local = 0);
 
 void Reset_OBJECT4DV2(OBJECT4DV2_PTR obj);
 
@@ -156,14 +157,8 @@ void Draw_RENDERLIST4DV2_Wire(RENDERLIST4DV2_PTR rend_list,
 void Draw_RENDERLIST4DV2_Wire16(RENDERLIST4DV2_PTR rend_list,
 	UCHAR *video_buffer, int lpitch);
 
-
-void Draw_RENDERLIST4DV2_Solid(RENDERLIST4DV2_PTR rend_list,
-	UCHAR *video_buffer, int lpitch);
-
 void Draw_RENDERLIST4DV2_Solid16(RENDERLIST4DV2_PTR rend_list,
 	UCHAR *video_buffer, int lpitch);
-
-void Draw_OBJECT4DV2_Textured(OBJECT4DV2_PTR obj, UCHAR *video_buffer, int lpitch);
 
 void Draw_RENDERLIST4DV2_Textured(RENDERLIST4DV2_PTR rend_list,
 	UCHAR *video_buffer, int lpitch, BITMAP_IMAGE_PTR texture);
@@ -200,21 +195,11 @@ void Draw_RENDERLIST4DV1_Textured(RENDERLIST4DV1_PTR rend_list,
 void Draw_RENDERLIST4DV1_Textured16(RENDERLIST4DV1_PTR rend_list,
 	UCHAR *video_buffer, int lpitch, BITMAP_IMAGE_PTR texture);
 
-void Draw_RENDERLIST4DV2_Gouraud16(RENDERLIST4DV2_PTR rend_list,
-	UCHAR *video_buffer, int lpitch);
-
 void Draw_RENDERLIST4DV1_Solid2_16(RENDERLIST4DV1_PTR rend_list,
 	UCHAR *video_buffer, int lpitch);
 
 void Draw_OBJECT4DV1_Solid2_16(OBJECT4DV1_PTR obj,
 	UCHAR *video_buffer, int lpitch);
-
-void Draw_RENDERLIST4DV1_Solid2_16(RENDERLIST4DV1_PTR rend_list,
-	UCHAR *video_buffer, int lpitch);
-
-void Draw_OBJECT4DV1_Solid2_16(OBJECT4DV1_PTR obj,
-	UCHAR *video_buffer, int lpitch);
-
 
 void Draw_RENDERLIST4DV1_Solid2(RENDERLIST4DV1_PTR rend_list,
 	UCHAR *video_buffer, int lpitch);
@@ -228,22 +213,11 @@ int Compute_OBJECT4DV2_Vertex_Normals(OBJECT4DV2_PTR obj);
 
 void Reset_RENDERLIST4DV2(RENDERLIST4DV2_PTR rend_list);
 
-int Light_OBJECT4DV2_World(OBJECT4DV2_PTR obj, CAM4DV1_PTR cam, LIGHTV1_PTR lights, int max_lights);
+int Light_OBJECT4DV2_World16(OBJECT4DV2_PTR obj, CAM4DV1_PTR cam, LIGHTV1_PTR lights, int max_lights);
 
-int Light_RENDERLIST4DV2_World(RENDERLIST4DV2_PTR rend_list, CAM4DV1_PTR cam, LIGHTV1_PTR lights, int max_lights);
+int Light_RENDERLIST4DV2_World16(RENDERLIST4DV2_PTR rend_list, CAM4DV1_PTR cam, LIGHTV1_PTR lights, int max_lights);
 
 void Sort_RENDERLIST4DV2(RENDERLIST4DV2_PTR rend_list, int sort_method);
 
-void Draw_Textured_Triangle(POLYF4DV2_PTR face, UCHAR *dest_buffer, int mem_pitch);
-
-void Draw_Textured_TriangleFS(POLYF4DV2_PTR face, UCHAR *_dest_buffer, int mem_pitch/*bytes per line*/);
-
-void Draw_Textured_Triangle16(POLYF4DV2_PTR face, UCHAR *dest_buffer, int mem_pitch);
-
-void Draw_Textured_TriangleFS16(POLYF4DV2_PTR face, UCHAR *_dest_buffer, int mem_pitch);
-
-void Draw_Gouraud_Triangle16(POLYF4DV2_PTR face, UCHAR *_dest_buffer, int mem_pitch);
-
-void Draw_Gouraud_Triangle(POLYF4DV2_PTR face, UCHAR *dest_buffer, int mem_pitch);
 
 #endif

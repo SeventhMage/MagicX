@@ -1,3 +1,4 @@
+/*
 #include <Windows.h>
 #include "sge.h"
 
@@ -578,3 +579,5 @@ void Update(int delta)
 	DeleteDC(mdc);
 	DeleteDC(hdc);	
 }
+
+*/
