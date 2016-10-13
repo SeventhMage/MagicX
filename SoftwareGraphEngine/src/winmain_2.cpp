@@ -279,7 +279,7 @@ void InitObject()
 	VECTOR4D vpos = { 0.0f, 0, -10, 1.0f };
 	VECTOR4D vrot = { 0.0f, 180.0f, 0.0f, 1.0f };
 
-	Load_OBJECT4DV2_COB(&obj, "model/water_gouraud_01.cob", &vscale, &vpos, &vrot);	
+	Load_OBJECT4DV2_COB(&obj, "model/tie04.cob", &vscale, &vpos, &vrot);	
 
 	//BITMAP_FILE bitmap_file;
 	//Load_Bitmap_File(&bitmap_file, "texture/wall01_256.bmp");

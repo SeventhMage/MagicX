@@ -558,24 +558,28 @@ int Load_Bitmap_File(BITMAP_FILE_PTR bitmap, char *filename)
 {
 	// this function opens a bitmap file and loads the data into bitmap
 
-	int file_handle,  // the file handle
-		index;        // looping index
+	//int file_handle,  // the file handle
+	int	index;        // looping index
 
 	UCHAR   *temp_buffer = NULL; // used to convert 24 bit images to 16 bit
 	OFSTRUCT file_data;          // the file data information
 
 	// open the file if it exists
-	if ((file_handle = OpenFile(filename, &file_data, OF_READ)) == -1)
-		return(0);
-
+	FILE *file = fopen(filename, "r");
+	//if ((file_handle = OpenFile(filename, &file_data, OF_READ)) == -1)
+	//	return(0);
+	if (!file)
+		return 0;
 	// now load the bitmap file header
-	_lread(file_handle, &bitmap->bitmapfileheader, sizeof(BITMAPFILEHEADER));
+	//_lread(file_handle, &bitmap->bitmapfileheader, sizeof(BITMAPFILEHEADER));
+	fread(&bitmap->bitmapfileheader, sizeof(BITMAPFILEHEADER), 1, file);
 
 	// test if this is a bitmap file
 	if (bitmap->bitmapfileheader.bfType != BITMAP_ID)
 	{
 		// close the file
-		_lclose(file_handle);
+		//_lclose(file_handle);
+		fclose(file);
 
 		// return error
 		return(0);
@@ -586,12 +590,14 @@ int Load_Bitmap_File(BITMAP_FILE_PTR bitmap, char *filename)
 	// first the bitmap infoheader
 
 	// now load the bitmap file header
-	_lread(file_handle, &bitmap->bitmapinfoheader, sizeof(BITMAPINFOHEADER));
+	//_lread(file_handle, &bitmap->bitmapinfoheader, sizeof(BITMAPINFOHEADER));
+	fread(&bitmap->bitmapinfoheader, sizeof(BITMAPINFOHEADER), 1, file);
 
 	// now load the color palette if there is one
 	if (bitmap->bitmapinfoheader.biBitCount == 8)
 	{
-		_lread(file_handle, &bitmap->palette, MAX_COLORS_PALETTE*sizeof(PALETTEENTRY));
+		//_lread(file_handle, &bitmap->palette, MAX_COLORS_PALETTE*sizeof(PALETTEENTRY));
+		fread(&bitmap->palette, MAX_COLORS_PALETTE*sizeof(PALETTEENTRY), 1, file);
 
 		// now set all the flags in the palette correctly and fix the reversed 
 		// BGR RGBQUAD data format
@@ -609,8 +615,9 @@ int Load_Bitmap_File(BITMAP_FILE_PTR bitmap, char *filename)
 	} // end if
 
 	// finally the image data itself
-	_lseek(file_handle, -(int)(bitmap->bitmapinfoheader.biSizeImage), SEEK_END);
-	
+	//_lseek(file_handle, -(int)(bitmap->bitmapinfoheader.biSizeImage), SEEK_END);
+	fseek(file, -(int)(bitmap->bitmapinfoheader.biSizeImage), SEEK_END);
+
 	// now read in the image
 	if (bitmap->bitmapinfoheader.biBitCount == 8 || bitmap->bitmapinfoheader.biBitCount == 16)
 	{
@@ -622,14 +629,15 @@ int Load_Bitmap_File(BITMAP_FILE_PTR bitmap, char *filename)
 		if (!(bitmap->buffer = (UCHAR *)malloc(bitmap->bitmapinfoheader.biSizeImage)))
 		{
 			// close the file
-			_lclose(file_handle);
-
+			//_lclose(file_handle);
+			fclose(file);
 			// return error
 			return(0);
 		} // end if
 
 		// now read it in
-		_lread(file_handle, bitmap->buffer, bitmap->bitmapinfoheader.biSizeImage);
+		//_lread(file_handle, bitmap->buffer, bitmap->bitmapinfoheader.biSizeImage);
+		fread(bitmap->buffer, bitmap->bitmapinfoheader.biSizeImage, 1, file);
 
 	} // end if
 	else
@@ -639,7 +647,8 @@ int Load_Bitmap_File(BITMAP_FILE_PTR bitmap, char *filename)
 		if (!(temp_buffer = (UCHAR *)malloc(bitmap->bitmapinfoheader.biSizeImage)))
 		{
 			// close the file
-			_lclose(file_handle);
+			//_lclose(file_handle);
+			fclose(file);
 
 			// return error
 			return(0);
@@ -649,7 +658,8 @@ int Load_Bitmap_File(BITMAP_FILE_PTR bitmap, char *filename)
 		if (!(bitmap->buffer = (UCHAR *)malloc(2 * bitmap->bitmapinfoheader.biWidth*bitmap->bitmapinfoheader.biHeight)))
 		{
 			// close the file
-			_lclose(file_handle);
+			//_lclose(file_handle);
+			fclose(file);
 
 			// release working buffer
 			free(temp_buffer);
@@ -659,13 +669,14 @@ int Load_Bitmap_File(BITMAP_FILE_PTR bitmap, char *filename)
 		} // end if
 
 		// now read the file in
-		_lread(file_handle, temp_buffer, bitmap->bitmapinfoheader.biSizeImage);
+		//_lread(file_handle, temp_buffer, bitmap->bitmapinfoheader.biSizeImage);
+		fread(temp_buffer, bitmap->bitmapinfoheader.biSizeImage, 1, file);
 
 		// now convert each 24 bit RGB value into a 16 bit value
 		for (index = 0; index < bitmap->bitmapinfoheader.biWidth*bitmap->bitmapinfoheader.biHeight; index++)
 		{
 			// build up 16 bit color word
-			USHORT color = 0;
+			UINT color = 0;
 
 			//// build pixel based on format of directdraw surface
 			//if (dd_pixel_format == DD_PIXEL_FORMAT555)
@@ -691,12 +702,12 @@ int Load_Bitmap_File(BITMAP_FILE_PTR bitmap, char *filename)
 			//} // end if 565
 
 			// write color to buffer
-			((USHORT *)bitmap->buffer)[index] = color;
+			//((UINT *)bitmap->buffer)[index] = color;
 
 		} // end for index
 
 		// finally write out the correct number of bits
-		bitmap->bitmapinfoheader.biBitCount = 16;
+		//bitmap->bitmapinfoheader.biBitCount = 16;
 
 		// release working buffer
 		free(temp_buffer);
@@ -710,12 +721,13 @@ int Load_Bitmap_File(BITMAP_FILE_PTR bitmap, char *filename)
 	} // end else
 
 	// close the file
-	_lclose(file_handle);
+	//_lclose(file_handle);
+	fclose(file);
 
 	// flip the bitmap
-	Flip_Bitmap(bitmap->buffer,
-		bitmap->bitmapinfoheader.biWidth*(bitmap->bitmapinfoheader.biBitCount / 8),
-		bitmap->bitmapinfoheader.biHeight);
+	//Flip_Bitmap(bitmap->buffer,
+	//	bitmap->bitmapinfoheader.biWidth*(bitmap->bitmapinfoheader.biBitCount / 8),
+	//	bitmap->bitmapinfoheader.biHeight);
 
 	// return success
 	return(1);

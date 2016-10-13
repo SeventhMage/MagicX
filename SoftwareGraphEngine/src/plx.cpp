@@ -5,7 +5,7 @@
 #include "parser.h"
 #include "material.h"
 
-char texture_path[80] = "./texture"; // root path to ALL textures, make current directory for now
+char texture_path[80] = "./texture/"; // root path to ALL textures, make current directory for now
 BITMAP_FILE          bitmap16bit;
 
 // 跳过注释和空行，返回一行数据，文件为空反回NULL
