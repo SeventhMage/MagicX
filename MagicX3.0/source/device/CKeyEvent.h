@@ -1,0 +1,38 @@
+/************************************************************************/
+/* º¸≈ÃEVENT µœ÷                                                        */
+/************************************************************************/
+#ifndef _MX_DEVICE_C_KEY_EVENT_H_
+#define _MX_DEVICE_C_KEY_EVENT_H_
+
+#include "device/IKeyEvent.h"
+#include "device/IDevice.h"
+
+namespace mx
+{
+	namespace device
+	{
+		class CKeyEvent : public IKeyEvent
+		{
+		public:
+			CKeyEvent();
+			virtual ~CKeyEvent();
+
+			virtual void OnPress(EVENT_KEYPRESS key);
+			virtual void OnUp(EVENT_KEYPRESS key);
+			virtual bool IsPress(EVENT_KEYPRESS key);
+			
+
+			void SetMousePosition(int x, int y) { m_mouseX = x; m_mouseY = y; }
+			int GetMousePositonX() { return m_mouseX; }
+			int GetMousePositionY() { return m_mouseY; }
+
+		private:
+			bool m_keys[EKP_NUM];
+
+			int m_mouseX;
+			int m_mouseY;
+		};
+	}
+}
+
+#endif

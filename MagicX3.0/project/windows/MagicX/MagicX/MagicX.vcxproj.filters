@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{a547d8fb-d75a-4fc8-a71e-3d1ab8f8fb4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\base">
+      <UniqueIdentifier>{2d02af68-dde7-498e-bc7e-524083678911}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\math">
+      <UniqueIdentifier>{f3f68d9d-9508-4dfd-b7b1-50cb0b208fba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{8f69740f-7f30-45c4-914d-275afda0f429}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\physics">
+      <UniqueIdentifier>{19445edb-33d2-4010-918d-44e84140eed1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\net">
+      <UniqueIdentifier>{e59fdfce-469f-4357-a558-5fe2aa97bed2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\render">
+      <UniqueIdentifier>{af00127a-bf0f-4ba3-b6fe-14516d801007}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\scene">
+      <UniqueIdentifier>{9a28d0e8-c4df-489e-8660-337711de42e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\resource">
+      <UniqueIdentifier>{963c26aa-9422-4727-b224-447c741a0f95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\device">
+      <UniqueIdentifier>{1a17bab6-506c-481d-8217-166a87092cb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\device">
+      <UniqueIdentifier>{64e94c62-c346-4f08-866f-907be5b63828}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\render">
+      <UniqueIdentifier>{5dd0837d-1880-4d11-b41b-8219e0ec5e88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\scene">
+      <UniqueIdentifier>{e0819113-4de8-4ec1-8368-a7c303fc0bd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\render\software">
+      <UniqueIdentifier>{9024d3eb-4b9c-42b4-b889-e63b91ed28ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\render\directx">
+      <UniqueIdentifier>{ce72eb84-9e74-4826-a80f-067800e8b673}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\render\opengl">
+      <UniqueIdentifier>{3656fa98-8c0f-4188-bd21-209d8585aa53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\device\win32">
+      <UniqueIdentifier>{5193d052-1448-456e-9912-2755ea033837}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\resource">
+      <UniqueIdentifier>{5dc5d6ba-64c9-425f-9f26-dbd3db9d824b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\main.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\mx.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\CMagicX.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\CRenderer.cpp">
+      <Filter>source\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLDriver.cpp">
+      <Filter>source\render\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\device\CDeviceManager.cpp">
+      <Filter>source\device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\device\win32\CDeviceWin32.cpp">
+      <Filter>source\device\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\device\CEventManager.cpp">
+      <Filter>source\device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\device\CKeyEvent.cpp">
+      <Filter>source\device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene\CSceneManager.cpp">
+      <Filter>source\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\resource\CResourceManager.cpp">
+      <Filter>source\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene\CScene.cpp">
+      <Filter>source\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene\CModel.cpp">
+      <Filter>source\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene\CSceneNode.cpp">
+      <Filter>source\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\CShaderProgram.cpp">
+      <Filter>source\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLShaderProgram.cpp">
+      <Filter>source\render\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLShader.cpp">
+      <Filter>source\render\opengl</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\include\mx.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\ISceneManager.h">
+      <Filter>include\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\resource\IResourceManager.h">
+      <Filter>include\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IRenderer.h">
+      <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\IScene.h">
+      <Filter>include\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\ISceneNode.h">
+      <Filter>include\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\base\CSingleton.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\resource\IResource.h">
+      <Filter>include\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\resource\ITextureResource.h">
+      <Filter>include\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\resource\IMesh.h">
+      <Filter>include\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\math\CFrustum.h">
+      <Filter>include\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\math\CMatrix4.h">
+      <Filter>include\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\math\CPlane3.h">
+      <Filter>include\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\math\CQuaternion.h">
+      <Filter>include\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\math\CVector2.h">
+      <Filter>include\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\math\CVector3.h">
+      <Filter>include\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\math\CBoundingBox.h">
+      <Filter>include\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\mxDef.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\mxType.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\IModel.h">
+      <Filter>include\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\IMagicX.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\CMagicX.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\device\IDevice.h">
+      <Filter>include\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\device\IEvent.h">
+      <Filter>include\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\device\IKeyEvent.h">
+      <Filter>include\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\device\EEvent.h">
+      <Filter>include\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\device\IDeviceManager.h">
+      <Filter>include\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IRenderDriver.h">
+      <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLDriver.h">
+      <Filter>source\render\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\CRenderer.h">
+      <Filter>source\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\device\CDeviceManager.h">
+      <Filter>source\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\device\win32\CDeviceWin32.h">
+      <Filter>source\device\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\device\CEventManager.h">
+      <Filter>source\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\device\CKeyEvent.h">
+      <Filter>source\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\scene\CSceneManager.h">
+      <Filter>source\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\resource\CResourceManager.h">
+      <Filter>source\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IRenderable.h">
+      <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\scene\CScene.h">
+      <Filter>source\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\scene\CModel.h">
+      <Filter>source\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\scene\CSceneNode.h">
+      <Filter>source\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IBuffer.h">
+      <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IBufferData.h">
+      <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IBufferObject.h">
+      <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\EStandShader.h">
+      <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\SVertexAttribute.h">
+      <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\ERender.h">
+      <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IShader.h">
+      <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IShaderProgram.h">
+      <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\CShaderProgram.h">
+      <Filter>source\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLShaderProgram.h">
+      <Filter>source\render\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLShader.h">
+      <Filter>source\render\opengl</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
