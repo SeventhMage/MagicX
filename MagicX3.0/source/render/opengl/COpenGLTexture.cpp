@@ -62,9 +62,9 @@ namespace mx
 			GLDebug(glGenerateMipmap(GL_TEXTURE_CUBE_MAP));
 		}
 
-		void COpenGLTexture::Bind(uint unit)
+		void COpenGLTexture::Bind(uint slot)
 		{
-			GLDebug(glActiveTexture(GL_TEXTURE0 + unit));
+			GLDebug(glActiveTexture(GL_TEXTURE0 + slot));
 			GLDebug(glBindTexture(m_target, m_hTexture));
 		}
 

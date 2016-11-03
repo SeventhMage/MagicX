@@ -25,31 +25,26 @@ namespace mx
 			delete m_pRenderQueue;
 		}
 
-		void COpenGLRenderer::Render()
+		void COpenGLRenderer::Render(IRenderable *pRenderable)
 		{
-			if (m_pRenderQueue)
+			if (pRenderable)
 			{
-				RENDER_LIST rend_list = m_pRenderQueue->GetRenderList();
-				for (auto it = rend_list.begin(); it != rend_list.end(); ++it)
+				pRenderable->Bind();
+				COpenGLIndexBufferObject *ibo = dynamic_cast<COpenGLIndexBufferObject *>(pRenderable->GetIndexBufferObject());
+				if (ibo)
 				{
-					(*it)->Bind();
-					COpenGLIndexBufferObject *ibo = dynamic_cast<COpenGLIndexBufferObject *>((*it)->GetIndexBufferObject());
-					if (ibo)
+					ibo->Bind();
+					GLDebug(glDrawElements(ibo->GetGPUBufferMode(), ibo->GetIndicesNum(), ibo->GetIndexType(), 0));
+				}
+				else
+				{
+					COpenGLVertexBufferObject *vbo = dynamic_cast<COpenGLVertexBufferObject *>(pRenderable->GetIndexBufferObject());
+					if (vbo)
 					{
-						ibo->Bind();
-						GLDebug(glDrawElements(ibo->GetGPUBufferMode(), ibo->GetIndicesNum(), ibo->GetIndexType(), 0));
-					}
-					else
-					{
-						COpenGLVertexBufferObject *vbo = dynamic_cast<COpenGLVertexBufferObject *>((*it)->GetIndexBufferObject());
-						if (vbo)
-						{
-							vbo->Bind();
-							GLDebug(glDrawArrays(vbo->GetGPUBufferMode(), vbo->GetGLGPUBufferFirst(), vbo->GetVertexNum()));
-						}
+						vbo->Bind();
+						GLDebug(glDrawArrays(vbo->GetGPUBufferMode(), vbo->GetGLGPUBufferFirst(), vbo->GetVertexNum()));
 					}
 				}
-			}
 		
 		}
 

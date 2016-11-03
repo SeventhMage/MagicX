@@ -22,6 +22,7 @@ namespace mx
 			virtual ~CRenderable();
 
 			virtual void SumbitToRenderQueue();
+			virtual void Render();
 			virtual void Bind();
 		private:
 			IRenderList *m_pRenderQueue;				//当前渲染队列

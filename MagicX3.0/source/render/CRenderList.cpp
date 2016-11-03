@@ -33,7 +33,18 @@ namespace mx
 			return m_renderableList;
 		}
 
+		void CRenderList::BeginRender()
+		{
+			m_renderableList.clear();
+		}
 
+		void CRenderList::Render()
+		{
+			for (auto it = m_renderableList.begin(); it != m_renderableList.end(); ++it)
+			{
+				(*it)->Render();
+			}
+		}
 
 	}
 }

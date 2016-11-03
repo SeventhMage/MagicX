@@ -37,6 +37,11 @@ namespace mx
 			}
 		}
 
+		void CRenderable::Render()
+		{
+
+		}
+
 
 	}
 }

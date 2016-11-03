@@ -19,7 +19,7 @@ namespace mx
 			virtual ~COpenGLRenderer();
 
 			virtual IRenderDriver *GetRenderDriver() { return m_pRenderDriver; }
-			virtual void Render();
+			virtual void Render(IRenderable *pRenderable);
 		private:
 			IRenderDriver *m_pRenderDriver;		//‰÷»æ«˝∂Ø
 			IRenderList *m_pRenderQueue;		//‰÷»æ∂”¡–
