@@ -2,7 +2,7 @@
 #include "device/CDeviceManager.h"
 #include "scene/CSceneManager.h"
 #include "resource/CResourceManager.h"
-#include "render/CRenderer.h"
+#include "render/opengl//COpenGLRenderer.h"
 
 
 namespace mx
@@ -12,7 +12,18 @@ namespace mx
 	{
 		m_pDeviceMgr = new CDeviceManager();
 
-		m_pRenderer = new CRenderer(renderDriver);
+		switch (renderDriver)
+		{
+		case render::RDT_OPENGL:
+			m_pRenderer = new COpenGLRenderer();
+			break;
+		case render::RDT_DIRECTX:
+			break;
+		case render::RDT_SOFTWARE:
+			break;
+		default:
+			break;
+		}		
 		
 		m_pDeviceMgr->CreateDevice(deviceType, m_pRenderer->GetRenderDriver(), x, y, width, height, bFullScreen);
 

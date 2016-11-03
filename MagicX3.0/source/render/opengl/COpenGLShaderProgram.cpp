@@ -334,8 +334,10 @@ namespace mx
 			return true;
 		}
 
-		void COpenGLShaderProgram::BindUniform()
+		void COpenGLShaderProgram::Bind()
 		{
+			GLDebug(glUseProgram(m_hProgram));
+
 			CShaderProgram::UniformArray::iterator it = m_uniforms.begin();
 			for (; it != m_uniforms.end(); ++it)
 			{

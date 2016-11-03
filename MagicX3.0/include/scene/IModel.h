@@ -5,13 +5,14 @@
 
 #include "resource/IMesh.h"
 #include "resource/ITextureResource.h"
+#include "scene/ISceneNode.h"
 
 namespace mx
 {
 	namespace scene
 	{
 		using namespace resource;
-		class IModel
+		class IModel : public ISceneNode
 		{
 		public:
 			virtual ~IModel();

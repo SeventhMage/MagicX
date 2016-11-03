@@ -30,8 +30,7 @@ namespace mx
 
 		void CRenderer::Render()
 		{
-			if (m_pRenderDriver)
-				m_pRenderDriver->Render();
+
 		}
 
 	}

@@ -28,7 +28,6 @@ namespace mx
 #ifdef WIN32
 			virtual void InitDriverWin32(HDC hDc) = 0;
 #endif
-			virtual void Render() = 0;
 			virtual void OnSize(int x, int y, int width, int height) = 0;
 		};
 	}

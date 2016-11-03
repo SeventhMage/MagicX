@@ -1,4 +1,4 @@
-#include "glew/GL/glew.h"
+#include "GL/glew.h"
 #include "COpenGLShader.h"
 #include "OpenGLType.h"
 #include "GLDebug.h"

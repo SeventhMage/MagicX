@@ -15,11 +15,16 @@ namespace mx
 		{
 		public:
 			virtual ~IRenderable(){}
-
-			//生成缓冲区对象
-			virtual IBufferObject *CreateBufferObject(EBufferObjectType type);
+		
+			//提交数据到渲染队列
+			virtual void SumbitToRenderQueue() = 0;
 			
-			virtual 
+			//绑定当前数据, 使渲染程序知道正在处理的是谁
+			virtual void Bind() = 0;
+
+			virtual IBufferObject *GetVertexBufferObject() = 0;
+			virtual IBufferObject *GetIndexBufferObject() = 0;
+
 		};
 	}
 }

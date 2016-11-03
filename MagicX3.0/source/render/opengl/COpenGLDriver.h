@@ -23,10 +23,7 @@ namespace mx
 #ifdef WIN32
 			void InitDriverWin32(HDC hDc);
 #endif		
-			virtual void Render();
 			virtual void OnSize(int x, int y, int width, int height);
-		private:
-			std::vector<IRenderable *> m_vecRenderable;
 		};
 	}
 }

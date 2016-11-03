@@ -18,7 +18,12 @@ namespace mx
 		class IBufferObject
 		{
 		public:
-			virtual ~IBufferObject();
+			virtual ~IBufferObject(){}
+
+			//绑定到当前缓冲区对象
+			virtual void Bind() = 0;
+			virtual void BufferData(void *data, int size) = 0;
+			virtual void BufferSubData(void *data, int size, int offset) = 0;
 		};
 	}
 }

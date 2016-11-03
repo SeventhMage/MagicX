@@ -20,7 +20,7 @@ namespace mx
 			virtual bool Link();
 			virtual uint GetHandle() { return m_hProgram; }
 
-			virtual void BindUniform();
+			virtual void Bind();
 			virtual void BindAttributeLocation(int argc, ...);
 		private:
 			void GetShaderUniform();

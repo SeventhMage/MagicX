@@ -7,6 +7,7 @@
 
 #include "IRenderDriver.h"
 #include "IBufferData.h"
+#include "IRenderable.h"
 
 namespace mx
 {
@@ -19,9 +20,6 @@ namespace mx
 
 			//获取渲染器驱动程序
 			virtual IRenderDriver *GetRenderDriver() = 0;
-
-			//将数据提交到渲染器
-			virtual void SumbitData(IBufferData &bufferData);
 
 			//渲染
 			virtual void Render() = 0;
