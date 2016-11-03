@@ -22,7 +22,11 @@ namespace mx
 			
 			//添加渲染实体到渲染列表
 			virtual void AddRenderable(IRenderable *pRenderable) = 0;
-
+			
+			//清空渲染列表等初始工作			
+			virtual void BeginRender() = 0;
+			//执行渲染
+			virtual void Render() = 0;
 			virtual int GetRenderableCount() = 0;
 			virtual RENDER_LIST &GetRenderList() = 0;
 		};

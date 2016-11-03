@@ -23,8 +23,8 @@ namespace mx
 			//通过文件载入场景
 			virtual IScene *LoadScene(const char *filename) = 0;
 
-			//绘制场景，将数据提交至渲染器
-			virtual void Draw(render::IRenderer *pRenderer) = 0;
+			//绘制场景
+			virtual void Draw() = 0;
 		};
 	}
 }

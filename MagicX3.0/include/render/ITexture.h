@@ -31,7 +31,7 @@ namespace mx
 			virtual ~ITexture(){}
 
 			//绑定当前纹理到纹理单元
-			virtual void Bind(uint unit = 0) = 0;
+			virtual void Bind(uint slot = 0) = 0;
 
 			//创建2D纹理
 			virtual void Create2D(int internalformat, int width, int height, int format, int type, void *data) = 0;

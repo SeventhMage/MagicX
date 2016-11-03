@@ -34,8 +34,6 @@ namespace mx
 			
 			//节点更新
 			virtual void Update(int delta) = 0;
-			//节点数据提交
-			virtual void Render() = 0;
 		};
 	}
 }

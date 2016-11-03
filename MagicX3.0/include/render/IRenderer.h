@@ -22,7 +22,7 @@ namespace mx
 			virtual IRenderDriver *GetRenderDriver() = 0;
 
 			//‰÷»æ
-			virtual void Render() = 0;
+			virtual void Render(IRenderable *pRenderable) = 0;
 		};
 	}
 }

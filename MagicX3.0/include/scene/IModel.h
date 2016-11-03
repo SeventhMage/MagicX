@@ -3,22 +3,19 @@
 /* 网格数据+纹理资源组成模型数据
 /************************************************************************/
 
-#include "resource/IMesh.h"
-#include "resource/ITextureResource.h"
 #include "scene/ISceneNode.h"
 
 namespace mx
 {
 	namespace scene
 	{
-		using namespace resource;
-		class IModel : public ISceneNode
+		class IModel
 		{
 		public:
 			virtual ~IModel();
 
-			virtual IMesh *GetMesh() = 0;
-			virtual ITextureResource *GetTextureResource() = 0;
+			virtual bool LoadMesh(const char *filename) = 0;
+			virtual bool LoadMaterial(const char *filename) = 0;
 		};
 	}
 }

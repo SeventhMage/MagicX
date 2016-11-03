@@ -18,7 +18,8 @@ namespace mx
 		
 			//提交数据到渲染队列
 			virtual void SumbitToRenderQueue() = 0;
-			
+			//执行渲染
+			virtual void Render() = 0;
 			//绑定当前数据, 使渲染程序知道正在处理的是谁
 			virtual void Bind() = 0;
 
