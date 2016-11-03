@@ -108,6 +108,24 @@
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLShader.cpp">
       <Filter>source\render\opengl</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\CRenderable.cpp">
+      <Filter>source\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLRenderer.cpp">
+      <Filter>source\render\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\CRenderList.cpp">
+      <Filter>source\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLVertexBufferObject.cpp">
+      <Filter>source\render\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLIndexBufferObject.cpp">
+      <Filter>source\render\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLTexture.cpp">
+      <Filter>source\render\opengl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\include\mx.h">
@@ -261,6 +279,36 @@
       <Filter>source\render\opengl</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLShader.h">
+      <Filter>source\render\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\opengl\GLDebug.h">
+      <Filter>source\render\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\opengl\OpenGLType.h">
+      <Filter>source\render\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\CRenderable.h">
+      <Filter>source\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\ITexture.h">
+      <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLRenderer.h">
+      <Filter>source\render\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IRenderList.h">
+      <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\CRenderList.h">
+      <Filter>source\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLVertexBufferObject.h">
+      <Filter>source\render\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLIndexBufferObject.h">
+      <Filter>source\render\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLTexture.h">
       <Filter>source\render\opengl</Filter>
     </ClInclude>
   </ItemGroup>
