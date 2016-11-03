@@ -88,7 +88,6 @@
     <ClCompile Include="..\..\..\..\source\main.cpp" />
     <ClCompile Include="..\..\..\..\source\mx.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CRenderable.cpp" />
-    <ClCompile Include="..\..\..\..\source\render\CRenderer.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CRenderList.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CShaderProgram.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLDriver.cpp" />
@@ -100,6 +99,7 @@
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLVertexBufferObject.cpp" />
     <ClCompile Include="..\..\..\..\source\resource\CResourceManager.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CModel.cpp" />
+    <ClCompile Include="..\..\..\..\source\scene\CModelManager.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CScene.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSceneManager.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSceneNode.cpp" />
@@ -127,6 +127,7 @@
     <ClInclude Include="..\..\..\..\include\render\IBuffer.h" />
     <ClInclude Include="..\..\..\..\include\render\IBufferData.h" />
     <ClInclude Include="..\..\..\..\include\render\IBufferObject.h" />
+    <ClInclude Include="..\..\..\..\include\render\IMaterial.h" />
     <ClInclude Include="..\..\..\..\include\render\IRenderable.h" />
     <ClInclude Include="..\..\..\..\include\render\IRenderDriver.h" />
     <ClInclude Include="..\..\..\..\include\render\IRenderer.h" />
@@ -140,6 +141,7 @@
     <ClInclude Include="..\..\..\..\include\resource\IResource.h" />
     <ClInclude Include="..\..\..\..\include\resource\IResourceManager.h" />
     <ClInclude Include="..\..\..\..\include\scene\IModel.h" />
+    <ClInclude Include="..\..\..\..\include\scene\IModelManager.h" />
     <ClInclude Include="..\..\..\..\include\scene\IScene.h" />
     <ClInclude Include="..\..\..\..\include\scene\ISceneManager.h" />
     <ClInclude Include="..\..\..\..\include\scene\ISceneNode.h" />
@@ -149,7 +151,6 @@
     <ClInclude Include="..\..\..\..\source\device\CKeyEvent.h" />
     <ClInclude Include="..\..\..\..\source\device\win32\CDeviceWin32.h" />
     <ClInclude Include="..\..\..\..\source\render\CRenderable.h" />
-    <ClInclude Include="..\..\..\..\source\render\CRenderer.h" />
     <ClInclude Include="..\..\..\..\source\render\CRenderList.h" />
     <ClInclude Include="..\..\..\..\source\render\CShaderProgram.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLDriver.h" />
@@ -163,6 +164,7 @@
     <ClInclude Include="..\..\..\..\source\render\opengl\OpenGLType.h" />
     <ClInclude Include="..\..\..\..\source\resource\CResourceManager.h" />
     <ClInclude Include="..\..\..\..\source\scene\CModel.h" />
+    <ClInclude Include="..\..\..\..\source\scene\CModelManager.h" />
     <ClInclude Include="..\..\..\..\source\scene\CScene.h" />
     <ClInclude Include="..\..\..\..\source\scene\CSceneManager.h" />
     <ClInclude Include="..\..\..\..\source\scene\CSceneNode.h" />

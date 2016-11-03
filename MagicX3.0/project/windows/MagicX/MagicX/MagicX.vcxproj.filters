@@ -66,9 +66,6 @@
     <ClCompile Include="..\..\..\..\source\CMagicX.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\source\render\CRenderer.cpp">
-      <Filter>source\render</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLDriver.cpp">
       <Filter>source\render\opengl</Filter>
     </ClCompile>
@@ -125,6 +122,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLTexture.cpp">
       <Filter>source\render\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene\CModelManager.cpp">
+      <Filter>source\scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -214,9 +214,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLDriver.h">
       <Filter>source\render\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\render\CRenderer.h">
-      <Filter>source\render</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\device\CDeviceManager.h">
       <Filter>source\device</Filter>
@@ -310,6 +307,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLTexture.h">
       <Filter>source\render\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IMaterial.h">
+      <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\IModelManager.h">
+      <Filter>include\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\scene\CModelManager.h">
+      <Filter>source\scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
