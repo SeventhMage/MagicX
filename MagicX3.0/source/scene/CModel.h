@@ -6,22 +6,28 @@
 #define _MX_SCENE_C_MODEL_H_
 
 #include "scene/IModel.h"
+#include "resource/IMesh.h"
+#include "render/IMaterial.h"
 
 namespace mx
 {
 	namespace scene
 	{
+		using namespace resource;
+		using namespace render;
+
 		class CModel : public IModel
 		{
 		public:
 			CModel();
 			virtual ~CModel();
+			
+			virtual bool LoadMesh(const char *filename);
+			virtual bool LoadMaterial(const char *filename);
 
-			virtual IMesh *GetMesh() { return m_pMesh; }
-			virtual ITextureResource *GetTextureResource() { return m_pTextureRes; }
 		private:
 			IMesh *m_pMesh;
-			ITextureResource *m_pTextureRes;
+			IMaterial *m_pMaterial;
 
 		};
 	}

@@ -38,11 +38,6 @@ namespace mx
 		{
 			if (pRenderer && m_pCurrentScene)
 			{
-				ISceneNode *pRootNode = m_pCurrentScene->GetRootNode();
-				if (pRootNode)
-				{
-					pRootNode->Submit();
-				}
 				pRenderer->Render();
 			}
 		}
