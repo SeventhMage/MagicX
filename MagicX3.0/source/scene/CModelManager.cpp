@@ -20,8 +20,7 @@ namespace mx
 		bool CModelManager::CreateModel(const char *filename)
 		{
 			IModel *pModel = new CModel();
-			pModel->LoadMesh("");
-			pModel->LoadMaterial("");
+			pModel->Load(filename);
 			m_listModel.push_back(pModel);
 		}
 

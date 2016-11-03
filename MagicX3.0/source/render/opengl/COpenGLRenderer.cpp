@@ -1,10 +1,8 @@
 #include "COpenGLRenderer.h"
 #include "COpenGLDriver.h"
 #include "GLDebug.h"
-#include "../CRenderList.h"
-#include "../../MagicX2.0/component/render/opengl/COpenGLIndexBufferObject.h"
-#include "../../MagicX2.0/component/render/opengl/OpenGLType.h"
 #include "COpenGLVertexBufferObject.h"
+#include "COpenGLIndexBufferObject.h"
 
 
 namespace mx
@@ -14,15 +12,14 @@ namespace mx
 
 
 		COpenGLRenderer::COpenGLRenderer()
+			:CRenderer(new COpenGLDriver())
 		{
-			m_pRenderDriver = new COpenGLDriver();
-			m_pRenderQueue = new CRenderList();
+			
 		}
 
 		COpenGLRenderer::~COpenGLRenderer()
 		{
-			delete m_pRenderDriver;
-			delete m_pRenderQueue;
+			
 		}
 
 		void COpenGLRenderer::Render(IRenderable *pRenderable)
@@ -45,8 +42,10 @@ namespace mx
 						GLDebug(glDrawArrays(vbo->GetGPUBufferMode(), vbo->GetGLGPUBufferFirst(), vbo->GetVertexNum()));
 					}
 				}
-		
-		}
 
+			}
+
+		}
 	}
+
 }

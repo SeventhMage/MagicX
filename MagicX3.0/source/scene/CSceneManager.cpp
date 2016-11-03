@@ -21,11 +21,7 @@ namespace mx
 		{
 			if (m_pCurrentScene)
 			{
-				ISceneNode *pRootNode = m_pCurrentScene->GetRootNode();
-				if (pRootNode)
-				{
-					pRootNode->Update(delta);
-				}
+				m_pCurrentScene->Update(delta);
 			}
 		}
 
@@ -34,12 +30,10 @@ namespace mx
 			return nullptr;
 		}
 
-		void CSceneManager::Draw(render::IRenderer *pRenderer)
+		void CSceneManager::Draw()
 		{
-			if (pRenderer && m_pCurrentScene)
-			{
-				pRenderer->Render();
-			}
+			if (m_pCurrentScene)
+				m_pCurrentScene->Draw();
 		}
 
 	}

@@ -16,16 +16,17 @@ namespace mx
 		public:
 			virtual ~IRenderable(){}
 		
-			//提交数据到渲染队列
-			virtual void SumbitToRenderQueue() = 0;
-			//执行渲染
-			virtual void Render() = 0;
-			//绑定当前数据, 使渲染程序知道正在处理的是谁
-			virtual void Bind() = 0;
-
 			virtual IBufferObject *GetVertexBufferObject() = 0;
 			virtual IBufferObject *GetIndexBufferObject() = 0;
 
+			//活跃的才能被渲染
+			virtual void SetActive(bool bActive) = 0;
+			virtual bool IsActive() = 0;
+
+			//提交数据到渲染队列
+			virtual void SumbitToRenderQueue() = 0;
+			//绑定当前数据, 使渲染程序知道正在处理的是谁
+			virtual void Bind() = 0;
 		};
 	}
 }

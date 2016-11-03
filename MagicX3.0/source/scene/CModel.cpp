@@ -1,5 +1,6 @@
 #include "CModel.h"
 
+
 namespace mx
 {
 	namespace scene
@@ -7,8 +8,10 @@ namespace mx
 
 
 		CModel::CModel()
+			:m_pMesh(nullptr)
+			, m_pMaterial(nullptr)			
 		{
-
+			
 		}
 
 		CModel::~CModel()
@@ -18,7 +21,7 @@ namespace mx
 
 		bool CModel::Load(const char *filename)
 		{
-			return false;
+
 		}
 
 	}

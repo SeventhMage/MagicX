@@ -22,8 +22,11 @@ namespace mx
 			virtual ~CRenderList();
 
 			virtual void AddRenderable(IRenderable *pRenderable);
-			virtual void BeginRender();
-			virtual void Render();
+			virtual void RemoveRenderable(IRenderable *pRenderable);
+		
+			virtual void Render(IRenderer *pRenderer);
+			virtual void EndRender();
+
 			virtual int GetRenderableCount();
 			virtual RENDER_LIST &GetRenderList();
 

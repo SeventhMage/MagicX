@@ -50,6 +50,7 @@ namespace mx
 			//是否有索引，用于渲染器判断是否创建索引缓存
 			virtual bool HaveIndex() = 0;
 			virtual PTriangle GetMesh() = 0;
+			virtual int GetStride() = 0;
 		};
 	}
 }

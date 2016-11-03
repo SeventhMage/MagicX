@@ -19,6 +19,8 @@ namespace mx
 
 			//每个场景有唯一根结点，场景图的根
 			virtual ISceneNode *GetRootNode() = 0;
+			virtual void Update(int delta) = 0;
+			virtual void Draw() = 0;
 		};
 	}
 }

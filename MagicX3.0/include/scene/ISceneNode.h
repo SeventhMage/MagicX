@@ -22,18 +22,18 @@ namespace mx
 			virtual ISceneNode *GetChildNodeAtIdx(size_t idx) = 0;
 
 			//结点位置操作
-			virtual void SetPosition();
-			virtual void GetPosition();
+			virtual void SetPosition() = 0;
+			virtual void GetPosition() = 0;
 			
 			//可见性检测后设置状态，只有活跃的节点才会被渲染
-			virtual void SetActivite();
-			virtual bool IsActivite();
+			virtual void SetActivite() = 0;
+			virtual bool IsActivite() = 0;
 
 			virtual void SetVisible() = 0;
 			virtual bool IsVisible() = 0;
-			
-			//节点更新
+
 			virtual void Update(int delta) = 0;
+
 		};
 	}
 }

@@ -14,8 +14,7 @@ namespace mx
 		public:
 			virtual ~IModel();
 
-			virtual bool LoadMesh(const char *filename) = 0;
-			virtual bool LoadMaterial(const char *filename) = 0;
+			virtual bool Load(const char *filename) = 0;
 		};
 	}
 }

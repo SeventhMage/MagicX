@@ -7,15 +7,16 @@ namespace mx
 	IMagicX * CreateMagicX(render::ERenderDriverType renderDriver, int x, int y, int width, int height, bool bFullScreen /*= false*/)
 	{
 #ifdef WIN32
-		return new CMagicX(DT_WIN32, renderDriver, x, y, width, height, bFullScreen);
+		MagicX = new CMagicX(DT_WIN32, renderDriver, x, y, width, height, bFullScreen);
+		return MagicX;
 #endif
 	}
 
-	void DestroyMagicX(IMagicX *pMagicX)
+	void DestroyMagicX()
 	{
-		if (pMagicX)
+		if (MagicX)
 		{
-			delete pMagicX;
+			delete MagicX;
 		}
 	}
 

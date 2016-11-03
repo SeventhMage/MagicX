@@ -5,7 +5,9 @@ namespace mx
 	namespace render
 	{
 
-		CRenderable::CRenderable()
+		CRenderable::CRenderable(IRenderList *pRenderList)
+			:m_pRenderList(pRenderList)
+			, m_bActive(true)
 		{
 
 		}
@@ -17,8 +19,8 @@ namespace mx
 
 		void CRenderable::SumbitToRenderQueue()
 		{
-			if (m_pRenderQueue)
-				m_pRenderQueue->AddRenderable(this);
+			if (m_pRenderList)
+				m_pRenderList->AddRenderable(this);
 		}
 
 		void CRenderable::Bind()
@@ -35,11 +37,6 @@ namespace mx
 				if (m_pTexture[i])
 					m_pTexture[i]->Bind(i);
 			}
-		}
-
-		void CRenderable::Render()
-		{
-
 		}
 
 

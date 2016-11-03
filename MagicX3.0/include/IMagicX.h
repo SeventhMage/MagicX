@@ -32,6 +32,9 @@
 #include "resource/IResourceManager.h"
 
 //scene
+#include "scene/CUnit.h"
+#include "scene/IEntity.h"
+#include "scene/IModel.h"
 #include "scene/ISceneManager.h"
 #include "scene/IScene.h"
 #include "scene/ISceneNode.h"

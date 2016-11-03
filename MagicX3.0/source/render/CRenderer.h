@@ -13,13 +13,16 @@ namespace mx
 		class CRenderer : public IRenderer
 		{
 		public:
-			CRenderer(ERenderDriverType type);
+			CRenderer(IRenderDriver *pRenderDriver);
 			virtual ~CRenderer();
 			
 			virtual IRenderDriver *GetRenderDriver() { return m_pRenderDriver; }
+			virtual IRenderable *CreateRenderable();
+			virtual void DestroyRenderable(IRenderable *pRenderable);
 			virtual void Render();
-		private:
-			IRenderDriver *m_pRenderDriver;
+		protected:
+			IRenderDriver *m_pRenderDriver;			//‰÷»æ«˝∂Ø
+			IRenderList *m_pRenderList;		//‰÷»æ¡–±Ì
 		};
 	}
 }
