@@ -88,14 +88,17 @@
     <ClCompile Include="..\..\..\..\source\main.cpp" />
     <ClCompile Include="..\..\..\..\source\mx.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CRenderable.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\CRenderer.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CRenderList.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CShaderProgram.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\CVertexArrayObject.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLDriver.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLIndexBufferObject.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLRenderer.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLShader.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLShaderProgram.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLTexture.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLVertexArrayObject.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLVertexBufferObject.cpp" />
     <ClCompile Include="..\..\..\..\source\resource\CResourceManager.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CModel.cpp" />
@@ -103,6 +106,7 @@
     <ClCompile Include="..\..\..\..\source\scene\CScene.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSceneManager.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSceneNode.cpp" />
+    <ClCompile Include="..\..\..\..\source\scene\CUnit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\include\base\CSingleton.h" />
@@ -135,11 +139,15 @@
     <ClInclude Include="..\..\..\..\include\render\IShader.h" />
     <ClInclude Include="..\..\..\..\include\render\IShaderProgram.h" />
     <ClInclude Include="..\..\..\..\include\render\ITexture.h" />
+    <ClInclude Include="..\..\..\..\include\render\IVertexArrayObject.h" />
     <ClInclude Include="..\..\..\..\include\render\SVertexAttribute.h" />
     <ClInclude Include="..\..\..\..\include\resource\ITextureResource.h" />
     <ClInclude Include="..\..\..\..\include\resource\IMesh.h" />
     <ClInclude Include="..\..\..\..\include\resource\IResource.h" />
     <ClInclude Include="..\..\..\..\include\resource\IResourceManager.h" />
+    <ClInclude Include="..\..\..\..\include\scene\CSceneNode.h" />
+    <ClInclude Include="..\..\..\..\include\scene\CUnit.h" />
+    <ClInclude Include="..\..\..\..\include\scene\IEntity.h" />
     <ClInclude Include="..\..\..\..\include\scene\IModel.h" />
     <ClInclude Include="..\..\..\..\include\scene\IModelManager.h" />
     <ClInclude Include="..\..\..\..\include\scene\IScene.h" />
@@ -151,14 +159,17 @@
     <ClInclude Include="..\..\..\..\source\device\CKeyEvent.h" />
     <ClInclude Include="..\..\..\..\source\device\win32\CDeviceWin32.h" />
     <ClInclude Include="..\..\..\..\source\render\CRenderable.h" />
+    <ClInclude Include="..\..\..\..\source\render\CRenderer.h" />
     <ClInclude Include="..\..\..\..\source\render\CRenderList.h" />
     <ClInclude Include="..\..\..\..\source\render\CShaderProgram.h" />
+    <ClInclude Include="..\..\..\..\source\render\CVertexArrayObject.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLDriver.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLIndexBufferObject.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLRenderer.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLShader.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLShaderProgram.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLTexture.h" />
+    <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLVertexArrayObject.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLVertexBufferObject.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\GLDebug.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\OpenGLType.h" />

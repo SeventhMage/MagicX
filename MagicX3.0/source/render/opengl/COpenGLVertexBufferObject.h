@@ -21,6 +21,7 @@ namespace mx
 			virtual ~COpenGLVertexBufferObject();
 			
 			virtual void Bind();
+			virtual void UnBind();
 
 			virtual void BufferData(void *data, int size);
 			virtual void BufferSubData(void *data, int size, int offset);

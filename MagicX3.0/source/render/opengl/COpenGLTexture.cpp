@@ -68,5 +68,10 @@ namespace mx
 			GLDebug(glBindTexture(m_target, m_hTexture));
 		}
 
+		void COpenGLTexture::UnBind()
+		{			
+			GLDebug(glBindTexture(m_target, 0));
+		}
+
 	}
 }

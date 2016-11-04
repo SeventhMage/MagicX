@@ -1,4 +1,5 @@
 #include "CRenderable.h"
+#include "mx.h"
 
 namespace mx
 {
@@ -8,13 +9,15 @@ namespace mx
 		CRenderable::CRenderable(IRenderList *pRenderList)
 			:m_pRenderList(pRenderList)
 			, m_bActive(true)
+			, m_pVBO(nullptr)
 		{
-
+			memset(m_pTexture, 0, sizeof(ITexture *)* TU_TEXTURE_NUM);			
 		}
 
 		CRenderable::~CRenderable()
 		{
-
+			RENDERER->DestroyBufferObject(m_pVBO);
+			RENDERER->DestroyBufferObject(m_pIBO);			
 		}
 
 		void CRenderable::SumbitToRenderQueue()
@@ -25,8 +28,6 @@ namespace mx
 
 		void CRenderable::Bind()
 		{
-			if (m_pShaderProgram)
-				m_pShaderProgram->Bind();
 			if (m_pVBO)
 				m_pVBO->Bind();
 			if (m_pIBO)
@@ -37,6 +38,29 @@ namespace mx
 				if (m_pTexture[i])
 					m_pTexture[i]->Bind(i);
 			}
+		}
+
+		void CRenderable::UnBind()
+		{
+			if (m_pVBO)
+				m_pVBO->UnBind();
+			if (m_pIBO)
+				m_pIBO->UnBind();
+			for (int i = 0; i < TU_TEXTURE_NUM; ++i)
+			{
+				if (m_pTexture[i])
+					m_pTexture[i]->UnBind();
+			}
+		}
+
+		IBufferObject * CRenderable::CreateVertexBufferObject(void *vertexes, int size, int first, int count, GPUBufferMode mode, GPUBufferUsage usage)
+		{
+			m_pVBO = RENDERER->CreateVertexBufferObject(vertexes, size, first, count, mode, usage);
+		}
+
+		IBufferObject * CRenderable::CreateIndexBufferObject(void *indices, uint idsCount, RendererVariableType idsType, GPUBufferMode mode, GPUBufferUsage usage)
+		{
+			m_pIBO = RENDERER->CreateIndexBufferObject(indices, idsCount, idsType, mode, usage);
 		}
 
 

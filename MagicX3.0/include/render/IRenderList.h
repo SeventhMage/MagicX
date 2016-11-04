@@ -7,13 +7,10 @@
 
 #include "IRenderable.h"
 
-#include <list>
-
 namespace mx
 {
 	namespace render
 	{
-		typedef std::list<IRenderable *> RENDER_LIST;
 
 		class IRenderList
 		{
@@ -26,12 +23,8 @@ namespace mx
 			virtual void RemoveRenderable(IRenderable *pRenderable) = 0;
 			
 			//执行渲染
-			virtual void Render(IRenderer *pRenderer) = 0;
-			//渲染结束后清空渲染列表			
-			virtual void EndRender() = 0;
+			virtual void Render() = 0;
 
-			virtual int GetRenderableCount() = 0;
-			virtual RENDER_LIST &GetRenderList() = 0;
 		};
 	}
 }

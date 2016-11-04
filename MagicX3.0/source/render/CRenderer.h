@@ -6,6 +6,7 @@
 
 #include "render/IRenderer.h"
 
+#include <vector>
 namespace mx
 {
 	namespace render
@@ -16,13 +17,16 @@ namespace mx
 			CRenderer(IRenderDriver *pRenderDriver);
 			virtual ~CRenderer();
 			
-			virtual IRenderDriver *GetRenderDriver() { return m_pRenderDriver; }
+			virtual IRenderDriver *GetRenderDriver() { return m_pRenderDriver; }			
 			virtual IRenderable *CreateRenderable();
 			virtual void DestroyRenderable(IRenderable *pRenderable);
+			virtual void AddVertexArrayObject(IVertexArrayObject *pObject);
+			virtual void RemoveVertexArrayObject(IVertexArrayObject *pObject);
 			virtual void Render();
 		protected:
-			IRenderDriver *m_pRenderDriver;			//渲染驱动
-			IRenderList *m_pRenderList;		//渲染列表
+			IRenderDriver *m_pRenderDriver;			//渲染驱动			
+
+			std::vector<IVertexArrayObject *> m_vecVertexArray;			//顶点数组
 		};
 	}
 }

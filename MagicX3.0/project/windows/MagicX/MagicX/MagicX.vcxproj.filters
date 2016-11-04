@@ -126,6 +126,18 @@
     <ClCompile Include="..\..\..\..\source\scene\CModelManager.cpp">
       <Filter>source\scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene\CUnit.cpp">
+      <Filter>source\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\CVertexArrayObject.cpp">
+      <Filter>source\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLVertexArrayObject.cpp">
+      <Filter>source\render\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\CRenderer.cpp">
+      <Filter>source\render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\include\mx.h">
@@ -316,6 +328,27 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\scene\CModelManager.h">
       <Filter>source\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\CSceneNode.h">
+      <Filter>include\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\CUnit.h">
+      <Filter>include\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\IEntity.h">
+      <Filter>include\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IVertexArrayObject.h">
+      <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\CVertexArrayObject.h">
+      <Filter>source\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLVertexArrayObject.h">
+      <Filter>source\render\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\CRenderer.h">
+      <Filter>source\render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

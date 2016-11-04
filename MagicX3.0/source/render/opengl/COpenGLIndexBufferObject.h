@@ -16,11 +16,11 @@ namespace mx
 		class COpenGLIndexBufferObject : public IBufferObject
 		{
 		public:
-			COpenGLIndexBufferObject(void *indices, GLsizei idsCount, GLenum idsType, GLsizei vertCount, GLenum mode, GLenum usage);
+			COpenGLIndexBufferObject(void *indices, GLsizei idsCount, GLenum idsType, GLenum mode, GLenum usage);
 			virtual ~COpenGLIndexBufferObject();
 
 			virtual void Bind();
-
+			virtual void UnBind();
 
 			virtual void BufferData(void *indices, int idsSize);
 			virtual void BufferSubData(void *data, int size, int offset);
@@ -30,7 +30,6 @@ namespace mx
 			//GPUBufferType GetBufferType(){ return GBT_INDEX; };
 			GLenum GetGPUBufferMode() { return m_gpuBufferMode; }
 			GLenum GetGPUBufferUsage() { return m_gpuBufferUsage; }
-			int GetVerticesNum() { return m_uVerticesNum; }
 			int GetIndicesNum() { return m_uIndicesNum; }						
 			GLenum GetIndexType() { return m_idsType; }
 		private:
@@ -38,7 +37,6 @@ namespace mx
 			GLenum m_gpuBufferMode;
 			GLenum m_gpuBufferUsage;
 			GLenum m_idsType;
-			GLsizei m_uVerticesNum;
 			GLsizei m_uIndicesNum;
 		};
 	}

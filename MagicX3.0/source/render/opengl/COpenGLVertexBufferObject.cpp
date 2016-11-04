@@ -44,5 +44,10 @@ namespace mx
 			GLDebug(glBindBuffer(GL_ARRAY_BUFFER, m_hVBO));
 		}
 
+		void COpenGLVertexBufferObject::UnBind()
+		{
+			GLDebug(glBindBuffer(GL_ARRAY_BUFFER, 0));
+		}
+
 	}
 }

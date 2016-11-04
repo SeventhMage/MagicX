@@ -8,10 +8,9 @@ namespace mx
 	{
 
 
-		COpenGLIndexBufferObject::COpenGLIndexBufferObject(void *indices, GLsizei idsCount, GLenum idsType, GLsizei vertCount, GLenum mode, GLenum usage)
+		COpenGLIndexBufferObject::COpenGLIndexBufferObject(void *indices, GLsizei idsCount, GLenum idsType, GLenum mode, GLenum usage)
 			:m_gpuBufferMode(mode)
 			, m_gpuBufferUsage(usage)
-			, m_uVerticesNum(vertCount)
 			, m_uIndicesNum(idsCount)
 			, m_idsType(idsType)
 		{
@@ -43,6 +42,11 @@ namespace mx
 		void COpenGLIndexBufferObject::Bind()
 		{
 			GLDebug(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO));
+		}
+
+		void COpenGLIndexBufferObject::UnBind()
+		{
+			GLDebug(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 		}
 
 	}

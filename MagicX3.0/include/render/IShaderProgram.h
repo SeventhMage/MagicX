@@ -13,12 +13,13 @@ namespace mx
 		public:
 			IShaderProgram(){};
 			virtual ~IShaderProgram(){};
-			/*			virtual void CreateStandShader(E_STAND_SHADER standShader) = 0;
-						virtual bool Attach(const char *filename, ShaderType shaderType) = 0;
-						virtual bool Attach(IShader *shader) = 0;
-						virtual bool AttachSource(const char *shaderSrc, ShaderType shaderType) = 0;
-						virtual void Detach(IShader *shader) = 0;
-						virtual bool Link() = 0;	*/
+			virtual void CreateStandShader(E_STAND_SHADER standShader) = 0;
+			virtual bool Attach(const char *filename, ShaderType shaderType) = 0;
+			virtual bool Attach(IShader *shader) = 0;
+			virtual bool AttachSource(const char *shaderSrc, ShaderType shaderType) = 0;
+			virtual void Detach(IShader *shader) = 0;
+			virtual bool Link() = 0;
+			virtual void Bind() = 0;
 			virtual void SetUniform(const char *name, void *value) = 0;
 			virtual void SetUniform(int location, void *value) = 0;
 			//virtual void BindUniform() = 0;
