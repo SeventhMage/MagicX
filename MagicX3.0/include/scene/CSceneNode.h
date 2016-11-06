@@ -7,6 +7,8 @@
 
 #include "scene/ISceneNode.h"
 
+#include <list>
+
 namespace mx
 {
 	namespace scene
@@ -17,25 +19,8 @@ namespace mx
 			CSceneNode();
 			virtual ~CSceneNode();
 
-			virtual void AddChildNode(ISceneNode *pChildNode);
-			virtual void RemoveChildNode(ISceneNode *pChildNode);
-			virtual void AddToParentNode(ISceneNode *pParentNode);
-
-			virtual size_t GetChildCount();
-			virtual ISceneNode *GetChildNodeAtIdx(size_t idx);
-
-			//结点位置操作
-			virtual void SetPosition();
-			virtual void GetPosition();
-
-			//可见性检测后设置状态，只有活跃的节点才会被渲染
-			virtual void SetActivite();
-			virtual bool IsActivite();
-
-			virtual void SetVisible();
-			virtual bool IsVisible();
-
-			virtual void Update(int delta);
+			virtual void UpdateImp(int delta);
+			virtual void RenderImp();
 		};
 	}
 }

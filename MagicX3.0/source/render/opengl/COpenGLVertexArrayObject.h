@@ -18,12 +18,17 @@ namespace mx
 			COpenGLVertexArrayObject();
 			virtual ~COpenGLVertexArrayObject();
 			
+			virtual IShaderProgram *GetShaderProgram() { return m_pShaderProgram; }
+
+			virtual void BeginRender();
+			virtual void EndRender();
 			virtual void Bind();			
 			virtual void UnBind();
 			virtual void EnableVertexAttrib(VertexAttributeLocation vai, int size,
 				RendererVariableType vertType, int stride, int offset);
 		private:
 			GLuint m_hVAO;
+			IShaderProgram *m_pShaderProgram;			//shader³ÌÐò
 		};
 	}
 }

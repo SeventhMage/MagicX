@@ -22,6 +22,7 @@ namespace mx
 		
 			virtual void AddRenderable(IRenderable *pRenderable);
 			virtual void RemoveRenderable(IRenderable *pRenderable);
+			virtual void Clear();
 			virtual void Render();
 
 		private:

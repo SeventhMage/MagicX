@@ -31,7 +31,8 @@ namespace mx
 			virtual void SetActive(bool bActive) { m_bActive = bActive; }
 			virtual bool IsActive() { return m_bActive; }
 
-			virtual void SumbitToRenderQueue();
+			virtual void SumbitToRenderList();
+			virtual void RemoveFromRenderList();
 			virtual void Bind();
 			virtual void UnBind();
 		private:

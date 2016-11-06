@@ -1,5 +1,6 @@
 #include "COpenGLIndexBufferObject.h"
 #include "GLDebug.h"
+#include "OpenGLType.h"
 
 
 namespace mx
@@ -16,8 +17,7 @@ namespace mx
 		{
 			GLDebug(glGenBuffers(1, &m_IBO));
 			GLDebug(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO));
-			GLDebug(glBufferData(GL_ELEMENT_ARRAY_BUFFER, idsType * idsCount, indices, usage));
-			GLDebug(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+			GLDebug(glBufferData(GL_ELEMENT_ARRAY_BUFFER, GetGLVariableSize(idsType) * idsCount, indices, usage));
 		}
 
 		COpenGLIndexBufferObject::~COpenGLIndexBufferObject()

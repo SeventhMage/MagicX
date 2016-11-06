@@ -1,4 +1,5 @@
 #include "CSceneManager.h"
+#include "CScene.h"
 
 namespace mx
 {
@@ -6,14 +7,14 @@ namespace mx
 	{
 
 		CSceneManager::CSceneManager()
-			:m_pCurrentScene(NULL)
 		{
-
+			m_pCurrentScene = new CScene();
 		}
 
 		CSceneManager::~CSceneManager()
 		{
-
+			if (m_pCurrentScene)
+				delete m_pCurrentScene;
 		}
 
 
@@ -26,8 +27,8 @@ namespace mx
 		}
 
 		IScene * CSceneManager::LoadScene(const char *filename)
-		{
-			return nullptr;
+		{			
+			return m_pCurrentScene;
 		}
 
 		void CSceneManager::Draw()

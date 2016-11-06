@@ -22,6 +22,8 @@ namespace mx
 			//ÒÆ³ıäÖÈ¾ÊµÌå
 			virtual void RemoveRenderable(IRenderable *pRenderable) = 0;
 			
+			virtual void Clear() = 0;
+
 			//Ö´ĞĞäÖÈ¾
 			virtual void Render() = 0;
 

@@ -21,7 +21,7 @@ namespace mx
 
 		bool CModel::Load(const char *filename)
 		{
-
+			return false;
 		}
 
 	}

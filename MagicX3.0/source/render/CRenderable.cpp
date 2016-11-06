@@ -20,10 +20,15 @@ namespace mx
 			RENDERER->DestroyBufferObject(m_pIBO);			
 		}
 
-		void CRenderable::SumbitToRenderQueue()
+		void CRenderable::SumbitToRenderList()
 		{
 			if (m_pRenderList)
 				m_pRenderList->AddRenderable(this);
+		}
+
+		void CRenderable::RemoveFromRenderList()
+		{
+			m_pRenderList->RemoveRenderable(this);
 		}
 
 		void CRenderable::Bind()
@@ -56,11 +61,13 @@ namespace mx
 		IBufferObject * CRenderable::CreateVertexBufferObject(void *vertexes, int size, int first, int count, GPUBufferMode mode, GPUBufferUsage usage)
 		{
 			m_pVBO = RENDERER->CreateVertexBufferObject(vertexes, size, first, count, mode, usage);
+			return m_pVBO;
 		}
 
 		IBufferObject * CRenderable::CreateIndexBufferObject(void *indices, uint idsCount, RendererVariableType idsType, GPUBufferMode mode, GPUBufferUsage usage)
 		{
 			m_pIBO = RENDERER->CreateIndexBufferObject(indices, idsCount, idsType, mode, usage);
+			return m_pIBO;
 		}
 
 

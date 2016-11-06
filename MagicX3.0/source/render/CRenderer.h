@@ -18,11 +18,11 @@ namespace mx
 			virtual ~CRenderer();
 			
 			virtual IRenderDriver *GetRenderDriver() { return m_pRenderDriver; }			
-			virtual IRenderable *CreateRenderable();
+			virtual IRenderable *CreateRenderable(IRenderList *pRenderList);
 			virtual void DestroyRenderable(IRenderable *pRenderable);
 			virtual void AddVertexArrayObject(IVertexArrayObject *pObject);
 			virtual void RemoveVertexArrayObject(IVertexArrayObject *pObject);
-			virtual void Render();
+
 		protected:
 			IRenderDriver *m_pRenderDriver;			//äÖÈ¾Çý¶¯			
 

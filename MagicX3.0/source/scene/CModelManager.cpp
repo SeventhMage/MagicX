@@ -20,8 +20,16 @@ namespace mx
 		bool CModelManager::CreateModel(const char *filename)
 		{
 			IModel *pModel = new CModel();
-			pModel->Load(filename);
-			m_listModel.push_back(pModel);
+			if (pModel->Load(filename))
+			{
+				m_listModel.push_back(pModel);
+				return true;
+			}
+			else
+			{
+				delete pModel;
+				return false;
+			}
 		}
 
 		void CModelManager::DestroyMode(IModel *pModel)

@@ -8,7 +8,7 @@
 
 namespace mx
 {
-	IMagicX *MagicX = NULL;
+	extern IMagicX *MagicX;
 
 	IMagicX *CreateMagicX(render::ERenderDriverType  renderDriver, int x, int y, int width, int height, bool bFullScreen = false);
 	void DestroyMagicX();

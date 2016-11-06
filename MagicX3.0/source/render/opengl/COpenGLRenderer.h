@@ -27,9 +27,6 @@ namespace mx
 			virtual IBufferObject *CreateIndexBufferObject(void *indices, uint idsCount,
 				RendererVariableType idsType, GPUBufferMode mode, GPUBufferUsage usage);
 			virtual void DestroyBufferObject(IBufferObject *object);
-			virtual IShaderProgram *CreateShaderProgram();
-			virtual void DestroyShaderProgram(IShaderProgram *pProgram);
-
 		};
 	}
 }

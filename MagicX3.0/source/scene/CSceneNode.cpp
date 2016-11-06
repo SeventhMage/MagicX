@@ -15,5 +15,15 @@ namespace mx
 
 		}
 
+		void CSceneNode::UpdateImp(int delta)
+		{
+
+		}
+
+		void CSceneNode::RenderImp()
+		{
+
+		}
+
 	}
 }

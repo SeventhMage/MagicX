@@ -33,15 +33,13 @@ namespace mx
 				COpenGLIndexBufferObject *ibo = dynamic_cast<COpenGLIndexBufferObject *>(pRenderable->GetIndexBufferObject());
 				if (ibo)
 				{
-					ibo->Bind();
 					GLDebug(glDrawElements(ibo->GetGPUBufferMode(), ibo->GetIndicesNum(), ibo->GetIndexType(), 0));
 				}
 				else
 				{
-					COpenGLVertexBufferObject *vbo = dynamic_cast<COpenGLVertexBufferObject *>(pRenderable->GetIndexBufferObject());
+					COpenGLVertexBufferObject *vbo = dynamic_cast<COpenGLVertexBufferObject *>(pRenderable->GetVertexBufferObject());
 					if (vbo)
 					{
-						vbo->Bind();
 						GLDebug(glDrawArrays(vbo->GetGPUBufferMode(), vbo->GetGLGPUBufferFirst(), vbo->GetVertexNum()));
 					}
 				}
@@ -68,18 +66,6 @@ namespace mx
 			}
 		}
 
-		IShaderProgram * COpenGLRenderer::CreateShaderProgram()
-		{
-			return new COpenGLShaderProgram();
-		}
-
-		void COpenGLRenderer::DestroyShaderProgram(IShaderProgram *pProgram)
-		{
-			if (pProgram)
-			{
-				delete pProgram;
-			}
-		}
 
 		IVertexArrayObject * COpenGLRenderer::CreateVertexArrayObject()
 		{

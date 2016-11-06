@@ -23,6 +23,9 @@ namespace mx
 			//通过文件载入场景
 			virtual IScene *LoadScene(const char *filename) = 0;
 
+			//返回当前场景
+			virtual IScene *GetCurrentScene() = 0;
+
 			//绘制场景
 			virtual void Draw() = 0;
 		};

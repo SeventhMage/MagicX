@@ -28,16 +28,16 @@ namespace mx
 			m_vecVertexArray.clear();
 		}
 
-		IRenderable * CRenderer::CreateRenderable()
+		IRenderable * CRenderer::CreateRenderable(IRenderList *pRenderList)
 		{
-			return new CRenderable();
+			return new CRenderable(pRenderList);
 		}
 
 		void CRenderer::DestroyRenderable(IRenderable *pRenderable)
 		{
-			if (pRenderable && m_pRenderList)
+			if (pRenderable)
 			{				
-				m_pRenderList->RemoveRenderable(pRenderable);
+				pRenderable->RemoveFromRenderList();
 				delete pRenderable;
 			}
 		}
@@ -59,15 +59,5 @@ namespace mx
 				m_vecVertexArray.erase(it);
 			}
 		}
-
-		void CRenderer::Render()
-		{
-			if (m_pRenderList)
-			{				
-				m_pRenderList->Render();				
-			}
-		}
-
-
 	}
 }

@@ -9,6 +9,8 @@
 #include "render/ERender.h"
 #include "mxType.h"
 
+#include "GL/glew.h"
+
 namespace mx
 {
 	namespace render

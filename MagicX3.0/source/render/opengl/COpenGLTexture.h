@@ -6,6 +6,7 @@
 #define _MX_RENDER_C_OPENGL_TEXTURE_H_
 
 #include "render/ITexture.h"
+#include "GL/glew.h"
 
 namespace mx
 {

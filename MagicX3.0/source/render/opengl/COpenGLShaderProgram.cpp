@@ -1,5 +1,5 @@
 #include "COpenGLShaderProgram.h"
-#include "glew/GL/glew.h"
+#include "GL/glew.h"
 #include "COpenGLShader.h"
 #include "OpenGLType.h"
 #include "GLDebug.h"
@@ -257,6 +257,7 @@ namespace mx
 		COpenGLShaderProgram::COpenGLShaderProgram()
 		{
 			m_hProgram = GLDebug(glCreateProgram());
+			memset(m_pShader, 0, sizeof(m_pShader));
 		}
 
 		COpenGLShaderProgram::~COpenGLShaderProgram()

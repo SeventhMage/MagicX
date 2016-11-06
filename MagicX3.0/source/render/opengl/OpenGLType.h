@@ -43,7 +43,41 @@ namespace mx
 			return GL_FLOAT;
 		}
 
-		static uint GetGLVariableSize(RendererVariableType vat)
+		static int GetGLVariableSize(int vat)
+		{
+			switch (vat)
+			{
+			case GL_BYTE:
+				return 1;
+			case GL_UNSIGNED_BYTE:
+				return 1;
+			case GL_SHORT:
+				return 2;
+			case GL_UNSIGNED_SHORT:
+				return 2;
+			case GL_INT:
+				return 4;
+			case GL_UNSIGNED_INT:
+				return 4;
+			case GL_FIXED:
+				return 4;
+			case GL_FLOAT:
+				return 4;
+			case GL_HALF_FLOAT:
+				return 4;
+			case GL_DOUBLE:
+				return 8;
+			case GL_INT_2_10_10_10_REV:
+				return 4;
+			case GL_UNSIGNED_INT_2_10_10_10_REV:
+				return 4;
+			default:
+				break;
+			}
+			return 4;
+		}
+
+		static uint GetVariableSize(RendererVariableType vat)
 		{
 			switch (vat)
 			{

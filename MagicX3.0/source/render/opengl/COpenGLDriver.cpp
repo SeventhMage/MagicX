@@ -1,6 +1,7 @@
 #include "COpenGLDriver.h"
 #include "GL/glew.h"
 #include "GL/wglew.h"
+#include "GLDebug.h"
 
 namespace mx
 {
@@ -10,7 +11,7 @@ namespace mx
 
 		COpenGLDriver::COpenGLDriver()
 		{
-
+			
 		}
 
 		COpenGLDriver::~COpenGLDriver()
@@ -59,14 +60,13 @@ namespace mx
 				exit(1);
 			}
 
-			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-			GLenum err = glGetError();
+			GLDebug(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
 		}
 #endif
 
 		void COpenGLDriver::OnSize(int x, int y, int width, int height)
 		{
-			glViewport(x, y, width, height);
+			GLDebug(glViewport(x, y, width, height));
 		}
 
 		//void COpenGLDriver::Render()

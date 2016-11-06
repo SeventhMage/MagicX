@@ -6,6 +6,7 @@ namespace mx
 	namespace device
 	{
 		CEventManager::CEventManager()
+			:m_pDevice(nullptr)
 		{
 			m_pKeyEvent = new CKeyEvent();
 		}

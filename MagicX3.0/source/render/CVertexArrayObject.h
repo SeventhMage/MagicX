@@ -6,8 +6,6 @@
 #define _MX_RENDER_C_VERTEX_ARRAY_OBJECT_H_
 
 #include "render/IVertexArrayObject.h"
-#include "render/IRenderable.h"
-#include "render/IRenderList.h"
 
 namespace mx
 {
@@ -17,18 +15,18 @@ namespace mx
 		{
 		public:
 			CVertexArrayObject();
-			virtual ~CVertexArrayObject();					
+			virtual ~CVertexArrayObject();								
+
+
+			virtual IRenderList *GetRenderList() { return m_pRenderList; }
 
 			//绑定当前顶点数组
-			virtual void Bind(){}
-			virtual void UnBind(){}
-
-		
+			virtual void BeginRender() {}
 			virtual void Render();			
+			virtual void EndRender(){}
 		
 		protected:
-			IRenderList *m_pRenderList;					//渲染列表
-			IShaderProgram *m_pShaderProgram;			//shader程序
+			IRenderList *m_pRenderList;					//渲染列表			
 		};
 	}
 }

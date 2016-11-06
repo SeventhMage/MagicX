@@ -9,13 +9,12 @@ namespace mx
 
 		CVertexArrayObject::CVertexArrayObject()
 		{
-			m_pShaderProgram = RENDERER->CreateShaderProgram();
+			
 			m_pRenderList = new CRenderList();
 		}
 
 		CVertexArrayObject::~CVertexArrayObject()
 		{
-			RENDERER->DestroyShaderProgram(m_pShaderProgram);
 			if (m_pRenderList)
 				delete m_pRenderList;
 		}
@@ -23,12 +22,10 @@ namespace mx
 		
 		void CVertexArrayObject::Render()
 		{
-			Bind();
-			if (m_pShaderProgram)
-				m_pShaderProgram->Bind();
+			BeginRender();
 			if (m_pRenderList)
 				m_pRenderList->Render();
-			UnBind();
+			EndRender();
 		}		
 
 	}

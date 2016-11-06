@@ -24,11 +24,9 @@ namespace mx
 
 			//渲染对象
 			virtual void Render(IRenderable *pRenderable) = 0;
-			//渲染
-			virtual void Render() = 0;
 
 			//创建渲染实体
-			virtual IRenderable *CreateRenderable(IVertexArrayObject *pObject) = 0;
+			virtual IRenderable *CreateRenderable(IRenderList *pObject) = 0;
 			//销毁渲染实体
 			virtual void DestroyRenderable(IRenderable *pRenderable) = 0;
 
@@ -40,10 +38,6 @@ namespace mx
 
 			//销毁缓冲区对象
 			virtual void DestroyBufferObject(IBufferObject *object) = 0;
-
-			//创建shader程序
-			virtual IShaderProgram *CreateShaderProgram() = 0;
-			virtual void DestroyShaderProgram(IShaderProgram *pProgram) = 0;
 
 			//创建顶点数组对象
 			virtual IVertexArrayObject *CreateVertexArrayObject() = 0;

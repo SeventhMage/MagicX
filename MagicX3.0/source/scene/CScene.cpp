@@ -1,5 +1,5 @@
 #include "CScene.h"
-#include "CSceneNode.h"
+#include "scene/CSceneNode.h"
 #include "mx.h"
 
 namespace mx
@@ -21,7 +21,8 @@ namespace mx
 
 		void CScene::Draw()
 		{
-			RENDERER->Render();
+			if (m_pRootNode)
+				m_pRootNode->Render();
 		}
 
 		void CScene::Update(int delta)

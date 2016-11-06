@@ -179,6 +179,7 @@ namespace mx
 			, m_iHeight(height)
 			, m_bFullScreen(fullScreen)
 		{
+			CEventManager::Instance()->SetDevice(this);
 
 			HINSTANCE hInstance = GetModuleHandle(0);
 

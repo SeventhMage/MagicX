@@ -14,7 +14,7 @@ namespace mx
 		class IEntity : public CSceneNode
 		{
 		public:
-			virtual ~IEntity();
+			virtual ~IEntity(){};
 		};
 	}
 }

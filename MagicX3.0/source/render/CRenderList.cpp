@@ -49,6 +49,11 @@ namespace mx
 			}
 		}
 
+		void CRenderList::Clear()
+		{
+			m_renderableList.clear();
+		}
+
 
 
 	}

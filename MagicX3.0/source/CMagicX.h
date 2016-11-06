@@ -20,11 +20,13 @@ namespace mx
 		virtual ISceneManager *GetSceneManager();
 		virtual IResourceManager *GetResourceManager();
 		virtual IRenderer *GetRenderer();
+		virtual IEntityManager *GetEntityManager();
 	private:
 		IDeviceManager *m_pDeviceMgr;
 		ISceneManager *m_pSceneMgr;
 		IResourceManager *m_pResourceMgr;
 		IRenderer *m_pRenderer;
+		IEntityManager *m_pEntityMgr;
 		
 	};
 }

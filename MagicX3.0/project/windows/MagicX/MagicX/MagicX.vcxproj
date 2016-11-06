@@ -17,7 +17,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\..\..\..\bin\$(Configuration)\</OutDir>
+    <OutDir>..\..\..\..\lib\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -85,7 +85,6 @@
     <ClCompile Include="..\..\..\..\source\device\CEventManager.cpp" />
     <ClCompile Include="..\..\..\..\source\device\CKeyEvent.cpp" />
     <ClCompile Include="..\..\..\..\source\device\win32\CDeviceWin32.cpp" />
-    <ClCompile Include="..\..\..\..\source\main.cpp" />
     <ClCompile Include="..\..\..\..\source\mx.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CRenderable.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CRenderer.cpp" />
@@ -148,11 +147,13 @@
     <ClInclude Include="..\..\..\..\include\scene\CSceneNode.h" />
     <ClInclude Include="..\..\..\..\include\scene\CUnit.h" />
     <ClInclude Include="..\..\..\..\include\scene\IEntity.h" />
+    <ClInclude Include="..\..\..\..\include\scene\IEntityManager.h" />
     <ClInclude Include="..\..\..\..\include\scene\IModel.h" />
     <ClInclude Include="..\..\..\..\include\scene\IModelManager.h" />
     <ClInclude Include="..\..\..\..\include\scene\IScene.h" />
     <ClInclude Include="..\..\..\..\include\scene\ISceneManager.h" />
     <ClInclude Include="..\..\..\..\include\scene\ISceneNode.h" />
+    <ClInclude Include="..\..\..\..\include\scene\IVertex.h" />
     <ClInclude Include="..\..\..\..\source\CMagicX.h" />
     <ClInclude Include="..\..\..\..\source\device\CDeviceManager.h" />
     <ClInclude Include="..\..\..\..\source\device\CEventManager.h" />

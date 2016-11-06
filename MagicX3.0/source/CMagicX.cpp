@@ -64,4 +64,9 @@ namespace mx
 		return m_pRenderer;
 	}
 
+	IEntityManager * CMagicX::GetEntityManager()
+	{
+		return m_pEntityMgr;
+	}
+
 }

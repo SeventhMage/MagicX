@@ -17,7 +17,6 @@ namespace mx
 			GLDebug(glGenBuffers(1, &m_hVBO));
 			GLDebug(glBindBuffer(GL_ARRAY_BUFFER, m_hVBO));
 			GLDebug(glBufferData(GL_ARRAY_BUFFER, size, vertexes, m_usage));
-			GLDebug(glBindBuffer(GL_ARRAY_BUFFER, 0));
 		}
 
 		COpenGLVertexBufferObject::~COpenGLVertexBufferObject()
