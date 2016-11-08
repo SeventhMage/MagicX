@@ -18,8 +18,7 @@ namespace mx
 			CEntityManager();
 			virtual ~CEntityManager();
 
-			virtual IEntity *CreateEntity(IVertex *pVertex);
-			virtual IEntity *CreateEntity(IVertex *pVertex, const char *texname);
+			virtual IEntity *CreateEntity(IVertex *pVertex, const char *texname = NULL);
 		};
 	}
 }

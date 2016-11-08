@@ -6,6 +6,11 @@
 #include "OpenGLType.h"
 #include "COpenGLShaderProgram.h"
 #include "COpenGLVertexArrayObject.h"
+#include "COpenGLTexture.h"
+#include "resource/IImageManager.h"
+#include "resource/IImage.h"
+#include "mx.h"
+
 
 
 namespace mx
@@ -78,6 +83,29 @@ namespace mx
 				delete pObject;
 		}
 
+		ITexture * COpenGLRenderer::CreateTexture(const char *filename)
+		{
+			resource::IImageManager *pIMageMgr = (IImageManager *)RESOURCEMGR(RT_IMAGE);
+			if (pIMageMgr)
+			{
+				resource::IImage *pImage = (resource::IImage *)pIMageMgr->LoadResource(filename);
+				if (pImage)
+				{
+					ITexture *pTexture = new COpenGLTexture();
+					pTexture->Create2D(GetGLColorFormat((pImage->GetComponents())), 
+						pImage->GetWidth(), pImage->GetHeight(), GetGLColorFormat((pImage->GetFormat())), GL_UNSIGNED_BYTE, pImage->GetData());
+					pIMageMgr->UnLoadResource(pImage);
+					return pTexture;
+				}
+			}
+			return nullptr;
+		}
+
+		void COpenGLRenderer::DestroyTexture(ITexture *pTexture)
+		{
+			if (pTexture)
+				delete pTexture;
+		}
 	}
 
 }

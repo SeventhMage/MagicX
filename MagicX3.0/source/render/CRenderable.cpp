@@ -10,6 +10,7 @@ namespace mx
 			:m_pRenderList(pRenderList)
 			, m_bActive(true)
 			, m_pVBO(nullptr)
+			, m_pIBO(nullptr)
 		{
 			memset(m_pTexture, 0, sizeof(ITexture *)* TU_TEXTURE_NUM);			
 		}
@@ -68,6 +69,11 @@ namespace mx
 		{
 			m_pIBO = RENDERER->CreateIndexBufferObject(indices, idsCount, idsType, mode, usage);
 			return m_pIBO;
+		}
+
+		void CRenderable::SetTexture(int slot, ITexture *pTexture)
+		{
+			m_pTexture[slot] = pTexture;
 		}
 
 

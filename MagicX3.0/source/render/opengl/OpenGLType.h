@@ -4,6 +4,7 @@
 #include "GL/glew.h"
 #include "render/ERender.h"
 #include "mxType.h"
+#include "resource/IImage.h"
 
 namespace mx
 {
@@ -294,6 +295,27 @@ namespace mx
 				break;
 			}
 			return GL_INVALID_ENUM;
+		}
+
+		static GLenum GetGLColorFormat(int format)
+		{
+			switch (format)
+			{
+			case resource::CF_ALPHA:
+				return GL_ALPHA;
+			case resource::CF_RGB:
+				return GL_RGB;
+			case resource::CF_RGBA:
+				return GL_RGBA;
+			case resource::CF_BGR:
+				return GL_BGR;
+			case resource::CF_BGRA:
+				return GL_BGRA;
+			case resource::CF_LUMINANCE:
+				return GL_LUMINANCE;
+			default:
+				return GL_RGB;
+			}
 		}
 	}
 }

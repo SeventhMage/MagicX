@@ -27,6 +27,8 @@ namespace mx
 			virtual IBufferObject *CreateIndexBufferObject(void *indices, uint idsCount,
 				RendererVariableType idsType, GPUBufferMode mode, GPUBufferUsage usage);
 			virtual void DestroyBufferObject(IBufferObject *object);
+			virtual ITexture *CreateTexture(const char *filename);
+			virtual void DestroyTexture(ITexture *pTexture);
 		};
 	}
 }

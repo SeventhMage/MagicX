@@ -1,8 +1,11 @@
 #include "CMagicX.h"
 #include "device/CDeviceManager.h"
 #include "scene/CSceneManager.h"
+#include "scene/CEntityManager.h"
 #include "resource/CResourceManager.h"
+#include "resource/CImageManager.h"
 #include "render/opengl//COpenGLRenderer.h"
+
 
 
 namespace mx
@@ -28,7 +31,11 @@ namespace mx
 		m_pDeviceMgr->CreateDevice(deviceType, m_pRenderer->GetRenderDriver(), x, y, width, height, bFullScreen);
 
 		m_pSceneMgr = new CSceneManager();
-		m_pResourceMgr = new CResourceManager();
+		m_pResourceMgr[RT_IMAGE] = new CImageManager();
+		m_pResourceMgr[RT_MESH] = 0;
+		m_pResourceMgr[RT_SOUND] = 0;
+
+		m_pEntityMgr = new CEntityManager();
 	}
 
 	CMagicX::~CMagicX()
@@ -36,7 +43,11 @@ namespace mx
 		delete m_pRenderer;
 		delete m_pDeviceMgr;
 		delete m_pSceneMgr;
-		delete m_pResourceMgr;
+		for (int i = 0; i < RT_COUNT; ++i)
+		{
+			if (m_pResourceMgr[i])
+				delete m_pResourceMgr[i];
+		}
 	}
 
 	ISceneManager * CMagicX::GetSceneManager()
@@ -44,9 +55,9 @@ namespace mx
 		return m_pSceneMgr;
 	}
 
-	IResourceManager * CMagicX::GetResourceManager()
+	IResourceManager * CMagicX::GetResourceManager(EResourceType type)
 	{
-		return m_pResourceMgr;
+		return m_pResourceMgr[type];
 	}
 
 	IDevice * CMagicX::GetDevice()

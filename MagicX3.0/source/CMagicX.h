@@ -18,13 +18,13 @@ namespace mx
 		virtual IDevice *GetDevice();
 		virtual IDeviceManager *GetDeviceManager();
 		virtual ISceneManager *GetSceneManager();
-		virtual IResourceManager *GetResourceManager();
+		virtual IResourceManager *GetResourceManager(EResourceType type);
 		virtual IRenderer *GetRenderer();
 		virtual IEntityManager *GetEntityManager();
 	private:
 		IDeviceManager *m_pDeviceMgr;
 		ISceneManager *m_pSceneMgr;
-		IResourceManager *m_pResourceMgr;
+		IResourceManager *m_pResourceMgr[RT_COUNT];
 		IRenderer *m_pRenderer;
 		IEntityManager *m_pEntityMgr;
 		

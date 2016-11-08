@@ -28,6 +28,8 @@ namespace mx
 			virtual IBufferObject *GetVertexBufferObject() { return m_pVBO; }
 			virtual IBufferObject *GetIndexBufferObject() { return m_pIBO; }
 
+			virtual void SetTexture(int slot, ITexture *pTexture);
+
 			virtual void SetActive(bool bActive) { m_bActive = bActive; }
 			virtual bool IsActive() { return m_bActive; }
 
