@@ -109,7 +109,7 @@
     <ClCompile Include="..\..\..\..\source\resource\CImageManager.cpp" />
     <ClCompile Include="..\..\..\..\source\resource\CResourceManager.cpp" />
     <ClCompile Include="..\..\..\..\source\resource\CTGAImage.cpp" />
-    <ClCompile Include="..\..\..\..\source\scene\CEntityManager.cpp" />
+    <ClCompile Include="..\..\..\..\source\scene\CCamera.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CModel.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CModelManager.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CScene.cpp" />
@@ -120,6 +120,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\include\base\CSingleton.h" />
     <ClInclude Include="..\..\..\..\include\base\mxString.h" />
+    <ClInclude Include="..\..\..\..\include\device\CEventManager.h" />
     <ClInclude Include="..\..\..\..\include\device\EEvent.h" />
     <ClInclude Include="..\..\..\..\include\device\IDevice.h" />
     <ClInclude Include="..\..\..\..\include\device\IDeviceManager.h" />
@@ -158,8 +159,8 @@
     <ClInclude Include="..\..\..\..\include\resource\IResourceManager.h" />
     <ClInclude Include="..\..\..\..\include\scene\CSceneNode.h" />
     <ClInclude Include="..\..\..\..\include\scene\CUnit.h" />
-    <ClInclude Include="..\..\..\..\include\scene\IEntity.h" />
-    <ClInclude Include="..\..\..\..\include\scene\IEntityManager.h" />
+    <ClInclude Include="..\..\..\..\include\scene\ICamera.h" />
+    <ClInclude Include="..\..\..\..\include\scene\CEntity.h" />
     <ClInclude Include="..\..\..\..\include\scene\IModel.h" />
     <ClInclude Include="..\..\..\..\include\scene\IModelManager.h" />
     <ClInclude Include="..\..\..\..\include\scene\IScene.h" />
@@ -168,7 +169,6 @@
     <ClInclude Include="..\..\..\..\include\scene\IVertex.h" />
     <ClInclude Include="..\..\..\..\source\CMagicX.h" />
     <ClInclude Include="..\..\..\..\source\device\CDeviceManager.h" />
-    <ClInclude Include="..\..\..\..\source\device\CEventManager.h" />
     <ClInclude Include="..\..\..\..\source\device\CKeyEvent.h" />
     <ClInclude Include="..\..\..\..\source\device\win32\CDeviceWin32.h" />
     <ClInclude Include="..\..\..\..\source\render\CRenderable.h" />
@@ -189,12 +189,11 @@
     <ClInclude Include="..\..\..\..\source\resource\CImageManager.h" />
     <ClInclude Include="..\..\..\..\source\resource\CResourceManager.h" />
     <ClInclude Include="..\..\..\..\source\resource\CTGAImage.h" />
-    <ClInclude Include="..\..\..\..\source\scene\CEntityManager.h" />
+    <ClInclude Include="..\..\..\..\source\scene\CCamera.h" />
     <ClInclude Include="..\..\..\..\source\scene\CModel.h" />
     <ClInclude Include="..\..\..\..\source\scene\CModelManager.h" />
     <ClInclude Include="..\..\..\..\source\scene\CScene.h" />
     <ClInclude Include="..\..\..\..\source\scene\CSceneManager.h" />
-    <ClInclude Include="..\..\..\..\source\scene\CSceneNode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

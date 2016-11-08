@@ -1,6 +1,6 @@
 #include "CDeviceWin32.h"
 #include "../CKeyEvent.h"
-#include "../CEventManager.h"
+#include "device/CEventManager.h"
 
 namespace mx
 {

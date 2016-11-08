@@ -16,7 +16,7 @@ namespace mx
 
 		}
 
-		IEntity * CEntityManager::CreateEntity(IVertex *pVertex, const char *texname)
+		CEntity * CEntityManager::CreateEntity(IVertex *pVertex, const char *texname)
 		{
 			if (pVertex && texname)
 			{

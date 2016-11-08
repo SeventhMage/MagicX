@@ -61,6 +61,8 @@ namespace mx
 			}
 
 			GLDebug(glClearColor(1.0f, 1.0f, 1.0f, 1.0f));
+			GLDebug(glEnable(GL_DEPTH_TEST));
+			GLDebug(glEnable(GL_CULL_FACE));
 		}
 #endif
 

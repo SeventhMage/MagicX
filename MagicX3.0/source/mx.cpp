@@ -18,6 +18,7 @@ namespace mx
 		if (MagicX)
 		{
 			delete MagicX;
+			MagicX = nullptr;
 		}
 	}
 

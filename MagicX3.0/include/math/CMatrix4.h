@@ -409,7 +409,7 @@ namespace mx
 				o[15] = m[15];
 			}
 
-			inline CMatrix4 &SetScale(const CVector3 &scale)
+			inline void SetScale(const CVector3 &scale)
 			{
 				m[0] = scale.x;
 				m[5] = scale.y;

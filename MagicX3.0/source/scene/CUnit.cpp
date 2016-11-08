@@ -8,16 +8,18 @@ namespace mx
 	namespace scene
 	{
 
-		CUnit::CUnit()
-			:m_pTexture(nullptr)
+		CUnit::CUnit(IScene *pScene)
+			:CEntity(pScene)
+			,m_pTexture(nullptr)
 		{
 			m_pMode = new CModel();
 			m_pVAO =  RENDERER->CreateVertexArrayObject();
 			m_pRenderable = RENDERER->CreateRenderable(m_pVAO->GetRenderList());
 		}
 
-		CUnit::CUnit(IVertex *pVertex, const char *texfile /*= nullptr*/)
-			:m_pTexture(nullptr)
+		CUnit::CUnit(IScene *pScene, IVertex *pVertex, const char *texfile /*= nullptr*/)
+			:CEntity(pScene)
+			,m_pTexture(nullptr)
 		{
 			m_pVAO = RENDERER->CreateVertexArrayObject();
 			m_pRenderable = RENDERER->CreateRenderable(m_pVAO->GetRenderList());
@@ -117,10 +119,19 @@ namespace mx
 				IShaderProgram *pShaderProgram = m_pVAO->GetShaderProgram();
 				if (pShaderProgram)
 				{
-					//pShaderProgram->SetUniform("mvpMatrix", color);
-
+					CMatrix4 vpMat4;
+					if (m_pSceneParent)
+					{
+						ICamera *pCam = m_pSceneParent->GetCamera();
+						if (pCam)
+						{
+							vpMat4 = pCam->GetViewProjectionMatrix();
+						}
+					}
+					CMatrix4 mvpMat4 = GetAbsluateTransformation() * vpMat4;
+					pShaderProgram->SetUniform("mvpMatrix", mvpMat4.m);
 				}
-
+			
 				m_pRenderable->SumbitToRenderList();
 			}
 		}
@@ -152,28 +163,28 @@ namespace mx
 				float vColor[] = { 1, 1, 1, 1 };
 				pShaderProgram->SetUniform("vColor", vColor);
 
-				CMatrix4 mat4;
-				//mat4.buildProjectionMatrixOrthoRH(20, 20, 10, -10);
 
-				CMatrix4 projectMat4;
-				projectMat4.BuildProjectionMatrixPerspectiveFovRH(PI / 2.0f, 1.0f * 600 / 800, 1, 1000.0f);
-				CMatrix4 viewMat4;
-				viewMat4.BuildCameraLookAtMatrix(CVector3(0, 0, 0), CVector3(0, 0, -1), CVector3(0, 1, 0));
-				CMatrix4 modelMat4;
-				modelMat4.SetTranslation(CVector3(0, 0, -20.0f));
-
-				CMatrix4 mvpMat4 = modelMat4 * viewMat4 * projectMat4;
+				CMatrix4 vpMat4;
+				if (m_pSceneParent)
+				{
+					ICamera *pCam = m_pSceneParent->GetCamera();
+					if (pCam)
+					{
+						vpMat4 = pCam->GetViewProjectionMatrix();
+					}
+				}
+				CMatrix4 mvpMat4 = GetAbsluateTransformation() * vpMat4;
 
 				pShaderProgram->SetUniform("mvpMatrix", mvpMat4.m);
 
 				m_pRenderable->CreateVertexBufferObject(pVertex->GetVertexData(), pVertex->GetVerticeSize(), 0, pVertex->GetVerticeCount(), GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
 				m_pRenderable->CreateIndexBufferObject(pVertex->GetIndicesData(), pVertex->GetIndicesCount(), RVT_UINT, GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
 
-	/*			uint stride = GetVertexStride(EVertexAttribute(vertAttr));
+				uint stride = GetVertexStride(EVertexAttribute(vertAttr));
 				uint offset = 0;
 				if (vertAttr & VF_POSITION)
 				{
-					m_pVAO->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, stride, offset);
+					m_pVAO->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, 0, offset);
 					offset += 3 * sizeof(float);
 				}
 				if (vertAttr & VF_COLOR)
@@ -183,17 +194,15 @@ namespace mx
 				}
 				if (vertAttr & VF_TEXCOORD)
 				{
-					m_pVAO->EnableVertexAttrib(render::VAL_TEXTURE0, 2, render::RVT_FLOAT, stride, offset);
+					m_pVAO->EnableVertexAttrib(render::VAL_TEXTURE0, 2, render::RVT_FLOAT, 0, 96);
 					offset += 2 * sizeof(float);
 				}
 				if (vertAttr & VF_NORMAL)
 				{
 					m_pVAO->EnableVertexAttrib(render::VAL_NORMAL, 3, render::RVT_FLOAT, stride, offset);
 					offset += 3 * sizeof(float);
-				}*/
-								
-				m_pVAO->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, 5 * sizeof(float), 0);
-				m_pVAO->EnableVertexAttrib(render::VAL_TEXTURE0, 2, render::RVT_FLOAT, 5 * sizeof(float), 3 * sizeof(float));
+				}
+
 				m_pVAO->UnBind();
 
 			}

@@ -37,6 +37,10 @@ namespace mx
 			virtual void *GetIndicesData() = 0;
 			//返回索引数量
 			virtual uint GetIndicesCount() = 0;
+			//返回纹理坐标
+			virtual void *GetTexCoordData() = 0;
+			virtual uint GetTexCoordCount() = 0;
+			virtual uint GetTexCoordSize() = 0;
 		};
 
 	}

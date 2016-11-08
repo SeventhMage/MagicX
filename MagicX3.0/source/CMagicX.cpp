@@ -35,7 +35,7 @@ namespace mx
 		m_pResourceMgr[RT_MESH] = 0;
 		m_pResourceMgr[RT_SOUND] = 0;
 
-		m_pEntityMgr = new CEntityManager();
+		CEventManager::NewInstance();
 	}
 
 	CMagicX::~CMagicX()
@@ -48,6 +48,8 @@ namespace mx
 			if (m_pResourceMgr[i])
 				delete m_pResourceMgr[i];
 		}
+
+		CEventManager::DeleteInstance();
 	}
 
 	ISceneManager * CMagicX::GetSceneManager()
@@ -74,10 +76,4 @@ namespace mx
 	{
 		return m_pRenderer;
 	}
-
-	IEntityManager * CMagicX::GetEntityManager()
-	{
-		return m_pEntityMgr;
-	}
-
 }

@@ -138,9 +138,6 @@
     <ClCompile Include="..\..\..\..\source\render\CRenderer.cpp">
       <Filter>source\render</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\source\scene\CEntityManager.cpp">
-      <Filter>source\scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\source\resource\CTGAImage.cpp">
       <Filter>source\resource</Filter>
     </ClCompile>
@@ -149,6 +146,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\base\mxString.cpp">
       <Filter>source\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene\CCamera.cpp">
+      <Filter>source\scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -242,9 +242,6 @@
     <ClInclude Include="..\..\..\..\source\device\win32\CDeviceWin32.h">
       <Filter>source\device\win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\source\device\CEventManager.h">
-      <Filter>source\device</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\source\device\CKeyEvent.h">
       <Filter>source\device</Filter>
     </ClInclude>
@@ -261,9 +258,6 @@
       <Filter>source\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\scene\CModel.h">
-      <Filter>source\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\scene\CSceneNode.h">
       <Filter>source\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\render\IBuffer.h">
@@ -344,9 +338,6 @@
     <ClInclude Include="..\..\..\..\include\scene\CUnit.h">
       <Filter>include\scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\include\scene\IEntity.h">
-      <Filter>include\scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\include\render\IVertexArrayObject.h">
       <Filter>include\render</Filter>
     </ClInclude>
@@ -359,14 +350,8 @@
     <ClInclude Include="..\..\..\..\source\render\CRenderer.h">
       <Filter>source\render</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\include\scene\IEntityManager.h">
-      <Filter>include\scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\include\scene\IVertex.h">
       <Filter>include\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\scene\CEntityManager.h">
-      <Filter>source\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\resource\IImage.h">
       <Filter>include\resource</Filter>
@@ -382,6 +367,18 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\base\mxString.h">
       <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\device\CEventManager.h">
+      <Filter>include\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\ICamera.h">
+      <Filter>include\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\scene\CCamera.h">
+      <Filter>source\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\CEntity.h">
+      <Filter>include\scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

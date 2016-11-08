@@ -19,165 +19,50 @@ namespace mx
 		class IScene;
 		class ISceneNode
 		{
-		public:
-			ISceneNode()
-				:m_pNodeParent(NULL)
-				, m_pSceneParent(NULL)
-				, m_bVisible(true)
-				, m_bActive(true)
-			{
-			};
-			virtual ~ISceneNode(){};
-
+ 		public:
+			virtual ~ISceneNode(){}
 			virtual void UpdateImp(int delta) = 0;
 			virtual void RenderImp() = 0;
+			virtual void Render() = 0;
+			virtual void Update(uint delta) = 0;
+			virtual void SetParent(ISceneNode *parent) = 0;
+			virtual void AddChild(ISceneNode *child) = 0;
+			virtual void SetScene(IScene *pScene) = 0;
 
-			void Render()
-			{
-				RenderImp();
-				std::list<ISceneNode *>::iterator it = m_listChild.begin();
-				for (; it != m_listChild.end(); ++it)
-				{
-					(*it)->Render();
-				}
-			}
+			virtual void Remove() = 0;
+			virtual void RemoveChild(ISceneNode *child) = 0;
 
-			void Update(uint delta)
-			{
-				UpdateImp(delta);
-				std::list<ISceneNode *>::iterator it = m_listChild.begin();
-				for (; it != m_listChild.end(); ++it)
-				{
-					(*it)->Update(delta);
-				}
-			}
+			virtual void RemoveAll() = 0;
 
+			virtual void SetPosition(const CVector3 &position) = 0;
 
+			virtual const CVector3 &GetPosition() const = 0;
 
-			void SetParent(ISceneNode *parent)
-			{
-				if (parent)
-				{
-					Remove();
-					parent->AddChild(this);
-					m_pNodeParent = parent;
-				}
-			}
-			void AddChild(ISceneNode *child)
-			{
-				m_listChild.push_back(child);
-			}
+			virtual void SetRotation(const CVector3 &rotation) = 0;
 
-			void SetScene(IScene *pScene)
-			{
-				m_pSceneParent = pScene;
-			}
+			virtual const CVector3 &GetRotation() const = 0;
 
-			void Remove()
-			{
-				if (m_pNodeParent)
-					m_pNodeParent->RemoveChild(this);
-			}
-			void RemoveChild(ISceneNode *child)
-			{
-				m_listChild.remove(child);
-			}
+			virtual CVector3 GetAbslutePosition() const = 0;
 
-			void RemoveAll()
-			{
-				m_listChild.clear();
-			}
+			virtual void SetScale(const CVector3 &scale) = 0;
 
-			void SetPosition(const CVector3 &position)
-			{
-				m_relativePosition = position;
-			}
+			virtual const CVector3 &GetScale() const = 0;
 
-			const CVector3 &GetPosition() const
-			{
-				return m_relativePosition;
-			}
+			virtual const CMatrix4 &GetAbsluateTransformation() const = 0;
+			virtual CMatrix4 GetRelativeTransformation() const = 0;
 
-			const CVector3 &GetRotation() const
-			{
-				return m_relativeRotation;
-			}
+			virtual void SetVisible(bool visible) = 0;
 
-			CVector3 GetAbslutePosition() const
-			{
-				return m_absluateTransformation.GetTranslation();
-			}
-
-			void SetScale(const CVector3 &scale)
-			{
-				m_relativeScale = scale;
-			}
-
-			const CVector3 &GetScale() const
-			{
-				return m_relativeScale;
-			}
-
-			const CMatrix4 &GetAbsluateTransformation() const
-			{
-				return m_absluateTransformation;
-			}
-			CMatrix4 GetRelativeTransformation() const
-			{
-				CMatrix4 mat;
-
-				mat.SetTranslation(GetPosition());
-				mat.SetRotationRadiansRH(GetRotation().x, GetRotation().y, GetRotation().z);
-				if (m_relativeScale != CVector3(1.0f, 1.0f, 1.0f))
-				{
-					CMatrix4 smat;
-					smat.SetScale(m_relativeScale);
-					mat = mat * smat;
-				}
-				return mat;
-			}
-
-			void SetVisible(bool visible)
-			{
-				m_bVisible = visible;
-			}
-
-			bool IsVisible()const
-			{
-				return m_bVisible;
-			}
+			virtual bool IsVisible()const = 0;
 
 			//3D检测后，可见为true, 不可见为false
-			void SetActive(bool bActive) { m_bActive = bActive; }
-			bool IsActive() const { return m_bActive; }
+			virtual void SetActive(bool bActive) = 0;
+			virtual bool IsActive() const = 0;
 
-			const std::string &GetName() const
-			{
-				return m_name;
-			}
+			virtual const std::string &GetName() const = 0;
 
-			void UpdateAbsluateTransformation()
-			{
-				if (m_pNodeParent)
-				{
-					m_absluateTransformation = m_pNodeParent->GetAbsluateTransformation() * GetRelativeTransformation();
-				}
-				else
-					m_absluateTransformation = GetRelativeTransformation();
-			}
-
-		protected:
-			ISceneNode *m_pNodeParent;
-			std::list<ISceneNode *> m_listChild;
-			IScene *m_pSceneParent;
-
-			CMatrix4 m_absluateTransformation;
-			CVector3 m_relativePosition;
-			CVector3 m_relativeRotation;
-			CVector3 m_relativeScale;
-			std::string m_name;
-			bool m_bVisible;
-			bool m_bActive;
+			virtual void UpdateAbsluateTransformation() = 0;
+			virtual void SetNeedUpdateTransformation(bool bNeed) = 0;
 		};
 
 	}

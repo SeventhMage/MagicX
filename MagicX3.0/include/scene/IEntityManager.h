@@ -5,7 +5,7 @@
 #ifndef _MX_I_SCENE_I_ENTITY_MANAGER_H_
 #define _MX_I_SCENE_I_ENTITY_MANAGER_H_
 
-#include "IEntity.h"
+#include "CEntity.h"
 #include "IVertex.h"
 
 namespace mx
@@ -18,7 +18,7 @@ namespace mx
 			virtual ~IEntityManager(){}
 			
 			//通过顶点和纹理图片创建实体
-			virtual IEntity *CreateEntity(IVertex *pVertex, const char *texname = NULL) = 0;
+			virtual CEntity *CreateEntity(IVertex *pVertex, const char *texname = NULL) = 0;
 		};
 	}
 }

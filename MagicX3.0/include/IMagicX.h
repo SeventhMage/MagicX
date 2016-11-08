@@ -27,6 +27,7 @@
 #include "device/IDeviceManager.h"
 #include "device/IEvent.h"
 #include "device/IKeyEvent.h"
+#include "device/CEventManager.h"
 
 //resource
 #include "resource/IResourceManager.h"
@@ -36,7 +37,7 @@
 
 //scene
 #include "scene/CUnit.h"
-#include "scene/IEntity.h"
+#include "scene/CEntity.h"
 #include "scene/IEntityManager.h"
 #include "scene/IModel.h"
 #include "scene/ISceneManager.h"
@@ -79,9 +80,6 @@ namespace mx
 
 		//获取渲染器
 		virtual IRenderer *GetRenderer() = 0;
-
-		//返回实体管理器
-		virtual IEntityManager *GetEntityManager() = 0;
 	};
 }
 
