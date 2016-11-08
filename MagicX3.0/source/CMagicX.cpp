@@ -1,7 +1,6 @@
 #include "CMagicX.h"
 #include "device/CDeviceManager.h"
 #include "scene/CSceneManager.h"
-#include "scene/CEntityManager.h"
 #include "resource/CResourceManager.h"
 #include "resource/CImageManager.h"
 #include "render/opengl//COpenGLRenderer.h"
