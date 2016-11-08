@@ -12,9 +12,11 @@ namespace mx
 		//资源类型
 		enum EResourceType
 		{
-			RT_TEXTURE,			//纹理资源
-			RT_MESH,			//网络资源
-			RT_SOUND,			//声音资源
+			RT_IMAGE = 0,			//图片资源
+			RT_MESH,				//网络资源
+			RT_SOUND,				//声音资源
+
+			RT_COUNT,
 		};
 
 		class IResource
@@ -22,7 +24,7 @@ namespace mx
 		public:
 			virtual ~IResource(){}
 
-			virtual EResourceType GetResourceType() = 0;
+			//virtual EResourceType GetResourceType() = 0;
 		};
 	}
 }

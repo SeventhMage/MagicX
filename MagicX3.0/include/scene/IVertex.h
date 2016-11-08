@@ -18,7 +18,7 @@ namespace mx
 			VF_NORMAL					= 0x0008,		//法线
 
 			VF_COMPLETE = VF_POSITION | VF_COLOR | VF_TEXCOORD | VF_NORMAL,
-		};
+		};		
 
 		class IVertex
 		{		
@@ -38,6 +38,7 @@ namespace mx
 			//返回索引数量
 			virtual uint GetIndicesCount() = 0;
 		};
+
 	}
 }
 

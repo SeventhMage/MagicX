@@ -17,7 +17,9 @@ namespace mx
 			virtual ~IResourceManager(){};
 
 			//从文件中载入资源
-			virtual IResource *LoadResource(const char *filename) = 0;			
+			virtual IResource *LoadResource(const char *filename) = 0;	
+			//内存中卸载资源
+			virtual void UnLoadResource(IResource *pResource) = 0;
 		};
 	}
 }

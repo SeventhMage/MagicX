@@ -15,13 +15,10 @@ namespace mx
 		class IEntityManager
 		{
 		public:
-			virtual ~IEntityManager();
-
-			//通过顶点创建
-			virtual IEntity *CreateEntity(IVertex *pVertex);
+			virtual ~IEntityManager(){}
 			
 			//通过顶点和纹理图片创建实体
-			virtual IEntity *CreateEntity(IVertex *pVertex, const char *texname);
+			virtual IEntity *CreateEntity(IVertex *pVertex, const char *texname = NULL) = 0;
 		};
 	}
 }

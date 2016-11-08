@@ -9,6 +9,7 @@
 #include "IBufferData.h"
 #include "IRenderable.h"
 #include "IVertexArrayObject.h"
+#include "ITexture.h"
 
 namespace mx
 {
@@ -42,6 +43,10 @@ namespace mx
 			//创建顶点数组对象
 			virtual IVertexArrayObject *CreateVertexArrayObject() = 0;
 			virtual void DestroyVertexArrayObject(IVertexArrayObject *pObject) = 0;
+
+			//创建纹理
+			virtual ITexture *CreateTexture(const char *filename) = 0;
+			virtual void DestroyTexture(ITexture *pTexture) = 0;
 		};
 	}
 }

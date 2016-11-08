@@ -8,6 +8,7 @@
 #include "IBufferObject.h"
 #include "ERender.h"
 #include "IShaderProgram.h"
+#include "ITexture.h"
 
 namespace mx
 {
@@ -26,6 +27,8 @@ namespace mx
 			virtual IBufferObject *GetVertexBufferObject() = 0;
 			virtual IBufferObject *GetIndexBufferObject() = 0;
 
+			//设置纹理
+			virtual void SetTexture(int slot, ITexture *pTexture) = 0;
 
 			//活跃的才能被渲染
 			virtual void SetActive(bool bActive) = 0;

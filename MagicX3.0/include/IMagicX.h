@@ -30,6 +30,9 @@
 
 //resource
 #include "resource/IResourceManager.h"
+#include "resource/IImageManager.h"
+#include "resource/IResource.h"
+#include "resource/IImage.h"
 
 //scene
 #include "scene/CUnit.h"
@@ -72,7 +75,7 @@ namespace mx
 		virtual ISceneManager *GetSceneManager() = 0;
 		
 		//获取资源管理器
-		virtual IResourceManager *GetResourceManager() = 0;
+		virtual IResourceManager *GetResourceManager(EResourceType type) = 0;
 
 		//获取渲染器
 		virtual IRenderer *GetRenderer() = 0;
