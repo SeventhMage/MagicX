@@ -61,6 +61,12 @@
       <AdditionalLibraryDirectories>../../../../lib/</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32d.lib;glew32sd.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Lib>
+      <AdditionalDependencies>opengl32.lib;glew32d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>../../../../lib/$(Configuration)/</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -80,6 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\base\mxString.cpp" />
     <ClCompile Include="..\..\..\..\source\CMagicX.cpp" />
     <ClCompile Include="..\..\..\..\source\device\CDeviceManager.cpp" />
     <ClCompile Include="..\..\..\..\source\device\CEventManager.cpp" />
@@ -99,7 +106,10 @@
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLTexture.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLVertexArrayObject.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLVertexBufferObject.cpp" />
+    <ClCompile Include="..\..\..\..\source\resource\CImageManager.cpp" />
     <ClCompile Include="..\..\..\..\source\resource\CResourceManager.cpp" />
+    <ClCompile Include="..\..\..\..\source\resource\CTGAImage.cpp" />
+    <ClCompile Include="..\..\..\..\source\scene\CEntityManager.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CModel.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CModelManager.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CScene.cpp" />
@@ -109,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\include\base\CSingleton.h" />
+    <ClInclude Include="..\..\..\..\include\base\mxString.h" />
     <ClInclude Include="..\..\..\..\include\device\EEvent.h" />
     <ClInclude Include="..\..\..\..\include\device\IDevice.h" />
     <ClInclude Include="..\..\..\..\include\device\IDeviceManager.h" />
@@ -140,7 +151,8 @@
     <ClInclude Include="..\..\..\..\include\render\ITexture.h" />
     <ClInclude Include="..\..\..\..\include\render\IVertexArrayObject.h" />
     <ClInclude Include="..\..\..\..\include\render\SVertexAttribute.h" />
-    <ClInclude Include="..\..\..\..\include\resource\ITextureResource.h" />
+    <ClInclude Include="..\..\..\..\include\resource\IImage.h" />
+    <ClInclude Include="..\..\..\..\include\resource\IImageManager.h" />
     <ClInclude Include="..\..\..\..\include\resource\IMesh.h" />
     <ClInclude Include="..\..\..\..\include\resource\IResource.h" />
     <ClInclude Include="..\..\..\..\include\resource\IResourceManager.h" />
@@ -174,7 +186,10 @@
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLVertexBufferObject.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\GLDebug.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\OpenGLType.h" />
+    <ClInclude Include="..\..\..\..\source\resource\CImageManager.h" />
     <ClInclude Include="..\..\..\..\source\resource\CResourceManager.h" />
+    <ClInclude Include="..\..\..\..\source\resource\CTGAImage.h" />
+    <ClInclude Include="..\..\..\..\source\scene\CEntityManager.h" />
     <ClInclude Include="..\..\..\..\source\scene\CModel.h" />
     <ClInclude Include="..\..\..\..\source\scene\CModelManager.h" />
     <ClInclude Include="..\..\..\..\source\scene\CScene.h" />

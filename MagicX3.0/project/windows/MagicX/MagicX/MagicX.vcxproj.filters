@@ -55,6 +55,9 @@
     <Filter Include="source\resource">
       <UniqueIdentifier>{5dc5d6ba-64c9-425f-9f26-dbd3db9d824b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\base">
+      <UniqueIdentifier>{7b08d5f9-ccf2-49c4-ba14-333fd06cd80f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\mx.cpp">
@@ -135,6 +138,18 @@
     <ClCompile Include="..\..\..\..\source\render\CRenderer.cpp">
       <Filter>source\render</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene\CEntityManager.cpp">
+      <Filter>source\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\resource\CTGAImage.cpp">
+      <Filter>source\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\resource\CImageManager.cpp">
+      <Filter>source\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\base\mxString.cpp">
+      <Filter>source\base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\include\mx.h">
@@ -159,9 +174,6 @@
       <Filter>include\base</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\resource\IResource.h">
-      <Filter>include\resource</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\include\resource\ITextureResource.h">
       <Filter>include\resource</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\resource\IMesh.h">
@@ -352,6 +364,24 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\scene\IVertex.h">
       <Filter>include\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\scene\CEntityManager.h">
+      <Filter>source\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\resource\IImage.h">
+      <Filter>include\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\resource\CTGAImage.h">
+      <Filter>source\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\resource\IImageManager.h">
+      <Filter>include\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\resource\CImageManager.h">
+      <Filter>source\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\base\mxString.h">
+      <Filter>include\base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
