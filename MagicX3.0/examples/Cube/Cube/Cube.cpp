@@ -1,10 +1,10 @@
 #include "Cube.h"
 
 CubeVertex::CubeVertex()
-:halfWide(50)
+:halfWide(5)
 {
 	m_cubeVertex = new float[5 * 8];
-	m_cubeIndices = new float[36];
+	m_cubeIndices = new uint[36];
 
 	float vertice[] = {
 		//position
@@ -27,7 +27,7 @@ CubeVertex::CubeVertex()
 		1, 1,
 	};
 
-	float indice[] = {
+	uint indice[] = {
 		//front
 		0, 1, 2,
 		0, 2, 3,

@@ -19,7 +19,7 @@ public:
 	virtual uint GetIndicesCount() { return 36; }
 private:
 	float *m_cubeVertex;
-	float *m_cubeIndices;
+	uint *m_cubeIndices;
 	float halfWide;
 };
 
