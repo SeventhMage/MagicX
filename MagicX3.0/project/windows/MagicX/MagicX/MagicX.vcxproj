@@ -115,6 +115,7 @@
     <ClCompile Include="..\..\..\..\source\scene\CScene.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSceneManager.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSceneNode.cpp" />
+    <ClCompile Include="..\..\..\..\source\scene\CSkyBox.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CUnit.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +167,7 @@
     <ClInclude Include="..\..\..\..\include\scene\IScene.h" />
     <ClInclude Include="..\..\..\..\include\scene\ISceneManager.h" />
     <ClInclude Include="..\..\..\..\include\scene\ISceneNode.h" />
+    <ClInclude Include="..\..\..\..\include\scene\ISkyBox.h" />
     <ClInclude Include="..\..\..\..\include\scene\IVertex.h" />
     <ClInclude Include="..\..\..\..\source\CMagicX.h" />
     <ClInclude Include="..\..\..\..\source\device\CDeviceManager.h" />
@@ -194,6 +196,7 @@
     <ClInclude Include="..\..\..\..\source\scene\CModelManager.h" />
     <ClInclude Include="..\..\..\..\source\scene\CScene.h" />
     <ClInclude Include="..\..\..\..\source\scene\CSceneManager.h" />
+    <ClInclude Include="..\..\..\..\source\scene\CSkyBox.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
