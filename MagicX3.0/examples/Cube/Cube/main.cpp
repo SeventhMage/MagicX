@@ -19,16 +19,12 @@ int main(int argc, char *argv[])
 	{
 		CVector3 vDir(0, 0, -1);
 		CVector3 vUp(0, 1, 0);
-		scene->SetupCamera(CVector3(0, 5, 15), vDir, vUp, PI / 2, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
+		scene->SetupCamera(CVector3(0, 0, 5), vDir, vUp, PI / 2, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
 		ISceneNode *rootNode = scene->GetRootNode();
 		if (rootNode)
 		{									
 			rootNode->AddChild(cube);
 			cube->SetPosition(CVector3(0, 0, -20));
-			//CUnit *pUnit = new CUnit;
-			//pUnit->LoadModel("");
-			//rootNode->AddChild(pUnit);
-
 		}
 	}
 
@@ -87,6 +83,7 @@ int main(int argc, char *argv[])
 
 		
 	}
+	delete cube;
 	DestroyMagicX();
 	return 0;
 }

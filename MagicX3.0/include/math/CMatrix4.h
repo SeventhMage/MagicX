@@ -99,9 +99,9 @@ namespace mx
 
 			CMatrix4 &BuildProjectionMatrixPerspectiveFovRH(float fieldOfViewRadians, float aspectRatio, float zNear, float zFar)
 			{
-				const float w = static_cast<float>(1.0 / tan(fieldOfViewRadians*0.5));
+				const float h = static_cast<float>(1.0 / tan(fieldOfViewRadians*0.5));
 				assert(aspectRatio != 0.f);
-				const float h = static_cast<float>(w / aspectRatio);
+				const float w = static_cast<float>(h / aspectRatio);
 				assert(zNear != zFar);
 
 				m[0] = w;

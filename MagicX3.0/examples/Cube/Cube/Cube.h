@@ -13,18 +13,16 @@ public:
 
 	virtual EVertexAttribute GetVertexAttribute();
 	virtual void *GetVertexData() { return m_cubeVertex; }
-	virtual uint GetVerticeCount() { return (96); }
-	virtual uint GetVerticeSize() { return (96) * sizeof(float); }
+	virtual uint GetVerticeCount() { return (m_verCount); }
+	virtual uint GetVerticeSize() { return (m_verCount)* sizeof(float); }
 	virtual void *GetIndicesData() { return m_cubeIndices; }
-	virtual uint GetIndicesCount() { return 36; }
-	virtual void *GetTexCoordData() { return m_texCoord; }
-	virtual uint GetTexCoordCount() { return 12 * 6; };
-	virtual uint GetTexCoordSize() { return 12 * 6 * sizeof(float); }
+	virtual uint GetIndicesCount() { return m_indiceCount; }
 private:
 	float *m_cubeVertex;
-	float *m_texCoord;
 	uint *m_cubeIndices;
 	float halfWide;
+	uint m_verCount;
+	uint m_indiceCount;
 };
 
 #endif

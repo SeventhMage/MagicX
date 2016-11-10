@@ -5,37 +5,45 @@ CubeVertex::CubeVertex()
 {
 
 	float vertice[] = {
-		//position
-		-halfWide, -halfWide, halfWide,
-		halfWide, -halfWide, halfWide,
-		halfWide, halfWide, halfWide,
-		-halfWide, halfWide, halfWide,
+		//front
+		-halfWide, -halfWide, halfWide, 0, 0,
+		halfWide, -halfWide, halfWide, 1, 0,
+		halfWide, halfWide, halfWide, 1, 1,
+		-halfWide, halfWide, halfWide, 0, 1,
 
-		-halfWide, -halfWide, -halfWide,
-		halfWide, -halfWide, -halfWide,
-		halfWide, halfWide, -halfWide,
-		-halfWide, halfWide, -halfWide,
+		//back
+		halfWide, -halfWide, -halfWide, 0, 0,
+		-halfWide, -halfWide, -halfWide, 1, 0,
+		-halfWide, halfWide, -halfWide, 1, 1,
+		halfWide, halfWide, -halfWide, 0, 1,
 
-		0, 0, 1, 0, 1, 1,
-		0, 0, 1, 1, 0, 1,
+		//left
+		-halfWide, -halfWide, -halfWide, 0, 0,
+		-halfWide, -halfWide, halfWide, 1, 0,
+		-halfWide, halfWide, halfWide, 1, 1,
+		-halfWide, halfWide, -halfWide, 0,1,
 
-		0, 0, 1, 0, 1, 1,
-		0, 0, 1, 1, 0, 1,
+		//right
+		halfWide, -halfWide, halfWide, 0, 0,
+		halfWide, -halfWide, -halfWide, 1, 0,
+		halfWide, halfWide, -halfWide, 1, 1,
+		halfWide, halfWide, halfWide, 0, 1,
 
-		0, 0, 1, 0, 1, 1,
-		0, 0, 1, 1, 0, 1,
+		//top
+		-halfWide, halfWide, halfWide, 0, 0,
+		halfWide, halfWide, halfWide, 1, 0,
+		halfWide, halfWide, -halfWide, 1, 1,
+		-halfWide, halfWide, -halfWide, 0, 1,
 
-		0, 0, 1, 0, 1, 1,
-		0, 0, 1, 1, 0, 1,
+		//bottom
+		-halfWide, -halfWide, -halfWide, 0, 0,
+		halfWide, -halfWide, -halfWide, 1, 0,
+		halfWide, -halfWide, halfWide, 1, 1,
+		-halfWide, -halfWide, halfWide, 0, 1,
 
-		0, 0, 1, 0, 1, 1,
-		0, 0, 1, 1, 0, 1,
-
-		0, 0, 1, 0, 1, 1,
-		0, 0, 1, 1, 0, 1
 	};
-
-	m_cubeVertex = new float[sizeof(vertice) / sizeof(float)];
+	m_verCount = sizeof(vertice) / sizeof(float);
+	m_cubeVertex = new float[m_verCount];
 
 	uint indice[] = {
 		//front
@@ -43,26 +51,27 @@ CubeVertex::CubeVertex()
 		0, 2, 3,
 
 		//back
-		5, 4, 7,
-		5, 7, 6,
+		4, 5, 6,
+		4, 6, 7,
 
 		//left
-		4, 0, 3,
-		4, 3, 7,
+		8, 9, 10,
+		8, 10, 11,
 
 		//right
-		1, 5, 6,
-		1, 6, 2,
+		12, 13, 14,
+		12, 14, 15,
 
 		//top
-		3, 2, 6,
-		3, 6, 7,
+		16, 17, 18,
+		16, 18, 19,
 
 		//bottom
-		1, 0, 4,
-		1, 4, 5,
+		20, 21, 22,
+		20, 22, 23,
 	};
-	m_cubeIndices = new uint[sizeof(indice) / sizeof(uint)];
+	m_indiceCount = sizeof(indice) / sizeof(uint);
+	m_cubeIndices = new uint[m_indiceCount];
 	memcpy(m_cubeVertex, vertice, sizeof(vertice));
 	memcpy(m_cubeIndices, indice, sizeof(indice));
 }

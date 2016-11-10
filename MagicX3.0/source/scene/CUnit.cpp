@@ -19,6 +19,7 @@ namespace mx
 
 		CUnit::CUnit(IScene *pScene, IVertex *pVertex, const char *texfile /*= nullptr*/)
 			:CEntity(pScene)
+			, m_pMode(NULL)
 			,m_pTexture(nullptr)
 		{
 			m_pVAO = RENDERER->CreateVertexArrayObject();
@@ -151,8 +152,21 @@ namespace mx
 
 				IShaderProgram *pShaderProgram = m_pVAO->GetShaderProgram();	
 				
-
-				pShaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_REPLACE);
+				if (vertAttr == VF_POSITION)
+					pShaderProgram->CreateStandShader(ESS_SHADER_IDENTITY);
+				else if (vertAttr == (VF_POSITION | VF_COLOR))
+					pShaderProgram->CreateStandShader(ESS_SHADER_FLAT);
+				else if(vertAttr == (VF_POSITION | VF_TEXCOORD))
+					pShaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_REPLACE);
+				else if (vertAttr == (VF_POSITION | VF_COLOR))
+					pShaderProgram->CreateStandShader(ESS_SHADER_SHADED);
+				else if (vertAttr == (VF_POSITION | VF_COLOR | VF_TEXCOORD))
+					pShaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_MODULATE);
+				else if (vertAttr == (VF_POSITION | VF_TEXCOORD | VF_NORMAL))
+					pShaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_REPLACE);
+				else if (vertAttr == (VF_POSITION | VF_COLOR | VF_NORMAL | VF_TEXCOORD))
+					pShaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_REPLACE);
+				
 
 				m_pTexture = RENDERER->CreateTexture(texfile);
 				m_pRenderable->SetTexture(0, m_pTexture);
@@ -184,7 +198,7 @@ namespace mx
 				uint offset = 0;
 				if (vertAttr & VF_POSITION)
 				{
-					m_pVAO->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, 0, offset);
+					m_pVAO->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, stride, offset);
 					offset += 3 * sizeof(float);
 				}
 				if (vertAttr & VF_COLOR)
@@ -194,7 +208,7 @@ namespace mx
 				}
 				if (vertAttr & VF_TEXCOORD)
 				{
-					m_pVAO->EnableVertexAttrib(render::VAL_TEXTURE0, 2, render::RVT_FLOAT, 0, 96);
+					m_pVAO->EnableVertexAttrib(render::VAL_TEXTURE0, 2, render::RVT_FLOAT, stride, offset);
 					offset += 2 * sizeof(float);
 				}
 				if (vertAttr & VF_NORMAL)
