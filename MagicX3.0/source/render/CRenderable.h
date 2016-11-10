@@ -30,20 +30,21 @@ namespace mx
 
 			virtual void SetTexture(int slot, ITexture *pTexture);
 
-			virtual void SetActive(bool bActive) { m_bActive = bActive; }
-			virtual bool IsActive() { return m_bActive; }
-
 			virtual void SumbitToRenderList();
 			virtual void RemoveFromRenderList();
 			virtual void Bind();
 			virtual void UnBind();
+			virtual void Enable(RenderAttribute attr) { m_bRenderAttrs[attr] = true; }
+			virtual void Disable(RenderAttribute attr) { m_bRenderAttrs[attr] = false; }
+			virtual bool IsEnabled(RenderAttribute attr) { return m_bRenderAttrs[attr]; }
 		private:
 			IRenderList *m_pRenderList;					//渲染列表
 			IBufferObject *m_pVBO;						//顶点缓冲区对象
 			IBufferObject *m_pIBO;						//索引缓冲区对象
 
+			bool m_bRenderAttrs[RA_NUM];				//渲染属性
+
 			ITexture *m_pTexture[TU_TEXTURE_NUM];		//纹理
-			bool m_bActive;
 		};
 	}
 }

@@ -37,6 +37,7 @@
 
 //scene
 #include "scene/CUnit.h"
+#include "scene/CSphere.h"
 #include "scene/CEntity.h"
 #include "scene/IModel.h"
 #include "scene/ISceneManager.h"

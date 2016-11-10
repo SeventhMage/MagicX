@@ -116,6 +116,7 @@
     <ClCompile Include="..\..\..\..\source\scene\CSceneManager.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSceneNode.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSkyBox.cpp" />
+    <ClCompile Include="..\..\..\..\source\scene\CSphere.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CUnit.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +160,7 @@
     <ClInclude Include="..\..\..\..\include\resource\IResource.h" />
     <ClInclude Include="..\..\..\..\include\resource\IResourceManager.h" />
     <ClInclude Include="..\..\..\..\include\scene\CSceneNode.h" />
+    <ClInclude Include="..\..\..\..\include\scene\CSphere.h" />
     <ClInclude Include="..\..\..\..\include\scene\CUnit.h" />
     <ClInclude Include="..\..\..\..\include\scene\ICamera.h" />
     <ClInclude Include="..\..\..\..\include\scene\CEntity.h" />

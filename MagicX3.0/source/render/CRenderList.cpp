@@ -42,10 +42,7 @@ namespace mx
 		{
 			for (auto it = m_renderableList.begin(); it != m_renderableList.end(); ++it)
 			{
-				if ((*it)->IsActive())
-				{
-					RENDERER->Render(*it);
-				}
+				RENDERER->Render(*it);
 			}
 		}
 

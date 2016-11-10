@@ -158,6 +158,7 @@ namespace mx
 					m_pVAO->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, 0, 0);
 					m_pTexture = RENDERER->CreateCubeTexture(front, back, left, right, top, bottom);
 					m_pRenderable->SetTexture(0, m_pTexture);
+					m_pRenderable->Disable(RA_CULL_FACE);
 				}
 				m_pVAO->UnBind();
 			}			

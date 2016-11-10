@@ -21,6 +21,9 @@ int main(int argc, char *argv[])
 		CVector3 vUp(0, 1, 0);
 		camera = scene->SetupCamera(CVector3(0, 0, 5), vDir, vUp, PI / 2, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
 		scene->SetupSkyBox("texture/pos_z.tga", "texture/neg_z.tga", "texture/neg_x.tga", "texture/pos_x.tga", "texture/pos_y.tga", "texture/neg_y.tga", 20);
+		
+		CSphere *pSphere = new CSphere(scene, 5, 20, 10);
+		scene->GetRootNode()->AddChild(pSphere);
 	}
 
 	uint next_game_tick = GetTickCount();

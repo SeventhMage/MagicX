@@ -34,6 +34,15 @@ namespace mx
 		{
 			if (pRenderable)
 			{
+				for (uint j = 0; j < RA_NUM; ++j)
+				{
+					GLenum attr = GetGLRenderAttr((RenderAttribute)j);
+					if (pRenderable->IsEnabled((RenderAttribute)j))
+						glEnable(attr);
+					else
+						glDisable(attr);
+				}
+
 				pRenderable->Bind();
 				COpenGLIndexBufferObject *ibo = dynamic_cast<COpenGLIndexBufferObject *>(pRenderable->GetIndexBufferObject());
 				if (ibo)
@@ -142,7 +151,6 @@ namespace mx
 			if (pTexture)
 				delete pTexture;
 		}
-
 
 	}
 

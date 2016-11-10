@@ -139,7 +139,8 @@ namespace mx
 
 		void CUnit::RenderImp()
 		{
-			m_pVAO->Render();
+			if (m_pVAO)
+				m_pVAO->Render();
 		}
 
 		void CUnit::CreateRenderable(IVertex *pVertex, const char *texfile)

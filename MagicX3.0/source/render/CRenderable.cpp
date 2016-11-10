@@ -8,11 +8,12 @@ namespace mx
 
 		CRenderable::CRenderable(IRenderList *pRenderList)
 			:m_pRenderList(pRenderList)
-			, m_bActive(true)
 			, m_pVBO(nullptr)
 			, m_pIBO(nullptr)
 		{
-			memset(m_pTexture, 0, sizeof(ITexture *)* TU_TEXTURE_NUM);			
+			memset(m_pTexture, 0, sizeof(ITexture *)* TU_TEXTURE_NUM);	
+			for (int i = 0; i < RA_NUM; ++i)
+				m_bRenderAttrs[i] = true;
 		}
 
 		CRenderable::~CRenderable()

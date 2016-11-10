@@ -153,6 +153,9 @@
     <ClCompile Include="..\..\..\..\source\scene\CSkyBox.cpp">
       <Filter>source\scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene\CSphere.cpp">
+      <Filter>source\scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\include\mx.h">
@@ -387,6 +390,9 @@
       <Filter>source\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\scene\ISkyBox.h">
+      <Filter>include\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\CSphere.h">
       <Filter>include\scene</Filter>
     </ClInclude>
   </ItemGroup>

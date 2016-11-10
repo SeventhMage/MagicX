@@ -30,10 +30,6 @@ namespace mx
 			//设置纹理
 			virtual void SetTexture(int slot, ITexture *pTexture) = 0;
 
-			//活跃的才能被渲染
-			virtual void SetActive(bool bActive) = 0;
-			virtual bool IsActive() = 0;
-
 			//提交数据到渲染队列
 			virtual void SumbitToRenderList() = 0;
 			virtual void RemoveFromRenderList() = 0;
@@ -41,6 +37,11 @@ namespace mx
 			virtual void Bind() = 0;
 			//解绑
 			virtual void UnBind() = 0;
+
+			//渲染属性
+			virtual void Enable(RenderAttribute attr) = 0;
+			virtual void Disable(RenderAttribute attr) = 0;
+			virtual bool IsEnabled(RenderAttribute attr) = 0;
 		};
 	}
 }
