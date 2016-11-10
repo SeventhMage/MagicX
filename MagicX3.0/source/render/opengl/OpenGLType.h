@@ -317,6 +317,23 @@ namespace mx
 				return GL_RGB;
 			}
 		}
+
+		static GLenum GetGLPixelType(resource::EPixelType type)
+		{
+			switch (type)
+			{
+			case resource::PT_UNSIGNED_BYTE:
+				return GL_UNSIGNED_BYTE;
+			case resource::PT_UNSIGNED_SHORT_5_6_5:
+				return GL_UNSIGNED_SHORT_5_6_5;
+			case resource::PT_UNSIGNED_SHORT_4_4_4_4:
+				return GL_UNSIGNED_SHORT_4_4_4_4;
+			case resource::PT_UNSIGNED_SHORT_5_5_5_1:
+				return GL_UNSIGNED_SHORT_5_5_5_1;
+			default:
+				return GL_UNSIGNED_BYTE;
+			}
+		}
 	}
 }
 

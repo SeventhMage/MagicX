@@ -46,6 +46,8 @@ namespace mx
 
 			//¥¥Ω®Œ∆¿Ì
 			virtual ITexture *CreateTexture(const char *filename) = 0;
+			virtual ITexture *CreateCubeTexture(const char *front, const char *back, const char *left,
+				const char *right, const char *top, const char *bottom) = 0;
 			virtual void DestroyTexture(ITexture *pTexture) = 0;
 		};
 	}

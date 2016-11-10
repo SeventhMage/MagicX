@@ -1,5 +1,6 @@
 #include "COpenGLTexture.h"
 #include "GLDebug.h"
+#include "OpenGLType.h"
 
 namespace mx
 {
@@ -38,11 +39,19 @@ namespace mx
 			}
 		}
 
-		void COpenGLTexture::CreateCube(int internalformat[6], int width[6], int height[6], int format[6], int type[6], void *data[6])
+		void COpenGLTexture::CreateCube(IImage *pImgFront, IImage *pImgBack, IImage *pImgLeft, 
+			IImage *pImgRight, IImage *pImgTop, IImage *pImgBottom)
 		{
 			GLenum cube[] = { GL_TEXTURE_CUBE_MAP_POSITIVE_Z, GL_TEXTURE_CUBE_MAP_NEGATIVE_Z,
 				GL_TEXTURE_CUBE_MAP_NEGATIVE_X, GL_TEXTURE_CUBE_MAP_POSITIVE_X,
 				GL_TEXTURE_CUBE_MAP_POSITIVE_Y, GL_TEXTURE_CUBE_MAP_NEGATIVE_Y };
+
+			int internalformat[6] = { GetGLColorFormat(pImgFront->GetComponents()), GetGLColorFormat(pImgBack->GetComponents()), GetGLColorFormat(pImgLeft->GetComponents()), GetGLColorFormat(pImgRight->GetComponents()), GetGLColorFormat(pImgTop->GetComponents()), GetGLColorFormat(pImgBottom->GetComponents()) };
+			int width[6] = { pImgFront->GetWidth(), pImgBack->GetWidth(), pImgLeft->GetWidth(), pImgRight->GetWidth(), pImgTop->GetWidth(), pImgBottom->GetWidth() };
+			int height[6] = { pImgFront->GetHeight(), pImgBack->GetHeight(), pImgLeft->GetHeight(), pImgRight->GetHeight(), pImgTop->GetHeight(), pImgBottom->GetHeight() };
+			int format[6] = { GetGLColorFormat(pImgFront->GetFormat()), GetGLColorFormat(pImgBack->GetFormat()), GetGLColorFormat(pImgLeft->GetFormat()), GetGLColorFormat(pImgRight->GetFormat()), GetGLColorFormat(pImgTop->GetFormat()), GetGLColorFormat(pImgBottom->GetFormat()) };
+			int type[6] = { GetGLPixelType(pImgFront->GetPixelType()), GetGLPixelType(pImgBack->GetPixelType()), GetGLPixelType(pImgLeft->GetPixelType()), GetGLPixelType(pImgRight->GetPixelType()), GetGLPixelType(pImgTop->GetPixelType()), GetGLPixelType(pImgBottom->GetPixelType()) };
+			void *data[6] = { pImgFront->GetData(), pImgBack->GetData(), pImgLeft->GetData(), pImgRight->GetData(), pImgTop->GetData(), pImgBottom->GetData() };
 
 			m_target = GL_TEXTURE_CUBE_MAP;
 

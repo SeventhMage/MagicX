@@ -28,6 +28,8 @@ namespace mx
 				RendererVariableType idsType, GPUBufferMode mode, GPUBufferUsage usage);
 			virtual void DestroyBufferObject(IBufferObject *object);
 			virtual ITexture *CreateTexture(const char *filename);
+			virtual ITexture *CreateCubeTexture(const char *front, const char *back, const char *left,
+				const char *right, const char *top, const char *bottom);
 			virtual void DestroyTexture(ITexture *pTexture);
 		};
 	}

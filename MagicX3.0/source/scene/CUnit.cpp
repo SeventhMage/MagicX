@@ -151,74 +151,75 @@ namespace mx
 				m_pVAO->Bind();
 
 				IShaderProgram *pShaderProgram = m_pVAO->GetShaderProgram();	
-				
-				if (vertAttr == VF_POSITION)
-					pShaderProgram->CreateStandShader(ESS_SHADER_IDENTITY);
-				else if (vertAttr == (VF_POSITION | VF_COLOR))
-					pShaderProgram->CreateStandShader(ESS_SHADER_FLAT);
-				else if(vertAttr == (VF_POSITION | VF_TEXCOORD))
-					pShaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_REPLACE);
-				else if (vertAttr == (VF_POSITION | VF_COLOR))
-					pShaderProgram->CreateStandShader(ESS_SHADER_SHADED);
-				else if (vertAttr == (VF_POSITION | VF_COLOR | VF_TEXCOORD))
-					pShaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_MODULATE);
-				else if (vertAttr == (VF_POSITION | VF_TEXCOORD | VF_NORMAL))
-					pShaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_REPLACE);
-				else if (vertAttr == (VF_POSITION | VF_COLOR | VF_NORMAL | VF_TEXCOORD))
-					pShaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_REPLACE);
-				
-
-				m_pTexture = RENDERER->CreateTexture(texfile);
-				m_pRenderable->SetTexture(0, m_pTexture);
-
-				uint pUnit = 0;
-				pShaderProgram->SetUniform("textureUnit0", &pUnit);
-
-				float vColor[] = { 1, 1, 1, 1 };
-				pShaderProgram->SetUniform("vColor", vColor);
-
-
-				CMatrix4 vpMat4;
-				if (m_pSceneParent)
+				if (pShaderProgram)
 				{
-					ICamera *pCam = m_pSceneParent->GetCamera();
-					if (pCam)
+					if (vertAttr == VF_POSITION)
+						pShaderProgram->CreateStandShader(ESS_SHADER_IDENTITY);
+					else if (vertAttr == (VF_POSITION | VF_COLOR))
+						pShaderProgram->CreateStandShader(ESS_SHADER_FLAT);
+					else if (vertAttr == (VF_POSITION | VF_TEXCOORD))
+						pShaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_REPLACE);
+					else if (vertAttr == (VF_POSITION | VF_COLOR))
+						pShaderProgram->CreateStandShader(ESS_SHADER_SHADED);
+					else if (vertAttr == (VF_POSITION | VF_COLOR | VF_TEXCOORD))
+						pShaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_MODULATE);
+					else if (vertAttr == (VF_POSITION | VF_TEXCOORD | VF_NORMAL))
+						pShaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_REPLACE);
+					else if (vertAttr == (VF_POSITION | VF_COLOR | VF_NORMAL | VF_TEXCOORD))
+						pShaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_REPLACE);
+
+
+					m_pTexture = RENDERER->CreateTexture(texfile);
+					m_pRenderable->SetTexture(0, m_pTexture);
+
+					uint pUnit = 0;
+					pShaderProgram->SetUniform("textureUnit0", &pUnit);
+
+					float vColor[] = { 1, 1, 1, 1 };
+					pShaderProgram->SetUniform("vColor", vColor);
+
+
+					CMatrix4 vpMat4;
+					if (m_pSceneParent)
 					{
-						vpMat4 = pCam->GetViewProjectionMatrix();
+						ICamera *pCam = m_pSceneParent->GetCamera();
+						if (pCam)
+						{
+							vpMat4 = pCam->GetViewProjectionMatrix();
+						}
 					}
-				}
-				CMatrix4 mvpMat4 = GetAbsluateTransformation() * vpMat4;
+					CMatrix4 mvpMat4 = GetAbsluateTransformation() * vpMat4;
 
-				pShaderProgram->SetUniform("mvpMatrix", mvpMat4.m);
+					pShaderProgram->SetUniform("mvpMatrix", mvpMat4.m);
 
-				m_pRenderable->CreateVertexBufferObject(pVertex->GetVertexData(), pVertex->GetVerticeSize(), 0, pVertex->GetVerticeCount(), GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
-				m_pRenderable->CreateIndexBufferObject(pVertex->GetIndicesData(), pVertex->GetIndicesCount(), RVT_UINT, GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
+					m_pRenderable->CreateVertexBufferObject(pVertex->GetVertexData(), pVertex->GetVerticeSize(), 0, pVertex->GetVerticeCount(), GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
+					m_pRenderable->CreateIndexBufferObject(pVertex->GetIndicesData(), pVertex->GetIndicesCount(), RVT_UINT, GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
 
-				uint stride = GetVertexStride(EVertexAttribute(vertAttr));
-				uint offset = 0;
-				if (vertAttr & VF_POSITION)
-				{
-					m_pVAO->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, stride, offset);
-					offset += 3 * sizeof(float);
-				}
-				if (vertAttr & VF_COLOR)
-				{
-					m_pVAO->EnableVertexAttrib(render::VAL_COLOR, 4, render::RVT_FLOAT, stride, offset);
-					offset += 4 * sizeof(float);
-				}
-				if (vertAttr & VF_TEXCOORD)
-				{
-					m_pVAO->EnableVertexAttrib(render::VAL_TEXTURE0, 2, render::RVT_FLOAT, stride, offset);
-					offset += 2 * sizeof(float);
-				}
-				if (vertAttr & VF_NORMAL)
-				{
-					m_pVAO->EnableVertexAttrib(render::VAL_NORMAL, 3, render::RVT_FLOAT, stride, offset);
-					offset += 3 * sizeof(float);
-				}
+					uint stride = GetVertexStride(EVertexAttribute(vertAttr));
+					uint offset = 0;
+					if (vertAttr & VF_POSITION)
+					{
+						m_pVAO->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, stride, offset);
+						offset += 3 * sizeof(float);
+					}
+					if (vertAttr & VF_COLOR)
+					{
+						m_pVAO->EnableVertexAttrib(render::VAL_COLOR, 4, render::RVT_FLOAT, stride, offset);
+						offset += 4 * sizeof(float);
+					}
+					if (vertAttr & VF_TEXCOORD)
+					{
+						m_pVAO->EnableVertexAttrib(render::VAL_TEXTURE0, 2, render::RVT_FLOAT, stride, offset);
+						offset += 2 * sizeof(float);
+					}
+					if (vertAttr & VF_NORMAL)
+					{
+						m_pVAO->EnableVertexAttrib(render::VAL_NORMAL, 3, render::RVT_FLOAT, stride, offset);
+						offset += 3 * sizeof(float);
+					}
 
-				m_pVAO->UnBind();
-
+					m_pVAO->UnBind();
+				}
 			}
 		}
 

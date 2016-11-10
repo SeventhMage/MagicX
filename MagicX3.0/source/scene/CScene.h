@@ -21,12 +21,15 @@ namespace mx
 			virtual ICamera *SetupCamera(const CVector3 &position, const CVector3 &direction,
 				const CVector3 &up, float fov, float aspect, float nearClip, float farClip);
 			virtual ICamera *GetCamera();
+			virtual ISkyBox *SetupSkyBox(const char *front, const char *back, const char *left,
+				const char *right, const char *top, const char *bottom, float radius);
 			virtual void Update(int delta);
 			virtual void Draw();
 
 		private:
 			ISceneNode *m_pRootNode;
 			ICamera *m_pCamera;
+			ISkyBox *m_pSkyBox;
 		};
 	}
 }

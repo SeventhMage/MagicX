@@ -6,6 +6,7 @@
 #define _MX_RENDER_I_TEXTURE_H_
 
 #include "mxType.h"
+#include "resource/IImage.h"
 
 namespace mx
 {
@@ -25,6 +26,8 @@ namespace mx
 
 			TU_TEXTURE_NUM,
 		};
+
+		using namespace resource;
 		class ITexture
 		{
 		public:
@@ -39,9 +42,11 @@ namespace mx
 			//创建2D纹理
 			virtual void Create2D(int internalformat, int width, int height, int format, int type, void *data) = 0;
 
-			//创建Cube纹理
-			virtual void CreateCube(int internalformat[6], int width[6], int height[6], int format[6], int type[6], void *data[6]) = 0;
+			//创建Cube纹理			
 
+			virtual void CreateCube(IImage *pImgFront, IImage *pImgBack, IImage *pImgLeft, 
+				IImage *pImgRight, IImage *pImgTop, IImage *pImgBottom) = 0;
+			
 			//返回纹理句柄
 			virtual uint GetHandle() = 0;
 		};

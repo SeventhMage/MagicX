@@ -93,10 +93,46 @@ namespace mx
 				{
 					ITexture *pTexture = new COpenGLTexture();
 					pTexture->Create2D(GetGLColorFormat((pImage->GetComponents())), 
-						pImage->GetWidth(), pImage->GetHeight(), GetGLColorFormat((pImage->GetFormat())), GL_UNSIGNED_BYTE, pImage->GetData());
+						pImage->GetWidth(), pImage->GetHeight(), GetGLColorFormat((pImage->GetFormat())), GetGLPixelType(pImage->GetPixelType()), pImage->GetData());
 					pIMageMgr->UnLoadResource(pImage);
 					return pTexture;
 				}
+			}
+			return nullptr;
+		}
+
+		ITexture * COpenGLRenderer::CreateCubeTexture(const char *front, const char *back, const char *left, const char *right, const char *top, const char *bottom)
+		{
+			resource::IImageManager *pIMageMgr = (IImageManager *)RESOURCEMGR(RT_IMAGE);
+			if (pIMageMgr)
+			{
+				const char *file[6] = {front, back, left, right, top, bottom};
+				resource::IImage *pImage[6] = { 0 };
+
+				bool bLoadSucess = true;
+				for (int i = 0; i < 6; ++i)
+				{
+					pImage[i] = (resource::IImage *)pIMageMgr->LoadResource(file[i]);
+					if (!pImage[i])
+					{
+						bLoadSucess = false;
+						break;
+					}
+				}
+
+				ITexture *pTexture = nullptr;
+				if (bLoadSucess)
+				{
+					ITexture *pTexture = new COpenGLTexture();
+					pTexture->CreateCube(pImage[0], pImage[1], pImage[2], pImage[3], pImage[4], pImage[5]);
+				}				
+
+				for (int i = 0; i < 6; ++i)
+				{
+					pIMageMgr->UnLoadResource(pImage[i]);
+				}
+				return pTexture;
+				
 			}
 			return nullptr;
 		}
@@ -106,6 +142,8 @@ namespace mx
 			if (pTexture)
 				delete pTexture;
 		}
+
+
 	}
 
 }

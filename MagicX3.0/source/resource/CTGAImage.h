@@ -44,6 +44,7 @@ namespace mx
 			virtual EColorFormat GetComponents() const { return m_iComponents; }
 			virtual int GetWidth() const { return m_iWidth; }
 			virtual int GetHeight() const { return m_iHeight; }
+			virtual EPixelType GetPixelType() const { return PT_UNSIGNED_BYTE; }
 		private:
 			char m_filename[256];
 			TGAHEADER m_tgaHeader;
