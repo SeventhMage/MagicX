@@ -12,26 +12,87 @@ namespace mx
 			:CEntity(pScene)
 			, m_pTexture(nullptr)
 		{
-			m_pVAO = RENDERER->CreateVertexArrayObject();
-			m_pVAO->Bind();
+			m_pVAO = RENDERER->CreateVertexArrayObject();			
 			m_pRenderable = RENDERER->CreateRenderable(m_pVAO->GetRenderList());
 
-			CMatrix4 vpMat4;
+			Create(fRadius, iSlices, iStacks);
+	
+		}
+
+		CSphere::~CSphere()
+		{
+			RENDERER->DestroyVertexArrayObject(m_pVAO);
+			RENDERER->DestroyRenderable(m_pRenderable);
+		}
+
+		void CSphere::UpdateImp(int delta)
+		{
+			IShaderProgram *pShaderProgram = m_pVAO->GetShaderProgram();
+			if (pShaderProgram)
+			{
+				CMatrix4 vpMat4;
+				if (m_pSceneParent)
+				{
+					ICamera *pCam = m_pSceneParent->GetCamera();
+					if (pCam)
+					{
+						vpMat4 = pCam->GetViewProjectionMatrix();
+					}
+				}
+				CMatrix4 mvpMat4 = GetAbsluateTransformation() * vpMat4;
+				pShaderProgram->SetUniform("mvpMatrix", mvpMat4.m);
+			}
+
+			m_pRenderable->SumbitToRenderList();
+		}
+
+		void CSphere::RenderImp()
+		{
+			if (m_pVAO)
+				m_pVAO->Render();
+		}
+
+		void CSphere::Create(float fRadius, int iSlices, int iStacks)
+		{
+			if (!m_pVAO) return;
+
+			m_pVAO->Bind();
 			if (m_pSceneParent)
 			{
 				ICamera *pCam = m_pSceneParent->GetCamera();
 				if (pCam)
 				{
-					vpMat4 = pCam->GetViewProjectionMatrix();
+					IShaderProgram *pShaderProgram = m_pVAO->GetShaderProgram();
+					if (pShaderProgram)
+					{
+						pShaderProgram->Attach("shader/Reflection.vs", ST_VERTEX);
+						pShaderProgram->Attach("shader/Reflection.ps", ST_FRAGMENT);
+						pShaderProgram->BindAttributeLocation(2, VAL_POSITION, VAL_NORMAL);
+						pShaderProgram->Link();
+
+
+						CMatrix4 mvpMat4 = GetAbsluateTransformation() * pCam->GetViewProjectionMatrix();;
+						CMatrix4 mvMat4 = GetAbsluateTransformation() * pCam->GetViewMatrix();
+						CMatrix4 temp;
+						CMatrix4 normalMat4;
+						CMatrix4 camInvMat4;
+						mvpMat4.GetInverse(temp);
+						temp.GetTransposed(normalMat4);
+						pCam->GetViewMatrix().GetInverse(camInvMat4);
+
+						pShaderProgram->SetUniform("mvpMatrix", mvpMat4.m);
+						pShaderProgram->SetUniform("vpMatrix", mvMat4.m);
+						pShaderProgram->SetUniform("normalMatrix", normalMat4.m);
+						pShaderProgram->SetUniform("normalMatrix", camInvMat4.m);
+
+						int cubeUnit = 0;
+						pShaderProgram->SetUniform("cubeMap", &cubeUnit);
+
+					}
 				}
-			}
-			CMatrix4 mvpMat4 = GetAbsluateTransformation() * vpMat4;
+			}			
 
-			IShaderProgram *pShaderProgram = m_pVAO->GetShaderProgram();
-			pShaderProgram->CreateStandShader(ESS_SHADER_IDENTITY);
-
-			m_pVAO->GetShaderProgram()->SetUniform("mvpMatrix", mvpMat4.m);
-
+			
 			float drho = (float)(3.141592653589) / (float)iStacks;
 			float dtheta = 2.0f * (float)(3.141592653589) / (float)iSlices;
 			float ds = 1.0f / (float)iSlices;
@@ -124,7 +185,7 @@ namespace mx
 					vVertex[3].x = x * fRadius;
 					vVertex[3].y = y * fRadius;
 					vVertex[3].z = z * fRadius;
-					
+
 					for (int i = 0; i < 3; ++i)
 					{
 						maxVertexes[curCount] = vVertex[i];
@@ -150,48 +211,24 @@ namespace mx
 				}
 				t -= dt;
 			}
+			int bufferSize = sizeof(CVector3)* iSlices * iStacks * 6 * 2;// +sizeof(CVector2)* iSlices * iStacks * 6;
+			IBufferObject *bufferObject = m_pRenderable->CreateVertexBufferObject(NULL, bufferSize, 0, iSlices * iStacks * 6, GBM_TRIANGLE_FAN, GBU_DYNAMIC_DRAW);
+			if (bufferObject)
+			{
+				bufferObject->BufferSubData(maxVertexes, sizeof(CVector3)* iSlices * iStacks * 6, 0);
+				bufferObject->BufferSubData(maxNormals, sizeof(CVector3)* iSlices * iStacks * 6, sizeof(CVector3)* iSlices * iStacks * 6);
+				//bufferObject->BufferSubData(maxTexCoords, sizeof(CVector2)* iSlices * iStacks * 6, sizeof(CVector3)* iSlices * iStacks * 6 * 2);
+			}
 
-			m_pRenderable->CreateVertexBufferObject(maxVertexes, sizeof(CVector3)* iSlices * iStacks * 6, 0, iSlices * iStacks * 6, GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
-			
-			m_pVAO->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, sizeof(CVector3)* iSlices * iStacks * 6, 0);
+			m_pVAO->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, 0, 0);
+			m_pVAO->EnableVertexAttrib(render::VAL_NORMAL, 3, render::RVT_FLOAT, 0, sizeof(CVector3)* iSlices * iStacks * 6);
+			//m_pVAO->EnableVertexAttrib(render::VAL_TEXTURE0, 2, render::RVT_FLOAT, 0, sizeof(CVector3)* iSlices * iStacks * 6 * 2);
 
 			m_pVAO->UnBind();
 
 			delete[]maxVertexes;
 			delete[]maxNormals;
 			delete[]maxTexCoords;
-		}
-
-		CSphere::~CSphere()
-		{
-
-		}
-
-		void CSphere::UpdateImp(int delta)
-		{
-			IShaderProgram *pShaderProgram = m_pVAO->GetShaderProgram();
-			if (pShaderProgram)
-			{
-				CMatrix4 vpMat4;
-				if (m_pSceneParent)
-				{
-					ICamera *pCam = m_pSceneParent->GetCamera();
-					if (pCam)
-					{
-						vpMat4 = pCam->GetViewProjectionMatrix();
-					}
-				}
-				CMatrix4 mvpMat4 = GetAbsluateTransformation() * vpMat4;
-				pShaderProgram->SetUniform("mvpMatrix", mvpMat4.m);
-			}
-
-			m_pRenderable->SumbitToRenderList();
-		}
-
-		void CSphere::RenderImp()
-		{
-			if (m_pVAO)
-				m_pVAO->Render();
 		}
 
 	}

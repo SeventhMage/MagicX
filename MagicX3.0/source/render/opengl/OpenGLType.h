@@ -117,9 +117,9 @@ namespace mx
 			switch (mode)
 			{
 			case GBM_LINES:
-				return GL_LINE;
+				return GL_LINES;
 			case GBM_POINTS:
-				return GL_POINT;
+				return GL_POINTS;
 			case  GBM_TRIANGLES:
 				return GL_TRIANGLES;
 			case GBM_TRIANGLE_STKIP:

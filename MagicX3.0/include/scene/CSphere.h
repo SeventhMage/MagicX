@@ -22,6 +22,8 @@ namespace mx
 			virtual ~CSphere();
 			virtual void UpdateImp(int delta);
 			virtual void RenderImp();
+
+			void Create(float fRadius, int iSlices, int iStacks);
 		private:
 			IVertexArrayObject *m_pVAO;
 			ITexture *m_pTexture;

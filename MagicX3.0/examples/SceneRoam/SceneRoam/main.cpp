@@ -14,6 +14,7 @@ int main(int argc, char *argv[])
 	IScene *scene = sceneManager->GetCurrentScene();
 	IDevice *device = mx->GetDevice();
 	
+	CSphere *pSphere = nullptr; 
 	ICamera *camera = nullptr;
 	if (scene)
 	{
@@ -22,7 +23,8 @@ int main(int argc, char *argv[])
 		camera = scene->SetupCamera(CVector3(0, 0, 5), vDir, vUp, PI / 2, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
 		scene->SetupSkyBox("texture/pos_z.tga", "texture/neg_z.tga", "texture/neg_x.tga", "texture/pos_x.tga", "texture/pos_y.tga", "texture/neg_y.tga", 20);
 		
-		CSphere *pSphere = new CSphere(scene, 5, 20, 10);
+		pSphere = new CSphere(scene, 5, 20, 10);
+		pSphere->SetPosition(CVector3(0, 0, -20));
 		scene->GetRootNode()->AddChild(pSphere);
 	}
 
@@ -55,7 +57,9 @@ int main(int argc, char *argv[])
 
 				if (event->IsPress(EKP_MOUSE_LBUTTON))
 				{
-				
+					CVector3 curRot = pSphere->GetRotation();
+					CVector3 rot(rotX + curRot.x, curRot.y + rotY, 0);
+					pSphere->SetRotation(rot);
 				}
 				if (event->IsPress(EKP_MOUSE_RBUTTON))
 				{
@@ -80,6 +84,7 @@ int main(int argc, char *argv[])
 
 	}
 
+	delete pSphere;
 	DestroyMagicX();
 	return 0;
 }
