@@ -229,21 +229,21 @@ namespace mx
 				m[0] = (float)xaxis.x;
 				m[1] = (float)yaxis.x;
 				m[2] = (float)zaxis.x;
-				m[12] = (float)-xaxis.dotProduct(position);
+				m[3] = 0;
 
 				m[4] = (float)xaxis.y;
 				m[5] = (float)yaxis.y;
 				m[6] = (float)zaxis.y;
-				m[13] = (float)-yaxis.dotProduct(position);
+				m[7] = 0;
 
 				m[8] = (float)xaxis.z;
 				m[9] = (float)yaxis.z;
 				m[10] = (float)zaxis.z;
-				m[14] = -zaxis.dotProduct(position);
-
-				m[3] = 0;// (T)-xaxis.dotProduct(position); //Get the projection at xaxis of position at first, than get negative.
-				m[7] = 0;// (T)-yaxis.dotProduct(position);	//The projection at yaxis of position at first, than get negative.
-				m[11] = 0;// (T)-zaxis.dotProduct(position);	//The projection at zaxis of position at first, than get negative.
+				m[11] = 0;
+												
+				m[12] = (float)-xaxis.dotProduct(position);
+				m[13] = (float)-yaxis.dotProduct(position);
+				m[14] = (float)-zaxis.dotProduct(position);
 				m[15] = 1;
 
 				return *this;
@@ -305,6 +305,39 @@ namespace mx
 				m[8] = (float)(cr * sp * cy + sr * sy);
 				m[9] = (float)(cr * sp * sy - sr * cy);
 				m[10] = (float)(cr * cp);
+
+				return *this;
+			}
+
+			CMatrix4 &SetRotationRadians(const float radian, const CVector3 &v)
+			{
+				float x = v.x;
+				float y = v.y;
+				float z = v.z;
+
+				float fSin, fCos;
+				fSin = sin(radian);
+				fCos = cos(radian);
+				
+				m[0] = (x * x) * (1.0f - fCos) + fCos;
+				m[1] = (x * y) * (1.0f - fCos) + (z * fSin);
+				m[2] = (x * z) * (1.0f - fCos) - (y * fSin);
+				m[3] = 0;
+
+				m[4] = (y * x) * (1.0f - fCos) - (z * fSin);
+				m[5] = (y * y) * (1.0f - fCos) + fCos;
+				m[6] = (y * z) * (1.0f - fCos) + (x * fSin);
+				m[7] = 0;
+
+				m[8] = (z * x) * (1.0f - fCos) + (y * fSin);
+				m[9] = (z * y) * (1.0f - fCos) - (x * fSin);
+				m[10] = (z * z) * (1.0f - fCos) + fCos;
+				m[11] = 0;
+
+				m[12] = 0;
+				m[13] = 0;
+				m[14] = 0;
+				m[15] = 1.0f;
 
 				return *this;
 			}

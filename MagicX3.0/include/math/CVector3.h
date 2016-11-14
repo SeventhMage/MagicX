@@ -125,6 +125,11 @@ namespace mx
 				z += center.z;
 			}
 
+			void rotateBy(double radians, const CVector3 &axis)
+			{
+
+			}
+
 			//CVector3 getInterpolated(const CVector3 &other, double d) const
 			//{
 			//	const double inv = 1.0 - d;

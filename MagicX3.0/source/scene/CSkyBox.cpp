@@ -176,10 +176,9 @@ namespace mx
 			ICamera *pCamera = m_pParentScene->GetCamera();
 			if (pCamera)
 			{
-				math::CMatrix4 vpMat4 = pCamera->GetViewProjectionMatrix();
-				math::CMatrix4 rotMat4;
-				rotMat4.SetRotationRadiansRH(0, rotY, 0);
-				math::CMatrix4 mat4 = rotMat4 * vpMat4;
+				math::CMatrix4 vpMat4 = pCamera->GetViewProjectionMatrix();				
+				m_modelMatr4.SetRotationRadiansRH(0, rotY, 0);
+				math::CMatrix4 mat4 = m_modelMatr4 * vpMat4;
 
 				if (m_pVAO)
 				{

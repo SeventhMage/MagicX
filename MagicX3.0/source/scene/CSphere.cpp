@@ -53,6 +53,17 @@ namespace mx
 						camInvMat4.GetTransposed(normalMat4);
 
 						pCam->GetViewMatrix().GetInverse(camInvMat4);
+						camInvMat4.SetTranslation(CVector3(0, 0,0));
+						ISkyBox *pSkyBox = m_pSceneParent->GetSkyBox();
+						if (pSkyBox)
+						{
+							CMatrix4 skyBoxMat4 = pSkyBox->GetModelMatrix();
+							CMatrix4 skyBoxInvMat4;
+							skyBoxMat4.GetInverse(skyBoxInvMat4);
+
+							camInvMat4 = camInvMat4 * skyBoxInvMat4;
+						}
+
 
 						float normalMat3[] = { normalMat4.m[0], normalMat4.m[1], normalMat4.m[2],
 							normalMat4.m[4], normalMat4.m[5], normalMat4.m[6],
@@ -60,7 +71,7 @@ namespace mx
 						pShaderProgram->SetUniform("mvpMatrix", mvpMat4.m);
 						pShaderProgram->SetUniform("mvMatrix", mvMat4.m);
 						pShaderProgram->SetUniform("normalMatrix", normalMat3);
-						pShaderProgram->SetUniform("mInverseCamera", camInvMat4.m);
+						pShaderProgram->SetUniform("mInverseMatrix", camInvMat4.m);
 
 
 
@@ -77,6 +88,7 @@ namespace mx
 			if (m_pVAO)
 				m_pVAO->Render();
 		}
+
 
 		void CSphere::Create(float fRadius, int iSlices, int iStacks)
 		{
@@ -112,7 +124,18 @@ namespace mx
 						mvRotMat4.GetInverse(camInvMat4);
 						camInvMat4.GetTransposed(normalMat4);
 
+						
 						pCam->GetViewMatrix().GetInverse(camInvMat4);
+						camInvMat4.SetTranslation(CVector3(0, 0,0));
+						ISkyBox *pSkyBox = m_pSceneParent->GetSkyBox();
+						if (pSkyBox)
+						{
+							CMatrix4 skyBoxMat4 = pSkyBox->GetModelMatrix();
+							CMatrix4 skyBoxInvMat4;
+							skyBoxMat4.GetInverse(skyBoxInvMat4);
+
+							camInvMat4 = camInvMat4 * skyBoxInvMat4;
+						}
 
 						float normalMat3[] = { normalMat4.m[0], normalMat4.m[1], normalMat4.m[2],
 							normalMat4.m[4], normalMat4.m[5], normalMat4.m[6],
@@ -120,7 +143,7 @@ namespace mx
 						pShaderProgram->SetUniform("mvpMatrix", mvpMat4.m);
 						pShaderProgram->SetUniform("mvMatrix", mvMat4.m);
 						pShaderProgram->SetUniform("normalMatrix", normalMat3);
-						pShaderProgram->SetUniform("mInverseCamera", camInvMat4.m);
+						pShaderProgram->SetUniform("mInverseMatrix", camInvMat4.m);
 
 
 

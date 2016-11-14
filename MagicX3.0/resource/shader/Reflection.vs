@@ -11,7 +11,7 @@ in vec3 vNormal;
 uniform mat4   mvpMatrix;
 uniform mat4   mvMatrix;
 uniform mat3   normalMatrix;
-uniform mat4   mInverseCamera;
+uniform mat4   mInverseMatrix;
 
 // Texture coordinate to fragment program
 smooth out vec3 vVaryingTexCoord;
@@ -25,11 +25,14 @@ void main(void)
     vec4 vVert4 = mvMatrix * vVertex;
     vec3 vEyeVertex = normalize(vVert4.xyz / vVert4.w);
     
-    // Get reflected vector
-    vec4 vCoords = vec4(reflect(vEyeVertex, vEyeNormal), 1.0);
-   
+    // Get reflected vector		
+	//vEyeVertex.z = -vEyeVertex.z;
+	vEyeVertex.x = -vEyeVertex.x;
+    vec4 vCoords = vec4(reflect(-vEyeVertex, vEyeNormal), 1.0);
+    vec4 temp = vec4(normalize(vEyeVertex), 1.0);
+
     // Rotate by flipped camera
-    vCoords = mInverseCamera * vCoords;
+    vCoords = mInverseMatrix * vCoords;
     vVaryingTexCoord.xyz = normalize(vCoords.xyz);
 
     // Don't forget to transform the geometry!

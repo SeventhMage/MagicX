@@ -21,13 +21,16 @@ int main(int argc, char *argv[])
 		pSphere = new CSphere(scene);
 		CVector3 vDir(0, 0, -1);
 		CVector3 vUp(0, 1, 0);
-		camera = scene->SetupCamera(CVector3(0, 0, 5), vDir, vUp, PI / 2, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
-		//camera = scene->SetupCamera(10.f, pSphere, vDir, vUp, PI / 2, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
-		scene->SetupSkyBox("texture/pos_z.tga", "texture/neg_z.tga", "texture/neg_x.tga", "texture/pos_x.tga", "texture/pos_y.tga", "texture/neg_y.tga", 100);
-		
+		//camera = scene->SetupCamera(CVector3(0, 0, 5), vDir, vUp, PI / 2, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
+		camera = scene->SetupCamera(20.f, pSphere, vDir, vUp, PI / 2, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
+		//scene->SetupSkyBox("texture/pos_z.tga", "texture/neg_z.tga", "texture/neg_x.tga", "texture/pos_x.tga", "texture/pos_y.tga", "texture/neg_y.tga", 100);
+		scene->SetupSkyBox("texture/CloudyLightRaysFront2048.tga", "texture/CloudyLightRaysBack2048.tga", "texture/CloudyLightRaysLeft2048.tga", 
+			"texture/CloudyLightRaysRight2048.tga", "texture/CloudyLightRaysUp2048.tga", "texture/CloudyLightRaysDown2048.tga", 100);
+		//scene->SetupSkyBox("texture/crate.tga", "texture/crate.tga", "texture/crate.tga", "texture/crate.tga", "texture/crate.tga", "texture/crate.tga", 100);
+
 		//pSphere = new CSphere(scene, 5, 10, 10);
-		pSphere->Create(5, 20, 20);
-		pSphere->SetPosition(CVector3(0, 0, -10));
+		pSphere->Create(5, 40, 40);
+		pSphere->SetPosition(CVector3(0, 0, 0));
 		scene->GetRootNode()->AddChild(pSphere);
 	}
 
@@ -52,37 +55,57 @@ int main(int argc, char *argv[])
 				float rotY = (currentX - lastX) * 2.0f * PI / device->GetWindowWidth();
 				float rotX = (currentY - lastY) * 2.0f * PI / device->GetWindowHeight();
 
+				CVector3 camDir = camera->GetDirection();
+				CVector3 curRot = pSphere->GetRotation();
 				if (event->IsPress(EKP_MOUSE_LBUTTON))
-				{
-					CVector3 curRot = pSphere->GetRotation();
-					CVector3 rot(rotX + curRot.x, curRot.y + rotY, 0);
-					pSphere->SetRotation(rot);
+				{				
+					if (!ISZERO(rotX) || !ISZERO(rotY))
+					{
+						CVector3 rot(rotX + curRot.x, curRot.y + rotY, 0);
+						pSphere->SetRotation(rot);
+					}
 				}
 				if (event->IsPress(EKP_MOUSE_RBUTTON))
-				{
+				{		
+					if (!ISZERO(rotX) || !ISZERO(rotY))
+					{
+						camDir.rotateXZBy(-rotY);
+						CMatrix4 rotMat4;												
+						rotMat4.SetRotationRadians(rotX, (-camDir).crossProduct(CVector3(0, 1.0f, 0)));
+						rotMat4.TransformVect(camDir);
+						
+						camDir.normalize();
+						camera->SetDirection(camDir);
+					}
 
 				}
 
-				CVector3 camDir = camera->GetDirection();
+				
 				
 				if (event->IsPress(EKP_KEYBOARD_A))
 				{
-					
+					CVector3 leftDir = camDir;
+					leftDir.rotateXZBy(PI / 2);
+					pSphere->SetPosition(pSphere->GetPosition() + leftDir * 1.0f);
 				}
 
 				if (event->IsPress(EKP_KEYBOARD_D))
 				{
-					
+					CVector3 rightDir = camDir;
+					rightDir.rotateXZBy(PI / 2);
+					pSphere->SetPosition(pSphere->GetPosition() - rightDir * 1.0f);
 				}
 
 				if (event->IsPress(EKP_KEYBOARD_W))
 				{
-					camera->SetPosition(camera->GetPosition() + camDir * 1.0);
+					//camera->SetPosition(camera->GetPosition() + camDir * 1.0f);
+					pSphere->SetPosition(pSphere->GetPosition() + camDir * 1.0f);
 				}
 
 				if (event->IsPress(EKP_KEYBOARD_S))
 				{
-					camera->SetPosition(camera->GetPosition() - camDir * 1.0);
+					//camera->SetPosition(camera->GetPosition() - camDir * 1.0);
+					pSphere->SetPosition(pSphere->GetPosition() - camDir * 1.0f);
 				}
 
 
