@@ -362,6 +362,9 @@ namespace mx
 					case UF_VEC4:
 						GLDebug(glUniform4fv(uniform.m_location, uniform.m_count, (GLfloat *)uniform.m_value));
 						break;
+					case UF_MAT3:
+						GLDebug(glUniformMatrix3fv(uniform.m_location, uniform.m_count, GL_FALSE, (GLfloat *)uniform.m_value));
+						break;
 					case UF_MAT4:
 						GLDebug(glUniformMatrix4fv(uniform.m_location, uniform.m_count, GL_FALSE, (GLfloat *)uniform.m_value));
 						break;
@@ -393,7 +396,11 @@ namespace mx
 					GLenum type;
 					GLsizei nameLength;
 					GLDebug(glGetActiveUniform(m_hProgram, i, maxLength, &nameLength, &uniform.m_count, &type, name));
-					uniform.m_format = GetUniformFormat(type);				
+					uniform.m_format = GetUniformFormat(type);	
+					if (uniform.m_format == UF_UNKNOWN)
+					{
+						printf("GetUniformFormat:UF_UNKNOWN [%s:%d]", __FILE__, __LINE__);
+					}
 					strncpy(uniform.m_name, name, MAX_FILE_NAME - 1);
 					uniform.m_size = GetUniformTypeSize(uniform.m_format);
 					uniform.m_location = i;

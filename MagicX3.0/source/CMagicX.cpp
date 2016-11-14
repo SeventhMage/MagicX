@@ -39,9 +39,10 @@ namespace mx
 
 	CMagicX::~CMagicX()
 	{
-		delete m_pRenderer;
+		
 		delete m_pDeviceMgr;
 		delete m_pSceneMgr;
+		delete m_pRenderer;
 		for (int i = 0; i < RT_COUNT; ++i)
 		{
 			if (m_pResourceMgr[i])

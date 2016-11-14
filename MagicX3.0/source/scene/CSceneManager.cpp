@@ -1,5 +1,6 @@
 #include "CSceneManager.h"
 #include "CScene.h"
+#include "mx.h"
 
 namespace mx
 {
@@ -33,6 +34,7 @@ namespace mx
 
 		void CSceneManager::Draw()
 		{
+			RENDERER->BeginRender();
 			if (m_pCurrentScene)
 				m_pCurrentScene->Draw();
 		}

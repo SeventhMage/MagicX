@@ -132,7 +132,7 @@ namespace mx
 				ITexture *pTexture = nullptr;
 				if (bLoadSucess)
 				{
-					ITexture *pTexture = new COpenGLTexture();
+					pTexture = new COpenGLTexture();
 					pTexture->CreateCube(pImage[0], pImage[1], pImage[2], pImage[3], pImage[4], pImage[5]);
 				}				
 
@@ -150,6 +150,11 @@ namespace mx
 		{
 			if (pTexture)
 				delete pTexture;
+		}
+
+		void COpenGLRenderer::BeginRender()
+		{
+			GLDebug(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 		}
 
 	}

@@ -18,6 +18,7 @@ namespace mx
 		class CSphere : public CEntity
 		{
 		public:
+			CSphere(IScene *pScene);
 			CSphere(IScene *pScene, float fRadius, int iSlices, int iStacks);
 			virtual ~CSphere();
 			virtual void UpdateImp(int delta);

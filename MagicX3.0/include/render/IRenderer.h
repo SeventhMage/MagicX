@@ -23,6 +23,9 @@ namespace mx
 			//获取渲染器驱动程序
 			virtual IRenderDriver *GetRenderDriver() = 0;
 
+			//开始渲染清理工作
+			virtual void BeginRender() = 0;
+
 			//渲染对象
 			virtual void Render(IRenderable *pRenderable) = 0;
 

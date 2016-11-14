@@ -19,6 +19,7 @@ namespace mx
 			COpenGLRenderer();
 			virtual ~COpenGLRenderer();
 
+			virtual void BeginRender();
 			virtual void Render(IRenderable *pRenderable);
 			virtual IVertexArrayObject *CreateVertexArrayObject();
 			virtual void DestroyVertexArrayObject(IVertexArrayObject *pObject);

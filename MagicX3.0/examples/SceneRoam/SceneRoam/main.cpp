@@ -13,18 +13,21 @@ int main(int argc, char *argv[])
 	IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
 	IScene *scene = sceneManager->GetCurrentScene();
 	IDevice *device = mx->GetDevice();
-	
+
 	CSphere *pSphere = nullptr; 
 	ICamera *camera = nullptr;
 	if (scene)
 	{
+		pSphere = new CSphere(scene);
 		CVector3 vDir(0, 0, -1);
 		CVector3 vUp(0, 1, 0);
 		camera = scene->SetupCamera(CVector3(0, 0, 5), vDir, vUp, PI / 2, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
-		scene->SetupSkyBox("texture/pos_z.tga", "texture/neg_z.tga", "texture/neg_x.tga", "texture/pos_x.tga", "texture/pos_y.tga", "texture/neg_y.tga", 20);
+		//camera = scene->SetupCamera(10.f, pSphere, vDir, vUp, PI / 2, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
+		scene->SetupSkyBox("texture/pos_z.tga", "texture/neg_z.tga", "texture/neg_x.tga", "texture/pos_x.tga", "texture/pos_y.tga", "texture/neg_y.tga", 100);
 		
-		pSphere = new CSphere(scene, 5, 20, 10);
-		pSphere->SetPosition(CVector3(0, 0, -20));
+		//pSphere = new CSphere(scene, 5, 10, 10);
+		pSphere->Create(5, 20, 20);
+		pSphere->SetPosition(CVector3(0, 0, -10));
 		scene->GetRootNode()->AddChild(pSphere);
 	}
 
@@ -38,12 +41,6 @@ int main(int argc, char *argv[])
 		sleep_time = next_game_tick - cur_time;
 		if (sleep_time <= 0)
 		{
-			next_game_tick = GetTickCount() + SKIP_TICKS;
-
-			sceneManager->Update(SKIP_TICKS - sleep_time);
-			sceneManager->Draw();
-			device->SwapBuffers();
-
 			if (event)
 			{
 				static int lastX;
@@ -66,6 +63,29 @@ int main(int argc, char *argv[])
 
 				}
 
+				CVector3 camDir = camera->GetDirection();
+				
+				if (event->IsPress(EKP_KEYBOARD_A))
+				{
+					
+				}
+
+				if (event->IsPress(EKP_KEYBOARD_D))
+				{
+					
+				}
+
+				if (event->IsPress(EKP_KEYBOARD_W))
+				{
+					camera->SetPosition(camera->GetPosition() + camDir * 1.0);
+				}
+
+				if (event->IsPress(EKP_KEYBOARD_S))
+				{
+					camera->SetPosition(camera->GetPosition() - camDir * 1.0);
+				}
+
+
 				if (event->IsPress(EKP_KEYBOARD_ESC))
 				{
 					exit(1);
@@ -75,6 +95,11 @@ int main(int argc, char *argv[])
 				lastY = event->GetMousePositionY();
 			}
 
+			next_game_tick = GetTickCount() + SKIP_TICKS;
+
+			sceneManager->Update(SKIP_TICKS - sleep_time);
+			sceneManager->Draw();
+			device->SwapBuffers();
 		}
 		else
 		{

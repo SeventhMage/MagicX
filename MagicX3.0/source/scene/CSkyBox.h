@@ -24,7 +24,7 @@ namespace mx
 
 			virtual bool Create(const char *filename);
 			virtual bool Create(const char *front, const char *back, const char * left, const char *right, const char *top, const char *bottom);
-
+			virtual render::ITexture *GetTexture() { return m_pTexture; }
 			virtual void Update(int delta);
 			virtual void Render();
 		private:

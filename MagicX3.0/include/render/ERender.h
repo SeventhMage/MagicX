@@ -73,6 +73,7 @@ namespace mx
 			UF_VEC2,
 			UF_VEC3,
 			UF_VEC4,
+			UF_MAT3,
 			UF_MAT4,
 			UF_TEXTURE,
 		};

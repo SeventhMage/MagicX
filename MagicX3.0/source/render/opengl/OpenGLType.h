@@ -224,6 +224,7 @@ namespace mx
 			case GL_FLOAT_MAT2:
 				break;
 			case GL_FLOAT_MAT3:
+				return UF_MAT3;
 				break;
 			case GL_FLOAT_MAT4:
 				return UF_MAT4;
@@ -232,6 +233,7 @@ namespace mx
 				return UF_INT;
 				break; 
 			case GL_SAMPLER_CUBE:
+				return UF_INT;
 				break;
 			}
 			return UF_UNKNOWN;

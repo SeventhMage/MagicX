@@ -28,14 +28,12 @@ namespace mx
 		{
 			GLDebug(glBindBuffer(GL_ARRAY_BUFFER, m_hVBO));
 			GLDebug(glBufferData(GL_ARRAY_BUFFER, size, data, m_usage));
-			GLDebug(glBindBuffer(GL_ARRAY_BUFFER, 0));
 		}
 
 		void COpenGLVertexBufferObject::BufferSubData(void *data, int size, int offset)
 		{
 			GLDebug(glBindBuffer(GL_ARRAY_BUFFER, m_hVBO));
 			GLDebug(glBufferSubData(GL_ARRAY_BUFFER, offset, size, data));
-			GLDebug(glBindBuffer(GL_ARRAY_BUFFER, 0));
 		}
 
 		void COpenGLVertexBufferObject::Bind()

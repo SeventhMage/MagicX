@@ -29,14 +29,12 @@ namespace mx
 		{
 			GLDebug(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO));
 			GLDebug(glBufferData(GL_ELEMENT_ARRAY_BUFFER, idsSize, indices, m_gpuBufferUsage));
-			GLDebug(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 		}
 
 		void COpenGLIndexBufferObject::BufferSubData(void *data, int size, int offset)
 		{
 			GLDebug(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO));
 			GLDebug(glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, offset, size, data));
-			GLDebug(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 		}
 
 		void COpenGLIndexBufferObject::Bind()

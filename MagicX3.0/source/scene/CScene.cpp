@@ -49,6 +49,12 @@ namespace mx
 			return m_pCamera;
 		}
 
+		ICamera * CScene::SetupCamera(float fDistance, ISceneNode *pFocusNode, const CVector3 &vDirection, const CVector3 &vUp, float fov, float aspect, float nearClip, float farClip)
+		{
+			m_pCamera = new CCamera(fDistance, pFocusNode, vDirection, vUp, fov, aspect, nearClip, farClip);
+			return m_pCamera;
+		}
+
 		ICamera * CScene::GetCamera()
 		{
 			return m_pCamera;

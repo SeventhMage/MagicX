@@ -39,6 +39,22 @@ namespace mx
 								   case 'n':
 									   event->OnPress(EKP_KEYBOARD_N);
 									   break;
+								   case 'A':
+								   case 'a':
+									   event->OnPress(EKP_KEYBOARD_A);
+									   break;
+								   case 'D':
+								   case 'd':
+									   event->OnPress(EKP_KEYBOARD_D);
+									   break;
+								   case 'W':
+								   case 'w':
+									   event->OnPress(EKP_KEYBOARD_W);
+									   break;
+								   case 'S':
+								   case 's':
+									   event->OnPress(EKP_KEYBOARD_S);
+									   break;
 								   }
 
 							   }
@@ -57,6 +73,22 @@ namespace mx
 								 case 'N':
 								 case 'n':
 									 event->OnUp(EKP_KEYBOARD_N);
+									 break;
+								 case 'A':
+								 case 'a':
+									 event->OnUp(EKP_KEYBOARD_A);
+									 break;
+								 case 'D':
+								 case 'd':
+									 event->OnUp(EKP_KEYBOARD_D);
+									 break;
+								 case 'W':
+								 case 'w':
+									 event->OnUp(EKP_KEYBOARD_W);
+									 break;
+								 case 'S':
+								 case 's':
+									 event->OnUp(EKP_KEYBOARD_S);
 									 break;
 								 }
 
