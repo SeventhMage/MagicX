@@ -19,16 +19,14 @@ smooth out vec3 vVaryingTexCoord;
 void main(void) 
     {
     // Normal in Eye Space
-    vec3 vEyeNormal = normalMatrix * vNormal;
+    vec3 vEyeNormal = mat3(mvMatrix) * vNormal;
     
     // Vertex position in Eye Space
     vec4 vVert4 = mvMatrix * vVertex;
     vec3 vEyeVertex = normalize(vVert4.xyz / vVert4.w);
     
     // Get reflected vector		
-	//vEyeVertex.z = -vEyeVertex.z;
-	vEyeVertex.x = -vEyeVertex.x;
-    vec4 vCoords = vec4(reflect(-vEyeVertex, vEyeNormal), 1.0);
+    vec4 vCoords = vec4(reflect(vEyeVertex, vEyeNormal), 1.0);
     vec4 temp = vec4(normalize(vEyeVertex), 1.0);
 
     // Rotate by flipped camera

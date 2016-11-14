@@ -110,12 +110,12 @@ namespace mx
 			return nullptr;
 		}
 
-		ITexture * COpenGLRenderer::CreateCubeTexture(const char *front, const char *back, const char *left, const char *right, const char *top, const char *bottom)
+		ITexture * COpenGLRenderer::CreateCubeTexture(const char *right, const char *left, const char *top, const char *bottom, const char *front, const char *back)
 		{
 			resource::IImageManager *pIMageMgr = (IImageManager *)RESOURCEMGR(RT_IMAGE);
 			if (pIMageMgr)
 			{
-				const char *file[6] = {front, back, left, right, top, bottom};
+				const char *file[6] = { right, left, top, bottom, front, back };
 				resource::IImage *pImage[6] = { 0 };
 
 				bool bLoadSucess = true;

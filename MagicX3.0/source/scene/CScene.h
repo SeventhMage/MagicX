@@ -23,8 +23,7 @@ namespace mx
 			virtual ICamera *SetupCamera(float fDistance, ISceneNode *pFocusNode, 
 				const CVector3 &vDirection, const CVector3 &vUp, float fov, float aspect, float nearClip, float farClip);
 			virtual ICamera *GetCamera();
-			virtual ISkyBox *SetupSkyBox(const char *front, const char *back, const char *left,
-				const char *right, const char *top, const char *bottom, float radius);
+			virtual ISkyBox *SetupSkyBox(const char *right, const char *left, const char *top, const char *bottom, const char *front, const char *back, float radius);
 			virtual ISkyBox *GetSkyBox(){ return m_pSkyBox; }
 			virtual void Update(int delta);
 			virtual void Draw();

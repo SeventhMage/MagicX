@@ -39,19 +39,10 @@ namespace mx
 			}
 		}
 
-		void COpenGLTexture::CreateCube(IImage *pImgFront, IImage *pImgBack, IImage *pImgLeft, 
-			IImage *pImgRight, IImage *pImgTop, IImage *pImgBottom)
-		{
-			GLenum cube[] = { GL_TEXTURE_CUBE_MAP_POSITIVE_Z, GL_TEXTURE_CUBE_MAP_NEGATIVE_Z,
-				GL_TEXTURE_CUBE_MAP_NEGATIVE_X, GL_TEXTURE_CUBE_MAP_POSITIVE_X,
-				GL_TEXTURE_CUBE_MAP_POSITIVE_Y, GL_TEXTURE_CUBE_MAP_NEGATIVE_Y };
-
-			int internalformat[6] = { GetGLColorFormat(pImgFront->GetComponents()), GetGLColorFormat(pImgBack->GetComponents()), GetGLColorFormat(pImgLeft->GetComponents()), GetGLColorFormat(pImgRight->GetComponents()), GetGLColorFormat(pImgTop->GetComponents()), GetGLColorFormat(pImgBottom->GetComponents()) };
-			int width[6] = { pImgFront->GetWidth(), pImgBack->GetWidth(), pImgLeft->GetWidth(), pImgRight->GetWidth(), pImgTop->GetWidth(), pImgBottom->GetWidth() };
-			int height[6] = { pImgFront->GetHeight(), pImgBack->GetHeight(), pImgLeft->GetHeight(), pImgRight->GetHeight(), pImgTop->GetHeight(), pImgBottom->GetHeight() };
-			int format[6] = { GetGLColorFormat(pImgFront->GetFormat()), GetGLColorFormat(pImgBack->GetFormat()), GetGLColorFormat(pImgLeft->GetFormat()), GetGLColorFormat(pImgRight->GetFormat()), GetGLColorFormat(pImgTop->GetFormat()), GetGLColorFormat(pImgBottom->GetFormat()) };
-			int type[6] = { GetGLPixelType(pImgFront->GetPixelType()), GetGLPixelType(pImgBack->GetPixelType()), GetGLPixelType(pImgLeft->GetPixelType()), GetGLPixelType(pImgRight->GetPixelType()), GetGLPixelType(pImgTop->GetPixelType()), GetGLPixelType(pImgBottom->GetPixelType()) };
-			void *data[6] = { pImgFront->GetData(), pImgBack->GetData(), pImgLeft->GetData(), pImgRight->GetData(), pImgTop->GetData(), pImgBottom->GetData() };
+		void COpenGLTexture::CreateCube(IImage *pImgRight, IImage *pImgLeft, IImage *pImgTop, 
+			IImage *pImgBottom, IImage *pImgFront, IImage *pImgBack)
+		{			
+			IImage *pImage[6] = {pImgRight, pImgLeft, pImgTop, pImgBottom, pImgFront, pImgBack};
 
 			m_target = GL_TEXTURE_CUBE_MAP;
 
@@ -65,8 +56,8 @@ namespace mx
 
 			for (int i = 0; i < 6; i++)
 			{
-				GLDebug(glTexImage2D(cube[i], 0, internalformat[i], width[i], height[i], 0,
-					format[i], type[i], data[i]));
+				GLDebug(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GetGLColorFormat(pImage[i]->GetComponents()), pImage[i]->GetWidth(), pImage[i]->GetHeight(), 0,
+					GetGLColorFormat(pImage[i]->GetFormat()), GetGLPixelType(pImage[i]->GetPixelType()), (void *)pImage[i]->GetData()));
 			}
 			GLDebug(glGenerateMipmap(GL_TEXTURE_CUBE_MAP));
 		}

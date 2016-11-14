@@ -43,7 +43,7 @@ namespace mx
 					IShaderProgram *pShaderProgram = m_pVAO->GetShaderProgram();
 					if (pShaderProgram)
 					{
-						CMatrix4 mvpMat4 = GetAbsluateTransformation() * pCam->GetViewProjectionMatrix();;
+						CMatrix4 mvpMat4 = GetAbsluateTransformation() * pCam->GetViewProjectionMatrix();
 						CMatrix4 mvMat4 = GetAbsluateTransformation() * pCam->GetViewMatrix();
 						CMatrix4 mvRotMat4 = mvMat4;
 						mvRotMat4.SetTranslation(CVector3(0, 0, 0));
@@ -61,7 +61,7 @@ namespace mx
 							CMatrix4 skyBoxInvMat4;
 							skyBoxMat4.GetInverse(skyBoxInvMat4);
 
-							camInvMat4 = camInvMat4 * skyBoxInvMat4;
+							camInvMat4 = skyBoxInvMat4 * camInvMat4;
 						}
 
 
@@ -107,49 +107,7 @@ namespace mx
 				pShaderProgram->Link();
 
 				int cubeUnit = 0;
-				pShaderProgram->SetUniform("cubeMap", &cubeUnit);
-
-				ICamera *pCam = m_pSceneParent->GetCamera();
-				if (pCam)
-				{
-					IShaderProgram *pShaderProgram = m_pVAO->GetShaderProgram();
-					if (pShaderProgram)
-					{
-						CMatrix4 mvpMat4 = GetAbsluateTransformation() * pCam->GetViewProjectionMatrix();;
-						CMatrix4 mvMat4 = GetAbsluateTransformation() * pCam->GetViewMatrix();
-						CMatrix4 mvRotMat4 = mvMat4;
-						mvRotMat4.SetTranslation(CVector3(0, 0, 0));
-						CMatrix4 normalMat4;
-						CMatrix4 camInvMat4;
-						mvRotMat4.GetInverse(camInvMat4);
-						camInvMat4.GetTransposed(normalMat4);
-
-						
-						pCam->GetViewMatrix().GetInverse(camInvMat4);
-						camInvMat4.SetTranslation(CVector3(0, 0,0));
-						ISkyBox *pSkyBox = m_pSceneParent->GetSkyBox();
-						if (pSkyBox)
-						{
-							CMatrix4 skyBoxMat4 = pSkyBox->GetModelMatrix();
-							CMatrix4 skyBoxInvMat4;
-							skyBoxMat4.GetInverse(skyBoxInvMat4);
-
-							camInvMat4 = camInvMat4 * skyBoxInvMat4;
-						}
-
-						float normalMat3[] = { normalMat4.m[0], normalMat4.m[1], normalMat4.m[2],
-							normalMat4.m[4], normalMat4.m[5], normalMat4.m[6],
-							normalMat4.m[8], normalMat4.m[9], normalMat4.m[10] };
-						pShaderProgram->SetUniform("mvpMatrix", mvpMat4.m);
-						pShaderProgram->SetUniform("mvMatrix", mvMat4.m);
-						pShaderProgram->SetUniform("normalMatrix", normalMat3);
-						pShaderProgram->SetUniform("mInverseMatrix", camInvMat4.m);
-
-
-
-					}
-				}
-			
+				//pShaderProgram->SetUniform("cubeMap", &cubeUnit);
 			}
 			
 			float drho = (float)(3.141592653589) / (float)iStacks;
@@ -248,7 +206,7 @@ namespace mx
 					for (int i = 0; i < 3; ++i)
 					{
 						maxVertexes[curCount] = vVertex[i];
-						maxNormals[curCount] = vNormal[i];
+						maxNormals[curCount] = vNormal[i].normalize();
 						maxTexCoords[curCount] = vTexture[i];
 						++curCount;
 					}
@@ -265,7 +223,7 @@ namespace mx
 					for (int i = 0; i < 3; ++i)
 					{
 						maxVertexes[curCount] = vVertex[i];
-						maxNormals[curCount] = vNormal[i];
+						maxNormals[curCount] = vNormal[i].normalize();
 						maxTexCoords[curCount] = vTexture[i];
 						++curCount;
 					}
@@ -283,7 +241,7 @@ namespace mx
 			}
 
 			m_pVAO->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, 0, 0);
-			//m_pVAO->EnableVertexAttrib(render::VAL_NORMAL, 3, render::RVT_FLOAT, 0, sizeof(CVector3)* iSlices * iStacks * 6);
+			m_pVAO->EnableVertexAttrib(render::VAL_NORMAL, 3, render::RVT_FLOAT, 0, sizeof(CVector3)* iSlices * iStacks * 6);
 			//m_pVAO->EnableVertexAttrib(render::VAL_TEXTURE0, 2, render::RVT_FLOAT, 0, sizeof(CVector3)* iSlices * iStacks * 6 * 2);
 
 			bufferObject->UnBind();

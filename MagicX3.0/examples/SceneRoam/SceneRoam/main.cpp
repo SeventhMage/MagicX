@@ -1,5 +1,6 @@
 #include "mx.h"
 #include <Windows.h>
+#include "..\..\..\source\render\opengl\GL\glew.h"
 
 using namespace mx;
 
@@ -23,13 +24,9 @@ int main(int argc, char *argv[])
 		CVector3 vUp(0, 1, 0);
 		//camera = scene->SetupCamera(CVector3(0, 0, 5), vDir, vUp, PI / 2, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
 		camera = scene->SetupCamera(20.f, pSphere, vDir, vUp, PI / 2, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
-		//scene->SetupSkyBox("texture/pos_z.tga", "texture/neg_z.tga", "texture/neg_x.tga", "texture/pos_x.tga", "texture/pos_y.tga", "texture/neg_y.tga", 100);
-		scene->SetupSkyBox("texture/CloudyLightRaysFront2048.tga", "texture/CloudyLightRaysBack2048.tga", "texture/CloudyLightRaysLeft2048.tga", 
-			"texture/CloudyLightRaysRight2048.tga", "texture/CloudyLightRaysUp2048.tga", "texture/CloudyLightRaysDown2048.tga", 100);
-		//scene->SetupSkyBox("texture/crate.tga", "texture/crate.tga", "texture/crate.tga", "texture/crate.tga", "texture/crate.tga", "texture/crate.tga", 100);
-
-		//pSphere = new CSphere(scene, 5, 10, 10);
-		pSphere->Create(5, 40, 40);
+		scene->SetupSkyBox("texture/pos_x.tga", "texture/neg_x.tga", "texture/pos_y.tga", "texture/neg_y.tga", "texture/pos_z.tga", "texture/neg_z.tga", 200);
+		
+		pSphere->Create(5, 52, 26);
 		pSphere->SetPosition(CVector3(0, 0, 0));
 		scene->GetRootNode()->AddChild(pSphere);
 	}
@@ -108,6 +105,14 @@ int main(int argc, char *argv[])
 					pSphere->SetPosition(pSphere->GetPosition() - camDir * 1.0f);
 				}
 
+				if (event->IsPress(EKP_KEYBOARD_N))
+				{
+					glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				}
+				else
+				{
+					glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+				}
 
 				if (event->IsPress(EKP_KEYBOARD_ESC))
 				{

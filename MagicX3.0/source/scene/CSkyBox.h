@@ -23,7 +23,7 @@ namespace mx
 			virtual ~CSkyBox();
 
 			virtual bool Create(const char *filename);
-			virtual bool Create(const char *front, const char *back, const char * left, const char *right, const char *top, const char *bottom);
+			virtual bool Create(const char *right, const char *left, const char *top, const char *bottom, const char *front, const char *back);
 			virtual render::ITexture *GetTexture() { return m_pTexture; }
 			virtual const CMatrix4 &GetModelMatrix() { return m_modelMatr4; }
 			virtual void Update(int delta);

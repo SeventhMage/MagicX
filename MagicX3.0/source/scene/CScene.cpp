@@ -35,12 +35,13 @@ namespace mx
 
 		void CScene::Update(int delta)
 		{
-			if (m_pRootNode)
-				m_pRootNode->Update(delta);
 			if (m_pCamera)
 				m_pCamera->Update(delta);
 			if (m_pSkyBox)
 				m_pSkyBox->Update(delta);
+			if (m_pRootNode)
+				m_pRootNode->Update(delta);
+
 		}
 
 		ICamera *CScene::SetupCamera(const CVector3 &position, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float nearClip, float farClip)
@@ -60,11 +61,10 @@ namespace mx
 			return m_pCamera;
 		}
 
-		ISkyBox * CScene::SetupSkyBox(const char *front, const char *back, const char *left, const char *right,
-			const char *top, const char *bottom, float radius)
+		ISkyBox * CScene::SetupSkyBox(const char *right, const char *left, const char *top, const char *bottom, const char *front, const char *back, float radius)
 		{
 			m_pSkyBox = new CSkyBox(this, radius);
-			m_pSkyBox->Create(front, back, left, right, top, bottom);
+			m_pSkyBox->Create(right, left, top, bottom, front, back);
 			return m_pSkyBox;
 		}
 

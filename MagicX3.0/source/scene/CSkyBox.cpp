@@ -134,7 +134,7 @@ namespace mx
 			return false;
 		}
 
-		bool CSkyBox::Create(const char * front, const char * back, const char * left, const char * right, const char * top, const char * bottom)
+		bool CSkyBox::Create(const char *right, const char *left, const char *top, const char *bottom, const char *front, const char *back)
 		{			
 			if (m_pVAO)
 			{	
@@ -156,7 +156,7 @@ namespace mx
 					//m_pRenderableObject->Disable(render::RA_CULL_FACE);
 					
 					m_pVAO->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, 0, 0);
-					m_pTexture = RENDERER->CreateCubeTexture(front, back, left, right, top, bottom);
+					m_pTexture = RENDERER->CreateCubeTexture(right, left, top, bottom, front, back);
 					m_pRenderable->SetTexture(0, m_pTexture);
 					m_pRenderable->Disable(RA_CULL_FACE);
 				}
@@ -176,7 +176,7 @@ namespace mx
 			ICamera *pCamera = m_pParentScene->GetCamera();
 			if (pCamera)
 			{
-				math::CMatrix4 vpMat4 = pCamera->GetViewProjectionMatrix();				
+				math::CMatrix4 vpMat4 = pCamera->GetViewProjectionMatrix();		
 				m_modelMatr4.SetRotationRadiansRH(0, rotY, 0);
 				math::CMatrix4 mat4 = m_modelMatr4 * vpMat4;
 
