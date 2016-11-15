@@ -1,34 +1,34 @@
 /************************************************************************/
-/* 球体                                                                 */
+/* 球体数学创建                                                         */
 /************************************************************************/
 
-#ifndef _MX_SCENE_C_SHPERE_H_
-#define _MX_SCENE_C_SHPERE_H_
+#ifndef _MX_SCENE_C_SPHERE_H_
+#define _MX_SCENE_C_SPHERE_H_
 
-#include "CEntity.h"
-#include "render/IVertexArrayObject.h"
-#include "render/ITexture.h"
-#include "render/IRenderable.h"
+#include "math/CVector3.h"
+#include "math/CVector2.h"
 
 namespace mx
 {
 	namespace scene
 	{
-		using namespace render;
-		class CSphere : public CEntity
+		class CSphere
 		{
 		public:
-			CSphere(IScene *pScene);
-			CSphere(IScene *pScene, float fRadius, int iSlices, int iStacks);
-			virtual ~CSphere();
-			virtual void UpdateImp(int delta);
-			virtual void RenderImp();
+			CSphere(float fRadius, int iSlices, int iStacks);
+			~CSphere();
 
-			void Create(float fRadius, int iSlices, int iStacks);
+			math::CVector3 *GetVertices() { return m_vertices; }
+			math::CVector3 *GetNormals() { return m_normals; }
+			math::CVector2 *GetTexCoords() { return m_texCoords; }
+			int GetVertexCount() { return m_vertexCount; }
+			int GetVertexSize() { return m_vertexCount * sizeof(math::CVector3); }
+
 		private:
-			IVertexArrayObject *m_pVAO;
-			ITexture *m_pTexture;
-			IRenderable *m_pRenderable;
+			math::CVector3 *m_vertices;
+			math::CVector3 *m_normals;
+			math::CVector2 *m_texCoords;
+			int m_vertexCount;
 		};
 	}
 }

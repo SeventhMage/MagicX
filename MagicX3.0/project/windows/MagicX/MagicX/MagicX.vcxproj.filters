@@ -153,6 +153,12 @@
     <ClCompile Include="..\..\..\..\source\scene\CSkyBox.cpp">
       <Filter>source\scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene\CReflectObject.cpp">
+      <Filter>source\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene\CSphereEntiy.cpp">
+      <Filter>source\scene</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\source\scene\CSphere.cpp">
       <Filter>source\scene</Filter>
     </ClCompile>
@@ -390,6 +396,12 @@
       <Filter>source\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\scene\ISkyBox.h">
+      <Filter>include\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\CReflectObject.h">
+      <Filter>include\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\CSphereEntiy.h">
       <Filter>include\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\scene\CSphere.h">

@@ -24,6 +24,8 @@ namespace mx
 			virtual void OnSize(int iPosX, int iPosY, int iWidth, int iHeight);
 		
 			virtual bool Run();
+
+			HWND GetHWnd() { return m_hWnd; }
 			
 		private:
 			render::IRenderDriver *m_pRenderDriver;

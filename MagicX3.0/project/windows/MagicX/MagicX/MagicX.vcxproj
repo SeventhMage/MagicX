@@ -112,11 +112,13 @@
     <ClCompile Include="..\..\..\..\source\scene\CCamera.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CModel.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CModelManager.cpp" />
+    <ClCompile Include="..\..\..\..\source\scene\CReflectObject.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CScene.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSceneManager.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSceneNode.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSkyBox.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSphere.cpp" />
+    <ClCompile Include="..\..\..\..\source\scene\CSphereEntiy.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CUnit.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -159,8 +161,10 @@
     <ClInclude Include="..\..\..\..\include\resource\IMesh.h" />
     <ClInclude Include="..\..\..\..\include\resource\IResource.h" />
     <ClInclude Include="..\..\..\..\include\resource\IResourceManager.h" />
+    <ClInclude Include="..\..\..\..\include\scene\CReflectObject.h" />
     <ClInclude Include="..\..\..\..\include\scene\CSceneNode.h" />
     <ClInclude Include="..\..\..\..\include\scene\CSphere.h" />
+    <ClInclude Include="..\..\..\..\include\scene\CSphereEntiy.h" />
     <ClInclude Include="..\..\..\..\include\scene\CUnit.h" />
     <ClInclude Include="..\..\..\..\include\scene\ICamera.h" />
     <ClInclude Include="..\..\..\..\include\scene\CEntity.h" />

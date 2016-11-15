@@ -59,7 +59,7 @@ namespace mx
 			if (glewInit() != GLEW_OK) {
 				exit(1);
 			}
-
+			  
 			GLDebug(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
 			GLDebug(glEnable(GL_DEPTH_TEST));
 			GLDebug(glEnable(GL_CULL_FACE));
