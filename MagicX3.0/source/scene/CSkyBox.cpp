@@ -170,7 +170,7 @@ namespace mx
 		void CSkyBox::Update(int delta)
 		{
 			static float rotY = .0f;
-			if (rotY > 3.1415926)
+			if (rotY > PI * 2)
 				rotY = .0f;
 			rotY += 0.01f * delta / 1000;
 			ICamera *pCamera = m_pParentScene->GetCamera();
