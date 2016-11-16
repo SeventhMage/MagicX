@@ -58,6 +58,9 @@
     <Filter Include="source\base">
       <UniqueIdentifier>{7b08d5f9-ccf2-49c4-ba14-333fd06cd80f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\scene\light">
+      <UniqueIdentifier>{033d7752-9f95-43b3-938c-68801600d17b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\mx.cpp">
@@ -406,6 +409,24 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\scene\CSphere.h">
       <Filter>include\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\light\ILight.h">
+      <Filter>include\scene\light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\light\CAmbientLight.h">
+      <Filter>include\scene\light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\light\CDirectionalLight.h">
+      <Filter>include\scene\light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\light\CPointLight.h">
+      <Filter>include\scene\light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\light\CSpotLight.h">
+      <Filter>include\scene\light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\SColor.h">
+      <Filter>include\render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

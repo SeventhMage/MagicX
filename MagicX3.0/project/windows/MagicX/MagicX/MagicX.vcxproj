@@ -155,6 +155,7 @@
     <ClInclude Include="..\..\..\..\include\render\IShaderProgram.h" />
     <ClInclude Include="..\..\..\..\include\render\ITexture.h" />
     <ClInclude Include="..\..\..\..\include\render\IVertexArrayObject.h" />
+    <ClInclude Include="..\..\..\..\include\render\SColor.h" />
     <ClInclude Include="..\..\..\..\include\render\SVertexAttribute.h" />
     <ClInclude Include="..\..\..\..\include\resource\IImage.h" />
     <ClInclude Include="..\..\..\..\include\resource\IImageManager.h" />
@@ -175,6 +176,11 @@
     <ClInclude Include="..\..\..\..\include\scene\ISceneNode.h" />
     <ClInclude Include="..\..\..\..\include\scene\ISkyBox.h" />
     <ClInclude Include="..\..\..\..\include\scene\IVertex.h" />
+    <ClInclude Include="..\..\..\..\include\scene\light\CAmbientLight.h" />
+    <ClInclude Include="..\..\..\..\include\scene\light\CDirectionalLight.h" />
+    <ClInclude Include="..\..\..\..\include\scene\light\CPointLight.h" />
+    <ClInclude Include="..\..\..\..\include\scene\light\CSpotLight.h" />
+    <ClInclude Include="..\..\..\..\include\scene\light\ILight.h" />
     <ClInclude Include="..\..\..\..\source\CMagicX.h" />
     <ClInclude Include="..\..\..\..\source\device\CDeviceManager.h" />
     <ClInclude Include="..\..\..\..\source\device\CKeyEvent.h" />

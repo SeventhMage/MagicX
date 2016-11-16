@@ -7,6 +7,7 @@
 
 #include "ITexture.h"
 #include "IShaderProgram.h"
+#include "SColor.h"
 
 namespace mx
 {
@@ -44,6 +45,9 @@ namespace mx
 			//获取漫反射系数
 			virtual float GetDiffuseCoefficient() = 0;
 			
+			//对光的反射度
+			virtual SColor GetColor() = 0;
+
 
 		};
 	}
