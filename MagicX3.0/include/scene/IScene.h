@@ -8,11 +8,13 @@
 #include "ISceneNode.h"
 #include "ICamera.h"
 #include "ISkybox.h"
+#include "light/ILight.h"
 
 namespace mx
 {
 	namespace scene
 	{
+		const int MAX_LIGHT_NUM = 16;
 		class IScene
 		{
 		public:
@@ -28,6 +30,11 @@ namespace mx
 			virtual ICamera *GetCamera() = 0;
 			virtual ISkyBox *SetupSkyBox(const char *right, const char *left, const char *top, const char *bottom, const char *front, const char *back, float radius) = 0;
 			virtual ISkyBox *GetSkyBox() = 0;
+
+			//安装光源
+			virtual ILight *SetupLight(int slot, ELightType type, float lightColor[4]) = 0;
+			virtual ILight *GetLight(int slot) = 0;
+
 			virtual void Update(int delta) = 0;
 			virtual void Draw() = 0;
 		};

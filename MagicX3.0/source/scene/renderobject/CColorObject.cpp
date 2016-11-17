@@ -7,7 +7,7 @@ namespace mx
 
 		CColorFlatObject::CColorFlatObject(float fColor[4])
 		{
-			//Create(fColor);
+			memcpy(m_fColor, fColor, 4 * sizeof(float));
 		}
 
 		CColorFlatObject::~CColorFlatObject()
@@ -16,15 +16,12 @@ namespace mx
 		}
 
 		void CColorFlatObject::Create(IRenderable *pRenderable)
-		{
-			if (!m_pVAO) return;
-			
+		{			
 			IShaderProgram *pShaderProgram = pRenderable->GetShaderProgram();
 			if (pShaderProgram)
 			{			
 				pShaderProgram->CreateStandShader(ESS_SHADER_FLAT);
-				float color[] = { 1, 1, 0, 1 };
-				pShaderProgram->SetUniform("vColor", color);
+				pShaderProgram->SetUniform("vColor", m_fColor);
 			}
 		}
 

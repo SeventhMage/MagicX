@@ -19,7 +19,8 @@ namespace mx
 			virtual ~CColorFlatObject();
 			
 			virtual void Create(IRenderable *pRenderable);			
-		private:				
+		private:			
+			float m_fColor[4];
 		};
 	}
 }

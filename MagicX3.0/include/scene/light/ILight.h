@@ -12,7 +12,6 @@ namespace mx
 		//光照类型
 		enum ELightType
 		{
-			LT_AMBGIENT,
 			LT_DIRECTIONAL,
 			LT_POINT,
 			LT_SPOT,
@@ -24,8 +23,11 @@ namespace mx
 			virtual ~ILight(){}
 
 			virtual ELightType GetLightType() = 0;
-			virtual void SetPosition();
-			virtual void GetPosition();
+
+			//光的颜色
+			virtual void SetColor(float fColor[4]) = 0;
+			virtual float *GetColor() = 0;
+
 		};
 	}
 }

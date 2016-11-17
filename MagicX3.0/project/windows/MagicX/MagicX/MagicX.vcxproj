@@ -120,7 +120,9 @@
     <ClCompile Include="..\..\..\..\source\scene\CSphere.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSphereEntiy.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CUnit.cpp" />
+    <ClCompile Include="..\..\..\..\source\scene\light\CPointLight.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\renderobject\CColorObject.cpp" />
+    <ClCompile Include="..\..\..\..\source\scene\renderobject\CColorPointLightObject.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\renderobject\CReflectObject.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\renderobject\CRenderObject.cpp" />
   </ItemGroup>
@@ -183,6 +185,7 @@
     <ClInclude Include="..\..\..\..\include\scene\light\CSpotLight.h" />
     <ClInclude Include="..\..\..\..\include\scene\light\ILight.h" />
     <ClInclude Include="..\..\..\..\include\scene\renderobject\CColorFlatObject.h" />
+    <ClInclude Include="..\..\..\..\include\scene\renderobject\CColorPointLightObject.h" />
     <ClInclude Include="..\..\..\..\include\scene\renderobject\CReflectObject.h" />
     <ClInclude Include="..\..\..\..\include\scene\renderobject\CRenderObject.h" />
     <ClInclude Include="..\..\..\..\include\scene\renderobject\IRenderObject.h" />

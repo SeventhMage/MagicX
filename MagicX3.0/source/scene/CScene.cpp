@@ -4,6 +4,9 @@
 #include "mxDef.h"
 #include "scene/CSceneNode.h"
 #include "CSkyBox.h"
+#include "scene/light/CDirectionalLight.h"
+#include "scene/light/CPointLight.h"
+#include "scene/light/CSpotLight.h"
 
 namespace mx
 {
@@ -16,6 +19,7 @@ namespace mx
 			, m_pSkyBox(nullptr)
 		{
 			m_pRootNode = new CSceneNode();
+			memset(m_pLights, 0, sizeof(m_pLights));
 		}
 
 		CScene::~CScene()
@@ -23,6 +27,10 @@ namespace mx
 			SAFE_DEL(m_pRootNode);
 			SAFE_DEL(m_pCamera);
 			SAFE_DEL(m_pSkyBox);
+			for (int i = 0; i < MAX_LIGHT_NUM; ++i)
+			{
+				SAFE_DEL(m_pLights[i]);
+			}
 		}
 
 		void CScene::Draw()
@@ -63,6 +71,36 @@ namespace mx
 			m_pSkyBox = new CSkyBox(this, radius);
 			m_pSkyBox->Create(right, left, top, bottom, front, back);
 			return m_pSkyBox;
+		}
+
+		ILight * CScene::SetupLight(int slot, ELightType type, float lightColor[4])
+		{
+			if (slot < 0 || slot > MAX_LIGHT_NUM)
+				return nullptr;
+			if (m_pLights[slot])
+				delete m_pLights[slot];
+			switch (type)
+			{
+			case mx::scene::LT_DIRECTIONAL:
+				//m_pLights[slot] = new CDirectionalLight();
+				break;
+			case mx::scene::LT_POINT:
+				m_pLights[slot] = new CPointLight(lightColor);
+				break;
+			case mx::scene::LT_SPOT:
+				//m_pLights[slot] = new CSpotLight();
+				break;
+			default:
+				break;
+			}
+			return m_pLights[slot];
+		}
+
+		ILight * CScene::GetLight(int slot)
+		{
+			if (slot < 0 || slot > MAX_LIGHT_NUM)
+				return nullptr;
+			return m_pLights[slot];
 		}
 
 	}

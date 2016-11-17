@@ -25,6 +25,7 @@ namespace mx
 		uint COpenGLShader::Create(const char *filename, ShaderType type)
 		{			
 			m_hShader = GLDebug(glCreateShader(GetGLShaderType(type)));
+			m_shaderType = type;
 
 			struct stat tagStat;
 			int ret = stat(filename, &tagStat);

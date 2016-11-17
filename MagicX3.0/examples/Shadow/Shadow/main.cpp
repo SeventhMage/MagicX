@@ -1,7 +1,7 @@
 #include "mx.h"
 #include <Windows.h>
 
-#include "gl/glew.h"
+#include "GL/GL.h"
 
 using namespace mx;
 
@@ -16,9 +16,14 @@ int main(int argc, char *argv[])
 	IScene *scene = sceneManager->GetCurrentScene();
 	IDevice *device = mx->GetDevice();
 
-	float color[] = { 1.f, .8f, .1f, .5f };
-	IRenderObject *pReflectObj = new CReflectObject();
-	IRenderObject *pColorFlatObj = new CColorFlatObject(color);
+
+	CPointLight *pPointLight = nullptr;
+
+	float yellow[] = { 8.f, .8f, .1f, 1.f };
+	float gray[] = { .8f, .8f, .8f, 1.f };
+	IRenderObject *pColorFlatGray = new CColorFlatObject(gray);
+	IRenderObject *pColorFlatYellow = new CColorFlatObject(yellow);
+	IRenderObject *pColorPoint = new CColorPointLightObject(gray);
 	CSphereEntity *pSphere = nullptr;
 	CSphereEntity *pSphereSun = nullptr;
 
@@ -26,15 +31,16 @@ int main(int argc, char *argv[])
 	if (scene)
 	{
 		
-		pSphere = new CSphereEntity(pReflectObj, 5, 52, 26);
-		pSphereSun = new CSphereEntity(pColorFlatObj, 2, 26, 13);
+		pSphere = new CSphereEntity(pColorPoint, 5, 52, 26);
+		pSphereSun = new CSphereEntity(pColorFlatYellow, 2, 26, 13);
 
 		CVector3 vDir(0, 0, -1);
 		CVector3 vUp(0, 1, 0);
-		//camera = scene->SetupCamera(CVector3(0, 0, 5), vDir, vUp, PI / 2, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
-		camera = scene->SetupCamera(20.f, pSphere, vDir, vUp, PI / 2, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);		
-		scene->SetupSkyBox("texture/ThickCloudsWaterLeft2048.tga", "texture/ThickCloudsWaterRight2048.tga", "texture/ThickCloudsWaterUp2048.tga", "texture/ThickCloudsWaterDown2048.tga", "texture/ThickCloudsWaterFront2048.tga", "texture/ThickCloudsWaterBack2048.tga", 512);		
-
+		//camera = scene->SetupCamera(CVector3(0, 0, 5), vDir, vUp, PI / 3, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
+		camera = scene->SetupCamera(100.f, pSphere, vDir, vUp,  PI / 6, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);				
+		scene->SetupSkyBox("texture/TropicalSunnyDayLeft2048.tga", "texture/TropicalSunnyDayRight2048.tga", "texture/TropicalSunnyDayUp2048.tga", "texture/TropicalSunnyDayDown2048.tga", "texture/TropicalSunnyDayFront2048.tga", "texture/TropicalSunnyDayBack2048.tga", 256);		
+		pPointLight = (CPointLight *)scene->SetupLight(0, LT_POINT, yellow);		
+		
 		pSphere->Create();
 		pSphere->SetPosition(CVector3(0, 0, 0));
 		scene->GetRootNode()->AddChild(pSphere);
@@ -128,6 +134,16 @@ int main(int argc, char *argv[])
 				lastY = event->GetMousePositionY();
 			}
 
+			CVector3 sunRot = pSphereSun->GetRotation();
+			CMatrix4 sunRotMat4;
+			sunRotMat4.SetRotationRadians(0.05f, CVector3(0, 1, 0));
+			CVector3 sunPos = pSphereSun->GetPosition();
+			sunRotMat4.TransformVect(sunPos);
+			pSphereSun->SetPosition(sunPos);
+
+			pPointLight->SetPosition(pSphereSun->GetPosition());
+
+
 			next_game_tick = GetTickCount() + SKIP_TICKS;
 
 			sceneManager->Update(SKIP_TICKS - sleep_time);
@@ -142,8 +158,9 @@ int main(int argc, char *argv[])
 
 	}
 
-	delete pReflectObj;
-	delete pColorFlatObj;
+	delete pColorFlatGray;
+	delete pColorFlatYellow;
+	delete pColorPoint;
 	delete pSphere;
 	delete pSphereSun;
 	DestroyMagicX();

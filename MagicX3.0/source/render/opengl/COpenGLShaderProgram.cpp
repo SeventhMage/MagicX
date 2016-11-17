@@ -107,7 +107,7 @@ namespace mx
 		//ESS_SHADER_POINT_LIGHT_DIFF
 		// Point light, diffuse lighting only
 		static const char *szPointLightDiffVP = "uniform mat4 mvMatrix;"
-			"uniform mat4 pMatrix;"
+			"uniform mat4 mvpMatrix;"
 			"uniform vec3 vLightPos;"
 			"uniform vec4 vColor;"
 			"attribute vec4 vVertex;"
@@ -127,8 +127,6 @@ namespace mx
 			" float fDot = max(0.0, dot(vNorm, vLightDir)); "
 			" vFragColor.rgb = vColor.rgb * fDot;"
 			" vFragColor.a = vColor.a;"
-			" mat4 mvpMatrix;"
-			" mvpMatrix = pMatrix * mvMatrix;"
 			" gl_Position = mvpMatrix * vVertex; "
 			"}";
 

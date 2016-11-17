@@ -19,7 +19,7 @@ namespace mx
 
 		void CReflectObject::Create(IRenderable *pRenderable)
 		{
-			if (!m_pVAO) return;
+			if (!m_pVAO || !pRenderable) return;
 
 			IShaderProgram *pShaderProgram = pRenderable->GetShaderProgram();
 			if (pShaderProgram)
@@ -31,7 +31,7 @@ namespace mx
 
 				int cubeUnit = 0;
 				pShaderProgram->SetUniform("cubeMap", &cubeUnit);
-			}									
+			}
 		}
 
 		void CReflectObject::SetTexture(IRenderable *pRenderable)

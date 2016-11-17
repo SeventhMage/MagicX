@@ -67,6 +67,15 @@ namespace mx
 							um["normalMatrix"] = normalMat3;
 							um["mInverseMatrix"] = camInvMat4.m;
 
+							CPointLight *pLight = (CPointLight *)pScene->GetLight(0);
+							if (pLight)
+							{
+								CVector3 vLightPos = pLight->GetPosition();
+								pCam->GetViewMatrix().TransformVect(vLightPos);
+								um["vLightPos"] = vLightPos.v;
+							}
+
+
 							m_pReflectObject->Update(m_pRenderable, um);
 						}
 						m_pRenderable->SumbitToRenderList();

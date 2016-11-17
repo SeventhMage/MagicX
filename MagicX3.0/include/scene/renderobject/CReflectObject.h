@@ -15,8 +15,8 @@ namespace mx
 		public:
 			CReflectObject();
 			~CReflectObject();						
-			
-			virtual void SetTexture(IRenderable *pRenderable);						
+
+			virtual void SetTexture(IRenderable *pRenderable);
 			virtual void Create(IRenderable *pRenderable);
 		private:
 			
