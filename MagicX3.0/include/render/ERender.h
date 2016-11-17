@@ -42,6 +42,7 @@ namespace mx
 
 		enum ShaderType
 		{
+			ST_INVALID = -1,
 			ST_VERTEX,
 			ST_GEOMETRY,
 			ST_FRAGMENT,

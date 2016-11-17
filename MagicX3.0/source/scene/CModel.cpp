@@ -9,7 +9,7 @@ namespace mx
 
 		CModel::CModel()
 			:m_pMesh(nullptr)
-			, m_pMaterial(nullptr)			
+			, m_pRenderObject(nullptr)			
 		{
 			
 		}

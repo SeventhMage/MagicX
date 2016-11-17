@@ -36,10 +36,13 @@
 #include "resource/IImage.h"
 
 //scene
+#include "scene/renderobject/IRenderObject.h"
+#include "scene/renderobject/CReflectObject.h"
+#include "scene/renderobject/CRenderObject.h"
+#include "scene/renderobject/CColorFlatObject.h"
 #include "scene/CUnit.h"
 #include "scene/CSphereEntiy.h"
 #include "scene/CSphere.h"
-#include "scene/CReflectObject.h"
 #include "scene/CEntity.h"
 #include "scene/IModel.h"
 #include "scene/ISceneManager.h"

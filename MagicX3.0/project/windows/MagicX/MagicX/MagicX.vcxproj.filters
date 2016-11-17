@@ -61,6 +61,12 @@
     <Filter Include="include\scene\light">
       <UniqueIdentifier>{033d7752-9f95-43b3-938c-68801600d17b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\scene\renderobject">
+      <UniqueIdentifier>{e0bf9ceb-7bd3-4f53-9f36-04f61d7c4b68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\scene\renderobject">
+      <UniqueIdentifier>{966a90ae-e6e5-4aad-9072-a95a965338d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\mx.cpp">
@@ -156,14 +162,23 @@
     <ClCompile Include="..\..\..\..\source\scene\CSkyBox.cpp">
       <Filter>source\scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\source\scene\CReflectObject.cpp">
-      <Filter>source\scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\source\scene\CSphereEntiy.cpp">
       <Filter>source\scene</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\scene\CSphere.cpp">
       <Filter>source\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\CMaterial.cpp">
+      <Filter>source\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene\renderobject\CRenderObject.cpp">
+      <Filter>source\scene\renderobject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene\renderobject\CReflectObject.cpp">
+      <Filter>source\scene\renderobject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene\renderobject\CColorObject.cpp">
+      <Filter>source\scene\renderobject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -365,9 +380,6 @@
     <ClInclude Include="..\..\..\..\source\render\CRenderer.h">
       <Filter>source\render</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\include\scene\IVertex.h">
-      <Filter>include\scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\include\resource\IImage.h">
       <Filter>include\resource</Filter>
     </ClInclude>
@@ -401,9 +413,6 @@
     <ClInclude Include="..\..\..\..\include\scene\ISkyBox.h">
       <Filter>include\scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\include\scene\CReflectObject.h">
-      <Filter>include\scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\include\scene\CSphereEntiy.h">
       <Filter>include\scene</Filter>
     </ClInclude>
@@ -427,6 +436,21 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\render\SColor.h">
       <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\CMaterial.h">
+      <Filter>source\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\renderobject\CRenderObject.h">
+      <Filter>include\scene\renderobject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\renderobject\IRenderObject.h">
+      <Filter>include\scene\renderobject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\renderobject\CReflectObject.h">
+      <Filter>include\scene\renderobject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\renderobject\CColorFlatObject.h">
+      <Filter>include\scene\renderobject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

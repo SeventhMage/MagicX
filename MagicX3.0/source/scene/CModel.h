@@ -6,17 +6,14 @@
 #define _MX_SCENE_C_MODEL_H_
 
 #include "scene/IModel.h"
-#include "scene/ISceneNode.h"
 #include "resource/IMesh.h"
-#include "render/IMaterial.h"
-#include "render/IRenderable.h"
+#include "scene/renderobject/IRenderObject.h"
 
 namespace mx
 {
 	namespace scene
 	{
-		using namespace resource;
-		using namespace render;
+		using namespace resource;		
 
 		class CModel : public IModel
 		{
@@ -27,7 +24,7 @@ namespace mx
 			virtual bool Load(const char *filename);
 		private:
 			IMesh *m_pMesh;
-			IMaterial *m_pMaterial;
+			IRenderObject *m_pRenderObject;
 		};
 	}
 }

@@ -5,12 +5,11 @@ namespace mx
 	namespace scene
 	{
 
-		CSceneNode::CSceneNode(IScene *pScene)
-			:m_pNodeParent(NULL)
-			, m_pSceneParent(pScene)
-			, m_bVisible(true)
+		CSceneNode::CSceneNode()	
+			: m_bVisible(true)
 			, m_bActive(true)
 			, m_bNeedUpdate(true)
+			, m_pNodeParent(nullptr)
 			, m_relativeScale(1.0f, 1.0f, 1.0f)
 		{
 
@@ -24,21 +23,6 @@ namespace mx
 		void CSceneNode::UpdateImp(int delta)
 		{
 
-		}
-
-		void CSceneNode::RenderImp()
-		{
-
-		}
-
-		void CSceneNode::Render()
-		{
-			RenderImp();
-			std::list<ISceneNode *>::iterator it = m_listChild.begin();
-			for (; it != m_listChild.end(); ++it)
-			{
-				(*it)->Render();
-			}
 		}
 
 		void CSceneNode::Update(uint delta)
@@ -67,11 +51,6 @@ namespace mx
 				child->SetParent(this);
 				m_listChild.push_back(child);
 			}			
-		}
-
-		void CSceneNode::SetScene(IScene *pScene)
-		{
-			m_pSceneParent = pScene;
 		}
 
 		void CSceneNode::Remove()
@@ -179,7 +158,7 @@ namespace mx
 			{				
 				if (m_pNodeParent)
 				{					
-					m_absluateTransformation = m_pNodeParent->GetAbsluateTransformation() * GetRelativeTransformation();
+					m_absluateTransformation = GetRelativeTransformation() * m_pNodeParent->GetAbsluateTransformation();
 				}
 				else
 				{

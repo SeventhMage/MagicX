@@ -16,9 +16,7 @@ namespace mx
 		{
 		public:
 			COpenGLVertexArrayObject();
-			virtual ~COpenGLVertexArrayObject();
-			
-			virtual IShaderProgram *GetShaderProgram() { return m_pShaderProgram; }
+			virtual ~COpenGLVertexArrayObject();			
 
 			virtual void BeginRender();
 			virtual void EndRender();
@@ -27,8 +25,7 @@ namespace mx
 			virtual void EnableVertexAttrib(VertexAttributeLocation vai, int size,
 				RendererVariableType vertType, int stride, int offset);
 		private:
-			GLuint m_hVAO;
-			IShaderProgram *m_pShaderProgram;			//shader³ÌÐò
+			GLuint m_hVAO;			
 		};
 	}
 }

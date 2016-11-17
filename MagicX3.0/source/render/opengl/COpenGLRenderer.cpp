@@ -83,13 +83,18 @@ namespace mx
 
 		IVertexArrayObject * COpenGLRenderer::CreateVertexArrayObject()
 		{
-			return new COpenGLVertexArrayObject();
+			IVertexArrayObject *pVAO = new COpenGLVertexArrayObject();
+			AddVertexArrayObject(pVAO);
+			return pVAO;
 		}
 
 		void COpenGLRenderer::DestroyVertexArrayObject(IVertexArrayObject *pObject)
 		{
 			if (pObject)
+			{
+				RemoveVertexArrayObject(pObject);
 				delete pObject;
+			}			
 		}
 
 		ITexture * COpenGLRenderer::CreateTexture(const char *filename)
@@ -155,6 +160,17 @@ namespace mx
 		void COpenGLRenderer::BeginRender()
 		{
 			GLDebug(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+		}
+
+		IShaderProgram * COpenGLRenderer::CreateShaderProgram()
+		{
+			return new COpenGLShaderProgram();
+		}
+
+		void COpenGLRenderer::DestroyShaderProgram(IShaderProgram *pShaderProgram)
+		{
+			if (pShaderProgram)
+				delete pShaderProgram;
 		}
 
 	}

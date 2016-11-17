@@ -31,6 +31,8 @@ namespace mx
 			virtual ITexture *CreateTexture(const char *filename);
 			virtual ITexture *CreateCubeTexture(const char *right, const char *left, const char *top, const char *bottom, const char *front, const char *back);
 			virtual void DestroyTexture(ITexture *pTexture);
+			virtual IShaderProgram *CreateShaderProgram();
+			virtual void DestroyShaderProgram(IShaderProgram *pShaderProgram);
 		};
 	}
 }

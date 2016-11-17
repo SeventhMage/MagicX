@@ -7,7 +7,8 @@
 
 #include "CEntity.h"
 #include "CSphere.h"
-#include "CReflectObject.h"
+#include "renderobject/CReflectObject.h"
+#include "render/IRenderable.h"
 
 namespace mx
 {
@@ -17,15 +18,15 @@ namespace mx
 		class CSphereEntity : public CEntity
 		{
 		public:
-			CSphereEntity(IScene *pScene, float fRadius, int iSlices, int iStacks);
+			CSphereEntity(IRenderObject *pRenderObject, float fRadius, int iSlices, int iStacks);
 			virtual ~CSphereEntity();
-			virtual void UpdateImp(int delta);
-			virtual void RenderImp();
-
-			void CreateReflect();
+			virtual void UpdateImp(int delta);			
+				
+			void Create();
 		private:
 			CSphere *m_pSphere;
-			CReflectObject *m_pReflectObject;
+			IRenderObject *m_pReflectObject;
+			IRenderable *m_pRenderable;
 		};
 	}
 }

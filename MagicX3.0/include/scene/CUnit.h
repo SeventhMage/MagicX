@@ -21,13 +21,12 @@ namespace mx
 		class CUnit : public CEntity
 		{
 		public:
-			CUnit(IScene *pScene);
-			CUnit(IScene *pScene, IVertex *pVertex, const char *texfile = nullptr);
+			CUnit();
+			CUnit(IVertex *pVertex, const char *texfile = nullptr);
 
 			virtual ~CUnit();
 
-			virtual void UpdateImp(int delta);
-			virtual void RenderImp();
+			virtual void UpdateImp(int delta);			
 
 			void LoadModel(const char *filename);	
 

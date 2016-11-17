@@ -10,6 +10,8 @@
 #include "IRenderable.h"
 #include "IVertexArrayObject.h"
 #include "ITexture.h"
+#include "IMaterial.h"
+#include "IShaderProgram.h"
 
 namespace mx
 {
@@ -25,6 +27,7 @@ namespace mx
 
 			//开始渲染清理工作
 			virtual void BeginRender() = 0;
+			virtual void Render() = 0;
 
 			//渲染对象
 			virtual void Render(IRenderable *pRenderable) = 0;
@@ -51,6 +54,14 @@ namespace mx
 			virtual ITexture *CreateTexture(const char *filename) = 0;
 			virtual ITexture *CreateCubeTexture(const char *right, const char *left, const char *top, const char *bottom, const char *front, const char *back) = 0;
 			virtual void DestroyTexture(ITexture *pTexture) = 0;
+
+			//ShaderProgram
+			virtual IShaderProgram *CreateShaderProgram() = 0;
+			virtual void DestroyShaderProgram(IShaderProgram *pShaderProgram) = 0;
+
+			//材质
+			virtual IMaterial *CreateMaterial() = 0;
+			virtual void DestroyMaterial(IMaterial *pMaterial) = 0;
 		};
 	}
 }

@@ -6,6 +6,7 @@
 #define _MX_RENDER_C_VERTEX_ARRAY_OBJECT_H_
 
 #include "render/IVertexArrayObject.h"
+#include "render/IMaterial.h"
 
 namespace mx
 {
@@ -26,7 +27,8 @@ namespace mx
 			virtual void EndRender(){}
 		
 		protected:
-			IRenderList *m_pRenderList;					//渲染列表			
+			IRenderList *m_pRenderList;					//渲染列表	
+			IMaterial *m_pMaterial;						//材质
 		};
 	}
 }

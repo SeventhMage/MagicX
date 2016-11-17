@@ -15,7 +15,7 @@ namespace mx
 			:m_pCamera(nullptr)
 			, m_pSkyBox(nullptr)
 		{
-			m_pRootNode = new CSceneNode(this);
+			m_pRootNode = new CSceneNode();
 		}
 
 		CScene::~CScene()
@@ -26,11 +26,8 @@ namespace mx
 		}
 
 		void CScene::Draw()
-		{
-			if (m_pRootNode)
-				m_pRootNode->Render();
-			if (m_pSkyBox)
-				m_pSkyBox->Render();
+		{	
+			RENDERER->Render();
 		}
 
 		void CScene::Update(int delta)

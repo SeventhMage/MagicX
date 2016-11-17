@@ -13,13 +13,15 @@ int main(int argc, char *argv[])
 	IScene *scene = sceneManager->GetCurrentScene();
 	IDevice *device = mx->GetDevice();
 
+	ICamera *camera = nullptr;
 	CubeVertex cubeVertice;
-	CUnit *cube = new CUnit(scene, &cubeVertice, "texture/crate.tga");
+	CUnit *cube = new CUnit(&cubeVertice, "texture/crate.tga");
 	if (scene)
 	{
 		CVector3 vDir(0, 0, -1);
 		CVector3 vUp(0, 1, 0);
-		scene->SetupCamera(CVector3(0, 0, 5), vDir, vUp, PI / 2, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
+		//camera = scene->SetupCamera(CVector3(0, 0, 5), vDir, vUp, PI / 2, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
+		camera = scene->SetupCamera(20.f, cube, vDir, vUp, PI / 2, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
 		ISceneNode *rootNode = scene->GetRootNode();
 		if (rootNode)
 		{									
@@ -55,14 +57,27 @@ int main(int argc, char *argv[])
 				float rotY = (currentX - lastX) * 2.0f * PI / device->GetWindowWidth();
 				float rotX = (currentY - lastY) * 2.0f * PI / device->GetWindowHeight();
 
+				CVector3 camDir = camera->GetDirection();
+
 				if (event->IsPress(EKP_MOUSE_LBUTTON))
 				{					
 					CVector3 curRot = cube->GetRotation();
 					CVector3 rot(rotX + curRot.x, curRot.y + rotY, 0);
+
 					cube->SetRotation(rot);
 				}
 				if (event->IsPress(EKP_MOUSE_RBUTTON))
 				{
+					if (!ISZERO(rotX) || !ISZERO(rotY))
+					{
+						camDir.rotateXZBy(-rotY);
+						CMatrix4 rotMat4;
+						rotMat4.SetRotationRadians(rotX, (-camDir).crossProduct(CVector3(0, 1.0f, 0)));
+						rotMat4.TransformVect(camDir);
+
+						camDir.normalize();
+						camera->SetDirection(camDir);
+					}
 
 				}
 

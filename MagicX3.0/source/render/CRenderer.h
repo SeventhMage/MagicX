@@ -20,9 +20,14 @@ namespace mx
 			virtual IRenderDriver *GetRenderDriver() { return m_pRenderDriver; }			
 			virtual IRenderable *CreateRenderable(IRenderList *pRenderList);
 			virtual void DestroyRenderable(IRenderable *pRenderable);
+
+			virtual IMaterial *CreateMaterial();
+			virtual void DestroyMaterial(IMaterial *pMaterial);
+
+			virtual void Render();
+		protected:
 			virtual void AddVertexArrayObject(IVertexArrayObject *pObject);
 			virtual void RemoveVertexArrayObject(IVertexArrayObject *pObject);
-
 		protected:
 			IRenderDriver *m_pRenderDriver;			//äÖÈ¾Çý¶¯			
 

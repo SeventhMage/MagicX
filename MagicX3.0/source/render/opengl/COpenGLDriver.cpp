@@ -70,56 +70,5 @@ namespace mx
 		{
 			GLDebug(glViewport(x, y, width, height));
 		}
-
-		//void COpenGLDriver::Render()
-		//{
-		//	for (auto it = m_vecRenderable.begin(); it != m_vecRenderable.end(); ++it)
-		//	{
-		//		if (m_vecRenderable[i])
-		//		{
-		//			for (uint j = 0; j < RA_NUM; ++j)
-		//			{
-		//				GLenum attr = GetGLRenderAttr((RenderAttribute)j);
-		//				if (m_vecRenderableObject[i]->IsEnabled((RenderAttribute)j))
-		//					glEnable(attr);
-		//				else
-		//					glDisable(attr);
-		//			}
-		//			//glPolygonMode(GL_FRONT_AND_BACK, GetGLPolygonMode(m_vecRenderableObject[i]->GetPolygonMode()));
-		//			COpenGLShaderProgram *program = (COpenGLShaderProgram *)m_vecRenderableObject[i]->GetShaderProgram();
-		//			if (program)
-		//			{
-		//				GLDebug(glUseProgram(program->GetHandle()));
-		//				program->BindUniform();
-		//			}
-
-		//			m_vecRenderableObject[i]->BindTexture();
-
-
-
-		//			GLDebug(glBindVertexArray(m_hVAO));
-		//			if (m_vecRenderableObject[i]->IsEnabledIndexBuffer())
-		//			{
-		//				COpenGLIndexBufferObject *vio = (COpenGLIndexBufferObject *)m_vecRenderableObject[i]->GetIndexBufferObject();
-		//				if (vio)
-		//				{
-		//					GLDebug(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vio->GetHandle()));
-		//					GLDebug(glDrawElements(GetGLGPUBufferMode(vio->GetGPUBufferMode()), vio->GetIndicesNum(),
-		//						GetGLVariableType(vio->GetIndexType()), 0));
-		//				}
-		//			}
-		//			else
-		//			{
-		//				COpenGLVertexBufferObject *vbo = (COpenGLVertexBufferObject *)m_vecRenderableObject[i]->GetVertexBufferObject();
-		//				if (vbo)
-		//				{
-		//					GLDebug(glBindBuffer(GL_ARRAY_BUFFER, vbo->GetHandle()));
-		//					GLDebug(glDrawArrays(GetGLGPUBufferMode(vbo->GetGPUBufferMode()), vbo->GetGLGPUBufferFirst(), vbo->GetVertexNum()));
-		//				}
-		//			}
-
-		//		}
-		//	}
-		//}
 	}
 }

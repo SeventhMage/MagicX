@@ -15,6 +15,7 @@ namespace mx
 
 #define RENDERER (MagicX->GetRenderer())
 #define RESOURCEMGR(type) (MagicX->GetResourceManager(type))
+#define SCENEMGR (MagicX->GetSceneManager())
 }
 
 #endif

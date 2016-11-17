@@ -22,12 +22,9 @@ namespace mx
  		public:
 			virtual ~ISceneNode(){}
 			virtual void UpdateImp(int delta) = 0;
-			virtual void RenderImp() = 0;
-			virtual void Render() = 0;
 			virtual void Update(uint delta) = 0;
 			virtual void SetParent(ISceneNode *parent) = 0;
-			virtual void AddChild(ISceneNode *child) = 0;
-			virtual void SetScene(IScene *pScene) = 0;
+			virtual void AddChild(ISceneNode *child) = 0;			
 
 			virtual void Remove() = 0;
 			virtual void RemoveChild(ISceneNode *child) = 0;
@@ -62,7 +59,7 @@ namespace mx
 			virtual const std::string &GetName() const = 0;
 
 			virtual void UpdateAbsluateTransformation() = 0;
-			virtual void SetNeedUpdateTransformation(bool bNeed) = 0;
+			virtual void SetNeedUpdateTransformation(bool bNeed) = 0;			
 		};
 
 	}

@@ -14,11 +14,13 @@ int main(int argc, char *argv[])
 	IScene *scene = sceneManager->GetCurrentScene();
 	IDevice *device = mx->GetDevice();
 
+	IRenderObject *pRenderObject = new CReflectObject();
+
 	CSphereEntity *pSphere = nullptr;
 	ICamera *camera = nullptr;
 	if (scene)
-	{
-		pSphere = new CSphereEntity(scene, 5, 52, 26);
+	{		
+		pSphere = new CSphereEntity(pRenderObject, 5, 52, 26);
 		
 
 		CVector3 vDir(0, 0, -1);
@@ -32,8 +34,7 @@ int main(int argc, char *argv[])
 		//scene->SetupSkyBox("texture/ThickCloudsWaterLeft2048.tga", "texture/ThickCloudsWaterRight2048.tga", "texture/ThickCloudsWaterUp2048.tga", "texture/ThickCloudsWaterDown2048.tga", "texture/ThickCloudsWaterFront2048.tga", "texture/ThickCloudsWaterBack2048.tga", 512);
 		//scene->SetupSkyBox("texture/TropicalSunnyDayLeft2048.tga", "texture/TropicalSunnyDayRight2048.tga", "texture/TropicalSunnyDayUp2048.tga", "texture/TropicalSunnyDayDown2048.tga", "texture/TropicalSunnyDayFront2048.tga", "texture/TropicalSunnyDayBack2048.tga", 512);
 
-		
-		pSphere->CreateReflect();
+		pSphere->Create();
 		pSphere->SetPosition(CVector3(0, 0, 0));
 		scene->GetRootNode()->AddChild(pSphere);
 	}
@@ -132,6 +133,7 @@ int main(int argc, char *argv[])
 	}
 
 	delete pSphere;
+	delete pRenderObject;
 	DestroyMagicX();
 	return 0;
 }

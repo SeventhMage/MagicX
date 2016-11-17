@@ -8,24 +8,26 @@ namespace mx
 	namespace scene
 	{
 		using namespace math;
-		CSphereEntity::CSphereEntity(IScene *pScene, float fRadius, int iSlices, int iStacks)
-			:CEntity(pScene)
-			, m_pReflectObject(nullptr)
+
+		CSphereEntity::CSphereEntity(IRenderObject *pRenderObject, float fRadius, int iSlices, int iStacks)
+			:m_pReflectObject(pRenderObject)
 		{
-			m_pSphere = new CSphere(fRadius, iSlices, iStacks);	
+			m_pSphere = new CSphere(fRadius, iSlices, iStacks);
 		}
 
 		CSphereEntity::~CSphereEntity()
 		{
 			SAFE_DEL(m_pSphere);
 			SAFE_DEL(m_pReflectObject);
+			SAFE_DEL(m_pRenderable);
 		}
 
 		void CSphereEntity::UpdateImp(int delta)
 		{
-			if (m_pSceneParent)
+			IScene *pScene = SCENEMGR->GetCurrentScene();
+			if (pScene)
 			{
-				ICamera *pCam = m_pSceneParent->GetCamera();
+				ICamera *pCam = pScene->GetCamera();
 				if (pCam)
 				{				
 					CMatrix4 mvpMat4 = GetAbsluateTransformation() * pCam->GetViewProjectionMatrix();
@@ -39,7 +41,7 @@ namespace mx
 
 					pCam->GetViewMatrix().GetInverse(camInvMat4);
 					camInvMat4.SetTranslation(CVector3(0, 0,0));
-					ISkyBox *pSkyBox = m_pSceneParent->GetSkyBox();
+					ISkyBox *pSkyBox = pScene->GetSkyBox();
 					if (pSkyBox)
 					{
 						CMatrix4 skyBoxMat4 = pSkyBox->GetModelMatrix();
@@ -54,34 +56,54 @@ namespace mx
 						normalMat4.m[4], normalMat4.m[5], normalMat4.m[6],
 						normalMat4.m[8], normalMat4.m[9], normalMat4.m[10] };
 
-					if (m_pReflectObject)
-						m_pReflectObject->Update(mvpMat4.m, mvMat4.m, camInvMat4.m, normalMat3);
-					
-				}
+					if (m_pRenderable)
+					{
+						m_pRenderable->Bind();
+						if (m_pReflectObject)
+						{
+							UniformMap um;
+							um["mvpMatrix"] = mvpMat4.m;
+							um["mvMatrix"] = mvMat4.m;
+							um["normalMatrix"] = normalMat3;
+							um["mInverseMatrix"] = camInvMat4.m;
+
+							m_pReflectObject->Update(m_pRenderable, um);
+						}
+						m_pRenderable->SumbitToRenderList();
+
+						m_pRenderable->UnBind();
+					}
+				
+				}									
 			}			
 		}
 
-		void CSphereEntity::RenderImp()
+		void CSphereEntity::Create()
 		{
-			if (m_pReflectObject)
-				m_pReflectObject->Render();
-		}
-
-
-		void CSphereEntity::CreateReflect()
-		{
-			if (m_pSceneParent)
+			if (!m_pSphere) return;
+			
+			IVertexArrayObject *pVAO = m_pReflectObject->GetVAO();
+			if (pVAO)
 			{
-				ISkyBox *pSkyBox = m_pSceneParent->GetSkyBox();
-				if (pSkyBox)
+				pVAO->Bind();
+				m_pRenderable = RENDERER->CreateRenderable(pVAO->GetRenderList());
+
+				m_pReflectObject->Create(m_pRenderable);
+
+				IBufferObject *bufferObject = m_pRenderable->CreateVertexBufferObject(NULL, m_pSphere->GetVertexSize() * 2, 0, m_pSphere->GetVertexCount(), GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
+				if (bufferObject)
 				{
-					ITexture *pTexture = pSkyBox->GetTexture();
-					if (pTexture)
-					{
-						m_pReflectObject = new CReflectObject();
-						m_pReflectObject->Create(m_pSphere->GetVertices(), m_pSphere->GetNormals(), m_pSphere->GetVertexSize(), m_pSphere->GetVertexCount(), pTexture);
-					}
-				}
+					bufferObject->BufferSubData(m_pSphere->GetVertices(), m_pSphere->GetVertexSize(), 0);
+					bufferObject->BufferSubData(m_pSphere->GetNormals(), m_pSphere->GetVertexSize(), m_pSphere->GetVertexSize());
+				}				
+				
+				pVAO->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, 0, 0);
+				pVAO->EnableVertexAttrib(render::VAL_NORMAL, 3, render::RVT_FLOAT, 0, m_pSphere->GetVertexSize());
+				
+				bufferObject->UnBind();
+				pVAO->UnBind();
+
+				m_pReflectObject->SetTexture(m_pRenderable);
 			}
 		}
 

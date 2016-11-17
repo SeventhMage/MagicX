@@ -139,19 +139,21 @@ namespace mx
 			if (m_pVAO)
 			{	
 				m_pVAO->Bind();
-				render::IShaderProgram *pShaderProgram = m_pVAO->GetShaderProgram();
-				if (pShaderProgram)
-				{
-					pShaderProgram->Attach("shader/skybox.vs", render::ST_VERTEX);
-					pShaderProgram->Attach("shader/skybox.ps", render::ST_FRAGMENT);
-					pShaderProgram->BindAttributeLocation(1, render::VAL_POSITION);
-					pShaderProgram->Link();
 
-					int iTextureUnit = 0;
-					pShaderProgram->SetUniform("cubeMap", &iTextureUnit);
-				}
 				if (m_pRenderable)
 				{
+					render::IShaderProgram *pShaderProgram = m_pRenderable->GetShaderProgram();
+					if (pShaderProgram)
+					{
+						pShaderProgram->Attach("shader/skybox.vs", render::ST_VERTEX);
+						pShaderProgram->Attach("shader/skybox.ps", render::ST_FRAGMENT);
+						pShaderProgram->BindAttributeLocation(1, render::VAL_POSITION);
+						pShaderProgram->Link();
+
+						int iTextureUnit = 0;
+						pShaderProgram->SetUniform("cubeMap", &iTextureUnit);
+					}
+
 					m_pRenderable->CreateVertexBufferObject(m_pBoxData, sizeof(float)* 108, 0, 108, render::GBM_TRIANGLES, render::GBU_DYNAMIC_DRAW);
 					//m_pRenderableObject->Disable(render::RA_CULL_FACE);
 					
@@ -180,22 +182,16 @@ namespace mx
 				m_modelMatr4.SetRotationRadiansRH(0, rotY, 0);
 				math::CMatrix4 mat4 = m_modelMatr4 * vpMat4;
 
-				if (m_pVAO)
+				if (m_pVAO && m_pRenderable)
 				{
-					render::IShaderProgram *shaderProgram = m_pVAO->GetShaderProgram();
+					render::IShaderProgram *shaderProgram = m_pRenderable->GetShaderProgram();
 					if (shaderProgram)
 					{
 						shaderProgram->SetUniform("mvpMatrix", (void *)mat4.m);
 					}
-				}
-				m_pRenderable->SumbitToRenderList();
+					m_pRenderable->SumbitToRenderList();
+				}				
 			}			 			
 		}
-
-		void CSkyBox::Render()
-		{
-			m_pVAO->Render();
-		}
-
 	}
 }

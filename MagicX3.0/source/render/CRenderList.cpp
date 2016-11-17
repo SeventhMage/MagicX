@@ -40,9 +40,10 @@ namespace mx
 
 		void CRenderList::Render()
 		{
+			int i = 0;
 			for (auto it = m_renderableList.begin(); it != m_renderableList.end(); ++it)
 			{
-				RENDERER->Render(*it);
+				RENDERER->Render(*it);				
 			}
 		}
 

@@ -14,8 +14,9 @@ namespace mx
 		class CEntity : public CSceneNode
 		{
 		public:
-			CEntity(IScene *pScene) :CSceneNode(pScene){}
+			CEntity() {}
 			virtual ~CEntity(){};
+					
 		};
 	}
 }

@@ -9,6 +9,7 @@ namespace mx
 	{
 		struct SColor
 		{
+			SColor() : color(((255 & 0xff) << 24) | ((255 & 0xff) << 16) | ((255 & 0xff) << 8) | ((255 & 0xff))){}
 			SColor(uint a, uint r, uint g, uint b)
 			:color(((a & 0xff)<<24) | ((r & 0xff)<<16) | ((g & 0xff)<<8) | ((b & 0xff))){}
 			SColor(uint clr) :color(clr){}

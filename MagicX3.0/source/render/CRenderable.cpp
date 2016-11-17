@@ -14,12 +14,16 @@ namespace mx
 			memset(m_pTexture, 0, sizeof(ITexture *)* TU_TEXTURE_NUM);	
 			for (int i = 0; i < RA_NUM; ++i)
 				m_bRenderAttrs[i] = true;
+
+			m_pShaderProgram = RENDERER->CreateShaderProgram();
 		}
 
 		CRenderable::~CRenderable()
 		{
 			RENDERER->DestroyBufferObject(m_pVBO);
 			RENDERER->DestroyBufferObject(m_pIBO);			
+
+			RENDERER->DestroyShaderProgram(m_pShaderProgram);
 		}
 
 		void CRenderable::SumbitToRenderList()
@@ -39,7 +43,9 @@ namespace mx
 				m_pVBO->Bind();
 			if (m_pIBO)
 				m_pIBO->Bind();
-			
+			if (m_pShaderProgram)
+				m_pShaderProgram->Bind();
+
 			for (int i = 0; i < TU_TEXTURE_NUM; ++i)
 			{
 				if (m_pTexture[i])
@@ -53,6 +59,7 @@ namespace mx
 				m_pVBO->UnBind();
 			if (m_pIBO)
 				m_pIBO->UnBind();
+	
 			for (int i = 0; i < TU_TEXTURE_NUM; ++i)
 			{
 				if (m_pTexture[i])

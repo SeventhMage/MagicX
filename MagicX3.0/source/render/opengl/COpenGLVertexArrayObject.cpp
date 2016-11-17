@@ -11,26 +11,16 @@ namespace mx
 
 		COpenGLVertexArrayObject::COpenGLVertexArrayObject()
 		{
-			GLDebug(glGenVertexArrays(1, &m_hVAO));
-
-			m_pShaderProgram = new COpenGLShaderProgram();
+			GLDebug(glGenVertexArrays(1, &m_hVAO));			
 		}
 
 		COpenGLVertexArrayObject::~COpenGLVertexArrayObject()
 		{
 			GLDebug(glDeleteVertexArrays(1, &m_hVAO));
-			if (m_pShaderProgram)
-				delete m_pShaderProgram;
 		}
 
 		void COpenGLVertexArrayObject::BeginRender()
 		{			
-			if (m_pShaderProgram)
-			{
-				GLDebug(glUseProgram(m_pShaderProgram->GetHandle()));
-				m_pShaderProgram->Bind();
-			}
-
 			Bind();			
 		}
 

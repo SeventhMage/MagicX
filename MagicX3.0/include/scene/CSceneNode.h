@@ -16,21 +16,16 @@ namespace mx
 		class CSceneNode : public ISceneNode
 		{
 		public:
-			CSceneNode(IScene *pScene);
+			CSceneNode();
 			virtual ~CSceneNode();
 
 			virtual void UpdateImp(int delta);
-			virtual void RenderImp();
-
-			virtual void Render();
 
 			virtual void Update(uint delta);
 
 			virtual void SetParent(ISceneNode *parent);
 			virtual void AddChild(ISceneNode *child);
-
-			virtual void SetScene(IScene *pScene);
-
+			
 			virtual void Remove();
 			virtual void RemoveChild(ISceneNode *child);
 
@@ -65,8 +60,7 @@ namespace mx
 			virtual void SetNeedUpdateTransformation(bool bNeed);
 		protected:
 			ISceneNode *m_pNodeParent;
-			std::list<ISceneNode *> m_listChild;
-			IScene *m_pSceneParent;
+			std::list<ISceneNode *> m_listChild;			
 
 			CMatrix4 m_absluateTransformation;
 			CVector3 m_relativePosition;

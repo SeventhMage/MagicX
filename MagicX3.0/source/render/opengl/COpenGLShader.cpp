@@ -11,8 +11,11 @@ namespace mx
 	namespace render
 	{
 		COpenGLShader::COpenGLShader()
+			:m_hShader(0)
+			, m_shaderLang(SL_GLSL)
+			, m_shaderType(ST_INVALID)
 		{
-
+			memset(m_fileName, 0, sizeof(m_fileName));
 		}
 		COpenGLShader::~COpenGLShader()
 		{

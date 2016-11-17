@@ -2,6 +2,7 @@
 #include "opengl/COpenGLDriver.h"
 #include "CRenderList.h"
 #include "CRenderable.h"
+#include "CMaterial.h"
 
 namespace mx
 {
@@ -59,5 +60,29 @@ namespace mx
 				m_vecVertexArray.erase(it);
 			}
 		}
+
+		IMaterial * CRenderer::CreateMaterial()
+		{
+			return new CMaterial();
+		}
+
+		void CRenderer::DestroyMaterial(IMaterial *pMaterial)
+		{
+			if (pMaterial)
+				delete pMaterial;
+		}
+
+		void CRenderer::Render()
+		{
+			BeginRender();
+			for (auto it = m_vecVertexArray.begin(); it != m_vecVertexArray.end(); ++it)
+			{
+				if (*it)
+				{					
+					(*it)->Render();
+				}
+			}
+		}
+
 	}
 }

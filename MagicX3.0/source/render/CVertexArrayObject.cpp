@@ -1,6 +1,8 @@
 #include "CVertexArrayObject.h"
 #include "mx.h"
 #include "CRenderList.h"
+#include "CMaterial.h"
+#include "CRenderable.h"
 
 namespace mx
 {
@@ -11,12 +13,13 @@ namespace mx
 		{
 			
 			m_pRenderList = new CRenderList();
+			m_pMaterial = new CMaterial();
 		}
 
 		CVertexArrayObject::~CVertexArrayObject()
-		{
-			if (m_pRenderList)
-				delete m_pRenderList;
+		{			
+			SAFE_DEL(m_pRenderList);
+			SAFE_DEL(m_pMaterial);
 		}
 
 		

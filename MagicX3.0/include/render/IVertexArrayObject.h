@@ -23,8 +23,7 @@ namespace mx
 			//∂•µ„ Ù–‘…Ë÷√
 			virtual void EnableVertexAttrib(VertexAttributeLocation vai, int size,
 				RendererVariableType vertType, int stride, int offset) = 0;
-
-			virtual IShaderProgram *GetShaderProgram() = 0;
+			
 			virtual IRenderList *GetRenderList() = 0;
 
 			virtual void Bind() = 0;

@@ -8,18 +8,16 @@ namespace mx
 	namespace scene
 	{
 
-		CUnit::CUnit(IScene *pScene)
-			:CEntity(pScene)
-			,m_pTexture(nullptr)
+		CUnit::CUnit()			
+			:m_pTexture(nullptr)
 		{
 			m_pMode = new CModel();
 			m_pVAO =  RENDERER->CreateVertexArrayObject();
 			m_pRenderable = RENDERER->CreateRenderable(m_pVAO->GetRenderList());
 		}
 
-		CUnit::CUnit(IScene *pScene, IVertex *pVertex, const char *texfile /*= nullptr*/)
-			:CEntity(pScene)
-			, m_pMode(NULL)
+		CUnit::CUnit(IVertex *pVertex, const char *texfile /*= nullptr*/)			
+			: m_pMode(NULL)
 			,m_pTexture(nullptr)
 		{
 			m_pVAO = RENDERER->CreateVertexArrayObject();
@@ -70,7 +68,7 @@ namespace mx
 				ITexture *pTexture = RENDERER->CreateTexture("texture/crate.tga");
 				m_pRenderable->SetTexture(0, pTexture);
 
-				IShaderProgram *pShaderProgram = m_pVAO->GetShaderProgram();				
+				IShaderProgram *pShaderProgram = m_pRenderable->GetShaderProgram();				
 
 				pShaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_REPLACE);
 
@@ -117,13 +115,13 @@ namespace mx
 			//没有被剔除掉，加入到渲染列表
 			if (true)
 			{
-				IShaderProgram *pShaderProgram = m_pVAO->GetShaderProgram();
+				IShaderProgram *pShaderProgram = m_pRenderable->GetShaderProgram();
 				if (pShaderProgram)
 				{
 					CMatrix4 vpMat4;
-					if (m_pSceneParent)
+					if (SCENEMGR->GetCurrentScene())
 					{
-						ICamera *pCam = m_pSceneParent->GetCamera();
+						ICamera *pCam = SCENEMGR->GetCurrentScene()->GetCamera();
 						if (pCam)
 						{
 							vpMat4 = pCam->GetViewProjectionMatrix();
@@ -137,12 +135,6 @@ namespace mx
 			}
 		}
 
-		void CUnit::RenderImp()
-		{
-			if (m_pVAO)
-				m_pVAO->Render();
-		}
-
 		void CUnit::CreateRenderable(IVertex *pVertex, const char *texfile)
 		{
 			uint vertAttr = pVertex->GetVertexAttribute();
@@ -151,7 +143,7 @@ namespace mx
 			{				
 				m_pVAO->Bind();
 
-				IShaderProgram *pShaderProgram = m_pVAO->GetShaderProgram();	
+				IShaderProgram *pShaderProgram = m_pRenderable->GetShaderProgram();
 				if (pShaderProgram)
 				{
 					if (vertAttr == VF_POSITION)
@@ -179,20 +171,7 @@ namespace mx
 					float vColor[] = { 1, 1, 1, 1 };
 					pShaderProgram->SetUniform("vColor", vColor);
 
-
-					CMatrix4 vpMat4;
-					if (m_pSceneParent)
-					{
-						ICamera *pCam = m_pSceneParent->GetCamera();
-						if (pCam)
-						{
-							vpMat4 = pCam->GetViewProjectionMatrix();
-						}
-					}
-					CMatrix4 mvpMat4 = GetAbsluateTransformation() * vpMat4;
-
-					pShaderProgram->SetUniform("mvpMatrix", mvpMat4.m);
-
+	
 					m_pRenderable->CreateVertexBufferObject(pVertex->GetVertexData(), pVertex->GetVerticeSize(), 0, pVertex->GetVerticeCount(), GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
 					m_pRenderable->CreateIndexBufferObject(pVertex->GetIndicesData(), pVertex->GetIndicesCount(), RVT_UINT, GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
 
