@@ -10,6 +10,7 @@
 #include "resource/IImageManager.h"
 #include "resource/IImage.h"
 #include "mx.h"
+#include "COpenGLShadowMap.h"
 
 
 
@@ -21,6 +22,7 @@ namespace mx
 
 		COpenGLRenderer::COpenGLRenderer()
 			:CRenderer(new COpenGLDriver())
+			, m_pShadowMap(nullptr)
 		{
 			
 		}
@@ -171,6 +173,16 @@ namespace mx
 		{
 			if (pShaderProgram)
 				delete pShaderProgram;
+		}
+
+		void COpenGLRenderer::EnableShadow(bool bEnable)
+		{
+			m_pShadowMap = new COpenGLShadowMap();			
+		}
+
+		void COpenGLRenderer::ShadowEnabled()
+		{
+
 		}
 
 	}

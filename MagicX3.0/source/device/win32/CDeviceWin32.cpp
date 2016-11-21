@@ -272,6 +272,8 @@ namespace mx
 				GetWindowRect(hDesk, &rc);
 				realWidth = rc.right;
 				realHeight = rc.bottom;
+				m_iWidth = realWidth;
+				m_iHeight = realHeight;
 			}
 
 			// create window

@@ -13,6 +13,7 @@ namespace mx
 	IMagicX *CreateMagicX(render::ERenderDriverType  renderDriver, int x, int y, int width, int height, bool bFullScreen = false);
 	void DestroyMagicX();
 
+#define DEVICEMGR (MagicX->GetDeviceManager())
 #define RENDERER (MagicX->GetRenderer())
 #define RESOURCEMGR(type) (MagicX->GetResourceManager(type))
 #define SCENEMGR (MagicX->GetSceneManager())

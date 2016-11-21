@@ -99,7 +99,7 @@ namespace mx
 
 			CMatrix4 &BuildProjectionMatrixPerspectiveFovRH(float fieldOfViewRadians, float aspectRatio, float zNear, float zFar)
 			{
-				//const float h = static_cast<float>(1.0 / tan(fieldOfViewRadians));
+				//const float h = static_cast<float>(1.0 / tan(fieldOfViewRadians * 0.5f));
 				//assert(aspectRatio != 0.f);
 				//const float w = static_cast<float>(h / aspectRatio);
 				//assert(zNear != zFar);
@@ -127,7 +127,7 @@ namespace mx
 				float xmin, xmax, ymin, ymax;       // Dimensions of near clipping plane
 			
 				// Do the Math for the near clipping plane
-				ymax = zNear * float(tan(fieldOfViewRadians));
+				ymax = zNear * float(tan(fieldOfViewRadians * 0.5f));
 				ymin = -ymax;
 				xmin = ymin * aspectRatio;
 				xmax = -xmin;

@@ -189,6 +189,12 @@
     <ClCompile Include="..\..\..\..\source\scene\light\CPointLight.cpp">
       <Filter>source\scene\light</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLShadowMap.cpp">
+      <Filter>source\render\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene\renderobject\CShadowMapObject.cpp">
+      <Filter>source\scene\renderobject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\include\mx.h">
@@ -462,6 +468,15 @@
       <Filter>include\scene\renderobject</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\scene\renderobject\CColorPointLightObject.h">
+      <Filter>include\scene\renderobject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IShadowMap.h">
+      <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLShadowMap.h">
+      <Filter>source\render\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\renderobject\CShadowMapObject.h">
       <Filter>include\scene\renderobject</Filter>
     </ClInclude>
   </ItemGroup>

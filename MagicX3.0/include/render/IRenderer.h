@@ -12,6 +12,7 @@
 #include "ITexture.h"
 #include "IMaterial.h"
 #include "IShaderProgram.h"
+#include "IShadowMap.h"
 
 namespace mx
 {
@@ -62,6 +63,11 @@ namespace mx
 			//≤ƒ÷ 
 			virtual IMaterial *CreateMaterial() = 0;
 			virtual void DestroyMaterial(IMaterial *pMaterial) = 0;
+
+			//∆Ù”√“ı”∞
+			virtual void EnableShadow(bool bEnable) = 0;
+			virtual void ShadowEnabled() = 0;
+			virtual IShadowMap *GetShadowMap() = 0;
 		};
 	}
 }

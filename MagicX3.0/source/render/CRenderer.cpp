@@ -74,7 +74,6 @@ namespace mx
 
 		void CRenderer::Render()
 		{
-			BeginRender();
 			for (auto it = m_vecVertexArray.begin(); it != m_vecVertexArray.end(); ++it)
 			{
 				if (*it)

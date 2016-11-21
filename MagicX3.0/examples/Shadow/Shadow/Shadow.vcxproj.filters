@@ -12,5 +12,13 @@
     <ClCompile Include="main.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="CShadowPlane.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CShadowPlane.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

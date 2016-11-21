@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 		pSphereSun->SetPosition(CVector3(10, 10, -10));
 		scene->GetRootNode()->AddChild(pSphereSun);
 	}
-
+	RENDERER->EnableShadow(true);
 	uint next_game_tick = GetTickCount();
 	int sleep_time = 0;
 

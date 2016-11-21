@@ -104,6 +104,7 @@
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLRenderer.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLShader.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLShaderProgram.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLShadowMap.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLTexture.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLVertexArrayObject.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLVertexBufferObject.cpp" />
@@ -125,6 +126,7 @@
     <ClCompile Include="..\..\..\..\source\scene\renderobject\CColorPointLightObject.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\renderobject\CReflectObject.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\renderobject\CRenderObject.cpp" />
+    <ClCompile Include="..\..\..\..\source\scene\renderobject\CShadowMapObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\include\base\CSingleton.h" />
@@ -158,6 +160,7 @@
     <ClInclude Include="..\..\..\..\include\render\IRenderList.h" />
     <ClInclude Include="..\..\..\..\include\render\IShader.h" />
     <ClInclude Include="..\..\..\..\include\render\IShaderProgram.h" />
+    <ClInclude Include="..\..\..\..\include\render\IShadowMap.h" />
     <ClInclude Include="..\..\..\..\include\render\ITexture.h" />
     <ClInclude Include="..\..\..\..\include\render\IVertexArrayObject.h" />
     <ClInclude Include="..\..\..\..\include\render\SColor.h" />
@@ -188,6 +191,7 @@
     <ClInclude Include="..\..\..\..\include\scene\renderobject\CColorPointLightObject.h" />
     <ClInclude Include="..\..\..\..\include\scene\renderobject\CReflectObject.h" />
     <ClInclude Include="..\..\..\..\include\scene\renderobject\CRenderObject.h" />
+    <ClInclude Include="..\..\..\..\include\scene\renderobject\CShadowMapObject.h" />
     <ClInclude Include="..\..\..\..\include\scene\renderobject\IRenderObject.h" />
     <ClInclude Include="..\..\..\..\source\CMagicX.h" />
     <ClInclude Include="..\..\..\..\source\device\CDeviceManager.h" />
@@ -204,6 +208,7 @@
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLRenderer.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLShader.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLShaderProgram.h" />
+    <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLShadowMap.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLTexture.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLVertexArrayObject.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLVertexBufferObject.h" />
