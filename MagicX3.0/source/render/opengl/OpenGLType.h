@@ -235,6 +235,9 @@ namespace mx
 			case GL_SAMPLER_CUBE:
 				return UF_INT;
 				break;
+			case GL_SAMPLER_2D_SHADOW_ARB:
+				return UF_INT;
+				break;
 			}
 			return UF_UNKNOWN;
 		}

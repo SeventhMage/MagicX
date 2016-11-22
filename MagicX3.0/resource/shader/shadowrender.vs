@@ -26,6 +26,6 @@ void main(void)
 	vertex.eye_coord = eye_pos.xyz;
 	vertex.shadow_coord = shadow_matrix * world_pos;
 	vertex.normal = mat3(view_matrix * model_matrix) * vNormal;
-
-	g_Position = clip_pos;
+	
+	gl_Position = clip_pos;
 }

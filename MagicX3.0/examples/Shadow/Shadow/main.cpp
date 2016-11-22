@@ -1,4 +1,6 @@
 #include "mx.h"
+#include "CShadowPlane.h"
+
 #include <Windows.h>
 
 #include "GL/GL.h"
@@ -42,12 +44,16 @@ int main(int argc, char *argv[])
 		pPointLight = (CPointLight *)scene->SetupLight(0, LT_POINT, yellow);		
 		
 		pSphere->Create();
-		pSphere->SetPosition(CVector3(0, 0, 0));
+		pSphere->SetPosition(CVector3(0, 20, 0));
 		scene->GetRootNode()->AddChild(pSphere);
 
 		pSphereSun->Create();
-		pSphereSun->SetPosition(CVector3(10, 10, -10));
+		pSphereSun->SetPosition(CVector3(10, 40, -10));
 		scene->GetRootNode()->AddChild(pSphereSun);
+
+		CShadowPlane *pShadowPlane = new CShadowPlane();
+		pShadowPlane->Create();
+		scene->GetRootNode()->AddChild(pShadowPlane);
 	}
 	RENDERER->EnableShadow(true);
 	uint next_game_tick = GetTickCount();

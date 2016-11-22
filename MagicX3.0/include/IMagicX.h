@@ -41,6 +41,7 @@
 #include "scene/renderobject/CRenderObject.h"
 #include "scene/renderobject/CColorFlatObject.h"
 #include "scene/renderobject/CColorPointLightObject.h"
+#include "scene/renderobject/CShadowMapObject.h"
 #include "scene/light/ILight.h"
 #include "scene/light/CDirectionalLight.h"
 #include "scene/light/CPointLight.h"

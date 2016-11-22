@@ -470,14 +470,14 @@
     <ClInclude Include="..\..\..\..\include\scene\renderobject\CColorPointLightObject.h">
       <Filter>include\scene\renderobject</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\include\render\IShadowMap.h">
-      <Filter>include\render</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLShadowMap.h">
       <Filter>source\render\opengl</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\scene\renderobject\CShadowMapObject.h">
       <Filter>include\scene\renderobject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IShadowMap.h">
+      <Filter>include\render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
