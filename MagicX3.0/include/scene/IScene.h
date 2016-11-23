@@ -25,6 +25,7 @@ namespace mx
 			virtual ISceneNode *GetRootNode() = 0;
 			virtual ICamera *SetupCamera(const CVector3 &position, const CVector3 &direction,
 				const CVector3 &up, float fov, float aspect, float nearClip, float farClip) = 0;
+			virtual void SetupCamera(ICamera *pCamera) = 0;
 			virtual ICamera *SetupCamera(float fDistance, ISceneNode *pFocusNode,
 				const CVector3 &vDirection, const CVector3 &vUp, float fov, float aspect, float nearClip, float farClip) = 0;
 			virtual ICamera *GetCamera() = 0;

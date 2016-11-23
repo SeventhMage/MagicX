@@ -6,8 +6,8 @@ uniform mat4 projection_matrix;
 
 uniform mat4 shadow_matrix;
 
-layout (location = 0) in vec4 vVertex;
-layout (location = 1) in vec3 vNormal;
+in vec4 vVertex;
+in vec3 vNormal;
 
 out VS_FS_INTERFACE
 {
@@ -25,7 +25,7 @@ void main(void)
 	vertex.world_coord = world_pos.xyz;
 	vertex.eye_coord = eye_pos.xyz;
 	vertex.shadow_coord = shadow_matrix * world_pos;
-	vertex.normal = mat3(view_matrix * model_matrix) * vNormal;
-	
+	vertex.normal = mat3(view_matrix * model_matrix) * vNormal;	
+
 	gl_Position = clip_pos;
 }

@@ -17,8 +17,7 @@ namespace mx
 
 		CSphereEntity::~CSphereEntity()
 		{
-			SAFE_DEL(m_pSphere);
-			SAFE_DEL(m_pReflectObject);
+			SAFE_DEL(m_pSphere);			
 			SAFE_DEL(m_pRenderable);
 		}
 
@@ -75,8 +74,18 @@ namespace mx
 								um["vLightPos"] = vLightPos.v;
 							}
 
+							
+							CMatrix4 lightViewMat;
+							CVector3 pos = ((CPointLight *)pLight)->GetPosition();
+							lightViewMat.BuildCameraLookAtMatrix(pos, -pos, CVector3(0, 1, 0));
+							CMatrix4 lightProMat;
+							lightProMat.BuildProjectionMatrixPerspectiveFovRH(PI / 2.f, 1.f * 800 / 600, 1.f, 1000.f);
+							CMatrix4 smvpMat4 = GetAbsluateTransformation() * lightViewMat * lightProMat;
 
-							m_pReflectObject->Update(m_pRenderable, um);
+							UniformMap sum;
+
+							sum["mvpMatrix"] = smvpMat4.m;
+							m_pReflectObject->Update(m_pRenderable, um, &sum);
 						}
 						m_pRenderable->SumbitToRenderList();
 

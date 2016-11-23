@@ -18,6 +18,7 @@ namespace mx
 			virtual ~CShadowMapObject();
 
 			virtual void Create(IRenderable *pRenderable);
+			virtual void SetTexture(IRenderable *pRenderable);
 		};
 	}
 }

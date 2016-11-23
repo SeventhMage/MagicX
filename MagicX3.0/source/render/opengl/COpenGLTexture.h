@@ -23,6 +23,7 @@ namespace mx
 			virtual void UnBind();
 			virtual void Create2D(int internalformat, int width, int height, int format, int type, void *data);
 			virtual void CreateCube(IImage *pImgRight, IImage *pImgLeft, IImage *pImgTop, IImage *pImgBottom, IImage *pImgFront, IImage *pImgBack);
+			virtual void Create(uint target, uint handle);
 			virtual uint GetHandle() { return m_hTexture; }
 		private:
 			uint m_hTexture;

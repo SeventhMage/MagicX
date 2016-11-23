@@ -6,6 +6,8 @@
 #define _MX_RENDER_I_SHADOW_MAP_H_
 
 #include "mxType.h"
+#include "IShaderProgram.h"
+#include "ITexture.h"
 
 namespace mx
 {
@@ -17,7 +19,8 @@ namespace mx
 			virtual ~IShadowMap(){}
 
 			virtual void Render() = 0;
-			virtual uint GetShadowMap() = 0;
+			virtual ITexture *GetShadowMap() = 0;
+			virtual IShaderProgram *GetShaderProgram() = 0;
 		};
 	}
 }

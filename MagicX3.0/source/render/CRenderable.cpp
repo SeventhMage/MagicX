@@ -16,6 +16,12 @@ namespace mx
 				m_bRenderAttrs[i] = true;
 
 			m_pShaderProgram = RENDERER->CreateShaderProgram();
+			m_pShadowShaderProgram = RENDERER->CreateShaderProgram();
+
+			m_pShadowShaderProgram->Attach("shader/shadow.vs", ST_VERTEX);
+			m_pShadowShaderProgram->Attach("shader/shadow.ps", ST_FRAGMENT);
+			m_pShadowShaderProgram->BindAttributeLocation(1, VAL_POSITION);
+			m_pShadowShaderProgram->Link();
 		}
 
 		CRenderable::~CRenderable()
@@ -24,6 +30,7 @@ namespace mx
 			RENDERER->DestroyBufferObject(m_pIBO);			
 
 			RENDERER->DestroyShaderProgram(m_pShaderProgram);
+			RENDERER->DestroyShaderProgram(m_pShadowShaderProgram);
 		}
 
 		void CRenderable::SumbitToRenderList()
@@ -43,8 +50,18 @@ namespace mx
 				m_pVBO->Bind();
 			if (m_pIBO)
 				m_pIBO->Bind();
-			if (m_pShaderProgram)
-				m_pShaderProgram->Bind();
+
+			if (RENDERER->IsRenderShadowMap())
+			{
+				if (m_pShadowShaderProgram)
+					m_pShadowShaderProgram->Bind();
+			}
+			else
+			{
+				if (m_pShaderProgram)
+					m_pShaderProgram->Bind();
+			}
+
 
 			for (int i = 0; i < TU_TEXTURE_NUM; ++i)
 			{

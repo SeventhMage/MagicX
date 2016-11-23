@@ -24,7 +24,7 @@ namespace mx
 			virtual void Create(IRenderable *pRenderable) = 0;
 			virtual IVertexArrayObject *GetVAO() = 0;
 			virtual void SetTexture(IRenderable *pRenderable) = 0;						
-			virtual void Update(IRenderable *pRenderable, const UniformMap &param) = 0;
+			virtual void Update(IRenderable *pRenderable, const UniformMap &normalParam, const UniformMap *shadowParam = nullptr) = 0;
 		};
 	}
 }

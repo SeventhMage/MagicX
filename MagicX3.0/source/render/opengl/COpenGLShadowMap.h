@@ -8,6 +8,7 @@
 #include "render/IShadowMap.h"
 #include "mxType.h"
 #include "render/IShaderProgram.h"
+#include "scene/ICamera.h"
 
 namespace mx
 {
@@ -20,12 +21,15 @@ namespace mx
 			virtual ~COpenGLShadowMap();
 
 			virtual void Render();
-			virtual uint GetShadowMap() { return m_hDepthTexture; }
+			virtual ITexture *GetShadowMap() { return m_pTexture; }
+			virtual IShaderProgram *GetShaderProgram() { return m_pShaderProgram; }
 		private:
 			uint m_hDepthTexture;
+			ITexture *m_pTexture;
 			uint m_hDepthFBO;
 			uint m_hDepthRBO;
 			IShaderProgram *m_pShaderProgram;
+			scene::ICamera *m_pShadowCamera;
 		};
 	}
 }

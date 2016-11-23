@@ -18,6 +18,9 @@ namespace mx
 			CCamera(const CVector3 &position, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float near, float far);
 			CCamera(float fDistance, ISceneNode *pFocusNode, const CVector3 &vDirection, const CVector3 &vUp, float fov, float aspect, float nearClip, float farClip);
 			virtual ~CCamera();
+			
+			virtual void Init(const CVector3 &position, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float near, float far);
+			
 			virtual void SetPosition(const CVector3 &position);			
 			virtual void SetDirection(const CVector3 &direction);			
 			virtual void SetUp(const CVector3 &up);

@@ -35,22 +35,32 @@ void CShadowPlane::UpdateImp(int delta)
 				.0f, .0f, .5f, .0f,
 				.5f, .5f, .5f, 1.f);
 
-			CMatrix4 lightView;
 			ILight *pLight = pScene->GetLight(0);
 			CMatrix4 lightViewMat;
 			CVector3 pos = ((CPointLight *)pLight)->GetPosition();
 			lightViewMat.BuildCameraLookAtMatrix(pos, -pos, CVector3(0, 1, 0));
 			CMatrix4 lightProMat;
-			lightProMat.BuildProjectionMatrixPerspectiveFovRH(PI / 3.f, 1.f * 800 / 600, 1.f, 1000.f);
+			lightProMat.BuildProjectionMatrixPerspectiveFovRH(PI / 2.f, 1.f * 800 / 600, 1.f, 1000.f);
 
-			um["shadow_matrix"] = (void *)((lightView * lightProMat * scaleMat4).m);
-			um["light_position"] = pos.v;
-			IShadowMap *pShadowMap = RENDERER->GetShadowMap();
-			if (pShadowMap)
-			{
-				uint tex = pShadowMap->GetShadowMap();
-				um["depth_texture"] = &tex;
-			}
+			CMatrix4 shadow_mat = lightViewMat * lightProMat * scaleMat4;
+			CVector3 vTest(-50, 0, 50);
+			float out[4];
+			shadow_mat.TransformVect(out, vTest);
+			um["shadow_matrix"] = (void *)((lightViewMat * lightProMat * scaleMat4).m);
+
+			CVector3 lightPos = pos;
+			pCam->GetViewMatrix().TransformVect(lightPos);
+			um["light_position"] = lightPos.v;			
+			
+			CMatrix4 temp = pCam->GetViewMatrix();
+			temp.SetTranslation(CVector3(0, 0, 0));
+			CVector3 normal(0, 1, 0);
+			temp.TransformVect(normal);
+
+			CVector3 vpos(-50, 0, 50);
+			pCam->GetViewMatrix().TransformVect(vpos);
+			CVector3 dir = lightPos - vpos;
+			float dot = dir.dotProduct(normal);
 
 			m_pRenderObject->Update(m_pRenderable, um);
 		}
@@ -90,6 +100,8 @@ void CShadowPlane::Create()
 
 		bufferObject->UnBind();
 		pVAO->UnBind();
+
+		m_pRenderObject->SetTexture(m_pRenderable);
 		
 	}
 }

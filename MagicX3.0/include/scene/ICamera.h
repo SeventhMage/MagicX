@@ -19,6 +19,8 @@ namespace mx
 		public:
 			virtual ~ICamera(){};
 
+			virtual void Init(const CVector3 &position, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float near, float far) = 0;
+
 			virtual void Update(int elapsedTime) = 0;
 			
 			virtual const CVector3 &GetPosition() const  = 0;			

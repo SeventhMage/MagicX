@@ -73,5 +73,11 @@ namespace mx
 			GLDebug(glBindTexture(m_target, 0));
 		}
 
+		void COpenGLTexture::Create(uint target, uint handle)
+		{
+			m_target = target;
+			m_hTexture = handle;
+		}
+
 	}
 }

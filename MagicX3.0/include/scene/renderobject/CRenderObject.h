@@ -22,7 +22,7 @@ namespace mx
 
 			virtual void SetTexture(IRenderable *pRenderable){}
 			virtual render::IVertexArrayObject *GetVAO() { return m_pVAO; }
-			virtual void Update(IRenderable *pRenderable, const UniformMap &param);			
+			virtual void Update(IRenderable *pRenderable, const UniformMap &normalParam, const UniformMap *shadowParam = nullptr);
 			
 		protected:
 			IVertexArrayObject *m_pVAO;

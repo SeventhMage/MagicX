@@ -36,19 +36,19 @@ int main(int argc, char *argv[])
 		pSphere = new CSphereEntity(pColorPoint, 5, 52, 26);
 		pSphereSun = new CSphereEntity(pColorFlatYellow, 2, 26, 13);
 
-		CVector3 vDir(0, 0, -1);
+		CVector3 vDir(0, -1, -1);
 		CVector3 vUp(0, 1, 0);
 		//camera = scene->SetupCamera(CVector3(0, 0, 5), vDir, vUp, PI / 3, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
 		camera = scene->SetupCamera(100.f, pSphere, vDir, vUp,  PI / 3, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);				
-		scene->SetupSkyBox("texture/TropicalSunnyDayLeft2048.tga", "texture/TropicalSunnyDayRight2048.tga", "texture/TropicalSunnyDayUp2048.tga", "texture/TropicalSunnyDayDown2048.tga", "texture/TropicalSunnyDayFront2048.tga", "texture/TropicalSunnyDayBack2048.tga", 256);		
+		//scene->SetupSkyBox("texture/TropicalSunnyDayLeft2048.tga", "texture/TropicalSunnyDayRight2048.tga", "texture/TropicalSunnyDayUp2048.tga", "texture/TropicalSunnyDayDown2048.tga", "texture/TropicalSunnyDayFront2048.tga", "texture/TropicalSunnyDayBack2048.tga", 256);		
 		pPointLight = (CPointLight *)scene->SetupLight(0, LT_POINT, yellow);		
 		
 		pSphere->Create();
-		pSphere->SetPosition(CVector3(0, 20, 0));
+		pSphere->SetPosition(CVector3(0, 30, 0));
 		scene->GetRootNode()->AddChild(pSphere);
 
 		pSphereSun->Create();
-		pSphereSun->SetPosition(CVector3(10, 40, -10));
+		pSphereSun->SetPosition(CVector3(10, 50, -10));
 		scene->GetRootNode()->AddChild(pSphereSun);
 
 		RENDERER->EnableShadow(true);
@@ -132,6 +132,10 @@ int main(int argc, char *argv[])
 				{
 					glPolygonMode(GL_FRONT, GL_LINE);
 				}
+				else
+				{
+					glPolygonMode(GL_FRONT, GL_FILL);
+				}
 
 				if (event->IsPress(EKP_KEYBOARD_ESC))
 				{
@@ -144,7 +148,7 @@ int main(int argc, char *argv[])
 
 			CVector3 sunRot = pSphereSun->GetRotation();
 			CMatrix4 sunRotMat4;
-			sunRotMat4.SetRotationRadians(0.05f, CVector3(0, 1, 0));
+			sunRotMat4.SetRotationRadians(0.01f, CVector3(0, 1, 0));
 			CVector3 sunPos = pSphereSun->GetPosition();
 			sunRotMat4.TransformVect(sunPos);
 			pSphereSun->SetPosition(sunPos);

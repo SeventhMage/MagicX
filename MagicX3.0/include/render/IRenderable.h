@@ -28,6 +28,7 @@ namespace mx
 			virtual IBufferObject *GetIndexBufferObject() = 0;
 
 			virtual IShaderProgram *GetShaderProgram() = 0;
+			virtual IShaderProgram *GetShadowShaderProgram() = 0;
 
 			//…Ë÷√Œ∆¿Ì
 			virtual void SetTexture(int slot, ITexture *pTexture) = 0;

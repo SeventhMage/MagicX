@@ -60,6 +60,24 @@ namespace mx
 
 		}
 
+
+		void CCamera::Init(const CVector3 &position, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float near, float far)
+		{
+			m_bNeedUpdateProj = true;
+			m_bNeedUpdateView = true;
+			m_bOrtho = false;
+			m_position = position;
+			m_direction = direction;
+			m_up = up;
+			m_fov = fov;
+			m_aspect = aspect;
+			m_nearClip = near;
+			m_farClip = far;
+			m_pFocus = NULL;
+			m_fDistance = 0;
+			Update(0);
+		}
+
 		void CCamera::SetPosition(const CVector3 &position)
 		{
 			m_position = position;

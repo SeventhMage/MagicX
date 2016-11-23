@@ -1,6 +1,8 @@
 #include "COpenGLShadowMap.h"
 #include "GLDebug.h"
 #include "mx.h"
+#include "..\..\scene\CCamera.h"
+#include "COpenGLTexture.h"
 
 namespace mx
 {
@@ -10,11 +12,12 @@ namespace mx
 		int g_width = 0, g_height = 0;
 		COpenGLShadowMap::COpenGLShadowMap()
 		{
+			m_pTexture = new COpenGLTexture();
 			device::IDevice *pDevice = DEVICEMGR->GetDevice();
 			if (pDevice)
 			{
 				g_width = pDevice->GetWindowWidth();
-				g_height = pDevice->GetWindowWidth();
+				g_height = pDevice->GetWindowHeight();
 
 				GLDebug(glGenTextures(1, &m_hDepthTexture));
 				GLDebug(glBindTexture(GL_TEXTURE_2D, m_hDepthTexture));
@@ -27,6 +30,9 @@ namespace mx
 				GLDebug(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
 				GLDebug(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
 				GLDebug(glBindTexture(GL_TEXTURE_2D, 0));
+
+				m_pTexture->Create(GL_TEXTURE_2D, m_hDepthTexture);
+
 				GLDebug(glGenFramebuffers(1, &m_hDepthFBO));
 				GLDebug(glBindFramebuffer(GL_FRAMEBUFFER, m_hDepthFBO));
 
@@ -51,9 +57,11 @@ namespace mx
 				m_pShaderProgram = RENDERER->CreateShaderProgram();
 				m_pShaderProgram->Attach("shader/shadow.vs", ST_VERTEX);
 				m_pShaderProgram->Attach("shader/shadow.ps", ST_FRAGMENT);
-				m_pShaderProgram->BindAttributeLocation(2, VAL_POSITION, VAL_NORMAL);
+				m_pShaderProgram->BindAttributeLocation(1, VAL_POSITION);
 				m_pShaderProgram->Link();
 			}
+
+			m_pShadowCamera = new CCamera();
 		}
 
 		COpenGLShadowMap::~COpenGLShadowMap()
@@ -63,7 +71,8 @@ namespace mx
 		}
 
 		void COpenGLShadowMap::Render()
-		{
+		{			
+			ICamera *pLastCamera = nullptr;
 			IScene *pScene = SCENEMGR->GetCurrentScene();
 			if (pScene)
 			{
@@ -72,18 +81,22 @@ namespace mx
 				CVector3 pos = ((CPointLight *)pLight)->GetPosition();
 				lightViewMat.BuildCameraLookAtMatrix(pos, -pos, CVector3(0, 1, 0));
 				CMatrix4 lightProMat;
-				lightProMat.BuildProjectionMatrixPerspectiveFovRH(PI / 3.f, 1.f * g_width / g_height, 1.f, 1000.f);
+				lightProMat.BuildProjectionMatrixPerspectiveFovRH(PI / 2.f, 1.f * g_width / g_height, 1.f, 1000.f);
 
 
 
 				CMatrix4 vpMat = lightViewMat * lightProMat;
 
 				m_pShaderProgram->SetUniform("mvpMatrix", vpMat.m);
+
+				m_pShadowCamera->Init(pos, -pos, CVector3(0, 1, 0), PI / 2, 1.f * g_width / g_height, 1, 1000);
+				pLastCamera = pScene->GetCamera();
+				//pScene->SetupCamera(m_pShadowCamera);
 			}
 
 			GLDebug(glBindFramebuffer(GL_FRAMEBUFFER, m_hDepthFBO));
-			GLDebug(glDrawBuffer(GL_NONE));
-			GLCheckFBOStatus(GL_FRAMEBUFFER);
+			//GLDebug(glDrawBuffer(GL_NONE));
+		
 			GLDebug(glViewport(0, 0, g_width, g_height));
 
 			GLDebug(glClearDepth(1.0f));
@@ -91,11 +104,14 @@ namespace mx
 			
 			GLDebug(glEnable(GL_POLYGON_OFFSET_FILL));
 			GLDebug(glPolygonOffset(2.0f, 4.0f));
+			RENDERER->SetRenderShadowMap(true);
+			//pScene->Update(0);
 			RENDERER->Render();
+			RENDERER->SetRenderShadowMap(false);
 			GLDebug(glDisable(GL_POLYGON_OFFSET_FILL));
 
 			GLDebug(glBindFramebuffer(GL_FRAMEBUFFER, 0));
-			
+			//pScene->SetupCamera(pLastCamera);
 			//glDrawBuffer(GL_FRONT_LEFT);
 		}
 
