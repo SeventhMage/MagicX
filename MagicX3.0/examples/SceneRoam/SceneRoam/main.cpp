@@ -27,7 +27,8 @@ int main(int argc, char *argv[])
 		CVector3 vUp(0, 1, 0);
 		//camera = scene->SetupCamera(CVector3(0, 0, 5), vDir, vUp, PI / 6, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
 		camera = scene->SetupCamera(30, pSphere, vDir, vUp, PI / 3, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
-		scene->SetupSkyBox("texture/FullMoonLeft.tga", "texture/FullMoonRight.tga", "texture/FullMoonUp.tga", "texture/FullMoonDown.tga", "texture/FullMoonFront.tga", "texture/FullMoonBack.tga", 1024);
+		//scene->SetupSkyBox("texture/pos_x.tga", "texture/neg_x.tga", "texture/pos_y.tga", "texture/neg_y.tga", "texture/pos_z.tga", "texture/neg_z.tga", 1024);
+		scene->SetupSkyBox("texture/FullMoonLeft.tga", "texture/FullMoonRight.tga", "texture/FullMoonUp.tga", "texture/FullMoonDown.tga", "texture/FullMoonFront.tga", "texture/FullMoonBack.tga", 512);
 		//scene->SetupSkyBox("texture/CloudyLightRaysLeft2048.tga", "texture/CloudyLightRaysRight2048.tga", "texture/CloudyLightRaysUp2048.tga", "texture/CloudyLightRaysDown2048.tga", "texture/CloudyLightRaysFront2048.tga", "texture/CloudyLightRaysBack2048.tga", 512);
 		//scene->SetupSkyBox("texture/DarkStormyLeft2048.tga", "texture/DarkStormyRight2048.tga", "texture/DarkStormyUp2048.tga", "texture/DarkStormyDown2048.tga", "texture/DarkStormyFront2048.tga", "texture/DarkStormyBack2048.tga", 512);
 		//scene->SetupSkyBox("texture/SunSetLeft2048.tga", "texture/SunSetRight2048.tga", "texture/SunSetUp2048.tga", "texture/SunSetDown2048.tga", "texture/SunSetFront2048.tga", "texture/SunSetBack2048.tga", 512);
