@@ -83,5 +83,16 @@ namespace mx
 			}
 		}
 
+		void CRenderer::EndRender()
+		{
+			for (auto it = m_vecVertexArray.begin(); it != m_vecVertexArray.end(); ++it)
+			{
+				if (*it)
+				{
+					(*it)->EndRender();
+				}
+			}
+		}
+
 	}
 }

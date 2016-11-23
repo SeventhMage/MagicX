@@ -25,6 +25,7 @@ namespace mx
 			virtual void DestroyMaterial(IMaterial *pMaterial);
 
 			virtual void Render();
+			virtual void EndRender();
 		protected:
 			virtual void AddVertexArrayObject(IVertexArrayObject *pObject);
 			virtual void RemoveVertexArrayObject(IVertexArrayObject *pObject);

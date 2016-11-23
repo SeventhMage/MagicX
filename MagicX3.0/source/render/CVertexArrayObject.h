@@ -20,11 +20,8 @@ namespace mx
 
 
 			virtual IRenderList *GetRenderList() { return m_pRenderList; }
-
-			//绑定当前顶点数组
-			virtual void BeginRender() {}
+			
 			virtual void Render();			
-			virtual void EndRender(){}
 		
 		protected:
 			IRenderList *m_pRenderList;					//渲染列表	

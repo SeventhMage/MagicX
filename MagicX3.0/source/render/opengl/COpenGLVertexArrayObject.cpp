@@ -19,15 +19,8 @@ namespace mx
 			GLDebug(glDeleteVertexArrays(1, &m_hVAO));
 		}
 
-		void COpenGLVertexArrayObject::BeginRender()
-		{			
-			Bind();			
-		}
-
-
 		void COpenGLVertexArrayObject::EndRender()
 		{
-			UnBind();
 			if (m_pRenderList)
 				m_pRenderList->Clear();
 		}

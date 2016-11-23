@@ -32,6 +32,34 @@ namespace mx
 #else
 #define GLDebug(Func) Func;
 #endif
+
+
+		inline void CheckGLFBOStatus(const char *filename, int lineNum, GLenum target)
+		{
+			GLenum fboStatus = glCheckFramebufferStatus(target);
+			if (fboStatus != GL_FRAMEBUFFER_COMPLETE)
+			{
+				switch (fboStatus)
+				{
+				case GL_FRAMEBUFFER_UNDEFINED: printf("File Line Number[%s:%d] GL_FRAMEBUFFER_UNDEFINED\n", filename, lineNum); break;
+				case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT: printf("File Line Number[%s:%d] GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT\n", filename, lineNum); break;
+				case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT: printf("File Line Number[%s:%d] GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT\n", filename, lineNum); break;
+				case GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER: printf("File Line Number[%s:%d] GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER\n", filename, lineNum); break;
+				case GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER: printf("File Line Number[%s:%d] GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER\n", filename, lineNum); break;
+				case GL_FRAMEBUFFER_UNSUPPORTED: printf("File Line Number[%s:%d] GL_FRAMEBUFFER_UNSUPPORTED\n", filename, lineNum); break;
+				case GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE: printf("File Line Number[%s:%d] GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE\n", filename, lineNum); break;
+				case GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS: printf("File Line Number[%s:%d] GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS\n", filename, lineNum); break;
+				default: printf("File Line Number[%s:%d] unknown error\n", filename, lineNum); break;
+				}
+				assert(0);
+			}
+
+		}
+#ifdef _DEBUG
+#define GLCheckFBOStatus(target) CheckGLFBOStatus(__FILE__, __LINE__, (target));
+#else
+#define GLCheckFBOStatus
+#endif
 	}
 }
 

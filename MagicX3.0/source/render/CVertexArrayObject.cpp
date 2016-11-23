@@ -24,11 +24,11 @@ namespace mx
 
 		
 		void CVertexArrayObject::Render()
-		{
-			BeginRender();
+		{			
+			Bind();
 			if (m_pRenderList)
 				m_pRenderList->Render();
-			EndRender();
+			UnBind();
 		}		
 
 	}

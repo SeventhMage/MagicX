@@ -20,10 +20,12 @@ namespace mx
 			virtual ~COpenGLShadowMap();
 
 			virtual void Render();
+			virtual uint GetShadowMap() { return m_hDepthTexture; }
 		private:
 			uint m_hDepthTexture;
 			uint m_hDepthFBO;
-			IShaderProgram *pShaderProgram;
+			uint m_hDepthRBO;
+			IShaderProgram *m_pShaderProgram;
 		};
 	}
 }

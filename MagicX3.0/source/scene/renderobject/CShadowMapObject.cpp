@@ -1,4 +1,5 @@
 #include "scene/renderobject/CShadowMapObject.h"
+#include "mx.h"
 
 namespace mx
 {
@@ -25,13 +26,20 @@ namespace mx
 				pShaderProgram->BindAttributeLocation(2, VAL_POSITION, VAL_NORMAL);
 				pShaderProgram->Link();
 
+				float ambient[] = {.1f, .1f, .1f};
 				float light[] = { .8f, .8f, .8f };
-				pShaderProgram->SetUniform("material_ambient", light);
-				pShaderProgram->SetUniform("material_diffuse", light);
-				pShaderProgram->SetUniform("material_specular", light);
+				//pShaderProgram->SetUniform("material_ambient", ambient);
+				//pShaderProgram->SetUniform("material_diffuse", light);
+				//pShaderProgram->SetUniform("material_specular", light);
 				float power = 30;
 				pShaderProgram->SetUniform("material_specular_power", &power);
 
+				IShadowMap *pShadowMap = RENDERER->GetShadowMap();
+				if (pShadowMap)
+				{
+					uint tex = pShadowMap->GetShadowMap();
+					pShaderProgram->SetUniform("depth_texture", &tex);
+				}
 			}
 		}
 

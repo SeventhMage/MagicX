@@ -1,9 +1,9 @@
 #version 330 core
 
 uniform sampler2DShadow depth_texture;
-uniform vec3 light_position;
+uniform vec3 light_position = vec3(50, 50, 50);
 
-uniform vec3 material_ambient = vec3(0.8, 0.8, 0.8);
+uniform vec3 material_ambient = vec3(0.5, 0.5, 0.5);
 uniform vec3 material_diffuse = vec3(0.8, 0.8, 0.8);
 uniform vec3 material_specular = vec3(0.8, 0.8, 0.8);
 uniform float material_specular_power = 30;
@@ -31,5 +31,5 @@ void main(void)
 	float diffuse = max(NdotL, 0.0);
 	float specular = max(pow(EdotR, material_specular_power), 0.0);
 	float f = textureProj(depth_texture, fragment.shadow_coord);
-	color = vec4(material_ambient + f * (material_diffuse * diffuse + material_specular * specular), 1.0);
+	color = vec4(material_ambient + 1.0 * (material_diffuse * diffuse + material_specular * specular), 1.0);
 }

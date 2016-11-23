@@ -29,6 +29,8 @@ namespace mx
 			//开始渲染清理工作
 			virtual void BeginRender() = 0;
 			virtual void Render() = 0;
+			//清空渲染列表
+			virtual void EndRender() = 0;
 
 			//渲染对象
 			virtual void Render(IRenderable *pRenderable) = 0;

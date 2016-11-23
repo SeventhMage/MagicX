@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
 		CVector3 vDir(0, 0, -1);
 		CVector3 vUp(0, 1, 0);
 		//camera = scene->SetupCamera(CVector3(0, 0, 5), vDir, vUp, PI / 3, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
-		camera = scene->SetupCamera(100.f, pSphere, vDir, vUp,  PI / 6, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);				
+		camera = scene->SetupCamera(100.f, pSphere, vDir, vUp,  PI / 3, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);				
 		scene->SetupSkyBox("texture/TropicalSunnyDayLeft2048.tga", "texture/TropicalSunnyDayRight2048.tga", "texture/TropicalSunnyDayUp2048.tga", "texture/TropicalSunnyDayDown2048.tga", "texture/TropicalSunnyDayFront2048.tga", "texture/TropicalSunnyDayBack2048.tga", 256);		
 		pPointLight = (CPointLight *)scene->SetupLight(0, LT_POINT, yellow);		
 		
@@ -51,11 +51,13 @@ int main(int argc, char *argv[])
 		pSphereSun->SetPosition(CVector3(10, 40, -10));
 		scene->GetRootNode()->AddChild(pSphereSun);
 
+		RENDERER->EnableShadow(true);
+
 		CShadowPlane *pShadowPlane = new CShadowPlane();
 		pShadowPlane->Create();
 		scene->GetRootNode()->AddChild(pShadowPlane);
 	}
-	RENDERER->EnableShadow(true);
+	
 	uint next_game_tick = GetTickCount();
 	int sleep_time = 0;
 

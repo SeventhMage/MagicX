@@ -44,6 +44,13 @@ void CShadowPlane::UpdateImp(int delta)
 			lightProMat.BuildProjectionMatrixPerspectiveFovRH(PI / 3.f, 1.f * 800 / 600, 1.f, 1000.f);
 
 			um["shadow_matrix"] = (void *)((lightView * lightProMat * scaleMat4).m);
+			um["light_position"] = pos.v;
+			IShadowMap *pShadowMap = RENDERER->GetShadowMap();
+			if (pShadowMap)
+			{
+				uint tex = pShadowMap->GetShadowMap();
+				um["depth_texture"] = &tex;
+			}
 
 			m_pRenderObject->Update(m_pRenderable, um);
 		}
@@ -78,6 +85,8 @@ void CShadowPlane::Create()
 
 		pVAO->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, 6 * sizeof(float), 0);
 		pVAO->EnableVertexAttrib(render::VAL_NORMAL, 3, render::RVT_FLOAT, 6 * sizeof(float), 3 * sizeof(float));
+
+		m_pRenderable->Disable(RA_CULL_FACE);
 
 		bufferObject->UnBind();
 		pVAO->UnBind();

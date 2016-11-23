@@ -37,11 +37,13 @@ namespace mx
 		{	
 			RENDERER->BeginRender();
 			RENDERER->Render();
+			
 			IShadowMap *pShadowMap = RENDERER->GetShadowMap();
 			if (pShadowMap)
 			{
 				pShadowMap->Render();
 			}
+			RENDERER->EndRender();
 		}
 
 		void CScene::Update(int delta)
