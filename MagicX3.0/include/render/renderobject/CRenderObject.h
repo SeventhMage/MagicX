@@ -3,15 +3,15 @@
 /* ‰÷»æ∂‘œÛ                                                             */
 /************************************************************************/
 
-#ifndef _MX_SCENE_C_RENDER_OBJECT_H_
-#define _MX_SCENE_C_RENDER_OBJECT_H_
+#ifndef _MX_RENDER_C_RENDER_OBJECT_H_
+#define _MX_RENDER_C_RENDER_OBJECT_H_
 
-#include "scene/renderobject/IRenderObject.h"
+#include "render/renderobject/IRenderObject.h"
 #include "render/IRenderable.h"
 
 namespace mx
 {
-	namespace scene
+	namespace render
 	{
 		using namespace render;
 		class CRenderObject : public IRenderObject

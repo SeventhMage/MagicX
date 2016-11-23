@@ -1,9 +1,9 @@
-#include "scene/renderobject/CReflectObject.h"
+#include "render/renderobject/CReflectObject.h"
 #include "mx.h"
 
 namespace mx
 {
-	namespace scene
+	namespace render
 	{
 
 		CReflectObject::CReflectObject()

@@ -16,8 +16,9 @@ namespace mx
 				m_bRenderAttrs[i] = true;
 
 			m_pShaderProgram = RENDERER->CreateShaderProgram();
-			m_pShadowShaderProgram = RENDERER->CreateShaderProgram();
 
+			//绘制阴影图时使用的shader
+			m_pShadowShaderProgram = RENDERER->CreateShaderProgram();
 			m_pShadowShaderProgram->Attach("shader/shadow.vs", ST_VERTEX);
 			m_pShadowShaderProgram->Attach("shader/shadow.ps", ST_FRAGMENT);
 			m_pShadowShaderProgram->BindAttributeLocation(1, VAL_POSITION);

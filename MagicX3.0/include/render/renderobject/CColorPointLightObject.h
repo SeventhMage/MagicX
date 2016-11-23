@@ -2,14 +2,14 @@
 /* 点光源渲染颜色对象                                                   */
 /************************************************************************/
 
-#ifndef _MX_SCENE_C_COLOR_POINT_LIGHT_OBJECT_H_
-#define _MX_SCENE_C_COLOR_POINT_LIGHT_OBJECT_H_
+#ifndef _MX_RENDER_C_COLOR_POINT_LIGHT_OBJECT_H_
+#define _MX_RENDER_C_COLOR_POINT_LIGHT_OBJECT_H_
 
 #include "CRenderObject.h"
 
 namespace mx
 {
-	namespace scene
+	namespace render
 	{
 		class CColorPointLightObject : public CRenderObject
 		{

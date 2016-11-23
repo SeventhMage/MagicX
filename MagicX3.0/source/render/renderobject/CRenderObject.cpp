@@ -1,9 +1,9 @@
-#include "scene/renderobject/CRenderObject.h"
+#include "render/renderobject/CRenderObject.h"
 #include "mx.h"
 
 namespace mx
 {
-	namespace scene
+	namespace render
 	{
 
 		CRenderObject::CRenderObject()

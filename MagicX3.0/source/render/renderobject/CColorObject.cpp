@@ -1,8 +1,8 @@
-#include "scene/renderobject/CColorFlatObject.h"
+#include "render/renderobject/CColorFlatObject.h"
 
 namespace mx
 {
-	namespace scene
+	namespace render
 	{
 
 		CColorFlatObject::CColorFlatObject(float fColor[4])

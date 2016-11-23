@@ -1,8 +1,8 @@
-#include "scene/renderobject/CColorPointLightObject.h"
+#include "render/renderobject/CColorPointLightObject.h"
 
 namespace mx
 {
-	namespace scene
+	namespace render
 	{
 		CColorPointLightObject::CColorPointLightObject(float fColor[4])
 		{

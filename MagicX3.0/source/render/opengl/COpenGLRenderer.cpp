@@ -24,12 +24,11 @@ namespace mx
 			:CRenderer(new COpenGLDriver())
 			, m_pShadowMap(nullptr)
 		{
-			
 		}
 
 		COpenGLRenderer::~COpenGLRenderer()
 		{
-			
+			SAFE_DEL(m_pShadowMap);
 		}
 
 		void COpenGLRenderer::Render(IRenderable *pRenderable)
@@ -177,12 +176,17 @@ namespace mx
 
 		void COpenGLRenderer::EnableShadow(bool bEnable)
 		{
-			m_pShadowMap = new COpenGLShadowMap();			
+			if (bEnable)
+			{
+				if (!m_pShadowMap)
+					m_pShadowMap = new COpenGLShadowMap();
+			}
+			m_bEnableShadow = bEnable;
 		}
 
-		void COpenGLRenderer::ShadowEnabled()
+		bool COpenGLRenderer::ShadowEnabled()
 		{
-
+			return m_bEnableShadow;
 		}
 
 	}

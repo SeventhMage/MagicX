@@ -7,7 +7,7 @@
 
 #include "CEntity.h"
 #include "CSphere.h"
-#include "renderobject/CReflectObject.h"
+#include "render/renderobject/CReflectObject.h"
 #include "render/IRenderable.h"
 
 namespace mx

@@ -7,7 +7,7 @@
 
 #include "scene/IModel.h"
 #include "resource/IMesh.h"
-#include "scene/renderobject/IRenderObject.h"
+#include "render/renderobject/IRenderObject.h"
 
 namespace mx
 {
@@ -24,7 +24,7 @@ namespace mx
 			virtual bool Load(const char *filename);
 		private:
 			IMesh *m_pMesh;
-			IRenderObject *m_pRenderObject;
+			render::IRenderObject *m_pRenderObject;
 		};
 	}
 }

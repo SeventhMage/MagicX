@@ -20,7 +20,6 @@ namespace mx
 
 			virtual void Render() = 0;
 			virtual ITexture *GetShadowMap() = 0;
-			virtual IShaderProgram *GetShaderProgram() = 0;
 		};
 	}
 }

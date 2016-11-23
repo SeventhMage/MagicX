@@ -21,7 +21,6 @@ namespace mx
 		class IRenderer
 		{
 		public:
-			IRenderer() :m_bRendShadow(false){}
 			virtual ~IRenderer(){};
 
 			//获取渲染器驱动程序
@@ -69,13 +68,14 @@ namespace mx
 
 			//启用阴影
 			virtual void EnableShadow(bool bEnable) = 0;
-			virtual void ShadowEnabled() = 0;
+			virtual bool ShadowEnabled() = 0;
 			virtual IShadowMap *GetShadowMap() = 0;
 
-			virtual void SetRenderShadowMap(bool rend) { m_bRendShadow = rend; }
-			virtual bool IsRenderShadowMap() { return m_bRendShadow; }
+			//阴影图渲染标志
+			virtual void SetRenderShadowMap(bool rend) = 0;
+			virtual bool IsRenderShadowMap() = 0;
 		private:
-			bool m_bRendShadow;
+			
 		};
 	}
 }

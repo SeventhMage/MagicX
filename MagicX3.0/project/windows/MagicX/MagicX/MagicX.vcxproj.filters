@@ -61,14 +61,14 @@
     <Filter Include="include\scene\light">
       <UniqueIdentifier>{033d7752-9f95-43b3-938c-68801600d17b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\scene\renderobject">
-      <UniqueIdentifier>{e0bf9ceb-7bd3-4f53-9f36-04f61d7c4b68}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="source\scene\renderobject">
-      <UniqueIdentifier>{966a90ae-e6e5-4aad-9072-a95a965338d6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="source\scene\light">
       <UniqueIdentifier>{e08ac7eb-2bbe-46c7-8ddb-779b162016d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\render\renderobject">
+      <UniqueIdentifier>{eca5f120-b0dd-4267-8c7e-8b3976eb93e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\render\renderobject">
+      <UniqueIdentifier>{e0629ef6-f9d5-4a2e-bc5c-cfc0678e7cec}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -174,26 +174,26 @@
     <ClCompile Include="..\..\..\..\source\render\CMaterial.cpp">
       <Filter>source\render</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\source\scene\renderobject\CRenderObject.cpp">
-      <Filter>source\scene\renderobject</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\scene\renderobject\CReflectObject.cpp">
-      <Filter>source\scene\renderobject</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\scene\renderobject\CColorObject.cpp">
-      <Filter>source\scene\renderobject</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\scene\renderobject\CColorPointLightObject.cpp">
-      <Filter>source\scene\renderobject</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\source\scene\light\CPointLight.cpp">
       <Filter>source\scene\light</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLShadowMap.cpp">
       <Filter>source\render\opengl</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\source\scene\renderobject\CShadowMapObject.cpp">
-      <Filter>source\scene\renderobject</Filter>
+    <ClCompile Include="..\..\..\..\source\render\renderobject\CColorPointLightObject.cpp">
+      <Filter>source\render\renderobject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\renderobject\CReflectObject.cpp">
+      <Filter>source\render\renderobject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\renderobject\CRenderObject.cpp">
+      <Filter>source\render\renderobject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\renderobject\CShadowMapObject.cpp">
+      <Filter>source\render\renderobject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\renderobject\CColorObject.cpp">
+      <Filter>source\render\renderobject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -455,29 +455,29 @@
     <ClInclude Include="..\..\..\..\source\render\CMaterial.h">
       <Filter>source\render</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\include\scene\renderobject\CRenderObject.h">
-      <Filter>include\scene\renderobject</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\include\scene\renderobject\IRenderObject.h">
-      <Filter>include\scene\renderobject</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\include\scene\renderobject\CReflectObject.h">
-      <Filter>include\scene\renderobject</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\include\scene\renderobject\CColorFlatObject.h">
-      <Filter>include\scene\renderobject</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\include\scene\renderobject\CColorPointLightObject.h">
-      <Filter>include\scene\renderobject</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLShadowMap.h">
       <Filter>source\render\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\include\scene\renderobject\CShadowMapObject.h">
-      <Filter>include\scene\renderobject</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\include\render\IShadowMap.h">
       <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\renderobject\CColorPointLightObject.h">
+      <Filter>include\render\renderobject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\renderobject\CReflectObject.h">
+      <Filter>include\render\renderobject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\renderobject\CRenderObject.h">
+      <Filter>include\render\renderobject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\renderobject\CShadowMapObject.h">
+      <Filter>include\render\renderobject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\renderobject\IRenderObject.h">
+      <Filter>include\render\renderobject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\renderobject\CColorFlatObject.h">
+      <Filter>include\render\renderobject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

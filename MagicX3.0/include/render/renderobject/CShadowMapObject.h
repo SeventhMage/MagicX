@@ -2,14 +2,14 @@
 /* “ı”∞Õº                                                               */
 /************************************************************************/
 
-#ifndef _MX_SCENE_C_SHADOW_MAP_OBJECT_H_
-#define _MX_SCENE_C_SHADOW_MAP_OBJECT_H_
+#ifndef _MX_RENDER_C_SHADOW_MAP_OBJECT_H_
+#define _MX_RENDER_C_SHADOW_MAP_OBJECT_H_
 
 #include "CRenderObject.h"
 
 namespace mx
 {
-	namespace scene
+	namespace render
 	{
 		class CShadowMapObject : public CRenderObject
 		{

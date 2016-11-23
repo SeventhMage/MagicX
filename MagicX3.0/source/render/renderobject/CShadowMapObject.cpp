@@ -1,9 +1,9 @@
-#include "scene/renderobject/CShadowMapObject.h"
+#include "render/renderobject/CShadowMapObject.h"
 #include "mx.h"
 
 namespace mx
 {
-	namespace scene
+	namespace render
 	{
 
 		CShadowMapObject::CShadowMapObject()

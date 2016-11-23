@@ -1,7 +1,6 @@
 #include "COpenGLShadowMap.h"
 #include "GLDebug.h"
 #include "mx.h"
-#include "..\..\scene\CCamera.h"
 #include "COpenGLTexture.h"
 
 namespace mx
@@ -53,47 +52,18 @@ namespace mx
 
 				GLDebug(glBindRenderbuffer(GL_RENDERBUFFER, 0));
 				GLDebug(glBindFramebuffer(GL_FRAMEBUFFER, 0));
-
-				m_pShaderProgram = RENDERER->CreateShaderProgram();
-				m_pShaderProgram->Attach("shader/shadow.vs", ST_VERTEX);
-				m_pShaderProgram->Attach("shader/shadow.ps", ST_FRAGMENT);
-				m_pShaderProgram->BindAttributeLocation(1, VAL_POSITION);
-				m_pShaderProgram->Link();
 			}
-
-			m_pShadowCamera = new CCamera();
 		}
 
 		COpenGLShadowMap::~COpenGLShadowMap()
 		{
 			GLDebug(glDeleteRenderbuffers(1, &m_hDepthFBO));
 			GLDebug(glDeleteFramebuffers(1, &m_hDepthFBO));
+			SAFE_DEL(m_pTexture);
 		}
 
 		void COpenGLShadowMap::Render()
 		{			
-			ICamera *pLastCamera = nullptr;
-			IScene *pScene = SCENEMGR->GetCurrentScene();
-			if (pScene)
-			{
-				ILight *pLight = pScene->GetLight(0);
-				CMatrix4 lightViewMat;
-				CVector3 pos = ((CPointLight *)pLight)->GetPosition();
-				lightViewMat.BuildCameraLookAtMatrix(pos, -pos, CVector3(0, 1, 0));
-				CMatrix4 lightProMat;
-				lightProMat.BuildProjectionMatrixPerspectiveFovRH(PI / 2.f, 1.f * g_width / g_height, 1.f, 1000.f);
-
-
-
-				CMatrix4 vpMat = lightViewMat * lightProMat;
-
-				m_pShaderProgram->SetUniform("mvpMatrix", vpMat.m);
-
-				m_pShadowCamera->Init(pos, -pos, CVector3(0, 1, 0), PI / 2, 1.f * g_width / g_height, 1, 1000);
-				pLastCamera = pScene->GetCamera();
-				//pScene->SetupCamera(m_pShadowCamera);
-			}
-
 			GLDebug(glBindFramebuffer(GL_FRAMEBUFFER, m_hDepthFBO));
 			//GLDebug(glDrawBuffer(GL_NONE));
 		
@@ -105,13 +75,11 @@ namespace mx
 			GLDebug(glEnable(GL_POLYGON_OFFSET_FILL));
 			GLDebug(glPolygonOffset(2.0f, 4.0f));
 			RENDERER->SetRenderShadowMap(true);
-			//pScene->Update(0);
 			RENDERER->Render();
 			RENDERER->SetRenderShadowMap(false);
 			GLDebug(glDisable(GL_POLYGON_OFFSET_FILL));
 
 			GLDebug(glBindFramebuffer(GL_FRAMEBUFFER, 0));
-			//pScene->SetupCamera(pLastCamera);
 			//glDrawBuffer(GL_FRONT_LEFT);
 		}
 

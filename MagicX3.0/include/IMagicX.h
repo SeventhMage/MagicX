@@ -36,12 +36,6 @@
 #include "resource/IImage.h"
 
 //scene
-#include "scene/renderobject/IRenderObject.h"
-#include "scene/renderobject/CReflectObject.h"
-#include "scene/renderobject/CRenderObject.h"
-#include "scene/renderobject/CColorFlatObject.h"
-#include "scene/renderobject/CColorPointLightObject.h"
-#include "scene/renderobject/CShadowMapObject.h"
 #include "scene/light/ILight.h"
 #include "scene/light/CDirectionalLight.h"
 #include "scene/light/CPointLight.h"
@@ -60,6 +54,12 @@
 //physics
 
 //render
+#include "render/renderobject/IRenderObject.h"
+#include "render/renderobject/CReflectObject.h"
+#include "render/renderobject/CRenderObject.h"
+#include "render/renderobject/CColorFlatObject.h"
+#include "render/renderobject/CColorPointLightObject.h"
+#include "render/renderobject/CShadowMapObject.h"
 #include "render/IRenderer.h"
 
 namespace mx

@@ -12,6 +12,7 @@ namespace mx
 
 		CRenderer::CRenderer(IRenderDriver *pRenderDriver)
 			:m_pRenderDriver(pRenderDriver)
+			, m_bRendShadow(false)
 		{
 			
 		}

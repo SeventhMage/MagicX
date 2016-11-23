@@ -3,8 +3,8 @@
 /* ¹û²»Í¬																*/
 /************************************************************************/
 
-#ifndef _MX_SCENE_I_RENDER_OBJECT_H_
-#define _MX_SCENE_I_RENDER_OBJECT_H_
+#ifndef _MX_RENDER_I_RENDER_OBJECT_H_
+#define _MX_RENDER_I_RENDER_OBJECT_H_
 
 #include "render/IVertexArrayObject.h"
 #include "render/IRenderable.h"
@@ -13,7 +13,7 @@
 
 namespace mx
 {
-	namespace scene
+	namespace render
 	{
 		typedef std::map<const char *, void *> UniformMap;
 		using namespace render;

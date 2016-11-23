@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 		CVector3 vDir(0, 0, -1);
 		CVector3 vUp(0, 1, 0);
 		//camera = scene->SetupCamera(CVector3(0, 0, 5), vDir, vUp, PI / 6, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
-		camera = scene->SetupCamera(20.f, cube, vDir, vUp, PI / 6, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
+		camera = scene->SetupCamera(20.f, cube, vDir, vUp, PI / 2, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
 		ISceneNode *rootNode = scene->GetRootNode();
 		if (rootNode)
 		{									
