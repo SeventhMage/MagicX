@@ -14,11 +14,14 @@ class CGreedySnake : public CSingleton<CGreedySnake>
 public:
 	friend class CSingleton<CGreedySnake>;
 	
+	void InitGame(int width, int height, bool fullscreen);
+	void Run();
 
-	void Update(int delta);
+	bool Update(int delta);
 private:
 	CGreedySnake(){}
 	~CGreedySnake();
+
 };
 
 #endif
