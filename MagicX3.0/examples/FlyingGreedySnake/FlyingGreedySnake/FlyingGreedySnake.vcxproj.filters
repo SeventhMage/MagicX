@@ -27,6 +27,9 @@
     <ClCompile Include="GameData.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="CHero.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGreedySnake.h">
@@ -42,6 +45,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="CGameData.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="CHero.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

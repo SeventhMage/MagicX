@@ -82,6 +82,7 @@
   <ItemGroup>
     <ClCompile Include="CGameUnit.cpp" />
     <ClCompile Include="CGreedySnake.cpp" />
+    <ClCompile Include="CHero.cpp" />
     <ClCompile Include="CNPC.cpp" />
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="GameData.cpp" />
@@ -90,6 +91,7 @@
   <ItemGroup>
     <ClInclude Include="CGameData.h" />
     <ClInclude Include="CGreedySnake.h" />
+    <ClInclude Include="CHero.h" />
     <ClInclude Include="CNPC.h" />
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="GameUnit.h" />
