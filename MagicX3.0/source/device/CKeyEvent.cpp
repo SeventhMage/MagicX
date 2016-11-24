@@ -7,6 +7,7 @@ namespace mx
 	namespace device
 	{
 		CKeyEvent::CKeyEvent()
+			:m_delta(0)
 		{
 			memset(m_keys, 0, sizeof(m_keys));
 		}
@@ -24,6 +25,18 @@ namespace mx
 		bool CKeyEvent::IsPress(EVENT_KEYPRESS key)
 		{
 			return m_keys[key];
+		}
+
+		void CKeyEvent::OnWheel(int delta)
+		{
+			m_delta = delta;
+		}
+
+		int CKeyEvent::GetWheelDelta()
+		{
+			int delta = m_delta;
+			m_delta = 0;
+			return delta;
 		}
 
 	}

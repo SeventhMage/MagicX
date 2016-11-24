@@ -19,10 +19,12 @@ namespace mx
 			virtual void OnPress(EVENT_KEYPRESS key) = 0;
 			virtual void OnUp(EVENT_KEYPRESS key) = 0;
 			virtual bool IsPress(EVENT_KEYPRESS key) = 0;
+			virtual void OnWheel(int delta) = 0;
 
 			virtual void SetMousePosition(int x, int y) = 0;
 			virtual int GetMousePositonX() = 0;
 			virtual int GetMousePositionY() = 0;
+			virtual int GetWheelDelta() = 0;
 		};
 	}
 }

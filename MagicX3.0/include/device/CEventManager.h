@@ -16,7 +16,7 @@ namespace mx
 			friend base::CSingleton<CEventManager>;
 			IKeyEvent *GetKeyEvent() { return m_pKeyEvent; }
 			void SetDevice(IDevice *device){ m_pDevice = device; }
-			void OnSize(uint uPosX, uint uPosY, uint uWidth, uint uHeight);
+			void OnSize(uint uPosX, uint uPosY, uint uWidth, uint uHeight);			
 		private:
 			CEventManager();
 			~CEventManager();

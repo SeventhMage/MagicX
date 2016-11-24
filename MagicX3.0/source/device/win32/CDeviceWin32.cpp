@@ -96,20 +96,14 @@ namespace mx
 
 			}
 				return 0;
-			case WM_MOUSEHWHEEL:
+			case WM_MOUSEWHEEL:
 			{
-
-								   //收不到消息
-								   short zDelta = HIWORD(wParam);
-								   if (zDelta > 0)
-								   {
-
-								   }
-								   else
-								   {
-
-								   }
-
+								  IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+								  if (event)
+								  {
+									  short zDelta = HIWORD(wParam);
+									  event->OnWheel(zDelta);
+								  }								   				
 			}
 				return 0;
 			case WM_SIZE:
@@ -248,7 +242,7 @@ namespace mx
 			DWORD style = WS_POPUP;
 
 			if (!fullScreen)
-				style = WS_SYSMENU | WS_BORDER | WS_CAPTION | WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
+				style = WS_OVERLAPPEDWINDOW;//WS_SYSMENU | WS_BORDER | WS_CAPTION | WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
 
 			AdjustWindowRect(&clientSize, style, FALSE);
 

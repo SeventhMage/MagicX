@@ -144,6 +144,13 @@ int main(int argc, char *argv[])
 					exit(1);
 				}
 
+				int delta = event->GetWheelDelta();
+				if (delta)
+				{
+					float dis = MIN(MAX(camera->GetDistance() - delta / 10, 10), 200);
+					camera->SetDistance(dis);
+				}
+
 				lastX = event->GetMousePositonX();
 				lastY = event->GetMousePositionY();
 			}
