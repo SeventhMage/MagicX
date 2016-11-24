@@ -219,8 +219,8 @@ namespace mx
 			wcex.cbClsExtra = 0;
 			wcex.cbWndExtra = 0;
 			wcex.hInstance = hInstance;
-			wcex.hIcon = NULL;
-			wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
+			wcex.hIcon = LoadCursor(NULL, IDC_ARROW);
+			wcex.hCursor = LoadCursor(NULL, IDI_APPLICATION);
 			wcex.hbrBackground = NULL;// (HBRUSH)(COLOR_WINDOW + 1);
 			wcex.lpszMenuName = 0;
 			wcex.lpszClassName = ClassName;
@@ -280,10 +280,12 @@ namespace mx
 			ReleaseDC(m_hWnd, hDC);
 
 			ShowWindow(m_hWnd, SW_SHOWNORMAL);
-			UpdateWindow(m_hWnd);
+			UpdateWindow(m_hWnd);			
 
 			// fix ugly ATI driver bugs.
 			MoveWindow(m_hWnd, windowLeft, windowTop, realWidth, realHeight, TRUE);
+
+			ShowCursor(TRUE);			
 		}
 
 		CDeviceWin32::~CDeviceWin32()
