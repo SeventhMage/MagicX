@@ -80,21 +80,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CGameScene.cpp" />
     <ClCompile Include="CGameUnit.cpp" />
     <ClCompile Include="CGreedySnake.cpp" />
     <ClCompile Include="CHero.cpp" />
     <ClCompile Include="CNPC.cpp" />
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CGameData.cpp" />
+    <ClCompile Include="CPlayerData.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGameData.h" />
+    <ClInclude Include="CGameScene.h" />
     <ClInclude Include="CGreedySnake.h" />
     <ClInclude Include="CHero.h" />
     <ClInclude Include="CNPC.h" />
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CGameUnit.h" />
+    <ClInclude Include="CPlayerData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -30,6 +30,12 @@
     <ClCompile Include="CGameData.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="CPlayerData.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameScene.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGreedySnake.h">
@@ -48,6 +54,12 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="CGameUnit.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerData.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameScene.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
