@@ -4,8 +4,15 @@
 static const int FRAMES_PER_SECOND = 30;      ///< FPS:50
 static const int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
 
+CGreedySnake::CGreedySnake()
+:m_pGameScene(nullptr)
+{
+
+}
+
 CGreedySnake::~CGreedySnake()
 {
+	SAFE_DEL(m_pGameScene);
 	DestroyMagicX();
 }
 
@@ -13,12 +20,8 @@ CGreedySnake::~CGreedySnake()
 void CGreedySnake::InitGame(int width, int height, bool fullscreen)
 {
 	CreateMagicX(RDT_OPENGL, 0, 0, 800, 600);
-	
-	IScene *scene = SCENEMGR->GetCurrentScene();
-	if (scene)
-	{
-		//scene->SetupCamera(100.f, pSphere, vDir, vUp, PI / 3, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
-	}
+	m_pGameScene = new CGameScene();
+	m_pGameScene->InitScene();
 }
 
 
@@ -49,6 +52,13 @@ void CGreedySnake::Run()
 
 bool CGreedySnake::Update(int delta)
 {
+	if (!m_pGameScene)
+		return true;
+
+	CHero *pHero = m_pGameScene->GetHero();
+	if (!pHero)
+		return true;
+
 	IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
 	IDevice *device = DEVICEMGR->GetDevice();
 	ICamera *camera = nullptr;
@@ -59,6 +69,7 @@ bool CGreedySnake::Update(int delta)
 		camera = scene->GetCamera();
 	}
 	
+
 	if (event)
 	{
 		static int lastX;
@@ -110,24 +121,24 @@ bool CGreedySnake::Update(int delta)
 		{
 			CVector3 leftDir = camDir;
 			leftDir.rotateXZBy(PI / 2);
-			//pSphere->SetPosition(pSphere->GetPosition() + leftDir * 1.0f);
+			pHero->SetPosition(pHero->GetPosition() + leftDir * 1.0f);
 		}
 
 		if (event->IsPress(EKP_KEYBOARD_D))
 		{
 			CVector3 rightDir = camDir;
 			rightDir.rotateXZBy(PI / 2);
-			//pSphere->SetPosition(pSphere->GetPosition() - rightDir * 1.0f);
+			pHero->SetPosition(pHero->GetPosition() - rightDir * 1.0f);
 		}
 
 		if (event->IsPress(EKP_KEYBOARD_W))
 		{
-			//pSphere->SetPosition(pSphere->GetPosition() + camDir * 1.0f);
+			pHero->SetPosition(pHero->GetPosition() + camDir * 1.0f);
 		}
 
 		if (event->IsPress(EKP_KEYBOARD_S))
 		{
-			//pSphere->SetPosition(pSphere->GetPosition() - camDir * 1.0f);
+			pHero->SetPosition(pHero->GetPosition() - camDir * 1.0f);
 		}
 
 		if (event->IsPress(EKP_KEYBOARD_ESC))
@@ -139,6 +150,7 @@ bool CGreedySnake::Update(int delta)
 		lastY = event->GetMousePositionY();
 	}
 
+	m_pGameScene->Update(delta);
 
 	SCENEMGR->Update(delta);
 	SCENEMGR->Draw();

@@ -20,6 +20,8 @@ namespace mx
 		class ISceneNode
 		{
  		public:
+			typedef std::list<ISceneNode *> SceneNodeList;
+
 			virtual ~ISceneNode(){}
 			virtual void UpdateImp(int delta) = 0;
 			virtual void Update(uint delta) = 0;
@@ -60,8 +62,7 @@ namespace mx
 
 			virtual void UpdateAbsluateTransformation() = 0;
 			virtual void SetNeedUpdateTransformation(bool bNeed) = 0;
-
-			typedef std::list<ISceneNode *> SceneNodeList;
+			
 			virtual const SceneNodeList &GetChildNodeList() = 0;
 		};
 

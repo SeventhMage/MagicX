@@ -6,6 +6,7 @@
 #define _C_GREEDY_SNAKE_H_
 
 #include "mx.h"
+#include "CGameScene.h"
 
 using namespace mx;
 
@@ -19,9 +20,10 @@ public:
 
 	bool Update(int delta);
 private:
-	CGreedySnake(){}
+	CGreedySnake();
 	~CGreedySnake();
 
+	CGameScene *m_pGameScene;
 };
 
 #endif

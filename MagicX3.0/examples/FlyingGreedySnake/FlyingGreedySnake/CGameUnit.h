@@ -8,13 +8,13 @@
 
 using namespace mx;
 
-class CGameUnit : public CEntity
+class CGameUnit
 {
 public:
 	CGameUnit();
 	virtual ~CGameUnit();
 
-	virtual void UpdateImp(int delta);
+	virtual void SetPosition(const CVector3 &pos){}
 
 	void SetAlive(bool bAlive) { m_bAlive = bAlive; }
 	bool IsAlive() { return m_bAlive; }

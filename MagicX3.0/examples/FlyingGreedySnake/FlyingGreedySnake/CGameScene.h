@@ -9,7 +9,7 @@
 #include "CNPC.h"
 #include "CHero.h"
 
-#include <vector>
+#include <list>
 
 class CGameScene
 {
@@ -18,11 +18,13 @@ public:
 	~CGameScene();
 
 	void InitScene();
-
+	void Update(int delta);
+	CHero *GetHero() { return m_pHero; }
 private:
 	//std::vector<CPlayer *> m_vecPlayer;		//场景中的所有玩家
-	std::vector<CNPC *>m_vecNPC;			//场景中的所有npc
-	CHero *m_pHero;							//主角
+	std::list<CNPC *>m_listNPC;					//场景中的所有npc
+	CHero *m_pHero;								//主角
+	IScene *m_pScene;
 };
 
 #endif
