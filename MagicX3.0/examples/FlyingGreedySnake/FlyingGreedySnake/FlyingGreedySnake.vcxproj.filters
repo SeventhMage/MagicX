@@ -24,18 +24,15 @@
     <ClCompile Include="CNPC.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="GameData.cpp">
+    <ClCompile Include="CHero.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="CHero.cpp">
+    <ClCompile Include="CGameData.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGreedySnake.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUnit.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="CPlayer.h">
@@ -48,6 +45,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="CHero.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameUnit.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
