@@ -45,6 +45,7 @@
 #include "scene/CSphereEntiy.h"
 #include "scene/CSphere.h"
 #include "scene/CEntity.h"
+#include "scene/CUnit.h"
 #include "scene/IModel.h"
 #include "scene/ISceneManager.h"
 #include "scene/IScene.h"

@@ -11,6 +11,7 @@ namespace mx
 
 		CSphereEntity::CSphereEntity(IRenderObject *pRenderObject, float fRadius, int iSlices, int iStacks)
 			:m_pReflectObject(pRenderObject)
+			, m_fRadius(fRadius)
 		{
 			m_pSphere = new CSphere(fRadius, iSlices, iStacks);
 		}

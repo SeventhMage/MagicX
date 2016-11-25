@@ -58,9 +58,11 @@ namespace mx
 
 			virtual void UpdateAbsluateTransformation();
 			virtual void SetNeedUpdateTransformation(bool bNeed);
+
+			virtual const SceneNodeList &GetChildNodeList() { return m_listChild; }
 		protected:
 			ISceneNode *m_pNodeParent;
-			std::list<ISceneNode *> m_listChild;			
+			SceneNodeList m_listChild;
 
 			CMatrix4 m_absluateTransformation;
 			CVector3 m_relativePosition;

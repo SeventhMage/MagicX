@@ -21,12 +21,14 @@ namespace mx
 			CSphereEntity(IRenderObject *pRenderObject, float fRadius, int iSlices, int iStacks);
 			virtual ~CSphereEntity();
 			virtual void UpdateImp(int delta);			
-				
+			
 			void Create();
+			float GetRadius(){ return m_fRadius; }
 		private:
 			CSphere *m_pSphere;
 			IRenderObject *m_pReflectObject;
 			IRenderable *m_pRenderable;
+			float m_fRadius;
 		};
 	}
 }

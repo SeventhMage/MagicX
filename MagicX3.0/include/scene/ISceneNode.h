@@ -59,7 +59,10 @@ namespace mx
 			virtual const std::string &GetName() const = 0;
 
 			virtual void UpdateAbsluateTransformation() = 0;
-			virtual void SetNeedUpdateTransformation(bool bNeed) = 0;			
+			virtual void SetNeedUpdateTransformation(bool bNeed) = 0;
+
+			typedef std::list<ISceneNode *> SceneNodeList;
+			virtual const SceneNodeList &GetChildNodeList() = 0;
 		};
 
 	}
