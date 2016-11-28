@@ -9,6 +9,7 @@ namespace mx
 			: m_bVisible(true)
 			, m_bActive(true)
 			, m_bNeedUpdate(true)
+			, m_bUpdateRelative(true)
 			, m_pNodeParent(nullptr)
 			, m_relativeScale(1.0f, 1.0f, 1.0f)
 		{
@@ -27,6 +28,7 @@ namespace mx
 
 		void CSceneNode::Update(uint delta)
 		{
+			UpdateRelateTransformation();
 			UpdateAbsluateTransformation();
 			UpdateImp(delta);
 			std::list<ISceneNode *>::iterator it = m_listChild.begin();
@@ -114,17 +116,7 @@ namespace mx
 
 		mx::scene::CMatrix4 CSceneNode::GetRelativeTransformation() const
 		{
-			CMatrix4 mat;
-
-			mat.SetTranslation(GetPosition());
-			mat.SetRotationRadiansRH(GetRotation().x, GetRotation().y, GetRotation().z);
-			if (m_relativeScale != CVector3(1.0f, 1.0f, 1.0f))
-			{
-				CMatrix4 smat;
-				smat.SetScale(m_relativeScale);
-				mat = mat * smat;
-			}
-			return mat;
+			return m_relativeTransformation;
 		}
 
 		void CSceneNode::SetVisible(bool visible)
@@ -172,10 +164,36 @@ namespace mx
 		void CSceneNode::SetNeedUpdateTransformation(bool bNeed)
 		{
 			m_bNeedUpdate = bNeed;
+			m_bUpdateRelative = true;
 			for (auto it = m_listChild.begin(); it != m_listChild.end(); ++it)
 			{
 				(*it)->SetNeedUpdateTransformation(bNeed);
 			}
+		}
+
+		void CSceneNode::UpdateRelateTransformation()
+		{
+			if (m_bUpdateRelative)
+			{
+				CMatrix4 mat;
+
+				mat.SetTranslation(GetPosition());
+				mat.SetRotationRadiansRH(GetRotation().x, GetRotation().y, GetRotation().z);
+				if (m_relativeScale != CVector3(1.0f, 1.0f, 1.0f))
+				{
+					CMatrix4 smat;
+					smat.SetScale(m_relativeScale);
+					m_relativeTransformation = mat * smat;
+				}
+				m_bUpdateRelative = false;
+			}			
+		}
+
+		void CSceneNode::SetRelativeTransformation(const CMatrix4 &mat4)
+		{
+			m_relativeTransformation = mat4;
+			m_bNeedUpdate = true;
+			m_bUpdateRelative = false;
 		}
 
 	}

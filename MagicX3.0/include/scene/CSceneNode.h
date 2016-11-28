@@ -46,6 +46,7 @@ namespace mx
 
 			virtual const CMatrix4 &GetAbsluateTransformation() const;
 			virtual CMatrix4 GetRelativeTransformation() const;
+			virtual void SetRelativeTransformation(const CMatrix4 &mat4);
 
 			virtual void SetVisible(bool visible);
 
@@ -56,6 +57,8 @@ namespace mx
 
 			virtual const std::string &GetName() const;
 
+			virtual void UpdateRelateTransformation();
+
 			virtual void UpdateAbsluateTransformation();
 			virtual void SetNeedUpdateTransformation(bool bNeed);
 
@@ -64,14 +67,17 @@ namespace mx
 			ISceneNode *m_pNodeParent;
 			SceneNodeList m_listChild;
 
+			CMatrix4 m_relativeTransformation;
 			CMatrix4 m_absluateTransformation;
 			CVector3 m_relativePosition;
 			CVector3 m_relativeRotation;
 			CVector3 m_relativeScale;
 			std::string m_name;
 			bool m_bVisible;
-			bool m_bActive;
+			bool m_bActive;			
 			bool m_bNeedUpdate;
+			bool m_bUpdateRelative;
+
 		};
 	}
 }

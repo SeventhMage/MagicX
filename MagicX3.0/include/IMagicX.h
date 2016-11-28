@@ -9,6 +9,8 @@
 
 //base
 #include "base/CSingleton.h"
+#include "base/mxString.h"
+#include "base/CVirtualTraceBall.h"
 
 //math
 #include "math/CBoundingBox.h"

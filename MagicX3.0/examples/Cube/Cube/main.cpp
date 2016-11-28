@@ -64,7 +64,12 @@ int main(int argc, char *argv[])
 					CVector3 curRot = cube->GetRotation();
 					CVector3 rot(rotX + curRot.x, curRot.y + rotY, 0);
 
-					cube->SetRotation(rot);
+					static CVirtualTraceBall traceBall(1);
+					CMatrix4 mRotate = traceBall.GetRotateMatrix(currentX, currentY, lastX, lastY);
+
+					cube->SetRelativeTransformation(mRotate);
+
+					//cube->SetRotation(rot);
 				}
 				if (event->IsPress(EKP_MOUSE_RBUTTON))
 				{

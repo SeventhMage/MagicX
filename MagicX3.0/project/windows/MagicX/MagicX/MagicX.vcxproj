@@ -86,6 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\base\CVirtualTraceBall.cpp" />
     <ClCompile Include="..\..\..\..\source\base\mxString.cpp" />
     <ClCompile Include="..\..\..\..\source\CMagicX.cpp" />
     <ClCompile Include="..\..\..\..\source\device\CDeviceManager.cpp" />
@@ -130,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\include\base\CSingleton.h" />
+    <ClInclude Include="..\..\..\..\include\base\CVirtualTraceBall.h" />
     <ClInclude Include="..\..\..\..\include\base\mxString.h" />
     <ClInclude Include="..\..\..\..\include\device\CEventManager.h" />
     <ClInclude Include="..\..\..\..\include\device\EEvent.h" />

@@ -195,6 +195,9 @@
     <ClCompile Include="..\..\..\..\source\render\renderobject\CColorObject.cpp">
       <Filter>source\render\renderobject</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\base\CVirtualTraceBall.cpp">
+      <Filter>source\base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\include\mx.h">
@@ -478,6 +481,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\render\renderobject\CColorFlatObject.h">
       <Filter>include\render\renderobject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\base\CVirtualTraceBall.h">
+      <Filter>include\base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
