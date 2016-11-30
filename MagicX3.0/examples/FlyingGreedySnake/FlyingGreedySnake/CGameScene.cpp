@@ -55,5 +55,6 @@ void CGameScene::InitScene()
 
 void CGameScene::Update(int delta)
 {
-
+	if (m_pHero)
+		m_pHero->Update(delta);
 }

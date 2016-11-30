@@ -15,9 +15,11 @@ public:
 	virtual ~CGameUnit();
 
 	virtual void SetPosition(const CVector3 &pos){}
+	virtual void Update(int delta){}
 
 	void SetAlive(bool bAlive) { m_bAlive = bAlive; }
 	bool IsAlive() { return m_bAlive; }
+
 private:
 	IRenderObject *m_pRenderObject;
 	IRenderable *m_pRenderable;
