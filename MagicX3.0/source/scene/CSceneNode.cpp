@@ -164,7 +164,7 @@ namespace mx
 		void CSceneNode::SetNeedUpdateTransformation(bool bNeed)
 		{
 			m_bNeedUpdate = bNeed;
-			m_bUpdateRelative = true;
+			m_bUpdateRelative = bNeed;
 			for (auto it = m_listChild.begin(); it != m_listChild.end(); ++it)
 			{
 				(*it)->SetNeedUpdateTransformation(bNeed);
@@ -183,8 +183,9 @@ namespace mx
 				{
 					CMatrix4 smat;
 					smat.SetScale(m_relativeScale);
-					m_relativeTransformation = mat * smat;
+					mat = mat * smat;
 				}
+				m_relativeTransformation = mat;
 				m_bUpdateRelative = false;
 			}			
 		}

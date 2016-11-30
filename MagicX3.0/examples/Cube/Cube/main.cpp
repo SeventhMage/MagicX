@@ -64,9 +64,11 @@ int main(int argc, char *argv[])
 					CVector3 curRot = cube->GetRotation();
 					CVector3 rot(rotX + curRot.x, curRot.y + rotY, 0);
 
-					static CVirtualTraceBall traceBall(1);
-					CMatrix4 mRotate = traceBall.GetRotateMatrix(currentX, currentY, lastX, lastY);
+					static CVirtualTraceBall traceBall;
+					CMatrix4 mRotate = traceBall.GetRotateMatrix(1.0f * currentX, 1.0f * currentY, 1.f * lastX, 1.f * lastY);
+					mRotate.SetTranslation(cube->GetPosition());
 
+					//mRotate = mRotate * cube->GetRelativeTransformation();
 					cube->SetRelativeTransformation(mRotate);
 
 					//cube->SetRotation(rot);

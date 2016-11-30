@@ -15,13 +15,13 @@ namespace mx
 		class CVirtualTraceBall
 		{
 		public:
-			CVirtualTraceBall(float fRadius);
+			CVirtualTraceBall();
 			~CVirtualTraceBall();
 
 			math::CVector3 GetSphereCoord(float fScreenX, float fScreenY);
 			math::CMatrix4 GetRotateMatrix(float fCurScnX, float fCurScnY, float fLastCurScnX, float fLastCurScnY);
 		private:
-			float m_fRadius;
+			math::CMatrix4 m_mRotate;			
 		};
 	}
 }
