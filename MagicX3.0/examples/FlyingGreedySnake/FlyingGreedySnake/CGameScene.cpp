@@ -24,7 +24,7 @@ void CGameScene::InitScene()
 	m_pHero = new CHero();
 
 	CVector3 vDir(0, -1, -1);
-	CVector3 vUp(0, 1, 0);
+	CVector3 vUp(0, 1, 0.5f);
 	m_pScene->SetupCamera(100.f, m_pHero->GetHead(), vDir, vUp, PI / 3, 1.0f * DEVICEMGR->GetDevice()->GetWindowWidth() / DEVICEMGR->GetDevice()->GetWindowHeight(), 1.0f, 5000.0f);
 	m_pScene->SetupSkyBox("texture/FullMoonLeft.tga", "texture/FullMoonRight.tga", "texture/FullMoonUp.tga", "texture/FullMoonDown.tga", "texture/FullMoonFront.tga", "texture/FullMoonBack.tga", 1.f * SCENE_RADIUS);
 	m_pHero->Create();
@@ -43,7 +43,7 @@ void CGameScene::InitScene()
 		CNPC *pNPC = new CNPC(color, radius);
 
 		float x = rand() % (SCENE_RADIUS * 2) - SCENE_RADIUS * 1.f;
-		float y = rand() % (SCENE_RADIUS * 2) - SCENE_RADIUS * 1.f;
+		float y = 0;// rand() % (SCENE_RADIUS * 2) - SCENE_RADIUS * 1.f;
 		float z = rand() % (SCENE_RADIUS * 2) - SCENE_RADIUS * 1.f;
 
 		pNPC->SetPosition(CVector3(x, y, z));

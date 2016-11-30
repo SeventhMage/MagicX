@@ -41,12 +41,12 @@ void CPlayer::Increase()
 	else
 	{
 		CSphereEntity *body = new CSphereEntity(m_pColorLightObject, GetBodyRadius(), GetSlice(), GetSlice());
-		body->Create();
-		m_listBody.push_back(body);	
+		body->Create();			
 		CVector3 vBackBody = m_listBody.back()->GetPosition();
 		CVector3 vSrcTail = m_pTail->GetPosition();
 		body->SetPosition(vSrcTail);
-		m_pTail->SetPosition((vSrcTail - vBackBody) * 2);
+		m_listBody.push_back(body);
+		m_pTail->SetPosition(vBackBody + 2 * (vSrcTail - vBackBody));
 	}
 }
 
@@ -64,6 +64,8 @@ void CPlayer::UpdatePosition()
 			(*it)->SetPosition(vRecord);
 			vRecord = vTemp;			
 		}
+		m_pTail->SetPosition(vRecord);
+		m_vHeadPosRecord = headPos;
 	}
 }
 
@@ -91,11 +93,11 @@ void CPlayer::InitPosition()
 	int i = 0;
 	for (auto it = m_listBody.begin(); it != m_listBody.end(); ++it)
 	{
-		CVector3 bodyPos(0, 0, (i++) * dis);
+		CVector3 bodyPos(0, 0, (++i) * dis);
 		(*it)->SetPosition(bodyPos);
 	}
 
-	m_pTail->SetPosition(CVector3(0, 0, i * dis));
+	m_pTail->SetPosition(CVector3(0, 0, (++i) * dis));
 }
 
 void CPlayer::SetPosition(const CVector3 &pos)

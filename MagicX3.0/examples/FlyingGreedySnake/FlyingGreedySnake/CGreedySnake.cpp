@@ -99,10 +99,11 @@ bool CGreedySnake::Update(int delta)
 			{
 				if (!ISZERO(rotX) || !ISZERO(rotY))
 				{
+					camDir.normalize();
 					camDir.rotateXZBy(-rotY);
-					CMatrix4 rotMat4;
-					rotMat4.SetRotationRadians(rotX, (-camDir).crossProduct(CVector3(0, 1.0f, 0)));
-					rotMat4.TransformVect(camDir);
+					//CMatrix4 rotMat4;
+					//rotMat4.SetRotationRadians(rotX, (-camDir).crossProduct(CVector3(0, 1.0f, 0)));
+					//rotMat4.TransformVect(camDir);
 
 					camDir.normalize();
 					camera->SetDirection(camDir);
@@ -121,24 +122,24 @@ bool CGreedySnake::Update(int delta)
 		{
 			CVector3 leftDir = camDir;
 			leftDir.rotateXZBy(PI / 2);
-			pHero->SetPosition(pHero->GetPosition() + leftDir * 1.0f);
+			pHero->SetPosition(pHero->GetPosition() + CVector3(leftDir.x, 0, leftDir.z) * 1.0f);
 		}
 
 		if (event->IsPress(EKP_KEYBOARD_D))
 		{
 			CVector3 rightDir = camDir;
 			rightDir.rotateXZBy(PI / 2);
-			pHero->SetPosition(pHero->GetPosition() - rightDir * 1.0f);
+			pHero->SetPosition(pHero->GetPosition() - CVector3(rightDir.x, 0, rightDir.z) * 1.0f);
 		}
 
 		if (event->IsPress(EKP_KEYBOARD_W))
 		{
-			pHero->SetPosition(pHero->GetPosition() + camDir * 1.0f);
+			pHero->SetPosition(pHero->GetPosition() + CVector3(camDir.x, 0, camDir.z) * 1.0f);
 		}
 
 		if (event->IsPress(EKP_KEYBOARD_S))
 		{
-			pHero->SetPosition(pHero->GetPosition() - camDir * 1.0f);
+			pHero->SetPosition(pHero->GetPosition() - CVector3(camDir.x, 0, camDir.z) * 1.0f);
 		}
 
 		if (event->IsPress(EKP_KEYBOARD_ESC))
