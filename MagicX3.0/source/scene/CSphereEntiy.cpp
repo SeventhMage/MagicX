@@ -30,7 +30,12 @@ namespace mx
 			{
 				ICamera *pCam = pScene->GetCamera();
 				if (pCam)
-				{				
+				{			
+					//const CFrustum &frustum = pCam->GetFrustum();
+					//if (frustum.CullSphere(GetPosition(), m_fRadius))//²Ã¼ôµôÁË
+					//	return;
+
+
 					CMatrix4 mvpMat4 = GetAbsluateTransformation() * pCam->GetViewProjectionMatrix();
 					CMatrix4 mvMat4 = GetAbsluateTransformation() * pCam->GetViewMatrix();
 					CMatrix4 mvRotMat4 = mvMat4;

@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cube", "..\..\..\examples\C
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shadow", "..\..\..\examples\Shadow\Shadow\Shadow.vcxproj", "{F4FCE0A2-E611-45BA-A0F9-D04239AF94E5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlyingGreedySnake", "..\..\..\examples\FlyingGreedySnake\FlyingGreedySnake\FlyingGreedySnake.vcxproj", "{8DFEA7B1-A747-4284-ABFF-7AEF03652F20}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -43,6 +45,12 @@ Global
 		{F4FCE0A2-E611-45BA-A0F9-D04239AF94E5}.Release|Win32.ActiveCfg = Release|Win32
 		{F4FCE0A2-E611-45BA-A0F9-D04239AF94E5}.Release|Win32.Build.0 = Release|Win32
 		{F4FCE0A2-E611-45BA-A0F9-D04239AF94E5}.Release|x64.ActiveCfg = Release|Win32
+		{8DFEA7B1-A747-4284-ABFF-7AEF03652F20}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8DFEA7B1-A747-4284-ABFF-7AEF03652F20}.Debug|Win32.Build.0 = Debug|Win32
+		{8DFEA7B1-A747-4284-ABFF-7AEF03652F20}.Debug|x64.ActiveCfg = Debug|Win32
+		{8DFEA7B1-A747-4284-ABFF-7AEF03652F20}.Release|Win32.ActiveCfg = Release|Win32
+		{8DFEA7B1-A747-4284-ABFF-7AEF03652F20}.Release|Win32.Build.0 = Release|Win32
+		{8DFEA7B1-A747-4284-ABFF-7AEF03652F20}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
