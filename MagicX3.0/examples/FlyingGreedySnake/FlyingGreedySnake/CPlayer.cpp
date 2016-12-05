@@ -15,7 +15,6 @@ CPlayer::CPlayer()
 
 	Increase();
 	Increase();
-	Increase();
 }
 
 CPlayer::~CPlayer()
@@ -36,6 +35,10 @@ void CPlayer::Increase()
 		m_listBody.push_back(pBody);
 		m_pTail = new CSphereEntity(m_pColorLightObject, GetBodyRadius(), GetSlice(), GetSlice());
 		m_pTail->Create();
+
+		ISceneNode *pRootNode = SCENEMGR->GetCurrentScene()->GetRootNode();
+		pRootNode->AddChild(pBody);
+		pRootNode->AddChild(m_pTail);
 		InitPosition();
 	}
 	else
@@ -46,25 +49,33 @@ void CPlayer::Increase()
 		CVector3 vSrcTail = m_pTail->GetPosition();
 		body->SetPosition(vSrcTail);
 		m_listBody.push_back(body);
-		m_pTail->SetPosition(vBackBody + 2 * (vSrcTail - vBackBody));
+		m_pTail->SetPosition(vBackBody + 1.5f * (vSrcTail - vBackBody));
+
+		ISceneNode *pRootNode = SCENEMGR->GetCurrentScene()->GetRootNode();
+		pRootNode->AddChild(body);
 	}
 }
 
 
 void CPlayer::UpdatePosition()
 {
-	CVector3 headPos = m_pHead->GetPosition();
+	CVector3 headPos = m_pHead->GetPosition();	
 	if (headPos != m_vHeadPosRecord)
 	{
 		CVector3 vRecord = m_vHeadPosRecord;
+		CVector3 vFront = headPos;
 		int i = 0;
 		for (auto it = m_listBody.begin(); it != m_listBody.end(); ++it)
 		{
 			CVector3 vTemp = (*it)->GetPosition();
-			(*it)->SetPosition(vRecord);
+			CVector3 dir = (vRecord - vFront).normalize();
+			vFront = vFront + dir * 1.5f;
+			(*it)->SetPosition(vFront);
 			vRecord = vTemp;			
 		}
-		m_pTail->SetPosition(vRecord);
+		CVector3 dir = (vRecord - vFront).normalize();
+		vFront = vFront + dir * 1.5f;
+		m_pTail->SetPosition(vFront);
 		m_vHeadPosRecord = headPos;
 	}
 }
@@ -87,23 +98,23 @@ int CPlayer::GetSlice()
 
 void CPlayer::InitPosition()
 {
-	m_vHeadPosRecord = CVector3(0, 0, 0);
+	m_vHeadPosRecord = CVector3(0, GetHeadRadius(), 0);
 	m_pHead->SetPosition(m_vHeadPosRecord);
-	float dis = m_pHead->GetRadius() * 2;
+	float dis = m_pHead->GetRadius() * 1.5f;
 	int i = 0;
 	for (auto it = m_listBody.begin(); it != m_listBody.end(); ++it)
 	{
-		CVector3 bodyPos(0, 0, (++i) * dis);
+		CVector3 bodyPos(0, GetBodyRadius(), (++i) * dis);
 		(*it)->SetPosition(bodyPos);
 	}
 
-	m_pTail->SetPosition(CVector3(0, 0, (++i) * dis));
+	m_pTail->SetPosition(CVector3(0, GetBodyRadius(), (++i) * dis));
 }
 
 void CPlayer::SetPosition(const CVector3 &pos)
 {
 	if (m_pHead)
-		m_pHead->SetPosition(pos);
+		m_pHead->SetPosition(CVector3(pos.x, GetHeadRadius(), pos.z));
 }
 
 const CVector3 &CPlayer::GetPosition()
@@ -116,11 +127,7 @@ void CPlayer::Create()
 	m_pHead->Create();
 	ISceneNode *pRootNode = SCENEMGR->GetCurrentScene()->GetRootNode();
 	pRootNode->AddChild(m_pHead);
-	for (auto it = m_listBody.begin(); it != m_listBody.end(); ++it)
-	{
-		pRootNode->AddChild(*it);
-	}
-	pRootNode->AddChild(m_pTail);
+	
 }
 
 void CPlayer::Update(int delta)

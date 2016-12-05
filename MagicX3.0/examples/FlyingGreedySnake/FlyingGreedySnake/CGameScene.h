@@ -8,8 +8,10 @@
 #include "CPlayer.h"
 #include "CNPC.h"
 #include "CHero.h"
+#include "CGround.h"
 
 #include <list>
+
 
 class CGameScene
 {
@@ -24,6 +26,7 @@ private:
 	//std::vector<CPlayer *> m_vecPlayer;		//场景中的所有玩家
 	std::list<CNPC *>m_listNPC;					//场景中的所有npc
 	CHero *m_pHero;								//主角
+	CGround *m_pGround;							//地面
 	IScene *m_pScene;
 };
 

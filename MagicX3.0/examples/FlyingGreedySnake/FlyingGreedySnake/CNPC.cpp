@@ -22,3 +22,8 @@ void CNPC::SetPosition(const CVector3 &pos)
 	if (m_pBody)
 		m_pBody->SetPosition(pos);
 }
+
+mx::math::CVector3 CNPC::GetPosition()
+{
+	return m_pBody ? m_pBody->GetPosition() : CVector3(0, 0, 0);
+}

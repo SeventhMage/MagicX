@@ -12,7 +12,8 @@ class CNPC : public CGameUnit
 public:
 	CNPC(float color[4], float radius);
 	virtual ~CNPC();	
-	virtual void SetPosition(const CVector3 &pos);
+	virtual void SetPosition(const CVector3 &pos);	
+	virtual CVector3 GetPosition();;
 private:
 	CSphereEntity *m_pBody;
 	CColorPointLightObject *m_pColorLightObject;

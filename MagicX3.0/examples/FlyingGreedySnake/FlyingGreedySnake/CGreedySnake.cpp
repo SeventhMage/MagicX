@@ -120,26 +120,28 @@ bool CGreedySnake::Update(int delta)
 
 		if (event->IsPress(EKP_KEYBOARD_A))
 		{
-			CVector3 leftDir = camDir;
-			leftDir.rotateXZBy(PI / 2);
-			pHero->SetPosition(pHero->GetPosition() + CVector3(leftDir.x, 0, leftDir.z) * 1.0f);
+			//CVector3 leftDir = camDir;
+			//leftDir.rotateXZBy(PI / 2);
+			//pHero->SetPosition(pHero->GetPosition() + CVector3(leftDir.x, 0, leftDir.z) * 1.5f);
+			pHero->LeftMove();
 		}
 
 		if (event->IsPress(EKP_KEYBOARD_D))
 		{
-			CVector3 rightDir = camDir;
-			rightDir.rotateXZBy(PI / 2);
-			pHero->SetPosition(pHero->GetPosition() - CVector3(rightDir.x, 0, rightDir.z) * 1.0f);
+			//CVector3 rightDir = camDir;
+			//rightDir.rotateXZBy(PI / 2);
+			//pHero->SetPosition(pHero->GetPosition() - CVector3(rightDir.x, 0, rightDir.z) * 1.5f);
+			pHero->RightMove();
 		}
 
 		if (event->IsPress(EKP_KEYBOARD_W))
 		{
-			pHero->SetPosition(pHero->GetPosition() + CVector3(camDir.x, 0, camDir.z) * 1.0f);
+			//pHero->SetPosition(pHero->GetPosition() + CVector3(camDir.x, 0, camDir.z) * 1.5f);
 		}
 
 		if (event->IsPress(EKP_KEYBOARD_S))
 		{
-			pHero->SetPosition(pHero->GetPosition() - CVector3(camDir.x, 0, camDir.z) * 1.0f);
+			//pHero->SetPosition(pHero->GetPosition() - CVector3(camDir.x, 0, camDir.z) * 1.5f);
 		}
 
 		if (event->IsPress(EKP_KEYBOARD_ESC))
