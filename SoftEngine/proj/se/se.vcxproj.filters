@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="inc">
+      <UniqueIdentifier>{dc5fab50-b794-4a18-bc95-c6e1163e55d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{05b92388-5500-432b-8fc9-d52f67ccdb44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\device">
+      <UniqueIdentifier>{fd10e404-eba1-427f-a60e-c3c380c010bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\device">
+      <UniqueIdentifier>{1e7d687e-9715-4786-9459-6cb67c7f030b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\device\win32">
+      <UniqueIdentifier>{00fcb64b-80d7-4fe9-bb6a-b54fd80441fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\base">
+      <UniqueIdentifier>{ed83e4b6-00cc-4852-96a8-90e77b97fefe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\render">
+      <UniqueIdentifier>{21a642b0-d994-4825-8b7b-25f4f305f3fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\render\renderstage">
+      <UniqueIdentifier>{4570e3a3-2f89-433e-aed5-3725b2771350}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\render">
+      <UniqueIdentifier>{6d7c0626-1a6a-4fd7-af77-30ebad0acd23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\render\software">
+      <UniqueIdentifier>{f2497860-dd69-463b-a732-6dcceb094e54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\resource">
+      <UniqueIdentifier>{c27b8af8-798b-47ae-9acd-5b904965e972}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\resource">
+      <UniqueIdentifier>{e4d7ac4c-cc43-4085-90b8-4495be0db039}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\scene">
+      <UniqueIdentifier>{b33f54f4-de1f-4359-a5b6-129dabb9c989}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scene">
+      <UniqueIdentifier>{6e1ec1fd-de46-4060-8904-3bd89693189f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\math">
+      <UniqueIdentifier>{f31a6828-9688-42ed-bbf3-100aacb966cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scene\light">
+      <UniqueIdentifier>{e70c1062-bdf5-44d9-944b-b694d085cf8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\base">
+      <UniqueIdentifier>{280e84c8-a10e-48ad-a909-03a98ef16621}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\CDeviceManager.cpp">
+      <Filter>src\device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\CEventManager.cpp">
+      <Filter>src\device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\CKeyEvent.cpp">
+      <Filter>src\device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\win32\CDeviceWin32.cpp">
+      <Filter>src\device\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CSoftEngine.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\software\CSoftRenderDriver.cpp">
+      <Filter>src\render\software</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\software\CSoftRenderer.cpp">
+      <Filter>src\render\software</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\resource\CResourceManager.cpp">
+      <Filter>src\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene\CSceneManager.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\resource\CTGAImage.cpp">
+      <Filter>src\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\resource\CSceneLoader.cpp">
+      <Filter>src\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\resource\COBJLoader.cpp">
+      <Filter>src\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene\CSceneNode.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene\CScene.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\resource\CSceneResource.cpp">
+      <Filter>src\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene\CEntity.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene\CCamera.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene\light\CPointLight.cpp">
+      <Filter>src\scene\light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\resource\CModel.cpp">
+      <Filter>src\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\StringHelper.cpp">
+      <Filter>src\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\Log.cpp">
+      <Filter>src\base</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\inc\device\IDevice.h">
+      <Filter>inc\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\device\IDeviceManager.h">
+      <Filter>inc\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\device\IEvent.h">
+      <Filter>inc\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\device\IKeyEvent.h">
+      <Filter>inc\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\device\CEventManager.h">
+      <Filter>inc\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\device\EEvent.h">
+      <Filter>inc\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\device\CDeviceManager.h">
+      <Filter>src\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\device\CKeyEvent.h">
+      <Filter>src\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\device\win32\CDeviceWin32.h">
+      <Filter>src\device\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\CSoftEngine.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\se.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\base\CSingleton.h">
+      <Filter>inc\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\RenderStage\IRenderStageManager.h">
+      <Filter>inc\render\renderstage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\RenderStage\ISceneGraphStage.h">
+      <Filter>inc\render\renderstage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\RenderStage\IShadowMapStage.h">
+      <Filter>inc\render\renderstage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\RenderStage\IRenderStage.h">
+      <Filter>inc\render\renderstage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\IMaterial.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\IMesh.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\IRasterization.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\IRenderList.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\ITexture.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\IRenderer.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\IRenderDriver.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\base\seDef.h">
+      <Filter>inc\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\base\seType.h">
+      <Filter>inc\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\software\CSoftRenderer.h">
+      <Filter>src\render\software</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\software\CSoftRenderDriver.h">
+      <Filter>src\render\software</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\resource\IImage.h">
+      <Filter>inc\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\resource\IResource.h">
+      <Filter>inc\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\resource\IResourceLoader.h">
+      <Filter>inc\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\resource\IResourceManager.h">
+      <Filter>inc\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\resource\CResourceManager.h">
+      <Filter>src\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\scene\ICamera.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\scene\IEntity.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\scene\IScene.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\scene\ISceneNode.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\scene\ITerrain.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\scene\ISceneManager.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\math\CBoundingBox.h">
+      <Filter>inc\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\math\CFrustum.h">
+      <Filter>inc\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\math\CMatrix4.h">
+      <Filter>inc\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\math\CPlane3.h">
+      <Filter>inc\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\math\CQuaternion.h">
+      <Filter>inc\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\math\CVector2.h">
+      <Filter>inc\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\math\CVector3.h">
+      <Filter>inc\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\scene\ILight.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\scene\ISkyBox.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\scene\CSceneManager.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\resource\CTGAImage.h">
+      <Filter>src\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\resource\CSceneLoader.h">
+      <Filter>src\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\resource\COBJLoader.h">
+      <Filter>src\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\scene\CSceneNode.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\scene\CScene.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\resource\CSceneResource.h">
+      <Filter>src\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\resource\ISceneResource.h">
+      <Filter>inc\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\scene\CEntity.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\scene\CCamera.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\scene\light\CPointLight.h">
+      <Filter>src\scene\light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\resource\CModel.h">
+      <Filter>src\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\resource\IModel.h">
+      <Filter>inc\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\base\StringHelper.h">
+      <Filter>inc\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\base\Log.h">
+      <Filter>inc\base</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

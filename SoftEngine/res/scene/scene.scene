@@ -1,0 +1,25 @@
+#=====================================================================================
+#Camera
+#position
+100 100 100
+#direction
+0 0 -1
+#up
+0 1 0
+#fov
+60
+#nearClip
+1
+#farClip
+1000
+
+
+#=====================================================================================
+#entity
+#path position
+model/plane.obj 0 0 0
+model/cube.obj 0 0 0
+model/monkey.obj 0 0 0
+model/cone.obj 0 0 0
+model/torus.obj 0 0 0
+

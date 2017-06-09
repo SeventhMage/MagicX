@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{00577D9F-35EA-4186-9089-A6504ADBF64B}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>se</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)..\..\bin\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\inc\</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\base\Log.cpp" />
+    <ClCompile Include="..\..\src\base\StringHelper.cpp" />
+    <ClCompile Include="..\..\src\CSoftEngine.cpp" />
+    <ClCompile Include="..\..\src\device\CDeviceManager.cpp" />
+    <ClCompile Include="..\..\src\device\CEventManager.cpp" />
+    <ClCompile Include="..\..\src\device\CKeyEvent.cpp" />
+    <ClCompile Include="..\..\src\device\win32\CDeviceWin32.cpp" />
+    <ClCompile Include="..\..\src\main.cpp" />
+    <ClCompile Include="..\..\src\render\software\CSoftRenderDriver.cpp" />
+    <ClCompile Include="..\..\src\render\software\CSoftRenderer.cpp" />
+    <ClCompile Include="..\..\src\resource\CModel.cpp" />
+    <ClCompile Include="..\..\src\resource\COBJLoader.cpp" />
+    <ClCompile Include="..\..\src\resource\CResourceManager.cpp" />
+    <ClCompile Include="..\..\src\resource\CSceneLoader.cpp" />
+    <ClCompile Include="..\..\src\resource\CSceneResource.cpp" />
+    <ClCompile Include="..\..\src\resource\CTGAImage.cpp" />
+    <ClCompile Include="..\..\src\scene\CCamera.cpp" />
+    <ClCompile Include="..\..\src\scene\CEntity.cpp" />
+    <ClCompile Include="..\..\src\scene\CScene.cpp" />
+    <ClCompile Include="..\..\src\scene\CSceneManager.cpp" />
+    <ClCompile Include="..\..\src\scene\CSceneNode.cpp" />
+    <ClCompile Include="..\..\src\scene\light\CPointLight.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\inc\base\CSingleton.h" />
+    <ClInclude Include="..\..\inc\base\Log.h" />
+    <ClInclude Include="..\..\inc\base\seDef.h" />
+    <ClInclude Include="..\..\inc\base\seType.h" />
+    <ClInclude Include="..\..\inc\base\StringHelper.h" />
+    <ClInclude Include="..\..\inc\CSoftEngine.h" />
+    <ClInclude Include="..\..\inc\device\CEventManager.h" />
+    <ClInclude Include="..\..\inc\device\EEvent.h" />
+    <ClInclude Include="..\..\inc\device\IDevice.h" />
+    <ClInclude Include="..\..\inc\device\IDeviceManager.h" />
+    <ClInclude Include="..\..\inc\device\IEvent.h" />
+    <ClInclude Include="..\..\inc\device\IKeyEvent.h" />
+    <ClInclude Include="..\..\inc\math\CBoundingBox.h" />
+    <ClInclude Include="..\..\inc\math\CFrustum.h" />
+    <ClInclude Include="..\..\inc\math\CMatrix4.h" />
+    <ClInclude Include="..\..\inc\math\CPlane3.h" />
+    <ClInclude Include="..\..\inc\math\CQuaternion.h" />
+    <ClInclude Include="..\..\inc\math\CVector2.h" />
+    <ClInclude Include="..\..\inc\math\CVector3.h" />
+    <ClInclude Include="..\..\inc\render\IRenderDriver.h" />
+    <ClInclude Include="..\..\inc\render\IRenderer.h" />
+    <ClInclude Include="..\..\inc\render\IMaterial.h" />
+    <ClInclude Include="..\..\inc\render\IMesh.h" />
+    <ClInclude Include="..\..\inc\render\IRasterization.h" />
+    <ClInclude Include="..\..\inc\render\IRenderList.h" />
+    <ClInclude Include="..\..\inc\render\ITexture.h" />
+    <ClInclude Include="..\..\inc\render\RenderStage\IRenderStage.h" />
+    <ClInclude Include="..\..\inc\render\RenderStage\IRenderStageManager.h" />
+    <ClInclude Include="..\..\inc\render\RenderStage\ISceneGraphStage.h" />
+    <ClInclude Include="..\..\inc\render\RenderStage\IShadowMapStage.h" />
+    <ClInclude Include="..\..\inc\resource\IModel.h" />
+    <ClInclude Include="..\..\inc\resource\IResourceManager.h" />
+    <ClInclude Include="..\..\inc\resource\IImage.h" />
+    <ClInclude Include="..\..\inc\resource\IResource.h" />
+    <ClInclude Include="..\..\inc\resource\IResourceLoader.h" />
+    <ClInclude Include="..\..\inc\resource\ISceneResource.h" />
+    <ClInclude Include="..\..\inc\scene\ILight.h" />
+    <ClInclude Include="..\..\inc\scene\ISceneManager.h" />
+    <ClInclude Include="..\..\inc\scene\ICamera.h" />
+    <ClInclude Include="..\..\inc\scene\IEntity.h" />
+    <ClInclude Include="..\..\inc\scene\IScene.h" />
+    <ClInclude Include="..\..\inc\scene\ISceneNode.h" />
+    <ClInclude Include="..\..\inc\scene\ISkyBox.h" />
+    <ClInclude Include="..\..\inc\scene\ITerrain.h" />
+    <ClInclude Include="..\..\inc\se.h" />
+    <ClInclude Include="..\..\src\device\CDeviceManager.h" />
+    <ClInclude Include="..\..\src\device\CKeyEvent.h" />
+    <ClInclude Include="..\..\src\device\win32\CDeviceWin32.h" />
+    <ClInclude Include="..\..\src\render\software\CSoftRenderDriver.h" />
+    <ClInclude Include="..\..\src\render\software\CSoftRenderer.h" />
+    <ClInclude Include="..\..\src\resource\CModel.h" />
+    <ClInclude Include="..\..\src\resource\COBJLoader.h" />
+    <ClInclude Include="..\..\src\resource\CResourceManager.h" />
+    <ClInclude Include="..\..\src\resource\CSceneLoader.h" />
+    <ClInclude Include="..\..\src\resource\CSceneResource.h" />
+    <ClInclude Include="..\..\src\resource\CTGAImage.h" />
+    <ClInclude Include="..\..\src\scene\CCamera.h" />
+    <ClInclude Include="..\..\src\scene\CEntity.h" />
+    <ClInclude Include="..\..\src\scene\CScene.h" />
+    <ClInclude Include="..\..\src\scene\CSceneManager.h" />
+    <ClInclude Include="..\..\src\scene\CSceneNode.h" />
+    <ClInclude Include="..\..\src\scene\light\CPointLight.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
