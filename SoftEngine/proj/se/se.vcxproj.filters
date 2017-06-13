@@ -120,6 +120,15 @@
     <ClCompile Include="..\..\src\base\Log.cpp">
       <Filter>src\base</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\resource\CMaterialLoader.cpp">
+      <Filter>src\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\resource\CMaterialResource.cpp">
+      <Filter>src\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\CMaterialManager.cpp">
+      <Filter>src\render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\device\IDevice.h">
@@ -177,9 +186,6 @@
       <Filter>inc\render</Filter>
     </ClInclude>
     <ClInclude Include="..\..\inc\render\IRasterization.h">
-      <Filter>inc\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\inc\render\IRenderList.h">
       <Filter>inc\render</Filter>
     </ClInclude>
     <ClInclude Include="..\..\inc\render\ITexture.h">
@@ -307,6 +313,27 @@
     </ClInclude>
     <ClInclude Include="..\..\inc\base\Log.h">
       <Filter>inc\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\IRenderQueue.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\resource\CMaterialLoader.h">
+      <Filter>src\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\resource\IMaterialResource.h">
+      <Filter>inc\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\resource\CMaterialResource.h">
+      <Filter>src\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\IMaterialManager.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\CMaterialManager.h">
+      <Filter>src\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\IRenderCell.h">
+      <Filter>inc\render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
