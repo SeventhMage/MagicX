@@ -15,7 +15,7 @@ namespace se
 			CSoftRenderer();
 			virtual ~CSoftRenderer();
 
-			virtual IRenderDriver *GetRenderDriver() { return m_pSoftRD; }
+			virtual IRenderDriver *GetRenderDriver() { return m_pSoftRD; }					
 		private:
 			CSoftRenderDriver *m_pSoftRD;
 		};

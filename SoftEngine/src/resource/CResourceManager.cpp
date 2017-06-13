@@ -1,7 +1,9 @@
+#include "base/StringHelper.h"
 #include "CResourceManager.h"
 #include "CSceneResource.h"
+#include "CMaterialResource.h"
 #include "CModel.h"
-#include "base/StringHelper.h"
+
 
 
 namespace se
@@ -21,6 +23,10 @@ namespace se
 			else if (extName == "obj")
 			{
 				pResource = new CModel(filename);
+			}
+			else if (extName == "mlt")
+			{
+				pResource = new CMaterialResource(filename);
 			}
 
 			return pResource;

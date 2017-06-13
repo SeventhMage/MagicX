@@ -8,6 +8,7 @@ namespace se
 		CSoftRenderer::CSoftRenderer()
 			:m_pSoftRD(new CSoftRenderDriver())
 		{
+
 		}
 
 		CSoftRenderer::~CSoftRenderer()

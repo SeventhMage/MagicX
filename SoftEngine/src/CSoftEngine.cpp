@@ -2,13 +2,16 @@
 #include "base/seDef.h"
 #include "device/CDeviceManager.h"
 #include "render/software/CSoftRenderer.h"
+#include "render/CMaterialManager.h"
 #include "resource/CResourceManager.h"
 #include "scene/CSceneManager.h"
+
 
 namespace se
 {	
 	device::IDeviceManager *CSoftEngine::m_pDeviceMgr = nullptr;
 	render::IRenderer *CSoftEngine::m_pRenderer = nullptr;
+	render::IMaterialManager *CSoftEngine::m_pMaterialManager = nullptr;
 	resource::IResourceManager *CSoftEngine::m_pResourceMgr = nullptr;
 	scene::ISceneManager *CSoftEngine::m_pSceneMgr = nullptr;
 
@@ -27,6 +30,8 @@ namespace se
 		
 		m_pSceneMgr = scene::CSceneManager::NewInstance();
 		m_pResourceMgr = resource::CResourceManager::NewInstance();
+
+		m_pMaterialManager = render::CMaterialManager::NewInstance();
 	}
 
 
@@ -36,6 +41,7 @@ namespace se
 		scene::CSceneManager::DeleteInstance();
 		render::CSoftRenderer::DeleteInstance();
 		device::CDeviceManager::DeleteInstance();		
+		render::CMaterialManager::DeleteInstance();
 	}
 
 	device::IDevice * CSoftEngine::GetDevice()
