@@ -10,7 +10,9 @@ namespace se
 		class IRenderer
 		{
 		public:
+			virtual ~IRenderer(){}
 			virtual IRenderDriver *GetRenderDriver() = 0;
+			virtual 
 		};
 	}
 

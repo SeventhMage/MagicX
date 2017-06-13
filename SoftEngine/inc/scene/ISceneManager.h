@@ -10,6 +10,7 @@ namespace se
 		class ISceneManager
 		{
 		public:
+			virtual ~ISceneManager(){}
 			virtual IScene *LoadScene(const char *filename) = 0;
 			virtual IScene *GetCurrentScene() = 0;			
 		};
