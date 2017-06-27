@@ -129,6 +129,12 @@
     <ClCompile Include="..\..\src\render\CMaterialManager.cpp">
       <Filter>src\render</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\render\CRenderQueue.cpp">
+      <Filter>src\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\CMaterial.cpp">
+      <Filter>src\render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\device\IDevice.h">
@@ -334,6 +340,12 @@
     </ClInclude>
     <ClInclude Include="..\..\src\render\IRenderCell.h">
       <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\CRenderQueue.h">
+      <Filter>src\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\CMaterial.h">
+      <Filter>src\render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

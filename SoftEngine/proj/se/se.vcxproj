@@ -86,7 +86,9 @@
     <ClCompile Include="..\..\src\device\CKeyEvent.cpp" />
     <ClCompile Include="..\..\src\device\win32\CDeviceWin32.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
+    <ClCompile Include="..\..\src\render\CMaterial.cpp" />
     <ClCompile Include="..\..\src\render\CMaterialManager.cpp" />
+    <ClCompile Include="..\..\src\render\CRenderQueue.cpp" />
     <ClCompile Include="..\..\src\render\software\CSoftRenderDriver.cpp" />
     <ClCompile Include="..\..\src\render\software\CSoftRenderer.cpp" />
     <ClCompile Include="..\..\src\resource\CMaterialLoader.cpp" />
@@ -155,7 +157,9 @@
     <ClInclude Include="..\..\src\device\CDeviceManager.h" />
     <ClInclude Include="..\..\src\device\CKeyEvent.h" />
     <ClInclude Include="..\..\src\device\win32\CDeviceWin32.h" />
+    <ClInclude Include="..\..\src\render\CMaterial.h" />
     <ClInclude Include="..\..\src\render\CMaterialManager.h" />
+    <ClInclude Include="..\..\src\render\CRenderQueue.h" />
     <ClInclude Include="..\..\src\render\IRenderCell.h" />
     <ClInclude Include="..\..\src\render\software\CSoftRenderDriver.h" />
     <ClInclude Include="..\..\src\render\software\CSoftRenderer.h" />
