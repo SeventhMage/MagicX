@@ -8,8 +8,8 @@ namespace se
 	{
 		CEntity::CEntity(const char *name, CSceneNode *pNode)
 			:m_strEntityName(name)
-			, m_pSceneNode(pNode)
-			, m_iMaterialId(0)
+			, m_pSceneNode(pNode)		
+			, m_materialId(0)
 		{
 			 m_pModel = dynamic_cast<resource::IModel *>(CSoftEngine::GetResourceManager()->LoadResource(name));
 		}
@@ -22,6 +22,7 @@ namespace se
 		void CEntity::Update(int delta)
 		{
 			//多边形空间转换，提交到渲染队列
+
 		}
 
 		bool CEntity::Culled(ICamera *pCamera)

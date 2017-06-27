@@ -40,7 +40,8 @@ namespace se
 		private:
 			std::string m_strEntityName;
 			CSceneNode *m_pSceneNode;			//所属的场景结点
-			resource::IModel *m_pModel;			
+			resource::IModel *m_pModel;
+			int m_materialId;
 		};
 	}
 }

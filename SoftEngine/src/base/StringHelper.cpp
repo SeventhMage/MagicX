@@ -16,5 +16,11 @@ namespace se
 			return "";
 		}
 
+		StringArray Split(const string &str, const string &delims)
+		{
+			StringArray strRet;
+			//xyj----------------
+			return strRet;
+		}
 	}
 }

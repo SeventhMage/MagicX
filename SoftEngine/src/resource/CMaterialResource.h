@@ -10,6 +10,18 @@ namespace se
 {
 	namespace resource
 	{
+
+		typedef struct SMaterialResourceAttribute
+		{
+			int attrId;
+			char *attrName;
+		}MRAttribute;
+
+		static MRAttribute GetMSAttribute[MRA_COUNT] = {
+			MRA_COLOR, "Color",
+			MRA_ILLUMINATION, "Illumination"
+		};
+
 		class CMaterialResource : public IMaterialResource
 		{
 		public:
@@ -18,7 +30,7 @@ namespace se
 			virtual int GetAttrCount();
 			virtual std::string GetAttrByIdx(int index);
 			virtual std::string GetValueByIdx(int index);
-			virtual std::string GetValue(const std::string &attr);
+			virtual std::string GetValue(EMaterialResAttr attr);
 			virtual math::CVector3 GetColor(){ return m_color; }
 			virtual std::string GetIllumination(){ return m_illumination; }
 		private:

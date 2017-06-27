@@ -4,6 +4,8 @@
 #include "base/CSingleton.h"
 #include "render/IMaterialManager.h"
 
+#include <map>
+
 namespace se
 {
 	namespace render
@@ -13,6 +15,11 @@ namespace se
 		public:
 			CMaterialManager();
 			virtual ~CMaterialManager();
+			virtual int CreateMaterial(const char *filename);
+			virtual void DestroyMaterial(int materialId);
+			virtual IMaterial *GetMaterial(int materialId);			
+		private:
+			std::map<int, IMaterial *> m_mapMaterial;
 		};
 	}
 }
