@@ -2,6 +2,8 @@
 #define _SE_I_RENDERER_H_
 
 #include "IRenderDriver.h"
+#include "IRenderQueue.h"
+#include "IMaterial.h"
 
 namespace se
 {
@@ -12,7 +14,8 @@ namespace se
 		public:
 			virtual ~IRenderer(){}
 			virtual IRenderDriver *GetRenderDriver() = 0;
-			virtual 
+			virtual IRenderQueue *CreateRenderQueue(const char *material) = 0;
+			virtual void DestroyRenderQueue(IRenderQueue *) = 0;
 		};
 	}
 

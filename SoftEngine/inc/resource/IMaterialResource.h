@@ -9,6 +9,14 @@ namespace se
 {
 	namespace resource
 	{
+		enum EMaterialResAttr
+		{
+			MRA_COLOR = 0,
+			MRA_ILLUMINATION,
+
+			MRA_COUNT,
+		};
+
 		class IMaterialResource : public IResource
 		{
 		public:
@@ -16,7 +24,7 @@ namespace se
 			virtual int GetAttrCount() = 0;
 			virtual std::string GetAttrByIdx(int index) = 0;
 			virtual std::string GetValueByIdx(int index) = 0;
-			virtual std::string GetValue(const std::string &attr) = 0;
+			virtual std::string GetValue(EMaterialResAttr attr) = 0;
 		};
 	}
 }

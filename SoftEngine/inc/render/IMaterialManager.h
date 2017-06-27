@@ -11,9 +11,10 @@ namespace se
 		{
 		public:
 			virtual ~IMaterialManager(){}
-			virtual IMaterial *CreateMaterial(const char *filename) = 0;
-			virtual void DestroyMaterial(int id) = 0;
-			virtual IMaterial *GetMaterial(int id) = 0;
+			virtual int CreateMaterial(const char *filename) = 0;
+			virtual void DestroyMaterial(int materialId) = 0;
+			virtual IMaterial *GetMaterial(int materialId) = 0;
+
 		};
 	}
 }
