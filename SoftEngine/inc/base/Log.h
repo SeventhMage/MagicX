@@ -7,7 +7,11 @@ namespace se
 {
 	namespace base
 	{
+#ifdef _DEBUG
 #define LogPrint(formats, ...) printf(formats, ##__VA_ARGS__)
+#else
+#define LogPrint(formats, ...)
+#endif
 	}
 }
 

@@ -12,7 +12,7 @@ namespace se
 		class IRenderCell
 		{
 		public:
-			virtual ~IRenderCell(){}
+			virtual ~IRenderCell(){}			
 		};
 	}
 }

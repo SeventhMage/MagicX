@@ -88,9 +88,12 @@
     <ClCompile Include="..\..\src\main.cpp" />
     <ClCompile Include="..\..\src\render\CMaterial.cpp" />
     <ClCompile Include="..\..\src\render\CMaterialManager.cpp" />
+    <ClCompile Include="..\..\src\render\CMesh.cpp" />
     <ClCompile Include="..\..\src\render\CRenderQueue.cpp" />
+    <ClCompile Include="..\..\src\render\CTextureManager.cpp" />
     <ClCompile Include="..\..\src\render\software\CSoftRenderDriver.cpp" />
     <ClCompile Include="..\..\src\render\software\CSoftRenderer.cpp" />
+    <ClCompile Include="..\..\src\render\software\CSoftTexture.cpp" />
     <ClCompile Include="..\..\src\resource\CMaterialLoader.cpp" />
     <ClCompile Include="..\..\src\resource\CMaterialResource.cpp" />
     <ClCompile Include="..\..\src\resource\CModel.cpp" />
@@ -127,6 +130,7 @@
     <ClInclude Include="..\..\inc\math\CVector2.h" />
     <ClInclude Include="..\..\inc\math\CVector3.h" />
     <ClInclude Include="..\..\inc\render\IMaterialManager.h" />
+    <ClInclude Include="..\..\inc\render\IRenderCell.h" />
     <ClInclude Include="..\..\inc\render\IRenderDriver.h" />
     <ClInclude Include="..\..\inc\render\IRenderer.h" />
     <ClInclude Include="..\..\inc\render\IMaterial.h" />
@@ -134,10 +138,12 @@
     <ClInclude Include="..\..\inc\render\IRasterization.h" />
     <ClInclude Include="..\..\inc\render\IRenderQueue.h" />
     <ClInclude Include="..\..\inc\render\ITexture.h" />
+    <ClInclude Include="..\..\inc\render\ITextureManager.h" />
     <ClInclude Include="..\..\inc\render\RenderStage\IRenderStage.h" />
     <ClInclude Include="..\..\inc\render\RenderStage\IRenderStageManager.h" />
     <ClInclude Include="..\..\inc\render\RenderStage\ISceneGraphStage.h" />
     <ClInclude Include="..\..\inc\render\RenderStage\IShadowMapStage.h" />
+    <ClInclude Include="..\..\inc\render\VertexAttribute.h" />
     <ClInclude Include="..\..\inc\resource\IMaterialResource.h" />
     <ClInclude Include="..\..\inc\resource\IModel.h" />
     <ClInclude Include="..\..\inc\resource\IResourceManager.h" />
@@ -159,10 +165,12 @@
     <ClInclude Include="..\..\src\device\win32\CDeviceWin32.h" />
     <ClInclude Include="..\..\src\render\CMaterial.h" />
     <ClInclude Include="..\..\src\render\CMaterialManager.h" />
+    <ClInclude Include="..\..\src\render\CMesh.h" />
     <ClInclude Include="..\..\src\render\CRenderQueue.h" />
-    <ClInclude Include="..\..\src\render\IRenderCell.h" />
+    <ClInclude Include="..\..\src\render\CTextureManager.h" />
     <ClInclude Include="..\..\src\render\software\CSoftRenderDriver.h" />
     <ClInclude Include="..\..\src\render\software\CSoftRenderer.h" />
+    <ClInclude Include="..\..\src\render\software\CSoftTexture.h" />
     <ClInclude Include="..\..\src\resource\CMaterialLoader.h" />
     <ClInclude Include="..\..\src\resource\CMaterialResource.h" />
     <ClInclude Include="..\..\src\resource\CModel.h" />

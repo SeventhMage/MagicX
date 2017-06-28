@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 {
 	CSoftEngine *se = CSoftEngine::NewInstance();
 
-	se->InitEngine(100, 100, 800, 600);
+	se->InitEngine(render::RDT_SOFTWARE, 100, 100, 800, 600);
 	IDevice *device = se->GetDevice();
 	IResourceManager *resMgr = se->GetResourceManager();
 	ISceneManager *sceneMgr = se->GetSceneManager();

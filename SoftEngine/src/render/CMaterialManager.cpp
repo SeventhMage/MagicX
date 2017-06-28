@@ -40,28 +40,38 @@ namespace se
 				}
 				std::string strIllumination = pMaterialResource->GetValue(resource::MRA_ILLUMINATION);
 				pMaterial->SetIllumination(strIllumination);
-				m_mapMaterial[materialId] = pMaterial;
+				m_mapMaterial[filename] = pMaterial;
+			}
+		}
+
+		int CMaterialManager::GetMaterialID(const char *filename)
+		{
+			if (m_mapMaterial.find(filename) != m_mapMaterial.end())
+			{
+				return m_mapMaterial[filename]->GetID();
+			}
+			return NULL;
+		}
+
+		IMaterial * CMaterialManager::GetMaterial(int materialId)
+		{
+			return NULL;
+		}
+
+		void CMaterialManager::DestroyMaterial(const char *filename)
+		{
+			auto it = m_mapMaterial.find(filename);
+			if (it != m_mapMaterial.end())
+			{
+				IMaterial *pMaterial = m_mapMaterial[filename];
+				SAFE_DEL(pMaterial);
+				m_mapMaterial.erase(it);
 			}
 		}
 
 		void CMaterialManager::DestroyMaterial(int materialId)
 		{
-			auto it = m_mapMaterial.find(materialId);
-			if (it != m_mapMaterial.end())
-			{
-				IMaterial *pMaterial = m_mapMaterial[materialId];
-				m_mapMaterial.erase(it);
-				SAFE_DEL(pMaterial);
-			}
-		}
 
-		IMaterial * CMaterialManager::GetMaterial(int materialId)
-		{
-			if (m_mapMaterial.find(materialId) != m_mapMaterial.end())
-			{
-				return m_mapMaterial[materialId];
-			}
-			return NULL;
 		}
 
 	}

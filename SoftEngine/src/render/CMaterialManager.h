@@ -5,6 +5,7 @@
 #include "render/IMaterialManager.h"
 
 #include <map>
+#include <string>
 
 namespace se
 {
@@ -16,10 +17,12 @@ namespace se
 			CMaterialManager();
 			virtual ~CMaterialManager();
 			virtual int CreateMaterial(const char *filename);
+			virtual void DestroyMaterial(const char *filename);
 			virtual void DestroyMaterial(int materialId);
-			virtual IMaterial *GetMaterial(int materialId);			
+			virtual IMaterial *GetMaterial(int materialId);
+			virtual int GetMaterialID(const char *filename);
 		private:
-			std::map<int, IMaterial *> m_mapMaterial;
+			std::map<std::string, IMaterial *> m_mapMaterial;
 		};
 	}
 }

@@ -9,14 +9,20 @@ namespace se
 		CEntity::CEntity(const char *name, CSceneNode *pNode)
 			:m_strEntityName(name)
 			, m_pSceneNode(pNode)		
-			, m_materialId(0)
+			, m_pRenderCell(nullptr)
 		{
-			 m_pModel = dynamic_cast<resource::IModel *>(CSoftEngine::GetResourceManager()->LoadResource(name));
+			 resource::IModel *pModel = dynamic_cast<resource::IModel *>(CSoftEngine::GetResourceManager()->LoadResource(name));
+			 if (pModel)
+			 {
+				 int materialId = CSoftEngine::GetMaterialManager()->GetMaterialID(pModel->GetMaterial().c_str());
+
+				 CSoftEngine::GetResourceManager()->ReleaseResource(pModel);
+			 }
 		}
 
 		CEntity::~CEntity()
 		{
-			CSoftEngine::GetResourceManager()->ReleaseResource(m_pModel);
+			
 		}
 
 		void CEntity::Update(int delta)

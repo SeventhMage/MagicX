@@ -13,6 +13,7 @@ namespace se
 		public:
 			CRenderQueue(const char *material);
 			virtual ~CRenderQueue();
+			virtual int GetMaterialID(){ return m_materialId; }
 		private:
 			int m_materialId;
 		};

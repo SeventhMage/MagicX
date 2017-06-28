@@ -135,6 +135,15 @@
     <ClCompile Include="..\..\src\render\CMaterial.cpp">
       <Filter>src\render</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\render\CTextureManager.cpp">
+      <Filter>src\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\software\CSoftTexture.cpp">
+      <Filter>src\render\software</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\CMesh.cpp">
+      <Filter>src\render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\device\IDevice.h">
@@ -338,13 +347,28 @@
     <ClInclude Include="..\..\src\render\CMaterialManager.h">
       <Filter>src\render</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\render\IRenderCell.h">
-      <Filter>inc\render</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\render\CRenderQueue.h">
       <Filter>src\render</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\render\CMaterial.h">
+      <Filter>src\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\IRenderCell.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\ITextureManager.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\CTextureManager.h">
+      <Filter>src\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\software\CSoftTexture.h">
+      <Filter>src\render\software</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\CMesh.h">
+      <Filter>src\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\VertexAttribute.h">
       <Filter>src\render</Filter>
     </ClInclude>
   </ItemGroup>

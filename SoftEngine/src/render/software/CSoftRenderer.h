@@ -16,9 +16,10 @@ namespace se
 			virtual ~CSoftRenderer();
 
 			virtual IRenderDriver *GetRenderDriver() { return m_pSoftRD; }	
+			virtual RenderDriverType GetRenderDriverType() { m_pSoftRD->GetDriverType(); }
 			virtual IRenderQueue *CreateRenderQueue(const char *material);
 			virtual void DestroyRenderQueue(IRenderQueue *pRenderQueue);
-
+			virtual void BufferData(ubyte *vertices, uint size, int count, VertexFormat format);
 		private:
 			CSoftRenderDriver *m_pSoftRD;
 		};

@@ -27,5 +27,10 @@ namespace se
 			SAFE_DEL(pRenderQueue);
 		}
 
+		void CSoftRenderer::BufferData(ubyte *vertices, uint size, int count, VertexFormat format)
+		{
+
+		}
+
 	}
 }

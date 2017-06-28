@@ -25,6 +25,7 @@ namespace se
 
 		void CSceneManager::LoadMaterial()
 		{
+			m_renderQueueGroup.clear();
 			resource::IMaterialResource *pResource = dynamic_cast<resource::IMaterialResource *>
 				(CSoftEngine::GetResourceManager()->LoadResource("materialgroup.mtl"));
 			if (pResource)
@@ -35,7 +36,7 @@ namespace se
 					resource::IMaterialResource *pMaterialRes = dynamic_cast<resource::IMaterialResource *>
 						(CSoftEngine::GetResourceManager()->LoadResource(materialName.c_str()));					
 					render::IRenderQueue *pRenderQueue = CSoftEngine::GetRenderer()->CreateRenderQueue(materialName.c_str());
-					m_renderQueueGroup.push_back(pRenderQueue);
+					m_renderQueueGroup[] = pRenderQueue;
 				}
 				CSoftEngine::GetResourceManager()->ReleaseResource(pResource);
 			}

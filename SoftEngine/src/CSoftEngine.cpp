@@ -20,11 +20,18 @@ namespace se
 		DestroyEngine();
 	}
 
-	void CSoftEngine::InitEngine(int x, int y, int width, int height, bool fullScreen /*= false*/)
+	void CSoftEngine::InitEngine(render::RenderDriverType driver, int x, int y, int width, int height, bool fullScreen /* = false */)
 	{
 		m_pDeviceMgr = device::CDeviceManager::NewInstance();
-
-		m_pRenderer = render::CSoftRenderer::NewInstance();
+		
+		switch (driver)
+		{
+		case se::render::RDT_SOFTWARE:
+			m_pRenderer = render::CSoftRenderer::NewInstance();
+			break;
+		default:
+			m_pRenderer = render::CSoftRenderer::NewInstance();
+		}
 
 		m_pDeviceMgr->CreateDevice(device::DT_WIN32, m_pRenderer->GetRenderDriver(), x, y, width, height, fullScreen);		
 		

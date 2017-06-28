@@ -13,6 +13,7 @@ namespace se
 			CMaterial(int id);
 			virtual ~CMaterial();
 
+			virtual int GetID(){ return m_Id; }
 			virtual math::CVector3 GetColor();
 			virtual void SetColor(const math::CVector3 &color);
 			virtual std::string GetIllumination();

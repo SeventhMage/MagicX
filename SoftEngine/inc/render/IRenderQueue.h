@@ -4,7 +4,7 @@
 #ifndef _RENDER_I_RENDER_QUEUE_H_
 #define _RENDER_I_RENDER_QUEUE_H_
 
-#include <vector>
+#include <map>
 
 namespace se
 {
@@ -14,9 +14,10 @@ namespace se
 		{
 		public:
 			virtual ~IRenderQueue(){}
+			virtual int GetMaterialID() = 0;
 		};
 
-		typedef std::vector<IRenderQueue *> RenderQueueGroup;
+		typedef std::map<int, IRenderQueue *> RenderQueueGroup;
 	}
 }
 

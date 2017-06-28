@@ -1,6 +1,8 @@
 #ifndef _I_RESOURCE_IMAGE_H_
 #define _I_RESOURCE_IMAGE_H_
 
+#include "IResource.h"
+
 namespace se
 {
 	namespace resource
@@ -24,9 +26,13 @@ namespace se
 			PT_UNSIGNED_SHORT_5_5_5_1,
 		};
 
-		class IImage
+		class IImage : public IResource
 		{
+		public:
+			virtual ~IImage(){}
 
+			virtual EColorFormat GetColorFormat() const = 0;
+			virtual EPixelType GetPixelType() const = 0;
 		};
 	}
 }

@@ -13,6 +13,11 @@ namespace se
 		public:
 			CModel(const char *filename);
 			virtual ~CModel();
+
+			virtual std::string GetMaterial();
+			virtual std::string GetTexture();
+			virtual SPolygon &GetPolygon();
+
 		private:
 			COBJLoader *m_pOBJLoader;
 		};
