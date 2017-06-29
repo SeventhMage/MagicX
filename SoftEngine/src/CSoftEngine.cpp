@@ -5,6 +5,7 @@
 #include "render/CMaterialManager.h"
 #include "resource/CResourceManager.h"
 #include "scene/CSceneManager.h"
+#include "render/CTextureManager.h"
 
 
 namespace se
@@ -39,6 +40,7 @@ namespace se
 		m_pResourceMgr = resource::CResourceManager::NewInstance();
 
 		m_pMaterialManager = render::CMaterialManager::NewInstance();
+		m_pTextureMgr = render::CTextureManager::NewInstance();
 	}
 
 
@@ -49,6 +51,7 @@ namespace se
 		render::CSoftRenderer::DeleteInstance();
 		device::CDeviceManager::DeleteInstance();		
 		render::CMaterialManager::DeleteInstance();
+		render::CTextureManager::DeleteInstance();
 	}
 
 	device::IDevice * CSoftEngine::GetDevice()

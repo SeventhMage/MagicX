@@ -144,6 +144,15 @@
     <ClCompile Include="..\..\src\render\CMesh.cpp">
       <Filter>src\render</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\render\software\CCPUBuffer.cpp">
+      <Filter>src\render\software</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\CRenderCell.cpp">
+      <Filter>src\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\software\CRasterizer.cpp">
+      <Filter>src\render\software</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\device\IDevice.h">
@@ -368,8 +377,23 @@
     <ClInclude Include="..\..\src\render\CMesh.h">
       <Filter>src\render</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\render\VertexAttribute.h">
+    <ClInclude Include="..\..\src\render\software\CCPUBuffer.h">
+      <Filter>src\render\software</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\CRenderCell.h">
       <Filter>src\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\VertexAttribute.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\IBuffer.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\SUniform.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\software\CRasterizer.h">
+      <Filter>src\render\software</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

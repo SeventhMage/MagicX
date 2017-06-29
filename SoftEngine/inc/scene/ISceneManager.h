@@ -12,7 +12,8 @@ namespace se
 		public:
 			virtual ~ISceneManager(){}
 			virtual IScene *LoadScene(const char *filename) = 0;
-			virtual IScene *GetCurrentScene() = 0;			
+			virtual IScene *GetCurrentScene() = 0;	
+			virtual void Update(int delta) = 0;
 		};
 	}
 }

@@ -9,10 +9,12 @@ namespace se
 	{
 		enum EVertexAttribute
 		{
-			VA_POSITION = 1,
-			VA_TEXCOORD = 2,
-			VA_COLOR = 4,
-			VA_NORMAL = 8,
+			VA_POSITION = 0,
+			VA_TEXCOORD,
+			VA_COLOR,
+			VA_NORMAL,
+
+			VA_COUNT,
 		};
 
 		typedef struct SVertexAttibute
@@ -22,7 +24,7 @@ namespace se
 			uint offset;				//开始位置		
 		}VertexAttrbute;
 
-		typedef std::vector<VertexAttrbute> VertexFormat;
+		typedef std::map<EVertexAttribute, VertexAttrbute> VertexFormat;
 
 
 		typedef struct SVertexData
@@ -31,9 +33,25 @@ namespace se
 			uint count;									//顶点数量
 			uint stride;								//每隔stride顶点属性数量循环
 			uint size;									//数据尺寸
-			ubyte *vertexData;
+			ubyte *pVertexData;
 
 		}VertexData;
+
+		typedef struct SIndexAttribute
+		{
+			EVertexAttribute attribute;
+			uint offset;
+		}IndexAttribute;
+
+		typedef std::map<EVertexAttribute, IndexAttribute> IndexFormat;
+
+		typedef struct SIndexData
+		{
+			IndexFormat format;						//索引格式
+			uint count;								//顶点数
+			uint size;
+			ubyte *pIndexData;
+		}IndexData;
 	}
 }
 

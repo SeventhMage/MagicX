@@ -16,5 +16,30 @@ namespace se
 			CSoftEngine::GetMaterialManager()->DestroyMaterial(m_materialId);
 		}
 
+		void CRenderQueue::AddRenderCell(IRenderCell *pCell)
+		{
+
+		}
+
+		void CRenderQueue::Clear()
+		{
+			m_RenderCellList.clear();
+		}
+
+		void CRenderQueue::Render()
+		{
+			for (auto it = m_RenderCellList.begin(); it != m_RenderCellList.end(); ++it)
+			{
+				IRenderCell *pRenderCell = *it;
+				if (pRenderCell)
+				{
+					uint materialId = pRenderCell->GetMaterialID();
+					uint bufferId = pRenderCell->GetBufferID();					
+					uint textureId = pRenderCell->GetTextureID();
+					CSoftEngine::GetRenderer()->Render(materialId, bufferId, textureId);
+				}				
+			}
+		}
+
 	}
 }

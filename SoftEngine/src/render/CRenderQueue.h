@@ -4,6 +4,8 @@
 #include "render/IRenderQueue.h"
 #include "render/IMaterial.h"
 
+#include <vector>
+
 namespace se
 {
 	namespace render
@@ -14,8 +16,12 @@ namespace se
 			CRenderQueue(const char *material);
 			virtual ~CRenderQueue();
 			virtual int GetMaterialID(){ return m_materialId; }
+			virtual void AddRenderCell(IRenderCell *pCell);
+			virtual void Clear();
+			virtual void Render();
 		private:
 			int m_materialId;
+			std::vector<IRenderCell *>m_RenderCellList;
 		};
 	}
 }

@@ -46,32 +46,39 @@ namespace se
 
 		int CMaterialManager::GetMaterialID(const char *filename)
 		{
-			if (m_mapMaterial.find(filename) != m_mapMaterial.end())
+			for (auto it = m_mapMaterial.begin(); it != m_mapMaterial.end(); ++it)
 			{
-				return m_mapMaterial[filename]->GetID();
+				IMaterial *pMaterial = it->second;
+				if (pMaterial)
+				{
+					if (pMaterial->GetName() == filename)
+					{
+						return pMaterial->GetID();
+					}
+				}
 			}
+
+		}
+
+		IMaterial * CMaterialManager::GetMaterial(uint materialId)
+		{
+			if (m_mapMaterial.find(materialId) != m_mapMaterial.end())
+			{
+				return m_mapMaterial[materialId];
+			}			
 			return NULL;
 		}
 
-		IMaterial * CMaterialManager::GetMaterial(int materialId)
-		{
-			return NULL;
-		}
 
-		void CMaterialManager::DestroyMaterial(const char *filename)
+		void CMaterialManager::DestroyMaterial(uint materialId)
 		{
-			auto it = m_mapMaterial.find(filename);
+			auto it = m_mapMaterial.find(materialId);
 			if (it != m_mapMaterial.end())
 			{
-				IMaterial *pMaterial = m_mapMaterial[filename];
+				IMaterial *pMaterial = m_mapMaterial[materialId];
 				SAFE_DEL(pMaterial);
 				m_mapMaterial.erase(it);
 			}
-		}
-
-		void CMaterialManager::DestroyMaterial(int materialId)
-		{
-
 		}
 
 	}

@@ -4,7 +4,6 @@
 #include "scene/ISceneManager.h"
 #include "scene/IScene.h"
 #include "base/CSingleton.h"
-#include "render/IRenderQueue.h"
 
 namespace se
 {
@@ -18,11 +17,9 @@ namespace se
 
 			virtual IScene *LoadScene(const char *filename);
 			virtual IScene *GetCurrentScene(){ return m_pCurrentScene; }
+			virtual void Update(int delta);
 		private:
-			void LoadMaterial();
-		private:
-			IScene *m_pCurrentScene;
-			render::RenderQueueGroup m_renderQueueGroup;
+			IScene *m_pCurrentScene;			
 		};
 	}
 }

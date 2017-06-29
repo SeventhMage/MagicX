@@ -8,6 +8,8 @@
 #include "IMesh.h"
 #include "ITexture.h"
 #include "VertexAttribute.h"
+#include "IBuffer.h"
+#include "SUniform.h"
 
 namespace se
 {
@@ -19,15 +21,26 @@ namespace se
 			virtual ~IRenderer(){}
 			virtual IRenderDriver *GetRenderDriver() = 0;
 			virtual RenderDriverType GetRenderDriverType() = 0;
-			virtual IRenderQueue *CreateRenderQueue(const char *material) = 0;
-			virtual void DestroyRenderQueue(IRenderQueue *) = 0;
-			virtual IRenderCell *CreateRenderCell(IMesh *pMesh, ITexture *pTexture, int materialId) = 0;
+			virtual IRenderCell *CreateRenderCell(uint materialId, IMesh *pMesh, uint textureId) = 0;
 			virtual void DestroyRenderCell(IRenderCell *) = 0;		
-			virtual void BufferData(ubyte *vertices,	//顶点数据
-				uint size,								//顶点数据尺寸
+			virtual uint CreateBuffer() = 0;
+			virtual void DestroyBuffer(uint bufferId) = 0;
+			virtual void BufferData(uint bufferId,
+				ubyte *vertices,						//顶点数据				
+				uint vertSize,							//顶点数据尺寸
 				int count,								//顶点数量
-				VertexFormat format						//顶点属性格式
-				) = 0;
+				VertexFormat format,					//顶点属性格式
+				ubyte *indices,							//索引数据
+				uint indicesSize						//索引数据尺寸
+				) = 0;			
+			virtual void UpdateUniform(EUniform type, EUniformName name, ubyte *data, uint size);
+			virtual void SubmitRenderCell(IRenderCell *pCell) = 0;
+
+			virtual void Clear() = 0;
+			virtual void Render() = 0;
+			virtual void Render(uint materialId, uint bufferId, uint textureId) = 0;
+
+			virtual void SetRenderMemory(ubyte *addr) = 0;		//渲染结果输出到内存时的地址
 		};
 	}
 

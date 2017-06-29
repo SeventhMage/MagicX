@@ -1,7 +1,6 @@
 #include "CSceneManager.h"
 #include "CScene.h"
 #include "CSoftEngine.h"
-#include "resource/IMaterialResource.h"
 
 namespace se
 {
@@ -10,44 +9,30 @@ namespace se
 
 		CSceneManager::CSceneManager()
 			:m_pCurrentScene(nullptr)
-		{
-			LoadMaterial();
+		{			
 		}
 
 		CSceneManager::~CSceneManager()
 		{
 			SAFE_DEL(m_pCurrentScene);
-			for (auto it = m_renderQueueGroup.begin(); it != m_renderQueueGroup.end(); ++it)
-			{
-				CSoftEngine::GetRenderer()->DestroyRenderQueue(*it);
-			}
 		}
 
-		void CSceneManager::LoadMaterial()
-		{
-			m_renderQueueGroup.clear();
-			resource::IMaterialResource *pResource = dynamic_cast<resource::IMaterialResource *>
-				(CSoftEngine::GetResourceManager()->LoadResource("materialgroup.mtl"));
-			if (pResource)
-			{
-				for (int i = 0; i < pResource->GetAttrCount(); ++i)
-				{
-					std::string materialName = pResource->GetValueByIdx(i);
-					resource::IMaterialResource *pMaterialRes = dynamic_cast<resource::IMaterialResource *>
-						(CSoftEngine::GetResourceManager()->LoadResource(materialName.c_str()));					
-					render::IRenderQueue *pRenderQueue = CSoftEngine::GetRenderer()->CreateRenderQueue(materialName.c_str());
-					m_renderQueueGroup[] = pRenderQueue;
-				}
-				CSoftEngine::GetResourceManager()->ReleaseResource(pResource);
-			}
-
-		}
 
 		IScene * CSceneManager::LoadScene(const char *filename)
 		{
 			SAFE_DEL(m_pCurrentScene);
 			m_pCurrentScene = new CScene(filename);
 			return m_pCurrentScene;
+		}
+
+		void CSceneManager::Update(int delta)
+		{
+			if (m_pCurrentScene)
+			{
+				m_pCurrentScene->Update(delta);
+
+				CSoftEngine::GetRenderer()->Render();
+			}
 		}
 
 	}

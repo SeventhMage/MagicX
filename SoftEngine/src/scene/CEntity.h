@@ -11,20 +11,20 @@
 namespace se
 {
 	namespace scene
-	{
-		class CSceneNode;
+	{		
 		class CEntity : public IEntity
 		{
 		public:
-			CEntity(const char *name, CSceneNode *pNode);
+			CEntity(const char *name, ISceneNode *pNode);
 			virtual ~CEntity();
 
 			virtual void Update(int delta);
 			virtual bool Culled(ICamera *pCamera);
 		private:
 			std::string m_strEntityName;
-			CSceneNode *m_pSceneNode;			//所属的场景结点
+			ISceneNode *m_pSceneNode;			//所属的场景结点
 			render::IRenderCell *m_pRenderCell;
+			uint m_bufferId;
 		};
 	}
 }
