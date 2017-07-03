@@ -342,6 +342,24 @@ namespace se
 
 		}
 
+		void CDeviceWin32::DrawBuffer(ubyte *buffer)
+		{
+			HDC hdc = GetDC(m_hWnd);
+
+			HDC mdc = CreateCompatibleDC(hdc);
+			CreateCompatibleBitmap(mdc, 0, 0);
+			HBITMAP hBitmap = CreateBitmap(m_iWidth, m_iHeight, 1, 32, buffer);
+			SelectObject(mdc, hBitmap);
+
+			BitBlt(hdc, 0, 0, m_iWidth, m_iHeight, mdc, 0, 0, SRCCOPY);
+			
+			::SwapBuffers(hdc);
+
+			DeleteObject(hBitmap);
+			DeleteDC(mdc);
+			DeleteDC(hdc);
+		}
+
 
 	}
 }

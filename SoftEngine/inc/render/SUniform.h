@@ -13,6 +13,7 @@ namespace se
 			UN_WORLD_MAT,
 			UN_VIEW_MAT,
 			UN_PROJ_MAT,
+			UN_CAM_POS,
 
 			UN_COUNT,
 		};

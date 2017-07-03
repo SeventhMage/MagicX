@@ -33,10 +33,7 @@ namespace se
 		}
 
 		void CEntity::Update(int delta)
-		{
-			//加入到渲染队列
-			CSoftEngine::GetRenderer()->SubmitRenderCell(m_pRenderCell);
-
+		{			
 			//更新矩阵等uniform
 			const CMatrix4 &worldMat = m_pSceneNode->GetAbsluateMatrix();
 			IScene *pScene = CSoftEngine::GetSceneManager()->GetCurrentScene();
@@ -45,14 +42,21 @@ namespace se
 				ICamera *pCamera = pScene->GetCamera();
 				if (pCamera)
 				{
-					const CMatrix4 &viewMat = pCamera->GetViewMatrix();
-					const CMatrix4 &ProjMat = pCamera->GetProjectionMatrix();
-					CSoftEngine::GetRenderer()->UpdateUniform(render::U_MAT, render::UN_WORLD_MAT, 
-						(ubyte *)worldMat.m, sizeof(worldMat.m));
-					CSoftEngine::GetRenderer()->UpdateUniform(render::U_MAT, render::UN_VIEW_MAT,
-						(ubyte *)worldMat.m, sizeof(&viewMat.m));
-					CSoftEngine::GetRenderer()->UpdateUniform(render::U_MAT, render::UN_PROJ_MAT,
-						(ubyte *)worldMat.m, sizeof(ProjMat.m));
+					if (!Culled(pCamera))
+					{
+						const CMatrix4 &viewMat = pCamera->GetViewMatrix();
+						const CMatrix4 &ProjMat = pCamera->GetProjectionMatrix();
+						CSoftEngine::GetRenderer()->UpdateUniform(render::UN_WORLD_MAT,
+							(ubyte *)worldMat.m, sizeof(worldMat.m));
+						CSoftEngine::GetRenderer()->UpdateUniform(render::UN_VIEW_MAT,
+							(ubyte *)worldMat.m, sizeof(&viewMat.m));
+						CSoftEngine::GetRenderer()->UpdateUniform(render::UN_PROJ_MAT,
+							(ubyte *)worldMat.m, sizeof(ProjMat.m));
+
+						//加入到渲染队列
+						CSoftEngine::GetRenderer()->SubmitRenderCell(m_pRenderCell);
+					}
+
 				}
 			}
 		}

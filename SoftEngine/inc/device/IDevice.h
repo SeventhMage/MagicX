@@ -32,6 +32,7 @@ namespace se
 			virtual long GetSystemRunTime() = 0;
 			virtual void Sleep(unsigned long ms) = 0;
 			virtual void OnSize(int iPosX, int iPosY, int iWidth, int iHeight) = 0;
+			virtual void DrawBuffer(ubyte *buffer){}
 
 			virtual bool Run() = 0;
 		};

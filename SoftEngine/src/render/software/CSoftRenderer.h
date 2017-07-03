@@ -7,6 +7,8 @@
 #include "base/CSingleton.h"
 #include "render/IRenderQueue.h"
 #include "math/CMatrix4.h"
+#include "render/SRenderMemory.h"
+#include "../STriangleMesh.h"
 
 namespace se
 {
@@ -32,24 +34,28 @@ namespace se
 				uint indicesSize						//索引数据尺寸
 				) = 0;
 
-			virtual void UpdateUniform(EUniform type, EUniformName name, ubyte *data, uint size);
+			virtual void UpdateUniform(EUniformName name, ubyte *data, uint size);
 			virtual void SubmitRenderCell(IRenderCell *pCell);
 
 			virtual void Clear();
 			virtual void Render();
-			virtual void Render(uint materialId, uint bufferId, uint textureId);
-
-			virtual void SetRenderMemory(ubyte *addr){ m_renderAddr = addr; }
-		private:
+			virtual void Render(uint materialId, uint bufferId, uint textureId);			
+		private:			
+			void TranslateWorldToCamera(TriangleList &triList);
+			void TranslateCameraToScreen(TriangleList &triList);
+			bool BackCulling(const Triangle &triangle);	//背面剔除
+			bool TriangleSort(const Triangle &t1, const Triangle &t2);						//三角形排序函数
+			void VertexLightCalc(TriangleList &triList);
 			void LoadMaterial();
 		private:
 			CSoftRenderDriver *m_pSoftRD;
 			RenderQueueGroup m_renderQueueGroup;
 			std::map<int, IBuffer *> m_mapCPUBuffer;
-			math::CMatrix4 m_modelMatrix;
+			math::CMatrix4 m_worldMatrix;
 			math::CMatrix4 m_viewMatrix;
 			math::CMatrix4 m_projMatrix;
-			ubyte *m_renderAddr;
+			math::CMatrix4 m_normalMatrix;		
+			math::CVector3 m_cameraPos;
 		};
 	}
 }

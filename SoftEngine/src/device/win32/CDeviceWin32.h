@@ -22,7 +22,8 @@ namespace se
 			virtual long GetSystemRunTime();
 			virtual void Sleep(unsigned long ms);
 			virtual void OnSize(int iPosX, int iPosY, int iWidth, int iHeight);
-		
+			virtual void DrawBuffer(ubyte *buffer);
+			
 			virtual bool Run();
 
 			HWND GetHWnd() { return m_hWnd; }

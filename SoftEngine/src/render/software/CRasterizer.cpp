@@ -15,5 +15,10 @@ namespace se
 
 		}
 
+		void CRasterizer::DrawTriangle(ubyte *drawBuffer, uint width, uint height, const Triangle &triangle)
+		{
+
+		}
+
 	}
 }

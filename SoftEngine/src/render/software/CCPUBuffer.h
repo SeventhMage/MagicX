@@ -15,13 +15,11 @@ namespace se
 			virtual ~CCPUBuffer();
 			virtual uint GetID()const{ return m_ID; }
 			virtual EBufferType GetBufferType()const { return BT_CPU; }
-			virtual void BufferData(const SIndexData &bufferData);
-			virtual IndexData *GetIndexData();
-			virtual VertexData *GetVertexData();
+			virtual void BufferData(const Vertices &bufferData);
+			virtual Vertices *GetVertices() { return m_pVertices; };
 		private:
-			uint m_ID;			
-			IndexData *m_pIndexData;
-			VertexData *m_pVertexData;
+			uint m_ID;						
+			Vertices *m_pVertices;
 		};
 	}
 }

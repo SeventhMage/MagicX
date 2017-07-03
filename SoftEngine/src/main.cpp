@@ -28,9 +28,7 @@ int main(int argc, char *argv[])
 			next_game_tick = GetTickCount() + SKIP_TICKS;
 
 			scene->Update(SKIP_TICKS - sleep_time);
-			scene->Draw();
-
-			device->SwapBuffers();
+			scene->Draw();			
 		}
 		else
 		{

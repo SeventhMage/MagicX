@@ -19,9 +19,8 @@ namespace se
 			virtual ~IBuffer(){}
 			virtual uint GetID()const = 0;
 			virtual EBufferType GetBufferType()const = 0;
-			virtual void BufferData(const SIndexData &) = 0;
-			virtual IndexData *GetIndexData() = 0;
-			virtual VertexData *GetVertexData() = 0;
+			virtual void BufferData(const Vertices&) = 0;
+			virtual Vertices *GetVertices() = 0;
 		};
 	}
 }

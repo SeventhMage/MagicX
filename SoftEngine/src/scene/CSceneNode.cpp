@@ -126,14 +126,8 @@ namespace se
 		}
 
 		void CSceneNode::Update(int delta)
-		{
-			bool bCulled = false;
-			if (m_pParentScene && m_pEntity)
-			{
-				bCulled = m_pEntity->Culled(m_pParentScene->GetCamera());				
-			}
-			
-			if (IsVisible() && !bCulled)
+		{			
+			if (IsVisible())
 			{
 				if (m_bNeedUpdate)
 				{
