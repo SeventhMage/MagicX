@@ -153,6 +153,9 @@
     <ClCompile Include="..\..\src\render\software\CRasterizer.cpp">
       <Filter>src\render\software</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\render\STriangleMesh.cpp">
+      <Filter>src\render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\device\IDevice.h">
@@ -394,6 +397,12 @@
     </ClInclude>
     <ClInclude Include="..\..\src\render\software\CRasterizer.h">
       <Filter>src\render\software</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\STriangleMesh.h">
+      <Filter>src\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\SRenderMemory.h">
+      <Filter>inc\render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

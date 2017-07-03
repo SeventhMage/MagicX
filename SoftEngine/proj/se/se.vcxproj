@@ -92,6 +92,7 @@
     <ClCompile Include="..\..\src\render\CRenderCell.cpp" />
     <ClCompile Include="..\..\src\render\CRenderQueue.cpp" />
     <ClCompile Include="..\..\src\render\CTextureManager.cpp" />
+    <ClCompile Include="..\..\src\render\STriangleMesh.cpp" />
     <ClCompile Include="..\..\src\render\software\CCPUBuffer.cpp" />
     <ClCompile Include="..\..\src\render\software\CRasterizer.cpp" />
     <ClCompile Include="..\..\src\render\software\CSoftRenderDriver.cpp" />
@@ -132,6 +133,7 @@
     <ClInclude Include="..\..\inc\math\CQuaternion.h" />
     <ClInclude Include="..\..\inc\math\CVector2.h" />
     <ClInclude Include="..\..\inc\math\CVector3.h" />
+    <ClInclude Include="..\..\inc\render\SRenderMemory.h" />
     <ClInclude Include="..\..\inc\render\SUniform.h" />
     <ClInclude Include="..\..\inc\render\IBuffer.h" />
     <ClInclude Include="..\..\inc\render\IMaterialManager.h" />
@@ -174,6 +176,7 @@
     <ClInclude Include="..\..\src\render\CRenderCell.h" />
     <ClInclude Include="..\..\src\render\CRenderQueue.h" />
     <ClInclude Include="..\..\src\render\CTextureManager.h" />
+    <ClInclude Include="..\..\src\render\STriangleMesh.h" />
     <ClInclude Include="..\..\src\render\software\CCPUBuffer.h" />
     <ClInclude Include="..\..\src\render\software\CRasterizer.h" />
     <ClInclude Include="..\..\src\render\software\CSoftRenderDriver.h" />
