@@ -15,13 +15,13 @@ namespace se
 			int normal;
 		};
 
-		struct SPolygon
+		typedef struct SPolygon
 		{
 			std::vector<math::CVector3> positionList;
 			std::vector<math::CVector3> normalList;
 			std::vector<math::CVector2> texCoordList;
 			std::vector<SFaceIndex> faceList;
-		};
+		}Polygon;
 
 		class IModel : public IResource
 		{
@@ -29,7 +29,7 @@ namespace se
 			virtual ~IModel(){}
 			virtual std::string GetMaterial() = 0;
 			virtual std::string GetTexture() = 0;
-			virtual SPolygon &GetPolygon() = 0;
+			virtual const SPolygon &GetPolygon() = 0;
 		};
 	}
 }

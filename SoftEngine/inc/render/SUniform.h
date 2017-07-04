@@ -30,18 +30,60 @@ namespace se
 		};
 
 
-		enum EUniform
+		enum UniformFormat
 		{
-			U_MAT,
+			UF_UNKNOWN,
+			UF_INT,
+			UF_FLOAT,
+			UF_VEC2,
+			UF_VEC3,
+			UF_VEC4,
+			UF_MAT3,
+			UF_MAT4,
+			UF_TEXTURE,
 		};
 
-		typedef struct SUniform
+
+		struct Uniform
 		{
-			char name[64];
-			EUniform type;
-			int size;
-			ubyte *data;
-		}Uniform;
+			char m_name[MAX_FILE_NAME];
+			int m_location;
+			UniformFormat m_format;
+			int m_count;
+			int m_size;
+			byte *m_value;
+			bool m_bDirty;
+			Uniform()
+				: m_location(0)
+				, m_format(UF_UNKNOWN)
+				, m_count(0)
+				, m_size(0)
+				, m_value(NULL)
+				, m_bDirty(false)
+			{
+				memset(m_name, 0, sizeof(m_name));
+			}
+			~Uniform()
+			{
+				SAFE_DEL(m_value);
+			}
+
+			void SetValue(const void *value)
+			{
+				if (value && m_size > 0)
+				{
+					if (!m_value)
+					{
+						m_value = new byte[m_size];
+					}
+					memcpy(m_value, value, m_size);
+					Dirty(true);
+				}
+			}
+			inline void Dirty(bool bDirty) { m_bDirty = bDirty; }
+			inline bool IsDirty() const { return m_bDirty; }
+		};
+
 
 	}
 }

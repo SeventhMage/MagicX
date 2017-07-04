@@ -114,8 +114,10 @@
     <ClCompile Include="..\..\src\scene\light\CPointLight.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\inc\base\base.h" />
     <ClInclude Include="..\..\inc\base\CSingleton.h" />
     <ClInclude Include="..\..\inc\base\Log.h" />
+    <ClInclude Include="..\..\inc\base\SColor.h" />
     <ClInclude Include="..\..\inc\base\seDef.h" />
     <ClInclude Include="..\..\inc\base\seType.h" />
     <ClInclude Include="..\..\inc\base\StringHelper.h" />
@@ -133,6 +135,7 @@
     <ClInclude Include="..\..\inc\math\CQuaternion.h" />
     <ClInclude Include="..\..\inc\math\CVector2.h" />
     <ClInclude Include="..\..\inc\math\CVector3.h" />
+    <ClInclude Include="..\..\inc\render\IUniform.h" />
     <ClInclude Include="..\..\inc\render\SRenderMemory.h" />
     <ClInclude Include="..\..\inc\render\SUniform.h" />
     <ClInclude Include="..\..\inc\render\IBuffer.h" />

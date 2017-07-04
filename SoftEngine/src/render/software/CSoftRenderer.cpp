@@ -175,9 +175,9 @@ namespace se
 								triangle.vPosition[index].y = pVertices->pVertexData[i * pVertices->stride + it->offset + 1];
 								triangle.vPosition[index].z = pVertices->pVertexData[i * pVertices->stride + it->offset + 2];
 							case VA_COLOR:
-								triangle.vColor[index].x = pVertices->pVertexData[i * pVertices->stride + it->offset];
-								triangle.vColor[index].y = pVertices->pVertexData[i * pVertices->stride + it->offset + 1];
-								triangle.vColor[index].z = pVertices->pVertexData[i * pVertices->stride + it->offset + 2];
+								triangle.vertexColor[index].r = pVertices->pVertexData[i * pVertices->stride + it->offset];
+								triangle.vertexColor[index].g = pVertices->pVertexData[i * pVertices->stride + it->offset + 1];
+								triangle.vertexColor[index].b = pVertices->pVertexData[i * pVertices->stride + it->offset + 2];
 							case VA_TEXCOORD:
 								triangle.vTexCoord[index].x = pVertices->pVertexData[i * pVertices->stride + it->offset];
 								triangle.vTexCoord[index].y = pVertices->pVertexData[i * pVertices->stride + it->offset + 1];
@@ -242,11 +242,19 @@ namespace se
 
 		void CSoftRenderer::TranslateCameraToScreen(TriangleList &triList)
 		{
+			float width = (0.5 * m_pSoftRD->GetBufferWidth() - 0.5);
+			float height = (0.5 * m_pSoftRD->GetBufferHeight() - 0.5);
+
 			for (auto it = triList.begin(); it != triList.end(); ++it)
 			{
 				for (int i = 1; i < 3; ++i)
 				{
 					m_projMatrix.TransformVect(it->vTranslatePosition[i], it->vPosition[i]);
+					it->vTranslatePosition[i].x /= it->vTranslatePosition[i].z;
+					it->vTranslatePosition[i].y /= it->vTranslatePosition[i].z;
+
+					it->vTranslatePosition[i].x += width;
+					it->vTranslatePosition[i].y = height - it->vTranslatePosition[i].y;
 				}
 			}
 		}

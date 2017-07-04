@@ -404,5 +404,14 @@
     <ClInclude Include="..\..\inc\render\SRenderMemory.h">
       <Filter>inc\render</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\inc\base\base.h">
+      <Filter>inc\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\base\SColor.h">
+      <Filter>inc\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\IUniform.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

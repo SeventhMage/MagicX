@@ -19,6 +19,8 @@ namespace se
 
 				 m_bufferId = CSoftEngine::GetRenderer()->CreateBuffer();
 				 
+				 const resource::Polygon &polygon = pModel->GetPolygon();
+
 				 //提交顶点数据到渲染器
 				 //CSoftEngine::GetRenderer()->BufferData();
 

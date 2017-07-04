@@ -8,6 +8,12 @@ namespace se
 		class CVector2
 		{
 		public:
+			float getLength() const { return static_cast<float>(sqrt(x * x + y * y)); }
+			float getDistanceFrom(const CVector2 &other) const
+			{
+				return CVector2(x - other.x, y - other.y).getLength();				
+			}
+
 			CVector2(float x, float y) :x(x), y(y){}
 			CVector2() :x(0), y(0){}
 			union
@@ -18,6 +24,7 @@ namespace se
 					float x, y;
 				};
 			};
+
 		};
 	}
 }

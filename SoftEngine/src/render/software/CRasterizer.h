@@ -1,7 +1,7 @@
 #ifndef _RENDER_C_RASTERIZER_H_
 #define _RENDER_C_RASTERIZER_H_
 
-#include "base/seType.h"
+#include "base/base.h"
 #include "math/CVector3.h"
 #include "math/CVector2.h"
 #include "../STriangleMesh.h"
@@ -17,6 +17,15 @@ namespace se
 			~CRasterizer();
 			
 			static void DrawTriangle(ubyte *drawBuffer, uint width, uint height, const Triangle &triangle);
+		private:
+			static void DrawTopTriangle(ubyte *drawBuffer, uint width, uint height, 
+				const CVector2 &p0, const CVector2 &t0, const base::SColor &c0,
+				const CVector2 &p1, const CVector2 &t1, const base::SColor &c1,
+				const CVector2 &p2, const CVector2 &t2, const base::SColor &c2);
+			static void DrawBottomTriangle(ubyte *drawBuffer, uint width, uint height,
+				const CVector2 &p0, const CVector2 &t0, const base::SColor &c0,
+				const CVector2 &p1, const CVector2 &t1, const base::SColor &c1,
+				const CVector2 &p2, const CVector2 &t2, const base::SColor &c2);
 		};
 	}
 }

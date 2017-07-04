@@ -43,7 +43,7 @@ namespace se
 		private:			
 			void TranslateWorldToCamera(TriangleList &triList);
 			void TranslateCameraToScreen(TriangleList &triList);
-			bool BackCulling(const Triangle &triangle);	//±³ÃæÌÞ³ý
+			bool BackCulling(const Triangle &triangle);										//±³ÃæÌÞ³ý
 			bool TriangleSort(const Triangle &t1, const Triangle &t2);						//Èý½ÇÐÎÅÅÐòº¯Êý
 			void VertexLightCalc(TriangleList &triList);
 			void LoadMaterial();
