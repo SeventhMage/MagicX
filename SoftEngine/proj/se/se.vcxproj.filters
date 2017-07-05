@@ -156,6 +156,9 @@
     <ClCompile Include="..\..\src\render\STriangleMesh.cpp">
       <Filter>src\render</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\render\CShaderProgram.cpp">
+      <Filter>src\render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\device\IDevice.h">
@@ -412,6 +415,12 @@
     </ClInclude>
     <ClInclude Include="..\..\inc\render\IUniform.h">
       <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\IShaderProgram.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\CShaderProgram.h">
+      <Filter>src\render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
