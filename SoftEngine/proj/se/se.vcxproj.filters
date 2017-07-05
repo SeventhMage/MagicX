@@ -90,9 +90,6 @@
     <ClCompile Include="..\..\src\resource\CSceneLoader.cpp">
       <Filter>src\resource</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\resource\COBJLoader.cpp">
-      <Filter>src\resource</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\scene\CSceneNode.cpp">
       <Filter>src\scene</Filter>
     </ClCompile>
@@ -110,9 +107,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\scene\light\CPointLight.cpp">
       <Filter>src\scene\light</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\resource\CModel.cpp">
-      <Filter>src\resource</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\base\StringHelper.cpp">
       <Filter>src\base</Filter>
@@ -156,8 +150,14 @@
     <ClCompile Include="..\..\src\render\STriangleMesh.cpp">
       <Filter>src\render</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\render\CShaderProgram.cpp">
-      <Filter>src\render</Filter>
+    <ClCompile Include="..\..\src\scene\CModel.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\resource\COBJResource.cpp">
+      <Filter>src\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\software\CSoftShaderProgram.cpp">
+      <Filter>src\render\software</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -308,9 +308,6 @@
     <ClInclude Include="..\..\src\resource\CSceneLoader.h">
       <Filter>src\resource</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\resource\COBJLoader.h">
-      <Filter>src\resource</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\scene\CSceneNode.h">
       <Filter>src\scene</Filter>
     </ClInclude>
@@ -331,12 +328,6 @@
     </ClInclude>
     <ClInclude Include="..\..\src\scene\light\CPointLight.h">
       <Filter>src\scene\light</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\resource\CModel.h">
-      <Filter>src\resource</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\inc\resource\IModel.h">
-      <Filter>inc\resource</Filter>
     </ClInclude>
     <ClInclude Include="..\..\inc\base\StringHelper.h">
       <Filter>inc\base</Filter>
@@ -389,13 +380,7 @@
     <ClInclude Include="..\..\src\render\CRenderCell.h">
       <Filter>src\render</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\render\VertexAttribute.h">
-      <Filter>inc\render</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\inc\render\IBuffer.h">
-      <Filter>inc\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\inc\render\SUniform.h">
       <Filter>inc\render</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\render\software\CRasterizer.h">
@@ -410,17 +395,41 @@
     <ClInclude Include="..\..\inc\base\base.h">
       <Filter>inc\base</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\base\SColor.h">
-      <Filter>inc\base</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\inc\render\IUniform.h">
       <Filter>inc\render</Filter>
     </ClInclude>
     <ClInclude Include="..\..\inc\render\IShaderProgram.h">
       <Filter>inc\render</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\render\CShaderProgram.h">
-      <Filter>src\render</Filter>
+    <ClInclude Include="..\..\inc\render\SColor.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\SVertex.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\base\EVariableType.h">
+      <Filter>inc\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\scene\IModel.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\scene\CModel.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\base\VertexAttribute.h">
+      <Filter>inc\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\resource\IOBJResource.h">
+      <Filter>inc\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\resource\COBJResource.h">
+      <Filter>src\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\software\CSoftShaderProgram.h">
+      <Filter>src\render\software</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\UniformDef.h">
+      <Filter>inc\render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
