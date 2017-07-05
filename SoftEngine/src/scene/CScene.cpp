@@ -13,7 +13,7 @@ namespace se
 		CScene::CScene(const char *name)
 			:m_strSceneName(name)
 			, m_pCamera(nullptr)
-			, m_pRootNode(new CSceneNode("", this))			
+			, m_pRootNode(new CSceneNode(this))			
 		{
 			memset(m_pLights, 0, sizeof(ILight *)* MAX_LIGHT_NUM);
 
@@ -103,11 +103,6 @@ namespace se
 			if (slot < 0 || slot > MAX_LIGHT_NUM)
 				return nullptr;
 			return m_pLights[slot];
-		}
-
-		void CScene::Draw()
-		{
-
 		}
 
 	}

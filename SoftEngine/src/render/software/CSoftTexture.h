@@ -13,7 +13,7 @@ namespace se
 			CSoftTexture(int id);
 			virtual ~CSoftTexture();
 
-
+			virtual ubyte *GetData(){ return nullptr; }
 		};
 	}
 }

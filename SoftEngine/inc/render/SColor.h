@@ -1,11 +1,11 @@
-#ifndef _BASE_S_COLOR_H_
-#define _BASE_S_COLOR_H_
+#ifndef _RENDER_S_COLOR_H_
+#define _RENDER_S_COLOR_H_
 
 namespace se
 {
-	namespace base
+	namespace render
 	{
-		struct SColor
+		typedef struct SColor
 		{
 			SColor()
 			:a(1), r(0), g(0), b(0)
@@ -24,7 +24,7 @@ namespace se
 				};
 				float c[4];
 			};
-		};
+		}Color;
 	}
 }
 

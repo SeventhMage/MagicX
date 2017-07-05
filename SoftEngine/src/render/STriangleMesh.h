@@ -3,7 +3,7 @@
 
 #include "math/CVector3.h"
 #include "math/CVector2.h"
-#include "base/SColor.h"
+#include "render/SColor.h"
 
 #include <vector>
 
@@ -24,7 +24,7 @@ namespace se
 			CVector3 vPosition[3];
 			CVector3 vNormal[3];
 			CVector2 vTexCoord[3];
-			base::SColor vertColor[3];
+			SColor vertColor[3];
 		}TriangleFace;
 
 		typedef struct STriangleMesh
@@ -37,7 +37,7 @@ namespace se
 			CVector3 vNormal[3];
 			CVector3 vTranslateNormal[3];
 			CVector2 vTexCoord[3];
-			base::SColor vertexColor[3];
+			SColor vertexColor[3];
 		}Triangle;
 
 		typedef std::vector<Triangle> TriangleList;

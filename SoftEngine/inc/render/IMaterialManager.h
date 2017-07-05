@@ -2,6 +2,7 @@
 #define _RENDER_I_MATERIAL_MANAGER_H_
 
 #include "IMaterial.h"
+#include "base/seType.h"
 
 namespace se
 {

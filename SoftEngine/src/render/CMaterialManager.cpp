@@ -3,6 +3,7 @@
 #include "CSoftEngine.h"
 #include "CMaterial.h"
 #include "base/StringHelper.h"
+#include "render/SColor.h"
 
 namespace se
 {
@@ -35,13 +36,15 @@ namespace se
 				StringArray colorArray = base::Split(strColor, ",");
 				if (colorArray.size() >= 3)
 				{
-					pMaterial->SetColor(math::CVector3(atoi(colorArray[0].c_str()), atoi(colorArray[1].c_str()),
-						atoi(colorArray[2].c_str())));
+					pMaterial->SetColor(render::Color(1.0f, atof(colorArray[0].c_str()), atof(colorArray[1].c_str()),
+						atof(colorArray[2].c_str())));
 				}
 				std::string strIllumination = pMaterialResource->GetValue(resource::MRA_ILLUMINATION);
 				pMaterial->SetIllumination(strIllumination);
-				m_mapMaterial[filename] = pMaterial;
+				m_mapMaterial[materialId] = pMaterial;
+				return materialId;
 			}
+			return 0;
 		}
 
 		int CMaterialManager::GetMaterialID(const char *filename)
@@ -57,7 +60,7 @@ namespace se
 					}
 				}
 			}
-
+			return 0;
 		}
 
 		IMaterial * CMaterialManager::GetMaterial(uint materialId)

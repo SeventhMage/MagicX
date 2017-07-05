@@ -1,7 +1,7 @@
 #include "CEntity.h"
 #include "CSoftEngine.h"
-#include "resource/IModel.h"
-#include "render/SUniform.h"
+#include "render/UniformDef.h"
+#include "CModel.h"
 
 namespace se
 {
@@ -9,29 +9,29 @@ namespace se
 	{
 		CEntity::CEntity(const char *name, ISceneNode *pNode)
 			:m_strEntityName(name)
-			, m_pSceneNode(pNode)		
-			, m_pRenderCell(nullptr)
+			, m_pSceneNode(pNode)					
 		{
-			 resource::IModel *pModel = dynamic_cast<resource::IModel *>(CSoftEngine::GetResourceManager()->LoadResource(name));
-			 if (pModel)
+			m_pModel = new CModel(name);						 
+			 if (m_pModel)
 			 {
-				 int materialId = CSoftEngine::GetMaterialManager()->GetMaterialID(pModel->GetMaterial().c_str());
+				 int materialId = CSoftEngine::GetMaterialManager()->GetMaterialID(m_pModel->GetMaterialName().c_str());
 
 				 m_bufferId = CSoftEngine::GetRenderer()->CreateBuffer();
-				 
-				 const resource::Polygon &polygon = pModel->GetPolygon();
-
+				 			
 				 //提交顶点数据到渲染器
-				 //CSoftEngine::GetRenderer()->BufferData();
+				 CSoftEngine::GetRenderer()->BufferData(m_bufferId, m_pModel->GetVertices(), m_pModel->GetIndices());				 
 
-
-				 CSoftEngine::GetResourceManager()->ReleaseResource(pModel);
+				 m_pRenderCell = CSoftEngine::GetRenderer()->CreateRenderCell(m_bufferId, materialId, 0);
 			 }
+			 
 		}
 
 		CEntity::~CEntity()
 		{
 			CSoftEngine::GetRenderer()->DestroyBuffer(m_bufferId);
+			CSoftEngine::GetRenderer()->DestroyRenderCell(m_pRenderCell);
+
+			SAFE_DEL(m_pModel);
 		}
 
 		void CEntity::Update(int delta)

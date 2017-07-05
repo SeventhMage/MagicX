@@ -21,40 +21,30 @@ namespace se
 			virtual ~CSoftRenderer();
 
 			virtual IRenderDriver *GetRenderDriver() { return m_pSoftRD; }	
-			virtual RenderDriverType GetRenderDriverType() { m_pSoftRD->GetDriverType(); }
-
+			virtual RenderDriverType GetRenderDriverType() { return m_pSoftRD->GetDriverType(); }
+			virtual IRenderCell *CreateRenderCell(uint bufferId, uint materialId, uint textureId);
+			virtual void DestroyRenderCell(IRenderCell *pCell);
 			virtual uint CreateBuffer();
-			virtual void DestroyBuffer(uint bufferId);
-			virtual void BufferData(uint bufferId,
-				ubyte *vertices,						//顶点数据				
-				uint vertSize,							//顶点数据尺寸
-				int count,								//顶点数量
-				VertexFormat format,					//顶点属性格式
-				ubyte *indices,							//索引数据
-				uint indicesSize						//索引数据尺寸
-				) = 0;
-
+			virtual void DestroyBuffer(uint bufferId);			
+			virtual void BufferData(uint bufferId, base::Vertices *pVertices, base::Indices *pIndices = nullptr);
 			virtual void SubmitRenderCell(IRenderCell *pCell);
+
+			virtual IShaderProgram *CreateShaderProgram();
+			virtual void DestroyShaderProgram(IShaderProgram *pShaderProgram);
 
 			virtual void Clear();
 			virtual void Render();
 			virtual void Render(IShaderProgram *pShaderProgram, uint materialId, uint bufferId, uint textureId);			
 		private:			
-			void TranslateWorldToCamera(TriangleList &triList);
-			void TranslateCameraToScreen(TriangleList &triList);
-			bool BackCulling(const Triangle &triangle);										//背面剔除
-			bool TriangleSort(const Triangle &t1, const Triangle &t2);						//三角形排序函数
+			void TranslateWorldToCamera(const CMatrix4 &viewMat, Triangle &triangle);
+			void TranslateCameraToScreen(const CMatrix4 &projMat, TriangleList &triList);
+			bool BackCulling(const Triangle &triangle);										//背面剔除			
 			void VertexLightCalc(TriangleList &triList);
 			void LoadMaterial();
 		private:
 			CSoftRenderDriver *m_pSoftRD;
 			RenderQueueGroup m_renderQueueGroup;
 			std::map<int, IBuffer *> m_mapCPUBuffer;
-			math::CMatrix4 m_worldMatrix;
-			math::CMatrix4 m_viewMatrix;
-			math::CMatrix4 m_projMatrix;
-			math::CMatrix4 m_normalMatrix;		
-			math::CVector3 m_cameraPos;
 		};
 	}
 }

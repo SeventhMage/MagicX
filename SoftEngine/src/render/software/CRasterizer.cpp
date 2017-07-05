@@ -26,9 +26,9 @@ namespace se
 			CVector2 t1 = triangle.vTexCoord[1];
 			CVector2 t2 = triangle.vTexCoord[2];
 
-			base::SColor c0 = triangle.vertexColor[0];
-			base::SColor c1 = triangle.vertexColor[1];
-			base::SColor c2 = triangle.vertexColor[2];
+			render::SColor c0 = triangle.vertexColor[0];
+			render::SColor c1 = triangle.vertexColor[1];
+			render::SColor c2 = triangle.vertexColor[2];
 
 			//Ö±Ïß
 			if ((FLOAT_EQUAL(p0.y, p1.y) && FLOAT_EQUAL(p0.y, p2.y)) ||
@@ -75,7 +75,7 @@ namespace se
 
 				float rate = newPoint.getDistanceFrom(p0) / p0.getDistanceFrom(p1);
 
-				base::SColor newColor(c0.a * rate + c2.a * (1 - rate), c0.r * rate + c2.r * (1 - rate), 
+				render::SColor newColor(c0.a * rate + c2.a * (1 - rate), c0.r * rate + c2.r * (1 - rate), 
 					c0.g * rate + c2.g * (1 - rate), c0.b * rate + c2.b * (1 - rate));
 
 				DrawTopTriangle(drawBuffer, width, height, p0, t0, c0, p1, t1, c1, newPoint, newTexCoord, newColor);
@@ -83,7 +83,7 @@ namespace se
 			}
 		}
 
-		void CRasterizer::DrawTopTriangle(ubyte *drawBuffer, uint width, uint height, const CVector2 &p0, const CVector2 &t0, const base::SColor &c0, const CVector2 &p1, const CVector2 &t1, const base::SColor &c1, const CVector2 &p2, const CVector2 &t2, const base::SColor &c2)
+		void CRasterizer::DrawTopTriangle(ubyte *drawBuffer, uint width, uint height, const CVector2 &p0, const CVector2 &t0, const render::SColor &c0, const CVector2 &p1, const CVector2 &t1, const render::SColor &c1, const CVector2 &p2, const CVector2 &t2, const render::SColor &c2)
 		{
 			float dx01 = (p0.x - p1.x) / (p0.y - p1.y);
 			float dx02 = (p0.x - p2.x) / (p0.y - p2.y);
@@ -98,7 +98,7 @@ namespace se
 			}
 		}
 
-		void CRasterizer::DrawBottomTriangle(ubyte *drawBuffer, uint width, uint height, const CVector2 &p0, const CVector2 &t0, const base::SColor &c0, const CVector2 &p1, const CVector2 &t1, const base::SColor &c1, const CVector2 &p2, const CVector2 &t2, const base::SColor &c2)
+		void CRasterizer::DrawBottomTriangle(ubyte *drawBuffer, uint width, uint height, const CVector2 &p0, const CVector2 &t0, const render::SColor &c0, const CVector2 &p1, const CVector2 &t1, const render::SColor &c1, const CVector2 &p2, const CVector2 &t2, const render::SColor &c2)
 		{
 			float dx12 = (p1.x - p2.x) / (p1.y - p2.y);
 			float dx02 = (p0.x - p2.x) / (p0.y - p2.y);

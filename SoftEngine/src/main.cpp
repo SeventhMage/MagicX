@@ -26,9 +26,8 @@ int main(int argc, char *argv[])
 		if (sleep_time <= 0)
 		{
 			next_game_tick = GetTickCount() + SKIP_TICKS;
-
-			scene->Update(SKIP_TICKS - sleep_time);
-			scene->Draw();			
+			
+			sceneMgr->Update(SKIP_TICKS - sleep_time);
 		}
 		else
 		{

@@ -2,7 +2,7 @@
 #include "CResourceManager.h"
 #include "CSceneResource.h"
 #include "CMaterialResource.h"
-#include "CModel.h"
+#include "COBJResource.h"
 
 
 
@@ -22,9 +22,9 @@ namespace se
 			}
 			else if (extName == "obj")
 			{
-				pResource = new CModel(filename);
+				pResource = new COBJResource(filename);
 			}
-			else if (extName == "mlt")
+			else if (extName == "mtl")
 			{
 				pResource = new CMaterialResource(filename);
 			}

@@ -16,5 +16,15 @@ namespace se
 
 		}
 
+		void CMaterial::SetColor(const Color &color)
+		{
+			m_color = color;
+		}
+
+		void CMaterial::SetIllumination(const std::string &illumination)
+		{
+			m_strIllumination = illumination;
+		}
+
 	}
 }

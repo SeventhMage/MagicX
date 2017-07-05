@@ -11,6 +11,18 @@ namespace se
 
 		using namespace math;
 
+
+		CSceneNode::CSceneNode(CScene *pScene)
+			:m_pParentScene(pScene)
+			, m_pEntity(nullptr)
+			, m_pParentNode(nullptr)
+			, m_bNeedUpdate(true)
+			, m_bVisible(true)
+		{
+
+		}
+
+
 		CSceneNode::CSceneNode(const char *entityName, CScene *pScene)
 			:m_pEntity(new CEntity(entityName, this))
 			, m_pParentScene(pScene)
@@ -151,10 +163,10 @@ namespace se
 
 		void CSceneNode::AddChildNode(ISceneNode *pNode)
 		{
-			if (std::find(m_vecChildNode.begin(), m_vecChildNode.end(), pNode) != m_vecChildNode.end())
+			if (std::find(m_vecChildNode.begin(), m_vecChildNode.end(), pNode) == m_vecChildNode.end())
 			{
 				m_vecChildNode.push_back(pNode);
-				pNode->SetParent(pNode);
+				pNode->SetParent(this);
 			}
 		}
 
@@ -166,7 +178,7 @@ namespace se
 				{
 					GetParent()->RemoveChildNode(this);
 				}
-				SetParent(pNode);
+				m_pParentNode = pNode;
 			}
 		}
 

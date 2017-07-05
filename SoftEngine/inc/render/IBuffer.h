@@ -2,7 +2,7 @@
 #define _RENDER_I_BUFFER_H_
 
 #include "base/seType.h"
-#include "VertexAttribute.h"
+#include "base/VertexAttribute.h"
 
 namespace se
 {
@@ -19,8 +19,10 @@ namespace se
 			virtual ~IBuffer(){}
 			virtual uint GetID()const = 0;
 			virtual EBufferType GetBufferType()const = 0;
-			virtual void BufferData(const Vertices&) = 0;
-			virtual Vertices *GetVertices() = 0;
+			virtual void BufferData(const base::Vertices *) = 0;
+			virtual void BufferData(const base::Indices *) = 0;
+			virtual base::Vertices *GetVertices() = 0;
+			virtual base::Indices *GetIndices() = 0;
 		};
 	}
 }

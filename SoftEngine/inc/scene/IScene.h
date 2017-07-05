@@ -36,8 +36,7 @@ namespace se
 			virtual ILight *SetupLight(int slot, ELightType type, float lightColor[4]) = 0;
 			virtual ILight *GetLight(int slot) = 0;
 
-			virtual void Update(int delta) = 0;
-			virtual void Draw() = 0;
+			virtual void Update(int delta) = 0;			
 		};
 	}
 }

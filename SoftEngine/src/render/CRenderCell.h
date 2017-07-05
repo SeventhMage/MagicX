@@ -12,8 +12,13 @@ namespace se
 		class CRenderCell : public IRenderCell
 		{
 		public:
-			CRenderCell();
+			CRenderCell(uint bufferId, uint materialId, uint textureId);
 			virtual ~CRenderCell();
+			virtual uint GetMaterialID()const{ return m_materialId; }
+			virtual uint GetTextureID()const { return m_textureId; }
+			virtual uint GetBufferID()const{ return m_bufferId; }
+			virtual IShaderProgram *GetShaderProgram()const{ return m_pShaderProgram; }
+
 		private:			
 			uint m_materialId;
 			uint m_bufferId;

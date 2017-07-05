@@ -21,8 +21,7 @@ namespace se
 		{
 		public:
 			virtual ~IMaterialResource(){}
-			virtual int GetAttrCount() = 0;
-			virtual std::string GetAttrByIdx(int index) = 0;
+			virtual int GetAttrCount() = 0;			
 			virtual std::string GetValueByIdx(int index) = 0;
 			virtual std::string GetValue(EMaterialResAttr attr) = 0;
 		};

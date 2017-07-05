@@ -1,5 +1,8 @@
-#include "COBJLoader.h"
+#include "COBJResource.h"
 #include "base/Log.h"
+
+#include <fstream>
+
 
 namespace se
 {
@@ -7,7 +10,7 @@ namespace se
 	{
 
 
-		COBJLoader::COBJLoader(const char *filename)
+		COBJResource::COBJResource(const char *filename)
 		{
 			std::ifstream in(filename);
 			if (in.is_open())
@@ -39,7 +42,7 @@ namespace se
 						m_texCoordList.push_back(texCoord);
 					}
 					else if ('f' == buf[0]) //Ãæ
-					{						
+					{
 						SFaceIndex faceIndex;
 						memset(&faceIndex, 0, sizeof(SFaceIndex));
 						char temp[8];
@@ -67,11 +70,12 @@ namespace se
 			}
 		}
 
-		COBJLoader::~COBJLoader()
+		COBJResource::~COBJResource()
 		{
 
 		}
-		bool COBJLoader::ReadLine(std::ifstream &in, char *out, int size)
+
+		bool COBJResource::ReadLine(std::ifstream &in, char *out, int size)
 		{
 			while (!in.eof())
 			{

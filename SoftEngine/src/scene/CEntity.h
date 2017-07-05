@@ -5,6 +5,8 @@
 #include "render/IRenderCell.h"
 #include "math/CVector3.h"
 #include "math/CVector2.h"
+#include "scene/IModel.h"
+
 #include <string>
 #include <vector>
 
@@ -24,6 +26,7 @@ namespace se
 			std::string m_strEntityName;
 			ISceneNode *m_pSceneNode;			//所属的场景结点
 			render::IRenderCell *m_pRenderCell;
+			IModel *m_pModel;
 			uint m_bufferId;
 		};
 	}

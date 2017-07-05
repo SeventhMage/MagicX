@@ -11,7 +11,7 @@ namespace se
 		{
 		public:
 			virtual ~ITexture(){}
-			virtual ubyte GetData() = 0;
+			virtual ubyte *GetData() = 0;
 		};
 	}
 }

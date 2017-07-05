@@ -6,7 +6,7 @@
 #include "seDef.h"
 #include "seDef.h"
 #include "StringHelper.h"
-#include "SColor.h"
+#include "VertexAttribute.h"
 
 namespace se
 {

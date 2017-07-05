@@ -32,8 +32,7 @@ namespace se
 			virtual ILight *SetupLight(int slot, ELightType type, float lightColor[4]);
 			virtual ILight *GetLight(int slot);
 
-			virtual void Update(int delta);
-			virtual void Draw();
+			virtual void Update(int delta);			
 		private:
 			std::string m_strSceneName;
 			CSceneNode *m_pRootNode;

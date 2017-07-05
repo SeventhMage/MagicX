@@ -51,7 +51,11 @@ namespace se
 					m_mapTexture[textureId] = pTexture;					
 				}
 				CSoftEngine::GetResourceManager()->ReleaseResource(pImage);
+
+				return textureId;
 			}
+
+			return 0;
 		}
 
 		void CTextureManager::DestroyTexture(int textureId)

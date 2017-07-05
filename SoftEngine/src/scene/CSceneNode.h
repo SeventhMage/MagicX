@@ -15,6 +15,7 @@ namespace se
 		class CSceneNode : public ISceneNode
 		{
 		public:
+			CSceneNode(CScene *pScene);
 			CSceneNode(const char *entityName, CScene *pScene);
 			virtual ~CSceneNode();
 

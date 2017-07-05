@@ -15,6 +15,7 @@ namespace se
 	render::IMaterialManager *CSoftEngine::m_pMaterialManager = nullptr;
 	resource::IResourceManager *CSoftEngine::m_pResourceMgr = nullptr;
 	scene::ISceneManager *CSoftEngine::m_pSceneMgr = nullptr;
+	render::ITextureManager *CSoftEngine::m_pTextureMgr = nullptr;
 
 	CSoftEngine::~CSoftEngine()
 	{
@@ -25,6 +26,12 @@ namespace se
 	{
 		m_pDeviceMgr = device::CDeviceManager::NewInstance();
 		
+		m_pSceneMgr = scene::CSceneManager::NewInstance();
+		m_pResourceMgr = resource::CResourceManager::NewInstance();
+
+		m_pMaterialManager = render::CMaterialManager::NewInstance();
+		m_pTextureMgr = render::CTextureManager::NewInstance();
+
 		switch (driver)
 		{
 		case se::render::RDT_SOFTWARE:
@@ -36,11 +43,7 @@ namespace se
 
 		m_pDeviceMgr->CreateDevice(device::DT_WIN32, m_pRenderer->GetRenderDriver(), x, y, width, height, fullScreen);		
 		
-		m_pSceneMgr = scene::CSceneManager::NewInstance();
-		m_pResourceMgr = resource::CResourceManager::NewInstance();
 
-		m_pMaterialManager = render::CMaterialManager::NewInstance();
-		m_pTextureMgr = render::CTextureManager::NewInstance();
 	}
 
 
