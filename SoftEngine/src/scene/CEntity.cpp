@@ -48,12 +48,16 @@ namespace se
 					{
 						const CMatrix4 &viewMat = pCamera->GetViewMatrix();
 						const CMatrix4 &ProjMat = pCamera->GetProjectionMatrix();
-						CSoftEngine::GetRenderer()->UpdateUniform(render::UN_WORLD_MAT,
-							(ubyte *)worldMat.m, sizeof(worldMat.m));
-						CSoftEngine::GetRenderer()->UpdateUniform(render::UN_VIEW_MAT,
-							(ubyte *)worldMat.m, sizeof(&viewMat.m));
-						CSoftEngine::GetRenderer()->UpdateUniform(render::UN_PROJ_MAT,
-							(ubyte *)worldMat.m, sizeof(ProjMat.m));
+						render::IShaderProgram *pShaderProgram = m_pRenderCell->GetShaderProgram();
+						if (pShaderProgram)
+						{
+							pShaderProgram->SetUniform(render::UN_WORLD_MAT,
+								(ubyte *)worldMat.m, sizeof(worldMat.m));
+							pShaderProgram->SetUniform(render::UN_VIEW_MAT,
+								(ubyte *)worldMat.m, sizeof(&viewMat.m));
+							pShaderProgram->SetUniform(render::UN_PROJ_MAT,
+								(ubyte *)worldMat.m, sizeof(ProjMat.m));
+						}								
 
 						//加入到渲染队列
 						CSoftEngine::GetRenderer()->SubmitRenderCell(m_pRenderCell);

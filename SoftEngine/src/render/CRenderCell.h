@@ -18,6 +18,7 @@ namespace se
 			uint m_materialId;
 			uint m_bufferId;
 			uint m_textureId;
+			IShaderProgram *m_pShaderProgram;
 		};
 	}
 }

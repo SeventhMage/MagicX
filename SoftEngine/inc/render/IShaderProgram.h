@@ -12,7 +12,7 @@ namespace se
 		public:
 			virtual ~IShaderProgram();
 
-			virtual void SetUniform(EUniformName uniformName, ubyte *data, uint size);
+			virtual void SetUniform(EUniformName uniformName, ubyte *data, uint size) = 0;
 		};
 	}
 }

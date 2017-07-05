@@ -34,12 +34,11 @@ namespace se
 				uint indicesSize						//Ë÷ÒýÊý¾Ý³ß´ç
 				) = 0;
 
-			virtual void UpdateUniform(EUniformName name, ubyte *data, uint size);
 			virtual void SubmitRenderCell(IRenderCell *pCell);
 
 			virtual void Clear();
 			virtual void Render();
-			virtual void Render(uint materialId, uint bufferId, uint textureId);			
+			virtual void Render(IShaderProgram *pShaderProgram, uint materialId, uint bufferId, uint textureId);			
 		private:			
 			void TranslateWorldToCamera(TriangleList &triList);
 			void TranslateCameraToScreen(TriangleList &triList);

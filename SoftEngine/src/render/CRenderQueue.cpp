@@ -36,7 +36,8 @@ namespace se
 					uint materialId = pRenderCell->GetMaterialID();
 					uint bufferId = pRenderCell->GetBufferID();					
 					uint textureId = pRenderCell->GetTextureID();
-					CSoftEngine::GetRenderer()->Render(materialId, bufferId, textureId);
+					IShaderProgram *pShaderProgram = pRenderCell->GetShaderProgram();
+					CSoftEngine::GetRenderer()->Render(pShaderProgram, materialId, bufferId, textureId);
 				}				
 			}
 		}

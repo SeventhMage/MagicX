@@ -82,30 +82,6 @@ namespace se
 			}
 		}
 
-
-
-		void CSoftRenderer::UpdateUniform(EUniformName name, ubyte *data, uint size)
-		{
-			switch (name)
-			{
-			case UN_MODEL_MAT:
-				break;
-			case UN_WORLD_MAT:
-				break;
-			case UN_VIEW_MAT:
-				memcpy(m_viewMatrix.m, data, size);
-				break;
-			case UN_PROJ_MAT:
-				memcpy(m_projMatrix.m, data, size);
-				break;						
-			case UN_CAM_POS:
-				memcpy(m_cameraPos.v, data, size);
-				break;
-			default:
-				break;
-			}
-		}
-
 		void CSoftRenderer::SubmitRenderCell(IRenderCell *pCell)
 		{
 			if (pCell)
@@ -144,7 +120,7 @@ namespace se
 			}
 		}
 
-		void CSoftRenderer::Render(uint materialId, uint bufferId, uint textureId)
+		void CSoftRenderer::Render(IShaderProgram *pShaderProgram, uint materialId, uint bufferId, uint textureId)
 		{
 			IMaterial *pMaterial = CSoftEngine::GetMaterialManager()->GetMaterial(materialId);
 			IBuffer *pBuffer = nullptr;

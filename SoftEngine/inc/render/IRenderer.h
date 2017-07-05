@@ -33,12 +33,12 @@ namespace se
 				ubyte *indices,							//索引数据
 				uint indicesSize						//索引数据尺寸
 				) = 0;			
-			virtual void UpdateUniform(EUniformName name, ubyte *data, uint size);
+	
 			virtual void SubmitRenderCell(IRenderCell *pCell) = 0;
 
 			virtual void Clear() = 0;
 			virtual void Render() = 0;
-			virtual void Render(uint materialId, uint bufferId, uint textureId) = 0;						
+			virtual void Render(IShaderProgram *pShaderProgram, uint materialId, uint bufferId, uint textureId) = 0;						
 		};
 	}
 
