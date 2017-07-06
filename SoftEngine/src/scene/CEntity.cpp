@@ -47,16 +47,16 @@ namespace se
 					if (!Culled(pCamera))
 					{
 						const CMatrix4 &viewMat = pCamera->GetViewMatrix();
-						const CMatrix4 &ProjMat = pCamera->GetProjectionMatrix();
+						const CMatrix4 &projMat = pCamera->GetProjectionMatrix();
 						render::IShaderProgram *pShaderProgram = m_pRenderCell->GetShaderProgram();
 						if (pShaderProgram)
 						{
 							pShaderProgram->SetUniform(render::UN_WORLD_MAT,
-								(ubyte *)worldMat.m, sizeof(worldMat.m));
+								(ubyte *)&worldMat.m, sizeof(worldMat.m));
 							pShaderProgram->SetUniform(render::UN_VIEW_MAT,
-								(ubyte *)worldMat.m, sizeof(&viewMat.m));
+								(ubyte *)&viewMat.m, sizeof(&viewMat.m));
 							pShaderProgram->SetUniform(render::UN_PROJ_MAT,
-								(ubyte *)worldMat.m, sizeof(ProjMat.m));
+								(ubyte *)&projMat.m, sizeof(projMat.m));
 						}								
 
 						//加入到渲染队列

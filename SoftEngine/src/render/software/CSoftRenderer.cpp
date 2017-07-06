@@ -50,7 +50,7 @@ namespace se
 		{
 			m_renderQueueGroup.clear();
 			resource::IMaterialResource *pResource = dynamic_cast<resource::IMaterialResource *>
-				(CSoftEngine::GetResourceManager()->LoadResource("materialgroup.mtl"));
+				(CSoftEngine::GetResourceManager()->LoadResource("material/materialgroup.mtl"));
 			if (pResource)
 			{
 				for (int i = 0; i < pResource->GetAttrCount(); ++i)
@@ -101,11 +101,15 @@ namespace se
 			if (pCell)
 			{
 				uint materialId = pCell->GetMaterialID();
-				IRenderQueue *pRenderQueue = m_renderQueueGroup[materialId];
-				if (pRenderQueue)
+				if (m_renderQueueGroup.find(materialId) != m_renderQueueGroup.end())
 				{
-					pRenderQueue->AddRenderCell(pCell);
-				}				
+					IRenderQueue *pRenderQueue = m_renderQueueGroup[materialId];
+					if (pRenderQueue)
+					{
+						pRenderQueue->AddRenderCell(pCell);
+					}
+				}
+			
 			}			
 		}
 
@@ -122,8 +126,7 @@ namespace se
 		}
 
 		void CSoftRenderer::Render()
-		{
-			Clear();
+		{			
 			for (auto mit = m_renderQueueGroup.begin(); mit != m_renderQueueGroup.end(); ++mit)
 			{
 				IRenderQueue *pRenderQueue = mit->second;
@@ -132,6 +135,7 @@ namespace se
 					pRenderQueue->Render();
 				}
 			}
+			Clear();
 		}
 
 		void CSoftRenderer::Render(IShaderProgram *pShaderProgram, uint materialId, uint bufferId, uint textureId)
@@ -152,7 +156,7 @@ namespace se
 				pBuffer = bufferIt->second;
 			ITexture *pTexture = CSoftEngine::GetTextureManager()->GetTexture(textureId);
 
-			if (pMaterial && pBuffer && pTexture)
+			if (pMaterial && pBuffer)
 			{
 				TriangleList triangleList;
 				base::Vertices *pVertices = pBuffer->GetVertices();

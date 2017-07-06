@@ -31,7 +31,7 @@ namespace se
 			if (pMaterialResource)
 			{
 				int materialId = m_mapMaterial.size() + 1;
-				IMaterial *pMaterial = new CMaterial(materialId);
+				IMaterial *pMaterial = new CMaterial(materialId, filename);
 				std::string strColor = pMaterialResource->GetValue(resource::MRA_COLOR);
 				StringArray colorArray = base::Split(strColor, ",");
 				if (colorArray.size() >= 3)

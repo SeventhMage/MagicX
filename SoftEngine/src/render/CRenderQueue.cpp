@@ -18,7 +18,7 @@ namespace se
 
 		void CRenderQueue::AddRenderCell(IRenderCell *pCell)
 		{
-
+			m_RenderCellList.push_back(pCell);
 		}
 
 		void CRenderQueue::Clear()

@@ -10,7 +10,7 @@ namespace se
 		public:
 			CModel(const char *filename);
 			virtual ~CModel();		
-			virtual std::string GetMaterialName(){ return m_strName; }
+			virtual std::string GetMaterialName(){ return "material/common.mtl"; }
 			virtual base::Vertices *GetVertices(){ return m_pVertices; }
 			virtual base::Indices *GetIndices() { return m_pIndices; }
 		private:

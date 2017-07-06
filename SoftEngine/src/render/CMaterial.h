@@ -11,7 +11,7 @@ namespace se
 		class CMaterial : public IMaterial
 		{
 		public:
-			CMaterial(int id);
+			CMaterial(int id, const char *name);
 			virtual ~CMaterial();
 
 			virtual int GetID(){ return m_Id; }

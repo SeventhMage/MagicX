@@ -38,12 +38,11 @@ namespace se
 			virtual int GetAttrCount(){ return m_attrValue.size(); }			
 			virtual std::string GetValueByIdx(int index);
 			virtual std::string GetValue(EMaterialResAttr attr);
-			virtual math::CVector3 GetColor(){ return m_color; }
-			virtual std::string GetIllumination(){ return m_illumination; }
+		private:
+			EMaterialResAttr GetAttrID(const std::string &strAttr);
+			bool ReadLine(std::ifstream &in, char *out, int size);
 		private:			
 			std::vector<AttrValue> m_attrValue;
-			math::CVector3 m_color;
-			std::string m_illumination;
 		};
 	}
 }

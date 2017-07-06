@@ -11,6 +11,7 @@ namespace se
 	{
 		enum EMaterialResAttr
 		{
+			MRA_UNVALID = -1,
 			MRA_COLOR = 0,
 			MRA_ILLUMINATION,
 

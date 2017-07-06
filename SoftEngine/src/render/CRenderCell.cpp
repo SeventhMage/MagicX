@@ -7,8 +7,8 @@ namespace se
 	{
 
 		CRenderCell::CRenderCell(uint bufferId, uint materialId, uint textureId)
-			:m_materialId(bufferId)
-			, m_bufferId(materialId)
+			:m_materialId(materialId)
+			, m_bufferId(bufferId)
 			, m_textureId(textureId)			
 		{
 			m_pShaderProgram = CSoftEngine::GetRenderer()->CreateShaderProgram();

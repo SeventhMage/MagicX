@@ -99,7 +99,6 @@
     <ClCompile Include="..\..\src\render\software\CSoftRenderDriver.cpp" />
     <ClCompile Include="..\..\src\render\software\CSoftRenderer.cpp" />
     <ClCompile Include="..\..\src\render\software\CSoftTexture.cpp" />
-    <ClCompile Include="..\..\src\resource\CMaterialLoader.cpp" />
     <ClCompile Include="..\..\src\resource\CMaterialResource.cpp" />
     <ClCompile Include="..\..\src\resource\COBJResource.cpp" />
     <ClCompile Include="..\..\src\resource\CResourceManager.cpp" />
@@ -191,7 +190,6 @@
     <ClInclude Include="..\..\src\render\software\CSoftRenderDriver.h" />
     <ClInclude Include="..\..\src\render\software\CSoftRenderer.h" />
     <ClInclude Include="..\..\src\render\software\CSoftTexture.h" />
-    <ClInclude Include="..\..\src\resource\CMaterialLoader.h" />
     <ClInclude Include="..\..\src\resource\CMaterialResource.h" />
     <ClInclude Include="..\..\src\resource\COBJResource.h" />
     <ClInclude Include="..\..\src\resource\CResourceManager.h" />

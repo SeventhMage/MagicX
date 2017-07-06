@@ -5,8 +5,9 @@ namespace se
 	namespace render
 	{
 
-		CMaterial::CMaterial(int id)
+		CMaterial::CMaterial(int id, const char *name)
 			:m_Id(id)
+			, m_strName(name)
 		{
 
 		}

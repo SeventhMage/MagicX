@@ -33,6 +33,7 @@ namespace se
 				case se::render::UN_PROJ_MAT:
 					uniform.name = uniformName;
 					uniform.data = new float[size];
+					memcpy(uniform.data, data, size);
 					m_uniformMap[uniform.name] = uniform;
 					break;
 				default:
