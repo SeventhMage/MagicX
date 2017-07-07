@@ -20,9 +20,9 @@ namespace se
 			resource::ISceneResource *pResource = dynamic_cast<resource::ISceneResource *>(CSoftEngine::GetResourceManager()->LoadResource(m_strSceneName.c_str()));
 			if (pResource)
 			{
-				float aspect = CSoftEngine::GetDevice()->GetWindowWidth() * 1.0f / CSoftEngine::GetDevice()->GetWindowWidth();
+				float aspect = CSoftEngine::GetDevice()->GetWindowWidth() * 1.0f / CSoftEngine::GetDevice()->GetWindowHeight();
 				resource::SCameraParam cameraParam = pResource->GetCameraParam();
-				SetupCamera(cameraParam.position, cameraParam.direction, cameraParam.up, cameraParam.fov,
+				SetupCamera(cameraParam.position, cameraParam.direction, cameraParam.up, DEG_TO_RAD(cameraParam.fov),
 					aspect, cameraParam.nearClip, cameraParam.farClip);
 
 				int entityCount = pResource->GetEntityCount();

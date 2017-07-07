@@ -129,9 +129,9 @@ namespace se
 				// Do the Math for the near clipping plane
 				ymax = zNear * float(tan(fieldOfViewRadians * 0.5f));
 				ymin = -ymax;
-				xmin = ymin * aspectRatio;
+				xmin = ymin / aspectRatio;
 				xmax = -xmin;
-
+				
 				// Construct the projection matrix
 				this->MakeIdentity();
 				m[0] = (2.0f * zNear) / (xmax - xmin);

@@ -20,13 +20,13 @@ namespace se
 			virtual RenderDriverType GetDriverType(){ return RDT_SOFTWARE; }			
 
 		public:
-			ubyte *GetDrawBuffer(){ return m_pDrawBuffer; }
+			uint *GetDrawBuffer(){ return m_pDrawBuffer; }
 			uint GetBufferWidth(){ return m_uBufferWidth; }
 			uint GetBufferHeight(){ return m_uBufferHeight; }
 			void DrawBuffer();
-
+			void Clear();
 		private:
-			ubyte *m_pDrawBuffer;
+			uint *m_pDrawBuffer;
 			uint m_uBufferWidth;
 			uint m_uBufferHeight;
 		};

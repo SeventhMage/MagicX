@@ -26,7 +26,7 @@ namespace se
 			virtual void InitDriverWin32(HDC hDc, int width, int height) {}
 #endif
 			virtual void OnSize(int x, int y, int width, int height) {}
-			virtual RenderDriverType GetDriverType() = 0;
+			virtual RenderDriverType GetDriverType() = 0;			
 		};
 	}
 }

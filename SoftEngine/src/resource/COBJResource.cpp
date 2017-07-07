@@ -52,12 +52,23 @@ namespace se
 								&faceIndex.position[1], &faceIndex.texCoord[1], &faceIndex.normal[1], &faceIndex.position[2],
 								&faceIndex.texCoord[2], &faceIndex.normal[2], &faceIndex.position[3],
 								&faceIndex.texCoord[3], &faceIndex.normal[3]);
+							for (int i = 0; i < 4; ++i)
+							{
+								--faceIndex.position[i];
+								--faceIndex.texCoord[i];
+								--faceIndex.normal[i];							
+							}
 						}
 						else
 						{
 							sscanf_s(buf, "%s %d//%d %d//%d %d//%d %d//%d", temp, sizeof(temp), &faceIndex.position[0], &faceIndex.normal[0],
 								&faceIndex.position[1], &faceIndex.normal[1], &faceIndex.position[2], &faceIndex.normal[2]
 								, &faceIndex.position[3], &faceIndex.normal[3]);
+							for (int i = 0; i < 4; ++i)
+							{
+								--faceIndex.position[i];								
+								--faceIndex.normal[i];
+							}
 						}
 						m_faceList.push_back(faceIndex);
 					}

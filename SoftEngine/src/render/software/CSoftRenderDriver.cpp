@@ -27,7 +27,8 @@ namespace se
 
 			m_uBufferWidth = width;
 			m_uBufferHeight = height;
-			m_pDrawBuffer = new ubyte[m_uBufferWidth * m_uBufferHeight];
+			m_pDrawBuffer = new uint[m_uBufferWidth * m_uBufferHeight];
+			memset(m_pDrawBuffer, 0, m_uBufferWidth * m_uBufferHeight * sizeof(uint));
 		}
 #endif
 
@@ -35,11 +36,21 @@ namespace se
 		{
 			m_uBufferWidth = width;
 			m_uBufferHeight = height;
+			SAFE_DEL(m_pDrawBuffer);
+			m_pDrawBuffer = new uint[m_uBufferWidth * m_uBufferHeight];
+			memset(m_pDrawBuffer, 0, m_uBufferWidth * m_uBufferHeight * sizeof(uint));
 		}
 
 		void CSoftRenderDriver::DrawBuffer()
 		{
-			CSoftEngine::GetDevice()->DrawBuffer(m_pDrawBuffer);
+			CSoftEngine::GetDevice()->DrawBuffer((ubyte*)m_pDrawBuffer);
+		}
+
+		void CSoftRenderDriver::Clear()
+		{			
+			memset(m_pDrawBuffer, 0, m_uBufferWidth * m_uBufferHeight * sizeof(uint));
+			//uint color = 0xff0000ff;
+			//std::fill_n(m_pDrawBuffer, m_uBufferWidth * m_uBufferHeight, color);
 		}
 
 	}

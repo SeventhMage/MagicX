@@ -16,13 +16,13 @@ namespace se
 			CRasterizer();
 			~CRasterizer();
 			
-			static void DrawTriangle(ubyte *drawBuffer, uint width, uint height, const Triangle &triangle);
+			static void DrawTriangle(uint *drawBuffer, uint width, uint height, const Triangle &triangle);
 		private:
-			static void DrawTopTriangle(ubyte *drawBuffer, uint width, uint height, 
+			static void DrawTopTriangle(uint *drawBuffer, uint width, uint height,
 				const CVector2 &p0, const CVector2 &t0, const render::SColor &c0,
 				const CVector2 &p1, const CVector2 &t1, const render::SColor &c1,
 				const CVector2 &p2, const CVector2 &t2, const render::SColor &c2);
-			static void DrawBottomTriangle(ubyte *drawBuffer, uint width, uint height,
+			static void DrawBottomTriangle(uint *drawBuffer, uint width, uint height,
 				const CVector2 &p0, const CVector2 &t0, const render::SColor &c0,
 				const CVector2 &p1, const CVector2 &t1, const render::SColor &c1,
 				const CVector2 &p2, const CVector2 &t2, const render::SColor &c2);

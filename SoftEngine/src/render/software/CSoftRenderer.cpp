@@ -123,6 +123,7 @@ namespace se
 					pRenderQueue->Clear();
 				}				
 			}
+			m_pSoftRD->Clear();
 		}
 
 		void CSoftRenderer::Render()
@@ -149,6 +150,22 @@ namespace se
 				memcpy(viewMat.m, pViewMat, sizeof(viewMat.m));				
 			}
 
+			float *pModelMat = pShaderProgram->GetUniform(UN_MODEL_MAT);
+			CMatrix4 modelMat;
+			if (pModelMat)
+			{
+				memcpy(modelMat.m, pModelMat, sizeof(modelMat.m));
+			}
+
+			float *pWorldMat = pShaderProgram->GetUniform(UN_WORLD_MAT);
+			CMatrix4 worldMat;
+			if (pWorldMat)
+			{
+				memcpy(worldMat.m, pWorldMat, sizeof(worldMat.m));
+			}
+
+			CMatrix4 mwMat = modelMat * worldMat;
+
 			IMaterial *pMaterial = CSoftEngine::GetMaterialManager()->GetMaterial(materialId);
 			IBuffer *pBuffer = nullptr;
 			auto bufferIt = m_mapCPUBuffer.find(bufferId);
@@ -168,16 +185,37 @@ namespace se
 					
 
 					if (pIndices)
-					{						
+					{			
+						uint suffix = 0;
 						uint indicesNum = pIndices->size / sizeof(ushort);
 						for (uint i = 0; i < indicesNum; ++i)
 						{
 							ushort index = pIndices->pIndexData[i];
-							if (index < pVertices->count)
+							if (index + 2 < pVertices->size)
 							{
-								triangle.vPosition[i].x = pVertices->pVertexData[index];
-								triangle.vPosition[i].y = pVertices->pVertexData[index + 1];
-								triangle.vPosition[i].z = pVertices->pVertexData[index + 2];
+								triangle.vPosition[suffix].x = pVertices->pVertexData[3 * index];
+								triangle.vPosition[suffix].y = pVertices->pVertexData[3 * index + 1];
+								triangle.vPosition[suffix].z = pVertices->pVertexData[3 * index + 2];
+
+								if (suffix >= 2)
+								{
+									//转换到摄像机坐标
+									for (int i = 0; i < 3; ++i)
+										mwMat.TransformVect(triangle.vTranslatePosition[i], triangle.vPosition[i]);
+									TranslateWorldToCamera(viewMat, triangle);
+
+									if (!BackCulling(triangle)) //背面剔除
+									{
+										triangleList.push_back(triangle); //插入到三角形列表
+									}
+									triangle.Reset();
+									suffix = 0;
+								}
+								else
+								{
+									++suffix;
+								}
+
 							}
 							
 						}
@@ -252,9 +290,15 @@ namespace se
 					}					
 
 					//光栅化
-					CRasterizer::DrawTriangle(m_pSoftRD->GetDrawBuffer(), m_pSoftRD->GetBufferWidth(), 
-						m_pSoftRD->GetBufferHeight(), triangle);
-
+					for (auto it = triangleList.begin(); it != triangleList.end(); ++it)
+					{
+						//base::LogPrint("x:%f, y:%f, z:%f  x:%f, y:%f, z%f  x:%f, y:%f, z%f\n",
+						//	it->vTranslatePosition[0].x, it->vTranslatePosition[0].y, it->vTranslatePosition[0].z,
+						//	it->vTranslatePosition[1].x, it->vTranslatePosition[1].y, it->vTranslatePosition[1].z,
+						//	it->vTranslatePosition[2].x, it->vTranslatePosition[2].y, it->vTranslatePosition[2].z);
+						CRasterizer::DrawTriangle(m_pSoftRD->GetDrawBuffer(), m_pSoftRD->GetBufferWidth(),
+							m_pSoftRD->GetBufferHeight(), *it);
+					}
 					//输出到设备
 					m_pSoftRD->DrawBuffer();
 					
@@ -264,9 +308,10 @@ namespace se
 
 		void CSoftRenderer::TranslateWorldToCamera(const CMatrix4 &viewMat, Triangle &triangle)
 		{					
-			for (int i = 1; i < 3; ++i)
+			for (int i = 0; i < 3; ++i)
 			{
-				viewMat.TransformVect(triangle.vTranslatePosition[i], triangle.vPosition[i]);
+				CVector3 in = triangle.vTranslatePosition[i];
+				viewMat.TransformVect(triangle.vTranslatePosition[i], in);
 			}
 			
 		}
@@ -278,9 +323,10 @@ namespace se
 
 			for (auto it = triList.begin(); it != triList.end(); ++it)
 			{
-				for (int i = 1; i < 3; ++i)
+				for (int i = 0; i < 3; ++i)
 				{
-					projMat.TransformVect(it->vTranslatePosition[i], it->vPosition[i]);
+					CVector3 in = it->vTranslatePosition[i];
+					projMat.TransformVect(it->vTranslatePosition[i], in);
 					it->vTranslatePosition[i].x /= it->vTranslatePosition[i].z;
 					it->vTranslatePosition[i].y /= it->vTranslatePosition[i].z;
 

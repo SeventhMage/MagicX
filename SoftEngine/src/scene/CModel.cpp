@@ -51,8 +51,14 @@ namespace se
 				m_pVertices->stride = 0;
 
 				SAFE_DEL(m_pVertices->pVertexData);
-				m_pVertices->pVertexData = new float[posSize + norSize + texSize];
-				memcpy(m_pVertices->pVertexData, &posList, posSize);
+				m_pVertices->pVertexData = new float[m_pVertices->size];
+				memset(m_pVertices->pVertexData, 0, m_pVertices->size);
+				
+				for (size_t i = 0; i < posList.size(); ++i)
+				{					
+					memcpy(m_pVertices->pVertexData + i * 3, posList[i].v, sizeof(CVector3));
+				}
+			//	memcpy(m_pVertices->pVertexData, &posList, posSize);
 				//memcpy(m_pVertices->pVertexData + posSize, &norList, norSize);
 				//memcpy(m_pVertices->pVertexData + posSize + norSize, &texList, texSize);
 				m_pIndices->size = faceList.size() * sizeof(ushort) * 6;

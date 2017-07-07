@@ -51,12 +51,20 @@ namespace se
 						render::IShaderProgram *pShaderProgram = m_pRenderCell->GetShaderProgram();
 						if (pShaderProgram)
 						{
-							pShaderProgram->SetUniform(render::UN_WORLD_MAT,
-								(ubyte *)&worldMat.m, sizeof(worldMat.m));
+						/*	pShaderProgram->SetUniform(render::UN_WORLD_MAT,
+								(ubyte *)&worldMat.m, sizeof(worldMat.m));*/
 							pShaderProgram->SetUniform(render::UN_VIEW_MAT,
-								(ubyte *)&viewMat.m, sizeof(&viewMat.m));
+								(ubyte *)&viewMat.m, sizeof(viewMat.m));
 							pShaderProgram->SetUniform(render::UN_PROJ_MAT,
 								(ubyte *)&projMat.m, sizeof(projMat.m));
+
+							static float rad = 0;
+							rad += 0.1f;
+							CMatrix4 modelMat;
+							modelMat.SetRotationRadians(rad, CVector3(0, 1, 0));
+							//modelMat.SetScale(CVector3(100.5f, 100.5f, 10.5f));
+
+							pShaderProgram->SetUniform(render::UN_MODEL_MAT, (ubyte *)&modelMat.m, sizeof(modelMat.m));
 						}								
 
 						//加入到渲染队列

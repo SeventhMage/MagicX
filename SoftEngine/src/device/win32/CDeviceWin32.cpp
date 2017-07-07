@@ -1,6 +1,7 @@
 #include "CDeviceWin32.h"
 #include "../CKeyEvent.h"
 #include "device/CEventManager.h"
+#include "base/Log.h"
 
 namespace se
 {
@@ -265,11 +266,10 @@ namespace se
 				RECT rc;
 				GetWindowRect(hDesk, &rc);
 				realWidth = rc.right;
-				realHeight = rc.bottom;
-				m_iWidth = realWidth;
-				m_iHeight = realHeight;
+				realHeight = rc.bottom;;
 			}
-
+			m_iWidth = realWidth;
+			m_iHeight = realHeight;
 			// create window
 			m_hWnd = CreateWindow(ClassName, __TEXT(""), style, windowLeft, windowTop,
 				realWidth, realHeight, NULL, NULL, hInstance, NULL);
@@ -324,6 +324,8 @@ namespace se
 		{
 			if (m_pRenderDriver)
 				m_pRenderDriver->OnSize(iPosX, iPosY, iWidth, iHeight);
+			m_iWidth = iWidth;
+			m_iHeight = iHeight;
 		}
 
 		bool CDeviceWin32::Run()
@@ -344,20 +346,16 @@ namespace se
 
 		void CDeviceWin32::DrawBuffer(ubyte *buffer)
 		{
-			HDC hdc = GetDC(m_hWnd);
-
-			HDC mdc = CreateCompatibleDC(hdc);
-			CreateCompatibleBitmap(mdc, 0, 0);
+			HDC hdc = GetDC(m_hWnd);			
+			static HDC mdc = CreateCompatibleDC(hdc);		
 			HBITMAP hBitmap = CreateBitmap(m_iWidth, m_iHeight, 1, 32, buffer);
-			SelectObject(mdc, hBitmap);
-
-			BitBlt(hdc, 0, 0, m_iWidth, m_iHeight, mdc, 0, 0, SRCCOPY);
-			
+			SelectObject(mdc, hBitmap);			
+			BitBlt(hdc, 0, 0, m_iWidth, m_iHeight, mdc, 0, 0, SRCCOPY);			
 			::SwapBuffers(hdc);
 
-			DeleteObject(hBitmap);
-			DeleteDC(mdc);
-			DeleteDC(hdc);
+			DeleteObject(hBitmap);		
+			//DeleteDC(mdc);			
+			ReleaseDC(m_hWnd, hdc);			
 		}
 
 
