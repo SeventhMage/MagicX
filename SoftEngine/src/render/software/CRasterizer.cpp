@@ -140,7 +140,8 @@ namespace se
 					x0 = 0;
 				if (x1 > width)
 					x1 = width;
-
+				if (x1 < x0)
+					base::swap(x0, x1);
 
 				uint *addr = (uint *)drawBuffer + uint(x0 + (i - 1) * width);				
 				std::fill_n(addr, uint(x1 - x0), color);

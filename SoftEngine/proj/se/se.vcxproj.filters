@@ -425,5 +425,8 @@
     <ClInclude Include="..\..\inc\render\UniformDef.h">
       <Filter>inc\render</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\inc\render\ILightModel.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

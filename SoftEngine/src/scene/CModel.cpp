@@ -70,7 +70,7 @@ namespace se
 					{
 						ushort tri[6] = { faceList[i].position[0], faceList[i].position[1], faceList[i].position[2],
 							faceList[i].position[0], faceList[i].position[2], faceList[i].position[3] };
-						memcpy(m_pIndices->pIndexData + i * sizeof(ushort) * 6, tri, sizeof(tri));
+						memcpy(m_pIndices->pIndexData + i * 6, tri, sizeof(tri));
 					}
 				}
 			}

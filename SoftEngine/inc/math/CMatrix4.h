@@ -99,49 +99,49 @@ namespace se
 
 			CMatrix4 &BuildProjectionMatrixPerspectiveFovRH(float fieldOfViewRadians, float aspectRatio, float zNear, float zFar)
 			{
-				//const float h = static_cast<float>(1.0 / tan(fieldOfViewRadians * 0.5f));
-				//assert(aspectRatio != 0.f);
-				//const float w = static_cast<float>(h / aspectRatio);
-				//assert(zNear != zFar);
+				const float h = static_cast<float>(1.0 / tan(fieldOfViewRadians * 0.5f));
+				assert(aspectRatio != 0.f);
+				const float w = static_cast<float>(h / aspectRatio);
+				assert(zNear != zFar);
 
-				//m[0] = w;
-				//m[1] = 0;
-				//m[2] = 0;
-				//m[3] = 0;
+				m[0] = w;
+				m[1] = 0;
+				m[2] = 0;
+				m[3] = 0;
 
-				//m[4] = 0;
-				//m[5] = (float)h;
-				//m[6] = 0;
-				//m[7] = 0;
+				m[4] = 0;
+				m[5] = (float)h;
+				m[6] = 0;
+				m[7] = 0;
 
-				//m[8] = 0;
-				//m[9] = 0;
-				//m[10] = (float)((zFar + zNear) / (zNear - zFar));
-				//m[11] = -1;
+				m[8] = 0;
+				m[9] = 0;
+				m[10] = (float)((zFar + zNear) / (zNear - zFar));
+				m[11] = -1;
 
-				//m[12] = 0;
-				//m[13] = 0;
-				//m[14] = (float)(2.0f*zNear*zFar / (zNear - zFar));
-				//m[15] = 0;
+				m[12] = 0;
+				m[13] = 0;
+				m[14] = (float)(2.0f*zNear*zFar / (zNear - zFar));
+				m[15] = 0;
 
-				float xmin, xmax, ymin, ymax;       // Dimensions of near clipping plane
+				//float xmin, xmax, ymin, ymax;       // Dimensions of near clipping plane
 			
-				// Do the Math for the near clipping plane
-				ymax = zNear * float(tan(fieldOfViewRadians * 0.5f));
-				ymin = -ymax;
-				xmin = ymin / aspectRatio;
-				xmax = -xmin;
-				
-				// Construct the projection matrix
-				this->MakeIdentity();
-				m[0] = (2.0f * zNear) / (xmax - xmin);
-				m[5] = (2.0f * zNear) / (ymax - ymin);
-				m[8] = (xmax + xmin) / (xmax - xmin);
-				m[9] = (ymax + ymin) / (ymax - ymin);
-				m[10] = -((zFar + zNear) / (zFar - zNear));
-				m[11] = -1.0f;
-				m[14] = -((2.0f * zFar * zNear) / (zFar - zNear));
-				m[15] = 0.0f;
+				//// Do the Math for the near clipping plane
+				//ymax = zNear * float(tan(fieldOfViewRadians * 0.5f));
+				//ymin = -ymax;
+				//xmin = ymin / aspectRatio;
+				//xmax = -xmin;
+				//
+				//// Construct the projection matrix
+				//this->MakeIdentity();
+				//m[0] = (2.0f * zNear) / (xmax - xmin);
+				//m[5] = (2.0f * zNear) / (ymax - ymin);
+				//m[8] = (xmax + xmin) / (xmax - xmin);
+				//m[9] = (ymax + ymin) / (ymax - ymin);
+				//m[10] = -((zFar + zNear) / (zFar - zNear));
+				//m[11] = -1.0f;
+				//m[14] = -((2.0f * zFar * zNear) / (zFar - zNear));
+				//m[15] = 0.0f;
 
 				return *this;
 			}

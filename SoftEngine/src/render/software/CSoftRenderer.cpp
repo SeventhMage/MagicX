@@ -327,8 +327,12 @@ namespace se
 				{
 					CVector3 in = it->vTranslatePosition[i];
 					projMat.TransformVect(it->vTranslatePosition[i], in);
-					it->vTranslatePosition[i].x /= it->vTranslatePosition[i].z;
-					it->vTranslatePosition[i].y /= it->vTranslatePosition[i].z;
+					float z = fabs(it->vTranslatePosition[i].z);
+					it->vTranslatePosition[i].x /= z;
+					it->vTranslatePosition[i].y /= z;
+
+					it->vTranslatePosition[i].x = it->vTranslatePosition[i].x * width / 2;
+					it->vTranslatePosition[i].y  = it->vTranslatePosition[i].y * height / 2;
 
 					it->vTranslatePosition[i].x += width;
 					it->vTranslatePosition[i].y = height - it->vTranslatePosition[i].y;
