@@ -42,26 +42,46 @@ namespace se
 				m_pVertices->count = posList.size();
 				if (posSize > 0)
 					m_pVertices->format.push_back(base::VertexAttrbute(base::VA_POSITION, 0));
-				//if (norSize > 0)
-				//	m_pVertices->format.push_back(base::VertexAttrbute(base::VA_NORMAL, posSize));
+				if (norSize > 0)
+					m_pVertices->format.push_back(base::VertexAttrbute(base::VA_NORMAL, posSize));
 				//if (texSize > 0)
 				//	m_pVertices->format.push_back(base::VertexAttrbute(base::VA_TEXCOORD, posSize + norSize));
 
-				m_pVertices->size = posSize;
+				m_pVertices->size = posSize + posSize;
 				m_pVertices->stride = 0;
 
 				SAFE_DEL(m_pVertices->pVertexData);
-				m_pVertices->pVertexData = new float[m_pVertices->size];
+				m_pVertices->pVertexData = new ubyte[m_pVertices->size];
 				memset(m_pVertices->pVertexData, 0, m_pVertices->size);
 				
 				for (size_t i = 0; i < posList.size(); ++i)
 				{					
-					memcpy(m_pVertices->pVertexData + i * 3, posList[i].v, sizeof(CVector3));
+					memcpy(m_pVertices->pVertexData + i * sizeof(CVector3), posList[i].v, sizeof(CVector3));
 				}
-			//	memcpy(m_pVertices->pVertexData, &posList, posSize);
-				//memcpy(m_pVertices->pVertexData + posSize, &norList, norSize);
-				//memcpy(m_pVertices->pVertexData + posSize + norSize, &texList, texSize);
 
+				std::vector<CVector3> normalList(posList.size(), CVector3());
+
+				for (size_t i = 0; i < faceList.size(); ++i)
+				{			
+
+					for (int j = 0; j < faceList[i].indicesCount; ++j)
+					{
+						int last = j - 1 < 0 ? faceList[i].indicesCount - 1 : j - 1;
+						int next = j + 1 >= faceList[i].indicesCount ? 0 : j + 1;
+						CVector3 v0 = posList[faceList[i].position[last]] - posList[faceList[i].position[j]];
+						CVector3 v1 = posList[faceList[i].position[next]] - posList[faceList[i].position[j]];
+
+						normalList[faceList[i].position[j]] += v1.crossProduct(v0);
+						
+					}					
+				}
+
+				for (uint i = 0; i < normalList.size(); ++i)
+				{
+					normalList[i].normalize();
+					memcpy(m_pVertices->pVertexData + posSize + i * sizeof(CVector3), normalList[i].v, sizeof(CVector3));
+				}				
+				
 				uint count = 0;
 				for (uint i = 0; i<faceList.size(); ++i)
 				{

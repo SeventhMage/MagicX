@@ -43,7 +43,7 @@ namespace se
 			uint count;									//顶点数量
 			uint stride;								//每隔stride顶点属性数量循环
 			uint size;									//数据尺寸
-			float *pVertexData;
+			ubyte *pVertexData;
 
 		}Vertices;
 

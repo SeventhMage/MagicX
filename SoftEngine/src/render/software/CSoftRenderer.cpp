@@ -166,6 +166,11 @@ namespace se
 			}
 
 			CMatrix4 mwMat = modelMat * worldMat;
+			CMatrix4 temp;
+			mwMat.GetInverse(temp);
+			CMatrix4 mwNormalMat;
+			temp.GetTransposed(mwNormalMat);
+			mwNormalMat.SetTranslation(CVector3(0, 0, 0));
 
 			IMaterial *pMaterial = CSoftEngine::GetMaterialManager()->GetMaterial(materialId);
 			IBuffer *pBuffer = nullptr;
@@ -196,21 +201,39 @@ namespace se
 							ushort index = pIndices->pIndexData[i];
 							if (index + 2 < pVertices->size)
 							{
-								triangle.vPosition[suffix].x = pVertices->pVertexData[3 * index];
-								triangle.vPosition[suffix].y = pVertices->pVertexData[3 * index + 1];
-								triangle.vPosition[suffix].z = pVertices->pVertexData[3 * index + 2];
+								//memcpy(triangle.vPosition[suffix].v, pVertices->pVertexData + index * sizeof(CVector3), sizeof(CVector3));
+
+								triangle.vPosition[suffix].x = *(float *)(pVertices->pVertexData + sizeof(CVector3) * index);
+								triangle.vPosition[suffix].y = *(float *)(pVertices->pVertexData + sizeof(CVector3)* index + 1 * sizeof(float));
+								triangle.vPosition[suffix].z = *(float *)(pVertices->pVertexData + sizeof(CVector3)* index + 2 * sizeof(float));
+
+								for (uint j = 0; j < pVertices->format.size(); ++j)
+								{									
+									if (pVertices->format[j].attribute == base::VA_NORMAL)
+									{
+										triangle.vNormal[suffix].x = *(float *)(pVertices->pVertexData + pVertices->format[j].offset + sizeof(CVector3)* index);
+										triangle.vNormal[suffix].y = *(float *)(pVertices->pVertexData + pVertices->format[j].offset + sizeof(CVector3)* index + 1 * sizeof(float));
+										triangle.vNormal[suffix].z = *(float *)(pVertices->pVertexData + pVertices->format[j].offset + sizeof(CVector3)* index + 2 * sizeof(float));
+									}
+								}																
 
 								triangle.vertexColor[suffix] = color;
 
 								if (suffix >= 2)
-								{
-									//转换到摄像机坐标
+								{					
 									for (int i = 0; i < 3; ++i)
 									{
 										mwMat.TransformVect(triangle.vTranslatePosition[i], triangle.vPosition[i]);
-										mwMat.TransformVect(triangle.vTranslateNormal[i], triangle.vNormal[i]);
+										mwNormalMat.TransformVect(triangle.vTranslateNormal[i], triangle.vNormal[i]);
 									}
+
+									//转换到摄像机坐标
 									TranslateWorldToCamera(viewMat, triangle);
+
+
+// 									LogPrint("x:%f, y:%f, z:%f\n", triangle.vTranslateNormal[0].x, triangle.vTranslateNormal[0].y, triangle.vTranslateNormal[0].z);
+// 									LogPrint("x:%f, y:%f, z:%f\n", triangle.vTranslateNormal[1].x, triangle.vTranslateNormal[1].y, triangle.vTranslateNormal[1].z);
+// 									LogPrint("x:%f, y:%f, z:%f\n", triangle.vTranslateNormal[2].x, triangle.vTranslateNormal[2].y, triangle.vTranslateNormal[2].z);
 
 									if (!BackCulling(triangle)) //背面剔除
 									{
@@ -323,22 +346,16 @@ namespace se
 
 		void CSoftRenderer::TranslateWorldToCamera(const CMatrix4 &viewMat, Triangle &triangle)
 		{					
+			CMatrix4 norMat = viewMat;
+			norMat.SetTranslation(CVector3(0, 0, 0));
 			for (int i = 0; i < 3; ++i)
 			{
 				CVector3 in = triangle.vTranslatePosition[i];
 				viewMat.TransformVect(triangle.vTranslatePosition[i], in);
-				CVector3 inn = triangle.vTranslateNormal[i];
-				viewMat.TransformVect(triangle.vTranslateNormal[i], inn);
+				CVector3 inn = triangle.vTranslateNormal[i];				
+				norMat.TransformVect(triangle.vTranslateNormal[i], inn);
 				triangle.vTranslateNormal[i].normalize();
-			}
-			
-			//////////////////////////////////////////////////////////////////////////
-			//temp
-			for (int i = 0; i < 3; ++i)
-			{
-				triangle.vTranslateNormal[i] = triangle.vTranslatePosition[0].crossProduct(triangle.vTranslatePosition[1]);
-				triangle.vTranslateNormal[i].normalize();
-			}
+			}		
 		}
 
 		void CSoftRenderer::TranslateCameraToScreen(const CMatrix4 &projMat, TriangleList &triList)

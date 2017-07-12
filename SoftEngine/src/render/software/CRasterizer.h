@@ -17,7 +17,7 @@ namespace se
 			~CRasterizer();
 			
 			void SetDrawBuffer(uint *pDrawBuffer){ m_pDrawBuffer = pDrawBuffer; }
-			void SetBufferSize(uint width, uint height);			
+			void SetBufferSize(int width, int height);			
 
 			void DrawTriangle(const Triangle &triangle);
 		private:
@@ -33,8 +33,8 @@ namespace se
 			void FillColor(uint *addr, uint count, const SColor &lc, const SColor &rc);
 		private:
 			uint *m_pDrawBuffer;
-			uint m_bufferWidth;
-			uint m_bufferHeight;
+			int m_bufferWidth;
+			int m_bufferHeight;
 		};
 	}
 }

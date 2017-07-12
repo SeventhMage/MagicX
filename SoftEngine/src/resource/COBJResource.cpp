@@ -32,7 +32,7 @@ namespace se
 					{
 						CVector3 normal;
 						char temp[8];
-						sscanf_s(buf, "%s %f %f", temp, sizeof(temp), &normal.x, &normal.y, &normal.z);
+						sscanf_s(buf, "%s %f %f %f", temp, sizeof(temp), &normal.x, &normal.y, &normal.z);
 						m_normalList.push_back(normal);
 					}
 					else if ('v' == buf[0] && 't' == buf[1]) //ÎÆÀí×ø±ê

@@ -29,7 +29,7 @@ namespace se
 			m_pVertices->stride = bufferData->stride;
 			m_pVertices->size = bufferData->size;
 			SAFE_DEL(m_pVertices->pVertexData);
-			m_pVertices->pVertexData = new float[m_pVertices->size];			
+			m_pVertices->pVertexData = new ubyte[m_pVertices->size];			
 			memcpy(m_pVertices->pVertexData, bufferData->pVertexData, m_pVertices->size);
 		}
 

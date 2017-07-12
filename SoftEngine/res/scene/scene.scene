@@ -17,8 +17,8 @@
 #=====================================================================================
 #entity
 #path position
-#model/plane.obj 0 0 0
-#model/cube.obj 0 0 0
-model/monkey.obj 0 0 0
+model/plane.obj 0 0 0
+model/cube.obj 0 0 0
+#model/monkey.obj 0 0 0
 #model/torus.obj 0 0 0
 

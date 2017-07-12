@@ -20,7 +20,7 @@ namespace se
 		}
 
 
-		void CRasterizer::SetBufferSize(uint width, uint height)
+		void CRasterizer::SetBufferSize(int width, int height)
 		{
 			m_bufferWidth = width;
 			m_bufferHeight = height;
@@ -73,11 +73,11 @@ namespace se
 				if (p1.x < p0.x)
 					DrawBottomTriangle(p0, t0, c0, p1, t1, c1, p2, t2, c2);
 				else
-					DrawBottomTriangle(p0, t0, c0, p2, t2, c2, p1, t1, c1);
+					DrawBottomTriangle(p1, t1, c1, p0, t0, c0, p2, t2, c2);
 			}
 			else if (FLOAT_EQUAL(p1.y, p2.y))
 			{
-				if (p1.x < p0.x)
+				if (p1.x < p2.x)
 					DrawTopTriangle(p0, t0, c0, p1, t1, c1, p2, t2, c2);
 				else
 					DrawTopTriangle(p0, t0, c0, p2, t2, c2, p1, t1, c1);
@@ -88,7 +88,7 @@ namespace se
 				CVector2 newPoint(p0.x + (p2.x - p0.x)*(p1.y - p0.y) / (p2.y - p0.y), p1.y);
 				CVector2 newTexCoord(t0.x + (t2.x - t0.x)*(t2.y - t0.y) / (t1.y - t0.y), t1.y);
 				float rate = newPoint.getDistanceFrom(p0) / p0.getDistanceFrom(p2);
-				SColor newColor = GetInterpolation(p0, c0, p2, c2, rate);
+				SColor newColor = GetInterpolation(p0, c0, p2, c2, 1 - rate);
 				if (p1.x < newPoint.x)
 				{			
 					DrawTopTriangle(p0, t0, c0, p1, t1, c1, newPoint, newTexCoord, newColor);
@@ -133,8 +133,8 @@ namespace se
 
 				float lrate = CVector2(x0, i).getDistanceFrom(p0) / p0.getDistanceFrom(p1);
 				float rrate = CVector2(x1, i).getDistanceFrom(p0) / p0.getDistanceFrom(p2);
-				SColor lc = GetInterpolation(p0, c0, p1, c1, lrate);
-				SColor rc = GetInterpolation(p0, c0, p2, c2, rrate);				
+				SColor lc = GetInterpolation(p0, c0, p1, c1, 1 - lrate);
+				SColor rc = GetInterpolation(p0, c0, p2, c2, 1 - rrate);				
 											
 				FillColor(addr, x1 - x0, lc, rc);
 			}
@@ -169,10 +169,10 @@ namespace se
 				uint *addr = (uint *)m_pDrawBuffer + uint(x0 + (i - 1) * m_bufferWidth);
 				//std::fill_n(addr, uint(x1 - x0), color);
 
-				float lrate = CVector2(x0, i).getDistanceFrom(p1) / p0.getDistanceFrom(p2);
+				float lrate = CVector2(x0, i).getDistanceFrom(p1) / p1.getDistanceFrom(p2);
 				float rrate = CVector2(x1, i).getDistanceFrom(p0) / p0.getDistanceFrom(p2);
-				SColor lc = GetInterpolation(p1, c1, p2, c2, lrate);
-				SColor rc = GetInterpolation(p0, c0, p2, c2, rrate);
+				SColor lc = GetInterpolation(p1, c1, p2, c2, 1 - lrate);
+				SColor rc = GetInterpolation(p0, c0, p2, c2, 1 - rrate);
 
 				FillColor(addr, x1 - x0, lc, rc);				
 			}
@@ -190,7 +190,7 @@ namespace se
 		{
 			for (uint i = 0; i < count; ++i)
 			{
-				float rate = 1.f * i / count;
+				float rate = 1.f - 1.f * i / count;
 				SColor color(c0.a * rate + c1.a * (1 - rate), c0.r * rate + c1.r * (1 - rate),
 					c0.g * rate + c1.g * (1 - rate), c0.b * rate + c1.b * (1 - rate));
 				*addr = color.Get32BitColor();
