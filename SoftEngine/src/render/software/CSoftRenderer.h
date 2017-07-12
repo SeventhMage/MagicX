@@ -9,6 +9,7 @@
 #include "math/CMatrix4.h"
 #include "render/SRenderMemory.h"
 #include "../STriangleMesh.h"
+#include "CRasterizer.h"
 
 namespace se
 {
@@ -39,12 +40,13 @@ namespace se
 			void TranslateWorldToCamera(const CMatrix4 &viewMat, Triangle &triangle);
 			void TranslateCameraToScreen(const CMatrix4 &projMat, TriangleList &triList);
 			bool BackCulling(const Triangle &triangle);										//±³ÃæÌÞ³ý			
-			void VertexLightCalc(TriangleList &triList);
+			void VertexLightCalc(const CVector3 &lightPos, const CMatrix4 &viewMat, TriangleList &triList);
 			void LoadMaterial();
 		private:
 			CSoftRenderDriver *m_pSoftRD;
 			RenderQueueGroup m_renderQueueGroup;
 			std::map<int, IBuffer *> m_mapCPUBuffer;
+			CRasterizer *m_pRasterizer;
 		};
 	}
 }

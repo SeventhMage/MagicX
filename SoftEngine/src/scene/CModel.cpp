@@ -61,16 +61,36 @@ namespace se
 			//	memcpy(m_pVertices->pVertexData, &posList, posSize);
 				//memcpy(m_pVertices->pVertexData + posSize, &norList, norSize);
 				//memcpy(m_pVertices->pVertexData + posSize + norSize, &texList, texSize);
-				m_pIndices->size = faceList.size() * sizeof(ushort) * 6;
+
+				uint count = 0;
+				for (uint i = 0; i<faceList.size(); ++i)
+				{
+					if (faceList[i].indicesCount == 3)
+						count += 3;
+					else
+						count += 6;
+				}
+
+				m_pIndices->size = count * sizeof(ushort);
 				
 				if (m_pIndices->size > 0)
 				{
-					m_pIndices->pIndexData = new ushort[m_pIndices->size];
+					m_pIndices->pIndexData = new ushort[count];
+					ushort *pDataAddr = m_pIndices->pIndexData;
 					for (uint i = 0; i < faceList.size(); ++i)
 					{
-						ushort tri[6] = { faceList[i].position[0], faceList[i].position[1], faceList[i].position[2],
-							faceList[i].position[0], faceList[i].position[2], faceList[i].position[3] };
-						memcpy(m_pIndices->pIndexData + i * 6, tri, sizeof(tri));
+						if (faceList[i].indicesCount == 3)
+						{
+							memcpy(pDataAddr, faceList[i].position, sizeof(ushort)* 3);
+							pDataAddr += 3;
+						}
+						else
+						{
+							ushort tri[6] = { faceList[i].position[0], faceList[i].position[1], faceList[i].position[2],
+								faceList[i].position[0], faceList[i].position[2], faceList[i].position[3] };
+							memcpy(pDataAddr, tri, sizeof(tri));
+							pDataAddr += 6;
+						}
 					}
 				}
 			}

@@ -1,7 +1,9 @@
 #include "COBJResource.h"
 #include "base/Log.h"
+#include "base/StringHelper.h"
 
 #include <fstream>
+
 
 
 namespace se
@@ -46,30 +48,29 @@ namespace se
 						SFaceIndex faceIndex;
 						memset(&faceIndex, 0, sizeof(SFaceIndex));
 						char temp[8];
-						if (bHaveTexCoord)
+						StringArray split = base::Split(buf, " ");
+						//ÏÂ±ê0Îª'f'
+						faceIndex.indicesCount = split.size() - 1;
+						for (int i = 0, j=1; j < split.size(); ++i, ++j)
 						{
-							sscanf_s(buf, "%s %d/%d/%d %d/%d/%d %d/%d/%d %d/%d/%d", temp, sizeof(temp), &faceIndex.position[0], &faceIndex.texCoord[0], &faceIndex.normal[0],
-								&faceIndex.position[1], &faceIndex.texCoord[1], &faceIndex.normal[1], &faceIndex.position[2],
-								&faceIndex.texCoord[2], &faceIndex.normal[2], &faceIndex.position[3],
-								&faceIndex.texCoord[3], &faceIndex.normal[3]);
-							for (int i = 0; i < 4; ++i)
+							if (bHaveTexCoord)
 							{
-								--faceIndex.position[i];
-								--faceIndex.texCoord[i];
-								--faceIndex.normal[i];							
+								sscanf_s(split[j].c_str(), "%d/%d/%d", &faceIndex.position[i], &faceIndex.texCoord[i], &faceIndex.normal[i]);
+							}
+							else
+							{
+								sscanf_s(split[j].c_str(), "%d//%d", &faceIndex.position[i], &faceIndex.normal[i]);
 							}
 						}
-						else
-						{
-							sscanf_s(buf, "%s %d//%d %d//%d %d//%d %d//%d", temp, sizeof(temp), &faceIndex.position[0], &faceIndex.normal[0],
-								&faceIndex.position[1], &faceIndex.normal[1], &faceIndex.position[2], &faceIndex.normal[2]
-								, &faceIndex.position[3], &faceIndex.normal[3]);
-							for (int i = 0; i < 4; ++i)
-							{
-								--faceIndex.position[i];								
-								--faceIndex.normal[i];
-							}
+
+						for (int k = 0; k < faceIndex.indicesCount; ++k)
+						{							
+							--faceIndex.position[k];
+							if (bHaveTexCoord)
+								--faceIndex.texCoord[k];
+							--faceIndex.normal[k];
 						}
+
 						m_faceList.push_back(faceIndex);
 					}
 				}

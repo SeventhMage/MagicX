@@ -12,7 +12,8 @@ namespace se
 			UN_MODEL_MAT = 0,
 			UN_WORLD_MAT,
 			UN_VIEW_MAT,
-			UN_PROJ_MAT,			
+			UN_PROJ_MAT,
+			UN_LIGHT_POS,		//π‚‘¥Œª÷√
 
 			UN_COUNT,
 		};

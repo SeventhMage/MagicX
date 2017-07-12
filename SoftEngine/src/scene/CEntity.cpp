@@ -62,8 +62,8 @@ namespace se
 							rad += 0.1f;
 							CMatrix4 modelMat;
 							
-							//modelMat.SetScale(CVector3(3.f, 3.f, 3.f));
-							modelMat.SetRotationRadians(rad, CVector3(0, 0, 1));
+							//modelMat.SetScale(CVector3(2.5f, 2.5f, 2.5f));
+							modelMat.SetRotationRadians(rad, CVector3(0, 1, 0));
 
 							pShaderProgram->SetUniform(render::UN_MODEL_MAT, (ubyte *)&modelMat.m, sizeof(modelMat.m));
 						}								

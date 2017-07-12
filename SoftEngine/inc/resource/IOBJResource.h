@@ -13,6 +13,7 @@ namespace se
 	{
 		struct SFaceIndex
 		{
+			int indicesCount;
 			int position[4];
 			int texCoord[4];
 			int normal[4];

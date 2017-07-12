@@ -8,7 +8,6 @@
 #include "math/CVector2.h"
 #include "../STriangleMesh.h"
 #include "../CRenderCell.h"
-#include "CRasterizer.h"
 
 #include <algorithm>
 
@@ -28,6 +27,7 @@ namespace se
 
 		CSoftRenderer::CSoftRenderer()
 			:m_pSoftRD(new CSoftRenderDriver())					
+			, m_pRasterizer(new CRasterizer())
 		{
 			LoadMaterial();
 		}
@@ -35,6 +35,7 @@ namespace se
 		CSoftRenderer::~CSoftRenderer()
 		{
 			SAFE_DEL(m_pSoftRD);
+			SAFE_DEL(m_pRasterizer)
 			for (auto it = m_renderQueueGroup.begin(); it != m_renderQueueGroup.end(); ++it)
 			{
 				SAFE_DEL(it->second);
@@ -179,6 +180,8 @@ namespace se
 				base::Vertices *pVertices = pBuffer->GetVertices();
 				base::Indices *pIndices = pBuffer->GetIndices();
 				
+				SColor color = pMaterial->GetColor();
+
 				if (pVertices)
 				{
 					Triangle triangle;
@@ -197,11 +200,16 @@ namespace se
 								triangle.vPosition[suffix].y = pVertices->pVertexData[3 * index + 1];
 								triangle.vPosition[suffix].z = pVertices->pVertexData[3 * index + 2];
 
+								triangle.vertexColor[suffix] = color;
+
 								if (suffix >= 2)
 								{
 									//转换到摄像机坐标
 									for (int i = 0; i < 3; ++i)
+									{
 										mwMat.TransformVect(triangle.vTranslatePosition[i], triangle.vPosition[i]);
+										mwMat.TransformVect(triangle.vTranslateNormal[i], triangle.vNormal[i]);
+									}
 									TranslateWorldToCamera(viewMat, triangle);
 
 									if (!BackCulling(triangle)) //背面剔除
@@ -236,9 +244,9 @@ namespace se
 									triangle.vPosition[index].y = pVertices->pVertexData[i * pVertices->stride + it->offset + 1];
 									triangle.vPosition[index].z = pVertices->pVertexData[i * pVertices->stride + it->offset + 2];
 								case base::VA_COLOR:
-									triangle.vertexColor[index].r = pVertices->pVertexData[i * pVertices->stride + it->offset];
-									triangle.vertexColor[index].g = pVertices->pVertexData[i * pVertices->stride + it->offset + 1];
-									triangle.vertexColor[index].b = pVertices->pVertexData[i * pVertices->stride + it->offset + 2];
+									triangle.vertexColor[index].r = color.r * pVertices->pVertexData[i * pVertices->stride + it->offset];
+									triangle.vertexColor[index].g = color.g * pVertices->pVertexData[i * pVertices->stride + it->offset + 1];
+									triangle.vertexColor[index].b = color.b * pVertices->pVertexData[i * pVertices->stride + it->offset + 2];
 								case base::VA_TEXCOORD:
 									triangle.vTexCoord[index].x = pVertices->pVertexData[i * pVertices->stride + it->offset];
 									triangle.vTexCoord[index].y = pVertices->pVertexData[i * pVertices->stride + it->offset + 1];
@@ -268,17 +276,22 @@ namespace se
 							}
 						}
 					}
-
 					
-
 
 					//对三角形列表渲染											
 
 					//排序
 					std::sort(triangleList.begin(), triangleList.end(), TriangleSort);					
 
-					//顶点级别光照计算
-					VertexLightCalc(triangleList);
+					float pLight[] = {100, 100, 100}; //pShaderProgram->GetUniform(UN_LIGHT_POS);
+					if (pLight)
+					{
+						CVector3 vLightPos;
+						memcpy(vLightPos.v, pLight, sizeof(vLightPos.v));
+						//顶点级别光照计算
+						VertexLightCalc(vLightPos, viewMat, triangleList);
+					}
+
 
 					//转换到屏幕坐标
 					float *pProjMat = pShaderProgram->GetUniform(UN_PROJ_MAT);
@@ -296,8 +309,10 @@ namespace se
 						//	it->vTranslatePosition[0].x, it->vTranslatePosition[0].y, it->vTranslatePosition[0].z,
 						//	it->vTranslatePosition[1].x, it->vTranslatePosition[1].y, it->vTranslatePosition[1].z,
 						//	it->vTranslatePosition[2].x, it->vTranslatePosition[2].y, it->vTranslatePosition[2].z);
-						CRasterizer::DrawTriangle(m_pSoftRD->GetDrawBuffer(), m_pSoftRD->GetBufferWidth(),
-							m_pSoftRD->GetBufferHeight(), *it);
+
+						m_pRasterizer->SetDrawBuffer(m_pSoftRD->GetDrawBuffer());
+						m_pRasterizer->SetBufferSize(m_pSoftRD->GetBufferWidth(), m_pSoftRD->GetBufferHeight());
+						m_pRasterizer->DrawTriangle(*it);
 					}
 					//输出到设备
 					m_pSoftRD->DrawBuffer();
@@ -312,14 +327,24 @@ namespace se
 			{
 				CVector3 in = triangle.vTranslatePosition[i];
 				viewMat.TransformVect(triangle.vTranslatePosition[i], in);
+				CVector3 inn = triangle.vTranslateNormal[i];
+				viewMat.TransformVect(triangle.vTranslateNormal[i], inn);
+				triangle.vTranslateNormal[i].normalize();
 			}
 			
+			//////////////////////////////////////////////////////////////////////////
+			//temp
+			for (int i = 0; i < 3; ++i)
+			{
+				triangle.vTranslateNormal[i] = triangle.vTranslatePosition[0].crossProduct(triangle.vTranslatePosition[1]);
+				triangle.vTranslateNormal[i].normalize();
+			}
 		}
 
 		void CSoftRenderer::TranslateCameraToScreen(const CMatrix4 &projMat, TriangleList &triList)
 		{
-			float width = (0.5f * m_pSoftRD->GetBufferWidth() - 0.5f);
-			float height = (0.5f * m_pSoftRD->GetBufferHeight() - 0.5f);
+			float width = (0.5f * 2 - 0.5f);
+			float height = (0.5f * 2 - 0.5f);
 
 			for (auto it = triList.begin(); it != triList.end(); ++it)
 			{
@@ -331,11 +356,11 @@ namespace se
 					it->vTranslatePosition[i].x /= z;
 					it->vTranslatePosition[i].y /= z;
 
-					it->vTranslatePosition[i].x = it->vTranslatePosition[i].x * width / 2;
-					it->vTranslatePosition[i].y  = it->vTranslatePosition[i].y * height / 2;
-
 					it->vTranslatePosition[i].x += width;
 					it->vTranslatePosition[i].y = height - it->vTranslatePosition[i].y;
+
+					it->vTranslatePosition[i].x *= m_pSoftRD->GetBufferWidth();
+					it->vTranslatePosition[i].y *= m_pSoftRD->GetBufferHeight();
 				}
 			}
 		}
@@ -349,9 +374,20 @@ namespace se
 			return (vNormal.dotProduct(vCamDir) > 0);
  		}
 
-		void CSoftRenderer::VertexLightCalc(TriangleList &triList)
+		void CSoftRenderer::VertexLightCalc(const CVector3 &lightPos, const CMatrix4 &viewMat, TriangleList &triList)
 		{
-			
+			CVector3 viewLightPos;
+			viewMat.TransformVect(viewLightPos, lightPos);
+			for (auto it = triList.begin(); it != triList.end(); ++it)
+			{
+				for (int i = 0; i < 3; ++i)
+				{
+					float dot = (viewLightPos - it->vTranslatePosition[i]).normalize().dotProduct(it->vTranslateNormal[i]);
+					if (dot < 0)
+						dot = 0;
+					it->vertexColor[i] *= dot;
+				}				
+			}
 		}
 
 		IShaderProgram * CSoftRenderer::CreateShaderProgram()
