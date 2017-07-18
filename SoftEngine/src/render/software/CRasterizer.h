@@ -3,7 +3,7 @@
 
 #include "base/base.h"
 #include "math/CVector3.h"
-#include "math/CVector2.h"
+#include "math/CVector3.h"
 #include "../STriangleMesh.h"
 
 namespace se
@@ -17,22 +17,24 @@ namespace se
 			~CRasterizer();
 			
 			void SetDrawBuffer(uint *pDrawBuffer){ m_pDrawBuffer = pDrawBuffer; }
+			void SetDepthBuffer(float *pDrawBuffer){ m_pDepthBuffer = pDrawBuffer; }
 			void SetBufferSize(int width, int height);			
 
 			void DrawTriangle(const Triangle &triangle);
 		private:
-			void DrawTopTriangle(const CVector2 &p0, const CVector2 &t0, const render::SColor &c0,
-				const CVector2 &p1, const CVector2 &t1, const render::SColor &c1,
-				const CVector2 &p2, const CVector2 &t2, const render::SColor &c2);
-			void DrawBottomTriangle(const CVector2 &p0, const CVector2 &t0, const render::SColor &c0,
-				const CVector2 &p1, const CVector2 &t1, const render::SColor &c1,
-				const CVector2 &p2, const CVector2 &t2, const render::SColor &c2);
-			SColor GetInterpolation(const CVector2 &p0, const SColor &c0, const CVector2 &p1,
-				const SColor &c1, float rate);
+			void DrawTopTriangle(const CVector3 &p0, const CVector2 &t0, const render::SColor &c0,
+				const CVector3 &p1, const CVector2 &t1, const render::SColor &c1,
+				const CVector3 &p2, const CVector2 &t2, const render::SColor &c2);
+			void DrawBottomTriangle(const CVector3 &p0, const CVector2 &t0, const render::SColor &c0,
+				const CVector3 &p1, const CVector2 &t1, const render::SColor &c1,
+				const CVector3 &p2, const CVector2 &t2, const render::SColor &c2);
+			SColor GetInterpolation(const SColor &c0,const SColor &c1, float rate);
 
 			void FillColor(uint *addr, uint count, const SColor &lc, const SColor &rc);
+			void FillColor(uint *addr, float *zbuffer, uint x0, float z0, uint x1, float z1, const SColor &lc, const SColor &rc);
 		private:
 			uint *m_pDrawBuffer;
+			float *m_pDepthBuffer;
 			int m_bufferWidth;
 			int m_bufferHeight;
 		};

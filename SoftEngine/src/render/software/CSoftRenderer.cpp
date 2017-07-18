@@ -137,6 +137,10 @@ namespace se
 					pRenderQueue->Render();
 				}
 			}
+
+			//输出到设备
+			m_pSoftRD->DrawBuffer();
+
 			Clear();
 		}
 
@@ -334,12 +338,10 @@ namespace se
 						//	it->vTranslatePosition[2].x, it->vTranslatePosition[2].y, it->vTranslatePosition[2].z);
 
 						m_pRasterizer->SetDrawBuffer(m_pSoftRD->GetDrawBuffer());
+						m_pRasterizer->SetDepthBuffer(m_pSoftRD->GetDepthBuffer());
 						m_pRasterizer->SetBufferSize(m_pSoftRD->GetBufferWidth(), m_pSoftRD->GetBufferHeight());
 						m_pRasterizer->DrawTriangle(*it);
-					}
-					//输出到设备
-					m_pSoftRD->DrawBuffer();
-					
+					}										
 				}
 			}
 		}
@@ -360,24 +362,21 @@ namespace se
 
 		void CSoftRenderer::TranslateCameraToScreen(const CMatrix4 &projMat, TriangleList &triList)
 		{
-			float width = (0.5f * 2 - 0.5f);
-			float height = (0.5f * 2 - 0.5f);
-
 			for (auto it = triList.begin(); it != triList.end(); ++it)
 			{
 				for (int i = 0; i < 3; ++i)
 				{
-					CVector3 in = it->vTranslatePosition[i];
-					projMat.TransformVect(it->vTranslatePosition[i], in);
-					float z = fabs(it->vTranslatePosition[i].z);
-					it->vTranslatePosition[i].x /= z;
-					it->vTranslatePosition[i].y /= z;
+					CVector3 in = it->vTranslatePosition[i];					
+					float out[4] = { 0 };
+					projMat.TransformVect(out, in);										
+					float invW = 1.0f / out[3];
+					out[0] *= invW;
+					out[1] *= invW;
+					out[2] *= invW;
 
-					it->vTranslatePosition[i].x += width;
-					it->vTranslatePosition[i].y = height - it->vTranslatePosition[i].y;
-
-					it->vTranslatePosition[i].x *= m_pSoftRD->GetBufferWidth();
-					it->vTranslatePosition[i].y *= m_pSoftRD->GetBufferHeight();
+					it->vTranslatePosition[i].x = (out[0] + 1.0f) * 0.5f * m_pSoftRD->GetBufferWidth();
+					it->vTranslatePosition[i].y = (1 - out[1]) * 0.5f * m_pSoftRD->GetBufferHeight();
+					it->vTranslatePosition[i].z = out[2];
 				}
 			}
 		}

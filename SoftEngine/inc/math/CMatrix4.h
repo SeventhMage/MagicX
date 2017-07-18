@@ -116,12 +116,12 @@ namespace se
 
 				m[8] = 0;
 				m[9] = 0;
-				m[10] = (float)((zFar + zNear) / (zFar - zNear));
+				m[10] = -(float)((zFar + zNear) / (zFar - zNear));
 				m[11] = -1;
 
 				m[12] = 0;
 				m[13] = 0;
-				m[14] = (float)(2.0f*zNear*zFar / (zNear - zFar));
+				m[14] = -(float)(2.0f*zNear*zFar / (zFar - zNear));
 				m[15] = 0;
 
 				//float xmin, xmax, ymin, ymax;       // Dimensions of near clipping plane
