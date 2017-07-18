@@ -204,9 +204,7 @@ namespace se
 						{
 							ushort index = pIndices->pIndexData[i];
 							if (index + 2 < pVertices->size)
-							{
-								//memcpy(triangle.vPosition[suffix].v, pVertices->pVertexData + index * sizeof(CVector3), sizeof(CVector3));
-
+							{								
 								triangle.vPosition[suffix].x = *(float *)(pVertices->pVertexData + sizeof(CVector3) * index);
 								triangle.vPosition[suffix].y = *(float *)(pVertices->pVertexData + sizeof(CVector3)* index + 1 * sizeof(float));
 								triangle.vPosition[suffix].z = *(float *)(pVertices->pVertexData + sizeof(CVector3)* index + 2 * sizeof(float));
@@ -233,11 +231,6 @@ namespace se
 
 									//转换到摄像机坐标
 									TranslateWorldToCamera(viewMat, triangle);
-
-
-// 									LogPrint("x:%f, y:%f, z:%f\n", triangle.vTranslateNormal[0].x, triangle.vTranslateNormal[0].y, triangle.vTranslateNormal[0].z);
-// 									LogPrint("x:%f, y:%f, z:%f\n", triangle.vTranslateNormal[1].x, triangle.vTranslateNormal[1].y, triangle.vTranslateNormal[1].z);
-// 									LogPrint("x:%f, y:%f, z:%f\n", triangle.vTranslateNormal[2].x, triangle.vTranslateNormal[2].y, triangle.vTranslateNormal[2].z);
 
 									if (!BackCulling(triangle)) //背面剔除
 									{
@@ -332,11 +325,6 @@ namespace se
 					//光栅化
 					for (auto it = triangleList.begin(); it != triangleList.end(); ++it)
 					{
-						//base::LogPrint("x:%f, y:%f, z:%f  x:%f, y:%f, z%f  x:%f, y:%f, z%f\n",
-						//	it->vTranslatePosition[0].x, it->vTranslatePosition[0].y, it->vTranslatePosition[0].z,
-						//	it->vTranslatePosition[1].x, it->vTranslatePosition[1].y, it->vTranslatePosition[1].z,
-						//	it->vTranslatePosition[2].x, it->vTranslatePosition[2].y, it->vTranslatePosition[2].z);
-
 						m_pRasterizer->SetDrawBuffer(m_pSoftRD->GetDrawBuffer());
 						m_pRasterizer->SetDepthBuffer(m_pSoftRD->GetDepthBuffer());
 						m_pRasterizer->SetBufferSize(m_pSoftRD->GetBufferWidth(), m_pSoftRD->GetBufferHeight());
