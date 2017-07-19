@@ -347,13 +347,22 @@ namespace se
 		void CDeviceWin32::DrawBuffer(ubyte *buffer)
 		{
 			HDC hdc = GetDC(m_hWnd);			
-			static HDC mdc = CreateCompatibleDC(hdc);		
-			HBITMAP hBitmap = CreateBitmap(m_iWidth, m_iHeight, 1, 32, buffer);
-			SelectObject(mdc, hBitmap);			
-			BitBlt(hdc, 0, 0, m_iWidth, m_iHeight, mdc, 0, 0, SRCCOPY);			
+		
+			BITMAPINFO bmpInfo; //创建位图 
+			memset(&bmpInfo, 0, sizeof(BITMAPINFO));
+			bmpInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+			bmpInfo.bmiHeader.biWidth = m_iWidth;//宽度
+			bmpInfo.bmiHeader.biHeight = m_iHeight;//高度
+			bmpInfo.bmiHeader.biPlanes = 1;
+			bmpInfo.bmiHeader.biBitCount = 32;
+			bmpInfo.bmiHeader.biCompression = BI_RGB;
+			
+			//SetStretchBltMode(hdc, STRETCH_HALFTONE);
+			StretchDIBits(hdc, 0, 0, m_iWidth, m_iHeight, 0, m_iHeight, m_iWidth, -m_iHeight, buffer, &bmpInfo, DIB_RGB_COLORS, SRCCOPY);
+			
 			::SwapBuffers(hdc);
 
-			DeleteObject(hBitmap);		
+			//DeleteObject(hBitmap);		
 			//DeleteDC(mdc);			
 			ReleaseDC(m_hWnd, hdc);			
 		}

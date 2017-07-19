@@ -27,20 +27,15 @@ namespace se
 			resource::IImage *pImage = dynamic_cast<resource::IImage *>(CSoftEngine::GetResourceManager()->LoadResource(filename));
 			if (pImage)
 			{
-				pImage->GetColorFormat();
-				pImage->GetPixelType();
-
-				//xyj----------------------------
-
-
-
 				int textureId = m_mapTexture.size() + 1;
 				ITexture *pTexture = NULL;
 				RenderDriverType driverType = CSoftEngine::GetRenderDriverType();
 				switch (driverType)
 				{
 				case se::render::RDT_SOFTWARE:
-					pTexture = new CSoftTexture(textureId);
+					pTexture = new CSoftTexture(textureId, pImage->GetData(), pImage->GetImageSize(),
+						pImage->GetWidth(), pImage->GetHeight());
+
 					break;
 				default:
 					LogPrint("Unknow render driver type!\n");

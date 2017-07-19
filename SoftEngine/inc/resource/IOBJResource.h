@@ -28,6 +28,7 @@ namespace se
 			virtual const std::vector<CVector3> &GetNormalList() = 0;
 			virtual const std::vector<CVector2> &GetTexCoordList() = 0;
 			virtual const std::vector<SFaceIndex> &GetFaceIndexList() = 0;
+			virtual const std::string &GetTexturePath() = 0;
 		};
 	}
 }

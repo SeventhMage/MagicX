@@ -155,13 +155,6 @@ namespace se
 				memcpy(viewMat.m, pViewMat, sizeof(viewMat.m));				
 			}
 
-			float *pModelMat = pShaderProgram->GetUniform(UN_MODEL_MAT);
-			CMatrix4 modelMat;
-			if (pModelMat)
-			{
-				memcpy(modelMat.m, pModelMat, sizeof(modelMat.m));
-			}
-
 			float *pWorldMat = pShaderProgram->GetUniform(UN_WORLD_MAT);
 			CMatrix4 worldMat;
 			if (pWorldMat)
@@ -169,7 +162,7 @@ namespace se
 				memcpy(worldMat.m, pWorldMat, sizeof(worldMat.m));
 			}
 
-			CMatrix4 mwMat = modelMat * worldMat;
+			CMatrix4 mwMat = worldMat;
 			CMatrix4 temp;
 			mwMat.GetInverse(temp);
 			CMatrix4 mwNormalMat;
@@ -216,6 +209,11 @@ namespace se
 										triangle.vNormal[suffix].x = *(float *)(pVertices->pVertexData + pVertices->format[j].offset + sizeof(CVector3)* index);
 										triangle.vNormal[suffix].y = *(float *)(pVertices->pVertexData + pVertices->format[j].offset + sizeof(CVector3)* index + 1 * sizeof(float));
 										triangle.vNormal[suffix].z = *(float *)(pVertices->pVertexData + pVertices->format[j].offset + sizeof(CVector3)* index + 2 * sizeof(float));
+									}
+									else if (pVertices->format[j].attribute == base::VA_TEXCOORD)
+									{
+										triangle.vTexCoord[suffix].x = *(float *)(pVertices->pVertexData + pVertices->format[j].offset + sizeof(CVector2)* index);
+										triangle.vTexCoord[suffix].y = *(float *)(pVertices->pVertexData + pVertices->format[j].offset + sizeof(CVector2)* index + 1 * sizeof(float));
 									}
 								}																
 
@@ -325,9 +323,10 @@ namespace se
 					//¹âÕ¤»¯
 					for (auto it = triangleList.begin(); it != triangleList.end(); ++it)
 					{
-						m_pRasterizer->SetDrawBuffer(m_pSoftRD->GetDrawBuffer());
+						m_pRasterizer->SetDrawBuffer(m_pSoftRD->GetDrawBuffer(), m_pSoftRD->GetBufferWidth(), m_pSoftRD->GetBufferHeight());
 						m_pRasterizer->SetDepthBuffer(m_pSoftRD->GetDepthBuffer());
-						m_pRasterizer->SetBufferSize(m_pSoftRD->GetBufferWidth(), m_pSoftRD->GetBufferHeight());
+						if (pTexture)
+							m_pRasterizer->SetTextureInfo(pTexture->GetData(), pTexture->GetWidth(), pTexture->GetHeight());
 						m_pRasterizer->DrawTriangle(*it);
 					}										
 				}

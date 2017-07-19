@@ -17,6 +17,7 @@ namespace se
 			const std::vector<CVector3> &GetNormalList(){ return m_normalList; }
 			const std::vector<CVector2> &GetTexCoordList(){ return m_texCoordList; }
 			const std::vector<SFaceIndex> &GetFaceIndexList(){ return m_faceList; }
+			const std::string &GetTexturePath(){ return m_texturePath; }
 		private:
 			bool ReadLine(std::ifstream &in, char *out, int size);
 		private:
@@ -24,6 +25,7 @@ namespace se
 			std::vector<CVector3> m_normalList;
 			std::vector<CVector2> m_texCoordList;
 			std::vector<SFaceIndex> m_faceList;
+			std::string m_texturePath;
 		};
 	}
 }

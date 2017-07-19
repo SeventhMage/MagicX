@@ -34,12 +34,12 @@ namespace se
 		class CTGAImage : public IImage
 		{
 		public:
-			CTGAImage();
+			CTGAImage();			
 			~CTGAImage();
 
 			virtual ubyte *Load(const char *filename);
 			virtual void Save(const char *filename, char *data, int widht, int height);
-			virtual ubyte *GetData() { return m_pData; }
+			virtual ubyte *GetData()const { return m_pData; }
 			virtual EColorFormat GetColorFormat() const { return m_uFormat; }
 			virtual ulong GetImageSize() const { return m_lImageSize; }
 			virtual EColorFormat GetComponents() const { return m_iComponents; }

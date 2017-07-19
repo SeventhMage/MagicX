@@ -18,6 +18,7 @@ namespace se
 			, m_pParentNode(nullptr)
 			, m_bNeedUpdate(true)
 			, m_bVisible(true)
+			, m_relativeScale(1.f, 1.f, 1.f)
 		{
 
 		}
@@ -29,6 +30,7 @@ namespace se
 			, m_pParentNode(nullptr)
 			, m_bNeedUpdate(true)
 			, m_bVisible(true)
+			, m_relativeScale(1.f, 1.f, 1.f)
 		{
 
 		}

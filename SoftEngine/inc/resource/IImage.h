@@ -2,6 +2,7 @@
 #define _I_RESOURCE_IMAGE_H_
 
 #include "IResource.h"
+#include "base/seType.h"
 
 namespace se
 {
@@ -33,6 +34,10 @@ namespace se
 
 			virtual EColorFormat GetColorFormat() const = 0;
 			virtual EPixelType GetPixelType() const = 0;
+			virtual ubyte *GetData()const = 0;
+			virtual ulong GetImageSize() const = 0;			
+			virtual int GetWidth() const = 0;
+			virtual int GetHeight() const = 0;
 		};
 	}
 }

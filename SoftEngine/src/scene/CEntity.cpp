@@ -21,7 +21,7 @@ namespace se
 				 //提交顶点数据到渲染器
 				 CSoftEngine::GetRenderer()->BufferData(m_bufferId, m_pModel->GetVertices(), m_pModel->GetIndices());				 
 
-				 m_pRenderCell = CSoftEngine::GetRenderer()->CreateRenderCell(m_bufferId, materialId, 0);
+				 m_pRenderCell = CSoftEngine::GetRenderer()->CreateRenderCell(m_bufferId, materialId, m_pModel->GetTextureID());
 			 }
 			 
 		}
@@ -51,21 +51,23 @@ namespace se
 						render::IShaderProgram *pShaderProgram = m_pRenderCell->GetShaderProgram();
 						if (pShaderProgram)
 						{
-						/*	pShaderProgram->SetUniform(render::UN_WORLD_MAT,
-								(ubyte *)&worldMat.m, sizeof(worldMat.m));*/
+							pShaderProgram->SetUniform(render::UN_WORLD_MAT,
+								(ubyte *)&worldMat.m, sizeof(worldMat.m));
 							pShaderProgram->SetUniform(render::UN_VIEW_MAT,
 								(ubyte *)&viewMat.m, sizeof(viewMat.m));
 							pShaderProgram->SetUniform(render::UN_PROJ_MAT,
 								(ubyte *)&projMat.m, sizeof(projMat.m));
 
-							static float rad = 0;
-							rad += 0.1f;
-							CMatrix4 modelMat;
-														
-							modelMat.SetRotationRadians(rad, CVector3(0, 1, 0));
-							//modelMat.SetScale(CVector3(.5f, .5f, .5f));
-
-							pShaderProgram->SetUniform(render::UN_MODEL_MAT, (ubyte *)&modelMat.m, sizeof(modelMat.m));
+// 							static float rad = 0;
+// 							rad += 0.1f;
+// 							if (rad >= PI * 2)
+// 								rad = 0;
+// 							CMatrix4 modelMat;
+// 														
+// 							modelMat.SetRotationRadians(rad, CVector3(0, 1, 0));
+// 							//modelMat.SetScale(CVector3(.5f, .5f, .5f));
+// 
+// 							pShaderProgram->SetUniform(render::UN_MODEL_MAT, (ubyte *)&modelMat.m, sizeof(modelMat.m));
 						}								
 
 						//加入到渲染队列

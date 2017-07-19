@@ -21,7 +21,13 @@ namespace se
 				char buf[512];
 				while (ReadLine(in, buf, 512))
 				{
-					if ('v' == buf[0] && ' ' == buf[1]) //顶点位置
+					if ('t' == buf[0] && 'p' == buf[1]) //纹理路径
+					{
+						char *pStart = &buf[2];
+						for (; isspace(*pStart); ++pStart);
+						m_texturePath = pStart;
+					}
+					else if ('v' == buf[0] && ' ' == buf[1]) //顶点位置
 					{
 						CVector3 position;
 						char temp[8];

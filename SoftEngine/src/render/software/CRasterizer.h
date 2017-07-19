@@ -16,9 +16,10 @@ namespace se
 			CRasterizer();
 			~CRasterizer();
 			
-			void SetDrawBuffer(uint *pDrawBuffer){ m_pDrawBuffer = pDrawBuffer; }
-			void SetDepthBuffer(float *pDrawBuffer){ m_pDepthBuffer = pDrawBuffer; }
-			void SetBufferSize(int width, int height);			
+			void SetDrawBuffer(uint *pDrawBuffer, int width, int height);
+			void SetDepthBuffer(float *pDrawBuffer){ m_pDepthBuffer = pDrawBuffer; }			
+
+			void SetTextureInfo(ubyte *textureData, int width, int height);
 
 			void DrawTriangle(const Triangle &triangle);
 		private:
@@ -32,11 +33,16 @@ namespace se
 
 			void FillColor(uint *addr, uint count, const SColor &lc, const SColor &rc);
 			void FillColor(uint *addr, float *zbuffer, uint x0, float z0, uint x1, float z1, const SColor &lc, const SColor &rc);
+			void FillColor(uint *addr, float *zbuffer, uint x0, float z0, uint x1, float z1, const SColor &lc, const SColor &rc, const CVector2 &lt, const CVector2 &rt);
 		private:
 			uint *m_pDrawBuffer;
 			float *m_pDepthBuffer;
 			int m_bufferWidth;
 			int m_bufferHeight;
+
+			ubyte *m_pTextureData;
+			int m_textureWidth;
+			int m_textureHeight;
 		};
 	}
 }

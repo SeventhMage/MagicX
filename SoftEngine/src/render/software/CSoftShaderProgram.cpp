@@ -26,8 +26,7 @@ namespace se
 			{
 				Uniform uniform;
 				switch (uniformName)
-				{
-				case se::render::UN_MODEL_MAT:					
+				{								
 				case se::render::UN_WORLD_MAT:					
 				case se::render::UN_VIEW_MAT:					
 				case se::render::UN_PROJ_MAT:

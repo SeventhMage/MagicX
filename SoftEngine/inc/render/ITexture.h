@@ -11,7 +11,10 @@ namespace se
 		{
 		public:
 			virtual ~ITexture(){}
-			virtual ubyte *GetData() = 0;
+			virtual ubyte *GetData()const = 0;
+			virtual ulong GetSize()const = 0;
+			virtual int GetWidth()const = 0;
+			virtual int GetHeight()const = 0;
 		};
 	}
 }

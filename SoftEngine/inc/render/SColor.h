@@ -28,7 +28,7 @@ namespace se
 			};
 			uint Get32BitColor()
 			{
-				return ((uint(a * 0xFF))<<24) + ((uint(r * 0xFF))<<16) + ((uint(g * 0xFF))<<8) + (uint(b * 0xFF));
+				return ((uint(a * 0xFF))<<24) | ((uint(r * 0xFF))<<16) | ((uint(g * 0xFF))<<8) | (uint(b * 0xFF));
 			}
 
 			SColor &operator*=(float v)

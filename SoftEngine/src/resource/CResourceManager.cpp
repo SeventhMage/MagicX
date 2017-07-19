@@ -3,6 +3,7 @@
 #include "CSceneResource.h"
 #include "CMaterialResource.h"
 #include "COBJResource.h"
+#include "CTGAImage.h"
 
 
 
@@ -27,6 +28,12 @@ namespace se
 			else if (extName == "mtl")
 			{
 				pResource = new CMaterialResource(filename);
+			}
+			else if (extName == "tga")
+			{
+				CTGAImage *pTga = new CTGAImage();
+				pTga->Load(filename);
+				pResource = pTga;
 			}
 
 			return pResource;
