@@ -1,7 +1,7 @@
 #=====================================================================================
 #Camera
 #position
-0 5 5
+0 10 10
 #direction
 0 -1 -1
 #up
@@ -17,8 +17,9 @@
 #=====================================================================================
 #entity
 #path position
-#model/plane.obj 0 0 0
-model/cube.obj 0 0 0
+model/plane.obj 0 0 0
+#model/cube.obj -2 0 2
+#model/cube.obj 2 1 -1
 #model/monkey.obj 0 0 0
-model/torus.obj 0 0 0
-
+#model/torus.obj 0 0 0
+#model/fish.obj 0 0 0
