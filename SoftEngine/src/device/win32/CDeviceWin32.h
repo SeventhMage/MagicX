@@ -30,10 +30,11 @@ namespace se
 			
 		private:
 			render::IRenderDriver *m_pRenderDriver;
-			HWND m_hWnd;
+			HWND m_hWnd;			
 			int m_iWidth;
 			int m_iHeight;
 			bool m_bFullScreen;
+			BITMAPINFO m_bmpInfo;
 		};
 	}
 }

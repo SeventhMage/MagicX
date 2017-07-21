@@ -285,7 +285,15 @@ namespace se
 			// fix ugly ATI driver bugs.
 			MoveWindow(m_hWnd, windowLeft, windowTop, realWidth, realHeight, TRUE);
 
-			ShowCursor(TRUE);			
+			ShowCursor(TRUE);		
+
+			memset(&m_bmpInfo, 0, sizeof(BITMAPINFO));
+			m_bmpInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+			m_bmpInfo.bmiHeader.biWidth = m_iWidth;//宽度
+			m_bmpInfo.bmiHeader.biHeight = m_iHeight;//高度
+			m_bmpInfo.bmiHeader.biPlanes = 1;
+			m_bmpInfo.bmiHeader.biBitCount = 32;
+			m_bmpInfo.bmiHeader.biCompression = BI_RGB;
 		}
 
 		CDeviceWin32::~CDeviceWin32()
@@ -326,6 +334,8 @@ namespace se
 				m_pRenderDriver->OnSize(iPosX, iPosY, iWidth, iHeight);
 			m_iWidth = iWidth;
 			m_iHeight = iHeight;
+			m_bmpInfo.bmiHeader.biWidth = m_iWidth;
+			m_bmpInfo.bmiHeader.biHeight = m_iHeight;
 		}
 
 		bool CDeviceWin32::Run()
@@ -347,23 +357,12 @@ namespace se
 		void CDeviceWin32::DrawBuffer(ubyte *buffer)
 		{
 			HDC hdc = GetDC(m_hWnd);			
-		
-			BITMAPINFO bmpInfo; //创建位图 
-			memset(&bmpInfo, 0, sizeof(BITMAPINFO));
-			bmpInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
-			bmpInfo.bmiHeader.biWidth = m_iWidth;//宽度
-			bmpInfo.bmiHeader.biHeight = m_iHeight;//高度
-			bmpInfo.bmiHeader.biPlanes = 1;
-			bmpInfo.bmiHeader.biBitCount = 32;
-			bmpInfo.bmiHeader.biCompression = BI_RGB;
 			
 			//SetStretchBltMode(hdc, STRETCH_HALFTONE);
-			StretchDIBits(hdc, 0, 0, m_iWidth, m_iHeight, 0, m_iHeight, m_iWidth, -m_iHeight, buffer, &bmpInfo, DIB_RGB_COLORS, SRCCOPY);
+			StretchDIBits(hdc, 0, 0, m_iWidth, m_iHeight, 0, m_iHeight, m_iWidth, -m_iHeight, buffer, &m_bmpInfo, DIB_RGB_COLORS, SRCCOPY);
 			
-			::SwapBuffers(hdc);
-
-			//DeleteObject(hBitmap);		
-			//DeleteDC(mdc);			
+			//::SwapBuffers(hdc);
+		
 			ReleaseDC(m_hWnd, hdc);			
 		}
 

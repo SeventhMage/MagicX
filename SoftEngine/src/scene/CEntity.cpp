@@ -58,16 +58,16 @@ namespace se
 							pShaderProgram->SetUniform(render::UN_PROJ_MAT,
 								(ubyte *)&projMat.m, sizeof(projMat.m));
 
-// 							static float rad = 0;
-// 							rad += 0.1f;
-// 							if (rad >= PI * 2)
-// 								rad = 0;
-// 							CMatrix4 modelMat;
-// 														
-// 							modelMat.SetRotationRadians(rad, CVector3(0, 1, 0));
-// 							//modelMat.SetScale(CVector3(.5f, .5f, .5f));
-// 
-// 							pShaderProgram->SetUniform(render::UN_MODEL_MAT, (ubyte *)&modelMat.m, sizeof(modelMat.m));
+ 							static float rad = 0;
+ 							rad += 0.01f;
+ 							if (rad >= PI * 2)
+ 								rad = 0;
+ 							CMatrix4 modelMat;
+ 														
+ 							modelMat.SetRotationRadians(rad, CVector3(0, 1, 0));
+ 							//modelMat.SetScale(CVector3(.5f, .5f, .5f));
+ 
+							//pShaderProgram->SetUniform(render::UN_WORLD_MAT, (ubyte *)&modelMat.m, sizeof(modelMat.m));
 						}								
 
 						//加入到渲染队列

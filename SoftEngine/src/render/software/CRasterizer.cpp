@@ -87,14 +87,9 @@ namespace se
 
 				float invNewZ = p0.z * (1 - p02Rate) + p2.z * p02Rate;
 
-				CVector3 newPoint(newX, p1.y, invNewZ);
-				float dy = p2.y - p0.y;
-				float dx = p2.x - p0.x;
-				float du = t0.x * p0.z - t2.x * p2.z;
-				float dv = t0.y * p0.z - t2.y * p2.z;
-				
+				CVector3 newPoint(newX, p1.y, invNewZ);						
 
-				CVector2 newTexCoord(newX * du / dx, p1.y * dv / dy);
+				CVector2 newTexCoord = (t0 * p0.z * (1 - p02Rate) + t2 * p2.z * p02Rate) / invNewZ;
 				float rate = newPoint.getDistanceFrom(p0) / p0.getDistanceFrom(p2);
 				SColor newColor = GetInterpolation(c0, c2, 1 - rate);
 				if (p1.x < newPoint.x)
@@ -146,21 +141,23 @@ namespace se
 				SColor rc = GetInterpolation(c0, c2, 1 - rrate);				
 				
 				float z0 = p0.z * (1 - lrate) + p1.z * lrate;
-				float z1 = p0.z * (1 - lrate) + p2.z * lrate;
+				float z1 = p0.z * (1 - rrate) + p2.z * rrate;
 
-				CVector2 tl(((1 - lrate) * t0.x * p0.z + lrate * t1.x * p1.z) / z0,
-					((1 - lrate) * t0.y * p0.z + lrate * t1.y * p1.z) / z0);
-				CVector2 tr(((1 - rrate) * t0.x * p0.z + rrate * t2.x * p2.z) / z1,
-					((1 - rrate) * t0.y * p0.z + rrate * t2.y * p2.z) / z1);
-				//CVector2 tl(((1 - lrate) * t0.x + lrate * t1.x ),
-				//	((1 - lrate) * t0.y + lrate * t1.y));
-				//CVector2 tr(((1 - rrate) * t0.x + rrate * t2.x ),
-				//	((1 - rrate) * t0.y + rrate * t2.y) );
+				CVector2 tl = (t0 * p0.z * (1 - lrate) + t1 * p1.z * lrate) / z0;
+				CVector2 tr = (t0 * p0.z * (1 - rrate) + t2 * p2.z * rrate) / z1;
+
+				CVector2 tl_ = (t0 * (1 - lrate) + t1 * lrate);
+				CVector2 tr_ = (t0 * (1 - rrate) + t2 * rrate);
+
 				if (m_pDepthBuffer)
 				{
 					float *zbuffer = m_pDepthBuffer + int(x0 + (i - 1) * m_bufferWidth);
-					FillColor(addr, zbuffer, x0, z0, x1, z1, lc, rc, tl, tr);
-					//FillColor(addr, zbuffer, x0, z0, x1, z1, lc, rc);
+					if (m_pTextureData)
+					{
+						FillColor(addr, zbuffer, x0, z0, x1, z1, lc, rc, tl, tr);
+					}
+					else
+						FillColor(addr, zbuffer, x0, z0, x1, z1, lc, rc);
 				}
 				else
 					FillColor(addr, x1 - x0, lc, rc);
@@ -212,27 +209,22 @@ namespace se
 				SColor rc = GetInterpolation(c0, c2, 1 - rrate);
 
 				float z0 = p1.z * (1 - lrate) + p2.z * lrate;
-				float z1 = p0.z * (1 - lrate) + p2.z * lrate;
+				float z1 = p0.z * (1 - rrate) + p2.z * rrate;
+	
 
-				CVector2 tl(((1 - lrate) * t1.x * p1.z + lrate * t2.x * p2.z) / z0,
-					((1 - lrate) * t0.y * p0.z + lrate * t2.y * p2.z) / z0);
-				CVector2 tr(((1 - rrate) * t0.x * p0.z + rrate * t2.x * p2.z) / z1,
-					((1 - rrate) * t0.y * p0.z + rrate * t2.y * p2.z) / z1);
-				//CVector2 tl(((1 - lrate) * t1.x + lrate * t2.x),
-				//	((1 - lrate) * t1.y + lrate * t2.y));
-				//CVector2 tr(((1 - rrate) * t0.x + rrate * t2.x),
-				//	((1 - rrate) * t0.y + rrate * t2.y));
+				CVector2 tl = (t1 * p1.z * (1 - lrate) + t2 * p2.z * lrate) / z0;
+				CVector2 tr = (t0 * p0.z * (1 - rrate) + t2 * p2.z * rrate) / z1;
 
-
-
-				//CVector2 tl(t1.x * p1.z + du12 * (x0 - p1.x), t1.y * p1.z + dv12 * i);
-				//CVector2 tr(t0.x * p0.z + du02 * (p0.x - x0), t0.y * p0.z + dv02 * i);
+				CVector2 tl_ = t1 * (1 - lrate) + t2 * lrate;
+				CVector2 tr_ = t0 * (1 - rrate) + t2 * rrate;
 
 				if (m_pDepthBuffer)
 				{
 					float *zbuffer = m_pDepthBuffer + int(x0 + (i - 1) * m_bufferWidth);
-					FillColor(addr, zbuffer, x0, z0, x1, z1, lc, rc, tl, tr);
-					//FillColor(addr, zbuffer, x0, z0, x1, z1, lc, rc);
+					if (m_pTextureData)
+						FillColor(addr, zbuffer, x0, z0, x1, z1, lc, rc, tl, tr);
+					else
+						FillColor(addr, zbuffer, x0, z0, x1, z1, lc, rc);
 				}
 				else
 					FillColor(addr, x1 - x0 + 1, lc, rc);
@@ -293,8 +285,9 @@ namespace se
 				{
 					SColor color(lc.a * rate + rc.a * (1 - rate), lc.r * rate + rc.r * (1 - rate),
 						lc.g * rate + rc.g * (1 - rate), lc.b * rate + rc.b * (1 - rate));
-					
-					CVector2 t((lt.x * z0 * rate + rt.x * z1 * (1 - rate)) / z, (lt.y * z0 * rate + rt.y * z1 * (1 - rate)) / z);
+										
+					CVector2 t = (lt * z0 * rate + rt * z1 *(1 - rate)) / z;
+					CVector2 t_ = lt * rate + rt * (1 - rate);
 					int tx = t.x * m_textureWidth; //浮点运算，不能在这里直接乘3
 					int ty = (1 - t.y) * m_textureHeight;
 					uint tc = (0xff << 24) | ((*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3 + 0)))

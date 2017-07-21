@@ -327,6 +327,8 @@ namespace se
 						m_pRasterizer->SetDepthBuffer(m_pSoftRD->GetDepthBuffer());
 						if (pTexture)
 							m_pRasterizer->SetTextureInfo(pTexture->GetData(), pTexture->GetWidth(), pTexture->GetHeight());
+						else
+							m_pRasterizer->SetTextureInfo(nullptr, 0, 0);
 						m_pRasterizer->DrawTriangle(*it);
 					}										
 				}
