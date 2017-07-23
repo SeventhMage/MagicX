@@ -136,6 +136,7 @@
     <ClInclude Include="..\..\inc\math\CQuaternion.h" />
     <ClInclude Include="..\..\inc\math\CVector2.h" />
     <ClInclude Include="..\..\inc\math\CVector3.h" />
+    <ClInclude Include="..\..\inc\math\CVector4.h" />
     <ClInclude Include="..\..\inc\render\ILightModel.h" />
     <ClInclude Include="..\..\inc\render\IShaderProgram.h" />
     <ClInclude Include="..\..\inc\render\IUniform.h" />

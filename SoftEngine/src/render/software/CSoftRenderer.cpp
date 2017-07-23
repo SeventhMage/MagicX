@@ -230,7 +230,7 @@ namespace se
 									//转换到摄像机坐标
 									TranslateWorldToCamera(viewMat, triangle);
 
-									if (!BackCulling(triangle)) //背面剔除
+									//if (!BackCulling(triangle)) //背面剔除
 									{
 										triangleList.push_back(triangle); //插入到三角形列表
 									}
@@ -341,7 +341,7 @@ namespace se
 			norMat.SetTranslation(CVector3(0, 0, 0));
 			for (int i = 0; i < 3; ++i)
 			{
-				CVector3 in = triangle.vTranslatePosition[i];
+				CVector4 in = triangle.vTranslatePosition[i];
 				viewMat.TransformVect(triangle.vTranslatePosition[i], in);
 				CVector3 inn = triangle.vTranslateNormal[i];				
 				norMat.TransformVect(triangle.vTranslateNormal[i], inn);
@@ -355,25 +355,26 @@ namespace se
 			{
 				for (int i = 0; i < 3; ++i)
 				{
-					CVector3 in = it->vTranslatePosition[i];					
-					float out[4] = { 0 };
-					projMat.TransformVect(out, in);										
-					float invW = 1.0f / out[3];
-					out[0] *= invW;
-					out[1] *= invW;
-					out[2] *= invW;
+					CVector4 in = it->vTranslatePosition[i];					
+					
+					projMat.TransformVect(it->vTranslatePosition[i], in);
+					float invW = 1.0f / it->vTranslatePosition[i].w;
+					it->vTranslatePosition[i].x *= invW;
+					it->vTranslatePosition[i].y *= invW;
+					it->vTranslatePosition[i].z *= invW;
 
-					it->vTranslatePosition[i].x = (out[0] + 1.0f) * 0.5f * m_pSoftRD->GetBufferWidth();
-					it->vTranslatePosition[i].y = (1 - out[1]) * 0.5f * m_pSoftRD->GetBufferHeight();
-					it->vTranslatePosition[i].z = out[2];
+					it->vTranslatePosition[i].x = (it->vTranslatePosition[i].x + 1.0f) * 0.5f * m_pSoftRD->GetBufferWidth();
+					it->vTranslatePosition[i].y = (1 - it->vTranslatePosition[i].y) * 0.5f * m_pSoftRD->GetBufferHeight();
 				}
 			}
 		}
 
 		bool CSoftRenderer::BackCulling(const Triangle &triangle)
-		{						
-			CVector3 v0 = triangle.vTranslatePosition[1] - triangle.vTranslatePosition[0];
-			CVector3 v1 = triangle.vTranslatePosition[2] - triangle.vTranslatePosition[1];
+		{			
+			CVector3 v0 = CVector3(triangle.vTranslatePosition[1].x, triangle.vTranslatePosition[1].y, triangle.vTranslatePosition[1].z) 
+				- CVector3(triangle.vTranslatePosition[0].x, triangle.vTranslatePosition[0].y, triangle.vTranslatePosition[0].z);
+			CVector3 v1 = CVector3(triangle.vTranslatePosition[2].x, triangle.vTranslatePosition[2].y, triangle.vTranslatePosition[2].z)
+				- CVector3(triangle.vTranslatePosition[0].x, triangle.vTranslatePosition[0].y, triangle.vTranslatePosition[0].z);
 			CVector3 vNormal = v0.crossProduct(v1);
 			CVector3 vCamDir(0, 0, -1);
 			return (vNormal.dotProduct(vCamDir) > 0);
@@ -387,7 +388,8 @@ namespace se
 			{
 				for (int i = 0; i < 3; ++i)
 				{
-					float dot = (viewLightPos - it->vTranslatePosition[i]).normalize().dotProduct(it->vTranslateNormal[i]);
+					float dot = (viewLightPos - CVector3(it->vTranslatePosition[i].x, it->vTranslatePosition[i].y,
+						it->vTranslatePosition[i].z)).normalize().dotProduct(it->vTranslateNormal[i]);
 					if (dot < 0)
 						dot = 0;
 					it->vertexColor[i] *= dot;

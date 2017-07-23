@@ -6,6 +6,7 @@
 #include <float.h>
 
 #include "CVector3.h"
+#include "CVector4.h"
 #include "CPlane3.h"
 #include "base/seType.h"
 
@@ -486,6 +487,22 @@ namespace se
 				out.x = in.x*m[0] + in.y*m[4] + in.z*m[8] + m[12];
 				out.y = in.x*m[1] + in.y*m[5] + in.z*m[9] + m[13];
 				out.z = in.x*m[2] + in.y*m[6] + in.z*m[10] + m[14];
+			}
+
+			inline void TransformVect(CVector4 &out, const CVector3 &in) const
+			{
+				out.x = in.x*m[0] + in.y*m[4] + in.z*m[8] + m[12];
+				out.y = in.x*m[1] + in.y*m[5] + in.z*m[9] + m[13];
+				out.z = in.x*m[2] + in.y*m[6] + in.z*m[10] + m[14];
+				out.w = in.x*m[3] + in.y*m[7] + in.z*m[11] + m[15];
+			}
+
+			inline void TransformVect(CVector4 &out, const CVector4 &in) const
+			{
+				out.x = in.x*m[0] + in.y*m[4] + in.z*m[8] + in.w * m[12];
+				out.y = in.x*m[1] + in.y*m[5] + in.z*m[9] + in.w * m[13];
+				out.z = in.x*m[2] + in.y*m[6] + in.z*m[10] + in.w * m[14];
+				out.w = in.x*m[3] + in.y*m[7] + in.z*m[11] + in.w * m[15];
 			}
 
 			inline void TransformVect(float *out, const CVector3 &in) const

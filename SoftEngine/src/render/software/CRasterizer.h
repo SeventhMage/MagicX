@@ -23,17 +23,17 @@ namespace se
 
 			void DrawTriangle(const Triangle &triangle);
 		private:
-			void DrawTopTriangle(const CVector3 &p0, const CVector2 &t0, const render::SColor &c0,
-				const CVector3 &p1, const CVector2 &t1, const render::SColor &c1,
-				const CVector3 &p2, const CVector2 &t2, const render::SColor &c2);
-			void DrawBottomTriangle(const CVector3 &p0, const CVector2 &t0, const render::SColor &c0,
-				const CVector3 &p1, const CVector2 &t1, const render::SColor &c1,
-				const CVector3 &p2, const CVector2 &t2, const render::SColor &c2);
+			void DrawTopTriangle(const CVector4 &p0, const CVector2 &t0, const render::SColor &c0,
+				const CVector4 &p1, const CVector2 &t1, const render::SColor &c1,
+				const CVector4 &p2, const CVector2 &t2, const render::SColor &c2);
+			void DrawBottomTriangle(const CVector4 &p0, const CVector2 &t0, const render::SColor &c0,
+				const CVector4 &p1, const CVector2 &t1, const render::SColor &c1,
+				const CVector4 &p2, const CVector2 &t2, const render::SColor &c2);
 			SColor GetInterpolation(const SColor &c0,const SColor &c1, float rate);
 
 			void FillColor(uint *addr, uint count, const SColor &lc, const SColor &rc);
-			void FillColor(uint *addr, float *zbuffer, uint x0, float z0, uint x1, float z1, const SColor &lc, const SColor &rc);
-			void FillColor(uint *addr, float *zbuffer, uint x0, float z0, uint x1, float z1, const SColor &lc, const SColor &rc, const CVector2 &lt, const CVector2 &rt);
+			void FillColor(uint *addr, float *zbuffer, uint x0, float z0, float wl, uint x1, float z1, float wr, const SColor &lc, const SColor &rc);
+			void FillColor(uint *addr, float *zbuffer, uint x0, float z0, float wl, uint x1, float z1, float wr,  const SColor &lc, const SColor &rc, const CVector2 &lt, const CVector2 &rt);
 		private:
 			uint *m_pDrawBuffer;
 			float *m_pDepthBuffer;

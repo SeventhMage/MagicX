@@ -358,7 +358,7 @@ namespace se
 		{
 			HDC hdc = GetDC(m_hWnd);			
 			
-			//SetStretchBltMode(hdc, STRETCH_HALFTONE);
+			SetStretchBltMode(hdc, STRETCH_HALFTONE);
 			StretchDIBits(hdc, 0, 0, m_iWidth, m_iHeight, 0, m_iHeight, m_iWidth, -m_iHeight, buffer, &m_bmpInfo, DIB_RGB_COLORS, SRCCOPY);
 			
 			//::SwapBuffers(hdc);

@@ -428,5 +428,8 @@
     <ClInclude Include="..\..\inc\render\ILightModel.h">
       <Filter>inc\render</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\inc\math\CVector4.h">
+      <Filter>inc\math</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

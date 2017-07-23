@@ -1,6 +1,7 @@
 #ifndef _RENDER_S_TRIANGLE_MESH_H_
 #define _RENDER_S_TRIANGLE_MESH_H_
 
+#include "math/CVector4.h"
 #include "math/CVector3.h"
 #include "math/CVector2.h"
 #include "render/SColor.h"
@@ -33,7 +34,7 @@ namespace se
 			void Reset();
 			int vertexAttr;			
 			CVector3 vPosition[3];
-			CVector3 vTranslatePosition[3];			
+			CVector4 vTranslatePosition[3];			
 			CVector3 vNormal[3];
 			CVector3 vTranslateNormal[3];
 			CVector2 vTexCoord[3];

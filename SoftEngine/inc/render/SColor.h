@@ -37,6 +37,54 @@ namespace se
 					c[i] *= v;
 				return *this;
 			}
+
+			SColor &operator+=(const SColor &color)
+			{
+				for (uint i = 0; i < 4; ++i)
+				{
+					c[i] += color.c[i];
+				}
+
+				return *this;
+			}
+
+			SColor operator/(float v)const
+			{
+				SColor result;
+				for (uint i = 0; i < 4; ++i)
+					result.c[i] = c[i] / v;
+				return result;
+			}
+
+			SColor operator*(float v)const
+			{
+				SColor result;
+				for (uint i = 0; i < 4; ++i)
+				{
+					result.c[i] = c[i] * v;
+				}
+				return result;
+			}
+
+			SColor operator+(const SColor &color)const
+			{
+				SColor result;
+				for (uint i = 0; i < 4; ++i)
+				{
+					result.c[i] = c[i] + color.c[i];
+				}
+				return result;
+			}
+
+			SColor operator-(const SColor &color)const
+			{
+				SColor result;
+				for (uint i = 0; i < 4; ++i)
+				{
+					result.c[i] = c[i] - color.c[i];
+				}
+				return result;
+			}
 		}Color;
 	}
 }
