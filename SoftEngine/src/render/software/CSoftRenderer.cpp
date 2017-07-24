@@ -230,7 +230,7 @@ namespace se
 									//转换到摄像机坐标
 									TranslateWorldToCamera(viewMat, triangle);
 
-									//if (!BackCulling(triangle)) //背面剔除
+									if (!BackCulling(triangle)) //背面剔除
 									{
 										triangleList.push_back(triangle); //插入到三角形列表
 									}
