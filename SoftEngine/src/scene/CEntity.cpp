@@ -67,7 +67,7 @@ namespace se
  							modelMat.SetRotationRadians(rad, CVector3(0, 0, 1));
  							//modelMat.SetScale(CVector3(.5f, .5f, .5f));
  
-							pShaderProgram->SetUniform(render::UN_WORLD_MAT, (ubyte *)&modelMat.m, sizeof(modelMat.m));
+							//pShaderProgram->SetUniform(render::UN_WORLD_MAT, (ubyte *)&modelMat.m, sizeof(modelMat.m));
 						}								
 
 						//加入到渲染队列

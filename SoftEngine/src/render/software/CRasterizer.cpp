@@ -319,8 +319,8 @@ namespace se
 
 		se::render::SColor CRasterizer::GetInterpolation(const SColor &c0,const SColor &c1, float rate)
 		{			
-			render::SColor color(c0.a * rate + c1.a * (1 - rate), c0.r * rate + c1.r * (1 - rate),
-				c0.g * rate + c1.g * (1 - rate), c0.b * rate + c1.b * (1 - rate));
+			render::SColor color(c0.a * (1 - rate) + c1.a * rate, c0.r * (1 - rate) + c1.r * rate,
+				c0.g * (1 - rate) + c1.g * rate, c0.b * (1 - rate) + c1.b * rate);
 			return color;
 		}
 
@@ -328,9 +328,8 @@ namespace se
 		{
 			for (uint i = 0; i < count; ++i)
 			{
-				float rate = 1.f - 1.f * i / count;
-				SColor color(c0.a * rate + c1.a * (1 - rate), c0.r * rate + c1.r * (1 - rate),
-					c0.g * rate + c1.g * (1 - rate), c0.b * rate + c1.b * (1 - rate));
+				float rate = 1.f * i / count;
+				SColor color = GetInterpolation(c0, c1, rate);
 				*addr = color.Get32BitColor();
 				++addr;
 			}
