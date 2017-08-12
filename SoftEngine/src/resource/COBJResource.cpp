@@ -61,11 +61,11 @@ namespace se
 						{
 							if (bHaveTexCoord)
 							{
-								sscanf(split[j].c_str(), "%d/%d/%d", &faceIndex.position[i], &faceIndex.texCoord[i], &faceIndex.normal[i]);
+								sscanf(split[j].c_str(), "%hu/%hu/%hu", &faceIndex.position[i], &faceIndex.texCoord[i], &faceIndex.normal[i]);
 							}
 							else
 							{
-								sscanf(split[j].c_str(), "%d//%d", &faceIndex.position[i], &faceIndex.normal[i]);
+								sscanf(split[j].c_str(), "%hu//%hu", &faceIndex.position[i], &faceIndex.normal[i]);
 							}
 						}
 

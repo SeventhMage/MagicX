@@ -14,9 +14,9 @@ namespace se
 		struct SFaceIndex
 		{
 			int indicesCount;
-			int position[4];
-			int texCoord[4];
-			int normal[4];
+			ushort position[4];
+			ushort texCoord[4];
+			ushort normal[4];
 		};
 		using namespace math;
 

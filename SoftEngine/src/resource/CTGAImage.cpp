@@ -48,12 +48,12 @@ namespace se
 
 			// Do byte swap for big vs little endian
 #ifdef __APPLE__
-			LITTLE_ENDIAN_WORD(&tgaHeader.colorMapStart);
-			LITTLE_ENDIAN_WORD(&tgaHeader.colorMapLength);
-			LITTLE_ENDIAN_WORD(&tgaHeader.xstart);
-			LITTLE_ENDIAN_WORD(&tgaHeader.ystart);
-			LITTLE_ENDIAN_WORD(&tgaHeader.width);
-			LITTLE_ENDIAN_WORD(&tgaHeader.height);
+			//LITTLE_ENDIAN_WORD(&tgaHeader.colorMapStart);
+			//LITTLE_ENDIAN_WORD(&tgaHeader.colorMapLength);
+			//LITTLE_ENDIAN_WORD(&tgaHeader.xstart);
+			//LITTLE_ENDIAN_WORD(&tgaHeader.ystart);
+			//LITTLE_ENDIAN_WORD(&tgaHeader.width);
+			//LITTLE_ENDIAN_WORD(&tgaHeader.height);
 #endif
 
 
