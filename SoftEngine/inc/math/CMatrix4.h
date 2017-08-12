@@ -270,7 +270,7 @@ namespace se
 			}
 			CMatrix4 &BuildShadowMatrix(const CVector3 &light, const CPlane3 &plane, float point = 1.0f)
 			{
-
+				return *this;
 			}
 
 			CMatrix4 &SetInverseTranslation(const CVector3  &translation)

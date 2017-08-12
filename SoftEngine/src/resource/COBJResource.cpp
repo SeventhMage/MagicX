@@ -31,14 +31,14 @@ namespace se
 					{
 						CVector3 position;
 						char temp[8];
-						sscanf_s(buf, "%s %f %f %f", temp, sizeof(temp), &position.x, &position.y, &position.z);
+						sscanf(buf, "%s %f %f %f", temp, &position.x, &position.y, &position.z);
 						m_positionList.push_back(position);
 					}
 					else if ('v' == buf[0] && 'n' == buf[1]) //法线
 					{
 						CVector3 normal;
 						char temp[8];
-						sscanf_s(buf, "%s %f %f %f", temp, sizeof(temp), &normal.x, &normal.y, &normal.z);
+						sscanf(buf, "%s %f %f %f", temp, &normal.x, &normal.y, &normal.z);
 						m_normalList.push_back(normal);
 					}
 					else if ('v' == buf[0] && 't' == buf[1]) //纹理坐标
@@ -46,7 +46,7 @@ namespace se
 						bHaveTexCoord = true;
 						CVector2 texCoord;
 						char temp[8];
-						sscanf_s(buf, "%s %f %f", temp, sizeof(temp), &texCoord.x, &texCoord.y);
+						sscanf(buf, "%s %f %f", temp, &texCoord.x, &texCoord.y);
 						m_texCoordList.push_back(texCoord);
 					}
 					else if ('f' == buf[0]) //面
@@ -61,11 +61,11 @@ namespace se
 						{
 							if (bHaveTexCoord)
 							{
-								sscanf_s(split[j].c_str(), "%d/%d/%d", &faceIndex.position[i], &faceIndex.texCoord[i], &faceIndex.normal[i]);
+								sscanf(split[j].c_str(), "%d/%d/%d", &faceIndex.position[i], &faceIndex.texCoord[i], &faceIndex.normal[i]);
 							}
 							else
 							{
-								sscanf_s(split[j].c_str(), "%d//%d", &faceIndex.position[i], &faceIndex.normal[i]);
+								sscanf(split[j].c_str(), "%d//%d", &faceIndex.position[i], &faceIndex.normal[i]);
 							}
 						}
 

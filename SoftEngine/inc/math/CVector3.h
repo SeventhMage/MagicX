@@ -142,6 +142,7 @@ namespace se
 				x = (float)((double)b.x + ((double)(a.x - b.x)) * d);
 				y = (float)((double)b.y + ((double)(a.y - b.y)) * d);
 				z = (float)((double)b.z + ((double)(a.z - b.z)) * d);
+				return *this;
 			}
 
 			//Get the rotations that would make a (0,0,1) direction vector point in the same direction as this direction vector.
