@@ -18,7 +18,7 @@ namespace se
 			CDeviceManager();
 			virtual ~CDeviceManager();
 			
-			virtual IDevice *CreateDevice(EDeviceType deviceType, render::IRenderDriver *renderDriver, int x, int y, int width, int height, bool bFullScreen = false);
+			virtual IDevice *CreateDevice(render::IRenderDriver *renderDriver, int x, int y, int width, int height, bool bFullScreen = false);
 			virtual IDevice *GetDevice() { return m_pDevice; };
 		private:
 			IDevice *m_pDevice;

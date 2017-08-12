@@ -1,5 +1,7 @@
 #include "CDeviceManager.h"
+#ifdef WIN32
 #include "win32/CDeviceWin32.h"
+#endif
 
 namespace se
 {
@@ -18,27 +20,11 @@ namespace se
 
 		}
 
-		IDevice * CDeviceManager::CreateDevice(EDeviceType deviceType, render::IRenderDriver *renderDriver, int x, int y, int width, int height, bool bFullScreen /* = false */)
+		IDevice * CDeviceManager::CreateDevice(render::IRenderDriver *renderDriver, int x, int y, int width, int height, bool bFullScreen /* = false */)
 		{
-			switch (deviceType)
-			{
-			case DT_WIN32:
-			{
-							 m_pDevice = new CDeviceWin32(renderDriver, x, y, width, height, bFullScreen);
-			}
-				break;
-			case DT_LINUX:
-				break;
-			case DT_MAC:
-				break;
-			case DT_IOS:
-				break;
-			case DT_ANDROID:
-				break;
-			default:
-				break;
-			}
-
+#ifdef WIN32
+			m_pDevice = new CDeviceWin32(renderDriver, x, y, width, height, bFullScreen);
+#endif						
 			return m_pDevice;
 		}
 

@@ -41,7 +41,7 @@ namespace se
 			m_pRenderer = render::CSoftRenderer::NewInstance();
 		}
 
-		m_pDeviceMgr->CreateDevice(device::DT_WIN32, m_pRenderer->GetRenderDriver(), x, y, width, height, fullScreen);		
+		m_pDeviceMgr->CreateDevice(m_pRenderer->GetRenderDriver(), x, y, width, height, fullScreen);		
 		
 
 	}

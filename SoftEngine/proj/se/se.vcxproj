@@ -87,7 +87,6 @@
     <ClCompile Include="..\..\src\device\CEventManager.cpp" />
     <ClCompile Include="..\..\src\device\CKeyEvent.cpp" />
     <ClCompile Include="..\..\src\device\win32\CDeviceWin32.cpp" />
-    <ClCompile Include="..\..\src\main.cpp" />
     <ClCompile Include="..\..\src\render\CMaterial.cpp" />
     <ClCompile Include="..\..\src\render\CMaterialManager.cpp" />
     <ClCompile Include="..\..\src\render\CMesh.cpp" />
