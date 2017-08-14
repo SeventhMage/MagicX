@@ -3,6 +3,10 @@
 #include "win32/CDeviceWin32.h"
 #endif
 
+#ifdef __APPLE__
+#include "apple/CDeviceApple.h"
+#endif
+
 namespace se
 {
 	namespace device
@@ -25,6 +29,9 @@ namespace se
 #ifdef WIN32
 			m_pDevice = new CDeviceWin32(renderDriver, x, y, width, height, bFullScreen);
 #endif						
+#ifdef __APPLE__
+            m_pDevice = new CDeviceApple(width, height);
+#endif
 			return m_pDevice;
 		}
 
