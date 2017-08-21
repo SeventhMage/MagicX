@@ -30,7 +30,7 @@ namespace se
 			m_pDevice = new CDeviceWin32(renderDriver, x, y, width, height, bFullScreen);
 #endif						
 #ifdef __APPLE__
-            m_pDevice = new CDeviceApple(width, height);
+            m_pDevice = new CDeviceApple(renderDriver, width, height);
 #endif
 			return m_pDevice;
 		}

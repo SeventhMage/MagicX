@@ -1,15 +1,19 @@
 #include "CDeviceApple.h"
 
 
+#import <UIKit/UIKit.h>
+
+
 namespace se
 {
     namespace device
     {
-        CDeviceApple::CDeviceApple(int width, int height)
+        CDeviceApple::CDeviceApple(render::IRenderDriver *pRenderdriver, int width, int height)
         :m_iWidth(width)
         ,m_iHeight(height)
         {
-            
+            render::SRenderContext context = {width, height};
+            pRenderdriver->InitDriver(context);
         }
         
         void CDeviceApple::SwapBuffers()
@@ -44,7 +48,19 @@ namespace se
         
         void CDeviceApple::DrawBuffer(ubyte *buffer)
         {
+            /*
+            NSUInteger size = m_iWidth * m_iHeight * sizeof(uint);
+            NSData *imageData = [[NSData alloc]initWithBytes:buffer length:size];
+            UIImage* myImage = [ [ UIImage alloc ]initWithData:imageData ];
             
+            CGRect myRect;
+            
+            myRect.origin.x = 0.0 ;
+            myRect.origin.y = 0.0;
+            myRect.size = myImage.size;
+            [myImage drawInRect:myRect];
+             */
+
         }
         
         bool CDeviceApple::Run()

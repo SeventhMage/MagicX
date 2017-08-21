@@ -2,6 +2,7 @@
 #define _DEVICE_C_DEVICEAPPLE_H_
 
 #include "device/IDevice.h"
+#include "render/IRenderDriver.h"
 
 namespace se
 {
@@ -10,7 +11,7 @@ namespace se
         class CDeviceApple : public IDevice
         {
         public:
-            CDeviceApple(int width, int height);
+            CDeviceApple(render::IRenderDriver *pRenderdriver, int width, int height);
             virtual ~CDeviceApple(){}
             virtual void SwapBuffers();
             virtual int GetWindowWidth();
