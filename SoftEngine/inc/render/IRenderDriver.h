@@ -5,9 +5,7 @@
 #ifndef _SE_I_RENDER_DRIVER_H_
 #define _SE_I_RENDER_DRIVER_H_
 
-#ifdef WIN32
-#include <windows.h>
-#endif
+#include "SRenderContext.h"
 
 namespace se
 {
@@ -22,9 +20,8 @@ namespace se
 		{
 		public:
 			virtual ~IRenderDriver(){}
-#ifdef WIN32
-			virtual void InitDriverWin32(HDC hDc, int width, int height) {}
-#endif
+			
+			virtual void InitDriver(const SRenderContext &context) = 0;
 			virtual void OnSize(int x, int y, int width, int height) {}
 			virtual RenderDriverType GetDriverType() = 0;			
 		};

@@ -13,9 +13,8 @@ namespace se
 		public:		
 			CSoftRenderDriver();
 			virtual ~CSoftRenderDriver();
-#ifdef WIN32
-			virtual void InitDriverWin32(HDC hDc, int width, int height);
-#endif
+
+			virtual void InitDriver(const SRenderContext &context);
 			virtual void OnSize(int x, int y, int width, int height);
 			virtual RenderDriverType GetDriverType(){ return RDT_SOFTWARE; }			
 

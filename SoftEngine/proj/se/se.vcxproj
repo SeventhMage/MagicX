@@ -142,6 +142,7 @@
     <ClInclude Include="..\..\inc\render\IShaderProgram.h" />
     <ClInclude Include="..\..\inc\render\IUniform.h" />
     <ClInclude Include="..\..\inc\render\SColor.h" />
+    <ClInclude Include="..\..\inc\render\SRenderContext.h" />
     <ClInclude Include="..\..\inc\render\SRenderMemory.h" />
     <ClInclude Include="..\..\inc\render\UniformDef.h" />
     <ClInclude Include="..\..\inc\render\IBuffer.h" />

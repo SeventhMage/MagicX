@@ -276,7 +276,8 @@ namespace se
 			
 			//³õÊ¼»¯äÖÈ¾Æ÷Çý¶¯
 			HDC hDC = GetDC(m_hWnd);
-			pRenderDriver->InitDriverWin32(hDC, realWidth, realHeight);
+			render::SRenderContext context = { realWidth, realHeight, hDC };
+			pRenderDriver->InitDriver(context);
 			ReleaseDC(m_hWnd, hDC);
 
 			ShowWindow(m_hWnd, SW_SHOWNORMAL);

@@ -21,17 +21,16 @@ namespace se
 			SAFE_DEL(m_pDrawBuffer);
 			SAFE_DEL(m_pDepthBuffer);
 		}
-#ifdef WIN32
-		void CSoftRenderDriver::InitDriverWin32(HDC hDc, int width, int height)
+		void CSoftRenderDriver::InitDriver(const SRenderContext &context)
 		{
 			if (m_pDrawBuffer)
 				return;
 
-			m_uBufferWidth = width;
-			m_uBufferHeight = height;
+			m_uBufferWidth = context.iWidth;
+			m_uBufferHeight = context.iHeight;
 			CreateBuffer();
 		}
-#endif
+
 
 		void CSoftRenderDriver::OnSize(int x, int y, int width, int height)
 		{
