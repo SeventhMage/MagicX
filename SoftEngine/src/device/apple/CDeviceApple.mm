@@ -11,6 +11,7 @@ namespace se
         CDeviceApple::CDeviceApple(render::IRenderDriver *pRenderdriver, int width, int height)
         :m_iWidth(width)
         ,m_iHeight(height)
+        ,m_drawCallback(nullptr)
         {
             render::SRenderContext context = {width, height};
             pRenderdriver->InitDriver(context);
@@ -60,7 +61,13 @@ namespace se
             myRect.size = myImage.size;
             [myImage drawInRect:myRect];
              */
-
+            if (m_drawCallback)
+                m_drawCallback(buffer);
+        }
+        
+        void CDeviceApple::SetDrawCallback(DrawCallback callback)
+        {
+            m_drawCallback = callback;
         }
         
         bool CDeviceApple::Run()

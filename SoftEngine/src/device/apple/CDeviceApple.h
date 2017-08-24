@@ -20,11 +20,12 @@ namespace se
             virtual void Sleep(unsigned long ms);
             virtual void OnSize(int iPosX, int iPosY, int iWidth, int iHeight);
             virtual void DrawBuffer(ubyte *buffer);
-            
+            virtual void SetDrawCallback(DrawCallback callback);
             virtual bool Run();
         private:
             int m_iWidth;
             int m_iHeight;
+            DrawCallback m_drawCallback;
         };
     }
 }

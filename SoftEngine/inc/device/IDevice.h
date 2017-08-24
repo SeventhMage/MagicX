@@ -1,5 +1,5 @@
 /************************************************************************/
-/* 设备相关接口，维护设备相关信息                                       */
+/* 鈥γ嬄扁垙艙鈥∠�每惟鈥澝糕亜拢篓艗篓陋搂鈥γ嬄扁垙艙鈥∠�每鈥撯増艙垄                                       */
 /************************************************************************/
 #ifndef _MX_DEVICE_IDEVICE_H_
 #define _MX_DEVICE_IDEVICE_H_
@@ -21,6 +21,7 @@ namespace se
 			DT_NUM,
 		};
 
+        typedef void (*DrawCallback)(ubyte *buffer);
 		class IDevice
 		{
 		public:
@@ -33,7 +34,8 @@ namespace se
 			virtual void Sleep(unsigned long ms) = 0;
 			virtual void OnSize(int iPosX, int iPosY, int iWidth, int iHeight) = 0;
 			virtual void DrawBuffer(ubyte *buffer){}
-
+            virtual void SetDrawCallback(DrawCallback callback){};
+            
 			virtual bool Run() = 0;
 		};
 	}
