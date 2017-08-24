@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		741385451F4C683600C318FA /* libse_apple.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 741385441F4C683600C318FA /* libse_apple.a */; };
-		7413858F1F4D005700C318FA /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7413858E1F4D005700C318FA /* OpenGLES.framework */; };
 		7431B4541F4055310097877E /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7431B4531F4055310097877E /* main.mm */; };
 		7431B4571F4055310097877E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7431B4561F4055310097877E /* AppDelegate.m */; };
 		7431B45A1F4055310097877E /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7431B4591F4055310097877E /* ViewController.mm */; };
@@ -16,10 +14,10 @@
 		7431B45F1F4055310097877E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7431B45E1F4055310097877E /* Assets.xcassets */; };
 		7431B4621F4055310097877E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7431B4601F4055310097877E /* LaunchScreen.storyboard */; };
 		7431B59E1F43CFC80097877E /* res in Resources */ = {isa = PBXBuildFile; fileRef = 7431B59D1F43CFC80097877E /* res */; };
+		7471FC6A1F4F14BA00B94673 /* libse_apple.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7471FC691F4F14BA00B94673 /* libse_apple.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		741385441F4C683600C318FA /* libse_apple.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libse_apple.a; sourceTree = "<group>"; };
 		741385481F4C68D000C318FA /* base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base.h; sourceTree = "<group>"; };
 		741385491F4C68D000C318FA /* CSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSingleton.h; sourceTree = "<group>"; };
 		7413854A1F4C68D000C318FA /* EVariableType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVariableType.h; sourceTree = "<group>"; };
@@ -83,7 +81,6 @@
 		7413858A1F4C68D000C318FA /* ISkyBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISkyBox.h; sourceTree = "<group>"; };
 		7413858B1F4C68D000C318FA /* ITerrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITerrain.h; sourceTree = "<group>"; };
 		7413858C1F4C68D000C318FA /* se.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = se.h; sourceTree = "<group>"; };
-		7413858E1F4D005700C318FA /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		7431B44F1F4055310097877E /* test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7431B4531F4055310097877E /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		7431B4551F4055310097877E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -95,6 +92,7 @@
 		7431B4611F4055310097877E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7431B4631F4055310097877E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7431B59D1F43CFC80097877E /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
+		7471FC691F4F14BA00B94673 /* libse_apple.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libse_apple.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,8 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7413858F1F4D005700C318FA /* OpenGLES.framework in Frameworks */,
-				741385451F4C683600C318FA /* libse_apple.a in Frameworks */,
+				7471FC6A1F4F14BA00B94673 /* libse_apple.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,14 +233,6 @@
 			path = scene;
 			sourceTree = "<group>";
 		};
-		7413858D1F4D005700C318FA /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				7413858E1F4D005700C318FA /* OpenGLES.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		7431B4461F4055310097877E = {
 			isa = PBXGroup;
 			children = (
@@ -251,8 +240,7 @@
 				7431B59D1F43CFC80097877E /* res */,
 				7431B4511F4055310097877E /* test */,
 				7431B4501F4055310097877E /* Products */,
-				741385441F4C683600C318FA /* libse_apple.a */,
-				7413858D1F4D005700C318FA /* Frameworks */,
+				7471FC691F4F14BA00B94673 /* libse_apple.a */,
 			);
 			sourceTree = "<group>";
 		};

@@ -12,12 +12,6 @@
 
 #include <stdio.h>
 
-@interface ViewController ()
-
-@end
-
-
-
 CSoftEngine softEngine;
 ViewController *viewcontrol;
 void DrawBuffer(ubyte *buffer)
@@ -54,29 +48,29 @@ void DrawBuffer(ubyte *buffer)
     CGDataProviderRelease(provider);
     CGColorSpaceRelease(colorSpace);
     
-
+    [viewcontrol->pImageView setImage:finalImage];
     
-    CGRect myRect;
-    UIImageView *pView = [[UIImageView alloc] initWithImage:finalImage];
     
-    [viewcontrol.view addSubview:pView];
-    myRect.origin.x = 0.0 ;
-    myRect.origin.y = 0.0;
-    myRect.size = finalImage.size;
-    [finalImage drawInRect:myRect];
+    
+    [finalImage drawInRect:viewcontrol.view.frame];
+    
 
 }
+
+@interface ViewController ()
+
+@end
+
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    softEngine.InitEngine(RDT_SOFTWARE, 0, 0, 400, 600);
+    softEngine.InitEngine(RDT_SOFTWARE, 0, 0, self.view.frame.size.width, self.view.frame.size.height);
     
     IResourceManager *resMgr = softEngine.GetResourceManager();
     ISceneManager *sceneMgr = softEngine.GetSceneManager();
-    
     
     IDevice *pDevice = softEngine.GetDevice();
     pDevice->SetDrawCallback(DrawBuffer);
@@ -84,12 +78,15 @@ void DrawBuffer(ubyte *buffer)
     //init scene
     IScene *scene = sceneMgr->LoadScene("scene/scene.scene");
     
-    NSTimer *pTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+    NSTimer *pTimer = [NSTimer scheduledTimerWithTimeInterval:0.03
                                                        target:self
                                                      selector:@selector(Run)
                                                      userInfo:nil
                                                       repeats:YES];
     viewcontrol = self;
+    
+    pImageView = [[UIImageView alloc]initWithFrame:self.view.frame];    
+    [self.view addSubview:pImageView];
 }
 
 

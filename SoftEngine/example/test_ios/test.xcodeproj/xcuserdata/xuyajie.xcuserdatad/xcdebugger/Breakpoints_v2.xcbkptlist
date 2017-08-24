@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "test/ViewController.mm"
-            timestampString = "525230004.708981"
+            timestampString = "525276095.181064"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "-Run"
             landmarkType = "7">
          </BreakpointContent>
@@ -137,22 +137,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "test/ViewController.mm"
-            timestampString = "525230004.708981"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "DrawBuffer(ubyte *buffer)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "../../GitHub/MagicX/SoftEngine/src/render/software/CRasterizer.cpp"
             timestampString = "525102958.952307"
             startingColumnNumber = "9223372036854775807"
@@ -170,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "test/ViewController.mm"
-            timestampString = "525230004.708981"
+            timestampString = "525274467.81897"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "DrawBuffer(ubyte *buffer)"
             landmarkType = "9">
          </BreakpointContent>
@@ -266,11 +250,43 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "test/ViewController.mm"
-            timestampString = "525230004.708981"
+            timestampString = "525273620.274328"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "DrawBuffer(ubyte *buffer)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "test/ViewController.mm"
+            timestampString = "525276006.593706"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "test/ViewController.mm"
+            timestampString = "525275149.552921"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
             landmarkName = "DrawBuffer(ubyte *buffer)"
             landmarkType = "9">
          </BreakpointContent>
