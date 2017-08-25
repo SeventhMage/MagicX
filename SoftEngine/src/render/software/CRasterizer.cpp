@@ -38,12 +38,12 @@ namespace se
 			render::SColor c1 = triangle.vertexColor[1];
 			render::SColor c2 = triangle.vertexColor[2];
 
-			//Ö±Ïß
+			//Ã·Â±Å“ï¬‚
 			if ((FLOAT_EQUAL(p0.y, p1.y) && FLOAT_EQUAL(p0.y, p2.y)) ||
 				(FLOAT_EQUAL(p0.x, p1.x) && FLOAT_EQUAL(p0.x, p2.x)))
 				return;
 
-			//°´yÖµ´ÓĞ¡µ½´óÅÅĞò
+			//âˆÂ¥yÃ·ÂµÂ¥â€â€“Â°ÂµÎ©Â¥Ã›â‰ˆâ‰ˆâ€“Ãš
 			if (p1.y < p0.y)
 			{
 				base::swap(p0, p1);
@@ -347,7 +347,7 @@ namespace se
 			SColor c = c0;
 			for (uint i = 0; i < count; ++i)
 			{
-				if (z < *zbuffer) //ÕâÀïµÄzÆäÊµÊÇ1/z
+				if (z < *zbuffer) //â€™â€šÂ¿Ã”ÂµÆ’zâˆ†â€°Â ÂµÂ Â«1/z
 				{
 					SColor color = c / w;
 					*addr = color.Get32BitColor();
@@ -380,10 +380,10 @@ namespace se
 			float v = lt.y;
 			for (uint i = 0; i < count; ++i)
 			{
-				if (z < *zbuffer) //ÕâÀïµÄzÆäÊµÊÇ1/z
+				if (z < *zbuffer) //This z is 1/z in fact.
 				{	
-					int tx = (u / w) * m_textureWidth + .5f; //¸¡µãÔËËã£¬²»ÄÜÔÚÕâÀïÖ±½Ó³Ë3
-					int ty = (1 - (v / w)) * m_textureHeight + .5f;
+					int tx = (u / w) * (m_textureWidth - 1); //float calculate can't multiply 3 here.
+					int ty = (1 - (v / w)) * (m_textureHeight - 1);
 					SColor color = c / w;
 					//uint tc = (0xff << 24) | uint((*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3)) * color.b )
 					//	| (uint(*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3 + 1) * color.g) << 8)

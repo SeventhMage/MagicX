@@ -14,7 +14,7 @@
 		7431B45F1F4055310097877E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7431B45E1F4055310097877E /* Assets.xcassets */; };
 		7431B4621F4055310097877E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7431B4601F4055310097877E /* LaunchScreen.storyboard */; };
 		7431B59E1F43CFC80097877E /* res in Resources */ = {isa = PBXBuildFile; fileRef = 7431B59D1F43CFC80097877E /* res */; };
-		7471FC6A1F4F14BA00B94673 /* libse_apple.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7471FC691F4F14BA00B94673 /* libse_apple.a */; };
+		7471FC701F4F2BC300B94673 /* libse_apple.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7471FC6F1F4F2BC300B94673 /* libse_apple.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,7 +92,7 @@
 		7431B4611F4055310097877E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7431B4631F4055310097877E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7431B59D1F43CFC80097877E /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
-		7471FC691F4F14BA00B94673 /* libse_apple.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libse_apple.a; sourceTree = "<group>"; };
+		7471FC6F1F4F2BC300B94673 /* libse_apple.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libse_apple.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7471FC6A1F4F14BA00B94673 /* libse_apple.a in Frameworks */,
+				7471FC701F4F2BC300B94673 /* libse_apple.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,7 +240,7 @@
 				7431B59D1F43CFC80097877E /* res */,
 				7431B4511F4055310097877E /* test */,
 				7431B4501F4055310097877E /* Products */,
-				7471FC691F4F14BA00B94673 /* libse_apple.a */,
+				7471FC6F1F4F2BC300B94673 /* libse_apple.a */,
 			);
 			sourceTree = "<group>";
 		};
@@ -473,9 +473,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: xyj_hj@qq.com (E647CJQG5K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 58DXM3G7FU;
 				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_INPUT_FILETYPE = automatic;
 				GCC_PREFIX_HEADER = "";
 				HEADER_SEARCH_PATHS = "inc/**";
 				INFOPLIST_FILE = test/Info.plist;
@@ -484,12 +485,14 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = xuyajie.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REZ_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/**",
 					"res/**",
 				);
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -497,9 +500,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: xyj_hj@qq.com (E647CJQG5K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 58DXM3G7FU;
 				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_INPUT_FILETYPE = automatic;
 				GCC_PREFIX_HEADER = "";
 				HEADER_SEARCH_PATHS = "inc/**";
 				INFOPLIST_FILE = test/Info.plist;
@@ -508,12 +512,14 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = xuyajie.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REZ_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/**",
 					"res/**",
 				);
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

@@ -69,14 +69,13 @@ void DrawBuffer(ubyte *buffer)
     // Do any additional setup after loading the view, typically from a nib.
     softEngine.InitEngine(RDT_SOFTWARE, 0, 0, self.view.frame.size.width, self.view.frame.size.height);
     
-    IResourceManager *resMgr = softEngine.GetResourceManager();
     ISceneManager *sceneMgr = softEngine.GetSceneManager();
     
     IDevice *pDevice = softEngine.GetDevice();
     pDevice->SetDrawCallback(DrawBuffer);
     
     //init scene
-    IScene *scene = sceneMgr->LoadScene("scene/scene.scene");
+    sceneMgr->LoadScene("scene/scene.scene");
     
     NSTimer *pTimer = [NSTimer scheduledTimerWithTimeInterval:0.03
                                                        target:self

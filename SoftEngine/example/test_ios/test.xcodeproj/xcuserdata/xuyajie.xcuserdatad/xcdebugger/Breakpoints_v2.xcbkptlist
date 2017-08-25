@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "test/ViewController.mm"
-            timestampString = "525276095.181064"
+            timestampString = "525281600.080398"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "-Run"
             landmarkType = "7">
          </BreakpointContent>
@@ -289,6 +289,22 @@
             endingLineNumber = "55"
             landmarkName = "DrawBuffer(ubyte *buffer)"
             landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../src/render/software/CRasterizer.cpp"
+            timestampString = "525281876.702934"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "385"
+            endingLineNumber = "385"
+            landmarkName = "CRasterizer::FillColor(uint *addr, float *zbuffer, uint x0, float z0, float wl, uint x1, float z1, float wr, const SColor &amp;lc, const SColor &amp;rc, const CVector2 &amp;lt, const CVector2 &amp;rt)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
