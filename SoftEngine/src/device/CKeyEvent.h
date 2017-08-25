@@ -17,9 +17,9 @@ namespace se
 			CKeyEvent();
 			virtual ~CKeyEvent();
 
-			virtual void OnPress(EVENT_KEYPRESS key);
-			virtual void OnUp(EVENT_KEYPRESS key);
-			virtual bool IsPress(EVENT_KEYPRESS key);
+			virtual void OnPress(EEventKeyPress key);
+			virtual void OnUp(EEventKeyPress key);
+			virtual bool IsPress(EEventKeyPress key);
 			void OnWheel(int delta);
 
 			void SetMousePosition(int x, int y) { m_mouseX = x; m_mouseY = y; }

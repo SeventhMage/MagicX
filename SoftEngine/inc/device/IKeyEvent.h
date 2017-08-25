@@ -16,9 +16,9 @@ namespace se
 			IKeyEvent() {};
 			virtual ~IKeyEvent() {};
 
-			virtual void OnPress(EVENT_KEYPRESS key) = 0;
-			virtual void OnUp(EVENT_KEYPRESS key) = 0;
-			virtual bool IsPress(EVENT_KEYPRESS key) = 0;
+			virtual void OnPress(EEventKeyPress key) = 0;
+			virtual void OnUp(EEventKeyPress key) = 0;
+			virtual bool IsPress(EEventKeyPress key) = 0;
 			virtual void OnWheel(int delta) = 0;
 
 			virtual void SetMousePosition(int x, int y) = 0;

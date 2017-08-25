@@ -14,15 +14,15 @@ namespace se
 		CKeyEvent::~CKeyEvent()
 		{
 		}
-		void CKeyEvent::OnPress(EVENT_KEYPRESS key)
+		void CKeyEvent::OnPress(EEventKeyPress key)
 		{
 			m_keys[key] = true;
 		}
-		void CKeyEvent::OnUp(EVENT_KEYPRESS key)
+		void CKeyEvent::OnUp(EEventKeyPress key)
 		{
 			m_keys[key] = false;
 		}
-		bool CKeyEvent::IsPress(EVENT_KEYPRESS key)
+		bool CKeyEvent::IsPress(EEventKeyPress key)
 		{
 			return m_keys[key];
 		}

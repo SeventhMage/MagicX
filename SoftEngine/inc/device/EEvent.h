@@ -8,7 +8,7 @@ namespace se
 {
 	namespace device
 	{
-		enum EVENT_KEYPRESS
+		enum EEventKeyPress
 		{
 			EKP_MOUSE_LBUTTON = 0,
 			EKP_MOUSE_RBUTTON,
@@ -22,6 +22,15 @@ namespace se
 			EKP_KEYBOARD_W,
 
 			EKP_NUM,
+		};
+
+		enum EGestureType
+		{
+			GT_TAP = 0,
+			GT_PAN,
+			GT_PINCH,
+
+			GT_COUNT,
 		};
 	}
 }

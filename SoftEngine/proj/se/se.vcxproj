@@ -85,6 +85,10 @@
     <ClCompile Include="..\..\src\CSoftEngine.cpp" />
     <ClCompile Include="..\..\src\device\CDeviceManager.cpp" />
     <ClCompile Include="..\..\src\device\CEventManager.cpp" />
+    <ClCompile Include="..\..\src\device\CGesture.cpp" />
+    <ClCompile Include="..\..\src\device\CGesturePan.cpp" />
+    <ClCompile Include="..\..\src\device\CGesturePinch.cpp" />
+    <ClCompile Include="..\..\src\device\CGestureTap.cpp" />
     <ClCompile Include="..\..\src\device\CKeyEvent.cpp" />
     <ClCompile Include="..\..\src\device\win32\CDeviceWin32.cpp" />
     <ClCompile Include="..\..\src\render\CMaterial.cpp" />
@@ -129,6 +133,7 @@
     <ClInclude Include="..\..\inc\device\IDevice.h" />
     <ClInclude Include="..\..\inc\device\IDeviceManager.h" />
     <ClInclude Include="..\..\inc\device\IEvent.h" />
+    <ClInclude Include="..\..\inc\device\IGestureEvent.h" />
     <ClInclude Include="..\..\inc\device\IKeyEvent.h" />
     <ClInclude Include="..\..\inc\math\CBoundingBox.h" />
     <ClInclude Include="..\..\inc\math\CFrustum.h" />
@@ -179,7 +184,11 @@
     <ClInclude Include="..\..\inc\scene\ITerrain.h" />
     <ClInclude Include="..\..\inc\se.h" />
     <ClInclude Include="..\..\src\device\CDeviceManager.h" />
+    <ClInclude Include="..\..\src\device\CGesture.h" />
+    <ClInclude Include="..\..\src\device\CGesturePan.h" />
+    <ClInclude Include="..\..\src\device\CGestureTap.h" />
     <ClInclude Include="..\..\src\device\CKeyEvent.h" />
+    <ClInclude Include="..\..\src\device\CGesturePinch.h" />
     <ClInclude Include="..\..\src\device\win32\CDeviceWin32.h" />
     <ClInclude Include="..\..\src\render\CMaterial.h" />
     <ClInclude Include="..\..\src\render\CMaterialManager.h" />

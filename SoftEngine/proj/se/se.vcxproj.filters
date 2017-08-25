@@ -153,6 +153,18 @@
     <ClCompile Include="..\..\src\render\software\CSoftShaderProgram.cpp">
       <Filter>src\render\software</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\device\CGesturePan.cpp">
+      <Filter>src\device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\CGesturePinch.cpp">
+      <Filter>src\device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\CGestureTap.cpp">
+      <Filter>src\device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\CGesture.cpp">
+      <Filter>src\device</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\device\IDevice.h">
@@ -430,6 +442,21 @@
     </ClInclude>
     <ClInclude Include="..\..\inc\render\SRenderContext.h">
       <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\device\IGestureEvent.h">
+      <Filter>inc\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\device\CGesturePan.h">
+      <Filter>src\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\device\CGestureTap.h">
+      <Filter>src\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\device\CGesturePinch.h">
+      <Filter>src\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\device\CGesture.h">
+      <Filter>src\device</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
