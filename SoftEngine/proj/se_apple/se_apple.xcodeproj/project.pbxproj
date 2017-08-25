@@ -180,6 +180,7 @@
 		7431B5521F405A5D0097877E /* CSceneNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSceneNode.h; sourceTree = "<group>"; };
 		7431B5541F405A5D0097877E /* CPointLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPointLight.cpp; sourceTree = "<group>"; };
 		7431B5551F405A5D0097877E /* CPointLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPointLight.h; sourceTree = "<group>"; };
+		7471FC711F4FA69F00B94673 /* IGestureEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGestureEvent.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +251,7 @@
 				7431B4D51F405A5D0097877E /* IDeviceManager.h */,
 				7431B4D61F405A5D0097877E /* IEvent.h */,
 				7431B4D71F405A5D0097877E /* IKeyEvent.h */,
+				7471FC711F4FA69F00B94673 /* IGestureEvent.h */,
 			);
 			path = device;
 			sourceTree = "<group>";

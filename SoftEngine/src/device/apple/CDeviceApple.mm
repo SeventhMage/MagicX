@@ -49,18 +49,6 @@ namespace se
         
         void CDeviceApple::DrawBuffer(ubyte *buffer)
         {
-            /*
-            NSUInteger size = m_iWidth * m_iHeight * sizeof(uint);
-            NSData *imageData = [[NSData alloc]initWithBytes:buffer length:size];
-            UIImage* myImage = [ [ UIImage alloc ]initWithData:imageData ];
-            
-            CGRect myRect;
-            
-            myRect.origin.x = 0.0 ;
-            myRect.origin.y = 0.0;
-            myRect.size = myImage.size;
-            [myImage drawInRect:myRect];
-             */
             if (m_drawCallback)
                 m_drawCallback(buffer);
         }
