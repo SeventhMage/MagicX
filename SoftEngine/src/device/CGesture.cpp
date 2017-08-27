@@ -1,26 +1,28 @@
 #include "CGesture.h"
 
+#include <algorithm>
+
 namespace se
 {
 	namespace device
 	{
 
 
-		void CGesture::SubscribeCallback(GestureCallback callback, void *obj)
+		void CGesture::SubscribeCallback(GestureCallback callback)
 		{
-			if (m_mapGestureCallback.find(callback) == m_mapGestureCallback.end())
-			{
-				m_mapGestureCallback[callback] = obj;
-			}
+            if (std::find(m_GestureCallback.begin(), m_GestureCallback.end(), callback) != m_GestureCallback.end())
+            {
+                m_GestureCallback.push_back(callback);
+            }
 		}
 
 		void CGesture::UnSubscribeCallback(GestureCallback callback)
 		{
-			auto it = m_mapGestureCallback.find(callback);
-			if (it != m_mapGestureCallback.end())
-			{
-				m_mapGestureCallback.erase(it);
-			}
+            auto it = std::find(m_GestureCallback.begin(), m_GestureCallback.end(), callback);
+            if (it != m_GestureCallback.end())
+            {
+                m_GestureCallback.erase(it);
+            }
 		}
 
 	}

@@ -389,9 +389,9 @@ namespace se
 					//	| (uint(*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3 + 1) * color.g) << 8)
 					//	| (uint(*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3 + 2) * color.r) << 16);
 
-					uint tc = (0xff << 24) | uint((*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3)))
-						| (uint(*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3 + 1)) << 8)
-						| (uint(*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3 + 2)) << 16);
+					uint tc = (0xff << 24) | uint((*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3) * color.b))
+						| (uint(*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3 + 1) * color.g) << 8)
+						| (uint(*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3 + 2) * color.r) << 16);
 
 					*addr = tc;
 					*zbuffer = z;

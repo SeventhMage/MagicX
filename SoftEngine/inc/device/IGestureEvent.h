@@ -6,17 +6,12 @@
 #define _I_DEVICE_GESTURE_EVENT_H_
 
 #include "IEvent.h"
+#include "GestureArgs.h"
 #include "base/seType.h"
 
 namespace se {
     namespace device
-    {
-		class IGestureArgs
-		{
-		public:
-			IGestureArgs(){}
-			~IGestureArgs(){}
-		};		
+    {		
 		typedef void(*GestureCallback)(IGestureArgs *args);
         class IGestureEvent : public IEvent
         {
@@ -26,7 +21,7 @@ namespace se {
 			virtual void OnTouchEnd(int pointID, int x, int y, uint classID, uint touchNum) = 0;
 			virtual void OnTouchMove(int pointID, int x, int y, uint classID, uint touchNum) = 0;   
 
-			virtual void SubscribeCallback(GestureCallback callback, void *obj) = 0;
+			virtual void SubscribeCallback(GestureCallback callback) = 0;
 			virtual void UnSubscribeCallback(GestureCallback callback) = 0;
         };
     }

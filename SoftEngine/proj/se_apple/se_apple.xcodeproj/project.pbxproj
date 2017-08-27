@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		742295021F515E5100D48FF5 /* CGesture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 742294FA1F515E5100D48FF5 /* CGesture.cpp */; };
+		742295031F515E5100D48FF5 /* CGesturePan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 742294FC1F515E5100D48FF5 /* CGesturePan.cpp */; };
+		742295041F515E5100D48FF5 /* CGesturePinch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 742294FE1F515E5100D48FF5 /* CGesturePinch.cpp */; };
+		742295051F515E5100D48FF5 /* CGestureTap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 742295001F515E5100D48FF5 /* CGestureTap.cpp */; };
+		742295591F51737C00D48FF5 /* CIlluminationRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 742295571F51737C00D48FF5 /* CIlluminationRender.cpp */; };
 		7431B5561F405A5D0097877E /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7431B50E1F405A5D0097877E /* Log.cpp */; };
 		7431B5571F405A5D0097877E /* StringHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7431B50F1F405A5D0097877E /* StringHelper.cpp */; };
 		7431B5581F405A5D0097877E /* CSoftEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7431B5101F405A5D0097877E /* CSoftEngine.cpp */; };
@@ -55,6 +60,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		742294FA1F515E5100D48FF5 /* CGesture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CGesture.cpp; sourceTree = "<group>"; };
+		742294FB1F515E5100D48FF5 /* CGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGesture.h; sourceTree = "<group>"; };
+		742294FC1F515E5100D48FF5 /* CGesturePan.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CGesturePan.cpp; sourceTree = "<group>"; };
+		742294FD1F515E5100D48FF5 /* CGesturePan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGesturePan.h; sourceTree = "<group>"; };
+		742294FE1F515E5100D48FF5 /* CGesturePinch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CGesturePinch.cpp; sourceTree = "<group>"; };
+		742294FF1F515E5100D48FF5 /* CGesturePinch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGesturePinch.h; sourceTree = "<group>"; };
+		742295001F515E5100D48FF5 /* CGestureTap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CGestureTap.cpp; sourceTree = "<group>"; };
+		742295011F515E5100D48FF5 /* CGestureTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGestureTap.h; sourceTree = "<group>"; };
+		742295061F5161DC00D48FF5 /* GestureArgs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GestureArgs.h; sourceTree = "<group>"; };
+		742295521F516A0600D48FF5 /* IEventManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IEventManager.h; sourceTree = "<group>"; };
+		742295541F516B3500D48FF5 /* CEventManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEventManager.h; sourceTree = "<group>"; };
+		742295571F51737C00D48FF5 /* CIlluminationRender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIlluminationRender.cpp; sourceTree = "<group>"; };
+		742295581F51737C00D48FF5 /* CIlluminationRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIlluminationRender.h; sourceTree = "<group>"; };
 		7431B4BA1F405A260097877E /* libse_apple.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libse_apple.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7431B4C81F405A5D0097877E /* base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base.h; sourceTree = "<group>"; };
 		7431B4C91F405A5D0097877E /* CSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSingleton.h; sourceTree = "<group>"; };
@@ -65,7 +83,6 @@
 		7431B4CE1F405A5D0097877E /* StringHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringHelper.h; sourceTree = "<group>"; };
 		7431B4CF1F405A5D0097877E /* VertexAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VertexAttribute.h; sourceTree = "<group>"; };
 		7431B4D01F405A5D0097877E /* CSoftEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSoftEngine.h; sourceTree = "<group>"; };
-		7431B4D21F405A5D0097877E /* CEventManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEventManager.h; sourceTree = "<group>"; };
 		7431B4D31F405A5D0097877E /* EEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EEvent.h; sourceTree = "<group>"; };
 		7431B4D41F405A5D0097877E /* IDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDevice.h; sourceTree = "<group>"; };
 		7431B4D51F405A5D0097877E /* IDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDeviceManager.h; sourceTree = "<group>"; };
@@ -245,13 +262,14 @@
 		7431B4D11F405A5D0097877E /* device */ = {
 			isa = PBXGroup;
 			children = (
-				7431B4D21F405A5D0097877E /* CEventManager.h */,
 				7431B4D31F405A5D0097877E /* EEvent.h */,
 				7431B4D41F405A5D0097877E /* IDevice.h */,
 				7431B4D51F405A5D0097877E /* IDeviceManager.h */,
 				7431B4D61F405A5D0097877E /* IEvent.h */,
 				7431B4D71F405A5D0097877E /* IKeyEvent.h */,
 				7471FC711F4FA69F00B94673 /* IGestureEvent.h */,
+				742295061F5161DC00D48FF5 /* GestureArgs.h */,
+				742295521F516A0600D48FF5 /* IEventManager.h */,
 			);
 			path = device;
 			sourceTree = "<group>";
@@ -364,6 +382,15 @@
 		7431B5111F405A5D0097877E /* device */ = {
 			isa = PBXGroup;
 			children = (
+				742295541F516B3500D48FF5 /* CEventManager.h */,
+				742294FA1F515E5100D48FF5 /* CGesture.cpp */,
+				742294FB1F515E5100D48FF5 /* CGesture.h */,
+				742294FC1F515E5100D48FF5 /* CGesturePan.cpp */,
+				742294FD1F515E5100D48FF5 /* CGesturePan.h */,
+				742294FE1F515E5100D48FF5 /* CGesturePinch.cpp */,
+				742294FF1F515E5100D48FF5 /* CGesturePinch.h */,
+				742295001F515E5100D48FF5 /* CGestureTap.cpp */,
+				742295011F515E5100D48FF5 /* CGestureTap.h */,
 				7431B5121F405A5D0097877E /* apple */,
 				7431B5151F405A5D0097877E /* CDeviceManager.cpp */,
 				7431B5161F405A5D0097877E /* CDeviceManager.h */,
@@ -420,6 +447,8 @@
 				7431B5341F405A5D0097877E /* CSoftShaderProgram.h */,
 				7431B5351F405A5D0097877E /* CSoftTexture.cpp */,
 				7431B5361F405A5D0097877E /* CSoftTexture.h */,
+				742295571F51737C00D48FF5 /* CIlluminationRender.cpp */,
+				742295581F51737C00D48FF5 /* CIlluminationRender.h */,
 			);
 			path = software;
 			sourceTree = "<group>";
@@ -538,6 +567,7 @@
 				7431B55A1F405A5D0097877E /* CDeviceManager.cpp in Sources */,
 				7431B5601F405A5D0097877E /* CMesh.cpp in Sources */,
 				7431B5681F405A5D0097877E /* CSoftShaderProgram.cpp in Sources */,
+				742295051F515E5100D48FF5 /* CGestureTap.cpp in Sources */,
 				7431B5641F405A5D0097877E /* CCPUBuffer.cpp in Sources */,
 				7431B56C1F405A5D0097877E /* COBJResource.cpp in Sources */,
 				7431B5751F405A5D0097877E /* CSceneManager.cpp in Sources */,
@@ -548,6 +578,7 @@
 				7431B5761F405A5D0097877E /* CSceneNode.cpp in Sources */,
 				7431B5671F405A5D0097877E /* CSoftRenderer.cpp in Sources */,
 				7431B5631F405A5D0097877E /* CTextureManager.cpp in Sources */,
+				742295021F515E5100D48FF5 /* CGesture.cpp in Sources */,
 				7431B5691F405A5D0097877E /* CSoftTexture.cpp in Sources */,
 				7431B56D1F405A5D0097877E /* CResourceManager.cpp in Sources */,
 				7431B56B1F405A5D0097877E /* CMaterialResource.cpp in Sources */,
@@ -557,6 +588,9 @@
 				7431B55B1F405A5D0097877E /* CEventManager.cpp in Sources */,
 				7431B55C1F405A5D0097877E /* CKeyEvent.cpp in Sources */,
 				7431B5711F405A5D0097877E /* CCamera.cpp in Sources */,
+				742295031F515E5100D48FF5 /* CGesturePan.cpp in Sources */,
+				742295041F515E5100D48FF5 /* CGesturePinch.cpp in Sources */,
+				742295591F51737C00D48FF5 /* CIlluminationRender.cpp in Sources */,
 				7431B5701F405A5D0097877E /* CTGAImage.cpp in Sources */,
 				7431B5771F405A5D0097877E /* CPointLight.cpp in Sources */,
 				7431B5591F405A5D0097877E /* CDeviceApple.mm in Sources */,

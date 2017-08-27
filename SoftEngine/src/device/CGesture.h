@@ -3,7 +3,7 @@
 
 #include "device/IGestureEvent.h"
 
-#include <map>
+#include <vector>
 
 namespace se
 {
@@ -13,10 +13,10 @@ namespace se
 		{
 		public:
 
-			virtual void SubscribeCallback(GestureCallback callback, void *obj);
+			virtual void SubscribeCallback(GestureCallback callback);
 			virtual void UnSubscribeCallback(GestureCallback callback);
-		private:
-			std::map<GestureCallback, void *>m_mapGestureCallback;
+		protected:
+			std::vector<GestureCallback>m_GestureCallback;
 		};
 	}
 }

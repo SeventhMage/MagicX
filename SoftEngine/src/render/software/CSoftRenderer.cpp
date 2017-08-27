@@ -8,6 +8,7 @@
 #include "math/CVector2.h"
 #include "../STriangleMesh.h"
 #include "../CRenderCell.h"
+#include "CIlluminationRender.h"
 
 #include <algorithm>
 
@@ -302,7 +303,7 @@ namespace se
 					std::sort(triangleList.begin(), triangleList.end(), TriangleSort);					
 
 					float pLight[] = {100, 100, 100}; //pShaderProgram->GetUniform(UN_LIGHT_POS);
-					if (pLight)
+					//if (pLight)
 					{
 						CVector3 vLightPos;
 						memcpy(vLightPos.v, pLight, sizeof(vLightPos.v));
@@ -382,17 +383,17 @@ namespace se
 
 		void CSoftRenderer::VertexLightCalc(const CVector3 &lightPos, const CMatrix4 &viewMat, TriangleList &triList)
 		{
+            CIlluminationRender illumination(SColor(1.f, 0.4f, 0.4f, 0.4f), SColor(1.f, 0.8f, 0.8f, 0.8f), SColor(1.f, 1.f, 1.f, 1.f));
 			CVector3 viewLightPos;
 			viewMat.TransformVect(viewLightPos, lightPos);
 			for (auto it = triList.begin(); it != triList.end(); ++it)
 			{
 				for (int i = 0; i < 3; ++i)
 				{
-					float dot = (viewLightPos - CVector3(it->vTranslatePosition[i].x, it->vTranslatePosition[i].y,
-						it->vTranslatePosition[i].z)).normalize().dotProduct(it->vTranslateNormal[i]);
-					if (dot < 0)
-						dot = 0;
-					it->vertexColor[i] *= dot;
+                    CVector3 lightDir = viewLightPos - CVector3(it->vTranslatePosition[i].x, it->vTranslatePosition[i].y,
+                                            it->vTranslatePosition[i].z).normalize();
+                    lightDir.normalize();
+                    it->vertexColor[i] = illumination.Calculate(it->vertexColor[i], lightDir, CVector3(0, 0, 1), it->vTranslateNormal[i], 1.f, 1.f, 1.f, 80.f, viewLightPos.getDistanceFrom(CVector3(it->vTranslatePosition[i].x, it->vTranslatePosition[i].y, it->vTranslatePosition[i].z)));
 				}				
 			}
 		}

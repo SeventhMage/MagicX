@@ -4,6 +4,7 @@
 #include "base/CSingleton.h"
 #include "base/Log.h"
 #include "device/IDeviceManager.h"
+#include "device/IEventManager.h"
 #include "resource/IResourceManager.h"
 #include "scene/ISceneManager.h"
 #include "render/IMaterialManager.h"
@@ -21,6 +22,7 @@ namespace se
 		void DestroyEngine();
 
 		static device::IDevice *GetDevice();
+        static device::IEventManager *GetEventManager(){return m_pEventMgr; }
 		static render::IRenderer *GetRenderer(){ return m_pRenderer; }
 		static render::RenderDriverType GetRenderDriverType() { return m_pRenderer->GetRenderDriverType(); }
 		static render::IMaterialManager *GetMaterialManager(){ return m_pMaterialManager; }
@@ -29,6 +31,7 @@ namespace se
 		static scene::ISceneManager *GetSceneManager() { return m_pSceneMgr; }
 	private:
 		static device::IDeviceManager *m_pDeviceMgr;
+        static device::IEventManager *m_pEventMgr;
 		static render::IRenderer *m_pRenderer;
 		static render::IMaterialManager *m_pMaterialManager;
 		static render::ITextureManager *m_pTextureMgr;

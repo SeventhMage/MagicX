@@ -40,7 +40,7 @@ void DrawBuffer(ubyte *buffer)
                                         NULL,                   //decode
                                         false,                  //should interpolate
                                         kCGRenderingIntentDefault   //intent
-                                        );
+                                         );
     
     // Getting UIImage from CGImage
     UIImage *finalImage = [UIImage imageWithCGImage:imageRef];
@@ -98,6 +98,23 @@ void DrawBuffer(ubyte *buffer)
     ISceneManager *sceneMgr = softEngine.GetSceneManager();
     sceneMgr->Update(0);
     
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event{
+    IEventManager *pEventMgr = softEngine.GetEventManager();
+    
+
+}
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event{
+
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event{
+
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event{
+
 }
 
 
