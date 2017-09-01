@@ -103,6 +103,14 @@ void DrawBuffer(ubyte *buffer)
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event{
     IEventManager *pEventMgr = softEngine.GetEventManager();
     
+	NSSet *allTouches = [event allTouches];
+	int i = 0;
+	for (UITouch *touch in touches){
+		float dx = [touch locationInView:[touch view]].x;
+		float dy = [touch locationInView:[touch view]].y;
+		pEventMgr->OnTouchBegin(i, dx, dy, touch.hash, allTouches.count); //touch.tapCount
+		++i;
+	}
 
 }
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event{
