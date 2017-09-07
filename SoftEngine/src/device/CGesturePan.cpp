@@ -1,5 +1,5 @@
 #include "CGesturePan.h"
-#include "seDef.h"
+#include "base/seDef.h"
 
 namespace se
 {

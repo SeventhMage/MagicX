@@ -1,6 +1,6 @@
 #include "CDeviceWin32.h"
 #include "../CKeyEvent.h"
-#include "device/CEventManager.h"
+#include "../CEventManager.h"
 #include "base/Log.h"
 
 namespace se

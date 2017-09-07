@@ -165,6 +165,9 @@
     <ClCompile Include="..\..\src\device\CGesture.cpp">
       <Filter>src\device</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\render\software\CIlluminationRender.cpp">
+      <Filter>src\render\software</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\device\IDevice.h">
@@ -457,6 +460,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\device\CGesture.h">
       <Filter>src\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\software\CIlluminationRender.h">
+      <Filter>src\render\software</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

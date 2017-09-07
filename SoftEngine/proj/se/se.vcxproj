@@ -97,6 +97,7 @@
     <ClCompile Include="..\..\src\render\CRenderCell.cpp" />
     <ClCompile Include="..\..\src\render\CRenderQueue.cpp" />
     <ClCompile Include="..\..\src\render\CTextureManager.cpp" />
+    <ClCompile Include="..\..\src\render\software\CIlluminationRender.cpp" />
     <ClCompile Include="..\..\src\render\software\CSoftShaderProgram.cpp" />
     <ClCompile Include="..\..\src\render\STriangleMesh.cpp" />
     <ClCompile Include="..\..\src\render\software\CCPUBuffer.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="..\..\src\render\CRenderCell.h" />
     <ClInclude Include="..\..\src\render\CRenderQueue.h" />
     <ClInclude Include="..\..\src\render\CTextureManager.h" />
+    <ClInclude Include="..\..\src\render\software\CIlluminationRender.h" />
     <ClInclude Include="..\..\src\render\software\CSoftShaderProgram.h" />
     <ClInclude Include="..\..\src\render\STriangleMesh.h" />
     <ClInclude Include="..\..\src\render\software\CCPUBuffer.h" />
