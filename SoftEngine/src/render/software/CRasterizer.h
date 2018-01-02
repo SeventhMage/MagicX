@@ -22,6 +22,9 @@ namespace se
 			void SetTextureInfo(ubyte *textureData, int width, int height);
 
 			void DrawTriangle(const Triangle &triangle);
+			void DrawLine(int x0, int y0, int x1, int y1, const SColor &c = SColor(1, 0, 0, 0));
+			void DrawCircle(int xcenter, int ycenter, int radius, const SColor &c = SColor(1, 0, 0, 0));
+			void DrawPixel(int x, int y, const SColor &c);
 		private:
 			void DrawTopTriangle(const CVector4 &p0, const CVector2 &t0, const render::SColor &c0,
 				const CVector4 &p1, const CVector2 &t1, const render::SColor &c1,

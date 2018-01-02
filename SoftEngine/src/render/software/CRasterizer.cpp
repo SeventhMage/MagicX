@@ -421,6 +421,112 @@ namespace se
 			m_bufferWidth = width;
 			m_bufferHeight = height;
 		}
+		
+		//Bresenham:See 3D Game Engine Design Second Edition, page 77
+		void CRasterizer::DrawLine(int x0, int y0, int x1, int y1, const SColor &c /* = SColor(1, 0, 0, 0)*/)
+		{
+			//start point of the line
+			int x = x0;
+			int y = y0;
+
+			//direction of line
+			int dx = x1 - x0;
+			int dy = y1 - y0;
+
+			//Increment or decrement on direction of line
+			int sx = 0;
+			int sy = 0;
+			if (dx > 0)
+			{
+				sx = 1;
+			}
+			else if (dx < 0)
+			{				
+				sx = -1;
+				dx = -dx;
+			}
+
+			if (dy > 0)
+			{
+				sy = 1;
+			}
+			else if (dy < 0)
+			{
+				sy = -1;
+				dy = -dy;
+			}
+
+			int ax = 2 * dx;
+			int ay = 2 * dy;
+
+			if (dy <= dx)
+			{
+				//single step in x-direction
+				for (int decy = ay - dx; x += sx; decy += ay)
+				{
+					DrawPixel(x, y, c);
+					if (x == x1)
+					{
+						break;
+					}
+					if (decy >= 0)
+					{
+						decy -= ax;
+						y += sy;
+					}
+				}
+			}
+			else
+			{
+				//single step in y-direction
+				for (int decx = ax - dy; y += sy; decx += ax)
+				{
+					DrawPixel(x, y, c);
+					if (y == y1)
+					{
+						break;
+					}
+					if (decx >= 0)
+					{
+						decx -= ay;
+						x += sx;
+					}
+				}
+			}
+			
+		}
+		
+		//See 3D Game Engine Design Second Edition, page 82
+		void CRasterizer::DrawCircle(int xcenter, int ycenter, int radius, const SColor &c /* = SColor(1, 0, 0, 0)*/)
+		{
+			for (int x = 0, y = radius, dec = 3 - 2 * radius; x <= y; ++x)
+			{
+				DrawPixel(xcenter + x, xcenter + y, c);
+				DrawPixel(xcenter + x, xcenter - y, c);
+				DrawPixel(xcenter - x, xcenter + y, c);
+				DrawPixel(xcenter - x, xcenter - y, c);
+				DrawPixel(xcenter + y, xcenter + x, c);
+				DrawPixel(xcenter + y, xcenter - x, c);
+				DrawPixel(xcenter - y, xcenter + x, c);
+				DrawPixel(xcenter - y, xcenter - x, c);
+
+				if (dec >= 0)
+					dec += -4 * (y--) + 4;
+				dec += 4 * x + 6;
+			}
+		}
+
+		void CRasterizer::DrawPixel(int x, int y, const SColor &c)
+		{
+			x = MIN(MAX(x, 0), m_bufferWidth - 1);
+			y = MIN(MAX(y, 0), m_bufferHeight - 1);
+			uint *addr = (uint *)m_pDrawBuffer + uint(x);
+			if (y > 0)
+				addr += uint((y - 1) * m_bufferWidth);
+			*addr = c.Get32BitColor();
+		}
+
+
 
 	}
 }
