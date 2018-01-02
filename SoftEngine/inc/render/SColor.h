@@ -26,7 +26,7 @@ namespace se
 				};
 				float c[4];
 			};
-			uint Get32BitColor()
+			uint Get32BitColor() const
 			{
 				return ((uint(a * 0xFF))<<24) | ((uint(r * 0xFF))<<16) | ((uint(g * 0xFF))<<8) | (uint(b * 0xFF));
 			}

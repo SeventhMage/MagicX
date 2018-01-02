@@ -64,7 +64,7 @@ namespace se
 			{
 				return m[row * 4 + col];
 			}
-
+			//×ó³Ë
 			inline CMatrix4 operator*(const CMatrix4 &other) const
 			{
 				return CMatrix4(
@@ -270,6 +270,30 @@ namespace se
 			}
 			CMatrix4 &BuildShadowMatrix(const CVector3 &light, const CPlane3 &plane, float point = 1.0f)
 			{
+				return *this;
+			}
+
+			CMatrix4 &BuildReflectMatrix(const CVector3 &vPanelNormal)
+			{
+				m[0] = 1 - 2 * vPanelNormal.x * vPanelNormal.x;
+				m[1] = -2 * vPanelNormal.x * vPanelNormal.y;
+				m[2] = -2 * vPanelNormal.x * vPanelNormal.z;
+				m[3] = 0;
+
+				m[4] = -2 * vPanelNormal.x * vPanelNormal.y;
+				m[5] = 1 - 2 * vPanelNormal.y * vPanelNormal.y;
+				m[6] = -2 * vPanelNormal.y * vPanelNormal.z;
+				m[7] = 0;
+
+				m[8] = -2 * vPanelNormal.x * vPanelNormal.z;
+				m[9] = -2 * vPanelNormal.y * vPanelNormal.z;
+				m[10] = 1 - 2 * vPanelNormal.z * vPanelNormal.z;
+				m[11] = 0;
+
+				m[12] = 0;
+				m[13] = 0;
+				m[14] = 0;
+				m[15] = 1;
 				return *this;
 			}
 
