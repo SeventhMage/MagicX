@@ -516,6 +516,45 @@ namespace se
 			}
 		}
 
+		//See 3D Game Engine Design Second Edition, page 85
+		void CRasterizer::DrawEllipse(int xc, int yc, int a, int b, const SColor &c)
+		{
+			int a2 = a * a;
+			int b2 = b * b;
+			int fa2 = 4 * a2;
+			int fb2 = 4 * b2;
+
+			for (int x = 0, y = b, sigma = 2 * b2 + a2 * (1 - 2 * b); b2 * x <= a2 * y; ++x)
+			{
+				DrawPixel(xc + x, yc + y, c);
+				DrawPixel(xc - x, yc + y, c);
+				DrawPixel(xc + x, yc - y, c);
+				DrawPixel(xc - x, yc - y, c);
+
+				if (sigma >= 0)
+				{
+					sigma += fa2 * (1 - y);
+					--y;
+				}
+				sigma += b2 * (4 * x + 6);
+			}
+
+			for (int x = a, y = 0, sigma = 2 * a2 + b2 * (1 - 2 * a); a2 * y <= b2 * x; ++y)
+			{
+				DrawPixel(xc + x, yc + y, c);
+				DrawPixel(xc - x, yc + y, c);
+				DrawPixel(xc + x, yc - y, c);
+				DrawPixel(xc - x, yc - y, c);
+
+				if (sigma >= 0)
+				{
+					sigma += fb2 * (1 - x);
+					--x;
+				}
+				sigma += a2 * (4 * y + 6);
+			}
+		}
+
 		void CRasterizer::DrawPixel(int x, int y, const SColor &c)
 		{
 			x = MIN(MAX(x, 0), m_bufferWidth - 1);
@@ -525,8 +564,5 @@ namespace se
 				addr += uint((y - 1) * m_bufferWidth);
 			*addr = c.Get32BitColor();
 		}
-
-
-
 	}
 }

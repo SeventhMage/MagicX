@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
 	pRasterizer.SetDrawBuffer(pDrawBuffer, device->GetWindowWidth(), device->GetWindowHeight());
 	pRasterizer.DrawLine(100, 100, 200, 400, SColor(1, 1, 0, 0));
 	pRasterizer.DrawCircle(100, 100, 50, SColor(1, 1, 0, 0));
+	pRasterizer.DrawEllipse(200, 200, 30, 20);
 	device->DrawBuffer((ubyte *)pDrawBuffer);
 
 	//init scene
