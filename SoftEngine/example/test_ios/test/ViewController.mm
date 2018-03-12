@@ -50,11 +50,9 @@ void DrawBuffer(ubyte *buffer)
     
     [viewcontrol->pImageView setImage:finalImage];
     
-    
-    
+    UIGraphicsBeginImageContext(viewcontrol.view.bounds.size);
     [finalImage drawInRect:viewcontrol.view.frame];
-    
-
+    UIGraphicsEndImageContext();
 }
 
 @interface ViewController ()
