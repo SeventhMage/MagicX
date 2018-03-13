@@ -24,7 +24,7 @@ namespace se
 			virtual bool Culled(ICamera *pCamera);
 		private:
 			std::string m_strEntityName;
-			ISceneNode *m_pSceneNode;			//所属的场景结点
+			ISceneNode *m_pSceneNode;			//鎵�灞炵殑鍦烘櫙缁撶偣
 			render::IRenderCell *m_pRenderCell;
 			IModel *m_pModel;
 			uint m_bufferId;
