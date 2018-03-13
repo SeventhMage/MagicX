@@ -18,7 +18,7 @@ namespace se
 
 				 m_bufferId = CSoftEngine::GetRenderer()->CreateBuffer();
 				 			
-				 //Ìá½»¶¥µãÊý¾Ýµ½äÖÈ¾Æ÷
+				 //æäº¤é¡¶ç‚¹æ•°æ®åˆ°æ¸²æŸ“å™¨
 				 CSoftEngine::GetRenderer()->BufferData(m_bufferId, m_pModel->GetVertices(), m_pModel->GetIndices());				 
 
 				 m_pRenderCell = CSoftEngine::GetRenderer()->CreateRenderCell(m_bufferId, materialId, m_pModel->GetTextureID());
@@ -36,7 +36,7 @@ namespace se
 
 		void CEntity::Update(int delta)
 		{			
-			//¸üÐÂ¾ØÕóµÈuniform
+			//æ›´æ–°çŸ©é˜µç­‰uniform
 			const CMatrix4 &worldMat = m_pSceneNode->GetAbsluateMatrix();
 			IScene *pScene = CSoftEngine::GetSceneManager()->GetCurrentScene();
 			if (pScene)
@@ -70,7 +70,7 @@ namespace se
 							//pShaderProgram->SetUniform(render::UN_WORLD_MAT, (ubyte *)&modelMat.m, sizeof(modelMat.m));
 						}								
 
-						//¼ÓÈëµ½äÖÈ¾¶ÓÁÐ
+						//åŠ å…¥åˆ°æ¸²æŸ“é˜Ÿåˆ—
 						CSoftEngine::GetRenderer()->SubmitRenderCell(m_pRenderCell);
 					}
 

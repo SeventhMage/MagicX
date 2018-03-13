@@ -49,12 +49,12 @@ namespace se
 
 		private:
 			CScene *m_pParentScene;
-			CEntity *m_pEntity;						//场景中包含的实体
+			CEntity *m_pEntity;						//鍦烘櫙涓寘鍚殑瀹炰綋
 			
 			ISceneNode *m_pParentNode;
 			std::vector<ISceneNode *> m_vecChildNode;
 			
-			//空间位置信息
+			//绌洪棿浣嶇疆淇℃伅
 			math::CMatrix4 m_relativeMatrix;
 			math::CMatrix4 m_absluateMatrix;
 			math::CVector3 m_relativePosition;

@@ -16,7 +16,7 @@ namespace se
 			CScene(const char *name);
 			virtual ~CScene();
 
-			//Ã¿¸ö³¡¾°ÓĞÎ¨Ò»¸ù½áµã£¬³¡¾°Í¼µÄ¸ù
+			//æ¯ä¸ªåœºæ™¯æœ‰å”¯ä¸€æ ¹ç»“ç‚¹ï¼Œåœºæ™¯å›¾çš„æ ¹
 			virtual ISceneNode *GetRootNode(){ return m_pRootNode; }
 
 			virtual ICamera *SetupCamera(const CVector3 &position, const CVector3 &direction,
@@ -28,7 +28,7 @@ namespace se
 			virtual ISkyBox *SetupSkyBox(const char *right, const char *left, const char *top, const char *bottom, const char *front, const char *back, float radius);
 			virtual ISkyBox *GetSkyBox() { return nullptr; }
 
-			//°²×°¹âÔ´
+			//å®‰è£…å…‰æº
 			virtual ILight *SetupLight(int slot, ELightType type, float lightColor[4]);
 			virtual ILight *GetLight(int slot);
 

@@ -21,27 +21,27 @@ namespace se
 				char buf[512];
 				while (ReadLine(in, buf, 512))
 				{
-					if ('t' == buf[0] && 'p' == buf[1]) //Œ∆¿Ì¬∑æ∂
+					if ('t' == buf[0] && 'p' == buf[1]) //Á∫πÁêÜË∑ØÂæÑ
 					{
 						char *pStart = &buf[2];
 						for (; isspace(*pStart); ++pStart);
 						m_texturePath = pStart;
 					}
-					else if ('v' == buf[0] && ' ' == buf[1]) //∂•µ„Œª÷√
+					else if ('v' == buf[0] && ' ' == buf[1]) //È°∂ÁÇπ‰ΩçÁΩÆ
 					{
 						CVector3 position;
 						char temp[8];
 						sscanf(buf, "%s %f %f %f", temp, &position.x, &position.y, &position.z);
 						m_positionList.push_back(position);
 					}
-					else if ('v' == buf[0] && 'n' == buf[1]) //∑®œﬂ
+					else if ('v' == buf[0] && 'n' == buf[1]) //Ê≥ïÁ∫ø
 					{
 						CVector3 normal;
 						char temp[8];
 						sscanf(buf, "%s %f %f %f", temp, &normal.x, &normal.y, &normal.z);
 						m_normalList.push_back(normal);
 					}
-					else if ('v' == buf[0] && 't' == buf[1]) //Œ∆¿Ì◊¯±Í
+					else if ('v' == buf[0] && 't' == buf[1]) //Á∫πÁêÜÂùêÊ†á
 					{
 						bHaveTexCoord = true;
 						CVector2 texCoord;
@@ -49,13 +49,13 @@ namespace se
 						sscanf(buf, "%s %f %f", temp, &texCoord.x, &texCoord.y);
 						m_texCoordList.push_back(texCoord);
 					}
-					else if ('f' == buf[0]) //√Ê
+					else if ('f' == buf[0]) //Èù¢
 					{
 						SFaceIndex faceIndex;
 						memset(&faceIndex, 0, sizeof(SFaceIndex));
 						char temp[8];
 						StringArray split = base::Split(buf, " ");
-						//œ¬±Í0Œ™'f'
+						//‰∏ãÊ†á0‰∏∫'f'
 						faceIndex.indicesCount = split.size() - 1;
 						for (int i = 0, j=1; j < split.size(); ++i, ++j)
 						{
