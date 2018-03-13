@@ -5,6 +5,7 @@
 #include "render/IRenderCell.h"
 #include "math/CVector3.h"
 #include "math/CVector2.h"
+#include "math/CAABBox.h"
 #include "scene/IModel.h"
 
 #include <string>
@@ -20,10 +21,10 @@ namespace se
 			CEntity(const char *name, ISceneNode *pNode);
 			virtual ~CEntity();
 
-			virtual void Update(int delta);
-			virtual bool Culled(ICamera *pCamera);
+			virtual void Update(int delta);			
 		private:
 			std::string m_strEntityName;
+            math::CAABBox m_aabbox;
 			ISceneNode *m_pSceneNode;			//所属的场景结点
 			render::IRenderCell *m_pRenderCell;
 			IModel *m_pModel;

@@ -44,7 +44,7 @@ namespace se
 				ICamera *pCamera = pScene->GetCamera();
 				if (pCamera)
 				{
-					if (!Culled(pCamera))
+					if (!pCamera->GetFrustum().Culled(m_aabbox))
 					{
 						const CMatrix4 &viewMat = pCamera->GetViewMatrix();
 						const CMatrix4 &projMat = pCamera->GetProjectionMatrix();
@@ -77,11 +77,5 @@ namespace se
 				}
 			}
 		}
-
-		bool CEntity::Culled(ICamera *pCamera)
-		{
-			return false;
-		}
-
 	}
 }

@@ -4,7 +4,7 @@
 #include "CPlane3.h"
 #include "CVector3.h"
 #include "CMatrix4.h"
-#include "CBoundingBox.h"
+#include "CAABBox.h"
 
 namespace se
 {
@@ -81,9 +81,9 @@ namespace se
 				CreatePlane();
 			}
 
-			bool Cull(const CBoundingBox &box) const
+			bool Culled(const CAABBox &box) const
 			{
-				return true;
+				return false;
 			}
 			
 			bool CullSphere(const CVector3 &pos, float radius) const
