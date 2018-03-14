@@ -274,7 +274,7 @@ namespace se
 			m_hWnd = CreateWindow(ClassName, __TEXT(""), style, windowLeft, windowTop,
 				realWidth, realHeight, NULL, NULL, hInstance, NULL);
 			
-			//³õÊ¼»¯äÖÈ¾Æ÷Çý¶¯
+			//åˆå§‹åŒ–æ¸²æŸ“å™¨é©±åŠ¨
 			HDC hDC = GetDC(m_hWnd);
 			render::SRenderContext context = { realWidth, realHeight, hDC };
 			pRenderDriver->InitDriver(context);
@@ -290,8 +290,8 @@ namespace se
 
 			memset(&m_bmpInfo, 0, sizeof(BITMAPINFO));
 			m_bmpInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
-			m_bmpInfo.bmiHeader.biWidth = m_iWidth;//¿í¶È
-			m_bmpInfo.bmiHeader.biHeight = m_iHeight;//¸ß¶È
+			m_bmpInfo.bmiHeader.biWidth = m_iWidth;//å®½åº¦
+			m_bmpInfo.bmiHeader.biHeight = m_iHeight;//é«˜åº¦
 			m_bmpInfo.bmiHeader.biPlanes = 1;
 			m_bmpInfo.bmiHeader.biBitCount = 32;
 			m_bmpInfo.bmiHeader.biCompression = BI_RGB;

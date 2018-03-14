@@ -1,5 +1,5 @@
 /*
-**³õÊ¼»¯äÖÈ¾Çý¶¯²ÎÊý
+**åˆå§‹åŒ–æ¸²æŸ“é©±åŠ¨å‚æ•°
 */
 #ifndef _RENDER_S_RENDER_CONTEXT_H_
 #define _RENDER_S_RENDER_CONTEXT_H_

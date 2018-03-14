@@ -54,7 +54,7 @@ namespace se
 				m_pVertices->size = posSize + norSize + texSize;
 				m_pVertices->stride = 0;
 
-				//¶¥µã
+				//é¡¶ç‚¹
 				SAFE_DEL(m_pVertices->pVertexData);
 				m_pVertices->pVertexData = new ubyte[m_pVertices->size];
 				memset(m_pVertices->pVertexData, 0, m_pVertices->size);				
@@ -63,7 +63,7 @@ namespace se
 					memcpy(m_pVertices->pVertexData + i * sizeof(CVector3), posList[i].v, sizeof(CVector3));
 				}
 
-				//·¨Ïß
+				//æ³•çº¿
 				std::vector<CVector3> normalList(posList.size(), CVector3());
 				for (size_t i = 0; i < faceList.size(); ++i)
 				{			
@@ -83,13 +83,13 @@ namespace se
 					memcpy(m_pVertices->pVertexData + posSize + i * sizeof(CVector3), normalList[i].v, sizeof(CVector3));
 				}				
 				
-				//ÎÆÀí×ø±ê
+				//çº¹ç†åæ ‡
 				for (uint i = 0; i < texList.size(); ++i)
 				{
 					memcpy(m_pVertices->pVertexData + posSize + norSize + i * sizeof(CVector2), texList[i].v, sizeof(CVector2));
 				}
 
-				//Ë÷Òı×ø±ê
+				//ç´¢å¼•åæ ‡
 				uint count = 0;
 				for (uint i = 0; i<faceList.size(); ++i)
 				{
@@ -121,7 +121,7 @@ namespace se
 					}
 				}
 
-				//ÎÆÀíÍ¼
+				//çº¹ç†å›¾
 				std::string texPath = pOBJResource->GetTexturePath();
 				m_textureId = CSoftEngine::GetTextureManager()->CreateTexture(texPath.c_str());				
 

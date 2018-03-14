@@ -64,7 +64,7 @@ namespace se
 			{
 				return m[row * 4 + col];
 			}
-			//×ó³Ë
+			//å·¦ä¹˜
 			inline CMatrix4 operator*(const CMatrix4 &other) const
 			{
 				return CMatrix4(

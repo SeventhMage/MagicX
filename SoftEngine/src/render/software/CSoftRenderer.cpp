@@ -139,7 +139,7 @@ namespace se
 				}
 			}
 
-			//Êä³öµ½Éè±¸
+			//è¾“å‡ºåˆ°è®¾å¤‡
 			m_pSoftRD->DrawBuffer();
 
 			Clear();
@@ -228,12 +228,12 @@ namespace se
 										mwNormalMat.TransformVect(triangle.vTranslateNormal[i], triangle.vNormal[i]);
 									}
 
-									//×ª»»µ½ÉãÏñ»ú×ø±ê
+									//è½¬æ¢åˆ°æ‘„åƒæœºåæ ‡
 									TranslateWorldToCamera(viewMat, triangle);
 
-									if (!BackCulling(triangle)) //±³ÃæÌÞ³ý
+									if (!BackCulling(triangle)) //èƒŒé¢å‰”é™¤
 									{
-										triangleList.push_back(triangle); //²åÈëµ½Èý½ÇÐÎÁÐ±í
+										triangleList.push_back(triangle); //æ’å…¥åˆ°ä¸‰è§’å½¢åˆ—è¡¨
 									}
 									triangle.Reset();
 									suffix = 0;
@@ -279,12 +279,12 @@ namespace se
 							}
 							if (index >= 2)
 							{
-								//×ª»»µ½ÉãÏñ»ú×ø±ê
+								//è½¬æ¢åˆ°æ‘„åƒæœºåæ ‡
 								TranslateWorldToCamera(viewMat, triangle);
 
-								if (!BackCulling(triangle)) //±³ÃæÌÞ³ý
+								if (!BackCulling(triangle)) //èƒŒé¢å‰”é™¤
 								{
-									triangleList.push_back(triangle); //²åÈëµ½Èý½ÇÐÎÁÐ±í
+									triangleList.push_back(triangle); //æ’å…¥åˆ°ä¸‰è§’å½¢åˆ—è¡¨
 								}
 								triangle.Reset();
 								index = 0;
@@ -297,9 +297,9 @@ namespace se
 					}
 					
 
-					//¶ÔÈý½ÇÐÎÁÐ±íäÖÈ¾											
+					//å¯¹ä¸‰è§’å½¢åˆ—è¡¨æ¸²æŸ“											
 
-					//ÅÅÐò
+					//æŽ’åº
 					std::sort(triangleList.begin(), triangleList.end(), TriangleSort);					
 
 					float pLight[] = {100, 100, 100}; //pShaderProgram->GetUniform(UN_LIGHT_POS);
@@ -307,12 +307,12 @@ namespace se
 					{
 						CVector3 vLightPos;
 						memcpy(vLightPos.v, pLight, sizeof(vLightPos.v));
-						//¶¥µã¼¶±ð¹âÕÕ¼ÆËã
+						//é¡¶ç‚¹çº§åˆ«å…‰ç…§è®¡ç®—
 						VertexLightCalc(vLightPos, viewMat, triangleList);
 					}
 
 
-					//×ª»»µ½ÆÁÄ»×ø±ê
+					//è½¬æ¢åˆ°å±å¹•åæ ‡
 					float *pProjMat = pShaderProgram->GetUniform(UN_PROJ_MAT);
 					if (pProjMat)
 					{
@@ -321,7 +321,7 @@ namespace se
 						TranslateCameraToScreen(projMat, triangleList);
 					}					
 
-					//¹âÕ¤»¯
+					//å…‰æ …åŒ–
 					for (auto it = triangleList.begin(); it != triangleList.end(); ++it)
 					{
 						m_pRasterizer->SetDrawBuffer(m_pSoftRD->GetDrawBuffer(), m_pSoftRD->GetBufferWidth(), m_pSoftRD->GetBufferHeight());

@@ -136,7 +136,7 @@
     <ClInclude Include="..\..\inc\device\IEvent.h" />
     <ClInclude Include="..\..\inc\device\IGestureEvent.h" />
     <ClInclude Include="..\..\inc\device\IKeyEvent.h" />
-    <ClInclude Include="..\..\inc\math\CBoundingBox.h" />
+    <ClInclude Include="..\..\inc\math\CAABBox.h" />
     <ClInclude Include="..\..\inc\math\CFrustum.h" />
     <ClInclude Include="..\..\inc\math\CMatrix4.h" />
     <ClInclude Include="..\..\inc\math\CPlane3.h" />

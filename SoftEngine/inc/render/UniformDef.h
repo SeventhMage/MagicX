@@ -12,7 +12,7 @@ namespace se
 			UN_WORLD_MAT = 0,
 			UN_VIEW_MAT,
 			UN_PROJ_MAT,
-			UN_LIGHT_POS,		//π‚‘¥Œª÷√
+			UN_LIGHT_POS,		//ÂÖâÊ∫ê‰ΩçÁΩÆ
 
 			UN_COUNT,
 		};

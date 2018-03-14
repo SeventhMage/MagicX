@@ -281,9 +281,6 @@
     <ClInclude Include="..\..\inc\scene\ISceneManager.h">
       <Filter>inc\scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\math\CBoundingBox.h">
-      <Filter>inc\math</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\inc\math\CFrustum.h">
       <Filter>inc\math</Filter>
     </ClInclude>
@@ -463,6 +460,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\render\software\CIlluminationRender.h">
       <Filter>src\render\software</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\math\CAABBox.h">
+      <Filter>inc\math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

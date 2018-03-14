@@ -1,5 +1,5 @@
 /************************************************************************/
-/* 光源接口                                                             */
+/* 鍏夋簮鎺ュ彛                                                             */
 /************************************************************************/
 
 #ifndef _SE_SCENE_I_LIGHT_H_
@@ -9,7 +9,7 @@ namespace se
 {
 	namespace scene
 	{
-		//光照类型
+		//鍏夌収绫诲瀷
 		enum ELightType
 		{
 			LT_DIRECTIONAL,
@@ -24,7 +24,7 @@ namespace se
 
 			virtual ELightType GetLightType() = 0;
 
-			//光的颜色
+			//鍏夌殑棰滆壊
 			virtual void SetColor(float fColor[4]) = 0;
 			virtual float *GetColor() = 0;
 

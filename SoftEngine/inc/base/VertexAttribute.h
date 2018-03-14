@@ -26,8 +26,8 @@ namespace se
 			:attribute(attr), offset(offset)
 			{
 			}
-			EVertexAttribute attribute;	//¶¥µãÊôĞÔ			
-			uint offset;				//¿ªÊ¼Î»ÖÃ		
+			EVertexAttribute attribute;	//é¡¶ç‚¹å±æ€§			
+			uint offset;				//å¼€å§‹ä½ç½®		
 		}VertexAttrbute;
 
 		typedef std::vector<VertexAttrbute> VertexFormat;
@@ -39,10 +39,10 @@ namespace se
 			:format(0), count(0), stride(0), size(0), pVertexData(nullptr)
 			{
 			}
-			VertexFormat format;						//¶¥µãÊôĞÔ¸ñÊ½
-			uint count;									//¶¥µãÊıÁ¿
-			uint stride;								//Ã¿¸ôstride¶¥µãÊôĞÔÊıÁ¿Ñ­»·
-			uint size;									//Êı¾İ³ß´ç
+			VertexFormat format;						//é¡¶ç‚¹å±æ€§æ ¼å¼
+			uint count;									//é¡¶ç‚¹æ•°é‡
+			uint stride;								//æ¯éš”strideé¡¶ç‚¹å±æ€§æ•°é‡å¾ªç¯
+			uint size;									//æ•°æ®å°ºå¯¸
 			ubyte *pVertexData;
 
 		}Vertices;

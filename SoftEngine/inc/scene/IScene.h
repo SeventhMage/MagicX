@@ -21,7 +21,7 @@ namespace se
 			IScene(){};
 			virtual~IScene(){};
 
-			//Ã¿¸ö³¡¾°ÓĞÎ¨Ò»¸ù½áµã£¬³¡¾°Í¼µÄ¸ù
+			//æ¯ä¸ªåœºæ™¯æœ‰å”¯ä¸€æ ¹ç»“ç‚¹ï¼Œåœºæ™¯å›¾çš„æ ¹
 			virtual ISceneNode *GetRootNode() = 0;
 
 			virtual ICamera *SetupCamera(const CVector3 &position, const CVector3 &direction,
@@ -32,7 +32,7 @@ namespace se
 			virtual ISkyBox *SetupSkyBox(const char *right, const char *left, const char *top, const char *bottom, const char *front, const char *back, float radius) = 0;
 			virtual ISkyBox *GetSkyBox() = 0;
 
-			//°²×°¹âÔ´
+			//å®‰è£…å…‰æº
 			virtual ILight *SetupLight(int slot, ELightType type, float lightColor[4]) = 0;
 			virtual ILight *GetLight(int slot) = 0;
 
