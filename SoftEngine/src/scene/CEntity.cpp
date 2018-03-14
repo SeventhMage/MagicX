@@ -9,7 +9,7 @@ namespace se
 	{
 		CEntity::CEntity(const char *name, ISceneNode *pNode)
 			:m_strEntityName(name)
-			, m_pSceneNode(pNode)					
+			, m_pSceneNode(pNode)
 		{
 			m_pModel = new CModel(name);						 
 			 if (m_pModel)
@@ -22,6 +22,8 @@ namespace se
 				 CSoftEngine::GetRenderer()->BufferData(m_bufferId, m_pModel->GetVertices(), m_pModel->GetIndices());				 
 
 				 m_pRenderCell = CSoftEngine::GetRenderer()->CreateRenderCell(m_bufferId, materialId, m_pModel->GetTextureID());
+                 
+                 CalcBox(m_pModel->GetVertices());
 			 }
 			 
 		}
@@ -33,6 +35,21 @@ namespace se
 
 			SAFE_DEL(m_pModel);
 		}
+        
+        void CEntity::CalcBox(base::Vertices *pVertices)
+        {
+            for (uint i = 0; i < pVertices->count; ++i)
+            {
+                for (auto it = pVertices->format.begin(); it != pVertices->format.end(); ++it)
+                {
+                    if (it->attribute == base::VA_POSITION)
+                    {
+                        CVector3 vert( pVertices->pVertexData[i * pVertices->stride + it->offset],  pVertices->pVertexData[i * pVertices->stride + it->offset + 1],  pVertices->pVertexData[i * pVertices->stride + it->offset + 2]);
+                        m_aabbox.Expand(vert);
+                    }
+                }
+            }
+        }
 
 		void CEntity::Update(int delta)
 		{			
@@ -44,7 +61,11 @@ namespace se
 				ICamera *pCamera = pScene->GetCamera();
 				if (pCamera)
 				{
-					if (!pCamera->GetFrustum().Culled(m_aabbox))
+                    CFrustum frustum = pCamera->GetFrustum();
+                    CAABBox box = m_aabbox;
+                    box.Transform(worldMat);
+                    
+					if (!frustum.Culled(box))
 					{
 						const CMatrix4 &viewMat = pCamera->GetViewMatrix();
 						const CMatrix4 &projMat = pCamera->GetProjectionMatrix();
@@ -57,17 +78,6 @@ namespace se
 								(ubyte *)&viewMat.m, sizeof(viewMat.m));
 							pShaderProgram->SetUniform(render::UN_PROJ_MAT,
 								(ubyte *)&projMat.m, sizeof(projMat.m));
-
- 							static float rad = 0;
- 							rad += 0.01f;
- 							if (rad >= PI * 2)
- 								rad = 0;
- 							CMatrix4 modelMat;
- 														
- 							modelMat.SetRotationRadians(rad, CVector3(0, 0, 1));
- 							//modelMat.SetScale(CVector3(.5f, .5f, .5f));
- 
-							//pShaderProgram->SetUniform(render::UN_WORLD_MAT, (ubyte *)&modelMat.m, sizeof(modelMat.m));
 						}								
 
 						//加入到渲染队列

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		742295831F52F1CC00D48FF5 /* libse_apple.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 742295821F52F1CC00D48FF5 /* libse_apple.a */; };
+		742BF96B1F6E66060055C3EF /* libse_apple.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 742BF96A1F6E66060055C3EF /* libse_apple.a */; };
 		7431B4541F4055310097877E /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7431B4531F4055310097877E /* main.mm */; };
 		7431B4571F4055310097877E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7431B4561F4055310097877E /* AppDelegate.m */; };
 		7431B45A1F4055310097877E /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7431B4591F4055310097877E /* ViewController.mm */; };
@@ -83,7 +83,7 @@
 		7422954D1F51675E00D48FF5 /* ISkyBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISkyBox.h; sourceTree = "<group>"; };
 		7422954E1F51675E00D48FF5 /* ITerrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITerrain.h; sourceTree = "<group>"; };
 		7422954F1F51675E00D48FF5 /* se.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = se.h; sourceTree = "<group>"; };
-		742295821F52F1CC00D48FF5 /* libse_apple.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libse_apple.a; sourceTree = "<group>"; };
+		742BF96A1F6E66060055C3EF /* libse_apple.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libse_apple.a; sourceTree = "<group>"; };
 		7431B44F1F4055310097877E /* test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7431B4531F4055310097877E /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		7431B4551F4055310097877E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -102,7 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				742295831F52F1CC00D48FF5 /* libse_apple.a in Frameworks */,
+				742BF96B1F6E66060055C3EF /* libse_apple.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,7 +245,7 @@
 				7431B59D1F43CFC80097877E /* res */,
 				7431B4511F4055310097877E /* test */,
 				7431B4501F4055310097877E /* Products */,
-				742295821F52F1CC00D48FF5 /* libse_apple.a */,
+				742BF96A1F6E66060055C3EF /* libse_apple.a */,
 			);
 			sourceTree = "<group>";
 		};

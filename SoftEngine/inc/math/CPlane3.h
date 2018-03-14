@@ -10,6 +10,12 @@ namespace se
 		class CPlane3
 		{
 		public:
+            enum ESide
+            {
+                POSITIVE = 0,
+                NEGATIVE = 1,
+                INTERSET = 3,
+            };
 			CPlane3() :m_vNormal(0, 1.0f, 0), m_fDistance(0){}
 			CPlane3(const CVector3 &vNormal, float fDis) :m_vNormal(vNormal), m_fDistance(fDis){}
 			CPlane3(const CVector3 &vPos1, const CVector3 &vPos2, const CVector3 &vPos3)
@@ -54,6 +60,16 @@ namespace se
 			{
 				return m_vNormal * -m_fDistance;
 			}
+            
+            ESide WitchSide(const CVector3 &vPoint) const
+            {
+                if (vPoint.dotProduct(m_vNormal) > 0)
+                    return POSITIVE;
+                else if (vPoint.dotProduct(m_vNormal) < 0)
+                    return NEGATIVE;
+                else
+                    return INTERSET;
+            }
 
 			CVector3 m_vNormal;
 			float m_fDistance;

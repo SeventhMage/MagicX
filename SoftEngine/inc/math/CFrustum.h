@@ -83,6 +83,12 @@ namespace se
 
 			bool Culled(const CAABBox &box) const
 			{
+                for (int i=0; i<F_PLANE_COUNT; ++i)
+                {
+                    if ((m_planeClip[i].WitchSide(box.GetMinVertex()) == CPlane3::NEGATIVE)
+                        && m_planeClip[i].WitchSide(box.GetMaxVertex()) == CPlane3::NEGATIVE)
+                        return true;
+                }
 				return false;
 			}
 			

@@ -21,8 +21,10 @@ namespace se
 			CEntity(const char *name, ISceneNode *pNode);
 			virtual ~CEntity();
 
-			virtual void Update(int delta);			
-		private:
+			virtual void Update(int delta);
+        protected:
+            void CalcBox(base::Vertices *pVertices);
+		protected:
 			std::string m_strEntityName;
             math::CAABBox m_aabbox;
 			ISceneNode *m_pSceneNode;			//所属的场景结点
