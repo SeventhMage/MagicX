@@ -35,7 +35,7 @@ namespace se
 			virtual CMatrix4 &GetViewMatrix() = 0;
 			virtual CMatrix4 &GetProjectionMatrix() = 0;
 			virtual const CMatrix4 &GetViewProjectionMatrix() const = 0;
-			virtual CFrustum &GetFrustum() = 0;
+			virtual const CFrustum &GetFrustum() const = 0;
 			virtual float GetDistance() const = 0;
 			virtual bool IsOritho() const = 0;
 

@@ -259,20 +259,20 @@ namespace se
 								switch (it->attribute)
 								{
 								case base::VA_POSITION:
-									triangle.vPosition[index].x = pVertices->pVertexData[i * pVertices->stride + it->offset];
-									triangle.vPosition[index].y = pVertices->pVertexData[i * pVertices->stride + it->offset + 1];
-									triangle.vPosition[index].z = pVertices->pVertexData[i * pVertices->stride + it->offset + 2];
+									triangle.vPosition[index].x = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset];
+									triangle.vPosition[index].y = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 1];
+									triangle.vPosition[index].z = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 2];
 								case base::VA_COLOR:
-									triangle.vertexColor[index].r = color.r * pVertices->pVertexData[i * pVertices->stride + it->offset];
-									triangle.vertexColor[index].g = color.g * pVertices->pVertexData[i * pVertices->stride + it->offset + 1];
-									triangle.vertexColor[index].b = color.b * pVertices->pVertexData[i * pVertices->stride + it->offset + 2];
+									triangle.vertexColor[index].r = color.r * ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset];
+									triangle.vertexColor[index].g = color.g * ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 1];
+									triangle.vertexColor[index].b = color.b * ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 2];
 								case base::VA_TEXCOORD:
-									triangle.vTexCoord[index].x = pVertices->pVertexData[i * pVertices->stride + it->offset];
-									triangle.vTexCoord[index].y = pVertices->pVertexData[i * pVertices->stride + it->offset + 1];
+									triangle.vTexCoord[index].x = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset];
+									triangle.vTexCoord[index].y = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 1];
 								case base::VA_NORMAL:
-									triangle.vNormal[index].x = pVertices->pVertexData[i * pVertices->stride + it->offset];
-									triangle.vNormal[index].y = pVertices->pVertexData[i * pVertices->stride + it->offset + 1];
-									triangle.vNormal[index].z = pVertices->pVertexData[i * pVertices->stride + it->offset + 2];
+									triangle.vNormal[index].x = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset];
+									triangle.vNormal[index].y = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 1];
+									triangle.vNormal[index].z = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 2];
 								default:
 									break;
 								}

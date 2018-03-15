@@ -45,7 +45,7 @@ namespace se
 			virtual CMatrix4 &GetViewMatrix()  { return m_matView; }
 			virtual CMatrix4 &GetProjectionMatrix() { return m_matProj; }
 			virtual const CMatrix4 &GetViewProjectionMatrix() const { return m_matVP; }
-			virtual CFrustum &GetFrustum() { return m_frustum; }
+			virtual const CFrustum &GetFrustum() const { return m_frustum; }
 			virtual float GetDistance()const { return m_fDistance; }
 			virtual bool IsOritho()const;
 			virtual void SetNeedUpdateViewMatrix() { m_bNeedUpdateView = true; }

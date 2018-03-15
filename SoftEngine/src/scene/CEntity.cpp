@@ -10,6 +10,7 @@ namespace se
 		CEntity::CEntity(const char *name, ISceneNode *pNode)
 			:m_strEntityName(name)
 			, m_pSceneNode(pNode)
+            , m_aabbox(-.1f, -.1f, -.1f, .1f, .1f, .1f)
 		{
 			m_pModel = new CModel(name);						 
 			 if (m_pModel)
@@ -44,7 +45,7 @@ namespace se
                 {
                     if (it->attribute == base::VA_POSITION)
                     {
-                        CVector3 vert( pVertices->pVertexData[i * pVertices->stride + it->offset],  pVertices->pVertexData[i * pVertices->stride + it->offset + 1],  pVertices->pVertexData[i * pVertices->stride + it->offset + 2]);
+                        CVector3 vert( ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset],  ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 1],  ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 2]);
                         m_aabbox.Expand(vert);
                     }
                 }
@@ -61,7 +62,7 @@ namespace se
 				ICamera *pCamera = pScene->GetCamera();
 				if (pCamera)
 				{
-                    CFrustum frustum = pCamera->GetFrustum();
+                    const CFrustum &frustum = pCamera->GetFrustum();
                     CAABBox box = m_aabbox;
                     box.Transform(worldMat);
                     

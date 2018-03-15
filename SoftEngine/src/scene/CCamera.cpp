@@ -133,9 +133,9 @@ namespace se
 			if (m_bNeedUpdateView)
 			{				
 				m_matView.BuildCameraLookAtMatrix(m_position, m_direction, m_up);
-/*				CMatrix4 mat4;
+				CMatrix4 mat4;
 				BuildFrustumMatrix(mat4);
-				m_frustum.Transform(mat4);	*/			
+                m_frustum.Transform(mat4);
 			}
 
 			if (m_bNeedUpdateProj)
@@ -155,12 +155,6 @@ namespace se
 			if (m_bNeedUpdateProj || m_bNeedUpdateView)
 			{
 				m_matVP = m_matView * m_matProj;
-				
-				//frustum¸üÐÂ
-				
-
-				//
-
 
 				m_bNeedUpdateProj = false;
 				m_bNeedUpdateView = false;

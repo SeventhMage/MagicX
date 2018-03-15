@@ -73,6 +73,7 @@
 		742295541F516B3500D48FF5 /* CEventManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEventManager.h; sourceTree = "<group>"; };
 		742295571F51737C00D48FF5 /* CIlluminationRender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CIlluminationRender.cpp; sourceTree = "<group>"; };
 		742295581F51737C00D48FF5 /* CIlluminationRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIlluminationRender.h; sourceTree = "<group>"; };
+		742E1EF9205750CF0036A6B8 /* ICuller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ICuller.h; sourceTree = "<group>"; };
 		7431B4BA1F405A260097877E /* libse_apple.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libse_apple.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7431B4C81F405A5D0097877E /* base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base.h; sourceTree = "<group>"; };
 		7431B4C91F405A5D0097877E /* CSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSingleton.h; sourceTree = "<group>"; };
@@ -88,7 +89,7 @@
 		7431B4D51F405A5D0097877E /* IDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDeviceManager.h; sourceTree = "<group>"; };
 		7431B4D61F405A5D0097877E /* IEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IEvent.h; sourceTree = "<group>"; };
 		7431B4D71F405A5D0097877E /* IKeyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKeyEvent.h; sourceTree = "<group>"; };
-		7431B4D91F405A5D0097877E /* CBoundingBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBoundingBox.h; sourceTree = "<group>"; };
+		7431B4D91F405A5D0097877E /* CAABBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAABBox.h; sourceTree = "<group>"; };
 		7431B4DA1F405A5D0097877E /* CFrustum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFrustum.h; sourceTree = "<group>"; };
 		7431B4DB1F405A5D0097877E /* CMatrix4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMatrix4.h; sourceTree = "<group>"; };
 		7431B4DC1F405A5D0097877E /* CPlane3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPlane3.h; sourceTree = "<group>"; };
@@ -197,6 +198,7 @@
 		7431B5521F405A5D0097877E /* CSceneNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSceneNode.h; sourceTree = "<group>"; };
 		7431B5541F405A5D0097877E /* CPointLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPointLight.cpp; sourceTree = "<group>"; };
 		7431B5551F405A5D0097877E /* CPointLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPointLight.h; sourceTree = "<group>"; };
+		74358A552058A204002DDA90 /* CPlane3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPlane3.h; sourceTree = "<group>"; };
 		7471FC711F4FA69F00B94673 /* IGestureEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGestureEvent.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -277,8 +279,9 @@
 		7431B4D81F405A5D0097877E /* math */ = {
 			isa = PBXGroup;
 			children = (
-				7431B4D91F405A5D0097877E /* CBoundingBox.h */,
+				7431B4D91F405A5D0097877E /* CAABBox.h */,
 				7431B4DA1F405A5D0097877E /* CFrustum.h */,
+				74358A552058A204002DDA90 /* CPlane3.h */,
 				7431B4DB1F405A5D0097877E /* CMatrix4.h */,
 				7431B4DC1F405A5D0097877E /* CPlane3.h */,
 				7431B4DD1F405A5D0097877E /* CQuaternion.h */,
@@ -352,6 +355,7 @@
 				7431B5081F405A5D0097877E /* ISceneNode.h */,
 				7431B5091F405A5D0097877E /* ISkyBox.h */,
 				7431B50A1F405A5D0097877E /* ITerrain.h */,
+				742E1EF9205750CF0036A6B8 /* ICuller.h */,
 			);
 			path = scene;
 			sourceTree = "<group>";

@@ -11,6 +11,8 @@ namespace se
 		{
 		public:
 			CAABBox():m_minVertex(-1, -1, -1), m_maxVertex(1, 1, 1){}
+            CAABBox(float minX, float minY, float minZ, float maxX, float maxY, float maxZ)
+            :m_minVertex(minX, minY, minZ), m_maxVertex(maxX, maxY, maxZ){}
 			CAABBox(const CVector3 &minVertex, const CVector3 &maxVertex) :m_minVertex(minVertex), m_maxVertex(maxVertex){}
 
             const CVector3 &GetMinVertex() const
