@@ -24,6 +24,21 @@ namespace se
 
 				F_PLANE_COUNT
 			};
+            
+            enum FVERTICES
+            {
+                F_NLB = 0,
+                F_NRB,
+                F_NRT,
+                F_NLT,
+                F_FLB,
+                F_FRB,
+                F_FRT,
+                F_FLT,
+                
+                F_VERTICES_COUNT
+            };
+            
 			CFrustum(){}
 			~CFrustum(){}
 
@@ -45,38 +60,38 @@ namespace se
 				xFmin = yFmin * fAspect;
 				xFmax = -xFmin;
 
-				m_vNLB.x = xmin;
-				m_vNLB.y = ymin;
-				m_vNLB.z = fNear;
+				m_vertices[F_NLB].x = xmin;
+				m_vertices[F_NLB].y = ymin;
+				m_vertices[F_NLB].z = fNear;
 
-				m_vNRB.x = xmax;
-				m_vNRB.y = ymin;
-				m_vNRB.z = fNear;
+				m_vertices[F_NRB].x = xmax;
+				m_vertices[F_NRB].y = ymin;
+				m_vertices[F_NRB].z = fNear;
 
-				m_vNRT.x = xmax;
-				m_vNRT.y = ymax;
-				m_vNRT.z = fNear;
+				m_vertices[F_NRT].x = xmax;
+				m_vertices[F_NRT].y = ymax;
+				m_vertices[F_NRT].z = fNear;
 
-				m_vNLT.x = xmin;
-				m_vNLT.y = ymax;
-				m_vNLT.z = fNear;
+				m_vertices[F_NLT].x = xmin;
+				m_vertices[F_NLT].y = ymax;
+				m_vertices[F_NLT].z = fNear;
 
 
-				m_vFLB.x = xFmin;
-				m_vFLB.y = yFmin;
-				m_vFLB.z = fFar;
+				m_vertices[F_FLB].x = xFmin;
+				m_vertices[F_FLB].y = yFmin;
+				m_vertices[F_FLB].z = fFar;
 
-				m_vFRB.x = xFmax;
-				m_vFRB.y = yFmin;
-				m_vFRB.z = fFar;
+				m_vertices[F_FRB].x = xFmax;
+				m_vertices[F_FRB].y = yFmin;
+				m_vertices[F_FRB].z = fFar;
 
-				m_vFRT.x = xFmax;
-				m_vFRT.y = yFmax;
-				m_vFRT.z = fFar;
+				m_vertices[F_FRT].x = xFmax;
+				m_vertices[F_FRT].y = yFmax;
+				m_vertices[F_FRT].z = fFar;
 
-				m_vFLT.x = xFmin;
-				m_vFLT.y = yFmax;
-				m_vFLT.z = fFar;
+				m_vertices[F_FLT].x = xFmin;
+				m_vertices[F_FLT].y = yFmax;
+				m_vertices[F_FLT].z = fFar;
 
 				CreatePlane();
 			}
@@ -94,12 +109,12 @@ namespace se
 			
 			bool CullSphere(const CVector3 &pos, float radius) const
 			{				
-/*				if (pos.z + radius < -m_vFLB.z || pos.z - radius > -m_vNLB.z)
+/*				if (pos.z + radius < -m_vertices[F_FLB].z || pos.z - radius > -m_vertices[F_NLB].z)
 					return true;
-				float testX = 0.5f * (m_vNRT.x - m_vNLT.x) * pos.z / -m_vNLT.z;
+				float testX = 0.5f * (m_vertices[F_NRT].x - m_vertices[F_NLT].x) * pos.z / -m_vertices[F_NLT].z;
 				if (pos.x - radius > testX || pos.x + radius < -testX)
 					return true;
-				float testY = 0.5f * (m_vNRT.y - m_vNRB.y) * pos.z / -m_vNLT.z;
+				float testY = 0.5f * (m_vertices[F_NRT].y - m_vertices[F_NRB].y) * pos.z / -m_vertices[F_NLT].z;
 				if (pos.y - radius > testY || pos.y + radius < -testY)
 					return true;	*/			
 
@@ -115,33 +130,27 @@ namespace se
 
 			void Transform(const CMatrix4 &mat4)
 			{				
-				for (uint i = 0; i < F_PLANE_COUNT; ++i)
+				for (uint i = 0; i < F_VERTICES_COUNT; ++i)
 				{
-					mat4.TransformPlane(m_planeClip[i]);
+					mat4.TransformVect(m_vertices[i]);
 				}
+                CreatePlane();
 			}
 
 		private:
 			void CreatePlane()
 			{
 				//right hand
-				m_planeClip[F_NEAR_PLANE].SetPlane(m_vNRB, m_vNLB, m_vNRT);
-				m_planeClip[F_FAR_PLANE].SetPlane(m_vFLB, m_vFRB, m_vFRT);
-				m_planeClip[F_LEFT_PLANE].SetPlane(m_vNLB, m_vFLB, m_vNLT);
-				m_planeClip[F_RIGHT_PLANE].SetPlane(m_vNRB, m_vFRT, m_vFRB);
-				m_planeClip[F_TOP_PLANE].SetPlane(m_vNLT, m_vFRT, m_vNRT);
-				m_planeClip[F_BOTTOM_PLANE].SetPlane(m_vFRB, m_vFLB, m_vNLB);
+				m_planeClip[F_NEAR_PLANE].SetPlane(m_vertices[F_NRB], m_vertices[F_NLB], m_vertices[F_NRT]);
+				m_planeClip[F_FAR_PLANE].SetPlane(m_vertices[F_FLB], m_vertices[F_FRB], m_vertices[F_FRT]);
+				m_planeClip[F_LEFT_PLANE].SetPlane(m_vertices[F_NLB], m_vertices[F_FLB], m_vertices[F_NLT]);
+				m_planeClip[F_RIGHT_PLANE].SetPlane(m_vertices[F_NRB], m_vertices[F_FRT], m_vertices[F_FRB]);
+				m_planeClip[F_TOP_PLANE].SetPlane(m_vertices[F_NLT], m_vertices[F_FRT], m_vertices[F_NRT]);
+				m_planeClip[F_BOTTOM_PLANE].SetPlane(m_vertices[F_FRB], m_vertices[F_FLB], m_vertices[F_NLB]);
 			}
 		private:
-			CVector3 m_vNLB;
-			CVector3 m_vNRB;
-			CVector3 m_vNRT;
-			CVector3 m_vNLT;
-			CVector3 m_vFLB;
-			CVector3 m_vFRB;
-			CVector3 m_vFRT;
-			CVector3 m_vFLT;
-
+            CVector3 m_vertices[F_VERTICES_COUNT];
+            
 			CPlane3 m_planeClip[F_PLANE_COUNT];;
 		};
 
