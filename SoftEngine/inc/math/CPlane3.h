@@ -63,9 +63,9 @@ namespace se
             
             ESide WitchSide(const CVector3 &vPoint) const
             {
-                if (vPoint.dotProduct(m_vNormal) > 0)
+                if (vPoint.dotProduct(m_vNormal) - m_fDistance > 0)
                     return POSITIVE;
-                else if (vPoint.dotProduct(m_vNormal) < 0)
+				else if (vPoint.dotProduct(m_vNormal) - m_fDistance < 0)
                     return NEGATIVE;
                 else
                     return INTERSET;
