@@ -50,12 +50,12 @@ namespace se
 				fNear = -fNear;
 				fFar = -fFar;
 
-				ymax = fNear * float(tan(fFov * 0.5f));
+				ymax = -fNear * float(tan(fFov * 0.5f));
 				ymin = -ymax;
 				xmin = ymin * fAspect;
 				xmax = -xmin;
 
-				yFmax = fFar * float(tan(fFov * 0.5f));
+				yFmax = -fFar * float(tan(fFov * 0.5f));
 				yFmin = -yFmax;
 				xFmin = yFmin * fAspect;
 				xFmax = -xFmin;

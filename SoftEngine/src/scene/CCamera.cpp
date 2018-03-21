@@ -148,7 +148,8 @@ namespace se
             {
                 m_matView.BuildCameraLookAtMatrix(m_position, m_direction, m_up);
                 CMatrix4 mat4;
-                BuildFrustumMatrix(mat4);
+                //BuildFrustumMatrix(mat4);
+                m_matView.GetInverse(mat4);
                 m_frustum.Transform(mat4);
             }
 
