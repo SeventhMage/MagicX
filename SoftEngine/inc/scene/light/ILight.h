@@ -12,6 +12,7 @@ namespace se
 		//光照类型
 		enum ELightType
 		{
+            LT_AMBIENT,
 			LT_DIRECTIONAL,
 			LT_POINT,
 			LT_SPOT,
@@ -27,7 +28,6 @@ namespace se
 			//光的颜色
 			virtual void SetColor(float fColor[4]) = 0;
 			virtual float *GetColor() = 0;
-
 		};
 	}
 }

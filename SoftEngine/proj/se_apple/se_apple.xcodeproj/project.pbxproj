@@ -128,7 +128,6 @@
 		7431B5001F405A5D0097877E /* ISceneResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISceneResource.h; sourceTree = "<group>"; };
 		7431B5021F405A5D0097877E /* ICamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICamera.h; sourceTree = "<group>"; };
 		7431B5031F405A5D0097877E /* IEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IEntity.h; sourceTree = "<group>"; };
-		7431B5041F405A5D0097877E /* ILight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILight.h; sourceTree = "<group>"; };
 		7431B5051F405A5D0097877E /* IModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IModel.h; sourceTree = "<group>"; };
 		7431B5061F405A5D0097877E /* IScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IScene.h; sourceTree = "<group>"; };
 		7431B5071F405A5D0097877E /* ISceneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISceneManager.h; sourceTree = "<group>"; };
@@ -200,6 +199,12 @@
 		7431B5551F405A5D0097877E /* CPointLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPointLight.h; sourceTree = "<group>"; };
 		74358A552058A204002DDA90 /* CPlane3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPlane3.h; sourceTree = "<group>"; };
 		7471FC711F4FA69F00B94673 /* IGestureEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGestureEvent.h; sourceTree = "<group>"; };
+		7477BD7E20632ED1002FBF1F /* ILight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILight.h; sourceTree = "<group>"; };
+		7477BD7F20632ED1002FBF1F /* IAmbientLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAmbientLight.h; sourceTree = "<group>"; };
+		7477BD8020632EFB002FBF1F /* IPointLight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPointLight.h; sourceTree = "<group>"; };
+		7477BD8120632F24002FBF1F /* IDirectionalLight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDirectionalLight.h; sourceTree = "<group>"; };
+		7477BD8220632F58002FBF1F /* ISpotLight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISpotLight.h; sourceTree = "<group>"; };
+		7477BD8320633677002FBF1F /* IIllumination.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IIllumination.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -314,6 +319,7 @@
 				7431B4F61F405A5D0097877E /* SRenderMemory.h */,
 				7431B4F71F405A5D0097877E /* SVertex.h */,
 				7431B4F81F405A5D0097877E /* UniformDef.h */,
+				7477BD8320633677002FBF1F /* IIllumination.h */,
 			);
 			path = render;
 			sourceTree = "<group>";
@@ -346,9 +352,9 @@
 		7431B5011F405A5D0097877E /* scene */ = {
 			isa = PBXGroup;
 			children = (
+				7477BD7D20632ED1002FBF1F /* light */,
 				7431B5021F405A5D0097877E /* ICamera.h */,
 				7431B5031F405A5D0097877E /* IEntity.h */,
-				7431B5041F405A5D0097877E /* ILight.h */,
 				7431B5051F405A5D0097877E /* IModel.h */,
 				7431B5061F405A5D0097877E /* IScene.h */,
 				7431B5071F405A5D0097877E /* ISceneManager.h */,
@@ -501,6 +507,18 @@
 			children = (
 				7431B5541F405A5D0097877E /* CPointLight.cpp */,
 				7431B5551F405A5D0097877E /* CPointLight.h */,
+			);
+			path = light;
+			sourceTree = "<group>";
+		};
+		7477BD7D20632ED1002FBF1F /* light */ = {
+			isa = PBXGroup;
+			children = (
+				7477BD7E20632ED1002FBF1F /* ILight.h */,
+				7477BD7F20632ED1002FBF1F /* IAmbientLight.h */,
+				7477BD8020632EFB002FBF1F /* IPointLight.h */,
+				7477BD8120632F24002FBF1F /* IDirectionalLight.h */,
+				7477BD8220632F58002FBF1F /* ISpotLight.h */,
 			);
 			path = light;
 			sourceTree = "<group>";
