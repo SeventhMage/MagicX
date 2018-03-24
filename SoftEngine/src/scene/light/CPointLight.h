@@ -5,7 +5,7 @@
 #ifndef _SCENE_C_POINT_LIGHT_H_
 #define _SCENE_C_POINT_LIGHT_H_
 
-#include "scene/ILight.h"
+#include "ILight.h"
 #include "math/CVector3.h"
 
 namespace se
