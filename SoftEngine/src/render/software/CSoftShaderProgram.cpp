@@ -5,7 +5,10 @@ namespace se
 	namespace render
 	{
 
-		CSoftShaderProgram::CSoftShaderProgram()
+		CSoftShaderProgram::CSoftShaderProgram(uint id)
+			:m_id(id)
+			, m_pVertexShader(nullptr)
+			, m_pFragShader(nullptr)
 		{
 
 		}

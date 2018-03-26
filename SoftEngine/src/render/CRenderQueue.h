@@ -21,6 +21,8 @@ namespace se
 			virtual void Render();
 		private:
 			int m_materialId;
+			int m_vaoId;
+			IShaderProgram *m_pShaderProgram;
 			std::vector<IRenderCell *>m_RenderCellList;
 		};
 	}

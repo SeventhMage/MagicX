@@ -11,12 +11,17 @@ namespace se
 			, m_bufferId(bufferId)
 			, m_textureId(textureId)			
 		{
-			m_pShaderProgram = CSoftEngine::GetRenderer()->CreateShaderProgram();
+			
 		}
 
 		CRenderCell::~CRenderCell()
 		{
-			SAFE_DEL(m_pShaderProgram);
+			
+		}
+
+		IShaderProgram * CRenderCell::GetShaderProgram() const
+		{
+			return nullptr;
 		}
 
 	}

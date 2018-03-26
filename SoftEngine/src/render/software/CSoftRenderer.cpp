@@ -1,16 +1,18 @@
 #include "CSoftRenderer.h"
 #include "base/seDef.h"
-#include "../CRenderQueue.h"
 #include "resource/IMaterialResource.h"
 #include "CSoftEngine.h"
 #include "CCPUBuffer.h"
 #include "CSoftShaderProgram.h"
 #include "math/CVector2.h"
+#include "CIlluminationRender.h"
+#include "CSoftVertexArrayObject.h"
 #include "../STriangleMesh.h"
 #include "../CRenderCell.h"
-#include "CIlluminationRender.h"
+#include "../CRenderQueue.h"
 
 #include <algorithm>
+
 
 
 
@@ -64,6 +66,35 @@ namespace se
 					m_renderQueueGroup[pRenderQueue->GetMaterialID()] = pRenderQueue;
 				}
 				CSoftEngine::GetResourceManager()->ReleaseResource(pResource);
+			}
+		}
+
+
+		uint CSoftRenderer::CreateVAO()
+		{
+			uint id = m_mapVAOs.size() + 1;
+			IVertexArrayObject *pVAO = new CSoftVertexArrayObject(id);
+			m_mapVAOs[id] = pVAO;
+
+			return id;
+		}
+
+		void CSoftRenderer::DestroyVAO(uint vaoId)
+		{
+			auto it = m_mapVAOs.find(vaoId);
+			if (it != m_mapVAOs.end())
+			{
+				delete it->second;
+				m_mapVAOs.erase(it);
+			}
+		}
+
+		void CSoftRenderer::VertexAttrPointer(uint vaoId, uint index, uint size, EDataType type, uint stride, uint offset)
+		{
+			auto it = m_mapVAOs.find(vaoId);
+			if (it != m_mapVAOs.end())
+			{
+				it->second->VertexAttrPointer(index, size, type, stride, offset);
 			}
 		}
 
@@ -336,6 +367,13 @@ namespace se
 			}
 		}
 
+		void CSoftRenderer::Render(IRenderCell *pCell)
+		{
+			uint bufferId = pCell->GetBufferID();
+			IShaderProgram *pShaderProgram = pCell->GetShaderProgram();
+
+		}
+
 		void CSoftRenderer::TranslateWorldToCamera(const CMatrix4 &viewMat, Triangle &triangle)
 		{					
 			CMatrix4 norMat = viewMat;
@@ -398,14 +436,23 @@ namespace se
 			}
 		}
 
-		IShaderProgram * CSoftRenderer::CreateShaderProgram()
+		uint CSoftRenderer::CreateShaderProgram()
 		{
-			return new CSoftShaderProgram();
+			uint id = m_mapShaderProgram.size() + 1;
+
+			m_mapShaderProgram[id] = new CSoftShaderProgram(id);
+
+			return id;
 		}
 
-		void CSoftRenderer::DestroyShaderProgram(IShaderProgram *pShaderProgram)
+		void CSoftRenderer::DestroyShaderProgram(uint id)
 		{
-			SAFE_DEL(pShaderProgram);
+			auto it = m_mapShaderProgram.find(id);
+			if (it != m_mapShaderProgram.end())
+			{
+				delete it->second;
+				m_mapShaderProgram.erase(it);
+			}
 		}
 
 		IRenderCell * CSoftRenderer::CreateRenderCell(uint bufferId, uint materialId, uint textureId)

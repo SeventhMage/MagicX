@@ -2,10 +2,11 @@
 #define _SE_I_SCENE_H_
 
 #include "math/CVector3.h"
+#include "light/ILight.h"
 #include "ISceneNode.h"
 #include "ICamera.h"
 #include "ISkyBox.h"
-#include "ILight.h"
+
 
 
 
