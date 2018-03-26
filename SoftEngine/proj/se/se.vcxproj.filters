@@ -52,6 +52,9 @@
     <Filter Include="src\base">
       <UniqueIdentifier>{280e84c8-a10e-48ad-a909-03a98ef16621}</UniqueIdentifier>
     </Filter>
+    <Filter Include="inc\scene\light">
+      <UniqueIdentifier>{a453d254-4483-46e1-9109-295009dc634f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\device\CDeviceManager.cpp">
@@ -167,6 +170,27 @@
     </ClCompile>
     <ClCompile Include="..\..\src\render\software\CIlluminationRender.cpp">
       <Filter>src\render\software</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\software\CSoftVertexShader.cpp">
+      <Filter>src\render\software</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\software\CSoftFragmentShader.cpp">
+      <Filter>src\render\software</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\software\CSoftShaderAttribute.cpp">
+      <Filter>src\render\software</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\software\CSampler.cpp">
+      <Filter>src\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\software\CSoftVertexArrayObject.cpp">
+      <Filter>src\render\software</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\CVertexArrayObject.cpp">
+      <Filter>src\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\CRenderer.cpp">
+      <Filter>src\render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -298,9 +322,6 @@
     </ClInclude>
     <ClInclude Include="..\..\inc\math\CVector3.h">
       <Filter>inc\math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\inc\scene\ILight.h">
-      <Filter>inc\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\..\inc\scene\ISkyBox.h">
       <Filter>inc\scene</Filter>
@@ -463,6 +484,57 @@
     </ClInclude>
     <ClInclude Include="..\..\inc\math\CAABBox.h">
       <Filter>inc\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\scene\light\IAmbientLight.h">
+      <Filter>inc\scene\light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\scene\light\ILight.h">
+      <Filter>inc\scene\light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\scene\light\IPointLight.h">
+      <Filter>inc\scene\light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\scene\light\ISpotLight.h">
+      <Filter>inc\scene\light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\scene\light\IDirectionalLight.h">
+      <Filter>inc\scene\light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\IShader.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\software\CSoftVertexShader.h">
+      <Filter>src\render\software</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\software\CSoftFragmentShader.h">
+      <Filter>src\render\software</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\IShaderAttribute.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\IIllumination.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\software\CSoftShaderAttribute.h">
+      <Filter>src\render\software</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\software\CSampler.h">
+      <Filter>src\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\ISampler.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\IVertexArrayObject.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\software\CSoftVertexArrayObject.h">
+      <Filter>src\render\software</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\CVertexArrayObject.h">
+      <Filter>src\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\CRenderer.h">
+      <Filter>src\render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
