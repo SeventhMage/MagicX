@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "CSoftRenderer.h"
 #include "base/seDef.h"
 #include "base/Log.h"
@@ -11,9 +13,7 @@
 #include "../STriangleMesh.h"
 #include "../CRenderCell.h"
 #include "../CRenderQueue.h"
-
-
-#include <algorithm>
+#include "CSoftShaderAttribute.h"
 
 
 namespace se
@@ -200,198 +200,6 @@ namespace se
 
 			Clear();
 		}
-/*
-		void CSoftRenderer::Render(IShaderProgram *pShaderProgram, uint materialId, uint bufferId, uint textureId)
-		{
-			if (!pShaderProgram)
-				return;
-			float *pViewMat = pShaderProgram->GetUniform(UN_VIEW_MAT);
-			CMatrix4 viewMat;
-			if (pViewMat)
-			{				
-				memcpy(viewMat.m, pViewMat, sizeof(viewMat.m));				
-			}
-
-			float *pWorldMat = pShaderProgram->GetUniform(UN_WORLD_MAT);
-			CMatrix4 worldMat;
-			if (pWorldMat)
-			{
-				memcpy(worldMat.m, pWorldMat, sizeof(worldMat.m));
-			}
-
-			CMatrix4 mwMat = worldMat;
-			CMatrix4 temp;
-			mwMat.GetInverse(temp);
-			CMatrix4 mwNormalMat;
-			temp.GetTransposed(mwNormalMat);
-			mwNormalMat.SetTranslation(CVector3(0, 0, 0));
-
-			IMaterial *pMaterial = CSoftEngine::GetMaterialManager()->GetMaterial(materialId);
-			IBuffer *pBuffer = nullptr;
-			auto bufferIt = m_mapCPUBuffer.find(bufferId);
-			if (bufferIt != m_mapCPUBuffer.end())
-				pBuffer = bufferIt->second;
-			ITexture *pTexture = CSoftEngine::GetTextureManager()->GetTexture(textureId);
-
-			if (pMaterial && pBuffer)
-			{
-				TriangleList triangleList;
-				base::Vertices *pVertices = pBuffer->GetVertices();
-				base::Indices *pIndices = pBuffer->GetIndices();
-				
-				SColor color = pMaterial->GetColor();
-
-				if (pVertices)
-				{
-					Triangle triangle;
-					
-
-					if (pIndices)
-					{			
-						uint suffix = 0;
-						uint indicesNum = pIndices->size / sizeof(ushort);
-						for (uint i = 0; i < indicesNum; ++i)
-						{
-							ushort index = pIndices->pIndexData[i];
-							if (index + 2 < pVertices->size)
-							{								
-								triangle.vPosition[suffix].x = *(float *)(pVertices->pVertexData + sizeof(CVector3) * index);
-								triangle.vPosition[suffix].y = *(float *)(pVertices->pVertexData + sizeof(CVector3)* index + 1 * sizeof(float));
-								triangle.vPosition[suffix].z = *(float *)(pVertices->pVertexData + sizeof(CVector3)* index + 2 * sizeof(float));
-
-								for (uint j = 0; j < pVertices->format.size(); ++j)
-								{									
-									if (pVertices->format[j].attribute == base::VA_NORMAL)
-									{
-										triangle.vNormal[suffix].x = *(float *)(pVertices->pVertexData + pVertices->format[j].offset + sizeof(CVector3)* index);
-										triangle.vNormal[suffix].y = *(float *)(pVertices->pVertexData + pVertices->format[j].offset + sizeof(CVector3)* index + 1 * sizeof(float));
-										triangle.vNormal[suffix].z = *(float *)(pVertices->pVertexData + pVertices->format[j].offset + sizeof(CVector3)* index + 2 * sizeof(float));
-									}
-									else if (pVertices->format[j].attribute == base::VA_TEXCOORD)
-									{
-										triangle.vTexCoord[suffix].x = *(float *)(pVertices->pVertexData + pVertices->format[j].offset + sizeof(CVector2)* index);
-										triangle.vTexCoord[suffix].y = *(float *)(pVertices->pVertexData + pVertices->format[j].offset + sizeof(CVector2)* index + 1 * sizeof(float));
-									}
-								}																
-
-								triangle.vertexColor[suffix] = color;
-
-								if (suffix >= 2)
-								{					
-									for (int i = 0; i < 3; ++i)
-									{
-										mwMat.TransformVect(triangle.vTranslatePosition[i], triangle.vPosition[i]);
-										mwNormalMat.TransformVect(triangle.vTranslateNormal[i], triangle.vNormal[i]);
-									}
-
-									//转换到摄像机坐标
-									TranslateWorldToCamera(viewMat, triangle);
-
-									if (!BackCulling(triangle)) //背面剔除
-									{
-										triangleList.push_back(triangle); //插入到三角形列表
-									}
-									triangle.Reset();
-									suffix = 0;
-								}
-								else
-								{
-									++suffix;
-								}
-
-							}
-							
-						}
-					}
-					else
-					{
-						uint index = 0;
-						for (uint i = 0; i < pVertices->count; ++i)
-						{
-							for (auto it = pVertices->format.begin(); it != pVertices->format.end(); ++it)
-							{
-								triangle.vertexAttr |= it->attribute;
-
-								switch (it->attribute)
-								{
-								case base::VA_POSITION:
-									triangle.vPosition[index].x = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset];
-									triangle.vPosition[index].y = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 1];
-									triangle.vPosition[index].z = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 2];
-								case base::VA_COLOR:
-									triangle.vertexColor[index].r = color.r * ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset];
-									triangle.vertexColor[index].g = color.g * ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 1];
-									triangle.vertexColor[index].b = color.b * ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 2];
-								case base::VA_TEXCOORD:
-									triangle.vTexCoord[index].x = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset];
-									triangle.vTexCoord[index].y = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 1];
-								case base::VA_NORMAL:
-									triangle.vNormal[index].x = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset];
-									triangle.vNormal[index].y = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 1];
-									triangle.vNormal[index].z = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 2];
-								default:
-									break;
-								}
-							}
-							if (index >= 2)
-							{
-								//转换到摄像机坐标
-								TranslateWorldToCamera(viewMat, triangle);
-
-								if (!BackCulling(triangle)) //背面剔除
-								{
-									triangleList.push_back(triangle); //插入到三角形列表
-								}
-								triangle.Reset();
-								index = 0;
-							}
-							else
-							{
-								++index;
-							}
-						}
-					}
-					
-
-					//对三角形列表渲染											
-
-					//排序
-					std::sort(triangleList.begin(), triangleList.end(), TriangleSort);					
-
-					float pLight[] = {100, 100, 100}; //pShaderProgram->GetUniform(UN_LIGHT_POS);
-					//if (pLight)
-					{
-						CVector3 vLightPos;
-						memcpy(vLightPos.v, pLight, sizeof(vLightPos.v));
-						//顶点级别光照计算
-						VertexLightCalc(vLightPos, viewMat, triangleList);
-					}
-
-
-					//转换到屏幕坐标
-					float *pProjMat = pShaderProgram->GetUniform(UN_PROJ_MAT);
-					if (pProjMat)
-					{
-						CMatrix4 projMat;
-						memcpy(projMat.m, pProjMat, sizeof(projMat.m));
-						TranslateCameraToScreen(projMat, triangleList);
-					}					
-
-					//光栅化
-					for (auto it = triangleList.begin(); it != triangleList.end(); ++it)
-					{
-						m_pRasterizer->SetDrawBuffer(m_pSoftRD->GetDrawBuffer(), m_pSoftRD->GetBufferWidth(), m_pSoftRD->GetBufferHeight());
-						m_pRasterizer->SetDepthBuffer(m_pSoftRD->GetDepthBuffer());
-						if (pTexture)
-							m_pRasterizer->SetTextureInfo(pTexture->GetData(), pTexture->GetWidth(), pTexture->GetHeight());
-						else
-							m_pRasterizer->SetTextureInfo(nullptr, 0, 0);
-						m_pRasterizer->DrawTriangle(*it);
-					}										
-				}
-			}
-		}
-*/
 
 		void CSoftRenderer::TranslateWorldToCamera(const CMatrix4 &viewMat, Triangle &triangle)
 		{					
@@ -518,14 +326,14 @@ namespace se
 
 		void CSoftRenderer::DrawElements()
 		{
-			IShaderProgram *pShaderProgram = nullptr;
+			CSoftShaderProgram *pShaderProgram = nullptr;
 			IBuffer *pBuffer = nullptr;
 			ITexture *pTexture = nullptr;
 
 			auto shaderIt = m_mapShaderProgram.find(m_shaderProgramId);
 			if (shaderIt != m_mapShaderProgram.end())
 			{
-				pShaderProgram = shaderIt->second;
+				pShaderProgram = static_cast<CSoftShaderProgram *>(shaderIt->second);
 				if (!pShaderProgram)
 				{
 					base::LogPrint("ShaderProgram is nullptr");
@@ -608,6 +416,17 @@ namespace se
 								}
 
 								triangle.vertexColor[suffix] = Color(1, 1, 0, 0);
+
+								CSoftVertexShader *pVertexShader = pShaderProgram->GetVertexShader();
+								if (pVertexShader)
+								{
+									pVertexShader->SetUniform(UN_COLOR, pShaderProgram->GetUniform(UN_COLOR));
+									CSoftShaderAttribute inAttr;
+									CSoftShaderAttribute outAttr;
+									inAttr.SetAttribute(base::VA_POSITION, triangle.vPosition[suffix].v, sizeof(triangle.vPosition[suffix].v));
+									inAttr.SetAttribute(base::VA_NORMAL, triangle.vPosition[suffix].v, sizeof(triangle.vPosition[suffix].v));
+									//triangle.vTranslatePosition[suffix] = pVertexShader->Process(inAttr, outAttr);
+								}
 
 								if (suffix >= 2)
 								{

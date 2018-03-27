@@ -4,15 +4,20 @@ namespace se
 {
 	namespace render
 	{
-		const ShaderAttrData & CSoftShaderAttribute::GetAttribute(base::EVertexAttribute vertType)
+		CSoftShaderAttribute::~CSoftShaderAttribute()
+		{			
+		}
+
+		ShaderAttrData CSoftShaderAttribute::GetAttribute(base::EVertexAttribute vertType) const
 		{
-			for (auto data : m_vecAttrData)
+			for (auto it = m_vecAttrData.begin(); it != m_vecAttrData.end(); ++it)
 			{
-				if (data.vertType == vertType)
+				if (it->vertType == vertType)
 				{
-					return data;
+					return *it;
 				}
-			}
+			}			
+			return ShaderAttrData();
 		}
 
 		void CSoftShaderAttribute::SetAttribute(base::EVertexAttribute vertType, void *source, uint size)

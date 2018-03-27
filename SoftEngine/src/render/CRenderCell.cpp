@@ -44,7 +44,7 @@ namespace se
 				{
 				case se::render::UN_WORLD_MAT:
 					param.name = name;
-					param.data = new byte[size];
+					param.data = new ubyte[size];
 					param.type = type;
 					param.size = size;
 					memcpy(param.data, data, size);

@@ -18,7 +18,7 @@ namespace se
 			struct ShaderParam
 			{
 				EUniformName name;
-				byte *data;
+				ubyte *data;
 				EDataType type;
 				uint size;
 			};

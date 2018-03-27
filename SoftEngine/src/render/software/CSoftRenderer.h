@@ -44,8 +44,7 @@ namespace se
 			virtual IShaderProgram *GetShaderProgram(uint shaderProgramId) const;
 
 			virtual void Clear();
-			virtual void Render();			
-			virtual void Render(IShaderProgram *pShaderProgram, uint materialId, uint bufferId, uint textureId){};
+			virtual void Render();						
 
 			virtual void UseShaderProgram(uint shaderProgramId);
 			virtual void EnableVertexArrayObject(uint vaoId);

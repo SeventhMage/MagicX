@@ -11,15 +11,23 @@ namespace se
 		typedef struct SShaderAttrData
 		{
 		public:
-			SShaderAttrData(base::EVertexAttribute vertType, void *source, uint size)
+			SShaderAttrData()
+				:vertType(base::VA_NONE), size(0), data(nullptr)
 			{
-				data = new byte[size];
+
+			}
+			SShaderAttrData(base::EVertexAttribute vertType, void *source, uint size)
+				:size(size)
+				, vertType(vertType)
+			{
+				data = new ubyte[size];
 				memcpy(data, source, size);
 			}
 			SShaderAttrData(const SShaderAttrData &attrData)
-			{
-				size = attrData.size;
-				data = new byte[size];
+				:size(attrData.size)
+				, vertType(attrData.vertType)
+			{				
+				data = new ubyte[size];
 				memcpy(data, attrData.data, size);
 			}
 			
@@ -29,7 +37,8 @@ namespace se
 				{					
 					delete[]data;
 					size = attrData.size;
-					data = new byte[size];
+					vertType = attrData.vertType;
+					data = new ubyte[size];
 					memcpy(data, attrData.data, size);
 				}
 				return *this;
@@ -42,14 +51,15 @@ namespace se
 
 			base::EVertexAttribute vertType;
 			uint size;
-			void *data;		
+			ubyte *data;		
 			
 		}ShaderAttrData;
 
 		class IShaderAttribute
 		{
 		public:
-			virtual const ShaderAttrData &GetAttribute(base::EVertexAttribute vertType) const = 0;
+			virtual ~IShaderAttribute(){}
+			virtual ShaderAttrData GetAttribute(base::EVertexAttribute vertType) const = 0;
 			virtual void SetAttribute(base::EVertexAttribute vertType, void *source, uint size) = 0;
 		};
 	}

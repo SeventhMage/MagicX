@@ -17,7 +17,7 @@ namespace se
 			struct Uniform
 			{
 				EUniformName name;
-				byte *data;
+				ubyte *data;
 				EDataType type;
 				uint size;
 			};
@@ -28,7 +28,11 @@ namespace se
 			virtual ~CSoftShaderProgram();
 			virtual uint GetID() const { return m_id; }
 			virtual void SetUniform(EUniformName uniformName, const void *data, EDataType type, uint size);
-			virtual byte *GetUniform(EUniformName uniformName);
+			virtual ubyte *GetUniform(EUniformName uniformName);
+
+		public:
+			CSoftVertexShader *GetVertexShader() { return m_pVertexShader; }
+			CSoftFragmentShader *GetFragmentShader() { return m_pFragShader; }
 		private:
 			uint m_id;
 			UniformMap m_uniformMap;

@@ -2,6 +2,7 @@
 #define _RENDER_I_SHADER_PROGRAM_H_
 
 #include "UniformDef.h"
+#include "IShader.h"
 
 namespace se
 {
@@ -14,7 +15,7 @@ namespace se
 
 			virtual uint GetID() const = 0;
 			virtual void SetUniform(EUniformName uniformName, const void *data, EDataType type, uint size) = 0;
-			virtual byte *GetUniform(EUniformName uniformName) = 0;			
+			virtual ubyte *GetUniform(EUniformName uniformName) = 0;			
 		};
 	}
 }

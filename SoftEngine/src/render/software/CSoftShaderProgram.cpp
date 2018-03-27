@@ -39,7 +39,7 @@ namespace se
 				case se::render::UN_VIEW_MAT:					
 				case se::render::UN_PROJ_MAT:
 					uniform.name = uniformName;		
-					uniform.data = new byte[size];
+					uniform.data = new ubyte[size];
 					uniform.type = type;
 					uniform.size = size;
 
@@ -53,7 +53,7 @@ namespace se
 
 		}
 
-		byte * CSoftShaderProgram::GetUniform(EUniformName uniformName)
+		ubyte * CSoftShaderProgram::GetUniform(EUniformName uniformName)
 		{
 			auto it = m_uniformMap.find(uniformName);
 			if (it != m_uniformMap.end())

@@ -36,8 +36,7 @@ namespace se
 			virtual IShaderProgram *GetShaderProgram(uint shaderProgramId) const = 0;
 
 			virtual void Clear() = 0;
-			virtual void Render() = 0;			
-			virtual void Render(IShaderProgram *pShaderProgram, uint materialId, uint bufferId, uint textureId) = 0;	
+			virtual void Render() = 0;							
 			
 			virtual void UseShaderProgram(uint shaderProgramId) = 0;
 			virtual void EnableVertexArrayObject(uint vaoId) = 0;

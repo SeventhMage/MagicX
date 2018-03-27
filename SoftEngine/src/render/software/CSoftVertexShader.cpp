@@ -17,7 +17,7 @@ namespace se
 
 		}
 
-		math::CVector3 CSoftVertexShader::Process(const IShaderAttribute &attrInput, IShaderAttribute &attrOutput)
+		math::CVector4 CSoftVertexShader::Process(const IShaderAttribute &attrInput, IShaderAttribute &attrOutput)
 		{
 			const ShaderAttrData &inPositon = attrInput.GetAttribute(base::VA_POSITION);
 			const ShaderAttrData &inNormal = attrInput.GetAttribute(base::VA_NORMAL);
@@ -37,17 +37,22 @@ namespace se
 			render::SColor vColor;
 			math::CVector2 vTexCoord;
 
-			memcpy(vPosition.v, inPositon.data, sizeof(vPosition.v));
-			memcpy(vNormal.v, inNormal.data, sizeof(vNormal.v));
-			memcpy(vColor.c, inColor.data, sizeof(vColor.c));
-			memcpy(vTexCoord.v, inTexCoord.data, sizeof(vTexCoord.v));
+			if (inPositon.vertType != base::VA_NONE)
+				memcpy(vPosition.v, inPositon.data, sizeof(vPosition.v));
+			if (inNormal.vertType != base::VA_NONE)
+				memcpy(vNormal.v, inNormal.data, sizeof(vNormal.v));
+			if (inColor.vertType != base::VA_NONE)
+				memcpy(vColor.c, inColor.data, sizeof(vColor.c));
+			if (inTexCoord.vertType != base::VA_NONE)
+				memcpy(vTexCoord.v, inTexCoord.data, sizeof(vTexCoord.v));
 			
-			mvpMat.TransformVect(vPosition);
+			math::CVector4 outPosition;
+			mvpMat.TransformVect(outPosition, vPosition);
 						
 			attrOutput.SetAttribute(base::VA_TEXCOORD, vTexCoord.v, sizeof(vTexCoord.v));
 			attrOutput.SetAttribute(base::VA_COLOR, vColor.c, sizeof(vColor.c));
 
-			return vPosition;
+			return outPosition;
 		}
 
 		void CSoftVertexShader::SetUniform(EUniformName uniformName, ubyte *data)

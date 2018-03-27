@@ -11,7 +11,8 @@ namespace se
 		class CSoftShaderAttribute : public IShaderAttribute
 		{
 		public:
-			virtual const ShaderAttrData &GetAttribute(base::EVertexAttribute vertType);
+			virtual ~CSoftShaderAttribute();
+			virtual ShaderAttrData GetAttribute(base::EVertexAttribute vertType) const;
 			virtual void SetAttribute(base::EVertexAttribute vertType, void *source, uint size);
 		private:
 			std::vector<ShaderAttrData> m_vecAttrData;

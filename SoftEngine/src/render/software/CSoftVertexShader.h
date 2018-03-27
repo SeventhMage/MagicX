@@ -19,7 +19,7 @@ namespace se
 			virtual ~CSoftVertexShader();
 			virtual EShaderType GetType() const { return ST_VERTEX; }
 
-			virtual math::CVector3 Process(const IShaderAttribute &attrInput, IShaderAttribute &attrOutput);
+			virtual math::CVector4 Process(const IShaderAttribute &attrInput, IShaderAttribute &attrOutput);
 			virtual void SetUniform(EUniformName uniformName, ubyte *data);
 			virtual void SetIllumination(IIllumination *illumination) { m_pIllumination = illumination; }
 		private:
