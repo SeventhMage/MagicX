@@ -95,7 +95,6 @@
     <ClCompile Include="..\..\src\render\CMaterialManager.cpp" />
     <ClCompile Include="..\..\src\render\CMesh.cpp" />
     <ClCompile Include="..\..\src\render\CRenderCell.cpp" />
-    <ClCompile Include="..\..\src\render\CRenderer.cpp" />
     <ClCompile Include="..\..\src\render\CRenderQueue.cpp" />
     <ClCompile Include="..\..\src\render\CTextureManager.cpp" />
     <ClCompile Include="..\..\src\render\CVertexArrayObject.cpp" />
@@ -211,7 +210,6 @@
     <ClInclude Include="..\..\src\render\CMaterialManager.h" />
     <ClInclude Include="..\..\src\render\CMesh.h" />
     <ClInclude Include="..\..\src\render\CRenderCell.h" />
-    <ClInclude Include="..\..\src\render\CRenderer.h" />
     <ClInclude Include="..\..\src\render\CRenderQueue.h" />
     <ClInclude Include="..\..\src\render\CTextureManager.h" />
     <ClInclude Include="..\..\src\render\CVertexArrayObject.h" />

@@ -189,9 +189,6 @@
     <ClCompile Include="..\..\src\render\CVertexArrayObject.cpp">
       <Filter>src\render</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\render\CRenderer.cpp">
-      <Filter>src\render</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\device\IDevice.h">
@@ -531,9 +528,6 @@
       <Filter>src\render\software</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\render\CVertexArrayObject.h">
-      <Filter>src\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\render\CRenderer.h">
       <Filter>src\render</Filter>
     </ClInclude>
   </ItemGroup>
