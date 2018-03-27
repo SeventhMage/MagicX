@@ -14,6 +14,11 @@ namespace se
 		public:
 			struct VertexAttrFormat 
 			{
+				VertexAttrFormat()
+					:index(0), size(0), type(SE_BYTE), stride(0), offset(0)
+				{
+
+				}
 				VertexAttrFormat(uint index, uint size, EDataType type, uint stride, uint offset)
 					:index(index), size(size), type(type), stride(stride), offset(offset)
 				{

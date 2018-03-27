@@ -3,13 +3,15 @@
 
 #include "render/IRenderer.h"
 #include "render/IBuffer.h"
-#include "CSoftRenderDriver.h"
-#include "base/CSingleton.h"
-#include "render/IRenderQueue.h"
-#include "math/CMatrix4.h"
 #include "render/SRenderMemory.h"
+#include "render/IVertexArrayObject.h"
+#include "render/IRenderQueue.h"
+#include "base/CSingleton.h"
+#include "math/CMatrix4.h"
 #include "../STriangleMesh.h"
 #include "CRasterizer.h"
+#include "CSoftRenderDriver.h"
+
 
 namespace se
 {
@@ -24,7 +26,7 @@ namespace se
 
 			CSoftRenderer();
 			virtual ~CSoftRenderer();
-
+			virtual void Init();
 			virtual IRenderDriver *GetRenderDriver() { return m_pSoftRD; }	
 			virtual RenderDriverType GetRenderDriverType() { return m_pSoftRD->GetDriverType(); }
 			virtual IRenderCell *CreateRenderCell(uint bufferId, uint materialId, uint textureId);
@@ -39,11 +41,17 @@ namespace se
 
 			virtual uint CreateShaderProgram();
 			virtual void DestroyShaderProgram(uint shaderProgramId);
+			virtual IShaderProgram *GetShaderProgram(uint shaderProgramId) const;
 
 			virtual void Clear();
-			virtual void Render();
-			virtual void Render(IRenderCell *pCell);
-			virtual void Render(IShaderProgram *pShaderProgram, uint materialId, uint bufferId, uint textureId);				
+			virtual void Render();			
+			virtual void Render(IShaderProgram *pShaderProgram, uint materialId, uint bufferId, uint textureId){};
+
+			virtual void UseShaderProgram(uint shaderProgramId);
+			virtual void EnableVertexArrayObject(uint vaoId);
+			virtual void BindBuffer(uint bufferId);
+			virtual void BindTexture(uint textureId);
+			virtual void DrawElements();
 		private:			
 			void TranslateWorldToCamera(const CMatrix4 &viewMat, Triangle &triangle);
 			void TranslateCameraToScreen(const CMatrix4 &projMat, TriangleList &triList);
@@ -58,6 +66,13 @@ namespace se
 			BufferMap m_mapCPUBuffer;
 			VAOMap m_mapVAOs;		//存储于顶点级数对象中的缓冲区数据	
 			ShaderProgramMap m_mapShaderProgram;
+
+
+			//最终渲染时需要的对象
+			uint m_shaderProgramId;
+			uint m_vaoId;
+			uint m_bufferId;
+			uint m_textureId;
 		};
 	}
 }

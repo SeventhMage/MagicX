@@ -15,7 +15,7 @@ namespace se
 			virtual void EnableVertexArrayObject(uint vaoId);
 			virtual void BindBuffer(uint bufferId);
 			virtual void BindTexture(uint textureId);
-			
+			virtual void DrawElements();
 		private:
 			//最终渲染时需要的对象
 			uint m_shaderProgramId;

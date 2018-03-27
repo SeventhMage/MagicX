@@ -12,14 +12,17 @@ namespace se
 {
 	namespace render
 	{
+		class IRenderQueue;
 		class IRenderCell
 		{
 		public:
-			virtual ~IRenderCell(){}		
-			virtual uint GetMaterialID()const = 0;
+			virtual ~IRenderCell(){}			
 			virtual uint GetTextureID()const = 0;
 			virtual uint GetBufferID()const = 0;
-			virtual IShaderProgram *GetShaderProgram()const = 0;
+			virtual uint GetMaterialID()const = 0;
+			virtual void SetRenderQueue(IRenderQueue *parent) = 0;
+			virtual void SetShaderParam(EUniformName name, void *data, EDataType type, uint size) = 0;
+			virtual void BindShaderParams(IShaderProgram *) = 0;			
 		};
 	}
 }

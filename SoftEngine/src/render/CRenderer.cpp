@@ -34,5 +34,10 @@ namespace se
 			m_textureId = textureId;
 		}
 
+		void CRenderer::DrawElements()
+		{
+
+		}
+
 	}
 }

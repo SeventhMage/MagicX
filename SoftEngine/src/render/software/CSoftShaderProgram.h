@@ -17,7 +17,9 @@ namespace se
 			struct Uniform
 			{
 				EUniformName name;
-				float *data;
+				byte *data;
+				EDataType type;
+				uint size;
 			};
 
 			typedef std::map<uint, Uniform> UniformMap;
@@ -25,8 +27,8 @@ namespace se
 			CSoftShaderProgram(uint id);
 			virtual ~CSoftShaderProgram();
 			virtual uint GetID() const { return m_id; }
-			virtual void SetUniform(EUniformName uniformName, ubyte *data, uint size);
-			virtual float *GetUniform(EUniformName uniformName);
+			virtual void SetUniform(EUniformName uniformName, const void *data, EDataType type, uint size);
+			virtual byte *GetUniform(EUniformName uniformName);
 		private:
 			uint m_id;
 			UniformMap m_uniformMap;

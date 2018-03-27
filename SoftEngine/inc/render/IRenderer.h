@@ -19,6 +19,7 @@ namespace se
 		{
 		public:
 			virtual ~IRenderer(){}
+			virtual void Init() = 0;
 			virtual IRenderDriver *GetRenderDriver() = 0;
 			virtual RenderDriverType GetRenderDriverType() = 0;
 			virtual IRenderCell *CreateRenderCell(uint bufferId, uint materialId, uint textureId) = 0;
@@ -32,16 +33,18 @@ namespace se
 			virtual void SubmitRenderCell(IRenderCell *pCell) = 0;
 			virtual uint CreateShaderProgram() = 0;
 			virtual void DestroyShaderProgram(uint shaderProgramId) = 0;
+			virtual IShaderProgram *GetShaderProgram(uint shaderProgramId) const = 0;
 
 			virtual void Clear() = 0;
-			virtual void Render() = 0;
-			virtual void Render(IRenderCell *pCell) = 0;
+			virtual void Render() = 0;			
 			virtual void Render(IShaderProgram *pShaderProgram, uint materialId, uint bufferId, uint textureId) = 0;	
 			
 			virtual void UseShaderProgram(uint shaderProgramId) = 0;
 			virtual void EnableVertexArrayObject(uint vaoId) = 0;
 			virtual void BindBuffer(uint bufferId) = 0;
-			virtual void BindTexture(uint textureId) = 0;			
+			virtual void BindTexture(uint textureId) = 0;
+			virtual void DrawElements() = 0;
+
 		};
 	}
 

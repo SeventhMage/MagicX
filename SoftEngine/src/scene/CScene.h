@@ -1,10 +1,13 @@
 #ifndef _SCENE_C_SCENE_H_
 #define _SCENE_C_SCENE_H_
 
+#include <string>
+
+#include "render/IRenderQueue.h"
 #include "scene/IScene.h"
 #include "CSceneNode.h"
 #include "CCamera.h"
-#include <string>
+
 
 namespace se
 {

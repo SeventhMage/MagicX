@@ -13,17 +13,16 @@ namespace se
 		class CRenderQueue : public IRenderQueue
 		{
 		public:
-			CRenderQueue(const char *material);
-			virtual ~CRenderQueue();
-			virtual int GetMaterialID(){ return m_materialId; }
+			CRenderQueue(IMaterial *pMaterial);
+			virtual ~CRenderQueue();						
 			virtual void AddRenderCell(IRenderCell *pCell);
+			virtual IMaterial *GetMaterial() const { return m_pMaterial; }
 			virtual void Clear();
-			virtual void Render();
-		private:
-			int m_materialId;
-			int m_vaoId;
-			IShaderProgram *m_pShaderProgram;
+			virtual void Render(const math::CMatrix4 &viewMat, const math::CMatrix4 &projMat);
+		private:			
+			int m_vaoId;			
 			std::vector<IRenderCell *>m_RenderCellList;
+			IMaterial *m_pMaterial;
 		};
 	}
 }

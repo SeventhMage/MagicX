@@ -13,8 +13,8 @@ namespace se
 			virtual ~IShaderProgram(){};
 
 			virtual uint GetID() const = 0;
-			virtual void SetUniform(EUniformName uniformName, ubyte *data, uint size) = 0;
-			virtual float *GetUniform(EUniformName uniformName) = 0;			
+			virtual void SetUniform(EUniformName uniformName, const void *data, EDataType type, uint size) = 0;
+			virtual byte *GetUniform(EUniformName uniformName) = 0;			
 		};
 	}
 }

@@ -12,7 +12,8 @@ namespace se
 			UN_WORLD_MAT = 0,
 			UN_VIEW_MAT,
 			UN_PROJ_MAT,
-			UN_LIGHT_POS,		//光源位置			
+			UN_LIGHT_POS,		//光源位置	
+			UN_COLOR,
 			UN_TEXTURE_0,
 			UN_TEXTURE_1,
 			UN_TEXTURE_2,

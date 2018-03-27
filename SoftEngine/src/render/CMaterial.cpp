@@ -1,20 +1,22 @@
 #include "CMaterial.h"
+#include "CSoftEngine.h"
 
 namespace se
 {
 	namespace render
 	{
 
-		CMaterial::CMaterial(int id, const char *name)
+		CMaterial::CMaterial(uint id, const char *name)
 			:m_Id(id)
 			, m_strName(name)
+			, m_shaderProgramId(0)
 		{
-
+			m_shaderProgramId = CSoftEngine::GetRenderer()->CreateShaderProgram();
 		}
 
 		CMaterial::~CMaterial()
 		{
-
+			CSoftEngine::GetRenderer()->DestroyShaderProgram(m_shaderProgramId);
 		}
 
 		void CMaterial::SetColor(const Color &color)
@@ -25,6 +27,11 @@ namespace se
 		void CMaterial::SetIllumination(const std::string &illumination)
 		{
 			m_strIllumination = illumination;
+		}
+
+		IShaderProgram * CMaterial::GetShaderProgram() const
+		{
+			return CSoftEngine::GetRenderer()->GetShaderProgram(m_shaderProgramId);
 		}
 
 	}

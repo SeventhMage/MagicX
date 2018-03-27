@@ -38,6 +38,7 @@ namespace se
 		{
 		case se::render::RDT_SOFTWARE:
 			m_pRenderer = render::CSoftRenderer::NewInstance();
+			m_pRenderer->Init();
 			break;
 		default:
 			m_pRenderer = render::CSoftRenderer::NewInstance();

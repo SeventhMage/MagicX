@@ -16,10 +16,9 @@ namespace se
 		public:
 			CMaterialManager();
 			virtual ~CMaterialManager();
-			virtual int CreateMaterial(const char *filename);			
-			virtual void DestroyMaterial(uint materialId);
-			virtual int GetMaterialID(const char *filename);
-			virtual IMaterial *GetMaterial(uint materialId);
+			virtual IMaterial *CreateMaterial(const char *filename);			
+			virtual void DestroyMaterial(IMaterial *);
+			virtual int GetMaterialID(const char *filename);			
 		private:
 			std::map<uint, IMaterial *> m_mapMaterial;
 		};

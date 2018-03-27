@@ -3,6 +3,7 @@
 
 #include "IShaderAttribute.h"
 #include "UniformDef.h"
+#include "IIllumination.h"
 
 namespace se
 {

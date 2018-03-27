@@ -1,5 +1,6 @@
 #include "CSoftRenderer.h"
 #include "base/seDef.h"
+#include "base/Log.h"
 #include "resource/IMaterialResource.h"
 #include "CSoftEngine.h"
 #include "CCPUBuffer.h"
@@ -11,9 +12,8 @@
 #include "../CRenderCell.h"
 #include "../CRenderQueue.h"
 
+
 #include <algorithm>
-
-
 
 
 namespace se
@@ -31,8 +31,11 @@ namespace se
 		CSoftRenderer::CSoftRenderer()
 			:m_pSoftRD(new CSoftRenderDriver())					
 			, m_pRasterizer(new CRasterizer())
-		{
-			LoadMaterial();
+			, m_shaderProgramId(0)
+			, m_vaoId(0)
+			, m_bufferId(0)
+			, m_textureId(0)
+		{			
 		}
 
 		CSoftRenderer::~CSoftRenderer()
@@ -48,6 +51,22 @@ namespace se
 			{
 				SAFE_DEL(it->second);
 			}
+
+			for (auto it = m_mapShaderProgram.begin(); it != m_mapShaderProgram.end(); ++it)
+			{
+				SAFE_DEL(it->second);
+			}
+
+			for (auto it = m_mapVAOs.begin(); it != m_mapVAOs.end(); ++it)
+			{
+				SAFE_DEL(it->second);
+			}
+
+		}
+
+		void CSoftRenderer::Init()
+		{
+			LoadMaterial();
 		}
 
 		void CSoftRenderer::LoadMaterial()
@@ -60,10 +79,9 @@ namespace se
 				for (int i = 0; i < pResource->GetAttrCount(); ++i)
 				{
 					std::string materialName = pResource->GetValueByIdx(i);
-					resource::IMaterialResource *pMaterialRes = dynamic_cast<resource::IMaterialResource *>
-						(CSoftEngine::GetResourceManager()->LoadResource(materialName.c_str()));
-					render::IRenderQueue *pRenderQueue = new CRenderQueue(materialName.c_str());
-					m_renderQueueGroup[pRenderQueue->GetMaterialID()] = pRenderQueue;
+					IMaterial *pMaterial = CSoftEngine::GetMaterialManager()->CreateMaterial(materialName.c_str());
+					render::IRenderQueue *pRenderQueue = new CRenderQueue(pMaterial);
+					m_renderQueueGroup[pMaterial->GetID()] = pRenderQueue;
 				}
 				CSoftEngine::GetResourceManager()->ReleaseResource(pResource);
 			}
@@ -141,8 +159,7 @@ namespace se
 					{
 						pRenderQueue->AddRenderCell(pCell);
 					}
-				}
-			
+				}			
 			}			
 		}
 
@@ -166,7 +183,15 @@ namespace se
 				IRenderQueue *pRenderQueue = mit->second;
 				if (pRenderQueue)
 				{
-					pRenderQueue->Render();
+					scene::IScene *pScene = CSoftEngine::GetSceneManager()->GetCurrentScene();
+					if (pScene)
+					{
+						scene::ICamera *pCamera = pScene->GetCamera();
+						if (pCamera)
+						{
+							pRenderQueue->Render(pCamera->GetViewMatrix(), pCamera->GetProjectionMatrix());
+						}
+					}
 				}
 			}
 
@@ -175,7 +200,7 @@ namespace se
 
 			Clear();
 		}
-
+/*
 		void CSoftRenderer::Render(IShaderProgram *pShaderProgram, uint materialId, uint bufferId, uint textureId)
 		{
 			if (!pShaderProgram)
@@ -366,13 +391,7 @@ namespace se
 				}
 			}
 		}
-
-		void CSoftRenderer::Render(IRenderCell *pCell)
-		{
-			uint bufferId = pCell->GetBufferID();
-			IShaderProgram *pShaderProgram = pCell->GetShaderProgram();
-
-		}
+*/
 
 		void CSoftRenderer::TranslateWorldToCamera(const CMatrix4 &viewMat, Triangle &triangle)
 		{					
@@ -455,6 +474,17 @@ namespace se
 			}
 		}
 
+		IShaderProgram * CSoftRenderer::GetShaderProgram(uint shaderProgramId) const
+		{
+			auto it = m_mapShaderProgram.find(shaderProgramId);
+			if (it != m_mapShaderProgram.end())
+			{
+				return it->second;
+			}
+			return nullptr;
+		}
+
+
 		IRenderCell * CSoftRenderer::CreateRenderCell(uint bufferId, uint materialId, uint textureId)
 		{
 			return new CRenderCell(bufferId, materialId, textureId);
@@ -465,5 +495,236 @@ namespace se
 			SAFE_DEL(pCell);
 		}
 
+
+		void CSoftRenderer::UseShaderProgram(uint shaderProgramId)
+		{
+			m_shaderProgramId = shaderProgramId;
+		}
+
+		void CSoftRenderer::EnableVertexArrayObject(uint vaoId)
+		{
+			m_vaoId = vaoId;
+		}
+
+		void CSoftRenderer::BindBuffer(uint bufferId)
+		{
+			m_bufferId = bufferId;
+		}
+
+		void CSoftRenderer::BindTexture(uint textureId)
+		{
+			m_textureId = textureId;
+		}
+
+		void CSoftRenderer::DrawElements()
+		{
+			IShaderProgram *pShaderProgram = nullptr;
+			IBuffer *pBuffer = nullptr;
+			ITexture *pTexture = nullptr;
+
+			auto shaderIt = m_mapShaderProgram.find(m_shaderProgramId);
+			if (shaderIt != m_mapShaderProgram.end())
+			{
+				pShaderProgram = shaderIt->second;
+				if (!pShaderProgram)
+				{
+					base::LogPrint("ShaderProgram is nullptr");
+					return;
+				}
+			}
+
+			auto buffIt = m_mapCPUBuffer.find(m_bufferId);
+			if (buffIt != m_mapCPUBuffer.end())
+			{
+				pBuffer = buffIt->second;
+				if (!pBuffer)
+				{
+					base::LogPrint("bufffer is nullptr");
+					return;
+				}
+			}
+
+			if (m_textureId > 0)
+				pTexture = CSoftEngine::GetTextureManager()->GetTexture(m_textureId);
+
+			float *pViewMat = (float *)pShaderProgram->GetUniform(UN_VIEW_MAT);
+			CMatrix4 viewMat;
+			if (pViewMat)
+			{
+				memcpy(viewMat.m, pViewMat, sizeof(viewMat.m));
+			}
+
+			float *pWorldMat = (float *)pShaderProgram->GetUniform(UN_WORLD_MAT);
+			CMatrix4 worldMat;
+			if (pWorldMat)
+			{
+				memcpy(worldMat.m, pWorldMat, sizeof(worldMat.m));
+			}
+
+			CMatrix4 mwMat = worldMat;
+			CMatrix4 temp;
+			mwMat.GetInverse(temp);
+			CMatrix4 mwNormalMat;
+			temp.GetTransposed(mwNormalMat);
+			mwNormalMat.SetTranslation(CVector3(0, 0, 0));
+						
+			if (pBuffer)
+			{
+				TriangleList triangleList;
+				base::Vertices *pVertices = pBuffer->GetVertices();
+				base::Indices *pIndices = pBuffer->GetIndices();
+				
+				if (pVertices)
+				{
+					Triangle triangle;
+
+
+					if (pIndices)
+					{
+						uint suffix = 0;
+						uint indicesNum = pIndices->size / sizeof(ushort);
+						for (uint i = 0; i < indicesNum; ++i)
+						{
+							ushort index = pIndices->pIndexData[i];
+							if (index + 2 < pVertices->size)
+							{
+								triangle.vPosition[suffix].x = *(float *)(pVertices->pVertexData + sizeof(CVector3) * index);
+								triangle.vPosition[suffix].y = *(float *)(pVertices->pVertexData + sizeof(CVector3)* index + 1 * sizeof(float));
+								triangle.vPosition[suffix].z = *(float *)(pVertices->pVertexData + sizeof(CVector3)* index + 2 * sizeof(float));
+
+								for (uint j = 0; j < pVertices->format.size(); ++j)
+								{
+									if (pVertices->format[j].attribute == base::VA_NORMAL)
+									{
+										triangle.vNormal[suffix].x = *(float *)(pVertices->pVertexData + pVertices->format[j].offset + sizeof(CVector3)* index);
+										triangle.vNormal[suffix].y = *(float *)(pVertices->pVertexData + pVertices->format[j].offset + sizeof(CVector3)* index + 1 * sizeof(float));
+										triangle.vNormal[suffix].z = *(float *)(pVertices->pVertexData + pVertices->format[j].offset + sizeof(CVector3)* index + 2 * sizeof(float));
+									}
+									else if (pVertices->format[j].attribute == base::VA_TEXCOORD)
+									{
+										triangle.vTexCoord[suffix].x = *(float *)(pVertices->pVertexData + pVertices->format[j].offset + sizeof(CVector2)* index);
+										triangle.vTexCoord[suffix].y = *(float *)(pVertices->pVertexData + pVertices->format[j].offset + sizeof(CVector2)* index + 1 * sizeof(float));
+									}
+								}
+
+								triangle.vertexColor[suffix] = Color(1, 1, 0, 0);
+
+								if (suffix >= 2)
+								{
+									for (int i = 0; i < 3; ++i)
+									{
+										mwMat.TransformVect(triangle.vTranslatePosition[i], triangle.vPosition[i]);
+										mwNormalMat.TransformVect(triangle.vTranslateNormal[i], triangle.vNormal[i]);
+									}
+
+									//转换到摄像机坐标
+									TranslateWorldToCamera(viewMat, triangle);
+
+									if (!BackCulling(triangle)) //背面剔除
+									{
+										triangleList.push_back(triangle); //插入到三角形列表
+									}
+									triangle.Reset();
+									suffix = 0;
+								}
+								else
+								{
+									++suffix;
+								}
+
+							}
+
+						}
+					}
+					else
+					{
+						Color color(1, 1, 0, 0);
+						uint index = 0;
+						for (uint i = 0; i < pVertices->count; ++i)
+						{
+							for (auto it = pVertices->format.begin(); it != pVertices->format.end(); ++it)
+							{
+								triangle.vertexAttr |= it->attribute;
+
+								switch (it->attribute)
+								{
+								case base::VA_POSITION:
+									triangle.vPosition[index].x = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset];
+									triangle.vPosition[index].y = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 1];
+									triangle.vPosition[index].z = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 2];
+								case base::VA_COLOR:
+									triangle.vertexColor[index].r = color.r * ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset];
+									triangle.vertexColor[index].g = color.g * ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 1];
+									triangle.vertexColor[index].b = color.b * ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 2];
+								case base::VA_TEXCOORD:
+									triangle.vTexCoord[index].x = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset];
+									triangle.vTexCoord[index].y = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 1];
+								case base::VA_NORMAL:
+									triangle.vNormal[index].x = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset];
+									triangle.vNormal[index].y = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 1];
+									triangle.vNormal[index].z = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 2];
+								default:
+									break;
+								}
+							}
+							if (index >= 2)
+							{
+								//转换到摄像机坐标
+								TranslateWorldToCamera(viewMat, triangle);
+
+								if (!BackCulling(triangle)) //背面剔除
+								{
+									triangleList.push_back(triangle); //插入到三角形列表
+								}
+								triangle.Reset();
+								index = 0;
+							}
+							else
+							{
+								++index;
+							}
+						}
+					}
+
+
+					//对三角形列表渲染											
+
+					//排序
+					std::sort(triangleList.begin(), triangleList.end(), TriangleSort);
+
+					float pLight[] = { 100, 100, 100 }; //pShaderProgram->GetUniform(UN_LIGHT_POS);
+					//if (pLight)
+					{
+						CVector3 vLightPos;
+						memcpy(vLightPos.v, pLight, sizeof(vLightPos.v));
+						//顶点级别光照计算
+						VertexLightCalc(vLightPos, viewMat, triangleList);
+					}
+
+
+					//转换到屏幕坐标
+					float *pProjMat = (float *)pShaderProgram->GetUniform(UN_PROJ_MAT);
+					if (pProjMat)
+					{
+						CMatrix4 projMat;
+						memcpy(projMat.m, pProjMat, sizeof(projMat.m));
+						TranslateCameraToScreen(projMat, triangleList);
+					}
+
+					//光栅化
+					for (auto it = triangleList.begin(); it != triangleList.end(); ++it)
+					{
+						m_pRasterizer->SetDrawBuffer(m_pSoftRD->GetDrawBuffer(), m_pSoftRD->GetBufferWidth(), m_pSoftRD->GetBufferHeight());
+						m_pRasterizer->SetDepthBuffer(m_pSoftRD->GetDepthBuffer());
+						if (pTexture)
+							m_pRasterizer->SetTextureInfo(pTexture->GetData(), pTexture->GetWidth(), pTexture->GetHeight());
+						else
+							m_pRasterizer->SetTextureInfo(nullptr, 0, 0);
+						m_pRasterizer->DrawTriangle(*it);
+					}
+				}
+			}
+		}
 	}
+
 }

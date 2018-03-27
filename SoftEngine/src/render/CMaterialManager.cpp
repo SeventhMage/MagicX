@@ -24,7 +24,7 @@ namespace se
 			}
 		}
 
-		int CMaterialManager::CreateMaterial(const char *filename)
+		IMaterial *CMaterialManager::CreateMaterial(const char *filename)
 		{
 			resource::IMaterialResource *pMaterialResource = dynamic_cast<resource::IMaterialResource *>
 				(CSoftEngine::GetResourceManager()->LoadResource(filename));
@@ -42,9 +42,10 @@ namespace se
 				std::string strIllumination = pMaterialResource->GetValue(resource::MRA_ILLUMINATION);
 				pMaterial->SetIllumination(strIllumination);
 				m_mapMaterial[materialId] = pMaterial;
-				return materialId;
+				CSoftEngine::GetResourceManager()->ReleaseResource(pMaterialResource);
+				return pMaterial;
 			}
-			return 0;
+			return nullptr;
 		}
 
 		int CMaterialManager::GetMaterialID(const char *filename)
@@ -63,22 +64,12 @@ namespace se
 			return 0;
 		}
 
-		IMaterial * CMaterialManager::GetMaterial(uint materialId)
+		void CMaterialManager::DestroyMaterial(IMaterial *pMaterial)
 		{
-			if (m_mapMaterial.find(materialId) != m_mapMaterial.end())
-			{
-				return m_mapMaterial[materialId];
-			}			
-			return NULL;
-		}
-
-
-		void CMaterialManager::DestroyMaterial(uint materialId)
-		{
-			auto it = m_mapMaterial.find(materialId);
+			auto it = m_mapMaterial.find(pMaterial->GetID());
 			if (it != m_mapMaterial.end())
 			{
-				IMaterial *pMaterial = m_mapMaterial[materialId];
+				IMaterial *pMaterial = m_mapMaterial[pMaterial->GetID()];
 				SAFE_DEL(pMaterial);
 				m_mapMaterial.erase(it);
 			}

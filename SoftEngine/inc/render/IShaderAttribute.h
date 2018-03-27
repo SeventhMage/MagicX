@@ -1,6 +1,7 @@
 #ifndef _SE_RENDER_I_SHADER_ATTRIBUTE_H_
 #define _SE_RENDER_I_SHADER_ATTRIBUTE_H_
 
+#include "base/seType.h"
 #include "base/VertexAttribute.h"
 
 namespace se
@@ -9,19 +10,20 @@ namespace se
 	{
 		typedef struct SShaderAttrData
 		{
-			ShaderAttrData(base::EVertexAttribute vertType, void *source, uint size)
+		public:
+			SShaderAttrData(base::EVertexAttribute vertType, void *source, uint size)
 			{
 				data = new byte[size];
 				memcpy(data, source, size);
 			}
-			ShaderAttrData(const ShaderAttrData &attrData)
+			SShaderAttrData(const SShaderAttrData &attrData)
 			{
 				size = attrData.size;
 				data = new byte[size];
 				memcpy(data, attrData.data, size);
 			}
 			
-			ShaderAttrData &operator=(const ShaderAttrData &attrData)
+			SShaderAttrData &operator=(const SShaderAttrData &attrData)
 			{
 				if (&attrData != this)
 				{					
