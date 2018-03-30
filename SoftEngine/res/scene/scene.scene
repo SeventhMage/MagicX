@@ -11,15 +11,15 @@
 #nearClip
 1
 #farClip
-1000
+50
 
 
 #=====================================================================================
 #entity
 #path position
-#model/cube.obj -2 0 2
-#model/plane.obj 0 0 0
+model/cube.obj -2 0 2
+model/plane.obj 0 0 0
 #model/cube.obj 2 1 -1
-model/monkey.obj 0 0 0
+#model/monkey.obj 0 0 0
 #model/torus.obj 0 0 0
 #model/fish.obj 0 0 0
