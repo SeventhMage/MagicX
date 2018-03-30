@@ -26,7 +26,8 @@ namespace se
 			IIllumination *m_pIllumination;			
 			math::CMatrix4 m_wordMatrix;
 			math::CMatrix4 m_viewMatrix;
-			math::CMatrix4 m_projMatrix;			
+			math::CMatrix4 m_projMatrix;	
+			Color m_color;
 		};
 	}
 }

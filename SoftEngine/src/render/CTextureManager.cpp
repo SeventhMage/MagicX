@@ -67,7 +67,7 @@ namespace se
 			auto it = m_mapTexture.find(textureId);
 			if (it != m_mapTexture.end())
 			{
-				return m_mapTexture[textureId];
+				return it->second;
 			}
 			return nullptr;
 		}

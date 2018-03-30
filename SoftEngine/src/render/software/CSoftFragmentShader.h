@@ -12,12 +12,12 @@ namespace se
 		class CSoftFragmentShader : public IShader
 		{
 		public:
-			CSoftFragmentShader(ISampler *pSampler = nullptr);
+			CSoftFragmentShader();
 			virtual ~CSoftFragmentShader();
 
 			virtual EShaderType GetType() const { return ST_FRAGMENT; }
 
-			virtual Color Process(const IShaderAttribute &attrInput, IShaderAttribute &attrOutput);
+			virtual Color Process(const IShaderAttribute &attrInput);
 			virtual void SetUniform(EUniformName uniformName, ubyte *data);
 			virtual void SetIllumination(IIllumination *illumination) {}
 		private:

@@ -44,7 +44,7 @@ namespace se
 					pShaderProgram->SetUniform(render::UN_PROJ_MAT,
 						projMat.m, SE_FLOAT, sizeof(projMat.m));
 					pShaderProgram->SetUniform(render::UN_COLOR,
-						m_pMaterial->GetColor().c, SE_FLOAT, sizeof(projMat.m));
+						m_pMaterial->GetColor().c, SE_FLOAT, sizeof(m_pMaterial->GetColor().c));
 					
 
 					for (auto it = m_RenderCellList.begin(); it != m_RenderCellList.end(); ++it)

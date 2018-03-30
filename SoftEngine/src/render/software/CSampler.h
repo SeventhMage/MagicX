@@ -13,8 +13,8 @@ namespace se
 			CSampler();
 			virtual ~CSampler();
 
-			virtual Color GetColor(ITexture *pTexture, math::CVector2 texCoord);
-			virtual Color GetColor(uint texUnit, math::CVector2 texCoord);
+			virtual Color GetColor(ITexture *pTexture, const math::CVector2 &texCoord);
+			virtual Color GetColor(uint texUnit, const math::CVector2 &texCoord);
 		};
 	}
 }

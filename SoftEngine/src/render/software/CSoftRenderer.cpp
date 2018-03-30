@@ -21,6 +21,57 @@ namespace se
 	namespace render
 	{
 
+		class CalcFragment_1 : public CalcFragmentFunc
+		{
+		public:
+			CalcFragment_1(CSoftFragmentShader *pShader)
+				:m_pShader(pShader)
+			{
+
+			}
+			virtual Color operator()(const FragmentParam &param) const
+			{
+				const FragmentParam_1 &p = dynamic_cast<const FragmentParam_1 &>(param);
+				if (m_pShader)
+				{
+					static CSoftShaderAttribute inAttr;
+					inAttr.SetAttribute(base::VA_COLOR, p.color.c, sizeof(p.color.c));
+					return m_pShader->Process(inAttr);
+				}
+
+				return p.color;
+			}
+		private:
+			CSoftFragmentShader *m_pShader;
+		};
+
+
+		class CalcFragment_2 : public CalcFragmentFunc
+		{
+		public:
+			CalcFragment_2(CSoftFragmentShader *pShader)
+				:m_pShader(pShader)
+			{
+
+			}
+			virtual Color operator()(const FragmentParam &param) const
+			{
+				const FragmentParam_2 &p = dynamic_cast<const FragmentParam_2 &>(param);
+
+				if (m_pShader)
+				{
+					static CSoftShaderAttribute inAttr;
+					inAttr.SetAttribute(base::VA_COLOR, p.color.c, sizeof(p.color.c));
+					inAttr.SetAttribute(base::VA_TEXCOORD, p.texCoord.v, sizeof(p.texCoord.v));
+					return m_pShader->Process(inAttr);
+				}
+
+				return p.color;
+			}
+		private:
+			CSoftFragmentShader *m_pShader;
+		};
+
 		bool TriangleSort(const Triangle &t1, const Triangle &t2)
 		{
 			float z1 = (t1.vTranslatePosition[0].z + t1.vTranslatePosition[1].z + t1.vTranslatePosition[2].z) * 0.33333f;
@@ -35,7 +86,7 @@ namespace se
 			, m_vaoId(0)
 			, m_bufferId(0)
 			, m_textureId(0)
-		{			
+		{						
 		}
 
 		CSoftRenderer::~CSoftRenderer()
@@ -415,31 +466,55 @@ namespace se
 									}
 								}
 
-								triangle.vertexColor[suffix] = Color(1, 1, 0, 0);
+								triangle.vertexColor[suffix] = Color(1, 1, 1, 1);
 
+								CSoftShaderAttribute outAttr;
 								CSoftVertexShader *pVertexShader = pShaderProgram->GetVertexShader();
 								if (pVertexShader)
 								{
-									pVertexShader->SetUniform(UN_COLOR, pShaderProgram->GetUniform(UN_COLOR));
-									CSoftShaderAttribute inAttr;
-									CSoftShaderAttribute outAttr;
+									const CSoftShaderProgram::UniformMap &uniformMap = pShaderProgram->GetAllUniform();
+									for (auto it = uniformMap.begin(); it != uniformMap.end(); ++it)
+									{
+										pVertexShader->SetUniform(it->first, it->second.data);
+									}
+
+									//Input the attribute.
+									CSoftShaderAttribute inAttr;									
 									inAttr.SetAttribute(base::VA_POSITION, triangle.vPosition[suffix].v, sizeof(triangle.vPosition[suffix].v));
-									inAttr.SetAttribute(base::VA_NORMAL, triangle.vPosition[suffix].v, sizeof(triangle.vPosition[suffix].v));
-									//triangle.vTranslatePosition[suffix] = pVertexShader->Process(inAttr, outAttr);
+									inAttr.SetAttribute(base::VA_NORMAL, triangle.vNormal[suffix].v, sizeof(triangle.vNormal[suffix].v));
+									inAttr.SetAttribute(base::VA_COLOR, triangle.vertexColor[suffix].c, sizeof(triangle.vertexColor[suffix].c));
+									inAttr.SetAttribute(base::VA_TEXCOORD, triangle.vTexCoord[suffix].v, sizeof(triangle.vTexCoord[suffix].v));
+
+									//Excute the vertex shader.
+									triangle.vTranslatePosition[suffix] = pVertexShader->Process(inAttr, outAttr);
+
+									//Deal with the output postion.
+									float invW = 1.0f / triangle.vTranslatePosition[suffix].w;
+									triangle.vTranslatePosition[suffix].x *= invW;
+									triangle.vTranslatePosition[suffix].y *= invW;
+									triangle.vTranslatePosition[suffix].z *= invW;
+
+									triangle.vTranslatePosition[suffix].x = (triangle.vTranslatePosition[suffix].x + 1.0f) * 0.5f * m_pSoftRD->GetBufferWidth();
+									triangle.vTranslatePosition[suffix].y = (1 - triangle.vTranslatePosition[suffix].y) * 0.5f * m_pSoftRD->GetBufferHeight();
+
+									//Output the attribute.
+									memcpy(triangle.vTranslateNormal[suffix].v, outAttr.GetAttribute(base::VA_NORMAL).data, sizeof(triangle.vTranslateNormal[suffix].v));
+									memcpy(triangle.vertexColor[suffix].c, outAttr.GetAttribute(base::VA_COLOR).data, sizeof(triangle.vertexColor[suffix].c));
+									memcpy(triangle.vTexCoord[suffix].v, outAttr.GetAttribute(base::VA_TEXCOORD).data, sizeof(triangle.vTexCoord[suffix].v));
 								}
 
 								if (suffix >= 2)
 								{
 									for (int i = 0; i < 3; ++i)
 									{
-										mwMat.TransformVect(triangle.vTranslatePosition[i], triangle.vPosition[i]);
-										mwNormalMat.TransformVect(triangle.vTranslateNormal[i], triangle.vNormal[i]);
+									//	mwMat.TransformVect(triangle.vTranslatePosition[i], triangle.vPosition[i]);
+									//	mwNormalMat.TransformVect(triangle.vTranslateNormal[i], triangle.vNormal[i]);
 									}
 
 									//转换到摄像机坐标
-									TranslateWorldToCamera(viewMat, triangle);
+//									TranslateWorldToCamera(viewMat, triangle);
 
-									if (!BackCulling(triangle)) //背面剔除
+	//								if (!BackCulling(triangle)) //背面剔除
 									{
 										triangleList.push_back(triangle); //插入到三角形列表
 									}
@@ -509,7 +584,7 @@ namespace se
 					//对三角形列表渲染											
 
 					//排序
-					std::sort(triangleList.begin(), triangleList.end(), TriangleSort);
+					//std::sort(triangleList.begin(), triangleList.end(), TriangleSort);
 
 					float pLight[] = { 100, 100, 100 }; //pShaderProgram->GetUniform(UN_LIGHT_POS);
 					//if (pLight)
@@ -517,28 +592,41 @@ namespace se
 						CVector3 vLightPos;
 						memcpy(vLightPos.v, pLight, sizeof(vLightPos.v));
 						//顶点级别光照计算
-						VertexLightCalc(vLightPos, viewMat, triangleList);
+						//VertexLightCalc(vLightPos, viewMat, triangleList);
 					}
 
 
 					//转换到屏幕坐标
-					float *pProjMat = (float *)pShaderProgram->GetUniform(UN_PROJ_MAT);
-					if (pProjMat)
-					{
-						CMatrix4 projMat;
-						memcpy(projMat.m, pProjMat, sizeof(projMat.m));
-						TranslateCameraToScreen(projMat, triangleList);
-					}
+					//float *pProjMat = (float *)pShaderProgram->GetUniform(UN_PROJ_MAT);
+					//if (pProjMat)
+					//{
+					//	CMatrix4 projMat;
+					//	memcpy(projMat.m, pProjMat, sizeof(projMat.m));
+					//	TranslateCameraToScreen(projMat, triangleList);
+					//}
 
 					//光栅化
+
+					CSoftFragmentShader *pFragmentShader = pShaderProgram->GetFragmentShader();
+					if (pFragmentShader)
+					{
+						pFragmentShader->SetUniform(UN_TEXTURE_0, (ubyte *)&m_textureId);
+					}
+
 					for (auto it = triangleList.begin(); it != triangleList.end(); ++it)
 					{
 						m_pRasterizer->SetDrawBuffer(m_pSoftRD->GetDrawBuffer(), m_pSoftRD->GetBufferWidth(), m_pSoftRD->GetBufferHeight());
 						m_pRasterizer->SetDepthBuffer(m_pSoftRD->GetDepthBuffer());
 						if (pTexture)
+						{
 							m_pRasterizer->SetTextureInfo(pTexture->GetData(), pTexture->GetWidth(), pTexture->GetHeight());
+							m_pRasterizer->BindFragmentFunc(CalcFragment_2(pFragmentShader));
+						}
 						else
+						{							
 							m_pRasterizer->SetTextureInfo(nullptr, 0, 0);
+							m_pRasterizer->BindFragmentFunc(CalcFragment_1(pFragmentShader));
+						}						
 						m_pRasterizer->DrawTriangle(*it);
 					}
 				}

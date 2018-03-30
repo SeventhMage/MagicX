@@ -28,7 +28,8 @@ namespace se
 				float v[2];
 				struct
 				{
-					float x, y;
+					float x;
+					float y;
 				};
 			};
 

@@ -14,8 +14,8 @@ namespace se
 		public:
 			virtual ~ISampler(){}
 
-			virtual Color GetColor(ITexture *pTexture, math::CVector2 texCoord) = 0;
-			virtual Color GetColor(uint texUnit, math::CVector2 texCoord) = 0;
+			virtual Color GetColor(ITexture *pTexture, const math::CVector2 &texCoord) = 0;
+			virtual Color GetColor(uint texUnit, const math::CVector2 &texCoord) = 0;
 		};
 	}
 }

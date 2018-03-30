@@ -11,6 +11,7 @@
 #include "../STriangleMesh.h"
 #include "CRasterizer.h"
 #include "CSoftRenderDriver.h"
+#include "render/SColor.h"
 
 
 namespace se
@@ -59,7 +60,7 @@ namespace se
 			void LoadMaterial();
 		private:
 			CSoftRenderDriver *m_pSoftRD;
-			CRasterizer *m_pRasterizer;
+			CRasterizer *m_pRasterizer;			
 
 			RenderQueueGroup m_renderQueueGroup;
 			BufferMap m_mapCPUBuffer;
@@ -72,7 +73,7 @@ namespace se
 			uint m_vaoId;
 			uint m_bufferId;
 			uint m_textureId;
-		};
+		};			
 	}
 }
 

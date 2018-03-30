@@ -13,7 +13,7 @@ namespace se
 		public:
 			virtual ~CSoftShaderAttribute();
 			virtual ShaderAttrData GetAttribute(base::EVertexAttribute vertType) const;
-			virtual void SetAttribute(base::EVertexAttribute vertType, void *source, uint size);
+			virtual void SetAttribute(base::EVertexAttribute vertType, const void *source, uint size);
 		private:
 			std::vector<ShaderAttrData> m_vecAttrData;
 		};

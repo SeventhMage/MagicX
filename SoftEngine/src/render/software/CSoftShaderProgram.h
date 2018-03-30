@@ -22,7 +22,7 @@ namespace se
 				uint size;
 			};
 
-			typedef std::map<uint, Uniform> UniformMap;
+			typedef std::map<EUniformName, Uniform> UniformMap;
 
 			CSoftShaderProgram(uint id);
 			virtual ~CSoftShaderProgram();
@@ -33,6 +33,7 @@ namespace se
 		public:
 			CSoftVertexShader *GetVertexShader() { return m_pVertexShader; }
 			CSoftFragmentShader *GetFragmentShader() { return m_pFragShader; }
+			const UniformMap &GetAllUniform() { return m_uniformMap; }
 		private:
 			uint m_id;
 			UniformMap m_uniformMap;

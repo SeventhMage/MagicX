@@ -32,23 +32,13 @@ namespace se
 			else
 			{
 				Uniform uniform;
+				uniform.name = uniformName;
+				uniform.data = new ubyte[size];
+				uniform.type = type;
+				uniform.size = size;
 
-				switch (uniformName)
-				{								
-				case se::render::UN_WORLD_MAT:					
-				case se::render::UN_VIEW_MAT:					
-				case se::render::UN_PROJ_MAT:
-					uniform.name = uniformName;		
-					uniform.data = new ubyte[size];
-					uniform.type = type;
-					uniform.size = size;
-
-					memcpy(uniform.data, data, size);
-					m_uniformMap[uniform.name] = uniform;
-					break;
-				default:
-					break;
-				}
+				memcpy(uniform.data, data, size);
+				m_uniformMap[uniform.name] = uniform;			
 			}
 
 		}

@@ -1,6 +1,7 @@
 #include "CRasterizer.h"
 #include "base/base.h"
 
+
 namespace se
 {
 	namespace render
@@ -13,14 +14,13 @@ namespace se
 			, m_bufferHeight(0)
 			, m_pTextureData(nullptr)
 			, m_textureWidth(0)
-			, m_textureHeight(0)
+			, m_textureHeight(0)			
 		{
-
+			
 		}
 
 		CRasterizer::~CRasterizer()
-		{
-
+		{			
 		}
 
 
@@ -38,12 +38,12 @@ namespace se
 			render::SColor c1 = triangle.vertexColor[1];
 			render::SColor c2 = triangle.vertexColor[2];
 
-			//÷±œﬂ
+			//三角形退化为线
 			if ((FLOAT_EQUAL(p0.y, p1.y) && FLOAT_EQUAL(p0.y, p2.y)) ||
 				(FLOAT_EQUAL(p0.x, p1.x) && FLOAT_EQUAL(p0.x, p2.x)))
 				return;
 
-			//∞¥y÷µ¥”–°µΩ¥Û≈≈–Ú
+			//按y从小到大排序
 			if (p1.y < p0.y)
 			{
 				base::swap(p0, p1);
@@ -347,9 +347,12 @@ namespace se
 			SColor c = c0;
 			for (uint i = 0; i < count; ++i)
 			{
-				if (z < *zbuffer) //’‚¿Ôµƒz∆‰ µ «1/z
+				if (z < *zbuffer) //这里的z实际为1/z
 				{
 					SColor color = c / w;
+																											 
+					color = m_FragmentCalcFunc(FragmentParam_1(color));
+					
 					*addr = color.Get32BitColor();
 					*zbuffer = z;
 				}
@@ -388,12 +391,14 @@ namespace se
 					//uint tc = (0xff << 24) | uint((*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3)) * color.b )
 					//	| (uint(*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3 + 1) * color.g) << 8)
 					//	| (uint(*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3 + 2) * color.r) << 16);
+					
+					color = m_FragmentCalcFunc(FragmentParam_2(color, CVector2(tx, ty)));					
 
 					uint tc = (0xff << 24) | uint((*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3) * color.b))
 						| (uint(*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3 + 1) * color.g) << 8)
 						| (uint(*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3 + 2) * color.r) << 16);
 
-					*addr = tc;
+					*addr = color.Get32BitColor();//tc;
 					*zbuffer = z;
 				}
 
@@ -564,5 +569,11 @@ namespace se
 				addr += uint((y - 1) * m_bufferWidth);
 			*addr = c.Get32BitColor();
 		}
+
+		void CRasterizer::BindFragmentFunc(const CalcFragmentFunc &func)
+		{
+			m_FragmentCalcFunc.BindFunc(&func);
+		}
+
 	}
 }

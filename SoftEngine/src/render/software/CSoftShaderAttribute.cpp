@@ -20,15 +20,15 @@ namespace se
 			return ShaderAttrData();
 		}
 
-		void CSoftShaderAttribute::SetAttribute(base::EVertexAttribute vertType, void *source, uint size)
+		void CSoftShaderAttribute::SetAttribute(base::EVertexAttribute vertType, const void *source, uint size)
 		{
 			ShaderAttrData attrData(vertType, source, size);
 			bool bHaveAttr = false;
-			for (auto data : m_vecAttrData)
+			for (auto it = m_vecAttrData.begin(); it != m_vecAttrData.end(); ++it)
 			{
-				if (data.vertType == vertType)
+				if (it->vertType == vertType)
 				{
-					data = attrData;
+					*it = attrData;
 					bHaveAttr = true;
 					break;
 				}

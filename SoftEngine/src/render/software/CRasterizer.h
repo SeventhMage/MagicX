@@ -10,9 +10,82 @@ namespace se
 {
 	namespace render
 	{
+		
+		class FragmentParam
+		{		
+		public:
+			FragmentParam(const Color &color)
+				:color(color)
+			{
+
+			}
+			virtual ~FragmentParam(){}
+
+
+			const Color &color;
+		};
+		
+		class FragmentParam_1 : public FragmentParam
+		{
+		public:
+			FragmentParam_1(const Color &c)
+				:FragmentParam(c)
+			{
+			}						
+		};
+		
+		class FragmentParam_2 : public FragmentParam
+		{
+		public:
+			FragmentParam_2(const Color &c, const CVector2 &texCoord)
+				:FragmentParam(c), texCoord(texCoord)
+			{
+			}
+			
+			const CVector2 &texCoord;
+		};
+
+		class CalcFragmentFunc
+		{
+		public:			
+			virtual Color operator()(const FragmentParam &param) const = 0;	
+		};
+				
+		
+		class FragmentCalcFunc
+		{
+		public:			
+			FragmentCalcFunc()
+				:func(nullptr)
+			{
+			}
+
+			void BindFunc(const CalcFragmentFunc *func)
+			{
+				this->func = func;
+			}
+
+			Color operator()(const FragmentParam &param)
+			{
+				if (func)
+					return (*func)(param);
+				return param.color;
+			}
+
+		private:			
+			const CalcFragmentFunc *func;
+		};
+
+		
+		class CSoftRenderer;
+
 		class CRasterizer
 		{
 		public:
+
+			typedef Color(*CalcFragment_1)(const Color &);
+			typedef Color(*CalcFragment_2)(const Color &, const CVector2 &);
+
 			CRasterizer();
 			~CRasterizer();
 			
@@ -20,6 +93,8 @@ namespace se
 			void SetDepthBuffer(float *pDrawBuffer){ m_pDepthBuffer = pDrawBuffer; }			
 
 			void SetTextureInfo(ubyte *textureData, int width, int height);
+
+			void BindFragmentFunc(const CalcFragmentFunc &func);
 
 			void DrawTriangle(const Triangle &triangle);
 			void DrawLine(int x0, int y0, int x1, int y1, const SColor &c = SColor(1, 0, 0, 0));
@@ -46,7 +121,9 @@ namespace se
 
 			ubyte *m_pTextureData;
 			int m_textureWidth;
-			int m_textureHeight;
+			int m_textureHeight;		
+			
+			FragmentCalcFunc m_FragmentCalcFunc;
 		};
 	}
 }

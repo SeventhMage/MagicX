@@ -16,7 +16,7 @@ namespace se
 			{
 
 			}
-			SShaderAttrData(base::EVertexAttribute vertType, void *source, uint size)
+			SShaderAttrData(base::EVertexAttribute vertType, const void *source, uint size)
 				:size(size)
 				, vertType(vertType)
 			{
@@ -60,7 +60,7 @@ namespace se
 		public:
 			virtual ~IShaderAttribute(){}
 			virtual ShaderAttrData GetAttribute(base::EVertexAttribute vertType) const = 0;
-			virtual void SetAttribute(base::EVertexAttribute vertType, void *source, uint size) = 0;
+			virtual void SetAttribute(base::EVertexAttribute vertType, const void *source, uint size) = 0;
 		};
 	}
 }
