@@ -34,6 +34,7 @@ namespace se
 			virtual void Sleep(unsigned long ms) = 0;
 			virtual void OnSize(int iPosX, int iPosY, int iWidth, int iHeight) = 0;
 			virtual void DrawBuffer(ubyte *buffer){}
+			virtual void DrawText(int iPosX, int iPoxY, const char *str, int length){}
             virtual void SetDrawCallback(DrawCallback callback){};
             
 			virtual bool Run() = 0;

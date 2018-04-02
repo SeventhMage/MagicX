@@ -61,6 +61,7 @@ namespace se
 			virtual ~IShaderAttribute(){}
 			virtual ShaderAttrData GetAttribute(base::EVertexAttribute vertType) const = 0;
 			virtual void SetAttribute(base::EVertexAttribute vertType, const void *source, uint size) = 0;
+			virtual void Clear() = 0;
 		};
 	}
 }

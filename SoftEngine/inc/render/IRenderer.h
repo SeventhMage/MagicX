@@ -43,6 +43,7 @@ namespace se
 			virtual void BindBuffer(uint bufferId) = 0;
 			virtual void BindTexture(uint textureId) = 0;
 			virtual void DrawElements() = 0;
+			virtual void DrawText(int iPosX, int iPoxY, const char *str, int length){}
 
 		};
 	}

@@ -58,9 +58,10 @@ namespace se
 			SColor operator/(float v)const
 			{
 				SColor result;
+				v = 1.f / v;
 				for (uint i = 0; i < 4; ++i)
-					result.c[i] = c[i] / v;
-				return result;
+					result.c[i] = c[i] * v;
+				return result;				
 			}
 
 			SColor operator*(float v)const

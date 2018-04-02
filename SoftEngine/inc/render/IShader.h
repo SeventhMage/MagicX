@@ -24,6 +24,7 @@ namespace se
 			virtual EShaderType GetType() const = 0;			
 			virtual void SetUniform(EUniformName uniformName, ubyte *data) = 0;
 			virtual void SetIllumination(IIllumination *illumination) {}
+			virtual void PushInAttribute(base::EVertexAttribute vertType, const void *source) = 0;
 		};
 	}
 }
