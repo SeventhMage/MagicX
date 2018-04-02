@@ -51,7 +51,9 @@ namespace se
 			virtual void EnableVertexArrayObject(uint vaoId);
 			virtual void BindBuffer(uint bufferId);
 			virtual void BindTexture(uint textureId);
+
 			virtual void DrawElements();
+			virtual void DrawText(int iPosX, int iPoxY, const char *str, int length);
 		private:			
 			void TranslateWorldToCamera(const CMatrix4 &viewMat, Triangle &triangle);
 			void TranslateCameraToScreen(const CMatrix4 &projMat, TriangleList &triList);

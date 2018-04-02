@@ -23,6 +23,7 @@ namespace se
 			virtual void Sleep(unsigned long ms);
 			virtual void OnSize(int iPosX, int iPosY, int iWidth, int iHeight);
 			virtual void DrawBuffer(ubyte *buffer);
+			virtual void DrawText(int iPosX, int iPoxY, const char *str, int length);
 			
 			virtual bool Run();
 

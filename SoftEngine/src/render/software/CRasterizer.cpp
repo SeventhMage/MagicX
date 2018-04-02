@@ -14,7 +14,8 @@ namespace se
 			, m_bufferHeight(0)
 			, m_pTextureData(nullptr)
 			, m_textureWidth(0)
-			, m_textureHeight(0)			
+			, m_textureHeight(0)	
+			, m_pFragmentShader(nullptr)
 		{
 			
 		}
@@ -351,8 +352,11 @@ namespace se
 				{
 					SColor color = c / w;
 																											 
-					color = m_FragmentCalcFunc(FragmentParam_1(color));
+					//color = m_FragmentCalcFunc(FragmentParam_1(color));
 					
+					m_pFragmentShader->PushInAttribute(base::VA_COLOR, color.c);
+					color = m_pFragmentShader->Process();
+
 					*addr = color.Get32BitColor();
 					*zbuffer = z;
 				}
@@ -374,6 +378,7 @@ namespace se
 			float z = z0;
 			float dw = (wr - wl) / count;
 			float w = wl;
+			float invw = 1 / w;
 			SColor dc = (rc - lc) / count;
 			SColor c = lc;
 			float du = (rt.x - lt.x) / count;
@@ -385,26 +390,33 @@ namespace se
 			{
 				if (z < *zbuffer) //This z is 1/z in fact.
 				{	
-					int tx = (u / w) * (m_textureWidth - 1); //float calculate can't multiply 3 here.
-					int ty = (1 - (v / w)) * (m_textureHeight - 1);
-					SColor color = c / w;
-					//uint tc = (0xff << 24) | uint((*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3)) * color.b )
-					//	| (uint(*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3 + 1) * color.g) << 8)
-					//	| (uint(*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3 + 2) * color.r) << 16);
-					
-					color = m_FragmentCalcFunc(FragmentParam_2(color, CVector2(tx, ty)));					
+					int tx = (u * invw) * (m_textureWidth - 1); //float calculate can't multiply 3 here.
+					int ty = (1 - (v *invw)) * (m_textureHeight - 1);
+					static SColor color;
+					color.a = c.a * invw;
+					color.r = c.r * invw;
+					color.g = c.g * invw;
+					color.b = c.b * invw;
 
-					uint tc = (0xff << 24) | uint((*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3) * color.b))
-						| (uint(*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3 + 1) * color.g) << 8)
-						| (uint(*(m_pTextureData + ty * m_textureWidth * 3 + tx * 3 + 2) * color.r) << 16);
+					static CVector2 texCoord;
+					texCoord.x = tx;
+					texCoord.y = ty;
+					m_pFragmentShader->PushInAttribute(base::VA_COLOR, &color);
+					m_pFragmentShader->PushInAttribute(base::VA_TEXCOORD, &texCoord);
+					color = m_pFragmentShader->Process();
 
-					*addr = color.Get32BitColor();//tc;
+					//color = m_pFragmentShader->Process(color, tx, ty);
+
+					*addr = ((uint(color.a * 0xFF)) << 24) | ((uint(color.r * 0xFF)) << 16) | ((uint(color.g * 0xFF)) << 8) | (uint(color.b * 0xFF));// color.Get32BitColor();//tc;
 					*zbuffer = z;
 				}
 
 				z += dz;
 				w += dw;
-				c += dc;
+				c.a += dc.a;
+				c.r += dc.r;
+				c.g += dc.g;
+				c.b += dc.b;
 				u += du;
 				v += dv;
 
@@ -569,11 +581,5 @@ namespace se
 				addr += uint((y - 1) * m_bufferWidth);
 			*addr = c.Get32BitColor();
 		}
-
-		void CRasterizer::BindFragmentFunc(const CalcFragmentFunc &func)
-		{
-			m_FragmentCalcFunc.BindFunc(&func);
-		}
-
 	}
 }

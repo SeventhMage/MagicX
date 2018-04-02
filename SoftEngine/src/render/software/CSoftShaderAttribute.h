@@ -12,8 +12,10 @@ namespace se
 		{
 		public:
 			virtual ~CSoftShaderAttribute();
-			virtual ShaderAttrData GetAttribute(base::EVertexAttribute vertType) const;
-			virtual void SetAttribute(base::EVertexAttribute vertType, const void *source, uint size);
+			virtual inline ShaderAttrData GetAttribute(base::EVertexAttribute vertType) const;
+			virtual inline void SetAttribute(base::EVertexAttribute vertType, const void *source, uint size);
+			virtual void Clear();
+
 		private:
 			std::vector<ShaderAttrData> m_vecAttrData;
 		};

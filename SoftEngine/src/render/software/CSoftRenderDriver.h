@@ -23,7 +23,7 @@ namespace se
 			float *GetDepthBuffer(){ return m_pDepthBuffer; }
 			uint GetBufferWidth(){ return m_uBufferWidth; }
 			uint GetBufferHeight(){ return m_uBufferHeight; }
-			void DrawBuffer();
+			void DrawBuffer();			
 			void Clear();
 		private:
 			void CreateBuffer();

@@ -20,58 +20,6 @@ namespace se
 {
 	namespace render
 	{
-
-		class CalcFragment_1 : public CalcFragmentFunc
-		{
-		public:
-			CalcFragment_1(CSoftFragmentShader *pShader)
-				:m_pShader(pShader)
-			{
-
-			}
-			virtual Color operator()(const FragmentParam &param) const
-			{
-				const FragmentParam_1 &p = dynamic_cast<const FragmentParam_1 &>(param);
-				if (m_pShader)
-				{
-					static CSoftShaderAttribute inAttr;
-					inAttr.SetAttribute(base::VA_COLOR, p.color.c, sizeof(p.color.c));
-					return m_pShader->Process(inAttr);
-				}
-
-				return p.color;
-			}
-		private:
-			CSoftFragmentShader *m_pShader;
-		};
-
-
-		class CalcFragment_2 : public CalcFragmentFunc
-		{
-		public:
-			CalcFragment_2(CSoftFragmentShader *pShader)
-				:m_pShader(pShader)
-			{
-
-			}
-			virtual Color operator()(const FragmentParam &param) const
-			{
-				const FragmentParam_2 &p = dynamic_cast<const FragmentParam_2 &>(param);
-
-				if (m_pShader)
-				{
-					static CSoftShaderAttribute inAttr;
-					inAttr.SetAttribute(base::VA_COLOR, p.color.c, sizeof(p.color.c));
-					inAttr.SetAttribute(base::VA_TEXCOORD, p.texCoord.v, sizeof(p.texCoord.v));
-					return m_pShader->Process(inAttr);
-				}
-
-				return p.color;
-			}
-		private:
-			CSoftFragmentShader *m_pShader;
-		};
-
 		bool TriangleSort(const Triangle &t1, const Triangle &t2)
 		{
 			float z1 = (t1.vTranslatePosition[0].z + t1.vTranslatePosition[1].z + t1.vTranslatePosition[2].z) * 0.33333f;
@@ -379,7 +327,7 @@ namespace se
 		{
 			CSoftShaderProgram *pShaderProgram = nullptr;
 			IBuffer *pBuffer = nullptr;
-			ITexture *pTexture = nullptr;
+			CSoftTexture *pTexture = nullptr;
 
 			auto shaderIt = m_mapShaderProgram.find(m_shaderProgramId);
 			if (shaderIt != m_mapShaderProgram.end())
@@ -404,7 +352,7 @@ namespace se
 			}
 
 			if (m_textureId > 0)
-				pTexture = CSoftEngine::GetTextureManager()->GetTexture(m_textureId);
+				pTexture = (CSoftTexture*)CSoftEngine::GetTextureManager()->GetTexture(m_textureId);
 
 			float *pViewMat = (float *)pShaderProgram->GetUniform(UN_VIEW_MAT);
 			CMatrix4 viewMat;
@@ -479,14 +427,19 @@ namespace se
 									}
 
 									//Input the attribute.
-									CSoftShaderAttribute inAttr;									
-									inAttr.SetAttribute(base::VA_POSITION, triangle.vPosition[suffix].v, sizeof(triangle.vPosition[suffix].v));
-									inAttr.SetAttribute(base::VA_NORMAL, triangle.vNormal[suffix].v, sizeof(triangle.vNormal[suffix].v));
-									inAttr.SetAttribute(base::VA_COLOR, triangle.vertexColor[suffix].c, sizeof(triangle.vertexColor[suffix].c));
-									inAttr.SetAttribute(base::VA_TEXCOORD, triangle.vTexCoord[suffix].v, sizeof(triangle.vTexCoord[suffix].v));
+									//CSoftShaderAttribute inAttr;									
+									//inAttr.SetAttribute(base::VA_POSITION, triangle.vPosition[suffix].v, sizeof(triangle.vPosition[suffix].v));
+									//inAttr.SetAttribute(base::VA_NORMAL, triangle.vNormal[suffix].v, sizeof(triangle.vNormal[suffix].v));
+									//inAttr.SetAttribute(base::VA_COLOR, triangle.vertexColor[suffix].c, sizeof(triangle.vertexColor[suffix].c));
+									//inAttr.SetAttribute(base::VA_TEXCOORD, triangle.vTexCoord[suffix].v, sizeof(triangle.vTexCoord[suffix].v));
+
+									pVertexShader->PushInAttribute(base::VA_POSITION, triangle.vPosition[suffix].v);
+									pVertexShader->PushInAttribute(base::VA_NORMAL, triangle.vNormal[suffix].v);
+									pVertexShader->PushInAttribute(base::VA_COLOR, triangle.vertexColor[suffix].c);
+									pVertexShader->PushInAttribute(base::VA_TEXCOORD, triangle.vTexCoord[suffix].v);
 
 									//Excute the vertex shader.
-									triangle.vTranslatePosition[suffix] = pVertexShader->Process(inAttr, outAttr);
+									triangle.vTranslatePosition[suffix] = pVertexShader->Process(outAttr);
 
 									//Deal with the output postion.
 									float invW = 1.0f / triangle.vTranslatePosition[suffix].w;
@@ -609,8 +562,12 @@ namespace se
 
 					CSoftFragmentShader *pFragmentShader = pShaderProgram->GetFragmentShader();
 					if (pFragmentShader)
-					{
-						pFragmentShader->SetUniform(UN_TEXTURE_0, (ubyte *)&m_textureId);
+					{						
+						if (pTexture)
+							pFragmentShader->SetTextureData(pTexture->GetData(), pTexture->GetWidth());
+						else
+							pFragmentShader->SetTextureData(nullptr, 0);
+						m_pRasterizer->SetFragmentShader(pFragmentShader);
 					}
 
 					for (auto it = triangleList.begin(); it != triangleList.end(); ++it)
@@ -619,19 +576,23 @@ namespace se
 						m_pRasterizer->SetDepthBuffer(m_pSoftRD->GetDepthBuffer());
 						if (pTexture)
 						{
-							m_pRasterizer->SetTextureInfo(pTexture->GetData(), pTexture->GetWidth(), pTexture->GetHeight());
-							m_pRasterizer->BindFragmentFunc(CalcFragment_2(pFragmentShader));
+							m_pRasterizer->SetTextureInfo(pTexture->GetData(), pTexture->GetWidth(), pTexture->GetHeight());												
 						}
 						else
 						{							
-							m_pRasterizer->SetTextureInfo(nullptr, 0, 0);
-							m_pRasterizer->BindFragmentFunc(CalcFragment_1(pFragmentShader));
+							m_pRasterizer->SetTextureInfo(nullptr, 0, 0);							
 						}						
 						m_pRasterizer->DrawTriangle(*it);
 					}
 				}
 			}
 		}
+
+		void CSoftRenderer::DrawText(int iPosX, int iPoxY, const char *str, int length)
+		{
+			CSoftEngine::GetDevice()->DrawText(iPosX, iPoxY, str, length);
+		}
+
 	}
 
 }

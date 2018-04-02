@@ -18,24 +18,51 @@ namespace se
 
 		Color CSampler::GetColor(ITexture *pTexture, const math::CVector2 &texCoord)
 		{
-			Color resultColor(1, 1, 0, 0);
+			static Color resultColor;
 			ubyte *pTextureData = pTexture->GetData();
 			int textureWidth = pTexture->GetWidth();
 			
 			float inv = 1.f / 255;
-
-			resultColor.a = 1.f;
-			resultColor.b = *(pTextureData + uint(texCoord.y) * textureWidth * 3 + uint(texCoord.x) * 3) * inv;
-			resultColor.g = *(pTextureData + uint(texCoord.y) * textureWidth * 3 + uint(texCoord.x) * 3 + 1) * inv;
-			resultColor.r = *(pTextureData + uint(texCoord.y) * textureWidth * 3 + uint(texCoord.x) * 3 + 2) * inv;
-
-			return resultColor;
+			uint x = (uint)texCoord.x;
+			uint y = (uint)texCoord.y;
+			
+			return GetColor(pTexture, x, y);
 		}
 
 		Color CSampler::GetColor(uint texUnit, const math::CVector2 &texCoord)
 		{
 			ITexture *pTexture = CSoftEngine::GetTextureManager()->GetTexture(texUnit);
 			return GetColor(pTexture, texCoord);
+		}
+
+		se::render::Color CSampler::GetColor(ITexture *pTexture, uint x, uint y)
+		{
+			static Color resultColor;
+			ubyte *pTextureData = pTexture->GetData();
+			int textureWidth = pTexture->GetWidth();
+
+			float inv = 1.f / 255;
+			ubyte *temp = pTextureData + y * textureWidth * 3 + x * 3;
+			resultColor.a = 1.f;
+			resultColor.b = *(temp)* inv;
+			resultColor.g = *(temp + 1) * inv;
+			resultColor.r = *(temp + 2) * inv;
+
+			return resultColor;
+		}
+
+		const Color & CSampler::GetColor(ubyte *texData, uint texWidth, uint x, uint y)
+		{
+			static Color resultColor;
+
+			float inv = 1.f / 255;
+			ubyte *temp = texData + y * texWidth * 3 + x * 3;
+			resultColor.a = 1.f;
+			resultColor.b = *(temp)* inv;
+			resultColor.g = *(temp + 1) * inv;
+			resultColor.r = *(temp + 2) * inv;
+
+			return resultColor;
 		}
 
 	}

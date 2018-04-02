@@ -1,7 +1,7 @@
 #include "se.h"
 #include "..\src\render\software\CRasterizer.h"
 
-static const int FRAMES_PER_SECOND = 60;      ///< FPS:50
+static const int FRAMES_PER_SECOND = 260;      ///< FPS:50
 static const int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
 
 int main(int argc, char *argv[])
@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 	IDevice *device = se->GetDevice();
 	IResourceManager *resMgr = se->GetResourceManager();
 	ISceneManager *sceneMgr = se->GetSceneManager();
-
+	IRenderer *pRender = se->GetRenderer();
 	//test
 	//CRasterizer pRasterizer;
 	//uint *pDrawBuffer = new uint[device->GetWindowWidth() * device->GetWindowHeight()];
@@ -28,6 +28,8 @@ int main(int argc, char *argv[])
 	UINT next_game_tick = GetTickCount();
 	int sleep_time = 0;
 
+	char buf[256] = { 0 };
+	int delta = 0;
 	bool bQuit = false;
 	while (device->Run())
 	{
@@ -37,7 +39,11 @@ int main(int argc, char *argv[])
 		{
 			next_game_tick = GetTickCount() + SKIP_TICKS;
 			
-			sceneMgr->Update(SKIP_TICKS - sleep_time);
+			delta = SKIP_TICKS - sleep_time;
+			sceneMgr->Update(delta);
+
+			sprintf_s(buf, "delta:%d frame:%d", delta, 1000 / delta);
+			pRender->DrawText(0, 0, buf, strlen(buf));
 		}
 		else
 		{

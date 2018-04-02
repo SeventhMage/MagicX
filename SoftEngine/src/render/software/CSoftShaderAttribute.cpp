@@ -40,5 +40,10 @@ namespace se
 			}
 		}
 
+		void CSoftShaderAttribute::Clear()
+		{
+			m_vecAttrData.clear();
+		}
+
 	}
 }

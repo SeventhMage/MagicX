@@ -12,12 +12,12 @@ namespace se
 		public:
 			CSoftTexture(int id, ubyte *pData, ulong size, int width, int height);
 			virtual ~CSoftTexture();
-
+			virtual int GetID() const{ return m_id; }
 			virtual ubyte *GetData()const{ return m_pData; }
 			virtual ulong GetSize()const{ return m_size; }
 			virtual int GetWidth()const { return m_width; }
 			virtual int GetHeight()const { return m_height; }
-		private:
+		//private:
 			int m_id;
 			ubyte *m_pData;
 			ulong m_size;;

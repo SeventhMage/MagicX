@@ -65,6 +65,5 @@ namespace se
 			m_pDepthBuffer = new float[m_uBufferWidth * m_uBufferHeight];
 			memset(m_pDepthBuffer, 0, m_uBufferWidth * m_uBufferHeight * sizeof(uint));
 		}
-
 	}
 }

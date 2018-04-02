@@ -64,6 +64,8 @@ namespace se
 
 		ITexture * CTextureManager::GetTexture(int textureId)
 		{
+			return m_mapTexture[textureId];
+
 			auto it = m_mapTexture.find(textureId);
 			if (it != m_mapTexture.end())
 			{

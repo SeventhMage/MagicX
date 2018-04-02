@@ -15,6 +15,8 @@ namespace se
 
 			virtual Color GetColor(ITexture *pTexture, const math::CVector2 &texCoord);
 			virtual Color GetColor(uint texUnit, const math::CVector2 &texCoord);
+			virtual Color GetColor(ITexture *pTexture, uint x, uint y);
+			virtual const Color &GetColor(ubyte *texData, uint texWidth, uint x, uint y);
 		};
 	}
 }

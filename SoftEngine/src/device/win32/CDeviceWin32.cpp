@@ -210,7 +210,7 @@ namespace se
 
 			HINSTANCE hInstance = GetModuleHandle(0);
 
-			const wchar_t* ClassName = __TEXT("CWin32Device");
+			const wchar_t* ClassName = L"CWin32Device";
 
 			// Register Class
 			WNDCLASSEX wcex;
@@ -228,7 +228,7 @@ namespace se
 			wcex.hIconSm = 0;
 
 			// if there is an icon, load it
-			wcex.hIcon = (HICON)LoadImage(hInstance, __TEXT(""), IMAGE_ICON, 0, 0, LR_LOADFROMFILE);
+			wcex.hIcon = (HICON)LoadImage(hInstance, L"", IMAGE_ICON, 0, 0, LR_LOADFROMFILE);
 
 			RegisterClassEx(&wcex);
 
@@ -271,7 +271,7 @@ namespace se
 			m_iWidth = realWidth;
 			m_iHeight = realHeight;
 			// create window
-			m_hWnd = CreateWindow(ClassName, __TEXT(""), style, windowLeft, windowTop,
+			m_hWnd = CreateWindow(ClassName, L"", style, windowLeft, windowTop,
 				realWidth, realHeight, NULL, NULL, hInstance, NULL);
 			
 			//初始化渲染器驱动
@@ -365,6 +365,15 @@ namespace se
 			//::SwapBuffers(hdc);
 		
 			ReleaseDC(m_hWnd, hdc);			
+		}
+
+		void CDeviceWin32::DrawText(int iPosX, int iPoxY, const char *str, int length)
+		{
+			HDC hdc = GetDC(m_hWnd);
+			RECT rect = { iPosX, iPoxY, m_iWidth, m_iHeight };
+			::DrawTextA(hdc, str, length, &rect, 0);
+			//::TextOutA(hdc, iPosX, iPoxY, str, length);
+			ReleaseDC(m_hWnd, hdc);
 		}
 
 

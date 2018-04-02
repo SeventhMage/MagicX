@@ -63,6 +63,34 @@ namespace se
 			return outPosition;
 		}
 
+		math::CVector4 CSoftVertexShader::Process(IShaderAttribute &attrOutput)
+		{
+			math::CMatrix4 mvpMat = m_wordMatrix * m_viewMatrix * m_projMatrix;
+
+			render::SColor vColor = m_inColor;
+			math::CVector2 vTexCoord = m_inTexCoord;
+
+			math::CVector4 outPosition;
+			math::CVector3 outNormal;
+
+			mvpMat.TransformVect(outPosition, m_inPosition);
+
+			math::CMatrix4 temp;
+			mvpMat.GetInverse(temp);
+			math::CMatrix4 normalMatrix;
+			temp.GetTransposed(normalMatrix);
+			normalMatrix.SetTranslation(math::CVector3(0, 0, 0));
+			m_wordMatrix.TransformVect(outNormal, m_inNormal);
+
+			vColor *= m_color;
+
+			attrOutput.SetAttribute(base::VA_NORMAL, outNormal.v, sizeof(outNormal.v));
+			attrOutput.SetAttribute(base::VA_COLOR, vColor.c, sizeof(vColor.c));
+			attrOutput.SetAttribute(base::VA_TEXCOORD, vTexCoord.v, sizeof(vTexCoord.v));
+
+			return outPosition;
+		}
+
 		void CSoftVertexShader::SetUniform(EUniformName uniformName, ubyte *data)
 		{
 			switch (uniformName)
@@ -78,6 +106,27 @@ namespace se
 				break;
 			case UN_COLOR:
 				memcpy(m_color.c, data, sizeof(m_color.c));
+				break;
+			}
+		}
+
+		void CSoftVertexShader::PushInAttribute(base::EVertexAttribute vertType, const void *source)
+		{
+			switch (vertType)
+			{			
+			case se::base::VA_POSITION:
+				memcpy(m_inPosition.v, source, sizeof(m_inPosition.v));
+				break;
+			case se::base::VA_COLOR:
+				memcpy(m_inColor.c, source, sizeof(m_inColor.c));
+				break;
+			case se::base::VA_TEXCOORD:
+				memcpy(m_inTexCoord.v, source, sizeof(m_inTexCoord.v));
+				break;
+			case se::base::VA_NORMAL:
+				memcpy(m_inNormal.v, source, sizeof(m_inNormal.v));
+				break;
+			default:
 				break;
 			}
 		}
