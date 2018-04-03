@@ -8,6 +8,10 @@ namespace se
 
 		CSoftVertexShader::CSoftVertexShader()
 			:m_pIllumination(nullptr)
+			, m_ambientCoefficient(0)
+			, m_diffuseCoefficient(0)
+			, m_specularCoefficient(0)
+			, m_specularityCoefficient(0)
 		{
 
 		}
@@ -63,30 +67,40 @@ namespace se
 			return outPosition;
 		}
 
-		math::CVector4 CSoftVertexShader::Process(IShaderAttribute &attrOutput)
+		math::CVector4 CSoftVertexShader::Process()
 		{
-			math::CMatrix4 mvpMat = m_wordMatrix * m_viewMatrix * m_projMatrix;
+			math::CMatrix4 mvMat = m_wordMatrix * m_viewMatrix;
 
-			render::SColor vColor = m_inColor;
+			Color vColor = m_inColor;
 			math::CVector2 vTexCoord = m_inTexCoord;
 
+			math::CVector3 viewPosition;
+
 			math::CVector4 outPosition;
-			math::CVector3 outNormal;
+			
 
-			mvpMat.TransformVect(outPosition, m_inPosition);
-
-			math::CMatrix4 temp;
-			mvpMat.GetInverse(temp);
-			math::CMatrix4 normalMatrix;
-			temp.GetTransposed(normalMatrix);
-			normalMatrix.SetTranslation(math::CVector3(0, 0, 0));
-			m_wordMatrix.TransformVect(outNormal, m_inNormal);
+			mvMat.TransformVect(viewPosition, m_inPosition);
+			 
+			math::CMatrix4 temp = m_viewMatrix;
+			temp.SetTranslation(math::CVector3(0, 0, 0));
+			math::CMatrix4 normalMatrix = m_normalMatrix * temp;
+			
+			normalMatrix.TransformVect(m_outNormal, m_inNormal);
+			m_outNormal.normalize();
 
 			vColor *= m_color;
 
-			attrOutput.SetAttribute(base::VA_NORMAL, outNormal.v, sizeof(outNormal.v));
-			attrOutput.SetAttribute(base::VA_COLOR, vColor.c, sizeof(vColor.c));
-			attrOutput.SetAttribute(base::VA_TEXCOORD, vTexCoord.v, sizeof(vTexCoord.v));
+			if (m_pIllumination)
+			{							
+				m_pIllumination->SetIlluminationParam(-viewPosition.Normalize(), m_outNormal);
+				m_pIllumination->SetRenderParam(m_ambientCoefficient, m_diffuseCoefficient, m_specularCoefficient, m_specularityCoefficient);
+				m_pIllumination->TransformPosition(m_viewMatrix);
+				m_outColor = m_pIllumination->Shine(vColor, viewPosition);
+			}
+
+			m_outTexCoord = vTexCoord;
+
+			m_projMatrix.TransformVect(outPosition, viewPosition);															
 
 			return outPosition;
 		}
@@ -104,8 +118,22 @@ namespace se
 			case UN_PROJ_MAT:
 				memcpy(m_projMatrix.m, data, sizeof(m_projMatrix.m));
 				break;
+			case UN_NORMAL_MAT:
+				memcpy(m_normalMatrix.m, data, sizeof(m_normalMatrix.m));
 			case UN_COLOR:
 				memcpy(m_color.c, data, sizeof(m_color.c));
+				break;
+			case UN_AMBIENT_COEFFICIENT:
+				m_ambientCoefficient = *(float*)data;
+				break;
+			case UN_DIFFUSE_COEFFICIENT:
+				m_diffuseCoefficient = *(float*)data;
+				break;
+			case UN_SPECULAR_COEFFICIENT:
+				m_specularCoefficient = *(float*)data;
+				break;
+			case UN_SPECULARITY_COEFFICIENT:
+				m_specularityCoefficient = *(int*)data;
 				break;
 			}
 		}
@@ -114,22 +142,42 @@ namespace se
 		{
 			switch (vertType)
 			{			
-			case se::base::VA_POSITION:
-				memcpy(m_inPosition.v, source, sizeof(m_inPosition.v));
+			case se::base::VA_POSITION:				
+				m_inPosition = *(math::CVector3* )source;
 				break;
-			case se::base::VA_COLOR:
-				memcpy(m_inColor.c, source, sizeof(m_inColor.c));
+			case se::base::VA_COLOR:				
+				m_inColor = *(Color *)source;
 				break;
 			case se::base::VA_TEXCOORD:
-				memcpy(m_inTexCoord.v, source, sizeof(m_inTexCoord.v));
+				m_inTexCoord = *(math::CVector2 *)source;
 				break;
 			case se::base::VA_NORMAL:
-				memcpy(m_inNormal.v, source, sizeof(m_inNormal.v));
+				m_inNormal = *(math::CVector3 *)source;
 				break;
 			default:
 				break;
 			}
 		}
 
+		void CSoftVertexShader::PopOutAttribute(base::EVertexAttribute vertType, void *&source)
+		{
+			switch (vertType)
+			{
+			case se::base::VA_POSITION:
+				*(math::CVector3*)source = m_outPosition;
+				break;
+			case se::base::VA_COLOR:
+				*(Color *)source = m_outColor;
+				break;
+			case se::base::VA_TEXCOORD:
+				*(math::CVector2 *)source = m_outTexCoord;
+				break;
+			case se::base::VA_NORMAL:
+				*(math::CVector3 *)source = m_outNormal;
+				break;
+			default:
+				break;
+			}
+		}
 	}
 }

@@ -87,7 +87,7 @@ namespace se
 				//m_pLights[slot] = new CDirectionalLight();
 				break;
 			case se::scene::LT_POINT:
-				m_pLights[slot] = new CPointLight(lightColor);
+				m_pLights[slot] = new CPointLight(lightColor);				
 				break;
 			case se::scene::LT_SPOT:
 				//m_pLights[slot] = new CSpotLight();

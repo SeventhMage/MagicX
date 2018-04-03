@@ -41,6 +41,17 @@ namespace se
 				}
 				std::string strIllumination = pMaterialResource->GetValue(resource::MRA_ILLUMINATION);
 				pMaterial->SetIllumination(strIllumination);
+
+				float ambientCoe = atof(pMaterialResource->GetValue(resource::MRA_AMBIENT_COE).c_str());
+				float diffuseCoe = atof(pMaterialResource->GetValue(resource::MRA_DIFFUSE_COE).c_str());
+				float specularCoe = atof(pMaterialResource->GetValue(resource::MRA_SPECULAR_COE).c_str());
+				int specularityCoe = atoi(pMaterialResource->GetValue(resource::MRA_SPECULARITY_COE).c_str());
+
+				pMaterial->SetAmbientCoefficient(ambientCoe);
+				pMaterial->SetDiffuseCoefficient(diffuseCoe);
+				pMaterial->SetSpecularCoefficient(specularCoe);
+				pMaterial->SetSpecularityCoefficient(specularityCoe);
+
 				m_mapMaterial[materialId] = pMaterial;
 				CSoftEngine::GetResourceManager()->ReleaseResource(pMaterialResource);
 				return pMaterial;

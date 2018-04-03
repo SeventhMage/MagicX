@@ -12,6 +12,7 @@
 #include "CRasterizer.h"
 #include "CSoftRenderDriver.h"
 #include "render/SColor.h"
+#include "CPhongRender.h"
 
 
 namespace se
@@ -44,6 +45,8 @@ namespace se
 			virtual void DestroyShaderProgram(uint shaderProgramId);
 			virtual IShaderProgram *GetShaderProgram(uint shaderProgramId) const;
 
+			virtual void SetIllumination(const render::SColor &ambientColor, const render::SColor &diffuseColor, const render::SColor &specularColor, const CVector3 &lightPos);
+
 			virtual void Clear();
 			virtual void Render();						
 
@@ -69,6 +72,9 @@ namespace se
 			VAOMap m_mapVAOs;		//存储于顶点级数对象中的缓冲区数据	
 			ShaderProgramMap m_mapShaderProgram;
 
+			static const int MAX_LIGHT_NUM = 16;
+			CIllumination m_illumination;
+			CPhongRender m_phongRender;
 
 			//最终渲染时需要的对象
 			uint m_shaderProgramId;

@@ -81,7 +81,7 @@ namespace se
 					DrawTopTriangle(p0, t0, c0, p2, t2, c2, p1, t1, c1);
 			}
 			else
-			{
+			{				
 				float newX = p0.x + (p2.x - p0.x)*(p1.y - p0.y) / (p2.y - p0.y);
 				float p02Rate = CVector2(newX, p1.y).getDistanceFrom(CVector2(p0.x, p0.y))
 					/ CVector2(p0.x, p0.y).getDistanceFrom(CVector2(p2.x, p2.y));
@@ -99,7 +99,7 @@ namespace se
 					DrawBottomTriangle(newPoint, newTexCoord, newColor, p1, t1, c1, p2, t2, c2);
 				}
 				else
-				{
+				{					
 					DrawTopTriangle(p0, t0, c0, newPoint, newTexCoord, newColor, p1, t1, c1);
 					DrawBottomTriangle(p1, t1, c1, newPoint, newTexCoord, newColor, p2, t2, c2);
 				}				
@@ -407,7 +407,7 @@ namespace se
 
 					//color = m_pFragmentShader->Process(color, tx, ty);
 
-					*addr = ((uint(color.a * 0xFF)) << 24) | ((uint(color.r * 0xFF)) << 16) | ((uint(color.g * 0xFF)) << 8) | (uint(color.b * 0xFF));// color.Get32BitColor();//tc;
+					*addr = ((uint(color.a * 0xFF)) << 24) | ((uint(color.r * 0xFF)) << 16) | ((uint(color.g * 0xFF)) << 8) | (uint(color.b * 0xFF));// color.Get32BitColor();
 					*zbuffer = z;
 				}
 

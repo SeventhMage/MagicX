@@ -6,6 +6,7 @@
 #include "render/IShaderProgram.h"
 #include "CSoftVertexShader.h"
 #include "CSoftFragmentShader.h"
+#include "CPhongRender.h"
 
 namespace se
 {
@@ -34,11 +35,12 @@ namespace se
 			CSoftVertexShader *GetVertexShader() { return m_pVertexShader; }
 			CSoftFragmentShader *GetFragmentShader() { return m_pFragShader; }
 			const UniformMap &GetAllUniform() { return m_uniformMap; }
+			void SetIllumination(CIllumination *pIllumination);
 		private:
 			uint m_id;
 			UniformMap m_uniformMap;
 			CSoftVertexShader *m_pVertexShader;
-			CSoftFragmentShader *m_pFragShader;
+			CSoftFragmentShader *m_pFragShader;			
 		};
 	}
 }

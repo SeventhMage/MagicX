@@ -20,7 +20,11 @@ namespace se
 
 		static MRAttribute GetMSAttribute[MRA_COUNT] = {
 			MRA_COLOR, "Color",
-			MRA_ILLUMINATION, "Illumination"
+			MRA_ILLUMINATION, "Illumination",
+			MRA_AMBIENT_COE, "AmbientCoe",
+			MRA_DIFFUSE_COE, "DiffuseCoe",
+			MRA_SPECULAR_COE, "SpecularCoe",
+			MRA_SPECULARITY_COE, "SpecularityCoe"
 		};		
 
 		class CMaterialResource : public IMaterialResource

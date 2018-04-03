@@ -9,6 +9,7 @@
 #include "math/CMatrix4.h"
 #include "IRenderCell.h"
 #include "IMaterial.h"
+#include "scene/ICamera.h"
 
 
 namespace se
@@ -22,7 +23,7 @@ namespace se
 			virtual void AddRenderCell(IRenderCell *pCell) = 0;
 			virtual void Clear() = 0;
 			virtual IMaterial *GetMaterial() const = 0;
-			virtual void Render(const math::CMatrix4 &viewMat, const math::CMatrix4 &projMat) = 0;
+			virtual void Render(scene::ICamera *pCamera) = 0;
 		};
 
 		typedef std::map<int, IRenderQueue *> RenderQueueGroup;

@@ -168,9 +168,6 @@
     <ClCompile Include="..\..\src\device\CGesture.cpp">
       <Filter>src\device</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\render\software\CIlluminationRender.cpp">
-      <Filter>src\render\software</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\render\software\CSoftVertexShader.cpp">
       <Filter>src\render\software</Filter>
     </ClCompile>
@@ -188,6 +185,15 @@
     </ClCompile>
     <ClCompile Include="..\..\src\render\CVertexArrayObject.cpp">
       <Filter>src\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\CIllumination.cpp">
+      <Filter>src\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\CIlluminationRender.cpp">
+      <Filter>src\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\software\CPhongRender.cpp">
+      <Filter>src\render\software</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -476,9 +482,6 @@
     <ClInclude Include="..\..\src\device\CGesture.h">
       <Filter>src\device</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\render\software\CIlluminationRender.h">
-      <Filter>src\render\software</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\inc\math\CAABBox.h">
       <Filter>inc\math</Filter>
     </ClInclude>
@@ -509,9 +512,6 @@
     <ClInclude Include="..\..\inc\render\IShaderAttribute.h">
       <Filter>inc\render</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\render\IIllumination.h">
-      <Filter>inc\render</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\render\software\CSoftShaderAttribute.h">
       <Filter>src\render\software</Filter>
     </ClInclude>
@@ -529,6 +529,15 @@
     </ClInclude>
     <ClInclude Include="..\..\src\render\CVertexArrayObject.h">
       <Filter>src\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\CIllumination.h">
+      <Filter>src\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\CIlluminationRender.h">
+      <Filter>src\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\software\CPhongRender.h">
+      <Filter>src\render\software</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

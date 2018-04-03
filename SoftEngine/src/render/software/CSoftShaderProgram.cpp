@@ -8,9 +8,9 @@ namespace se
 		CSoftShaderProgram::CSoftShaderProgram(uint id)
 			:m_id(id)
 			, m_pVertexShader(new CSoftVertexShader())
-			, m_pFragShader(new CSoftFragmentShader())
-		{
-
+			, m_pFragShader(new CSoftFragmentShader())			
+		{			
+			
 		}
 
 		CSoftShaderProgram::~CSoftShaderProgram()
@@ -49,6 +49,12 @@ namespace se
 			if (it != m_uniformMap.end())
 				return it->second.data;
 			return nullptr;
+		}
+
+		void CSoftShaderProgram::SetIllumination(CIllumination *pIllumination)
+		{
+			if (m_pVertexShader)
+				m_pVertexShader->SetIllumination(pIllumination);
 		}
 
 	}

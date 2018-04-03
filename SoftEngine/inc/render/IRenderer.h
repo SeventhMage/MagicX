@@ -9,6 +9,8 @@
 #include "ITexture.h"
 #include "IBuffer.h"
 #include "base/base.h"
+#include "SColor.h"
+#include "math/CVector3.h"
 
 
 namespace se
@@ -34,6 +36,8 @@ namespace se
 			virtual uint CreateShaderProgram() = 0;
 			virtual void DestroyShaderProgram(uint shaderProgramId) = 0;
 			virtual IShaderProgram *GetShaderProgram(uint shaderProgramId) const = 0;
+
+			virtual void SetIllumination(const Color &ambientColor, const Color &diffuseColor, const Color &specularColor, const math::CVector3 &lightPos) = 0;
 
 			virtual void Clear() = 0;
 			virtual void Render() = 0;							

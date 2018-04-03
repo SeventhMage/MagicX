@@ -8,7 +8,6 @@
 #include "CCPUBuffer.h"
 #include "CSoftShaderProgram.h"
 #include "math/CVector2.h"
-#include "CIlluminationRender.h"
 #include "CSoftVertexArrayObject.h"
 #include "../STriangleMesh.h"
 #include "../CRenderCell.h"
@@ -34,7 +33,9 @@ namespace se
 			, m_vaoId(0)
 			, m_bufferId(0)
 			, m_textureId(0)
-		{						
+		{
+			m_illumination.SelectIlluminationRender(&m_phongRender);
+			SetIllumination(Color(1.f, .5f, .5f, .5f), Color(1.f, .7f, .7f, .7f), Color(1.f, .9f, .9f, .9f), math::CVector3(10, 10, 10));
 		}
 
 		CSoftRenderer::~CSoftRenderer()
@@ -188,7 +189,7 @@ namespace se
 						scene::ICamera *pCamera = pScene->GetCamera();
 						if (pCamera)
 						{
-							pRenderQueue->Render(pCamera->GetViewMatrix(), pCamera->GetProjectionMatrix());
+							pRenderQueue->Render(pCamera);
 						}
 					}
 				}
@@ -247,19 +248,19 @@ namespace se
 
 		void CSoftRenderer::VertexLightCalc(const CVector3 &lightPos, const CMatrix4 &viewMat, TriangleList &triList)
 		{
-            CIlluminationRender illumination(SColor(1.f, 0.4f, 0.4f, 0.4f), SColor(1.f, 0.8f, 0.8f, 0.8f), SColor(1.f, 1.f, 1.f, 1.f));
-			CVector3 viewLightPos;
-			viewMat.TransformVect(viewLightPos, lightPos);
-			for (auto it = triList.begin(); it != triList.end(); ++it)
-			{
-				for (int i = 0; i < 3; ++i)
-				{
-                    CVector3 lightDir = viewLightPos - CVector3(it->vTranslatePosition[i].x, it->vTranslatePosition[i].y,
-                                            it->vTranslatePosition[i].z).normalize();
-                    lightDir.normalize();
-                    it->vertexColor[i] = illumination.Calculate(it->vertexColor[i], lightDir, CVector3(0, 0, 1), it->vTranslateNormal[i], 1.f, 1.f, 1.f, 80.f, viewLightPos.getDistanceFrom(CVector3(it->vTranslatePosition[i].x, it->vTranslatePosition[i].y, it->vTranslatePosition[i].z)));
-				}				
-			}
+   //         CIlluminationRender illumination(SColor(1.f, 0.4f, 0.4f, 0.4f), SColor(1.f, 0.8f, 0.8f, 0.8f), SColor(1.f, 1.f, 1.f, 1.f));
+			//CVector3 viewLightPos;
+			//viewMat.TransformVect(viewLightPos, lightPos);
+			//for (auto it = triList.begin(); it != triList.end(); ++it)
+			//{
+			//	for (int i = 0; i < 3; ++i)
+			//	{
+   //                 CVector3 lightDir = viewLightPos - CVector3(it->vTranslatePosition[i].x, it->vTranslatePosition[i].y,
+   //                                         it->vTranslatePosition[i].z).normalize();
+   //                 lightDir.normalize();
+   //                 it->vertexColor[i] = illumination.Calculate(it->vertexColor[i], lightDir, CVector3(0, 0, 1), it->vTranslateNormal[i], 1.f, 1.f, 1.f, 80.f, viewLightPos.getDistanceFrom(CVector3(it->vTranslatePosition[i].x, it->vTranslatePosition[i].y, it->vTranslatePosition[i].z)));
+			//	}				
+			//}
 		}
 
 		uint CSoftRenderer::CreateShaderProgram()
@@ -353,30 +354,20 @@ namespace se
 
 			if (m_textureId > 0)
 				pTexture = (CSoftTexture*)CSoftEngine::GetTextureManager()->GetTexture(m_textureId);
-
-			float *pViewMat = (float *)pShaderProgram->GetUniform(UN_VIEW_MAT);
-			CMatrix4 viewMat;
-			if (pViewMat)
-			{
-				memcpy(viewMat.m, pViewMat, sizeof(viewMat.m));
-			}
-
-			float *pWorldMat = (float *)pShaderProgram->GetUniform(UN_WORLD_MAT);
-			CMatrix4 worldMat;
-			if (pWorldMat)
-			{
-				memcpy(worldMat.m, pWorldMat, sizeof(worldMat.m));
-			}
-
-			CMatrix4 mwMat = worldMat;
-			CMatrix4 temp;
-			mwMat.GetInverse(temp);
-			CMatrix4 mwNormalMat;
-			temp.GetTransposed(mwNormalMat);
-			mwNormalMat.SetTranslation(CVector3(0, 0, 0));
 						
 			if (pBuffer)
 			{
+
+				CSoftVertexShader *pVertexShader = pShaderProgram->GetVertexShader();
+				if (pVertexShader)
+				{
+					const CSoftShaderProgram::UniformMap &uniformMap = pShaderProgram->GetAllUniform();
+					for (auto it = uniformMap.begin(); it != uniformMap.end(); ++it)
+					{
+						pVertexShader->SetUniform(it->first, it->second.data);
+					}
+				}
+
 				TriangleList triangleList;
 				base::Vertices *pVertices = pBuffer->GetVertices();
 				base::Indices *pIndices = pBuffer->GetIndices();
@@ -416,52 +407,40 @@ namespace se
 
 								triangle.vertexColor[suffix] = Color(1, 1, 1, 1);
 
-								CSoftShaderAttribute outAttr;
-								CSoftVertexShader *pVertexShader = pShaderProgram->GetVertexShader();
-								if (pVertexShader)
-								{
-									const CSoftShaderProgram::UniformMap &uniformMap = pShaderProgram->GetAllUniform();
-									for (auto it = uniformMap.begin(); it != uniformMap.end(); ++it)
-									{
-										pVertexShader->SetUniform(it->first, it->second.data);
-									}
-
-									//Input the attribute.
-									//CSoftShaderAttribute inAttr;									
-									//inAttr.SetAttribute(base::VA_POSITION, triangle.vPosition[suffix].v, sizeof(triangle.vPosition[suffix].v));
-									//inAttr.SetAttribute(base::VA_NORMAL, triangle.vNormal[suffix].v, sizeof(triangle.vNormal[suffix].v));
-									//inAttr.SetAttribute(base::VA_COLOR, triangle.vertexColor[suffix].c, sizeof(triangle.vertexColor[suffix].c));
-									//inAttr.SetAttribute(base::VA_TEXCOORD, triangle.vTexCoord[suffix].v, sizeof(triangle.vTexCoord[suffix].v));
-
-									pVertexShader->PushInAttribute(base::VA_POSITION, triangle.vPosition[suffix].v);
-									pVertexShader->PushInAttribute(base::VA_NORMAL, triangle.vNormal[suffix].v);
-									pVertexShader->PushInAttribute(base::VA_COLOR, triangle.vertexColor[suffix].c);
-									pVertexShader->PushInAttribute(base::VA_TEXCOORD, triangle.vTexCoord[suffix].v);
-
-									//Excute the vertex shader.
-									triangle.vTranslatePosition[suffix] = pVertexShader->Process(outAttr);
-
-									//Deal with the output postion.
-									float invW = 1.0f / triangle.vTranslatePosition[suffix].w;
-									triangle.vTranslatePosition[suffix].x *= invW;
-									triangle.vTranslatePosition[suffix].y *= invW;
-									triangle.vTranslatePosition[suffix].z *= invW;
-
-									triangle.vTranslatePosition[suffix].x = (triangle.vTranslatePosition[suffix].x + 1.0f) * 0.5f * m_pSoftRD->GetBufferWidth();
-									triangle.vTranslatePosition[suffix].y = (1 - triangle.vTranslatePosition[suffix].y) * 0.5f * m_pSoftRD->GetBufferHeight();
-
-									//Output the attribute.
-									memcpy(triangle.vTranslateNormal[suffix].v, outAttr.GetAttribute(base::VA_NORMAL).data, sizeof(triangle.vTranslateNormal[suffix].v));
-									memcpy(triangle.vertexColor[suffix].c, outAttr.GetAttribute(base::VA_COLOR).data, sizeof(triangle.vertexColor[suffix].c));
-									memcpy(triangle.vTexCoord[suffix].v, outAttr.GetAttribute(base::VA_TEXCOORD).data, sizeof(triangle.vTexCoord[suffix].v));
-								}
-
 								if (suffix >= 2)
 								{
 									for (int i = 0; i < 3; ++i)
-									{
-									//	mwMat.TransformVect(triangle.vTranslatePosition[i], triangle.vPosition[i]);
-									//	mwNormalMat.TransformVect(triangle.vTranslateNormal[i], triangle.vNormal[i]);
+									{										
+										if (pVertexShader)
+										{
+											//Input the attribute.
+											pVertexShader->PushInAttribute(base::VA_POSITION, &triangle.vPosition[i]);
+											pVertexShader->PushInAttribute(base::VA_NORMAL, &triangle.vNormal[i]);
+											pVertexShader->PushInAttribute(base::VA_COLOR, &triangle.vertexColor[i]);
+											pVertexShader->PushInAttribute(base::VA_TEXCOORD, &triangle.vTexCoord[i]);
+
+											//Excute the vertex shader.
+											triangle.vTranslatePosition[i] = pVertexShader->Process();
+
+											//Deal with the output postion.
+											float invW = 1.0f / triangle.vTranslatePosition[i].w;
+											triangle.vTranslatePosition[i].x *= invW;
+											triangle.vTranslatePosition[i].y *= invW;
+											triangle.vTranslatePosition[i].z *= invW;
+
+											triangle.vTranslatePosition[i].x = (triangle.vTranslatePosition[i].x + 1.0f) * 0.5f * m_pSoftRD->GetBufferWidth();
+											triangle.vTranslatePosition[i].y = (1 - triangle.vTranslatePosition[i].y) * 0.5f * m_pSoftRD->GetBufferHeight();
+
+											//Output the attribute.
+											CVector3 *v;
+											void *temp = &triangle.vTranslateNormal[i];
+											pVertexShader->PopOutAttribute(base::VA_NORMAL, temp);
+											temp = &triangle.vertexColor[i];
+											pVertexShader->PopOutAttribute(base::VA_COLOR, temp);
+											temp = &triangle.vTexCoord[i];
+											pVertexShader->PopOutAttribute(base::VA_TEXCOORD, temp);
+										}
+
 									}
 
 									//转换到摄像机坐标
@@ -517,7 +496,7 @@ namespace se
 							if (index >= 2)
 							{
 								//转换到摄像机坐标
-								TranslateWorldToCamera(viewMat, triangle);
+								//TranslateWorldToCamera(viewMat, triangle);
 
 								if (!BackCulling(triangle)) //背面剔除
 								{
@@ -557,9 +536,10 @@ namespace se
 					//	memcpy(projMat.m, pProjMat, sizeof(projMat.m));
 					//	TranslateCameraToScreen(projMat, triangleList);
 					//}
+					
+					pShaderProgram->SetIllumination(&m_illumination);
 
-					//光栅化
-
+					//光栅化					
 					CSoftFragmentShader *pFragmentShader = pShaderProgram->GetFragmentShader();
 					if (pFragmentShader)
 					{						
@@ -591,6 +571,13 @@ namespace se
 		void CSoftRenderer::DrawText(int iPosX, int iPoxY, const char *str, int length)
 		{
 			CSoftEngine::GetDevice()->DrawText(iPosX, iPoxY, str, length);
+		}
+
+		void CSoftRenderer::SetIllumination(const render::SColor &ambientColor, const render::SColor &diffuseColor, const render::SColor &specularColor, const CVector3 &lightPos)
+		{
+			m_phongRender.SetLightColor(ambientColor, diffuseColor, specularColor);
+			m_illumination.SetPosition(lightPos);
+
 		}
 
 	}

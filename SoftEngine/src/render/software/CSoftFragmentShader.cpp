@@ -69,7 +69,7 @@ namespace se
 			color.a *= inColor.a;
 			color.r *= inColor.r;
 			color.g *= inColor.g;
-			color.b *= inColor.b;
+			color.b *= inColor.b;			
 
 			return color;
 		}

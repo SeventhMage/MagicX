@@ -1,2 +1,7 @@
-Color=.5,.7,.6
+Color=.9,.9,.9
+#Color=1,1,1
 Illumination=gourand
+AmbientCoe=1
+DiffuseCoe=1
+SpecularCoe=1
+SpecularityCoe=80

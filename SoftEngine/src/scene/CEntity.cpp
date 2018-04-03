@@ -56,6 +56,13 @@ namespace se
 		{			
 			//更新矩阵等uniform
 			const CMatrix4 &worldMat = m_pSceneNode->GetAbsluateMatrix();
+			CMatrix4 normalMat;
+			CMatrix4 temp = worldMat;
+			temp.SetTranslation(CVector3(0, 0, 0));			
+			temp.GetInverse(normalMat);
+			temp = normalMat;
+			temp.GetTransposed(normalMat);
+
 			IScene *pScene = CSoftEngine::GetSceneManager()->GetCurrentScene();
 			if (pScene)
 			{
@@ -68,7 +75,18 @@ namespace se
                     
 					if (!frustum.Culled(box))
 					{
-						m_pRenderCell->SetShaderParam(render::UN_WORLD_MAT, (void *)worldMat.m, SE_FLOAT, sizeof(worldMat.m));
+						CMatrix4 mat = worldMat;
+						static float rot = 0.f;
+						if (rot >= 3.14 * 2)
+							rot = 0;
+						else
+							rot += 0.01f;
+						mat.SetRotationRadiansRH(0, rot, 0);
+						m_pRenderCell->SetShaderParam(render::UN_WORLD_MAT, mat.m, SE_FLOAT, sizeof(worldMat.m));
+						m_pRenderCell->SetShaderParam(render::UN_NORMAL_MAT, normalMat.m, SE_FLOAT, sizeof(normalMat.m));
+
+
+
 
 						//加入到渲染队列
 						CSoftEngine::GetRenderer()->SubmitRenderCell(m_pRenderCell);

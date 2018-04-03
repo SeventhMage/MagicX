@@ -10,6 +10,10 @@ namespace se
 			:m_Id(id)
 			, m_strName(name)
 			, m_shaderProgramId(0)
+			, m_ambientCoefficient(0)
+			, m_diffuseCoefficient(0)
+			, m_specularCoefficient(0)
+			, m_specularityCoefficient(0)
 		{
 			m_shaderProgramId = CSoftEngine::GetRenderer()->CreateShaderProgram();
 		}

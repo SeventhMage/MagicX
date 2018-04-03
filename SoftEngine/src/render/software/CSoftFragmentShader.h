@@ -1,8 +1,8 @@
 #ifndef _SE_RENDER_C_SOFT_FRAGMENT_SHADER_H_
 #define _SE_RENDER_C_SOFT_FRAGMENT_SHADER_H_
 
+#include "../CIllumination.h"
 #include "render/IShader.h"
-#include "render/IIllumination.h"
 #include "CSoftShaderAttribute.h"
 #include "CSoftTexture.h"
 #include "CSampler.h"
@@ -20,7 +20,7 @@ namespace se
 			virtual EShaderType GetType() const { return ST_FRAGMENT; }
 			
 			virtual void SetUniform(EUniformName uniformName, ubyte *data);
-			virtual void SetIllumination(IIllumination *illumination) {}
+			virtual void SetIllumination(CIllumination *illumination) {}
 			virtual void PushInAttribute(base::EVertexAttribute vertType, const void *source);			
 		public:						
 			const Color &Process();
@@ -33,7 +33,7 @@ namespace se
 
 			Color m_inColor;
 			math::CVector2 m_inTexCoord;
-			
+						
 		};
 	}
 }

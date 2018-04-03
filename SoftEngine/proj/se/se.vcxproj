@@ -91,6 +91,8 @@
     <ClCompile Include="..\..\src\device\CGestureTap.cpp" />
     <ClCompile Include="..\..\src\device\CKeyEvent.cpp" />
     <ClCompile Include="..\..\src\device\win32\CDeviceWin32.cpp" />
+    <ClCompile Include="..\..\src\render\CIllumination.cpp" />
+    <ClCompile Include="..\..\src\render\CIlluminationRender.cpp" />
     <ClCompile Include="..\..\src\render\CMaterial.cpp" />
     <ClCompile Include="..\..\src\render\CMaterialManager.cpp" />
     <ClCompile Include="..\..\src\render\CMesh.cpp" />
@@ -98,7 +100,7 @@
     <ClCompile Include="..\..\src\render\CRenderQueue.cpp" />
     <ClCompile Include="..\..\src\render\CTextureManager.cpp" />
     <ClCompile Include="..\..\src\render\CVertexArrayObject.cpp" />
-    <ClCompile Include="..\..\src\render\software\CIlluminationRender.cpp" />
+    <ClCompile Include="..\..\src\render\software\CPhongRender.cpp" />
     <ClCompile Include="..\..\src\render\software\CSampler.cpp" />
     <ClCompile Include="..\..\src\render\software\CSoftFragmentShader.cpp" />
     <ClCompile Include="..\..\src\render\software\CSoftShaderProgram.cpp" />
@@ -150,7 +152,6 @@
     <ClInclude Include="..\..\inc\math\CVector2.h" />
     <ClInclude Include="..\..\inc\math\CVector3.h" />
     <ClInclude Include="..\..\inc\math\CVector4.h" />
-    <ClInclude Include="..\..\inc\render\IIllumination.h" />
     <ClInclude Include="..\..\inc\render\ILightModel.h" />
     <ClInclude Include="..\..\inc\render\ISampler.h" />
     <ClInclude Include="..\..\inc\render\IShader.h" />
@@ -206,6 +207,8 @@
     <ClInclude Include="..\..\src\device\CKeyEvent.h" />
     <ClInclude Include="..\..\src\device\CGesturePinch.h" />
     <ClInclude Include="..\..\src\device\win32\CDeviceWin32.h" />
+    <ClInclude Include="..\..\src\render\CIllumination.h" />
+    <ClInclude Include="..\..\src\render\CIlluminationRender.h" />
     <ClInclude Include="..\..\src\render\CMaterial.h" />
     <ClInclude Include="..\..\src\render\CMaterialManager.h" />
     <ClInclude Include="..\..\src\render\CMesh.h" />
@@ -213,7 +216,7 @@
     <ClInclude Include="..\..\src\render\CRenderQueue.h" />
     <ClInclude Include="..\..\src\render\CTextureManager.h" />
     <ClInclude Include="..\..\src\render\CVertexArrayObject.h" />
-    <ClInclude Include="..\..\src\render\software\CIlluminationRender.h" />
+    <ClInclude Include="..\..\src\render\software\CPhongRender.h" />
     <ClInclude Include="..\..\src\render\software\CSampler.h" />
     <ClInclude Include="..\..\src\render\software\CSoftFragmentShader.h" />
     <ClInclude Include="..\..\src\render\software\CSoftShaderProgram.h" />

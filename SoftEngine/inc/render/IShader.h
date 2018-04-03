@@ -3,7 +3,6 @@
 
 #include "IShaderAttribute.h"
 #include "UniformDef.h"
-#include "IIllumination.h"
 
 namespace se
 {
@@ -22,9 +21,9 @@ namespace se
 		public:
 			virtual ~IShader(){}
 			virtual EShaderType GetType() const = 0;			
-			virtual void SetUniform(EUniformName uniformName, ubyte *data) = 0;
-			virtual void SetIllumination(IIllumination *illumination) {}
+			virtual void SetUniform(EUniformName uniformName, ubyte *data) = 0;			
 			virtual void PushInAttribute(base::EVertexAttribute vertType, const void *source) = 0;
+			virtual void PopOutAttribute(base::EVertexAttribute vertType, void *&source) {};
 		};
 	}
 }

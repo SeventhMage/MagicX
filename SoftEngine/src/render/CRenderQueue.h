@@ -18,7 +18,7 @@ namespace se
 			virtual void AddRenderCell(IRenderCell *pCell);
 			virtual IMaterial *GetMaterial() const { return m_pMaterial; }
 			virtual void Clear();
-			virtual void Render(const math::CMatrix4 &viewMat, const math::CMatrix4 &projMat);
+			virtual void Render(scene::ICamera *pCamera);
 		private:			
 			int m_vaoId;			
 			std::vector<IRenderCell *>m_RenderCellList;

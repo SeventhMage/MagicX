@@ -74,6 +74,19 @@ namespace se
 				return *this;
 			}
 
+			CVector3 Normalize()
+			{
+				double length = static_cast<double>(x * x + y * y + z * z);
+				if (0 == length)
+					return *this;
+				length = 1 / sqrt(length);
+				float rx = x * static_cast<float>(length);
+				float ry = y * static_cast<float>(length);
+				float rz = z * static_cast<float>(length);
+				return CVector3(rx, ry, rz);
+
+			}
+
 			CVector3 &setLength(float length)
 			{
 				normalize();
