@@ -1,4 +1,4 @@
-/*
+﻿/*
 **初始化渲染驱动参数
 */
 #ifndef _RENDER_S_RENDER_CONTEXT_H_

@@ -21,81 +21,42 @@ namespace se
 
 		}
 
-		math::CVector4 CSoftVertexShader::Process(const IShaderAttribute &attrInput, IShaderAttribute &attrOutput)
+		math::CVector4 &CSoftVertexShader::Process()
 		{
-			const ShaderAttrData &inPositon = attrInput.GetAttribute(base::VA_POSITION);
-			const ShaderAttrData &inNormal = attrInput.GetAttribute(base::VA_NORMAL);
-			const ShaderAttrData &inColor = attrInput.GetAttribute(base::VA_COLOR);
-			const ShaderAttrData &inTexCoord = attrInput.GetAttribute(base::VA_TEXCOORD);
-			
-			math::CMatrix4 mvpMat = m_wordMatrix * m_viewMatrix * m_projMatrix;
+			static math::CMatrix4 mvMat;
+			mvMat = m_wordMatrix * m_viewMatrix;
 
-			math::CVector3 vPosition;
-			math::CVector3 vNormal;
-			render::SColor vColor;
-			math::CVector2 vTexCoord;
+			Color vColor = *m_inColor;
+			math::CVector2 vTexCoord = *m_inTexCoord;
 
+			static math::CVector3 viewPosition;
+			static math::CVector3 viewDir;
 
-			math::CVector4 outPosition;
-			math::CVector3 outNormal;
+			static math::CVector4 outPosition;			
 
-			if (inPositon.vertType != base::VA_NONE)
-				memcpy(vPosition.v, inPositon.data, sizeof(vPosition.v));
-			if (inNormal.vertType != base::VA_NONE)
-				memcpy(vNormal.v, inNormal.data, sizeof(vNormal.v));
-			if (inColor.vertType != base::VA_NONE)
-				memcpy(vColor.c, inColor.data, sizeof(vColor.c));
-			if (inTexCoord.vertType != base::VA_NONE)
-				memcpy(vTexCoord.v, inTexCoord.data, sizeof(vTexCoord.v));
-			
-			
-			mvpMat.TransformVect(outPosition, vPosition);
-			
-			math::CMatrix4 temp;
-			mvpMat.GetInverse(temp);
-			math::CMatrix4 normalMatrix;
-			temp.GetTransposed(normalMatrix);
-			normalMatrix.SetTranslation(math::CVector3(0, 0, 0));
-			m_wordMatrix.TransformVect(outNormal, vPosition);
+			mvMat.TransformVect(viewPosition, *m_inPosition);
 
-			vColor *= m_color;			
-			
-			attrOutput.SetAttribute(base::VA_NORMAL, vNormal.v, sizeof(vNormal.v));
-			attrOutput.SetAttribute(base::VA_COLOR, vColor.c, sizeof(vColor.c));
-			attrOutput.SetAttribute(base::VA_TEXCOORD, vTexCoord.v, sizeof(vTexCoord.v));
+			viewDir.x = -viewPosition.x;
+			viewDir.y = -viewPosition.y;
+			viewDir.z = -viewPosition.z;
 
-			return outPosition;
-		}
-
-		math::CVector4 CSoftVertexShader::Process()
-		{
-			math::CMatrix4 mvMat = m_wordMatrix * m_viewMatrix;
-
-			Color vColor = m_inColor;
-			math::CVector2 vTexCoord = m_inTexCoord;
-
-			math::CVector3 viewPosition;
-
-			math::CVector4 outPosition;
-			
-
-			mvMat.TransformVect(viewPosition, m_inPosition);
+			viewDir.normalize();
 			 
 			math::CMatrix4 temp = m_viewMatrix;
-			temp.SetTranslation(math::CVector3(0, 0, 0));
-			math::CMatrix4 normalMatrix = m_normalMatrix * temp;
+			temp.SetTranslation(0, 0, 0);
+			static math::CMatrix4 normalMatrix;
+			normalMatrix = m_normalMatrix * temp;
 			
-			normalMatrix.TransformVect(m_outNormal, m_inNormal);
+			normalMatrix.TransformVect(m_outNormal, *m_inNormal);
 			m_outNormal.normalize();
 
 			vColor *= m_color;
 
 			if (m_pIllumination)
-			{							
-				m_pIllumination->SetIlluminationParam(-viewPosition.Normalize(), m_outNormal);
+			{				
 				m_pIllumination->SetRenderParam(m_ambientCoefficient, m_diffuseCoefficient, m_specularCoefficient, m_specularityCoefficient);
 				m_pIllumination->TransformPosition(m_viewMatrix);
-				m_outColor = m_pIllumination->Shine(vColor, viewPosition);
+				m_outColor = m_pIllumination->Shine(vColor, viewPosition, viewDir, m_outNormal);
 			}
 
 			m_outTexCoord = vTexCoord;
@@ -142,17 +103,17 @@ namespace se
 		{
 			switch (vertType)
 			{			
-			case se::base::VA_POSITION:				
-				m_inPosition = *(math::CVector3* )source;
+			case se::base::VA_POSITION:												
+				m_inPosition = (math::CVector3 *)source;
 				break;
-			case se::base::VA_COLOR:				
-				m_inColor = *(Color *)source;
+			case se::base::VA_COLOR:												
+				m_inColor = (Color *)source;
 				break;
-			case se::base::VA_TEXCOORD:
-				m_inTexCoord = *(math::CVector2 *)source;
+			case se::base::VA_TEXCOORD:				
+				m_inTexCoord = (math::CVector2 *)source;
 				break;
-			case se::base::VA_NORMAL:
-				m_inNormal = *(math::CVector3 *)source;
+			case se::base::VA_NORMAL:				
+				m_inNormal = (math::CVector3 *)source;
 				break;
 			default:
 				break;
@@ -163,17 +124,18 @@ namespace se
 		{
 			switch (vertType)
 			{
-			case se::base::VA_POSITION:
-				*(math::CVector3*)source = m_outPosition;
+			case se::base::VA_POSITION:				
+				memcpy(source, m_outPosition.v, sizeof(m_outPosition.v));
 				break;
 			case se::base::VA_COLOR:
 				*(Color *)source = m_outColor;
+				memcpy(source, m_outColor.c, sizeof(m_outColor.c));
 				break;
-			case se::base::VA_TEXCOORD:
-				*(math::CVector2 *)source = m_outTexCoord;
+			case se::base::VA_TEXCOORD:				
+				memcpy(source, m_outTexCoord.v, sizeof(m_outTexCoord.v));
 				break;
-			case se::base::VA_NORMAL:
-				*(math::CVector3 *)source = m_outNormal;
+			case se::base::VA_NORMAL:				
+				memcpy(source, m_outNormal.v, sizeof(m_outNormal.v));
 				break;
 			default:
 				break;

@@ -36,15 +36,15 @@ namespace se
 				StringArray colorArray = base::Split(strColor, ",");
 				if (colorArray.size() >= 3)
 				{
-					pMaterial->SetColor(render::Color(1.0f, atof(colorArray[0].c_str()), atof(colorArray[1].c_str()),
-						atof(colorArray[2].c_str())));
+					pMaterial->SetColor(render::Color(1.0f, (float)atof(colorArray[0].c_str()), (float)atof(colorArray[1].c_str()),
+						(float)atof(colorArray[2].c_str())));
 				}
 				std::string strIllumination = pMaterialResource->GetValue(resource::MRA_ILLUMINATION);
 				pMaterial->SetIllumination(strIllumination);
 
-				float ambientCoe = atof(pMaterialResource->GetValue(resource::MRA_AMBIENT_COE).c_str());
-				float diffuseCoe = atof(pMaterialResource->GetValue(resource::MRA_DIFFUSE_COE).c_str());
-				float specularCoe = atof(pMaterialResource->GetValue(resource::MRA_SPECULAR_COE).c_str());
+				float ambientCoe = (float)atof(pMaterialResource->GetValue(resource::MRA_AMBIENT_COE).c_str());
+				float diffuseCoe = (float)atof(pMaterialResource->GetValue(resource::MRA_DIFFUSE_COE).c_str());
+				float specularCoe = (float)atof(pMaterialResource->GetValue(resource::MRA_SPECULAR_COE).c_str());
 				int specularityCoe = atoi(pMaterialResource->GetValue(resource::MRA_SPECULARITY_COE).c_str());
 
 				pMaterial->SetAmbientCoefficient(ambientCoe);
@@ -80,8 +80,8 @@ namespace se
 			auto it = m_mapMaterial.find(pMaterial->GetID());
 			if (it != m_mapMaterial.end())
 			{
-				IMaterial *pMaterial = m_mapMaterial[pMaterial->GetID()];
-				SAFE_DEL(pMaterial);
+				IMaterial *pTemp = it->second;
+				SAFE_DEL(pTemp);
 				m_mapMaterial.erase(it);
 			}
 		}

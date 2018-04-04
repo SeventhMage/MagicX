@@ -1,4 +1,4 @@
-#include "CRasterizer.h"
+﻿#include "CRasterizer.h"
 #include "base/base.h"
 
 
@@ -83,8 +83,11 @@ namespace se
 			else
 			{				
 				float newX = p0.x + (p2.x - p0.x)*(p1.y - p0.y) / (p2.y - p0.y);
+				//float p02Rate = CVector2(newX, p1.y).getDistanceFrom(CVector2(p0.x, p0.y))
+				//	/ CVector2(p0.x, p0.y).getDistanceFrom(CVector2(p2.x, p2.y));
+				
 				float p02Rate = CVector2(newX, p1.y).getDistanceFrom(CVector2(p0.x, p0.y))
-					/ CVector2(p0.x, p0.y).getDistanceFrom(CVector2(p2.x, p2.y));
+					* CVector2(p0.x, p0.y).getInvDistanceFrom(CVector2(p2.x, p2.y));
 
 				float invNewZ = p0.z * (1 - p02Rate) + p2.z * p02Rate;
 				float newW = (1 / p0.w) *  (1 - p02Rate) + (1 / p2.w) * p02Rate;
@@ -118,22 +121,35 @@ namespace se
 			float ratel = sqrt(1 + dx01 * dx01);
 			float rater = sqrt(1 + dx02 * dx02);
 
-			float dzl = (p1.z - p0.z) / (p0.getDistanceFrom(p1));
-			float dzr = (p2.z - p0.z) / (p0.getDistanceFrom(p2));
+			//float dzl = (p1.z - p0.z) / (p0.getDistanceFrom(p1));
+			//float dzr = (p2.z - p0.z) / (p0.getDistanceFrom(p2));
+
+			float dzl = (p1.z - p0.z) * (p0.getInvDistanceFrom(p1));
+			float dzr = (p2.z - p0.z) * (p0.getInvDistanceFrom(p2));
+
 			dzl *= ratel;
 			dzr *= rater;
 			float zl = p0.z;
 			float zr = p0.z;
 
-			float dwl = (1 / p1.w - 1 / p0.w) / (p0.getDistanceFrom(p1));
-			float dwr = (1 / p2.w - 1 / p0.w) / (p0.getDistanceFrom(p2));
+			//float dwl = (1 / p1.w - 1 / p0.w) / (p0.getDistanceFrom(p1));
+			//float dwr = (1 / p2.w - 1 / p0.w) / (p0.getDistanceFrom(p2));
+			
+			float dwl = (1 / p1.w - 1 / p0.w) * (p0.getInvDistanceFrom(p1));
+			float dwr = (1 / p2.w - 1 / p0.w) * (p0.getInvDistanceFrom(p2));
+
 			dwl *= ratel;
 			dwr *= rater;
 			float wl = 1 / p0.w;
 			float wr = 1 / p0.w;
 
-			SColor dcl = (c1 / p1.w - c0 / p0.w) / (p0.getDistanceFrom(p1));
-			SColor dcr = (c2 / p2.w - c0 / p0.w) / (p0.getDistanceFrom(p2));
+			//SColor dcl = (c1 / p1.w - c0 / p0.w) / (p0.getDistanceFrom(p1));
+			//SColor dcr = (c2 / p2.w - c0 / p0.w) / (p0.getDistanceFrom(p2));
+
+
+			SColor dcl = (c1 / p1.w - c0 / p0.w) * (p0.getInvDistanceFrom(p1));
+			SColor dcr = (c2 / p2.w - c0 / p0.w) * (p0.getInvDistanceFrom(p2));
+
 			dcl *= ratel;
 			dcr *= rater;
 			SColor cl = c0 * wl;
@@ -173,7 +189,7 @@ namespace se
 				if (x0 < 0)
 					x0 = 0;
 				if (x1 > m_bufferWidth)
-					x1 = m_bufferWidth;
+					x1 = (float)m_bufferWidth;
 
 				uint *addr = (uint *)m_pDrawBuffer + uint(x0 + (i - 1) * m_bufferWidth);				
 
@@ -227,22 +243,34 @@ namespace se
 
 			float ratel = sqrt(1 + dx12 * dx12);
 			float rater = sqrt(1 + dx02 * dx02);
-			float dzl = (p2.z - p1.z) / (p2.getDistanceFrom(p1));
-			float dzr = (p2.z - p0.z) / (p2.getDistanceFrom(p0));
+			//float dzl = (p2.z - p1.z) / (p2.getDistanceFrom(p1));
+			//float dzr = (p2.z - p0.z) / (p2.getDistanceFrom(p0));
+
+			float dzl = (p2.z - p1.z) * (p2.getInvDistanceFrom(p1));
+			float dzr = (p2.z - p0.z) * (p2.getInvDistanceFrom(p0));
+
 			dzl *= ratel;
 			dzr *= rater;
 			float zl = p1.z;
 			float zr = p0.z;
 
-			float dwl = (1 / p2.w - 1 / p1.w) / (p2.getDistanceFrom(p1));
-			float dwr = (1 / p2.w - 1 / p0.w) / (p2.getDistanceFrom(p0));
+			//float dwl = (1 / p2.w - 1 / p1.w) / (p2.getDistanceFrom(p1));
+			//float dwr = (1 / p2.w - 1 / p0.w) / (p2.getDistanceFrom(p0));
+
+			float dwl = (1 / p2.w - 1 / p1.w) * (p2.getInvDistanceFrom(p1));
+			float dwr = (1 / p2.w - 1 / p0.w) * (p2.getInvDistanceFrom(p0));
+
 			dwl *= ratel;
 			dwr *= rater;
 			float wl = 1 / p1.w;
 			float wr = 1 / p0.w;
 
-			SColor dcl = (c2 / p2.w - c1 / p1.w) / (p2.getDistanceFrom(p1));
-			SColor dcr = (c2 / p2.w - c0 / p0.w) / (p2.getDistanceFrom(p0));
+			//SColor dcl = (c2 / p2.w - c1 / p1.w) / (p2.getDistanceFrom(p1));
+			//SColor dcr = (c2 / p2.w - c0 / p0.w) / (p2.getDistanceFrom(p0));
+
+			SColor dcl = (c2 / p2.w - c1 / p1.w) * (p2.getInvDistanceFrom(p1));
+			SColor dcr = (c2 / p2.w - c0 / p0.w) * (p2.getInvDistanceFrom(p0));
+
 			dcl *= ratel;
 			dcr *= rater;
 			SColor cl = c1 * wl;
@@ -340,30 +368,39 @@ namespace se
 			uint x1, float z1, float wr, const SColor &c0, const SColor &c1)
 		{
 			int count = x1 - x0 + 1;
-			float dz = (z1 - z0) / count;
+			float invcount = 1.f / count;
+			float dz = (z1 - z0) * invcount;
 			float z = z0;
-			float dw = (wr - wl) / count;
+			float dw = (wr - wl) * invcount;
 			float w = wl;
-			SColor dc = (c1 - c0) / count;
+			float invw = 1 / w;
+			SColor dc = (c1 - c0) * invcount;
 			SColor c = c0;
 			for (uint i = 0; i < count; ++i)
 			{
 				if (z < *zbuffer) //这里的z实际为1/z
 				{
-					SColor color = c / w;
+					static SColor color;
+					color.a = c.a * invw;
+					color.r = c.r * invw;
+					color.g = c.g * invw;
+					color.b = c.b * invw;
 																											 
 					//color = m_FragmentCalcFunc(FragmentParam_1(color));
 					
 					m_pFragmentShader->PushInAttribute(base::VA_COLOR, color.c);
 					color = m_pFragmentShader->Process();
 
-					*addr = color.Get32BitColor();
+					*addr = NORMALIZE_TO_32BIT_COLOR(color.a, color.r, color.g, color.b);
 					*zbuffer = z;
 				}
 
 				z += dz;
 				w += dw;
-				c += dc;
+				c.a += dc.a;
+				c.r += dc.r;
+				c.g += dc.g;
+				c.b += dc.b;
 
 				++zbuffer;
 				++addr;
@@ -374,15 +411,16 @@ namespace se
 			uint x1, float z1, float wr, const SColor &lc, const SColor &rc, const CVector2 &lt, const CVector2 &rt)
 		{
 			int count = x1 - x0 + 1;
-			float dz = (z1 - z0) / count;
+			float invcount = 1.f / count;
+			float dz = (z1 - z0) * invcount;
 			float z = z0;
-			float dw = (wr - wl) / count;
+			float dw = (wr - wl) * invcount;
 			float w = wl;
 			float invw = 1 / w;
-			SColor dc = (rc - lc) / count;
+			SColor dc = (rc - lc) * invcount;
 			SColor c = lc;
-			float du = (rt.x - lt.x) / count;
-			float dv = (rt.y - lt.y) / count;
+			float du = (rt.x - lt.x) * invcount;
+			float dv = (rt.y - lt.y) * invcount;
 			
 			float u = lt.x;
 			float v = lt.y;
@@ -407,7 +445,7 @@ namespace se
 
 					//color = m_pFragmentShader->Process(color, tx, ty);
 
-					*addr = ((uint(color.a * 0xFF)) << 24) | ((uint(color.r * 0xFF)) << 16) | ((uint(color.g * 0xFF)) << 8) | (uint(color.b * 0xFF));// color.Get32BitColor();
+					*addr = NORMALIZE_TO_32BIT_COLOR(color.a, color.r, color.g, color.b);// color.Get32BitColor();
 					*zbuffer = z;
 				}
 

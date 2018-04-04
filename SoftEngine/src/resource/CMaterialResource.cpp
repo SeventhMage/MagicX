@@ -43,7 +43,7 @@ namespace se
 
 		}
 
-		std::string CMaterialResource::GetValueByIdx(int index)
+		std::string CMaterialResource::GetValueByIdx(uint index)
 		{
 			if (index >= 0 && index < m_attrValue.size())
 			{

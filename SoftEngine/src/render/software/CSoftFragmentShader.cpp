@@ -9,6 +9,8 @@ namespace se
 		CSoftFragmentShader::CSoftFragmentShader()
 			:m_texData(nullptr)
 			, m_texWidth(0)
+			, m_inColor(nullptr)
+			, m_inTexCoord(nullptr)
 		{
 			m_pSampler = new CSampler();
 		}
@@ -24,8 +26,8 @@ namespace se
 			
 			if (m_texData)
 			{
-				uint x = (uint)m_inTexCoord.x;
-				uint y = (uint)m_inTexCoord.y;
+				uint x = (uint)m_inTexCoord->x;
+				uint y = (uint)m_inTexCoord->y;
 												
 				float inv = 1.f / 255;
 				ubyte *temp = m_texData + y * m_texWidth * 3 + x * 3;
@@ -39,10 +41,10 @@ namespace se
 				color.r = color.g = color.b = color.a = 1.f;
 			}
 			
-			color.a *= m_inColor.a;
-			color.r *= m_inColor.r;
-			color.g *= m_inColor.g;
-			color.b *= m_inColor.b;
+			color.a *= m_inColor->a;
+			color.r *= m_inColor->r;
+			color.g *= m_inColor->g;
+			color.b *= m_inColor->b;
 
 			return color;
 
@@ -93,12 +95,13 @@ namespace se
 		{			
 			switch (vertType)
 			{
-			case se::base::VA_COLOR:				
-				m_inColor = *((Color *)source);
+			case se::base::VA_COLOR:								
+				//memcpy(m_inColor.c, source, sizeof(m_inColor.c));
+				m_inColor = (Color*)source;
 				break;
 			case se::base::VA_TEXCOORD:
-				memcpy(m_inTexCoord.v, source, sizeof(m_inTexCoord.v));
-				m_inTexCoord = *((math::CVector2 *)source);
+				//memcpy(m_inTexCoord.v, source, sizeof(m_inTexCoord.v));			
+				m_inTexCoord = (math::CVector2 *)source;
 				break;
 			case se::base::VA_NORMAL:
 				

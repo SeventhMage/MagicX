@@ -57,6 +57,9 @@ namespace se
 
 			virtual void DrawElements();
 			virtual void DrawText(int iPosX, int iPoxY, const char *str, int length);
+		
+			virtual uint GetTriangleNum() { return m_triangleNum; }
+
 		private:			
 			void TranslateWorldToCamera(const CMatrix4 &viewMat, Triangle &triangle);
 			void TranslateCameraToScreen(const CMatrix4 &projMat, TriangleList &triList);
@@ -81,6 +84,8 @@ namespace se
 			uint m_vaoId;
 			uint m_bufferId;
 			uint m_textureId;
+
+			uint m_triangleNum;
 		};			
 	}
 }

@@ -23,9 +23,8 @@ namespace se
 			virtual void SetIllumination(CIllumination *illumination) { m_pIllumination = illumination; }
 			virtual void PushInAttribute(base::EVertexAttribute vertType, const void *source);
 			virtual void PopOutAttribute(base::EVertexAttribute vertType, void *&source);
-		public:
-			virtual math::CVector4 Process(const IShaderAttribute &attrInput, IShaderAttribute &attrOutput);
-			virtual math::CVector4 Process();
+		public:			
+			virtual math::CVector4 &Process();
 		private:
 			CIllumination *m_pIllumination;
 			math::CMatrix4 m_wordMatrix;
@@ -39,10 +38,10 @@ namespace se
 			float m_specularCoefficient;
 			int m_specularityCoefficient;
 
-			math::CVector3 m_inPosition;
-			math::CVector3 m_inNormal;			
-			Color m_inColor;
-			math::CVector2 m_inTexCoord;
+			const math::CVector3 *m_inPosition;
+			const math::CVector3 *m_inNormal;			
+			const Color *m_inColor;
+			const math::CVector2 *m_inTexCoord;
 
 			math::CVector3 m_outPosition;
 			math::CVector3 m_outNormal;

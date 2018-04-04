@@ -28,9 +28,8 @@ namespace se
 		void CSceneManager::Update(int delta)
 		{
 			if (m_pCurrentScene)
-			{
+			{				
 				m_pCurrentScene->Update(delta);
-
 				CSoftEngine::GetRenderer()->Render();
 			}
 		}

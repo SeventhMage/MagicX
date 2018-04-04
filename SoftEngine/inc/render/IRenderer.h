@@ -49,6 +49,8 @@ namespace se
 			virtual void DrawElements() = 0;
 			virtual void DrawText(int iPosX, int iPoxY, const char *str, int length){}
 
+			virtual uint GetTriangleNum() { return 0; }
+
 		};
 	}
 

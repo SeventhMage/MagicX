@@ -1,4 +1,4 @@
-#include "COBJResource.h"
+﻿#include "COBJResource.h"
 #include "base/Log.h"
 #include "base/StringHelper.h"
 
@@ -31,29 +31,35 @@ namespace se
 					{
 						CVector3 position;
 						char temp[8];
-						sscanf(buf, "%s %f %f %f", temp, &position.x, &position.y, &position.z);
-						m_positionList.push_back(position);
+						if (sscanf(buf, "%s %f %f %f", temp, &position.x, &position.y, &position.z) != -1)
+						{
+							m_positionList.push_back(position);
+						}
 					}
 					else if ('v' == buf[0] && 'n' == buf[1]) //法线
 					{
 						CVector3 normal;
 						char temp[8];
-						sscanf(buf, "%s %f %f %f", temp, &normal.x, &normal.y, &normal.z);
-						m_normalList.push_back(normal);
+						if (sscanf(buf, "%s %f %f %f", temp, &normal.x, &normal.y, &normal.z) != -1)
+						{
+							m_normalList.push_back(normal);
+						}
 					}
 					else if ('v' == buf[0] && 't' == buf[1]) //纹理坐标
 					{
 						bHaveTexCoord = true;
 						CVector2 texCoord;
 						char temp[8];
-						sscanf(buf, "%s %f %f", temp, &texCoord.x, &texCoord.y);
-						m_texCoordList.push_back(texCoord);
+						if (sscanf(buf, "%s %f %f", temp, &texCoord.x, &texCoord.y) != -1)
+						{
+							m_texCoordList.push_back(texCoord);
+						}						
 					}
 					else if ('f' == buf[0]) //面
 					{
 						SFaceIndex faceIndex;
 						memset(&faceIndex, 0, sizeof(SFaceIndex));
-						char temp[8];
+						
 						StringArray split = base::Split(buf, " ");
 						//下标0为'f'
 						faceIndex.indicesCount = split.size() - 1;
@@ -61,11 +67,13 @@ namespace se
 						{
 							if (bHaveTexCoord)
 							{
-								sscanf(split[j].c_str(), "%hu/%hu/%hu", &faceIndex.position[i], &faceIndex.texCoord[i], &faceIndex.normal[i]);
+								if (sscanf(split[j].c_str(), "%hu/%hu/%hu", &faceIndex.position[i], &faceIndex.texCoord[i], &faceIndex.normal[i]) == -1)
+									continue;
 							}
 							else
 							{
-								sscanf(split[j].c_str(), "%hu//%hu", &faceIndex.position[i], &faceIndex.normal[i]);
+								if (sscanf(split[j].c_str(), "%hu//%hu", &faceIndex.position[i], &faceIndex.normal[i]) == -1)
+									continue;
 							}
 						}
 

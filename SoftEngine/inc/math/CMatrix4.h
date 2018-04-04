@@ -50,7 +50,7 @@ namespace se
 				return m[index];
 			}
 
-			const float &operator[](int index) const
+			inline const float &operator[](int index) const
 			{
 				return m[index];
 			}
@@ -65,29 +65,31 @@ namespace se
 				return m[row * 4 + col];
 			}
 			//左乘
-			inline CMatrix4 operator*(const CMatrix4 &other) const
+			inline const CMatrix4 &operator*(const CMatrix4 &other) const
 			{
-				return CMatrix4(
-					m[0] * other[0] + m[1] * other[4] + m[2] * other[8] + m[3] * other[12],
-					m[0] * other[1] + m[1] * other[5] + m[2] * other[9] + m[3] * other[13],
-					m[0] * other[2] + m[1] * other[6] + m[2] * other[10] + m[3] * other[14],
-					m[0] * other[3] + m[1] * other[7] + m[2] * other[11] + m[3] * other[15],
+				static CMatrix4 mat;
+				
+				mat.m[0] = m[0] * other.m[0] + m[1] * other.m[4] + m[2] * other.m[8] + m[3] * other.m[12];
+				mat.m[1] = m[0] * other.m[1] + m[1] * other.m[5] + m[2] * other.m[9] + m[3] * other.m[13];
+				mat.m[2] = m[0] * other.m[2] + m[1] * other.m[6] + m[2] * other.m[10] + m[3] * other.m[14];
+				mat.m[3] = m[0] * other.m[3] + m[1] * other.m[7] + m[2] * other.m[11] + m[3] * other.m[15];
 
-					m[4] * other[0] + m[5] * other[4] + m[6] * other[8] + m[7] * other[12],
-					m[4] * other[1] + m[5] * other[5] + m[6] * other[9] + m[7] * other[13],
-					m[4] * other[2] + m[5] * other[6] + m[6] * other[10] + m[7] * other[14],
-					m[4] * other[3] + m[5] * other[7] + m[6] * other[11] + m[7] * other[15],
+				mat.m[4] = m[4] * other.m[0] + m[5] * other.m[4] + m[6] * other.m[8] + m[7] * other.m[12];
+				mat.m[5] = m[4] * other.m[1] + m[5] * other.m[5] + m[6] * other.m[9] + m[7] * other.m[13];
+				mat.m[6] = m[4] * other.m[2] + m[5] * other.m[6] + m[6] * other.m[10] + m[7] * other.m[14];
+				mat.m[7] = m[4] * other.m[3] + m[5] * other.m[7] + m[6] * other.m[11] + m[7] * other.m[15];
 
-					m[8] * other[0] + m[9] * other[4] + m[10] * other[8] + m[11] * other[12],
-					m[8] * other[1] + m[9] * other[5] + m[10] * other[9] + m[11] * other[13],
-					m[8] * other[2] + m[9] * other[6] + m[10] * other[10] + m[11] * other[14],
-					m[8] * other[3] + m[9] * other[7] + m[10] * other[11] + m[11] * other[15],
+				mat.m[8] = m[8] * other.m[0] + m[9] * other.m[4] + m[10] * other.m[8] + m[11] * other.m[12];
+				mat.m[9] = m[8] * other.m[1] + m[9] * other.m[5] + m[10] * other.m[9] + m[11] * other.m[13];
+				mat.m[10] = m[8] * other.m[2] + m[9] * other.m[6] + m[10] * other.m[10] + m[11] * other.m[14];
+				mat.m[11] = m[8] * other.m[3] + m[9] * other.m[7] + m[10] * other.m[11] + m[11] * other.m[15];
 
-					m[12] * other[0] + m[13] * other[4] + m[14] * other[8] + m[15] * other[12],
-					m[12] * other[1] + m[13] * other[5] + m[14] * other[9] + m[15] * other[13],
-					m[12] * other[2] + m[13] * other[6] + m[14] * other[10] + m[15] * other[14],
-					m[12] * other[3] + m[13] * other[7] + m[14] * other[11] + m[15] * other[15]
-					);
+				mat.m[12] = m[12] * other.m[0] + m[13] * other.m[4] + m[14] * other.m[8] + m[15] * other.m[12];
+				mat.m[13] = m[12] * other.m[1] + m[13] * other.m[5] + m[14] * other.m[9] + m[15] * other.m[13];
+				mat.m[14] = m[12] * other.m[2] + m[13] * other.m[6] + m[14] * other.m[10] + m[15] * other.m[14];
+				mat.m[15] = m[12] * other.m[3] + m[13] * other.m[7] + m[14] * other.m[11] + m[15] * other.m[15];
+					
+				return mat;
 			}
 
 			CMatrix4 &SetTranslation(const CVector3 &translation)
@@ -95,6 +97,14 @@ namespace se
 				m[12] = translation.x;
 				m[13] = translation.y;
 				m[14] = translation.z;
+				return *this;
+			}
+
+			CMatrix4 &SetTranslation(float x, float y, float z)
+			{
+				m[12] = x;
+				m[13] = y;
+				m[14] = z;
 				return *this;
 			}
 

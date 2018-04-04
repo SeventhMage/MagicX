@@ -16,12 +16,11 @@ namespace se
 			CIllumination(CIlluminationRender *pIlluminationRender = nullptr);
 			~CIllumination();
 			
-			void SelectIlluminationRender(CIlluminationRender *pIlluminationRender){ m_pIlluminationRender = pIlluminationRender; }
-			void SetIlluminationParam(const math::CVector3 &viewDir, const math::CVector3 &normalDir);
+			void SelectIlluminationRender(CIlluminationRender *pIlluminationRender){ m_pIlluminationRender = pIlluminationRender; }			
 			void SetRenderParam(float ambientCoefficient, float diffuseCoefficient, float specularCoefficient, int specularityCoefficient);
 			void SetPosition(const math::CVector3 &position) { m_position = position; }
 			void TransformPosition(const math::CMatrix4 &viewMat);
-			Color Shine(const Color &srcColor, const math::CVector3 &targetPoint);
+			Color Shine(const Color &srcColor, const math::CVector3 &targetPoint, const math::CVector3 &viewDir, const math::CVector3 &normalDir);
 
 		private:
 			CIlluminationRender *m_pIlluminationRender;

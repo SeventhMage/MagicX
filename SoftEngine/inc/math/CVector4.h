@@ -13,11 +13,15 @@ namespace se
 			CVector4(float x, float y, float z, float w) :x(x), y(y), z(z), w(w){}
 			CVector4() :x(0), y(0){}
 
-			float getDistanceFrom(const CVector4 &other) const
+			inline float getDistanceFrom(const CVector4 &other) const
 			{
 				return CVector3(x - other.x, y - other.y, z - other.z).getLength();
 			}
 
+			inline float getInvDistanceFrom(const CVector4 &other) const
+			{
+				return base::InvSqrt((x - other.x) * (x - other.x) + (y - other.y) * (y - other.y) + (z - other.z) * (z - other.z));				
+			}
 			union
 			{
 				float v[4];

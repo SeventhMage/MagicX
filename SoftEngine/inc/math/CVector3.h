@@ -3,6 +3,7 @@
 
 #include <math.h>
 #include "base/seDef.h"
+#include "base/base.h"
 
 namespace se
 {
@@ -41,10 +42,11 @@ namespace se
 			CVector3 &set(const float nx, const float ny, const float nz) { x = nx; y = ny; z = nz; return *this; }
 			CVector3 &set(const CVector3 &other) { x = other.x; y = other.y; z = other.z; return *this; }
 
-			float getLength() const { return static_cast<float>(sqrt(x * x + y * y + z * z)); }
-			float getLengthSQ() const { return x * x + y * y + z * z; }
+			inline float getLength() const { return (sqrtf(x * x + y * y + z * z)); }
+			inline float getInvLength() const { return (base::InvSqrt(x * x + y * y + z * z)); }
+			inline float getLengthSQ() const { return x * x + y * y + z * z; }
 
-			float dotProduct(const CVector3 &other) const { return x * other.x + y * other.y + z * other.z; }
+			inline float dotProduct(const CVector3 &other) const { return x * other.x + y * other.y + z * other.z; }
 			CVector3 crossProduct(const CVector3 &other) const
 			{
 				return CVector3(y * other.z - other.y * z, z * other.x - x * other.z, x * other.y - y * other.x);
@@ -56,6 +58,11 @@ namespace se
 				//return static_cast<float>(sqrt((x - other.x) * (x - other.x) + (y - other.y) * (y - other.y) + (z - other.z) * (z - other.z)));
 			}
 
+			inline float getInvDistanceFrom(const CVector3 &other)const
+			{
+				return  CVector3(x - other.x, y - other.y, z - other.z).getInvLength();
+			}
+
 			float getDistanceFromSQ(const CVector3 &other) const
 			{
 				return CVector3(x - other.x, y - other.y, z - other.z).getLengthSQ();
@@ -64,25 +71,25 @@ namespace se
 
 			CVector3 &normalize()
 			{
-				double length = static_cast<double>(x * x + y * y + z * z);
+				float length = x * x + y * y + z * z;
 				if (0 == length)
 					return *this;
-				length = 1 / sqrt(length);
-				x *= static_cast<float>(length);
-				y *= static_cast<float>(length);
-				z *= static_cast<float>(length);
+				length = base::InvSqrt(length);
+				x *= length;
+				y *= length;
+				z *= length;
 				return *this;
 			}
 
 			CVector3 Normalize()
 			{
-				double length = static_cast<double>(x * x + y * y + z * z);
+				float length = x * x + y * y + z * z;
 				if (0 == length)
 					return *this;
-				length = 1 / sqrt(length);
-				float rx = x * static_cast<float>(length);
-				float ry = y * static_cast<float>(length);
-				float rz = z * static_cast<float>(length);
+				length = base::InvSqrt(length);
+				float rx = x * length;
+				float ry = y * length;
+				float rz = z * length;
 				return CVector3(rx, ry, rz);
 
 			}

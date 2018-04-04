@@ -28,7 +28,7 @@ namespace se
 			return m_pSceneLoader->GetEntityCount();
 		}
 
-		SEntityInfo CSceneResource::GetEntityInfoByIdx(int idx)
+		SEntityInfo CSceneResource::GetEntityInfoByIdx(uint idx)
 		{
 			const std::vector<SEntityInfo> entityInfo = m_pSceneLoader->GetEntityInfo();
 			if (idx >= 0 && idx < entityInfo.size())

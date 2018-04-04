@@ -32,7 +32,7 @@ namespace se
 			
 			virtual SCameraParam GetCameraParam() = 0;
 			virtual int GetEntityCount() = 0;
-			virtual SEntityInfo GetEntityInfoByIdx(int idx) = 0;
+			virtual SEntityInfo GetEntityInfoByIdx(uint idx) = 0;
 		};
 	}
 }

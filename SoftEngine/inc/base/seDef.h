@@ -26,6 +26,8 @@ namespace se
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 
+#define NORMALIZE_TO_32BIT_COLOR(a, r, g, b) ((uint(a * 0xFF)) << 24) | ((uint(r * 0xFF)) << 16) | ((uint(g * 0xFF)) << 8) | (uint(b * 0xFF))
+
 }
 
 #endif

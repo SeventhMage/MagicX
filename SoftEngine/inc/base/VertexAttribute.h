@@ -1,4 +1,4 @@
-#ifndef _BASE_VERTEX_ATTIBUTE_H_
+﻿#ifndef _BASE_VERTEX_ATTIBUTE_H_
 #define _BASE_VERTEX_ATTIBUTE_H_
 
 #include "base/seType.h"

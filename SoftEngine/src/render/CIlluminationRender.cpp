@@ -20,7 +20,7 @@ namespace se
 
 		}
 
-		Color CIlluminationRender::CalcIllumination(const Color &srcColor)
+		Color CIlluminationRender::CalcIllumination(const Color &srcColor, const math::CVector3 &viewDir, const math::CVector3 &normalDir)
 		{
 			return srcColor;
 		}

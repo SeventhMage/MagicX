@@ -8,8 +8,6 @@ namespace se
 {
 	namespace scene
 	{
-
-
 		CScene::CScene(const char *name)
 			:m_strSceneName(name)
 			, m_pCamera(nullptr)
@@ -28,10 +26,18 @@ namespace se
 				int entityCount = pResource->GetEntityCount();
 				for (int i = 0; i < entityCount; ++i)
 				{
-					resource::SEntityInfo entity = pResource->GetEntityInfoByIdx(i);					
-					CSceneNode *pNode = new CSceneNode(entity.name, this);
-					pNode->SetPosition(entity.position);
-					m_pRootNode->AddChildNode(pNode);
+					resource::SEntityInfo entity = pResource->GetEntityInfoByIdx(i);
+					for (int j = 0; j < 20; ++j)
+					{
+						CVector3 pos(std::rand() % 40 - 20, std::rand() % 40 - 20, std::rand() % 40 - 20);
+						CSceneNode *pNode = new CSceneNode(entity.name, this);
+						pNode->SetPosition(pos);
+						m_pRootNode->AddChildNode(pNode);
+					}
+
+					//CSceneNode *pNode = new CSceneNode(entity.name, this);
+					//pNode->SetPosition(entity.position);
+					//m_pRootNode->AddChildNode(pNode);
 				}
 
 				CSoftEngine::GetResourceManager()->ReleaseResource(pResource);

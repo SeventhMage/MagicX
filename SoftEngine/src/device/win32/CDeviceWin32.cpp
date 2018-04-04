@@ -319,9 +319,9 @@ namespace se
 			return m_iHeight;
 		}
 
-		long CDeviceWin32::GetSystemRunTime()
+		unsigned long long CDeviceWin32::GetSystemRunTime()
 		{
-			return GetTickCount();
+			return GetTickCount64();
 		}
 
 		void CDeviceWin32::Sleep(unsigned long ms)

@@ -1,6 +1,8 @@
 #ifndef _MX_CORE_CVECTOR2_H_
 #define _MX_CORE_CVECTOR2_H_
 
+#include "base/base.h"
+
 namespace se
 {
 	namespace math
@@ -11,10 +13,16 @@ namespace se
 			CVector2(float x, float y) :x(x), y(y){}
 			CVector2() :x(0), y(0){}
 
-			float getLength() const { return static_cast<float>(sqrt(x * x + y * y)); }
-			float getDistanceFrom(const CVector2 &other) const
+			inline float getLength() const { return (sqrtf(x * x + y * y)); }
+			inline float getDistanceFrom(const CVector2 &other) const
 			{
 				return CVector2(x - other.x, y - other.y).getLength();
+			}
+
+			inline float getInvLength() const { return (base::InvSqrt(x * x + y * y)); }
+			inline float getInvDistanceFrom(const CVector2 &other) const
+			{
+				return CVector2(x - other.x, y - other.y).getInvLength();
 			}
 
 			CVector2 operator*(const float v) const { return CVector2(x * v, y * v); }

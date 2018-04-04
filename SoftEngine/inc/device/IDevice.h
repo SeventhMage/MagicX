@@ -30,7 +30,7 @@ namespace se
 			virtual void SwapBuffers() = 0;
 			virtual int GetWindowWidth() = 0;
 			virtual int GetWindowHeight() = 0;
-			virtual long GetSystemRunTime() = 0;
+			virtual unsigned long long GetSystemRunTime() = 0;
 			virtual void Sleep(unsigned long ms) = 0;
 			virtual void OnSize(int iPosX, int iPosY, int iWidth, int iHeight) = 0;
 			virtual void DrawBuffer(ubyte *buffer){}

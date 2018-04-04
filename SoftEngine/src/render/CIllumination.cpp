@@ -16,24 +16,15 @@ namespace se
 
 		}
 
-		se::render::Color CIllumination::Shine(const Color &srcColor, const math::CVector3 &targetPoint)
+		se::render::Color CIllumination::Shine(const Color &srcColor, const math::CVector3 &targetPoint, const math::CVector3 &viewDir, const math::CVector3 &normalDir)
 		{
 			if (m_pIlluminationRender)
 			{
 				m_pIlluminationRender->SetIlluminationDir((m_transPositoin - targetPoint).normalize());
-				m_pIlluminationRender->SetIlluminationDis(m_transPositoin.getDistanceFrom(targetPoint));
-				return m_pIlluminationRender->CalcIllumination(srcColor);
+				m_pIlluminationRender->SetIlluminationDis(m_transPositoin.getDistanceFromSQ(targetPoint));
+				return  m_pIlluminationRender->CalcIllumination(srcColor, viewDir, normalDir);
 			}
 			return srcColor;
-		}
-
-		void CIllumination::SetIlluminationParam(const math::CVector3 &viewDir, const math::CVector3 &normalDir)
-		{
-			if (m_pIlluminationRender)
-			{
-				m_pIlluminationRender->SetViewDir(viewDir);
-				m_pIlluminationRender->SetNormalDir(normalDir);
-			}
 		}
 
 		void CIllumination::SetRenderParam(float ambientCoefficient, float diffuseCoefficient, float specularCoefficient, int specularityCoefficient)

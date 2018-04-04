@@ -1,4 +1,4 @@
-#include "CEntity.h"
+﻿#include "CEntity.h"
 #include "CSoftEngine.h"
 #include "render/UniformDef.h"
 #include "CModel.h"
@@ -82,6 +82,7 @@ namespace se
 						else
 							rot += 0.01f;
 						mat.SetRotationRadiansRH(0, rot, 0);
+						normalMat.SetRotationRadiansRH(0, rot, 0);
 						m_pRenderCell->SetShaderParam(render::UN_WORLD_MAT, mat.m, SE_FLOAT, sizeof(worldMat.m));
 						m_pRenderCell->SetShaderParam(render::UN_NORMAL_MAT, normalMat.m, SE_FLOAT, sizeof(normalMat.m));
 

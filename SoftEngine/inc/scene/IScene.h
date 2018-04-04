@@ -1,4 +1,4 @@
-#ifndef _SE_I_SCENE_H_
+﻿#ifndef _SE_I_SCENE_H_
 #define _SE_I_SCENE_H_
 
 #include "math/CVector3.h"

@@ -16,7 +16,7 @@ namespace se
 									
 			virtual SCameraParam GetCameraParam();
 			virtual int GetEntityCount();
-			virtual SEntityInfo GetEntityInfoByIdx(int idx);
+			virtual SEntityInfo GetEntityInfoByIdx(uint idx);
 		private:
 			CSceneLoader *m_pSceneLoader;
 		};

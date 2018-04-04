@@ -39,20 +39,13 @@ namespace se
 			}
 			else
 			{
-				ShaderParam param;
-				switch (name)
-				{
-				case se::render::UN_WORLD_MAT:
-					param.name = name;
-					param.data = new ubyte[size];
-					param.type = type;
-					param.size = size;
-					memcpy(param.data, data, size);
-					m_mapShaderParam[param.name] = param;
-					break;
-				default:
-					break;
-				}
+				ShaderParam param;				
+				param.name = name;
+				param.data = new ubyte[size];
+				param.type = type;
+				param.size = size;
+				memcpy(param.data, data, size);
+				m_mapShaderParam[param.name] = param;								
 			}
 		}
 

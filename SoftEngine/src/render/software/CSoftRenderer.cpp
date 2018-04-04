@@ -1,4 +1,4 @@
-#include <algorithm>
+﻿#include <algorithm>
 
 #include "CSoftRenderer.h"
 #include "base/seDef.h"
@@ -35,7 +35,7 @@ namespace se
 			, m_textureId(0)
 		{
 			m_illumination.SelectIlluminationRender(&m_phongRender);
-			SetIllumination(Color(1.f, .5f, .5f, .5f), Color(1.f, .7f, .7f, .7f), Color(1.f, .9f, .9f, .9f), math::CVector3(10, 10, 10));
+			SetIllumination(Color(1.f, .4f, .4f, .4f), Color(1.f, .7f, .7f, .7f), Color(1.f, .5f, .5f, .5f), math::CVector3(50, 50, 50));
 		}
 
 		CSoftRenderer::~CSoftRenderer()
@@ -173,11 +173,13 @@ namespace se
 					pRenderQueue->Clear();
 				}				
 			}
-			m_pSoftRD->Clear();
+			m_pSoftRD->Clear();						
 		}
 
 		void CSoftRenderer::Render()
-		{			
+		{
+			m_triangleNum = 0;
+
 			for (auto mit = m_renderQueueGroup.begin(); mit != m_renderQueueGroup.end(); ++mit)
 			{
 				IRenderQueue *pRenderQueue = mit->second;
@@ -196,7 +198,7 @@ namespace se
 			}
 
 			//输出到设备
-			m_pSoftRD->DrawBuffer();
+			m_pSoftRD->DrawBuffer();	
 
 			Clear();
 		}
@@ -242,7 +244,7 @@ namespace se
 			CVector3 v1 = CVector3(triangle.vTranslatePosition[2].x, triangle.vTranslatePosition[2].y, triangle.vTranslatePosition[2].z)
 				- CVector3(triangle.vTranslatePosition[0].x, triangle.vTranslatePosition[0].y, triangle.vTranslatePosition[0].z);
 			CVector3 vNormal = v0.crossProduct(v1);
-			CVector3 vCamDir(0, 0, -1);
+			CVector3 vCamDir(0, 0, 1);
 			return (vNormal.dotProduct(vCamDir) > 0);
  		}
 
@@ -336,7 +338,7 @@ namespace se
 				pShaderProgram = static_cast<CSoftShaderProgram *>(shaderIt->second);
 				if (!pShaderProgram)
 				{
-					base::LogPrint("ShaderProgram is nullptr");
+					LogPrint("ShaderProgram is nullptr");
 					return;
 				}
 			}
@@ -347,7 +349,7 @@ namespace se
 				pBuffer = buffIt->second;
 				if (!pBuffer)
 				{
-					base::LogPrint("bufffer is nullptr");
+					LogPrint("bufffer is nullptr");
 					return;
 				}
 			}
@@ -383,7 +385,7 @@ namespace se
 						uint indicesNum = pIndices->size / sizeof(ushort);
 						for (uint i = 0; i < indicesNum; ++i)
 						{
-							ushort index = pIndices->pIndexData[i];
+							uint index = (uint)pIndices->pIndexData[i];
 							if (index + 2 < pVertices->size)
 							{
 								triangle.vPosition[suffix].x = *(float *)(pVertices->pVertexData + sizeof(CVector3) * index);
@@ -431,8 +433,7 @@ namespace se
 											triangle.vTranslatePosition[i].x = (triangle.vTranslatePosition[i].x + 1.0f) * 0.5f * m_pSoftRD->GetBufferWidth();
 											triangle.vTranslatePosition[i].y = (1 - triangle.vTranslatePosition[i].y) * 0.5f * m_pSoftRD->GetBufferHeight();
 
-											//Output the attribute.
-											CVector3 *v;
+											//Output the attribute.											
 											void *temp = &triangle.vTranslateNormal[i];
 											pVertexShader->PopOutAttribute(base::VA_NORMAL, temp);
 											temp = &triangle.vertexColor[i];
@@ -446,7 +447,7 @@ namespace se
 									//转换到摄像机坐标
 //									TranslateWorldToCamera(viewMat, triangle);
 
-	//								if (!BackCulling(triangle)) //背面剔除
+									if (!BackCulling(triangle)) //背面剔除
 									{
 										triangleList.push_back(triangle); //插入到三角形列表
 									}
@@ -518,15 +519,6 @@ namespace se
 					//排序
 					//std::sort(triangleList.begin(), triangleList.end(), TriangleSort);
 
-					float pLight[] = { 100, 100, 100 }; //pShaderProgram->GetUniform(UN_LIGHT_POS);
-					//if (pLight)
-					{
-						CVector3 vLightPos;
-						memcpy(vLightPos.v, pLight, sizeof(vLightPos.v));
-						//顶点级别光照计算
-						//VertexLightCalc(vLightPos, viewMat, triangleList);
-					}
-
 
 					//转换到屏幕坐标
 					//float *pProjMat = (float *)pShaderProgram->GetUniform(UN_PROJ_MAT);
@@ -564,6 +556,8 @@ namespace se
 						}						
 						m_pRasterizer->DrawTriangle(*it);
 					}
+
+					m_triangleNum += triangleList.size();
 				}
 			}
 		}

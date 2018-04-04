@@ -1,4 +1,4 @@
-#ifndef _SCENE_C_SCENE_H_
+﻿#ifndef _SCENE_C_SCENE_H_
 #define _SCENE_C_SCENE_H_
 
 #include <string>

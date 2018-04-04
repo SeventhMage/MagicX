@@ -40,7 +40,7 @@ namespace se
 			CMaterialResource(const char *filename);
 			virtual ~CMaterialResource();
 			virtual int GetAttrCount(){ return m_attrValue.size(); }			
-			virtual std::string GetValueByIdx(int index);
+			virtual std::string GetValueByIdx(uint index);
 			virtual std::string GetValue(EMaterialResAttr attr);
 		private:
 			EMaterialResAttr GetAttrID(const std::string &strAttr);

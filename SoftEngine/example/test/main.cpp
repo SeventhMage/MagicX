@@ -1,11 +1,13 @@
 #include "se.h"
 #include "..\src\render\software\CRasterizer.h"
+#include <ctime>
 
-static const int FRAMES_PER_SECOND = 260;      ///< FPS:50
+static const int FRAMES_PER_SECOND = 100;
 static const int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
 
 int main(int argc, char *argv[])
 {
+	std::srand(time(0));
 	CSoftEngine *se = CSoftEngine::NewInstance();
 
 	se->InitEngine(render::RDT_SOFTWARE, 100, 100, 800, 600);
@@ -25,7 +27,7 @@ int main(int argc, char *argv[])
 	//init scene
 	IScene *scene = sceneMgr->LoadScene("scene/scene.scene");
 
-	UINT next_game_tick = GetTickCount();
+	unsigned long long next_game_tick = device->GetSystemRunTime();
 	int sleep_time = 0;
 
 	char buf[256] = { 0 };
@@ -33,16 +35,17 @@ int main(int argc, char *argv[])
 	bool bQuit = false;
 	while (device->Run())
 	{
-		UINT cur_time = GetTickCount();
+		long cur_time = device->GetSystemRunTime();
 		sleep_time = next_game_tick - cur_time;
 		if (sleep_time <= 0)
 		{
-			next_game_tick = GetTickCount() + SKIP_TICKS;
+			next_game_tick = device->GetSystemRunTime() + SKIP_TICKS;
 			
 			delta = SKIP_TICKS - sleep_time;
-			sceneMgr->Update(delta);
+		
+			sceneMgr->Update(delta);				
 
-			sprintf_s(buf, "delta:%d frame:%d", delta, 1000 / delta);
+			sprintf_s(buf, "delta:%d frame:%d triangle:%u", delta, 1000 / delta, pRender->GetTriangleNum());
 			pRender->DrawText(0, 0, buf, strlen(buf));
 		}
 		else
