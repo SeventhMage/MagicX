@@ -415,7 +415,8 @@ namespace se
 								triangle.vPosition[suffix].y = *(float *)(pVertices->pVertexData + sizeof(CVector3)* index + 1 * sizeof(float));
 								triangle.vPosition[suffix].z = *(float *)(pVertices->pVertexData + sizeof(CVector3)* index + 2 * sizeof(float));
 
-								for (uint j = 0; j < pVertices->format.size(); ++j)
+								uint size = pVertices->format.size();
+								for (uint j = 0; j < size; ++j)
 								{
 									if (pVertices->format[j].attribute == base::VA_NORMAL)
 									{
@@ -482,10 +483,9 @@ namespace se
 										}
 
 										m_pRasterizer->DrawTriangle(triangle);
+										m_triangleNum += 1;
 									}
-									triangle.Reset();
-
-									m_triangleNum += 1;
+									triangle.Reset();									
 
 									suffix = 0;
 								}
