@@ -21,7 +21,7 @@ namespace se
 			virtual uint GetBufferID()const = 0;
 			virtual uint GetMaterialID()const = 0;
 			virtual void SetRenderQueue(IRenderQueue *parent) = 0;
-			virtual void SetShaderParam(EUniformName name, void *data, EDataType type, uint size) = 0;
+			virtual void SetShaderParam(EUniformName name, const void *data, EDataType type, uint size) = 0;
 			virtual void BindShaderParams(IShaderProgram *) = 0;			
 		};
 	}

@@ -17,18 +17,23 @@ namespace se
 
 		Color CPhongRender::CalcIllumination(const Color &srcColor, const math::CVector3 &viewDir, const math::CVector3 &normalDir)
 		{
-			render::SColor ambient = m_ambientColor * m_ambientCoefficient;
-			render::SColor diffuse = m_diffuseColor * m_diffuseCoefficient * (MAX(m_IlluminationDir.dotProduct(normalDir), 0));
+			static Color ambient;
+			static Color diffuse;
+			static Color specual;
+			static Color lightColor;
+
+			ambient = m_ambientColor * m_ambientCoefficient;
+			diffuse = m_diffuseColor * m_diffuseCoefficient * (MAX(m_IlluminationDir.dotProduct(normalDir), 0));
 
 			//math::CVector3 r = 2 * (m_IlluminationDir.dotProduct(normalDir)) * normalDir - m_IlluminationDir;
 			math::CVector3 h = viewDir + m_IlluminationDir;
 			h.normalize();
-			render::SColor specual = m_specularColor * m_specularCoefficient * pow(MAX(h.dotProduct(viewDir), 0), m_specularityCoefficient);
+			specual = m_specularColor * m_specularCoefficient * pow(MAX(h.dotProduct(viewDir), 0), m_specularityCoefficient);
 
 			float decay = 1 / (m_IlluminationDis * 0.00025f);
 
-			render::SColor lightColor = ambient + (diffuse + specual) * decay;
-
+			lightColor = ambient + (diffuse + specual) * decay;
+			
 			return render::SColor(1.f, MIN(lightColor.r * srcColor.r, 1), MIN(lightColor.g * srcColor.g, 1), MIN(lightColor.b * srcColor.b, 1));
 			
 		}

@@ -163,22 +163,16 @@ namespace se
 			}			
 		}
 
-		void CSoftRenderer::Clear()
+		void CSoftRenderer::BeginRender()
 		{
-			for (auto mit = m_renderQueueGroup.begin(); mit != m_renderQueueGroup.end(); ++mit)
-			{
-				IRenderQueue *pRenderQueue = mit->second;
-				if (pRenderQueue)
-				{
-					pRenderQueue->Clear();
-				}				
-			}
-			m_pSoftRD->Clear();						
+			m_triangleNum = 0;
+			m_pSoftRD->Clear();
 		}
+
 
 		void CSoftRenderer::Render()
 		{
-			m_triangleNum = 0;
+			BeginRender();			
 
 			for (auto mit = m_renderQueueGroup.begin(); mit != m_renderQueueGroup.end(); ++mit)
 			{
@@ -200,8 +194,22 @@ namespace se
 			//输出到设备
 			m_pSoftRD->DrawBuffer();	
 
-			Clear();
+			EndRender();
 		}
+
+
+		void CSoftRenderer::EndRender()
+		{
+			for (auto mit = m_renderQueueGroup.begin(); mit != m_renderQueueGroup.end(); ++mit)
+			{
+				IRenderQueue *pRenderQueue = mit->second;
+				if (pRenderQueue)
+				{
+					pRenderQueue->Clear();
+				}
+			}
+		}
+
 
 		void CSoftRenderer::TranslateWorldToCamera(const CMatrix4 &viewMat, Triangle &triangle)
 		{					
@@ -370,7 +378,22 @@ namespace se
 					}
 				}
 
-				TriangleList triangleList;
+				pShaderProgram->SetIllumination(&m_illumination);
+
+				//光栅化					
+				CSoftFragmentShader *pFragmentShader = pShaderProgram->GetFragmentShader();
+				if (pFragmentShader)
+				{
+					if (pTexture)
+						pFragmentShader->SetTextureData(pTexture->GetData(), pTexture->GetWidth());
+					else
+						pFragmentShader->SetTextureData(nullptr, 0);
+					m_pRasterizer->SetFragmentShader(pFragmentShader);
+				}
+
+				m_pRasterizer->SetDrawBuffer(m_pSoftRD->GetDrawBuffer(), m_pSoftRD->GetBufferWidth(), m_pSoftRD->GetBufferHeight());
+				m_pRasterizer->SetDepthBuffer(m_pSoftRD->GetDepthBuffer());
+				
 				base::Vertices *pVertices = pBuffer->GetVertices();
 				base::Indices *pIndices = pBuffer->GetIndices();
 				
@@ -449,9 +472,21 @@ namespace se
 
 									if (!BackCulling(triangle)) //背面剔除
 									{
-										triangleList.push_back(triangle); //插入到三角形列表
+										if (pTexture)
+										{
+											m_pRasterizer->SetTextureInfo(pTexture->GetData(), pTexture->GetWidth(), pTexture->GetHeight());
+										}
+										else
+										{
+											m_pRasterizer->SetTextureInfo(nullptr, 0, 0);
+										}
+
+										m_pRasterizer->DrawTriangle(triangle);
 									}
 									triangle.Reset();
+
+									m_triangleNum += 1;
+
 									suffix = 0;
 								}
 								else
@@ -501,7 +536,16 @@ namespace se
 
 								if (!BackCulling(triangle)) //背面剔除
 								{
-									triangleList.push_back(triangle); //插入到三角形列表
+									if (pTexture)
+									{
+										m_pRasterizer->SetTextureInfo(pTexture->GetData(), pTexture->GetWidth(), pTexture->GetHeight());
+									}
+									else
+									{
+										m_pRasterizer->SetTextureInfo(nullptr, 0, 0);
+									}
+
+									m_pRasterizer->DrawTriangle(triangle);
 								}
 								triangle.Reset();
 								index = 0;
@@ -511,53 +555,7 @@ namespace se
 								++index;
 							}
 						}
-					}
-
-
-					//对三角形列表渲染											
-
-					//排序
-					//std::sort(triangleList.begin(), triangleList.end(), TriangleSort);
-
-
-					//转换到屏幕坐标
-					//float *pProjMat = (float *)pShaderProgram->GetUniform(UN_PROJ_MAT);
-					//if (pProjMat)
-					//{
-					//	CMatrix4 projMat;
-					//	memcpy(projMat.m, pProjMat, sizeof(projMat.m));
-					//	TranslateCameraToScreen(projMat, triangleList);
-					//}
-					
-					pShaderProgram->SetIllumination(&m_illumination);
-
-					//光栅化					
-					CSoftFragmentShader *pFragmentShader = pShaderProgram->GetFragmentShader();
-					if (pFragmentShader)
-					{						
-						if (pTexture)
-							pFragmentShader->SetTextureData(pTexture->GetData(), pTexture->GetWidth());
-						else
-							pFragmentShader->SetTextureData(nullptr, 0);
-						m_pRasterizer->SetFragmentShader(pFragmentShader);
-					}
-
-					for (auto it = triangleList.begin(); it != triangleList.end(); ++it)
-					{
-						m_pRasterizer->SetDrawBuffer(m_pSoftRD->GetDrawBuffer(), m_pSoftRD->GetBufferWidth(), m_pSoftRD->GetBufferHeight());
-						m_pRasterizer->SetDepthBuffer(m_pSoftRD->GetDepthBuffer());
-						if (pTexture)
-						{
-							m_pRasterizer->SetTextureInfo(pTexture->GetData(), pTexture->GetWidth(), pTexture->GetHeight());												
-						}
-						else
-						{							
-							m_pRasterizer->SetTextureInfo(nullptr, 0, 0);							
-						}						
-						m_pRasterizer->DrawTriangle(*it);
-					}
-
-					m_triangleNum += triangleList.size();
+					}					
 				}
 			}
 		}
@@ -573,7 +571,6 @@ namespace se
 			m_illumination.SetPosition(lightPos);
 
 		}
-
 	}
 
 }

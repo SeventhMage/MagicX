@@ -30,7 +30,7 @@ namespace se
 			CVector3 GetAbslutePosition() const;
 			virtual void SetScale(const math::CVector3 &scale);
 			virtual const math::CVector3 &GetScale() const;
-			virtual void SetRotation(const math::CVector3 &rotation);
+			virtual void SetRotation(const math::CVector3 &rotation);			
 			virtual const math::CVector3 &GetRotation() const;
 
 

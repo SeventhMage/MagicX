@@ -38,9 +38,10 @@ namespace se
 			virtual IShaderProgram *GetShaderProgram(uint shaderProgramId) const = 0;
 
 			virtual void SetIllumination(const Color &ambientColor, const Color &diffuseColor, const Color &specularColor, const math::CVector3 &lightPos) = 0;
-
-			virtual void Clear() = 0;
-			virtual void Render() = 0;							
+			
+			virtual void BeginRender() = 0;
+			virtual void Render() = 0;
+			virtual void EndRender() = 0;
 			
 			virtual void UseShaderProgram(uint shaderProgramId) = 0;
 			virtual void EnableVertexArrayObject(uint vaoId) = 0;

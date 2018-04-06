@@ -30,7 +30,7 @@ namespace se
 			m_pParentQueue = parent;
 		}
 
-		void CRenderCell::SetShaderParam(EUniformName name, void *data, EDataType type, uint size)
+		void CRenderCell::SetShaderParam(EUniformName name, const void *data, EDataType type, uint size)
 		{
 			auto it = m_mapShaderParam.find(name);
 			if (it != m_mapShaderParam.end())

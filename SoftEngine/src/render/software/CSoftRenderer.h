@@ -47,8 +47,9 @@ namespace se
 
 			virtual void SetIllumination(const render::SColor &ambientColor, const render::SColor &diffuseColor, const render::SColor &specularColor, const CVector3 &lightPos);
 
-			virtual void Clear();
-			virtual void Render();						
+			virtual void BeginRender();
+			virtual void Render();
+			virtual void EndRender();
 
 			virtual void UseShaderProgram(uint shaderProgramId);
 			virtual void EnableVertexArrayObject(uint vaoId);
