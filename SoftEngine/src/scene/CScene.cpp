@@ -27,17 +27,17 @@ namespace se
 				for (int i = 0; i < entityCount; ++i)
 				{					
 					resource::SEntityInfo entity = pResource->GetEntityInfoByIdx(i);
-					for (int j = 0; j < 10; ++j)
-					{
-						CVector3 pos(std::rand() % 30 - 15, std::rand() % 30 - 15, std::rand() % 30 - 15);
-						CSceneNode *pNode = new CSceneNode(entity.name, this);
-						pNode->SetPosition(pos);
-						m_pRootNode->AddChildNode(pNode);
-					}
+					//for (int j = 0; j < 10; ++j)
+					//{
+					//	CVector3 pos(std::rand() % 30 - 15, std::rand() % 30 - 15, std::rand() % 30 - 15);
+					//	CSceneNode *pNode = new CSceneNode(entity.name, this);
+					//	pNode->SetPosition(pos);
+					//	m_pRootNode->AddChildNode(pNode);
+					//}
 
-					//CSceneNode *pNode = new CSceneNode(entity.name, this);
-					//pNode->SetPosition(entity.position);
-					//m_pRootNode->AddChildNode(pNode);
+					CSceneNode *pNode = new CSceneNode(entity.name, this);
+					pNode->SetPosition(entity.position);
+					m_pRootNode->AddChildNode(pNode);
 				}
 
 				CSoftEngine::GetResourceManager()->ReleaseResource(pResource);

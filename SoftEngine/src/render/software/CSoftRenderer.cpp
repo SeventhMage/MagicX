@@ -252,8 +252,9 @@ namespace se
 			CVector3 v1 = CVector3(triangle.vTranslatePosition[2].x, triangle.vTranslatePosition[2].y, triangle.vTranslatePosition[2].z)
 				- CVector3(triangle.vTranslatePosition[0].x, triangle.vTranslatePosition[0].y, triangle.vTranslatePosition[0].z);
 			CVector3 vNormal = v0.crossProduct(v1);
+			vNormal.normalize();
 			CVector3 vCamDir(0, 0, 1);
-			return (vNormal.dotProduct(vCamDir) > 0);
+			return (vNormal.dotProduct(vCamDir) < 0);
  		}
 
 		void CSoftRenderer::VertexLightCalc(const CVector3 &lightPos, const CMatrix4 &viewMat, TriangleList &triList)
@@ -449,6 +450,8 @@ namespace se
 											triangle.vTranslatePosition[i] = pVertexShader->Process();
 
 											//Deal with the output postion.
+											//if (triangle.vTranslatePosition[i].w < 0)
+											//	triangle.vTranslatePosition[i].w = -triangle.vTranslatePosition[i].w;
 											float invW = 1.0f / triangle.vTranslatePosition[i].w;
 											triangle.vTranslatePosition[i].x *= invW;
 											triangle.vTranslatePosition[i].y *= invW;
@@ -471,7 +474,7 @@ namespace se
 									//转换到摄像机坐标
 //									TranslateWorldToCamera(viewMat, triangle);
 
-									if (!BackCulling(triangle)) //背面剔除
+									//if (!BackCulling(triangle)) //背面剔除
 									{
 										if (pTexture)
 										{
@@ -485,6 +488,7 @@ namespace se
 										m_pRasterizer->DrawTriangle(triangle);
 										m_triangleNum += 1;
 									}
+							
 									triangle.Reset();									
 
 									suffix = 0;

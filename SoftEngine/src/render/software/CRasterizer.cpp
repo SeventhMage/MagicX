@@ -112,7 +112,7 @@ namespace se
 		void CRasterizer::DrawTopTriangle(const CVector4 &p0, const CVector2 &t0,
 			const render::SColor &c0, const CVector4 &p1, const CVector2 &t1,
 			const render::SColor &c1, const CVector4 &p2, const CVector2 &t2, const render::SColor &c2)
-		{
+		{			
 			float dx01 = (p1.x - p0.x) / (p1.y - p0.y);
 			float dx02 = (p2.x - p0.x) / (p2.y - p0.y);
 			float x0 = p0.x;
@@ -170,46 +170,77 @@ namespace se
 
 			for (int i = (int)p0.y; i < (int)p2.y; ++i)
 			{
-				if (i<=0 || i>=m_bufferHeight)
-					continue;
+				if (i >= m_bufferHeight)
+					break;
 
 				if (x1 < x0)
-					continue;
+					break;
 
-				if (x1 < 0 )
-					continue;
+				if (x1 < 0)
+					break;
+
 				if (x0 > m_bufferWidth)
-					continue;
-
-				if (zl < -1 || zl > 1)
-					continue;
-				if (zr < -1 || zr > 1)
-					continue;
+					break;
 
 				if (x0 < 0)
-					x0 = 0;
-				if (x1 > m_bufferWidth)
-					x1 = (float)m_bufferWidth;
-
-				uint *addr = (uint *)m_pDrawBuffer + uint(x0 + (i - 1) * m_bufferWidth);				
-
-
-				CVector2 tl(ul, vl);
-
-				CVector2 tr(ur, vr);
-
-				if (m_pDepthBuffer)
 				{
-					float *zbuffer = m_pDepthBuffer + int(x0 + (i - 1) * m_bufferWidth);
+					int count = -x0;
+					float rate = count / (x1 - x0);
+					zl = zl * (1 - rate) + zr * rate;
+					wl = wl * (1 - rate) + wr * rate;
+					cl = cl * (1 - rate) + cr * rate;
+
 					if (m_pTextureData)
 					{
-						FillColor(addr, zbuffer, x0, zl, wl, x1, zr, wr, cl, cr , tl, tr);
+						ul = ul * (1 - rate) + ur * rate;
+						vl = vl * (1 - rate) + vr * rate;
+					}
+
+					x0 = 0;
+				}
+
+				if (x1 > m_bufferWidth)
+				{
+					int count = m_bufferWidth - x0;
+					float rate = count / (x1 - x0);
+					zr = zl * (1 - rate) + zr * rate;
+					wr = wl * (1 - rate) + wr * rate;
+					cr = cl * (1 - rate) + cr * rate;
+
+					if (m_pTextureData)
+					{
+						ur = ul * (1 - rate) + ur * rate;
+						vr = vl * (1 - rate) + vr * rate;
+					}
+					x1 = m_bufferWidth;
+				}
+
+				if (i > 0)
+				{
+					uint *addr = (uint *)m_pDrawBuffer + uint(x0 + (i - 1) * m_bufferWidth);
+
+					CVector2 tl(ul, vl);
+
+					CVector2 tr(ur, vr);
+
+					if (m_pDepthBuffer)
+					{
+						float *zbuffer = m_pDepthBuffer + int(x0 + (i - 1) * m_bufferWidth);
+						if (m_pTextureData)
+						{
+							FillColor(addr, zbuffer, x0, zl, wl, x1, zr, wr, cl, cr, tl, tr);
+						}
+						else
+						{
+							FillColor(addr, zbuffer, x0, zl, wl, x1, zr, wr, cl, cr);
+						}
 					}
 					else
-						FillColor(addr, zbuffer, x0, zl, wl, x1, zr, wr, cl, cr);
+					{
+						FillColor(addr, x1 - x0, cl, cr);
+					}
 				}
-				else
-					FillColor(addr, x1 - x0, cl, cr);
+
 
 				zl += dzl;
 				zr += dzr;
@@ -251,6 +282,7 @@ namespace se
 
 			dzl *= ratel;
 			dzr *= rater;
+
 			float zl = p1.z;
 			float zr = p0.z;
 
@@ -264,6 +296,7 @@ namespace se
 			dwr *= rater;
 			float wl = 1 / p1.w;
 			float wr = 1 / p0.w;
+
 
 			//SColor dcl = (c2 / p2.w - c1 / p1.w) / (p2.getDistanceFrom(p1));
 			//SColor dcr = (c2 / p2.w - c0 / p0.w) / (p2.getDistanceFrom(p0));
@@ -289,43 +322,74 @@ namespace se
 			float vr = t0.y * wr;
 
 			for (int i = (int)p0.y; i < (int)p2.y; ++i)
-			{
-				if (i<=0 || i>=m_bufferHeight)
-					continue;
-
+			{				
+				if (i >= m_bufferHeight)
+					break;
 				if (x1 < x0)
-					continue;
+					break;
 
 				if (x1 < 0)
-					continue;
-				if (x0 > m_bufferWidth)
-					continue;
+					break;
 
-				if (zl < -1 || zl > 1)
-					continue;
-				if (zr < -1 || zr > 1)
-					continue;
+				if (x0 > m_bufferWidth)
+					break;
+
+			
+				if (x0 < 0)
+				{
+					int count = -x0;
+					float rate = count / (x1 - x0);					
+					zl = zl * (1 - rate) + zr * rate;					
+					wl = wl * (1 - rate) + wr * rate;
+					cl = cl * (1 - rate) + cr * rate;
+					
+					if (m_pTextureData)
+					{
+						ul = ul * (1 - rate) + ur * rate;
+						vl = vl * (1 - rate) + vr * rate;
+					}
+				}
+
+				if (x1 >= m_bufferWidth)
+				{
+					int count = m_bufferWidth - 1 - x0;
+					float rate = count / (x1 - x0);
+					zr = zl * (1 - rate) + zr * rate;
+					wr = wl * (1 - rate) + wr * rate;
+					cr = cl * (1 - rate) + cr * rate;
+
+					if (m_pTextureData)
+					{
+						ur = ul * (1 - rate) + ur * rate;
+						vr = vl * (1 - rate) + vr * rate;
+					}						
+				}
 
 				if (x0 < 0)
-					x0 = 0;
-				if (x1 > m_bufferWidth)
-					x1 = m_bufferWidth;
-
-				uint *addr = (uint *)m_pDrawBuffer + uint(x0 + (i - 1) * m_bufferWidth);
-				
-				CVector2 tl(ul, vl);
-				CVector2 tr(ur, vr);
-
-				if (m_pDepthBuffer)
 				{
-					float *zbuffer = m_pDepthBuffer + int(x0 + (i - 1) * m_bufferWidth);
-					if (m_pTextureData)
-						FillColor(addr, zbuffer, x0, zl, wl, x1, zr, wr, cl, cr, tl, tr);
-					else
-						FillColor(addr, zbuffer, x0, zl, wl, x1, zr, wr, cl, cr);
+					x0 = 0;
 				}
-				else
-					FillColor(addr, x1 - x0 + 1, cl, cr);
+				if (x1 >= m_bufferWidth)
+					x1 = m_bufferWidth - 1;
+
+				if (i > 0)
+				{
+					uint *addr = (uint *)m_pDrawBuffer + uint(x0 + (i - 1) * m_bufferWidth);
+
+					CVector2 tl(ul, vl);
+					CVector2 tr(ur, vr);
+
+					if (m_pDepthBuffer)
+					{
+						float *zbuffer = m_pDepthBuffer + int(x0 + (i - 1) * m_bufferWidth);
+						if (m_pTextureData)						
+							FillColor(addr, zbuffer, x0, zl, wl, x1, zr, wr, cl, cr, tl, tr);
+						else
+							FillColor(addr, zbuffer, x0, zl, wl, x1, zr, wr, cl, cr);
+					}
+					else
+						FillColor(addr, x1 - x0 + 1, cl, cr);
+				}
 				
 				zl += dzl;
 				zr += dzr;
@@ -378,7 +442,7 @@ namespace se
 			SColor c = c0;
 			for (uint i = 0; i < count; ++i)
 			{
-				if (z < *zbuffer) //这里的z实际为1/z
+				if ((z < *zbuffer) && (z >= -1 && z <= 1) ) //这里的z实际为1/z
 				{
 					static SColor color;
 					color.a = c.a * invw;
@@ -411,6 +475,7 @@ namespace se
 			uint x1, float z1, float wr, const SColor &lc, const SColor &rc, const CVector2 &lt, const CVector2 &rt)
 		{
 			int count = x1 - x0 + 1;
+			int x = x0;
 			float invcount = 1.f / count;
 			float dz = (z1 - z0) * invcount;
 			float z = z0;
@@ -426,28 +491,34 @@ namespace se
 			float v = lt.y;
 			for (uint i = 0; i < count; ++i)
 			{
-				if (z < *zbuffer) //This z is 1/z in fact.
+				if ((z < *zbuffer)) //This z is 1/z in fact.
 				{	
-					int tx = (u * invw) * (m_textureWidth - 1); //float calculate can't multiply 3 here.
-					int ty = (1 - (v *invw)) * (m_textureHeight - 1);
-					static SColor color;
-					color.a = c.a * invw;
-					color.r = c.r * invw;
-					color.g = c.g * invw;
-					color.b = c.b * invw;
+					if (z >= -1 && z <= 1)
+					{
+						int tx = (u * invw) * (m_textureWidth - 1); //float calculate can't multiply 3 here.
+						int ty = (1 - (v *invw)) * (m_textureHeight - 1);
+						static SColor color;
+						color.a = c.a * invw;
+						color.r = c.r * invw;
+						color.g = c.g * invw;
+						color.b = c.b * invw;
+	
+						static CVector2 texCoord;
+						texCoord.x = tx;
+						texCoord.y = ty;
+						m_pFragmentShader->PushInAttribute(base::VA_COLOR, &color);
+						m_pFragmentShader->PushInAttribute(base::VA_TEXCOORD, &texCoord);
+						color = m_pFragmentShader->Process();
 
-					static CVector2 texCoord;
-					texCoord.x = tx;
-					texCoord.y = ty;
-					m_pFragmentShader->PushInAttribute(base::VA_COLOR, &color);
-					m_pFragmentShader->PushInAttribute(base::VA_TEXCOORD, &texCoord);
-					color = m_pFragmentShader->Process();
+						//color = m_pFragmentShader->Process(color, tx, ty);
 
-					//color = m_pFragmentShader->Process(color, tx, ty);
-
-					*addr = NORMALIZE_TO_32BIT_COLOR(color.a, color.r, color.g, color.b);// color.Get32BitColor();
-					*zbuffer = z;
+						*addr = NORMALIZE_TO_32BIT_COLOR(color.a, color.r, color.g, color.b);// color.Get32BitColor();
+						*zbuffer = z;
+						
+					}
 				}
+
+				x = x + 1;
 
 				z += dz;
 				w += dw;
