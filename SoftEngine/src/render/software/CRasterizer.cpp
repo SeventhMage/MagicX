@@ -437,13 +437,14 @@ namespace se
 			float z = z0;
 			float dw = (wr - wl) * invcount;
 			float w = wl;
-			float invw = 1 / w;
+			
 			SColor dc = (c1 - c0) * invcount;
 			SColor c = c0;
 			for (uint i = 0; i < count; ++i)
 			{
 				if ((z < *zbuffer) && (z >= -1 && z <= 1) ) //这里的z实际为1/z
 				{
+					float invw = 1 / w;
 					static SColor color;
 					color.a = c.a * invw;
 					color.r = c.r * invw;
