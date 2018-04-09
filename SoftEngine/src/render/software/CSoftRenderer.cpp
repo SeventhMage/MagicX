@@ -462,9 +462,6 @@ namespace se
 											triangle.vTranslatePosition[i].y *= invW;
 											triangle.vTranslatePosition[i].z *= invW;
 
-											triangle.vTranslatePosition[i].x = (triangle.vTranslatePosition[i].x + 1.0f) * 0.5f * bufferWidth;
-											triangle.vTranslatePosition[i].y = (1 - triangle.vTranslatePosition[i].y) * 0.5f * bufferHeight;
-
 											//Output the attribute.											
 											void *temp = &triangle.vTranslateNormal[i];
 											pVertexShader->PopOutAttribute(base::VA_NORMAL, temp);
@@ -479,8 +476,14 @@ namespace se
 									//转换到摄像机坐标
 //									TranslateWorldToCamera(viewMat, triangle);
 
-									//if (!BackCulling(triangle)) //背面剔除
+									if (!BackCulling(triangle)) //背面剔除
 									{
+										for (uint i = 0; i < 3; ++i)
+										{
+											triangle.vTranslatePosition[i].x = (triangle.vTranslatePosition[i].x + 1.0f) * 0.5f * bufferWidth;
+											triangle.vTranslatePosition[i].y = (1 - triangle.vTranslatePosition[i].y) * 0.5f * bufferHeight;
+										}
+
 										if (pTexture)
 										{
 											m_pRasterizer->SetTextureInfo(pTexture->GetData(), pTexture->GetWidth(), pTexture->GetHeight());
