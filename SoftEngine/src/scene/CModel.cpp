@@ -45,11 +45,11 @@ namespace se
 
 				m_pVertices->count = posList.size();
 				if (posSize > 0)
-					m_pVertices->format.push_back(base::VertexAttrbute(base::VA_POSITION, 0));
+					m_pVertices->format[base::VA_POSITION] = base::VertexAttrbute(base::VA_POSITION, 0);
 				if (norSize > 0)
-					m_pVertices->format.push_back(base::VertexAttrbute(base::VA_NORMAL, posSize));
+					m_pVertices->format[base::VA_NORMAL] = base::VertexAttrbute(base::VA_NORMAL, posSize);
 				if (texSize > 0)
-					m_pVertices->format.push_back(base::VertexAttrbute(base::VA_TEXCOORD, posSize + norSize));
+					m_pVertices->format[base::VA_TEXCOORD] = base::VertexAttrbute(base::VA_TEXCOORD, posSize + norSize);
 
 				m_pVertices->size = posSize + norSize + texSize;
 				m_pVertices->stride = 0;

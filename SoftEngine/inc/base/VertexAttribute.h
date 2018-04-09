@@ -9,11 +9,13 @@ namespace se
 	{
 		enum EVertexAttribute
 		{
-			VA_NONE = 0,
-			VA_POSITION = 1,
-			VA_COLOR = 1 << 2,
-			VA_TEXCOORD = 1 << 3,
-			VA_NORMAL = 1 << 4,			
+			VA_NONE = -1,
+			VA_POSITION,
+			VA_COLOR,
+			VA_TEXCOORD,
+			VA_NORMAL,
+			
+			VA_COUNT,
 		};
 
 		typedef struct SVertexAttibute
@@ -30,13 +32,13 @@ namespace se
 			uint offset;				//开始位置		
 		}VertexAttrbute;
 
-		typedef std::vector<VertexAttrbute> VertexFormat;
-
+		//typedef std::vector<VertexAttrbute> VertexFormat;
+		typedef VertexAttrbute VertexFormat[VA_COUNT];
 
 		typedef struct SVertices
 		{
 			SVertices()
-			:format(0), count(0), stride(0), size(0), pVertexData(nullptr)
+			:count(0), stride(0), size(0), pVertexData(nullptr)
 			{
 			}
 			VertexFormat format;						//顶点属性格式

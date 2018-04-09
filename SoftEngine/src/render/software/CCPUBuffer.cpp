@@ -24,7 +24,7 @@ namespace se
 
 		void CCPUBuffer::BufferData(const base::Vertices *bufferData)
 		{
-			m_pVertices->format = bufferData->format;
+			memcpy(m_pVertices->format, bufferData->format, sizeof(m_pVertices->format));			 
 			m_pVertices->count = bufferData->count;
 			m_pVertices->stride = bufferData->stride;
 			m_pVertices->size = bufferData->size;

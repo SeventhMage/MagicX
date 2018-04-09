@@ -12,8 +12,7 @@ namespace se
 		}
 
 		void STriangleMesh::Reset()
-		{
-			vertexAttr = 0;		
+		{			
 			memset(vPosition, 0, sizeof(vPosition));
 			memset(vTranslatePosition, 0, sizeof(vTranslatePosition));
 			memset(vNormal, 0, sizeof(vNormal));

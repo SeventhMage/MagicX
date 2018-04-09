@@ -31,8 +31,7 @@ namespace se
 		typedef struct STriangleMesh
 		{
 			STriangleMesh();
-			void Reset();
-			int vertexAttr;			
+			void Reset();			
 			CVector3 vPosition[3];
 			CVector4 vTranslatePosition[3];			
 			CVector3 vNormal[3];

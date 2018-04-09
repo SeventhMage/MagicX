@@ -40,12 +40,14 @@ namespace se
         void CEntity::CalcBox(base::Vertices *pVertices)
         {
             for (uint i = 0; i < pVertices->count; ++i)
-            {
-                for (auto it = pVertices->format.begin(); it != pVertices->format.end(); ++it)
+            {               
+				for (uint j = 0; j < base::VA_COUNT; ++j)
                 {
-                    if (it->attribute == base::VA_POSITION)
+                    if (pVertices->format[j].attribute == base::VA_POSITION)
                     {
-                        CVector3 vert( ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset],  ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 1],  ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 2]);
+						CVector3 vert(((float*)pVertices->pVertexData)[i * pVertices->stride + pVertices->format[j].offset], 
+							((float*)pVertices->pVertexData)[i * pVertices->stride + pVertices->format[j].offset + 1], 
+							((float*)pVertices->pVertexData)[i * pVertices->stride + pVertices->format[j].offset + 2]);
                         m_aabbox.Expand(vert);
                     }
                 }

@@ -21,8 +21,8 @@ namespace se
 		public:
 			uint *GetDrawBuffer(){ return m_pDrawBuffer; }
 			float *GetDepthBuffer(){ return m_pDepthBuffer; }
-			uint GetBufferWidth(){ return m_uBufferWidth; }
-			uint GetBufferHeight(){ return m_uBufferHeight; }
+			inline uint GetBufferWidth(){ return m_uBufferWidth; }
+			inline uint GetBufferHeight(){ return m_uBufferHeight; }
 			void DrawBuffer();			
 			void Clear();
 		private:

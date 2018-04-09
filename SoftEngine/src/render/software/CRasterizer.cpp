@@ -303,10 +303,7 @@ namespace se
 					else
 						FillColor(addr, x1 - x0 + 1, cl, cr);
 				}
-				else
-				{
-					int a = 3333;
-				}
+	
 				
 				zl += dzl;
 				zr += dzr;

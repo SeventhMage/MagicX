@@ -27,13 +27,13 @@ namespace se
 				for (int i = 0; i < entityCount; ++i)
 				{					
 					resource::SEntityInfo entity = pResource->GetEntityInfoByIdx(i);
-					//for (int j = 0; j < 10; ++j)
-					//{
-					//	CVector3 pos(std::rand() % 30 - 15, std::rand() % 30 - 15, std::rand() % 30 - 15);
-					//	CSceneNode *pNode = new CSceneNode(entity.name, this);
-					//	pNode->SetPosition(pos);
-					//	m_pRootNode->AddChildNode(pNode);
-					//}
+					for (int j = 0; j < 10; ++j)
+					{
+						CVector3 pos(std::rand() % 30 - 15, std::rand() % 30 - 15, std::rand() % 30 - 15);
+						CSceneNode *pNode = new CSceneNode(entity.name, this);
+						pNode->SetPosition(pos);
+						m_pRootNode->AddChildNode(pNode);
+					}
 
 					CSceneNode *pNode = new CSceneNode(entity.name, this);
 					pNode->SetPosition(entity.position);
@@ -56,13 +56,13 @@ namespace se
 				rot += .05f;
 			else
 				rot = .0f;
-			m_pRootNode->SetRotation(CVector3(rot, 0, 0));
-			static float posx = .2f;
-			m_pRootNode->SetPosition(m_pRootNode->GetPosition() + CVector3(posx, 0, 0));
-			if (m_pRootNode->GetPosition().x > 15)
-				posx = -posx;
-			if (m_pRootNode->GetPosition().x < - 15)
-				posx = -posx;
+			m_pRootNode->SetRotation(CVector3(0, rot, 0));
+			//static float posx = .2f;
+			//m_pRootNode->SetPosition(m_pRootNode->GetPosition() + CVector3(posx, 0, 0));
+			//if (m_pRootNode->GetPosition().x > 15)
+			//	posx = -posx;
+			//if (m_pRootNode->GetPosition().x < - 15)
+			//	posx = -posx;
 			if (m_pCamera)
 				m_pCamera->Update(delta);
 			if (m_pRootNode)

@@ -398,6 +398,9 @@ namespace se
 				base::Vertices *pVertices = pBuffer->GetVertices();
 				base::Indices *pIndices = pBuffer->GetIndices();
 				
+				uint bufferWidth = m_pSoftRD->GetBufferWidth();
+				uint bufferHeight = m_pSoftRD->GetBufferHeight();
+
 				if (pVertices)
 				{
 					Triangle triangle;
@@ -415,9 +418,8 @@ namespace se
 								triangle.vPosition[suffix].x = *(float *)(pVertices->pVertexData + sizeof(CVector3) * index);
 								triangle.vPosition[suffix].y = *(float *)(pVertices->pVertexData + sizeof(CVector3)* index + 1 * sizeof(float));
 								triangle.vPosition[suffix].z = *(float *)(pVertices->pVertexData + sizeof(CVector3)* index + 2 * sizeof(float));
-
-								uint size = pVertices->format.size();
-								for (uint j = 0; j < size; ++j)
+								
+								for (uint j = 0; j < base::VA_COUNT; ++j)
 								{
 									if (pVertices->format[j].attribute == base::VA_NORMAL)
 									{
@@ -432,7 +434,10 @@ namespace se
 									}
 								}
 
-								triangle.vertexColor[suffix] = Color(1, 1, 1, 1);
+								triangle.vertexColor[suffix].a = 1.f;
+								triangle.vertexColor[suffix].r = 1.f;
+								triangle.vertexColor[suffix].g = 1.f;
+								triangle.vertexColor[suffix].b = 1.f;
 
 								if (suffix >= 2)
 								{
@@ -457,8 +462,8 @@ namespace se
 											triangle.vTranslatePosition[i].y *= invW;
 											triangle.vTranslatePosition[i].z *= invW;
 
-											triangle.vTranslatePosition[i].x = (triangle.vTranslatePosition[i].x + 1.0f) * 0.5f * m_pSoftRD->GetBufferWidth();
-											triangle.vTranslatePosition[i].y = (1 - triangle.vTranslatePosition[i].y) * 0.5f * m_pSoftRD->GetBufferHeight();
+											triangle.vTranslatePosition[i].x = (triangle.vTranslatePosition[i].x + 1.0f) * 0.5f * bufferWidth;
+											triangle.vTranslatePosition[i].y = (1 - triangle.vTranslatePosition[i].y) * 0.5f * bufferHeight;
 
 											//Output the attribute.											
 											void *temp = &triangle.vTranslateNormal[i];
@@ -508,27 +513,26 @@ namespace se
 						uint index = 0;
 						for (uint i = 0; i < pVertices->count; ++i)
 						{
-							for (auto it = pVertices->format.begin(); it != pVertices->format.end(); ++it)
-							{
-								triangle.vertexAttr |= it->attribute;
-
-								switch (it->attribute)
+							//for (auto it = pVertices->format.begin(); it != pVertices->format.end(); ++it)
+							for (uint j = 0; j < base::VA_COUNT; ++j)
+							{								
+								switch (pVertices->format[j].attribute)
 								{
 								case base::VA_POSITION:
-									triangle.vPosition[index].x = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset];
-									triangle.vPosition[index].y = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 1];
-									triangle.vPosition[index].z = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 2];
+									triangle.vPosition[index].x = ((float*)pVertices->pVertexData)[i * pVertices->stride + pVertices->format[j].offset];
+									triangle.vPosition[index].y = ((float*)pVertices->pVertexData)[i * pVertices->stride + pVertices->format[j].offset + 1];
+									triangle.vPosition[index].z = ((float*)pVertices->pVertexData)[i * pVertices->stride + pVertices->format[j].offset + 2];
 								case base::VA_COLOR:
-									triangle.vertexColor[index].r = color.r * ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset];
-									triangle.vertexColor[index].g = color.g * ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 1];
-									triangle.vertexColor[index].b = color.b * ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 2];
+									triangle.vertexColor[index].r = color.r * ((float*)pVertices->pVertexData)[i * pVertices->stride + pVertices->format[j].offset];
+									triangle.vertexColor[index].g = color.g * ((float*)pVertices->pVertexData)[i * pVertices->stride + pVertices->format[j].offset + 1];
+									triangle.vertexColor[index].b = color.b * ((float*)pVertices->pVertexData)[i * pVertices->stride + pVertices->format[j].offset + 2];
 								case base::VA_TEXCOORD:
-									triangle.vTexCoord[index].x = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset];
-									triangle.vTexCoord[index].y = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 1];
+									triangle.vTexCoord[index].x = ((float*)pVertices->pVertexData)[i * pVertices->stride + pVertices->format[j].offset];
+									triangle.vTexCoord[index].y = ((float*)pVertices->pVertexData)[i * pVertices->stride + pVertices->format[j].offset + 1];
 								case base::VA_NORMAL:
-									triangle.vNormal[index].x = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset];
-									triangle.vNormal[index].y = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 1];
-									triangle.vNormal[index].z = ((float*)pVertices->pVertexData)[i * pVertices->stride + it->offset + 2];
+									triangle.vNormal[index].x = ((float*)pVertices->pVertexData)[i * pVertices->stride + pVertices->format[j].offset];
+									triangle.vNormal[index].y = ((float*)pVertices->pVertexData)[i * pVertices->stride + pVertices->format[j].offset + 1];
+									triangle.vNormal[index].z = ((float*)pVertices->pVertexData)[i * pVertices->stride + pVertices->format[j].offset + 2];
 								default:
 									break;
 								}
