@@ -450,8 +450,8 @@ namespace se
 											triangle.vTranslatePosition[i] = pVertexShader->Process();
 
 											//Deal with the output postion.
-											//if (triangle.vTranslatePosition[i].w < 0)
-											//	triangle.vTranslatePosition[i].w = -triangle.vTranslatePosition[i].w;
+				/*							if (triangle.vTranslatePosition[i].w < 0)
+												triangle.vTranslatePosition[i].w = -triangle.vTranslatePosition[i].w;*/
 											float invW = 1.0f / triangle.vTranslatePosition[i].w;
 											triangle.vTranslatePosition[i].x *= invW;
 											triangle.vTranslatePosition[i].y *= invW;

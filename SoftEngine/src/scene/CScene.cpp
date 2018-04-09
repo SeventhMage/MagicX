@@ -53,10 +53,16 @@ namespace se
 		{
 			static float rot = 0;
 			if (rot < 3.14 * 2)
-				rot += .01f;
+				rot += .05f;
 			else
 				rot = .0f;
-			m_pRootNode->SetRotation(CVector3(0, rot, 0));
+			m_pRootNode->SetRotation(CVector3(rot, 0, 0));
+			static float posx = .2f;
+			m_pRootNode->SetPosition(m_pRootNode->GetPosition() + CVector3(posx, 0, 0));
+			if (m_pRootNode->GetPosition().x > 15)
+				posx = -posx;
+			if (m_pRootNode->GetPosition().x < - 15)
+				posx = -posx;
 			if (m_pCamera)
 				m_pCamera->Update(delta);
 			if (m_pRootNode)
