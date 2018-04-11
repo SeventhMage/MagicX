@@ -76,7 +76,7 @@ namespace se
                     CAABBox box = m_aabbox;
                     box.Transform(worldMat);
                     
-					//if (!frustum.Culled(box))
+					if (!frustum.Culled(box))
 					{
 						m_pRenderCell->SetShaderParam(render::UN_WORLD_MAT, worldMat.m, SE_FLOAT, sizeof(worldMat.m));
 						m_pRenderCell->SetShaderParam(render::UN_NORMAL_MAT, normalMat.m, SE_FLOAT, sizeof(normalMat.m));
