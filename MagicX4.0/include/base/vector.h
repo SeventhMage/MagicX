@@ -29,5 +29,13 @@ typedef float vec4[4];
 	NormalizeVec3(v)\
 }
 
+#define RotateX() {\
+}
+
+#define RotateY() {\
+}
+
+#define RotateZ() {\
+}
 
 #endif
