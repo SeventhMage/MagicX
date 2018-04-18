@@ -6,7 +6,7 @@ namespace mx
 	class IDevice
 	{
 	public:
-	
+		virtual bool Run() = 0;
 	};
 }
 
