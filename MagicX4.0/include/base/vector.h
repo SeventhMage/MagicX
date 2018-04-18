@@ -1,11 +1,14 @@
-#ifndef _MX_BASE_VECTOR_H_
-#define _MX_BASE_VECTOR_H_
+#ifndef _BASE_VECTOR_H_
+#define _BASE_VECTOR_H_
 
 #include "math.h"
 
 typedef float vec2[2];
 typedef float vec3[3];
 typedef float vec4[4];
+
+typedef float point2[2];
+typedef float point3[3];
 
 #define DotVec2(a, b) ((a)[0] * (b)[0] + (a)[1] * (b)[1])
 #define DotVec3(a, b) ((a)[0] * (b)[0] + (a)[1] * (b)[1] + (a)[2] * (b)[2])
@@ -29,13 +32,51 @@ typedef float vec4[4];
 	NormalizeVec3(v)\
 }
 
-#define RotateX() {\
+#define RotateVec2(v, rad) {\
+	float c = cosf(rad);\
+	float s = sinf(rad);\
+	float v0 = (v)[0] * c - (v)[1] * s;\
+	float v1 = (v)[0] * s + (v)[1] * c;\
+	(v)[0] = v0;\
+	(v)[1] = v1;\
 }
 
-#define RotateY() {\
+#define RotateXVec3(v, rad) {\
+	float c = cosf(rad);\
+	float s = sinf(rad);\
+	float v1 = (v)[1] * c - (v)[2] * s;\
+	float v2 = (v)[1] * s + (v)[2] * c;\
+	(v)[1] = v1;\
+	(v)[2] = v2;\
 }
 
-#define RotateZ() {\
+#define RotateYVec3(v, rad) {\
+	float c = cosf(rad);\
+	float s = sinf(rad);\
+	float v0 = (v)[0] * c + (v)[2] * s;\
+	float v2 = -(v)[0] * s + (v)[2] * c;\
+	(v)[0] = v0;\
+	(v)[2] = v2;\
+}
+
+#define RotateZVec3(v, rad) {\
+	float c = cosf(rad);\
+	float s = sinf(rad);\
+	float v0 = (v)[0] * c - (v)[1] * s;\
+	float v1 = (v)[0] * s + (v)[1] * c;\
+	(v)[0] = v0;\
+	(v)[1] = v1;\
+}
+
+#define MovePoint2(s, d){\
+	s[0] += d[0];\
+	s[1] += d[1];\
+}
+
+#define MovePoint3(s, d){\
+	s[0] += d[0];\
+	s[1] += d[1];\
+	s[2] += d[2];\
 }
 
 #endif
