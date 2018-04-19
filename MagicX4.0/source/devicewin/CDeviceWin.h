@@ -8,8 +8,24 @@ namespace mx
 	class CDeviceWin : public IDevice
 	{
 	public:
-		CDeviceWin();
+		CDeviceWin(IRenderer *pRenderer, int x, int y, int width, int height, bool fullScreen = false);
 		~CDeviceWin();
+		
+		virtual EDeviceType GetType() const { return DT_WIN; }
+		virtual void SwapBuffers();
+		virtual int GetWindowWidth() const;
+		virtual int GetWindowHeight() const;
+		virtual unsigned long long GetSystemRunTime() const;
+		virtual void Sleep(unsigned long ms);
+		virtual void OnSize(int x, int y, int width, int height);
+		virtual bool Run();
+	private:
+		IRenderer *m_pRenderer;
+		int m_iWidth;
+		int m_iHeight;
+		int m_iWidth;
+		int m_iHeight;
+		bool m_bFullScreen;
 	};
 }
 

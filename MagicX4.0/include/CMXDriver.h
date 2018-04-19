@@ -11,6 +11,11 @@ namespace mx
 		friend class CMagicX;
 		CMXDriver();
 		~CMXDriver();
+	private:
+		IDevice *m_pDevice;
+		IRenderer *m_pRenderer;
+		IResourceManager *m_pResourceMgr;
+		ISceneManager *m_pSceneMgr;
 	};
 	
 }
