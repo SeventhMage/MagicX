@@ -2,7 +2,7 @@
 
 using namespace mx;
 
-static const int FRAMES_PER_SECOND = 60;      ///< FPS:50
+static const int FRAMES_PER_SECOND = 10;
 static const int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
 
 

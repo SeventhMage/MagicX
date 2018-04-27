@@ -1,10 +1,8 @@
 #include "CGLDriverWin.h"
 
-extern "C"
-{
 #include "glew/GL/glew.h"
-	//GLenum GLEWAPIENTRY glewInit(void);
-}
+#include "glew/GL/wglew.h"
+	
 
 
 
@@ -12,10 +10,8 @@ extern "C"
 
 namespace mx
 {
-	CGLDriverWin::CGLDriverWin(int handle)
-	{
-		HWND hWnd = HWND(handle);
-		HDC hDC = GetDC(hWnd);
+	CGLDriverWin::CGLDriverWin(HDC hDC)
+	{					
 		// Set up pixel format descriptor with desired parameters
 		PIXELFORMATDESCRIPTOR pfd = {
 			sizeof(PIXELFORMATDESCRIPTOR),             // Size Of This Pixel Format Descriptor
@@ -49,12 +45,9 @@ namespace mx
 		}
 
 		wglMakeCurrent(hDC, glrc);
-		
+
 		if (glewInit() != GLEW_OK) {
 			exit(1);
-		}
-		int error = GetLastError();
-		ReleaseDC(hWnd, hDC);
-		error = GetLastError();
+		}					
 	}
 }

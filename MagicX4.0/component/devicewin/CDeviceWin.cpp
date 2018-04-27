@@ -274,7 +274,9 @@ namespace mx
 
 		//初始化渲染器驱动
 		m_pRenderer = pRenderer;
-		m_pRenderer->InitDriver(this);
+		HDC hDC = GetDC(m_hWnd);
+		m_pRenderer->InitDriver(hDC);
+		ReleaseDC(m_hWnd, hDC);
 
 		ShowWindow(m_hWnd, SW_SHOWNORMAL);
 		UpdateWindow(m_hWnd);			
@@ -292,9 +294,9 @@ namespace mx
 	
 	void CDeviceWin::SwapBuffers()
 		{
-			HDC hDC = GetDC(m_hWnd);
+			HDC hDC = ::GetDC(m_hWnd);
 			::SwapBuffers(hDC);
-			ReleaseDC(m_hWnd, hDC);
+			::ReleaseDC(m_hWnd, hDC);
 		}
 
 	int CDeviceWin::GetWindowWidth()const
@@ -340,4 +342,5 @@ namespace mx
 		return !bQuit;
 
 	}
+
 }

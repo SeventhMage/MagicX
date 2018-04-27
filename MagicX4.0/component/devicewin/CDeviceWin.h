@@ -14,8 +14,7 @@ namespace mx
 		CDeviceWin(IRenderer *pRenderer, int x, int y, int width, int height, bool fullScreen = false);
 		~CDeviceWin();
 		
-		virtual EDeviceType GetType() const { return DT_WIN; }
-		virtual int GetHandle() const { return (int)m_hWnd; }
+		virtual EDeviceType GetType() const { return DT_WIN; }		
 		virtual void SwapBuffers();
 		virtual int GetWindowWidth() const;
 		virtual int GetWindowHeight() const;

@@ -3,13 +3,19 @@
 
 #include "RenderDef.h"
 
+#ifdef WIN32
+#include <windows.h>
+#endif
+
 namespace mx
 {
 	class IDevice;
 	class IRenderer
 	{
 	public:
-		virtual void InitDriver(IDevice *pDevice) = 0;
+#ifdef WIN32
+		virtual void InitDriver(HDC hDC) = 0;
+#endif
 		virtual void OnSize(int x, int y, int width, int height) = 0;
 		virtual void BufferData(const void *data) = 0;
 		virtual void AttributePointer(EVertexAttribute va, int offset, int stride) = 0;

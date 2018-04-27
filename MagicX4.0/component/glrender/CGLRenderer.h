@@ -12,7 +12,9 @@ namespace mx
 		CGLRenderer();
 		~CGLRenderer();
 		
-		virtual void InitDriver(IDevice *pDevice);
+#ifdef WIN32
+		virtual void InitDriver(HDC hDC);
+#endif
 		virtual void OnSize(int x, int y, int width, int height);
 		virtual void BufferData(const void *data);
 		virtual void AttributePointer(EVertexAttribute va, int offset, int stride);
