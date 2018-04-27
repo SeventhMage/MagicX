@@ -1,5 +1,15 @@
 #include "CGLDriverWin.h"
 
+extern "C"
+{
+#include "glew/GL/glew.h"
+	//GLenum GLEWAPIENTRY glewInit(void);
+}
+
+
+
+#include <Windows.h>
+
 namespace mx
 {
 	CGLDriverWin::CGLDriverWin(int handle)
@@ -39,11 +49,12 @@ namespace mx
 		}
 
 		wglMakeCurrent(hDC, glrc);
-
+		
 		if (glewInit() != GLEW_OK) {
 			exit(1);
 		}
-		
+		int error = GetLastError();
 		ReleaseDC(hWnd, hDC);
+		error = GetLastError();
 	}
 }

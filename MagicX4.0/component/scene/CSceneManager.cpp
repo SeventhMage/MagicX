@@ -11,4 +11,15 @@ namespace mx
 	{
 		
 	}
+
+	IScene * CSceneManager::LoadScene(const char *filename)
+	{
+		return nullptr;
+	}
+
+	void CSceneManager::Update(int delta)
+	{
+
+	}
+
 }

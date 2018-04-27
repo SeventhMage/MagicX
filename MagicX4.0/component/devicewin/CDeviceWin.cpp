@@ -1,4 +1,7 @@
-#include "CDevice.h"
+#include "CDeviceWin.h"
+#include "CKeyEvent.h"
+#include "device/CEventManager.h"
+
 
 namespace mx
 {
@@ -19,37 +22,38 @@ namespace mx
 		case WM_SYSKEYDOWN:
 		case WM_SYSKEYUP:
 			return 0;
+			
 		case WM_KEYDOWN:
 		{
-			IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+			CKeyEvent *event = (CKeyEvent *)CEventManager::Instance()->GetEvent(ET_KEYBOARD);
 			if (event)
 			{
 				switch (wParam)
 				{
 				case VK_SPACE:
-				   event->OnPress(EKP_KEYBOARD_SPACE);
+				   event->OnPress(KP_KEYBOARD_SPACE);
 				   break;
 				case VK_ESCAPE:
-				   event->OnPress(EKP_KEYBOARD_ESC);
+				   event->OnPress(KP_KEYBOARD_ESC);
 				case 'N':
 				case 'n':
-				   event->OnPress(EKP_KEYBOARD_N);
+				   event->OnPress(KP_KEYBOARD_N);
 				   break;
 				case 'A':
 				case 'a':
-				   event->OnPress(EKP_KEYBOARD_A);
+				   event->OnPress(KP_KEYBOARD_A);
 				   break;
 				case 'D':
 				case 'd':
-				   event->OnPress(EKP_KEYBOARD_D);
+				   event->OnPress(KP_KEYBOARD_D);
 				   break;
 				case 'W':
 				case 'w':
-				   event->OnPress(EKP_KEYBOARD_W);
+				   event->OnPress(KP_KEYBOARD_W);
 				   break;
 				case 'S':
 				case 's':
-				   event->OnPress(EKP_KEYBOARD_S);
+				   event->OnPress(KP_KEYBOARD_S);
 				   break;
 				}
 
@@ -58,33 +62,33 @@ namespace mx
 			return 0;
 		case WM_KEYUP:
 		{
-			IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+			CKeyEvent *event = (CKeyEvent *)CEventManager::Instance()->GetEvent(ET_KEYBOARD);
 			if (event)
 			{
 			 switch (wParam)
 			 {
 			 case VK_SPACE:
-				 event->OnUp(EKP_KEYBOARD_SPACE);
+				 event->OnUp(KP_KEYBOARD_SPACE);
 				 break;
 			 case 'N':
 			 case 'n':
-				 event->OnUp(EKP_KEYBOARD_N);
+				 event->OnUp(KP_KEYBOARD_N);
 				 break;
 			 case 'A':
 			 case 'a':
-				 event->OnUp(EKP_KEYBOARD_A);
+				 event->OnUp(KP_KEYBOARD_A);
 				 break;
 			 case 'D':
 			 case 'd':
-				 event->OnUp(EKP_KEYBOARD_D);
+				 event->OnUp(KP_KEYBOARD_D);
 				 break;
 			 case 'W':
 			 case 'w':
-				 event->OnUp(EKP_KEYBOARD_W);
+				 event->OnUp(KP_KEYBOARD_W);
 				 break;
 			 case 'S':
 			 case 's':
-				 event->OnUp(EKP_KEYBOARD_S);
+				 event->OnUp(KP_KEYBOARD_S);
 				 break;
 			 }
 
@@ -94,7 +98,7 @@ namespace mx
 			return 0;
 		case WM_MOUSEWHEEL:
 		{
-			IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+			CKeyEvent *event = (CKeyEvent *)CEventManager::Instance()->GetEvent(ET_KEYBOARD);
 			if (event)
 			{
 				short zDelta = HIWORD(wParam);
@@ -139,22 +143,23 @@ namespace mx
 			// get the new codepage used for keyboard input
 
 			return 0;
+			
 		case WM_LBUTTONDOWN:
 		{
-			IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+			CKeyEvent *event = (CKeyEvent *)CEventManager::Instance()->GetEvent(ET_KEYBOARD);
 			if (event)
 			{
-			   event->OnPress(EKP_MOUSE_LBUTTON);
+			   event->OnPress(KP_MOUSE_LBUTTON);
 			}
 		}
 
 			return 0;
 		case WM_LBUTTONUP:
 		{
-			 IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+			CKeyEvent *event = (CKeyEvent *)CEventManager::Instance()->GetEvent(ET_KEYBOARD);
 			 if (event)
 			 {
-				 event->OnUp(EKP_MOUSE_LBUTTON);
+				 event->OnUp(KP_MOUSE_LBUTTON);
 			 }
 		}
 			return 0;
@@ -162,25 +167,25 @@ namespace mx
 			return 0;
 		case WM_RBUTTONDOWN:
 		{
-			IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+			CKeyEvent *event = (CKeyEvent *)CEventManager::Instance()->GetEvent(ET_KEYBOARD);
 			if (event)
 			{
-			   event->OnPress(EKP_MOUSE_RBUTTON);
+			   event->OnPress(KP_MOUSE_RBUTTON);
 			}
 		}
 			return 0;
 		case WM_RBUTTONUP:
 		{
-			IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+			CKeyEvent *event = (CKeyEvent *)CEventManager::Instance()->GetEvent(ET_KEYBOARD);
 			if (event)
 			{
-			 event->OnUp(EKP_MOUSE_RBUTTON);
+			 event->OnUp(KP_MOUSE_RBUTTON);
 			}
 		}
 			return 0;
 		case WM_MOUSEMOVE:
 		{
-			IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+			CKeyEvent *event = (CKeyEvent *)CEventManager::Instance()->GetEvent(ET_KEYBOARD);
 			if (event)
 			{
 			 int x = LOWORD(lParam);
@@ -188,17 +193,22 @@ namespace mx
 			 event->SetMousePosition(x, y);
 			}
 		}
+		
 			return 0;
 		}
+		
 
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 		
-	CDeviceWin::CDeviceWin(IRenderer *pRenderer, int x, int y, int width, int height, bool fullScreen = false)
+	CDeviceWin::CDeviceWin(IRenderer *pRenderer, int x, int y, int width, int height, bool fullScreen)
 	{	
 		HINSTANCE hInstance = GetModuleHandle(0);
 
-		const wchar_t* ClassName = L"CWin32Device";
+		CEventManager::Instance()->RegisterEvent(new CKeyEvent());
+		CEventManager::Instance()->SetDevice(this);
+
+		const char* ClassName = "CWin32Device";
 
 		// Register Class
 		WNDCLASSEX wcex;
@@ -216,7 +226,7 @@ namespace mx
 		wcex.hIconSm = 0;
 
 		// if there is an icon, load it
-		wcex.hIcon = (HICON)LoadImage(hInstance, L"", IMAGE_ICON, 0, 0, LR_LOADFROMFILE);
+		wcex.hIcon = (HICON)LoadImage(hInstance, "", IMAGE_ICON, 0, 0, LR_LOADFROMFILE);
 
 		RegisterClassEx(&wcex);
 
@@ -259,7 +269,7 @@ namespace mx
 		m_iWidth = realWidth;
 		m_iHeight = realHeight;
 		// create window
-		m_hWnd = CreateWindow(ClassName, L"", style, windowLeft, windowTop,
+		m_hWnd = CreateWindow(ClassName, "", style, windowLeft, windowTop,
 			realWidth, realHeight, NULL, NULL, hInstance, NULL);
 
 		//初始化渲染器驱动
@@ -287,17 +297,17 @@ namespace mx
 			ReleaseDC(m_hWnd, hDC);
 		}
 
-	int CDeviceWin::GetWindowWidth()
+	int CDeviceWin::GetWindowWidth()const
 	{
 		return m_iWidth;
 	}
 
-	int CDeviceWin::GetWindowHeight()
+	int CDeviceWin::GetWindowHeight()const
 	{
 		return m_iHeight;
 	}
 
-	unsigned long long CDeviceWin::GetSystemRunTime()
+	unsigned long long CDeviceWin::GetSystemRunTime()const
 	{
 		return GetTickCount64();
 	}

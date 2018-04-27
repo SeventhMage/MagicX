@@ -3,4 +3,6 @@
 
 #include "CMXDriver.h"
 
+//extern mx::CMagicX *magic;
+
 #endif

@@ -2,6 +2,9 @@
 #define _MX_C_DEVICE_WIN_H_
 
 #include "device/IDevice.h"
+#include "render/IRenderer.h"
+
+#include <Windows.h>
 
 namespace mx
 {
@@ -12,6 +15,7 @@ namespace mx
 		~CDeviceWin();
 		
 		virtual EDeviceType GetType() const { return DT_WIN; }
+		virtual int GetHandle() const { return (int)m_hWnd; }
 		virtual void SwapBuffers();
 		virtual int GetWindowWidth() const;
 		virtual int GetWindowHeight() const;
@@ -21,8 +25,7 @@ namespace mx
 		virtual bool Run();
 	private:
 		IRenderer *m_pRenderer;
-		int m_iWidth;
-		int m_iHeight;
+		HWND m_hWnd;
 		int m_iWidth;
 		int m_iHeight;
 		bool m_bFullScreen;

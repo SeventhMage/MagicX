@@ -1,0 +1,6 @@
+file(GLOB_RECURSE HEADER_FILES *.h *.inl)
+file (GLOB_RECURSE SOURCE_FILES *.cpp *.cc *.c)
+set(ALL_FILES ${HEADER_FILES} ${SOURCE_FILES})
+add_executable(Triangle ${ALL_FILES})
+target_link_libraries(Triangle mx)
+set_target_properties(Triangle PROPERTIES FOLDER "Example")

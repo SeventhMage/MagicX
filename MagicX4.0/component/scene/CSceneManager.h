@@ -1,7 +1,7 @@
 #ifndef _SCENE_C_SCENE_MANAGER_H_
-#defien _SCENE_C_SCENE_MANAGER_H_
+#define _SCENE_C_SCENE_MANAGER_H_
 
-#include "ISceneManager.h"
+#include "scene/ISceneManager.h"
 
 namespace mx
 {
@@ -10,6 +10,9 @@ namespace mx
 	public:
 		CSceneManager();
 		~CSceneManager();
+
+		virtual IScene *LoadScene(const char *filename);
+		virtual void Update(int delta);
 	};
 }
 

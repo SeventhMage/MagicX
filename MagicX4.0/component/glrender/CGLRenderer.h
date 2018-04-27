@@ -2,15 +2,15 @@
 #define _GLRENDER_GL_RENDERER_H_
 
 #include "render/IRenderer.h"
-#include "GLDriver.h"
+#include "device/IDevice.h"
 
 namespace mx
 {
-	class GLRenderer
+	class CGLRenderer : public IRenderer
 	{
 	public:
-		GLRenderer();
-		~GLRenderer();
+		CGLRenderer();
+		~CGLRenderer();
 		
 		virtual void InitDriver(IDevice *pDevice);
 		virtual void OnSize(int x, int y, int width, int height);

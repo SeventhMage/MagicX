@@ -17,7 +17,8 @@ namespace mx
 		IResourceManager *m_pResourceMgr;
 		ISceneManager *m_pSceneMgr;
 	};
-	
+
+	extern CMagicX *magic;
 }
 
 #endif
