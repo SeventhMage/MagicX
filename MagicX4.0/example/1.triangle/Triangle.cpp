@@ -2,7 +2,7 @@
 
 using namespace mx;
 
-static const int FRAMES_PER_SECOND = 10;
+static const int FRAMES_PER_SECOND = 30;
 static const int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
 
 
@@ -38,6 +38,8 @@ int main(int argc, char *argv[])
 			renderer->AttributePointer(VA_POSITION, 0, sizeof(point));
 			renderer->AttributePointer(VA_COLOR, 9 * sizeof(float), sizeof(point));
 			renderer->DrawArray(PT_TRIANGLELIST);
+
+			device->SwapBuffers();
 		}
 		else
 		{

@@ -16,7 +16,7 @@ namespace mx
 	void CGLRenderer::InitDriver(HDC hDC)
 	{
 		CGLDriverWin driver(hDC);
-		GLDebug(glClearColor(1.f, 0.f, 0.f, 1.f));
+		GLDebug(glClearColor(0.f, 0.f, 0.f, 1.f));
 	}
 #endif
 	
