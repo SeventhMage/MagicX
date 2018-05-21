@@ -10,7 +10,7 @@ namespace mx
 	}
 	CEventManager::~CEventManager()
 	{
-		for (int i = 0; ET_NUM; ++i)
+		for (int i = 0; i<ET_NUM; ++i)
 		{			
 			if (m_eventList[i])
 				delete m_eventList[i];

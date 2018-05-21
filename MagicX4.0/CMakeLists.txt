@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.3)
+﻿cmake_minimum_required (VERSION 3.3)
 
 SET_PROPERTY(GLOBAL PROPERTY USE_FOLDERS On)
 
@@ -99,7 +99,7 @@ else()
 	set(RENDER_LIB softrender)
 endif()
 
-target_link_libraries(mx ${DEVICE_LIB} ${RENDER_LIB} resource scene opengl32 glew32)
+target_link_libraries(mx base ${DEVICE_LIB} ${RENDER_LIB} resource scene opengl32 glew32)
 
 set_target_properties(mx PROPERTIES FOLDER "MagicX")
 

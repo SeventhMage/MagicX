@@ -12,4 +12,7 @@
 #define PI_DIV_4 0.78539816
 #define PI_DIV_6 0.52359878
 
+#define MAX(a, b) ((a)>(b)?(a):(b))
+#define MIN(a, b) ((a)<(b)?(a):(b))
+
 #endif

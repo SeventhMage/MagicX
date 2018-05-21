@@ -1,3 +1,4 @@
+add_subdirectory(base)
 add_subdirectory(glrender)
 add_subdirectory(resource)
 add_subdirectory(scene)
