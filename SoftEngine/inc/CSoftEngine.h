@@ -7,6 +7,7 @@
 #include "device/IEventManager.h"
 #include "resource/IResourceManager.h"
 #include "scene/ISceneManager.h"
+#include "scene/IObjectManager.h"
 #include "render/IMaterialManager.h"
 #include "render/ITextureManager.h"
 #include "render/IRenderer.h"
@@ -29,6 +30,7 @@ namespace se
 		static render::ITextureManager *GetTextureManager(){ return m_pTextureMgr; }
 		static resource::IResourceManager *GetResourceManager() { return m_pResourceMgr; }
 		static scene::ISceneManager *GetSceneManager() { return m_pSceneMgr; }
+		static scene::IObjectManager *GetObjectManager() { return m_pObjectMgr; }
 	private:
 		static device::IDeviceManager *m_pDeviceMgr;
         static device::IEventManager *m_pEventMgr;
@@ -36,7 +38,8 @@ namespace se
 		static render::IMaterialManager *m_pMaterialManager;
 		static render::ITextureManager *m_pTextureMgr;
 		static resource::IResourceManager *m_pResourceMgr;
-		static scene::ISceneManager *m_pSceneMgr;		
+		static scene::ISceneManager *m_pSceneMgr;
+		static scene::IObjectManager *m_pObjectMgr;
 	};
 }
 

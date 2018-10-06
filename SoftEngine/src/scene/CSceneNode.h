@@ -2,6 +2,7 @@
 #define _SCENE_C_SCENE_NODE_H_
 
 #include "scene/ISceneNode.h"
+#include "scene/IScene.h"
 #include "math/CMatrix4.h"
 #include "CEntity.h"
 
@@ -11,20 +12,17 @@ namespace se
 {
 	namespace scene
 	{
-		class CScene;
 		class CSceneNode : public ISceneNode
 		{
 		public:
-			CSceneNode(CScene *pScene);
-			CSceneNode(const char *entityName, CScene *pScene);
+			CSceneNode(IScene *pScene);
 			virtual ~CSceneNode();
 
 			virtual void SetParent(ISceneNode *pNode);
 			virtual ISceneNode *GetParent() { return m_pParentNode; }
 			virtual void AddChildNode(ISceneNode *pNode);
 			virtual void RemoveChildNode(ISceneNode *pNode);
-
-			IEntity *GetEntity(){ return m_pEntity; }
+			
 			virtual void SetPosition(const math::CVector3 &position);
 			virtual const math::CVector3 &GetPosition() const;
 			CVector3 GetAbslutePosition() const;
@@ -47,9 +45,8 @@ namespace se
 
 			virtual void Update(int delta);
 
-		private:
-			CScene *m_pParentScene;
-			CEntity *m_pEntity;						//场景中包含的实体
+		protected:
+			IScene *m_pParentScene;			
 			
 			ISceneNode *m_pParentNode;
 			std::vector<ISceneNode *> m_vecChildNode;

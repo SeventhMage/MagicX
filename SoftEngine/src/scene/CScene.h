@@ -5,7 +5,7 @@
 
 #include "render/IRenderQueue.h"
 #include "scene/IScene.h"
-#include "CSceneNode.h"
+#include "scene/ISceneNode.h"
 #include "CCamera.h"
 
 
@@ -16,7 +16,8 @@ namespace se
 		class CScene : public IScene
 		{
 		public:
-			CScene(const char *name);
+			CScene();
+			CScene(const char *name);			
 			virtual ~CScene();
 
 			//每个场景有唯一根结点，场景图的根
@@ -35,10 +36,12 @@ namespace se
 			virtual ILight *SetupLight(int slot, ELightType type, float lightColor[4]);
 			virtual ILight *GetLight(int slot);
 
+			virtual void AddObject(uint objectId);
+
 			virtual void Update(int delta);			
 		private:
 			std::string m_strSceneName;
-			CSceneNode *m_pRootNode;
+			ISceneNode *m_pRootNode;
 			CCamera *m_pCamera;
 			ILight *m_pLights[MAX_LIGHT_NUM];
 		};

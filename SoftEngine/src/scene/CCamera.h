@@ -5,6 +5,7 @@
 #include "scene/ISceneNode.h"
 #include "math/CFrustum.h"
 #include "base/seType.h"
+#include "math/CRay.h"
 
 namespace se
 {
@@ -52,6 +53,8 @@ namespace se
 			virtual void SetNeedUpdateProjectionMatrix() { m_bNeedUpdateProj = true; };
 
 			virtual ISceneNode *GetFocus() { return m_pFocus; }
+
+			virtual CRay GetCameraRay(int scnX, int scnY);
 
 			virtual void Update(int elapsedTime);
 		private:

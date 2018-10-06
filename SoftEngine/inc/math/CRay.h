@@ -1,0 +1,28 @@
+﻿#ifndef _MATH_C_RAY_H_
+#define _MATH_C_RAY_H_
+/************************************************************************/
+/* 射线                                                                 */
+/************************************************************************/
+
+#include "CVector3.h"
+
+namespace se
+{
+	namespace math
+	{
+		class CRay
+		{
+		public:
+			CRay(const CVector3 &origin, const CVector3 & direction)
+			:m_origin(origin), m_direction(direction){}
+			CRay(){}
+			~CRay(){}
+
+		private:
+			CVector3 m_origin;
+			CVector3 m_direction;
+		};
+	}
+}
+
+#endif

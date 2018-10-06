@@ -12,8 +12,7 @@ namespace se
 		{
 		public:
 			virtual ~ISceneNode(){}
-			virtual IEntity *GetEntity() = 0;
-
+			
 			virtual void SetParent(ISceneNode *pNode) = 0;
 			virtual ISceneNode *GetParent() = 0;
 			virtual void AddChildNode(ISceneNode *pNode) = 0;			

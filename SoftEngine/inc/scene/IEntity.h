@@ -12,7 +12,7 @@ namespace se
 		public:
 			virtual ~IEntity(){}
 
-			virtual void Update(int delta) = 0;			
+			virtual void Update(int delta) = 0;
 		};
 	}
 }

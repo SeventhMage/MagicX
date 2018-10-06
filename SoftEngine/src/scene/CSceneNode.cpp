@@ -12,9 +12,8 @@ namespace se
 		using namespace math;
 
 
-		CSceneNode::CSceneNode(CScene *pScene)
-			:m_pParentScene(pScene)
-			, m_pEntity(nullptr)
+		CSceneNode::CSceneNode(IScene *pScene)
+			:m_pParentScene(pScene)		
 			, m_pParentNode(nullptr)
 			, m_bNeedUpdate(true)
 			, m_bVisible(true)
@@ -23,21 +22,9 @@ namespace se
 
 		}
 
-
-		CSceneNode::CSceneNode(const char *entityName, CScene *pScene)
-			:m_pEntity(new CEntity(entityName, this))
-			, m_pParentScene(pScene)
-			, m_pParentNode(nullptr)
-			, m_bNeedUpdate(true)
-			, m_bVisible(true)
-			, m_relativeScale(1.f, 1.f, 1.f)
-		{
-
-		}
 
 		CSceneNode::~CSceneNode()
-		{
-			SAFE_DEL(m_pEntity);
+		{		
 			for (auto it = m_vecChildNode.begin(); it != m_vecChildNode.end(); ++it)
 			{
 				SAFE_DEL(*it);
@@ -153,11 +140,6 @@ namespace se
 				for (auto it = m_vecChildNode.begin(); it != m_vecChildNode.end(); ++it)
 				{
 					(*it)->Update(delta);
-				}
-
-				if (m_pEntity)
-				{
-					m_pEntity->Update(delta);
 				}
 			}
 

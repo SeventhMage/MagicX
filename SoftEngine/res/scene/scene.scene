@@ -1,7 +1,7 @@
 #=====================================================================================
 #Camera
 #position
-0 10 10
+0 30 30
 #direction
 0 -1 -1
 #up
@@ -11,7 +11,7 @@
 #nearClip
 1
 #farClip
-50
+100
 
 
 #=====================================================================================
@@ -21,5 +21,5 @@ model/cube.obj -2 2 2
 model/plane.obj 0 0 0
 #model/cube.obj 2 1 -1
 model/monkey.obj 0 0 0
-#model/torus.obj 0 0 0
+model/torus.obj 0 0 0
 #model/fish.obj 0 0 0

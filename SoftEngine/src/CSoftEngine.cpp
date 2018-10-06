@@ -7,6 +7,7 @@
 #include "resource/CResourceManager.h"
 #include "scene/CSceneManager.h"
 #include "render/CTextureManager.h"
+#include "scene/CObjectManager.h"
 
 
 namespace se
@@ -17,6 +18,7 @@ namespace se
 	render::IMaterialManager *CSoftEngine::m_pMaterialManager = nullptr;
 	resource::IResourceManager *CSoftEngine::m_pResourceMgr = nullptr;
 	scene::ISceneManager *CSoftEngine::m_pSceneMgr = nullptr;
+	scene::IObjectManager *CSoftEngine::m_pObjectMgr= nullptr;
 	render::ITextureManager *CSoftEngine::m_pTextureMgr = nullptr;
 
 	CSoftEngine::~CSoftEngine()
@@ -29,6 +31,7 @@ namespace se
 		m_pDeviceMgr = device::CDeviceManager::NewInstance();
         m_pEventMgr = device::CEventManager::NewInstance();
 		m_pSceneMgr = scene::CSceneManager::NewInstance();
+		m_pObjectMgr = scene::CObjectManager::NewInstance();
 		m_pResourceMgr = resource::CResourceManager::NewInstance();
 
 		m_pMaterialManager = render::CMaterialManager::NewInstance();

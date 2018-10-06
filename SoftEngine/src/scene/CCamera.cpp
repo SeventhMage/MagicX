@@ -259,5 +259,20 @@ namespace se
 
 		}
 
+		CRay CCamera::GetCameraRay(int scnX, int scnY)
+		{
+			CVector3 origin(0, 0, 0);
+			CMatrix4 invMatProj;
+			m_matProj.GetInverse(invMatProj);
+			
+			float x = scnX / (m_width * 0.5f) - 1.f;
+			float y = 1 - scnY / (m_height * 0.5f);
+			float z = -m_nearClip;
+			CVector3 viewPos;
+			invMatProj.TransformVect(viewPos, CVector3(x, y, z));
+			
+			return CRay(origin, viewPos - origin);
+		}
+
 	}
 }

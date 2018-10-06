@@ -4,10 +4,19 @@
 #include "base/seDef.h"
 #include "resource/ISceneResource.h"
 #include "light/CPointLight.h"
+#include "CEntityNode.h"
+
 namespace se
 {
 	namespace scene
 	{
+		CScene::CScene()
+			:m_strSceneName("")
+			, m_pCamera(nullptr)
+			, m_pRootNode(new CSceneNode(this))
+		{
+
+		}
 		CScene::CScene(const char *name)
 			:m_strSceneName(name)
 			, m_pCamera(nullptr)
@@ -28,7 +37,7 @@ namespace se
 				{					
 					resource::SEntityInfo entity = pResource->GetEntityInfoByIdx(i);
 
-					CSceneNode *pNode = new CSceneNode(entity.name, this);
+					ISceneNode *pNode = new CEntityNode(entity.name, this);
 					pNode->SetPosition(entity.position);
 					m_pRootNode->AddChildNode(pNode);
 				}
@@ -102,6 +111,11 @@ namespace se
 			if (slot < 0 || slot > MAX_LIGHT_NUM)
 				return nullptr;
 			return m_pLights[slot];
+		}
+
+		void CScene::AddObject(uint objectId)
+		{
+
 		}
 
 	}
