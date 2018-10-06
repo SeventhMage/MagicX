@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
 	IResourceManager *resMgr = se->GetResourceManager();
 	ISceneManager *sceneMgr = se->GetSceneManager();
 	IRenderer *pRender = se->GetRenderer();
+	IObjectManager *objectMgr = se->GetObjectManager();
 	//test
 	//CRasterizer pRasterizer;
 	//uint *pDrawBuffer = new uint[device->GetWindowWidth() * device->GetWindowHeight()];
@@ -27,15 +28,17 @@ int main(int argc, char *argv[])
 	//init scene
 	IScene *scene = sceneMgr->LoadScene("scene/scene.scene");
 
+	objectMgr->CreateSphere(10, Color(1, 1, 0, 0));
+
 	unsigned long long next_game_tick = device->GetSystemRunTime();
-	int sleep_time = 0;
+	unsigned long long sleep_time = 0;
 
 	char buf[256] = { 0 };
 	int delta = 0;
 	bool bQuit = false;
 	while (device->Run())
 	{
-		long cur_time = device->GetSystemRunTime();
+		unsigned long long cur_time = device->GetSystemRunTime();
 		sleep_time = next_game_tick - cur_time;
 		if (sleep_time <= 0)
 		{

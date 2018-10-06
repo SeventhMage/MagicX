@@ -195,6 +195,21 @@
     <ClCompile Include="..\..\src\render\software\CPhongRender.cpp">
       <Filter>src\render\software</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\scene\CObjectNode.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene\CEntityNode.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene\CObject.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene\CSphereObject.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene\CObjectManager.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\device\IDevice.h">
@@ -538,6 +553,30 @@
     </ClInclude>
     <ClInclude Include="..\..\src\render\software\CPhongRender.h">
       <Filter>src\render\software</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\math\CRay.h">
+      <Filter>inc\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\scene\CObjectNode.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\scene\CEntityNode.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\scene\IObject.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\scene\CObject.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\scene\CSphereObject.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\scene\IObjectManager.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\scene\CObjectManager.h">
+      <Filter>src\scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -121,10 +121,15 @@
     <ClCompile Include="..\..\src\resource\CTGAImage.cpp" />
     <ClCompile Include="..\..\src\scene\CCamera.cpp" />
     <ClCompile Include="..\..\src\scene\CEntity.cpp" />
+    <ClCompile Include="..\..\src\scene\CEntityNode.cpp" />
     <ClCompile Include="..\..\src\scene\CModel.cpp" />
+    <ClCompile Include="..\..\src\scene\CObject.cpp" />
+    <ClCompile Include="..\..\src\scene\CObjectManager.cpp" />
+    <ClCompile Include="..\..\src\scene\CObjectNode.cpp" />
     <ClCompile Include="..\..\src\scene\CScene.cpp" />
     <ClCompile Include="..\..\src\scene\CSceneManager.cpp" />
     <ClCompile Include="..\..\src\scene\CSceneNode.cpp" />
+    <ClCompile Include="..\..\src\scene\CSphereObject.cpp" />
     <ClCompile Include="..\..\src\scene\light\CPointLight.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +154,7 @@
     <ClInclude Include="..\..\inc\math\CMatrix4.h" />
     <ClInclude Include="..\..\inc\math\CPlane3.h" />
     <ClInclude Include="..\..\inc\math\CQuaternion.h" />
+    <ClInclude Include="..\..\inc\math\CRay.h" />
     <ClInclude Include="..\..\inc\math\CVector2.h" />
     <ClInclude Include="..\..\inc\math\CVector3.h" />
     <ClInclude Include="..\..\inc\math\CVector4.h" />
@@ -187,6 +193,8 @@
     <ClInclude Include="..\..\inc\resource\IResourceLoader.h" />
     <ClInclude Include="..\..\inc\resource\ISceneResource.h" />
     <ClInclude Include="..\..\inc\scene\IModel.h" />
+    <ClInclude Include="..\..\inc\scene\IObject.h" />
+    <ClInclude Include="..\..\inc\scene\IObjectManager.h" />
     <ClInclude Include="..\..\inc\scene\ISceneManager.h" />
     <ClInclude Include="..\..\inc\scene\ICamera.h" />
     <ClInclude Include="..\..\inc\scene\IEntity.h" />
@@ -237,10 +245,15 @@
     <ClInclude Include="..\..\src\resource\CTGAImage.h" />
     <ClInclude Include="..\..\src\scene\CCamera.h" />
     <ClInclude Include="..\..\src\scene\CEntity.h" />
+    <ClInclude Include="..\..\src\scene\CEntityNode.h" />
     <ClInclude Include="..\..\src\scene\CModel.h" />
+    <ClInclude Include="..\..\src\scene\CObject.h" />
+    <ClInclude Include="..\..\src\scene\CObjectManager.h" />
+    <ClInclude Include="..\..\src\scene\CObjectNode.h" />
     <ClInclude Include="..\..\src\scene\CScene.h" />
     <ClInclude Include="..\..\src\scene\CSceneManager.h" />
     <ClInclude Include="..\..\src\scene\CSceneNode.h" />
+    <ClInclude Include="..\..\src\scene\CSphereObject.h" />
     <ClInclude Include="..\..\src\scene\light\CPointLight.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
