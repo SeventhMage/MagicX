@@ -148,7 +148,8 @@ namespace se
             {
                 m_matView.BuildCameraLookAtMatrix(m_position, m_direction, m_up);
                 CMatrix4 mat4;
-                //BuildFrustumMatrix(mat4);
+                BuildFrustumMatrix(m_matCam2World);
+				BuildFrustumMatrix(mat4);
                 m_matView.GetInverse(mat4);
                 m_frustum.Transform(mat4);
             }
@@ -259,19 +260,17 @@ namespace se
 
 		}
 
-		CRay CCamera::GetCameraRay(int scnX, int scnY)
-		{
+		CRay CCamera::GetCameraRay(int scnX, int scnY, int imageWidth, int imageHeight)
+		{			
+			float scale = tan(m_fov * 0.5f);
+			float px = (2 * ((scnX + 0.5f) / imageWidth) - 1) * scale * m_aspect;
+			float py = (1 - 2 * (scnY + 0.5) / (float)imageWidth) * scale;
+			CVector3 dir(px, py, -1);
+			m_matCam2World.TransformVect(dir);
+			dir.normalize();
 			CVector3 origin(0, 0, 0);
-			CMatrix4 invMatProj;
-			m_matProj.GetInverse(invMatProj);
-			
-			float x = scnX / (m_width * 0.5f) - 1.f;
-			float y = 1 - scnY / (m_height * 0.5f);
-			float z = -m_nearClip;
-			CVector3 viewPos;
-			invMatProj.TransformVect(viewPos, CVector3(x, y, z));
-			
-			return CRay(origin, viewPos - origin);
+			m_matCam2World.TransformVect(origin);
+			return CRay(origin, dir);
 		}
 
 	}

@@ -54,7 +54,7 @@ namespace se
 
 			virtual ISceneNode *GetFocus() { return m_pFocus; }
 
-			virtual CRay GetCameraRay(int scnX, int scnY);
+			virtual CRay GetCameraRay(int scnX, int scnY, int imageWidth, int imageHeight);
 
 			virtual void Update(int elapsedTime);
 		private:
@@ -63,6 +63,7 @@ namespace se
 			CMatrix4 m_matView;
 			CMatrix4 m_matProj;
 			CMatrix4 m_matVP;
+			CMatrix4 m_matCam2World;
 			CVector3 m_position;
 			CVector3 m_direction;
 			CVector3 m_up;

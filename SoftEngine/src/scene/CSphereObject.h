@@ -12,8 +12,9 @@ namespace se
 		public:
 			CSphereObject(uint id, float fRadius, const render::Color &color);
 			~CSphereObject();
-			bool Interset(const math::CRay &ray, math::CVector3 *hitPoint = nullptr, render::Color *hitColor = nullptr);
+			bool Interset(const math::CRay &ray, math::CVector3 *hitPoint = nullptr);
 		private:
+			math::CVector3 m_vCenter;
 			float m_fRadius;
 			render::Color m_Color;
 		};

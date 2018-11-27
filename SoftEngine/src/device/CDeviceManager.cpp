@@ -21,7 +21,7 @@ namespace se
 
 		CDeviceManager::~CDeviceManager()
 		{
-
+			SAFE_DEL(m_pDevice);
 		}
 
 		IDevice * CDeviceManager::CreateDevice(render::IRenderDriver *renderDriver, int x, int y, int width, int height, bool bFullScreen /* = false */)

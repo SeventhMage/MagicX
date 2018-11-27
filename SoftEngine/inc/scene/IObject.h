@@ -13,7 +13,7 @@ namespace se
 		{
 		public:
 			virtual ~IObject(){}
-			virtual bool Interset(const math::CRay &ray, math::CVector3 *hitPoint = nullptr, render::Color *hitColor = nullptr) = 0;
+			virtual bool Interset(const math::CRay &ray, math::CVector3 *hitPoint = nullptr) = 0;
 			virtual uint GetID() const  = 0;
 		protected:
 		private:

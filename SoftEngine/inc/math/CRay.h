@@ -17,7 +17,8 @@ namespace se
 			:m_origin(origin), m_direction(direction){}
 			CRay(){}
 			~CRay(){}
-
+			const CVector3& GetOrigin() const { return m_origin; }
+			const CVector3& GetDirection() const { return m_direction; }
 		private:
 			CVector3 m_origin;
 			CVector3 m_direction;
