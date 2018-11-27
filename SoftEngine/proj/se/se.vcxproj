@@ -158,6 +158,7 @@
     <ClInclude Include="..\..\inc\math\CVector2.h" />
     <ClInclude Include="..\..\inc\math\CVector3.h" />
     <ClInclude Include="..\..\inc\math\CVector4.h" />
+    <ClInclude Include="..\..\inc\math\seMath.h" />
     <ClInclude Include="..\..\inc\render\ILightModel.h" />
     <ClInclude Include="..\..\inc\render\ISampler.h" />
     <ClInclude Include="..\..\inc\render\IShader.h" />

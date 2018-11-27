@@ -30,15 +30,15 @@ int main(int argc, char *argv[])
 
 	objectMgr->CreateSphere(10, Color(1, 1, 0, 0));
 
-	unsigned long long next_game_tick = device->GetSystemRunTime();
-	unsigned long long sleep_time = 0;
+	long long next_game_tick = device->GetSystemRunTime();
+	long long sleep_time = 0;
 
 	char buf[256] = { 0 };
 	int delta = 0;
 	bool bQuit = false;
 	while (device->Run())
 	{
-		unsigned long long cur_time = device->GetSystemRunTime();
+		long long cur_time = device->GetSystemRunTime();
 		sleep_time = next_game_tick - cur_time;
 		if (sleep_time <= 0)
 		{
