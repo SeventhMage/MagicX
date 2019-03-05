@@ -51,7 +51,6 @@ int main(int argc, char *argv[])
 		pSphereSun->SetPosition(CVector3(10, 50, -10));
 		scene->GetRootNode()->AddChild(pSphereSun);		
 
-		RENDERER->EnableShadow(true);
 
 		CShadowPlane *pShadowPlane = new CShadowPlane();
 		pShadowPlane->Create();

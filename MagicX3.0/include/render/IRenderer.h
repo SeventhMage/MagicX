@@ -13,6 +13,7 @@
 #include "IMaterial.h"
 #include "IShaderProgram.h"
 #include "IShadowMap.h"
+#include "IRenderTargetManager.h"
 
 namespace mx
 {
@@ -66,14 +67,13 @@ namespace mx
 			virtual IMaterial *CreateMaterial() = 0;
 			virtual void DestroyMaterial(IMaterial *pMaterial) = 0;
 
-			//启用阴影
-			virtual void EnableShadow(bool bEnable) = 0;
-			virtual bool ShadowEnabled() = 0;
 			virtual IShadowMap *GetShadowMap() = 0;
 
 			//阴影图渲染标志
 			virtual void SetRenderShadowMap(bool rend) = 0;
 			virtual bool IsRenderShadowMap() = 0;
+
+			virtual IRenderTargetManager *GetRenderTargetManager() const = 0;
 		private:
 			
 		};

@@ -64,6 +64,8 @@
 #include "render/renderobject/CColorPointLightObject.h"
 #include "render/renderobject/CShadowMapObject.h"
 #include "render/IRenderer.h"
+#include "render/renderphase/IRenderPhaseManager.h"
+#include "render/renderphase/IRenderPhase.h"
 
 namespace mx
 {
@@ -95,6 +97,9 @@ namespace mx
 
 		//获取渲染器
 		virtual IRenderer *GetRenderer() = 0;
+
+		//运行
+		virtual void Run(int) = 0;
 	};
 }
 

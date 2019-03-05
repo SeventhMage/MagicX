@@ -1,8 +1,8 @@
 #version 330 core
 
-attribute vec3 vVertex;
+in vec3 vVertex;
 uniform mat4 mvpMatrix;
-varying vec3 vVaryingTexCoord;
+out vec3 vVaryingTexCoord;
 
 void main()
 {

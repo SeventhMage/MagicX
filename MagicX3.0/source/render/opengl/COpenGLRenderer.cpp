@@ -9,8 +9,9 @@
 #include "COpenGLTexture.h"
 #include "resource/IImageManager.h"
 #include "resource/IImage.h"
-#include "mx.h"
 #include "COpenGLShadowMap.h"
+#include "COpenGLRenderTargetManager.h"
+#include "mx.h"
 
 
 
@@ -24,6 +25,8 @@ namespace mx
 			:CRenderer(new COpenGLDriver())
 			, m_pShadowMap(nullptr)
 		{
+			//m_pShadowMap = new COpenGLShadowMap();
+			m_pRenderTargetMgr = new COpenGLRenderTargetManager();
 		}
 
 		COpenGLRenderer::~COpenGLRenderer()
@@ -80,7 +83,6 @@ namespace mx
 				delete object;
 			}
 		}
-
 
 		IVertexArrayObject * COpenGLRenderer::CreateVertexArrayObject()
 		{
@@ -174,20 +176,6 @@ namespace mx
 				delete pShaderProgram;
 		}
 
-		void COpenGLRenderer::EnableShadow(bool bEnable)
-		{
-			if (bEnable)
-			{
-				if (!m_pShadowMap)
-					m_pShadowMap = new COpenGLShadowMap();
-			}
-			m_bEnableShadow = bEnable;
-		}
-
-		bool COpenGLRenderer::ShadowEnabled()
-		{
-			return m_bEnableShadow;
-		}
 
 	}
 

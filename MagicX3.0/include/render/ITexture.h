@@ -44,6 +44,9 @@ namespace mx
 
 			//创建Cube纹理			
 			virtual void CreateCube(IImage *pImgRight, IImage *pImgLeft, IImage *pImgTop, IImage *pImgBottom, IImage *pImgFront, IImage *pImgBack) = 0;
+
+			//创建深度纹理
+			virtual void CreateDepth(int width, int height) = 0;
 			
 			virtual void Create(uint target, uint handle) = 0;
 

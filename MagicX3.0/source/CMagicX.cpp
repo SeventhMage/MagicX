@@ -4,6 +4,7 @@
 #include "resource/CResourceManager.h"
 #include "resource/CImageManager.h"
 #include "render/opengl//COpenGLRenderer.h"
+#include "render/renderphase/CRenderPhaseManager.h"
 
 
 
@@ -34,6 +35,8 @@ namespace mx
 		m_pResourceMgr[RT_MESH] = 0;
 		m_pResourceMgr[RT_SOUND] = 0;
 
+		m_pRenderPhaseMgr = new CRenderPhaseManager();
+		m_pRenderPhaseMgr->Initialize(m_pRenderer, width, height);
 		CEventManager::NewInstance();
 	}
 
@@ -75,5 +78,12 @@ namespace mx
 	IRenderer * CMagicX::GetRenderer()
 	{
 		return m_pRenderer;
+	}
+
+	void CMagicX::Run(int delta)
+	{
+		m_pSceneMgr->Update(delta);
+		m_pRenderPhaseMgr->ProcessRenderPhase();
+		GetDevice()->SwapBuffers();
 	}
 }

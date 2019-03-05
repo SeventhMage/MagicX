@@ -20,11 +20,13 @@ namespace mx
 		virtual ISceneManager *GetSceneManager();
 		virtual IResourceManager *GetResourceManager(EResourceType type);
 		virtual IRenderer *GetRenderer();
+		virtual void Run(int delta);
 	private:
 		IDeviceManager *m_pDeviceMgr;
 		ISceneManager *m_pSceneMgr;
 		IResourceManager *m_pResourceMgr[RT_COUNT];
 		IRenderer *m_pRenderer;
+		IRenderPhaseManager *m_pRenderPhaseMgr;
 	};
 }
 

@@ -52,7 +52,6 @@ void CGameScene::InitScene()
 		
 	}
 
-	RENDERER->EnableShadow(true);
 
 	m_pGround = new CGround();
 	m_pGround->Create();

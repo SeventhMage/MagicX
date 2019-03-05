@@ -33,12 +33,11 @@ namespace mx
 			virtual void DestroyTexture(ITexture *pTexture);
 			virtual IShaderProgram *CreateShaderProgram();
 			virtual void DestroyShaderProgram(IShaderProgram *pShaderProgram);
-			virtual void EnableShadow(bool bEnable);
-			virtual bool ShadowEnabled();
 			virtual IShadowMap *GetShadowMap() { return m_pShadowMap; }
+			virtual IRenderTargetManager *GetRenderTargetManager() const { return m_pRenderTargetMgr; }
 		private:
 			IShadowMap *m_pShadowMap;
-			bool m_bEnableShadow;
+			IRenderTargetManager *m_pRenderTargetMgr;
 		};
 	}
 }
