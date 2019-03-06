@@ -6,19 +6,20 @@ namespace mx
 	namespace render
 	{
 
-		CRenderable::CRenderable(IRenderList *pRenderList)
+		CRenderable::CRenderable(IRenderList *pRenderList, IRenderer *pRenderer)
 			:m_pRenderList(pRenderList)
 			, m_pVBO(nullptr)
 			, m_pIBO(nullptr)
+			,m_pRenderer(pRenderer)
 		{
 			memset(m_pTexture, 0, sizeof(ITexture *)* TU_TEXTURE_NUM);	
 			for (int i = 0; i < RA_NUM; ++i)
 				m_bRenderAttrs[i] = true;
 
-			m_pShaderProgram = RENDERER->CreateShaderProgram();
+			m_pShaderProgram = pRenderer->CreateShaderProgram();
 
 			//绘制阴影图时使用的shader
-			m_pShadowShaderProgram = RENDERER->CreateShaderProgram();
+			m_pShadowShaderProgram = pRenderer->CreateShaderProgram();
 			m_pShadowShaderProgram->Attach("shader/shadow.vs", ST_VERTEX);
 			m_pShadowShaderProgram->Attach("shader/shadow.ps", ST_FRAGMENT);
 			m_pShadowShaderProgram->BindAttributeLocation(1, VAL_POSITION);
@@ -27,11 +28,11 @@ namespace mx
 
 		CRenderable::~CRenderable()
 		{
-			RENDERER->DestroyBufferObject(m_pVBO);
-			RENDERER->DestroyBufferObject(m_pIBO);			
+			m_pRenderer->DestroyBufferObject(m_pVBO);
+			m_pRenderer->DestroyBufferObject(m_pIBO);
 
-			RENDERER->DestroyShaderProgram(m_pShaderProgram);
-			RENDERER->DestroyShaderProgram(m_pShadowShaderProgram);
+			m_pRenderer->DestroyShaderProgram(m_pShaderProgram);
+			m_pRenderer->DestroyShaderProgram(m_pShadowShaderProgram);
 		}
 
 		void CRenderable::SumbitToRenderList()
@@ -52,7 +53,7 @@ namespace mx
 			if (m_pIBO)
 				m_pIBO->Bind();
 
-			if (RENDERER->IsRenderShadowMap())
+			if (m_pRenderer->IsRenderShadowMap())
 			{
 				if (m_pShadowShaderProgram)
 					m_pShadowShaderProgram->Bind();
@@ -87,13 +88,13 @@ namespace mx
 
 		IBufferObject * CRenderable::CreateVertexBufferObject(void *vertexes, int size, int first, int count, GPUBufferMode mode, GPUBufferUsage usage)
 		{
-			m_pVBO = RENDERER->CreateVertexBufferObject(vertexes, size, first, count, mode, usage);
+			m_pVBO = m_pRenderer->CreateVertexBufferObject(vertexes, size, first, count, mode, usage);
 			return m_pVBO;
 		}
 
 		IBufferObject * CRenderable::CreateIndexBufferObject(void *indices, uint idsCount, RendererVariableType idsType, GPUBufferMode mode, GPUBufferUsage usage)
 		{
-			m_pIBO = RENDERER->CreateIndexBufferObject(indices, idsCount, idsType, mode, usage);
+			m_pIBO = m_pRenderer->CreateIndexBufferObject(indices, idsCount, idsType, mode, usage);
 			return m_pIBO;
 		}
 

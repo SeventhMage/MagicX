@@ -13,7 +13,7 @@ namespace mx
 		class CReflectObject : public CRenderObject
 		{
 		public:
-			CReflectObject();
+			CReflectObject(IRenderer *pRenderer);
 			~CReflectObject();						
 
 			virtual void SetTexture(IRenderable *pRenderable);

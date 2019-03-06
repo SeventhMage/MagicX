@@ -26,6 +26,7 @@ namespace mx
 
 			virtual void SetEnable(bool bEnable) = 0;
 			virtual bool IsEnable() const = 0;
+			virtual IRenderTarget *GetRenderTarget() const = 0;
 		};
 	}
 }

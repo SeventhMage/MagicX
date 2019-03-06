@@ -15,7 +15,7 @@ namespace mx
 		class CColorFlatObject : public CRenderObject
 		{
 		public:
-			CColorFlatObject(float fColor[4]);
+			CColorFlatObject(IRenderer *pRenderer, float fColor[4]);
 			virtual ~CColorFlatObject();
 			
 			virtual void Create(IRenderable *pRenderable);			

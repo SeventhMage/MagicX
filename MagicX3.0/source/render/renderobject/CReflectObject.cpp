@@ -6,7 +6,8 @@ namespace mx
 	namespace render
 	{
 
-		CReflectObject::CReflectObject()
+		CReflectObject::CReflectObject(IRenderer *pRenderer)
+			:CRenderObject(pRenderer)
 		{
 			
 		}

@@ -14,7 +14,7 @@ namespace mx
 		class CColorPointLightObject : public CRenderObject
 		{
 		public:
-			CColorPointLightObject(float fColor[4]);
+			CColorPointLightObject(IRenderer *pRenderer, float fColor[4]);
 			virtual ~CColorPointLightObject();
 
 			virtual void Create(IRenderable *pRenderable);			

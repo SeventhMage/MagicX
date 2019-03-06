@@ -5,7 +5,8 @@ namespace mx
 	namespace render
 	{
 
-		CColorFlatObject::CColorFlatObject(float fColor[4])
+		CColorFlatObject::CColorFlatObject(IRenderer *pRenderer, float fColor[4])
+			:CRenderObject(pRenderer)
 		{
 			memcpy(m_fColor, fColor, 4 * sizeof(float));
 		}

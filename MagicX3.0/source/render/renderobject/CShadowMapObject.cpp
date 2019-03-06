@@ -6,7 +6,8 @@ namespace mx
 	namespace render
 	{
 
-		CShadowMapObject::CShadowMapObject()
+		CShadowMapObject::CShadowMapObject(IRenderer *pRenderer)
+			:CRenderObject(pRenderer)
 		{
 
 		}

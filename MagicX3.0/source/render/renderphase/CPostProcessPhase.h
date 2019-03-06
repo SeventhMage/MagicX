@@ -10,7 +10,7 @@ namespace mx
 		class CPostProcessPhase : public CRenderPhase
 		{
 		public:
-			CPostProcessPhase();
+			CPostProcessPhase(IRenderPhaseManager *pRenderPhaseMgr);
 			~CPostProcessPhase();
 
 			virtual int GetPhaseID() const { return ERPI_POSTPROCESS; }

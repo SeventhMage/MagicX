@@ -14,7 +14,7 @@ namespace mx
 		class CShadowMapObject : public CRenderObject
 		{
 		public:
-			CShadowMapObject();
+			CShadowMapObject(IRenderer *pRenderer);
 			virtual ~CShadowMapObject();
 
 			virtual void Create(IRenderable *pRenderable);

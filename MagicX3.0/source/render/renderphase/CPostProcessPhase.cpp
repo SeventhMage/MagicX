@@ -4,8 +4,8 @@ namespace mx
 {
 	namespace render
 	{
-		CPostProcessPhase::CPostProcessPhase()
-			:CRenderPhase(ERTF_BIND_TEXTURE)
+		CPostProcessPhase::CPostProcessPhase(IRenderPhaseManager *pRenderPhaseMgr)
+			:CRenderPhase(ERTF_BIND_TEXTURE, pRenderPhaseMgr)
 		{
 		}
 		CPostProcessPhase::~CPostProcessPhase()

@@ -11,10 +11,10 @@ namespace mx
 	{
 		CRenderPhaseManager::CRenderPhaseManager()
 		{
-			//m_vecRenderPhase.push_back(new CShadowMapPhase());
-			//m_vecRenderPhase.push_back(new CSceneGraphPhase());
-			//m_vecRenderPhase.push_back(new CPostProcessPhase());
-			m_vecRenderPhase.push_back(new CSceneOutcomePhase());
+			//m_vecRenderPhase.push_back(new CShadowMapPhase(this));
+			//m_vecRenderPhase.push_back(new CSceneGraphPhase(this));
+			//m_vecRenderPhase.push_back(new CPostProcessPhase(this));
+			m_vecRenderPhase.push_back(new CSceneOutcomePhase(this));
 		}
 
 		CRenderPhaseManager::~CRenderPhaseManager()

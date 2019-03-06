@@ -6,14 +6,15 @@ namespace mx
 	namespace render
 	{
 
-		CRenderObject::CRenderObject()
+		CRenderObject::CRenderObject(IRenderer *pRenderer)
+			:m_pRenderer(pRenderer)
 		{
-			m_pVAO = RENDERER->CreateVertexArrayObject();
+			m_pVAO = pRenderer->CreateVertexArrayObject();
 		}
 
 		CRenderObject::~CRenderObject()
 		{
-			RENDERER->DestroyVertexArrayObject(m_pVAO);
+			m_pRenderer->DestroyVertexArrayObject(m_pVAO);
 		}
 
 		void CRenderObject::Update(IRenderable *pRenderable, const UniformMap &param, const UniformMap *shadowParam)

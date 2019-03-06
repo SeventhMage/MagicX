@@ -9,6 +9,7 @@
 #include "render/ITexture.h"
 #include "render/IShaderProgram.h"
 #include "render/IRenderList.h"
+#include "render/IRenderer.h"
 
 namespace mx
 {
@@ -17,7 +18,7 @@ namespace mx
 		class CRenderable : public IRenderable
 		{
 		public:
-			CRenderable(IRenderList *pRenderList);
+			CRenderable(IRenderList *pRenderList, IRenderer *pRenderer);
 			virtual ~CRenderable();
 
 			virtual IBufferObject *CreateVertexBufferObject(void *vertexes, int size,
@@ -50,6 +51,8 @@ namespace mx
 			bool m_bRenderAttrs[RA_NUM];				//‰÷»æ Ù–‘
 
 			ITexture *m_pTexture[TU_TEXTURE_NUM];		//Œ∆¿Ì
+
+			IRenderer *m_pRenderer;
 		};
 	}
 }

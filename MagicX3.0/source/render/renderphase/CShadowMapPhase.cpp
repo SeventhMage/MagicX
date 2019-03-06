@@ -7,8 +7,8 @@ namespace mx
 {
 	namespace render
 	{
-		CShadowMapPhase::CShadowMapPhase()
-			:CRenderPhase(ERTF_DEPTH_TEXTURE)
+		CShadowMapPhase::CShadowMapPhase(IRenderPhaseManager *pRenderPhaseMgr)
+			:CRenderPhase(ERTF_DEPTH_TEXTURE, pRenderPhaseMgr)
 		{
 		}
 		CShadowMapPhase::~CShadowMapPhase()

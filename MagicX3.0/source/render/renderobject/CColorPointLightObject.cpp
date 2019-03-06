@@ -4,7 +4,8 @@ namespace mx
 {
 	namespace render
 	{
-		CColorPointLightObject::CColorPointLightObject(float fColor[4])
+		CColorPointLightObject::CColorPointLightObject(IRenderer *pRenderer, float fColor[4])
+			:CRenderObject(pRenderer)
 		{
 			memcpy(m_fColor, fColor, 4 * sizeof(float));
 		}

@@ -34,7 +34,7 @@ namespace mx
 			GLDebug(glBindFramebuffer(GL_FRAMEBUFFER, m_fbo));
 			GLDebug(glViewport(0, 0, m_iWidth, m_iHeight));
 			GLDebug(glClearDepth(1.0f));
-			//GLDebug(glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
+			GLDebug(glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
 		}
 		void COpenGLRenderTarget::EndTarget()
 		{

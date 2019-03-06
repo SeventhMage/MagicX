@@ -32,7 +32,7 @@ namespace mx
 
 		IRenderable * CRenderer::CreateRenderable(IRenderList *pRenderList)
 		{
-			return new CRenderable(pRenderList);
+			return new CRenderable(pRenderList, this);
 		}
 
 		void CRenderer::DestroyRenderable(IRenderable *pRenderable)
@@ -80,6 +80,7 @@ namespace mx
 				if (*it)
 				{					
 					(*it)->Render();
+					(*it)->EndRender();
 				}
 			}
 		}

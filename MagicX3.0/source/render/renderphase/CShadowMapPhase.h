@@ -10,7 +10,7 @@ namespace mx
 		class CShadowMapPhase : public CRenderPhase
 		{
 		public:
-			CShadowMapPhase();
+			CShadowMapPhase(IRenderPhaseManager *pRenderPhaseMgr);
 			~CShadowMapPhase();
 
 			virtual int GetPhaseID() const { return ERPI_SHADOWMAP; }

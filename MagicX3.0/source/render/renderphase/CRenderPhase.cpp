@@ -5,9 +5,10 @@ namespace mx
 {
 	namespace render
 	{
-		CRenderPhase::CRenderPhase(int renderTargetFlag)
+		CRenderPhase::CRenderPhase(int renderTargetFlag, IRenderPhaseManager *pPhaseMgr)
 			:m_pRenderTarget(nullptr)
 			,m_renderTargetFlag(renderTargetFlag)
+			,m_pRenderPhaseManager(pPhaseMgr)
 		{
 		}
 		CRenderPhase::~CRenderPhase()
@@ -28,6 +29,10 @@ namespace mx
 		bool CRenderPhase::IsEnable() const
 		{
 			return m_bEnabled;
+		}
+		IRenderTarget * CRenderPhase::GetRenderTarget() const
+		{
+			return m_pRenderTarget;
 		}
 		void CRenderPhase::Render()
 		{

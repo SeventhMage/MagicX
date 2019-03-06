@@ -8,6 +8,7 @@
 
 #include "render/renderobject/IRenderObject.h"
 #include "render/IRenderable.h"
+#include "render/IRenderer.h"
 
 namespace mx
 {
@@ -17,7 +18,7 @@ namespace mx
 		class CRenderObject : public IRenderObject
 		{
 		public:
-			CRenderObject();
+			CRenderObject(IRenderer *pRenderer);
 			virtual ~CRenderObject();
 
 			virtual void SetTexture(IRenderable *pRenderable){}
@@ -26,6 +27,7 @@ namespace mx
 			
 		protected:
 			IVertexArrayObject *m_pVAO;
+			IRenderer *m_pRenderer;
 		};
 	}
 }

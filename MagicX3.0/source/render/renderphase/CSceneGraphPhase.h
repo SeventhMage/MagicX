@@ -9,7 +9,7 @@ namespace mx
 		class CSceneGraphPhase : public CRenderPhase
 		{
 		public:
-			CSceneGraphPhase();
+			CSceneGraphPhase(IRenderPhaseManager *pRenderPhaseMgr);
 			~CSceneGraphPhase();
 
 
