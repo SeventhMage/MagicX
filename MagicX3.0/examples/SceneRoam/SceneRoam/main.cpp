@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 	IScene *scene = sceneManager->GetCurrentScene();
 	IDevice *device = mx->GetDevice();
 
-	IRenderObject *pRenderObject = new CReflectObject();
+	IRenderObject *pRenderObject = new CReflectObject(RENDERER);
 
 	CSphereEntity *pSphere = nullptr;
 	ICamera *camera = nullptr;

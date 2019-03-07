@@ -4,14 +4,14 @@ CPlayer::CPlayer()
 : m_pHead(nullptr)
 , m_pTail(nullptr)
 {
-	m_pReflectObject = new CReflectObject();
+	m_pReflectObject = new CReflectObject(RENDERER);
 
 	float color[4] = { 0 };	
 	for (int i = 0; i < 4; ++i)
 	{
 		color[i] = (rand() % 255) / 255.0f;
 	}
-	m_pColorLightObject = new CColorPointLightObject(color);
+	m_pColorLightObject = new CColorPointLightObject(RENDERER, color);
 
 	Increase();
 	Increase();

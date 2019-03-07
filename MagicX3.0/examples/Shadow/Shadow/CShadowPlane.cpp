@@ -4,7 +4,7 @@
 CShadowPlane::CShadowPlane()
 :m_pRenderable(nullptr)
 {
-	m_pRenderObject = new CShadowMapObject();
+	m_pRenderObject = new CShadowMapObject(RENDERER);
 }
 
 CShadowPlane::~CShadowPlane()

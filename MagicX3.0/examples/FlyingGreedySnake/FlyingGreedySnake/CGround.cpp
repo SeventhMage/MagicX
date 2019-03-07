@@ -3,7 +3,7 @@
 
 CGround::CGround()
 {
-	m_pRenderObject = new CShadowMapObject();
+	m_pRenderObject = new CShadowMapObject(RENDERER);
 }
 
 CGround::~CGround()

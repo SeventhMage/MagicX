@@ -3,7 +3,7 @@
 
 CNPC::CNPC(float color[4], float radius)
 {
-	m_pColorLightObject = new CColorPointLightObject(color);
+	m_pColorLightObject = new CColorPointLightObject(RENDERER, color);
 	m_pBody = new CSphereEntity(m_pColorLightObject, radius, 50, 25);
 	m_pBody->Create();
 
