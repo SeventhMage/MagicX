@@ -23,26 +23,23 @@ namespace mx
 			m_target = GL_TEXTURE_2D;
 			GLDebug(glBindTexture(GL_TEXTURE_2D, m_hTexture));
 
-			if (data)
-			{
-				//需要提出来
-				GLDebug(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
-				GLDebug(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
-				GLDebug(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
-				GLDebug(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+			//需要提出来
+			GLDebug(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
+			GLDebug(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
+			GLDebug(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+			GLDebug(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
 
-				GLDebug(glTexImage2D(GL_TEXTURE_2D, 0, internalformat, width, height, 0, format, type, data));
+			GLDebug(glTexImage2D(GL_TEXTURE_2D, 0, internalformat, width, height, 0, format, type, data));
 
-				GLDebug(glGenerateMipmap(GL_TEXTURE_2D));
+			GLDebug(glGenerateMipmap(GL_TEXTURE_2D));
 
-				GLDebug(glBindTexture(GL_TEXTURE_2D, 0));
-			}
+			GLDebug(glBindTexture(GL_TEXTURE_2D, 0));
 		}
 
-		void COpenGLTexture::CreateCube(IImage *pImgRight, IImage *pImgLeft, IImage *pImgTop, 
+		void COpenGLTexture::CreateCube(IImage *pImgRight, IImage *pImgLeft, IImage *pImgTop,
 			IImage *pImgBottom, IImage *pImgFront, IImage *pImgBack)
-		{			
-			IImage *pImage[6] = {pImgRight, pImgLeft, pImgTop, pImgBottom, pImgFront, pImgBack};
+		{
+			IImage *pImage[6] = { pImgRight, pImgLeft, pImgTop, pImgBottom, pImgFront, pImgBack };
 
 			m_target = GL_TEXTURE_CUBE_MAP;
 
@@ -82,7 +79,7 @@ namespace mx
 		}
 
 		void COpenGLTexture::UnBind()
-		{			
+		{
 			GLDebug(glBindTexture(m_target, 0));
 		}
 

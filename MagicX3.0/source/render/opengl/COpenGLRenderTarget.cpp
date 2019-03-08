@@ -9,21 +9,24 @@ namespace mx
 			:m_iWidth(width), m_iHeight(height), m_bindTexture(nullptr), m_depthTexture(nullptr), m_fbo(0)
 		{
 			if (renderTargetFlag != 0)
+			{
 				GLDebug(glGenFramebuffers(1, &m_fbo));
-			if (renderTargetFlag & ERTF_BIND_TEXTURE)
-			{
-				m_bindTexture = new COpenGLTexture();
-				m_bindTexture->Create2D(GL_RGBA, m_iWidth, m_iHeight, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
-				GLDebug(glBindTexture(GL_TEXTURE_2D, m_bindTexture->GetHandle()));
-				GLDebug(glBindFramebuffer(GL_FRAMEBUFFER, m_fbo));
-				GLDebug(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_bindTexture->GetHandle(), 0));
-			}
-			if (renderTargetFlag & ERTF_DEPTH_TEXTURE)
-			{
-				m_depthTexture = new COpenGLTexture();
-				m_depthTexture->CreateDepth(m_iWidth, m_iHeight);
-				GLDebug(glBindFramebuffer(GL_FRAMEBUFFER, m_fbo));
-				GLDebug(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_depthTexture->GetHandle(), 0));
+				if (renderTargetFlag & ERTF_BIND_TEXTURE)
+				{
+					m_bindTexture = new COpenGLTexture();
+					m_bindTexture->Create2D(GL_RGBA, m_iWidth, m_iHeight, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+					GLDebug(glBindTexture(GL_TEXTURE_2D, m_bindTexture->GetHandle()));
+					GLDebug(glBindFramebuffer(GL_FRAMEBUFFER, m_fbo));
+					GLDebug(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_bindTexture->GetHandle(), 0));
+				}
+				if (renderTargetFlag & ERTF_DEPTH_TEXTURE)
+				{
+					m_depthTexture = new COpenGLTexture();
+					m_depthTexture->CreateDepth(m_iWidth, m_iHeight);
+					GLDebug(glBindFramebuffer(GL_FRAMEBUFFER, m_fbo));
+					GLDebug(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_depthTexture->GetHandle(), 0));
+				}
+				GLCheckFBOStatus(GL_FRAMEBUFFER);
 			}
 		}
 		COpenGLRenderTarget::~COpenGLRenderTarget()
