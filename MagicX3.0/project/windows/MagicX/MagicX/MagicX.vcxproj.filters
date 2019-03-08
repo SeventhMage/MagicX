@@ -70,6 +70,12 @@
     <Filter Include="source\render\renderobject">
       <UniqueIdentifier>{e0629ef6-f9d5-4a2e-bc5c-cfc0678e7cec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\render\renderphase">
+      <UniqueIdentifier>{d0f3df20-0f3e-43c3-85b5-a69e7fed967b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\render\renderphase">
+      <UniqueIdentifier>{a7b1beba-bd58-4199-bf31-45a214dca20e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\mx.cpp">
@@ -197,6 +203,33 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\base\CVirtualTraceBall.cpp">
       <Filter>source\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\renderphase\CShadowMapPhase.cpp">
+      <Filter>source\render\renderphase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\renderphase\CSceneGraphPhase.cpp">
+      <Filter>source\render\renderphase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\renderphase\CPostProcessPhase.cpp">
+      <Filter>source\render\renderphase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\renderphase\CSceneOutcomePhase.cpp">
+      <Filter>source\render\renderphase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\renderphase\CRenderPhase.cpp">
+      <Filter>source\render\renderphase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\renderphase\CRenderPhaseManager.cpp">
+      <Filter>source\render\renderphase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLRenderTargetManager.cpp">
+      <Filter>source\render\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLRenderTarget.cpp">
+      <Filter>source\render\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\renderobject\CTextureMapObject.cpp">
+      <Filter>source\render\renderobject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -484,6 +517,45 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\base\CVirtualTraceBall.h">
       <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\renderphase\IRenderPhase.h">
+      <Filter>include\render\renderphase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\renderphase\CShadowMapPhase.h">
+      <Filter>source\render\renderphase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\renderphase\CSceneGraphPhase.h">
+      <Filter>source\render\renderphase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\renderphase\CPostProcessPhase.h">
+      <Filter>source\render\renderphase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\renderphase\CSceneOutcomePhase.h">
+      <Filter>source\render\renderphase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\renderphase\CRenderPhase.h">
+      <Filter>source\render\renderphase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\renderphase\IRenderPhaseManager.h">
+      <Filter>include\render\renderphase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\renderphase\CRenderPhaseManager.h">
+      <Filter>source\render\renderphase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IRenderTarget.h">
+      <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IRenderTargetManager.h">
+      <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLRenderTargetManager.h">
+      <Filter>source\render\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLRenderTarget.h">
+      <Filter>source\render\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\renderobject\CTextureMapObject.h">
+      <Filter>include\render\renderobject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

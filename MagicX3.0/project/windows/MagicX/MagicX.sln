@@ -1,17 +1,29 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MagicX", "MagicX\MagicX.vcxproj", "{AABC5704-3BD5-4CE9-A996-9EFA8EB8A6D0}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SceneRoam", "..\..\..\examples\SceneRoam\SceneRoam\SceneRoam.vcxproj", "{2649733A-2988-4021-B235-C9753C21FD60}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AABC5704-3BD5-4CE9-A996-9EFA8EB8A6D0} = {AABC5704-3BD5-4CE9-A996-9EFA8EB8A6D0}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cube", "..\..\..\examples\Cube\Cube\Cube.vcxproj", "{B8960EEB-70E2-41E0-9211-97E228FE66B1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AABC5704-3BD5-4CE9-A996-9EFA8EB8A6D0} = {AABC5704-3BD5-4CE9-A996-9EFA8EB8A6D0}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shadow", "..\..\..\examples\Shadow\Shadow\Shadow.vcxproj", "{F4FCE0A2-E611-45BA-A0F9-D04239AF94E5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AABC5704-3BD5-4CE9-A996-9EFA8EB8A6D0} = {AABC5704-3BD5-4CE9-A996-9EFA8EB8A6D0}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlyingGreedySnake", "..\..\..\examples\FlyingGreedySnake\FlyingGreedySnake\FlyingGreedySnake.vcxproj", "{8DFEA7B1-A747-4284-ABFF-7AEF03652F20}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AABC5704-3BD5-4CE9-A996-9EFA8EB8A6D0} = {AABC5704-3BD5-4CE9-A996-9EFA8EB8A6D0}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,5 +66,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {233BF469-63BE-4DF9-8951-06CD0AF3482C}
 	EndGlobalSection
 EndGlobal

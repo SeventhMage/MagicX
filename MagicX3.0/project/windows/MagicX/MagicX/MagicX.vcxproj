@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -14,18 +14,19 @@
     <ProjectGuid>{AABC5704-3BD5-4CE9-A996-9EFA8EB8A6D0}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>MagicX</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -62,7 +63,7 @@
       <AdditionalDependencies>glew32d.lib;glew32sd.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;glew32d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>../../../../lib/$(Configuration)/</AdditionalLibraryDirectories>
@@ -106,14 +107,23 @@
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLShader.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLShaderProgram.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLShadowMap.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLRenderTarget.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLTexture.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLVertexArrayObject.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLVertexBufferObject.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLRenderTargetManager.cpp" />
     <ClCompile Include="..\..\..\..\source\render\renderobject\CColorObject.cpp" />
     <ClCompile Include="..\..\..\..\source\render\renderobject\CColorPointLightObject.cpp" />
     <ClCompile Include="..\..\..\..\source\render\renderobject\CReflectObject.cpp" />
     <ClCompile Include="..\..\..\..\source\render\renderobject\CRenderObject.cpp" />
     <ClCompile Include="..\..\..\..\source\render\renderobject\CShadowMapObject.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\renderobject\CTextureMapObject.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\renderphase\CPostProcessPhase.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\renderphase\CRenderPhase.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\renderphase\CRenderPhaseManager.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\renderphase\CSceneGraphPhase.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\renderphase\CSceneOutcomePhase.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\renderphase\CShadowMapPhase.cpp" />
     <ClCompile Include="..\..\..\..\source\resource\CImageManager.cpp" />
     <ClCompile Include="..\..\..\..\source\resource\CResourceManager.cpp" />
     <ClCompile Include="..\..\..\..\source\resource\CTGAImage.cpp" />
@@ -160,6 +170,8 @@
     <ClInclude Include="..\..\..\..\include\render\IRenderDriver.h" />
     <ClInclude Include="..\..\..\..\include\render\IRenderer.h" />
     <ClInclude Include="..\..\..\..\include\render\IRenderList.h" />
+    <ClInclude Include="..\..\..\..\include\render\IRenderTarget.h" />
+    <ClInclude Include="..\..\..\..\include\render\IRenderTargetManager.h" />
     <ClInclude Include="..\..\..\..\include\render\IShader.h" />
     <ClInclude Include="..\..\..\..\include\render\IShaderProgram.h" />
     <ClInclude Include="..\..\..\..\include\render\IShadowMap.h" />
@@ -170,7 +182,10 @@
     <ClInclude Include="..\..\..\..\include\render\renderobject\CReflectObject.h" />
     <ClInclude Include="..\..\..\..\include\render\renderobject\CRenderObject.h" />
     <ClInclude Include="..\..\..\..\include\render\renderobject\CShadowMapObject.h" />
+    <ClInclude Include="..\..\..\..\include\render\renderobject\CTextureMapObject.h" />
     <ClInclude Include="..\..\..\..\include\render\renderobject\IRenderObject.h" />
+    <ClInclude Include="..\..\..\..\include\render\renderphase\IRenderPhase.h" />
+    <ClInclude Include="..\..\..\..\include\render\renderphase\IRenderPhaseManager.h" />
     <ClInclude Include="..\..\..\..\include\render\SColor.h" />
     <ClInclude Include="..\..\..\..\include\render\SVertexAttribute.h" />
     <ClInclude Include="..\..\..\..\include\resource\IImage.h" />
@@ -208,6 +223,8 @@
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLDriver.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLIndexBufferObject.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLRenderer.h" />
+    <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLRenderTarget.h" />
+    <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLRenderTargetManager.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLShader.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLShaderProgram.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLShadowMap.h" />
@@ -216,6 +233,12 @@
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLVertexBufferObject.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\GLDebug.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\OpenGLType.h" />
+    <ClInclude Include="..\..\..\..\source\render\renderphase\CPostProcessPhase.h" />
+    <ClInclude Include="..\..\..\..\source\render\renderphase\CRenderPhase.h" />
+    <ClInclude Include="..\..\..\..\source\render\renderphase\CRenderPhaseManager.h" />
+    <ClInclude Include="..\..\..\..\source\render\renderphase\CSceneGraphPhase.h" />
+    <ClInclude Include="..\..\..\..\source\render\renderphase\CSceneOutcomePhase.h" />
+    <ClInclude Include="..\..\..\..\source\render\renderphase\CShadowMapPhase.h" />
     <ClInclude Include="..\..\..\..\source\resource\CImageManager.h" />
     <ClInclude Include="..\..\..\..\source\resource\CResourceManager.h" />
     <ClInclude Include="..\..\..\..\source\resource\CTGAImage.h" />
