@@ -19,6 +19,7 @@ namespace mx
 		virtual IDeviceManager *GetDeviceManager();
 		virtual ISceneManager *GetSceneManager();
 		virtual IResourceManager *GetResourceManager(EResourceType type);
+		virtual IRenderPhaseManager *GetRenderPhaseManager();
 		virtual IRenderer *GetRenderer();
 		virtual void Run(int delta);
 	private:

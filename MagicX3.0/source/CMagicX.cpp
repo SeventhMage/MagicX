@@ -75,6 +75,11 @@ namespace mx
 		return m_pDeviceMgr;
 	}
 
+	IRenderPhaseManager * CMagicX::GetRenderPhaseManager()
+	{
+		return m_pRenderPhaseMgr;
+	}
+
 	IRenderer * CMagicX::GetRenderer()
 	{
 		return m_pRenderer;

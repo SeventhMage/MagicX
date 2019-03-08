@@ -80,7 +80,6 @@ namespace mx
 				if (*it)
 				{					
 					(*it)->Render();
-					(*it)->EndRender();
 				}
 			}
 		}

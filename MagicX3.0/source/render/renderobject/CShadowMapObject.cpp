@@ -46,14 +46,10 @@ namespace mx
 			IShaderProgram *pShaderProgram = pRenderable->GetShaderProgram();
 			if (pShaderProgram)
 			{
-				IShadowMap *pShadowMap = RENDERER->GetShadowMap();
-				if (pShadowMap)
-				{
-					ITexture *pTex = pShadowMap->GetShadowMap();
-					uint tex = 0;
-					pShaderProgram->SetUniform("depth_texture", &tex);
-					pRenderable->SetTexture(0, pTex);
-				}
+				ITexture *pTex = MagicX->GetRenderPhaseManager()->GetRenderPhase(ERPI_SHADOWMAP)->GetRenderTarget()->GetDepthTexture();
+				uint tex = 0;
+				pShaderProgram->SetUniform("depth_texture", &tex);
+				pRenderable->SetTexture(0, pTex);
 			}
 
 		}

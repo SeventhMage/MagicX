@@ -12,7 +12,9 @@ namespace mx
 			CSceneGraphPhase(IRenderPhaseManager *pRenderPhaseMgr);
 			~CSceneGraphPhase();
 
-
+			virtual void Initialize(IRenderer *pRenderer, int width, int height);
+			virtual void Destroy();
+			virtual void Render();
 			virtual int GetPhaseID() const { return ERPI_SCENEGRAPH; }
 		};
 	}

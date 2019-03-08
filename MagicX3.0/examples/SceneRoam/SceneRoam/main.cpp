@@ -121,9 +121,7 @@ int main(int argc, char *argv[])
 
 			next_game_tick = GetTickCount() + SKIP_TICKS;
 
-			sceneManager->Update(SKIP_TICKS - sleep_time);
-			sceneManager->Draw();
-			device->SwapBuffers();
+			mx->Run(SKIP_TICKS - sleep_time);
 		}
 		else
 		{

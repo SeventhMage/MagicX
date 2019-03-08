@@ -19,7 +19,7 @@ CGreedySnake::~CGreedySnake()
 
 void CGreedySnake::InitGame(int width, int height, bool fullscreen)
 {
-	CreateMagicX(RDT_OPENGL, 0, 0, 800, 600);
+	CreateMagicX(RDT_OPENGL, 0, 0, 800, 600, fullscreen);
 	m_pGameScene = new CGameScene();
 	m_pGameScene->InitScene();
 }
@@ -39,8 +39,7 @@ void CGreedySnake::Run()
 		if (sleep_time <= 0)
 		{
 			next_game_tick = GetTickCount() + SKIP_TICKS;
-			bQuit = Update(SKIP_TICKS - sleep_time);
-			device->SwapBuffers();
+			bQuit = Update(SKIP_TICKS - sleep_time);			
 		}
 		else
 		{
@@ -155,9 +154,7 @@ bool CGreedySnake::Update(int delta)
 
 	m_pGameScene->Update(delta);
 
-	SCENEMGR->Update(delta);
-	SCENEMGR->Draw();
-
+	MagicX->Run(delta);
 	return true;
 }
 

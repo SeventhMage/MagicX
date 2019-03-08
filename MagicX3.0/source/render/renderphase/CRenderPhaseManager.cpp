@@ -3,6 +3,7 @@
 #include "CSceneGraphPhase.h"
 #include "CPostProcessPhase.h"
 #include "CSceneOutcomePhase.h"
+#include "mx.h"
 
 
 namespace mx
@@ -11,7 +12,7 @@ namespace mx
 	{
 		CRenderPhaseManager::CRenderPhaseManager()
 		{
-			//m_vecRenderPhase.push_back(new CShadowMapPhase(this));
+			m_vecRenderPhase.push_back(new CShadowMapPhase(this));
 			m_vecRenderPhase.push_back(new CSceneGraphPhase(this));
 			//m_vecRenderPhase.push_back(new CPostProcessPhase(this));
 			m_vecRenderPhase.push_back(new CSceneOutcomePhase(this));
@@ -43,6 +44,7 @@ namespace mx
 				if (phase)
 					phase->Render();
 			}
+			RENDERER->EndRender();
 		}
 
 		IRenderPhase * CRenderPhaseManager::GetRenderPhase(ERenderPhaseID id)

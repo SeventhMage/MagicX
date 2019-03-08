@@ -7,7 +7,7 @@ namespace mx
 	namespace render
 	{
 		CSceneOutcomePhase::CSceneOutcomePhase(IRenderPhaseManager *pPhaseMgr)
-			:CRenderPhase(ERTF_DEFAULT, pPhaseMgr), m_pRenderable(nullptr), m_pRenderObject(nullptr)
+			:CRenderPhase(pPhaseMgr), m_pRenderable(nullptr), m_pRenderObject(nullptr)
 		{
 		}
 		CSceneOutcomePhase::~CSceneOutcomePhase()
@@ -16,7 +16,7 @@ namespace mx
 
 		void CSceneOutcomePhase::Initialize(IRenderer *pRenderer, int width, int height)
 		{
-			m_pRenderTarget = pRenderer->GetRenderTargetManager()->CreateRenderTarget(m_renderTargetFlag, width, height);
+			m_pRenderTarget = pRenderer->GetRenderTargetManager()->CreateRenderTarget(ERTF_DEFAULT, width, height);
 
 			m_pRenderObject = new CTextureMapObject(pRenderer);
 			IVertexArrayObject *pVAO = m_pRenderObject->GetVAO();

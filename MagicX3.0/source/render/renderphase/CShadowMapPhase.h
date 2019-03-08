@@ -12,7 +12,9 @@ namespace mx
 		public:
 			CShadowMapPhase(IRenderPhaseManager *pRenderPhaseMgr);
 			~CShadowMapPhase();
-
+			virtual void Initialize(IRenderer *pRenderer, int width, int height);
+			virtual void Destroy();
+			virtual void Render();
 			virtual int GetPhaseID() const { return ERPI_SHADOWMAP; }
 		};
 	}
