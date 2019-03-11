@@ -22,7 +22,7 @@ namespace mx
 		{
 		public:
 			CUnit();
-			CUnit(IVertex *pVertex, const char *texfile = nullptr);
+			CUnit(IVertex *pVertex, const char *texfile = "");
 
 			virtual ~CUnit();
 

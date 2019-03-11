@@ -16,7 +16,7 @@ namespace mx
 			m_pRenderable = RENDERER->CreateRenderable(m_pVAO->GetRenderList());
 		}
 
-		CUnit::CUnit(IVertex *pVertex, const char *texfile /*= nullptr*/)			
+		CUnit::CUnit(IVertex *pVertex, const char *texfile)			
 			: m_pMode(NULL)
 			,m_pTexture(nullptr)
 		{

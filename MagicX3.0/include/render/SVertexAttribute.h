@@ -26,7 +26,7 @@ namespace mx
 		typedef struct
 		{
 			int attrId;
-			char *attrName;
+			const char *attrName;
 		}SVertexAttribute;
 
 		static SVertexAttribute g_sVertexAttributeArray[VAL_NUM]
@@ -35,14 +35,14 @@ namespace mx
 			{ VAL_COLOR, "vColor" },
 			{ VAL_NORMAL, "vNormal" },
 			{ VAL_TEXTURE0, "vTexCoord0" },
-			{ VAL_TEXTURE1, "vTexCoord0" },
-			{ VAL_TEXTURE2, "vTexCoord0" },
-			{ VAL_TEXTURE3, "vTexCoord0" },
-			{ VAL_TEXTURE4, "vTexCoord0" },
-			{ VAL_TEXTURE5, "vTexCoord0" },
-			{ VAL_TEXTURE6, "vTexCoord0" },
-			{ VAL_TEXTURE7, "vTexCoord0" },
-			{ VAL_TEXTURE8, "vTexCoord0" },
+			{ VAL_TEXTURE1, "vTexCoord1" },
+			{ VAL_TEXTURE2, "vTexCoord2" },
+			{ VAL_TEXTURE3, "vTexCoord3" },
+			{ VAL_TEXTURE4, "vTexCoord4" },
+			{ VAL_TEXTURE5, "vTexCoord5" },
+			{ VAL_TEXTURE6, "vTexCoord6" },
+			{ VAL_TEXTURE7, "vTexCoord7" },
+			{ VAL_TEXTURE8, "vTexCoord8" },
 		};
 	}
 }
