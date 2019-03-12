@@ -88,8 +88,9 @@ namespace mx
 								CMatrix4 smvpMat4 = GetAbsluateTransformation() * lightViewMat * lightProMat;
 
 								
-
-								sum["mvpMatrix"] = smvpMat4.m;
+								ICamera *pLightCam = pScene->GetLightCamera(0);
+								if (pLightCam)
+									sum["mvpMatrix"] = (GetAbsluateTransformation() * pLightCam->GetViewProjectionMatrix()).m;
 								
 							}			
 

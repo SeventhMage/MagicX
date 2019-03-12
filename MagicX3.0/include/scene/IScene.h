@@ -34,7 +34,10 @@ namespace mx
 
 			//安装光源
 			virtual ILight *SetupLight(int slot, ELightType type, float lightColor[4]) = 0;
+			virtual ICamera *SetupLightCamera(int slot, const CVector3 &position, const CVector3 &direction,
+				const CVector3 &up, float fov, float aspect, float nearClip, float farClip) = 0;
 			virtual ILight *GetLight(int slot) = 0;
+			virtual ICamera *GetLightCamera(int slot) = 0;
 
 			virtual void Update(int delta) = 0;
 			virtual void Draw() = 0;

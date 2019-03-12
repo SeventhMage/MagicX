@@ -20,6 +20,7 @@ namespace mx
 		{
 			m_pRootNode = new CSceneNode();
 			memset(m_pLights, 0, sizeof(m_pLights));
+			memset(m_pLightCameras, 0, sizeof(m_pLightCameras));
 		}
 
 		CScene::~CScene()
@@ -28,8 +29,9 @@ namespace mx
 			SAFE_DEL(m_pCamera);
 			SAFE_DEL(m_pSkyBox);
 			for (int i = 0; i < MAX_LIGHT_NUM; ++i)
-			{
+			{	
 				SAFE_DEL(m_pLights[i]);
+				SAFE_DEL(m_pLightCameras[i]);
 			}
 		}
 
@@ -61,12 +63,14 @@ namespace mx
 
 		ICamera *CScene::SetupCamera(const CVector3 &position, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float nearClip, float farClip)
 		{
+			SAFE_DEL(m_pCamera);
 			m_pCamera = new CCamera(position, direction, up, fov, aspect, nearClip, farClip);
 			return m_pCamera;
 		}
 
 		ICamera * CScene::SetupCamera(float fDistance, ISceneNode *pFocusNode, const CVector3 &vDirection, const CVector3 &vUp, float fov, float aspect, float nearClip, float farClip)
 		{
+			SAFE_DEL(m_pCamera);
 			m_pCamera = new CCamera(fDistance, pFocusNode, vDirection, vUp, fov, aspect, nearClip, farClip);
 			return m_pCamera;
 		}
@@ -78,6 +82,7 @@ namespace mx
 
 		ISkyBox * CScene::SetupSkyBox(const char *right, const char *left, const char *top, const char *bottom, const char *front, const char *back, float radius)
 		{
+			SAFE_DEL(m_pSkyBox);
 			m_pSkyBox = new CSkyBox(this, radius);
 			m_pSkyBox->Create(right, left, top, bottom, front, back);
 			return m_pSkyBox;
@@ -106,11 +111,25 @@ namespace mx
 			return m_pLights[slot];
 		}
 
+		ICamera * CScene::SetupLightCamera(int slot, const CVector3 &position, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float nearClip, float farClip)
+		{
+			SAFE_DEL(m_pLightCameras[slot]);
+			m_pLightCameras[slot] = new CCamera(position, direction, up, fov, aspect, nearClip, farClip);
+			return m_pLightCameras[slot];
+		}
+
 		ILight * CScene::GetLight(int slot)
 		{
 			if (slot < 0 || slot > MAX_LIGHT_NUM)
 				return nullptr;
 			return m_pLights[slot];
+		}
+
+		ICamera * CScene::GetLightCamera(int slot)
+		{
+			if (slot < 0 || slot > MAX_LIGHT_NUM)
+				return nullptr;
+			return m_pLightCameras[slot];
 		}
 
 	}
