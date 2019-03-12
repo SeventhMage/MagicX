@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 		scene->GetRootNode()->AddChild(pSphereSun);
 
 		pPointLight->SetPosition(pSphereSun->GetPosition());
-
+		scene->SetupLightCamera(0, pPointLight->GetPosition(), -pPointLight->GetPosition(), CVector3(0, 1, 0), PI * 0.5f, 1.f, 1.f, 1000.f);
 	}
 	
 	UINT next_game_tick = GetTickCount();

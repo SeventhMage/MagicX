@@ -15,9 +15,11 @@ int main(int argc, char *argv[])
 
 	ICamera *camera = nullptr;
 	CubeVertex cubeVertice;
+	
 	CUnit *cube = new CUnit(&cubeVertice, "texture/crate.tga");
 	if (scene)
 	{
+		CUnit *cube2 = new CUnit(&cubeVertice, "texture/crate.tga");
 		CVector3 vDir(0, 0, -1);
 		CVector3 vUp(0, 1, 0);
 		//camera = scene->SetupCamera(CVector3(0, 0, 5), vDir, vUp, PI / 6, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
@@ -27,6 +29,8 @@ int main(int argc, char *argv[])
 		{									
 			rootNode->AddChild(cube);
 			cube->SetPosition(CVector3(0, 0, -20));
+			rootNode->AddChild(cube2);
+			cube2->SetPosition(CVector3(-15, -15, -30));
 		}
 	}
 
