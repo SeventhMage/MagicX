@@ -30,6 +30,7 @@ int main(int argc, char *argv[])
 	CSphereEntity *pSphereSun = nullptr;
 
 	ICamera *camera = nullptr;
+	ICamera *lightCamera = nullptr;
 	if (scene)
 	{
 		
@@ -55,6 +56,8 @@ int main(int argc, char *argv[])
 		CShadowPlane *pShadowPlane = new CShadowPlane();
 		pShadowPlane->Create();
 		scene->GetRootNode()->AddChild(pShadowPlane);
+
+		lightCamera = scene->SetupLightCamera(0, pPointLight->GetPosition(), -pPointLight->GetPosition(), CVector3(0, 1, 0), PI * 0.5f, 1.f, 1.f, 1000.f);
 	}
 
 	
@@ -163,6 +166,8 @@ int main(int argc, char *argv[])
 
 			pPointLight->SetPosition(pSphereSun->GetPosition());
 
+			lightCamera->SetPosition(pPointLight->GetPosition());
+			lightCamera->SetDirection(-pPointLight->GetPosition());
 
 			next_game_tick = GetTickCount() + SKIP_TICKS;
 
