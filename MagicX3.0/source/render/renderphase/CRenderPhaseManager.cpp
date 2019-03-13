@@ -14,7 +14,7 @@ namespace mx
 		{
 			m_vecRenderPhase.push_back(new CShadowMapPhase(this));
 			m_vecRenderPhase.push_back(new CSceneGraphPhase(this));
-			//m_vecRenderPhase.push_back(new CPostProcessPhase(this));
+			m_vecRenderPhase.push_back(new CPostProcessPhase(this));
 			m_vecRenderPhase.push_back(new CSceneOutcomePhase(this));
 		}
 

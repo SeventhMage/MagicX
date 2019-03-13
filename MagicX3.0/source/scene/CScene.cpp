@@ -54,6 +54,13 @@ namespace mx
 		{
 			if (m_pCamera)
 				m_pCamera->Update(delta);
+			for (int i = 0; i < MAX_LIGHT_NUM; ++i)
+			{
+				if (m_pLightCameras[i])
+					m_pLightCameras[i]->Update(delta);
+				else
+					break;
+			}
 			if (m_pSkyBox)
 				m_pSkyBox->Update(delta);
 			if (m_pRootNode)

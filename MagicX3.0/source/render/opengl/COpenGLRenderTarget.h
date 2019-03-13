@@ -19,8 +19,16 @@ namespace mx
 			virtual ITexture *GetBindTexture() const;
 			virtual ITexture *GetDepthTexture() const;
 		private:
-			COpenGLTexture *m_bindTexture;
-			COpenGLTexture *m_depthTexture;
+			enum ETextureFlag
+			{
+				ETF_COLOR = 0,
+				ETF_POSITION,
+				ETF_NORMAL,
+				ETF_DEPTH,
+
+				ETF_NUM,
+			};
+			COpenGLTexture *m_Texture[ETF_NUM];
 			int m_iWidth;
 			int m_iHeight;
 			GLuint m_fbo;

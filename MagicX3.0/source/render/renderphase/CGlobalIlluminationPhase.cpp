@@ -18,7 +18,7 @@ namespace mx
 
 		void CGlobalIlluminationPhase::Initialize(IRenderer * pRenderer, int width, int height)
 		{
-			m_pRenderTarget = pRenderer->GetRenderTargetManager()->CreateRenderTarget(ERTF_DEPTH_TEXTURE, 32, 32);
+			m_pRenderTarget = pRenderer->GetRenderTargetManager()->CreateRenderTarget(ERTF_DEPTH_TEXTURE, 8, 8);
 		}
 
 		void CGlobalIlluminationPhase::Destroy()

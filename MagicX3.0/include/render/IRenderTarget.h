@@ -10,8 +10,10 @@ namespace mx
 		enum ERenderTargetFlag
 		{
 			ERTF_DEFAULT = 0,
-			ERTF_BIND_TEXTURE = 1 << 0,
-			ERTF_DEPTH_TEXTURE = 1 << 1,
+			ERTF_COLOR_TEXTURE = 1 << 0,
+			ERTF_POSITION_TEXTURE = 1 << 1,
+			ERTF_NORMAL_TEXTURE = 1 << 2,
+			ERTF_DEPTH_TEXTURE = 1 << 3,
 		};
 
 		class IRenderTarget

@@ -14,7 +14,7 @@ namespace mx
 {
 	namespace scene
 	{
-		const int MAX_LIGHT_NUM = 16;
+		const int MAX_LIGHT_NUM = 64;
 		class IScene
 		{
 		public:

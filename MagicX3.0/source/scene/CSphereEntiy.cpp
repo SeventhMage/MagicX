@@ -90,8 +90,10 @@ namespace mx
 								
 								ICamera *pLightCam = pScene->GetLightCamera(0);
 								if (pLightCam)
-									sum["mvpMatrix"] = (GetAbsluateTransformation() * pLightCam->GetViewProjectionMatrix()).m;
-								
+								{
+									CMatrix4 smvpMat4 = GetAbsluateTransformation() * pLightCam->GetViewProjectionMatrix();
+									sum["mvpMatrix"] = smvpMat4.m;
+								}
 							}			
 
 							m_pReflectObject->Update(m_pRenderable, um, &sum);

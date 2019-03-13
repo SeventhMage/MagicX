@@ -4,8 +4,9 @@ in vec4 vPosition;
 in vec3 vNormal;
 in vec2 vTexCoord0;
 
-out vec3 vOutNormal;
-out vec2 vOutTexCoord0;
+out vec3 normal;
+out vec2 texCoord0;
+out vec3 position;
 
 uniform mat4 mvpMatrix;
 uniform mat3 normalMatrix;
@@ -13,9 +14,10 @@ uniform mat3 normalMatrix;
 
 void main()
 {
-	vOutNormal = normalMatrix * vNormal;
-	vOutTexCoord0 = vTexCoord0;
+	normal = normalMatrix * vNormal;
+	texCoord0 = vTexCoord0;
 	gl_Position = mvpMatrix * vPosition;
+	position = gl_Position.xyz;
 }
 
 

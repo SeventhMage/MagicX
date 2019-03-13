@@ -16,7 +16,7 @@ namespace mx
 
 		void CSceneGraphPhase::Initialize(IRenderer *pRenderer, int width, int height)
 		{
-			m_pRenderTarget = pRenderer->GetRenderTargetManager()->CreateRenderTarget(ERTF_BIND_TEXTURE | ERTF_DEPTH_TEXTURE, width, height);
+			m_pRenderTarget = pRenderer->GetRenderTargetManager()->CreateRenderTarget(ERTF_COLOR_TEXTURE | ERTF_DEPTH_TEXTURE, width, height);
 		}
 
 		void CSceneGraphPhase::Destroy()
