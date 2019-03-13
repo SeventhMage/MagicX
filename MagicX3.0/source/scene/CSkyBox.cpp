@@ -120,6 +120,7 @@ namespace mx
 
 			m_pVAO = RENDERER->CreateVertexArrayObject();
 			m_pRenderable = RENDERER->CreateRenderable(m_pVAO->GetRenderList());
+			m_pShaderProgram = RENDERER->CreateShaderProgram();
 		}
 
 		CSkyBox::~CSkyBox()
@@ -142,16 +143,16 @@ namespace mx
 
 				if (m_pRenderable)
 				{
-					render::IShaderProgram *pShaderProgram = m_pRenderable->GetShaderProgram();
-					if (pShaderProgram)
+					if (m_pShaderProgram)
 					{
-						pShaderProgram->Attach("shader/skybox.vs", render::ST_VERTEX);
-						pShaderProgram->Attach("shader/skybox.ps", render::ST_FRAGMENT);
-						pShaderProgram->BindAttributeLocation(1, render::VAL_POSITION);
-						pShaderProgram->Link();
+						m_pRenderable->SetShaderProgram(m_pShaderProgram);
+						m_pShaderProgram->Attach("shader/skybox.vs", render::ST_VERTEX);
+						m_pShaderProgram->Attach("shader/skybox.ps", render::ST_FRAGMENT);
+						m_pShaderProgram->BindAttributeLocation(1, render::VAL_POSITION);
+						m_pShaderProgram->Link();
 
 						int iTextureUnit = 0;
-						pShaderProgram->SetUniform("cubeMap", &iTextureUnit);
+						m_pShaderProgram->SetUniform("cubeMap", &iTextureUnit);
 					}
 
 					m_pRenderable->CreateVertexBufferObject(m_pBoxData, sizeof(float)* 108, 0, 108, render::GBM_TRIANGLES, render::GBU_DYNAMIC_DRAW);

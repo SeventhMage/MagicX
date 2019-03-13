@@ -33,9 +33,7 @@ namespace mx
 			if (m_pRenderTarget)
 			{
 				m_pRenderTarget->BeginTarget();
-				RENDERER->SetRenderShadowMap(true);
-				RENDERER->Render();
-				RENDERER->SetRenderShadowMap(false);
+				//RENDERER->Render();
 				m_pRenderTarget->EndTarget();
 			}
 		}

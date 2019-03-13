@@ -9,6 +9,7 @@ namespace mx
 	{
 #ifdef WIN32
 		MagicX = new CMagicX(DT_WIN32, renderDriver, x, y, width, height, bFullScreen);
+		MagicX->Initialize();
 		return MagicX;
 #endif
 	}

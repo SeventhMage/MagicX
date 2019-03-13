@@ -66,6 +66,7 @@
 #include "render/IRenderer.h"
 #include "render/renderphase/IRenderPhaseManager.h"
 #include "render/renderphase/IRenderPhase.h"
+#include "render/IMaterialManager.h"
 
 namespace mx
 {
@@ -82,6 +83,8 @@ namespace mx
 	{
 	public:
 		virtual ~IMagicX(){};
+		
+		virtual void Initialize() = 0;
 
 		//获取当前设备
 		virtual IDevice *GetDevice() = 0;

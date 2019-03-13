@@ -27,6 +27,7 @@ namespace mx
 			
 		protected:
 			IVertexArrayObject *m_pVAO;
+			IShaderProgram *m_pShaderProgram;
 			IRenderer *m_pRenderer;
 		};
 	}

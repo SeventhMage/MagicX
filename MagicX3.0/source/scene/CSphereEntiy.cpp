@@ -79,14 +79,6 @@ namespace mx
 								CVector3 vLightPos = pLight->GetPosition();
 								pCam->GetViewMatrix().TransformVect(vLightPos);
 								um["vLightPos"] = vLightPos.v;
-
-								CMatrix4 lightViewMat;
-								CVector3 pos = ((CPointLight *)pLight)->GetPosition();
-								lightViewMat.BuildCameraLookAtMatrix(pos, -pos, CVector3(0, 1, 0));
-								CMatrix4 lightProMat;
-								lightProMat.BuildProjectionMatrixPerspectiveFovRH(PI / 2.f, 1.f * 800 / 600, 1.f, 1000.f);
-								CMatrix4 smvpMat4 = GetAbsluateTransformation() * lightViewMat * lightProMat;
-
 								
 								ICamera *pLightCam = pScene->GetLightCamera(0);
 								if (pLightCam)
@@ -115,8 +107,8 @@ namespace mx
 			if (pVAO)
 			{
 				pVAO->Bind();
-				m_pRenderable = RENDERER->CreateRenderable(pVAO->GetRenderList());
-
+				IRenderList *pRenderList = pVAO->GetRenderList();
+				m_pRenderable = RENDERER->CreateRenderable(pRenderList);
 				m_pReflectObject->Create(m_pRenderable);
 
 				IBufferObject *bufferObject = m_pRenderable->CreateVertexBufferObject(NULL, m_pSphere->GetVertexSize() * 2, 0, m_pSphere->GetVertexCount(), GBM_TRIANGLES, GBU_DYNAMIC_DRAW);

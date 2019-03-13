@@ -24,8 +24,8 @@ namespace mx
 			virtual void Render();			
 		
 		protected:
-			IRenderList *m_pRenderList;					//渲染列表	
-			IMaterial *m_pMaterial;						//材质
+			IRenderList *m_pRenderList;					//渲染列表				
+			int m_materialId;							//材质
 		};
 	}
 }

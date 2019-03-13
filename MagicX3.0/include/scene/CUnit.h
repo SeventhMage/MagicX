@@ -39,6 +39,7 @@ namespace mx
 			IVertexArrayObject *m_pVAO;
 			ITexture *m_pTexture;
 			IRenderable *m_pRenderable;
+			IShaderProgram *m_pShaderProgram;
 		};
 	}
 }

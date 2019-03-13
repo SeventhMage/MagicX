@@ -9,7 +9,16 @@ namespace mx
 		CReflectObject::CReflectObject(IRenderer *pRenderer)
 			:CRenderObject(pRenderer)
 		{
-			
+			if (m_pShaderProgram)
+			{
+				m_pShaderProgram->Attach("shader/reflection.vs", ST_VERTEX);
+				m_pShaderProgram->Attach("shader/reflection.ps", ST_FRAGMENT);
+				m_pShaderProgram->BindAttributeLocation(2, VAL_POSITION, VAL_NORMAL);
+				m_pShaderProgram->Link();
+
+				int cubeUnit = 0;
+				m_pShaderProgram->SetUniform("cubeMap", &cubeUnit);
+			}
 		}
 
 		CReflectObject::~CReflectObject()
@@ -22,16 +31,9 @@ namespace mx
 		{
 			if (!m_pVAO || !pRenderable) return;
 
-			IShaderProgram *pShaderProgram = pRenderable->GetShaderProgram();
-			if (pShaderProgram)
+			if (m_pShaderProgram)
 			{
-				pShaderProgram->Attach("shader/reflection.vs", ST_VERTEX);
-				pShaderProgram->Attach("shader/reflection.ps", ST_FRAGMENT);
-				pShaderProgram->BindAttributeLocation(2, VAL_POSITION, VAL_NORMAL);
-				pShaderProgram->Link();
-
-				int cubeUnit = 0;
-				pShaderProgram->SetUniform("cubeMap", &cubeUnit);
+				pRenderable->SetShaderProgram(m_pShaderProgram);
 			}
 		}
 

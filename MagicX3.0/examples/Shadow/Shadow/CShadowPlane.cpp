@@ -38,15 +38,13 @@ void CShadowPlane::UpdateImp(int delta)
 			ILight *pLight = pScene->GetLight(0);
 			CMatrix4 lightViewMat;
 			CVector3 pos = ((CPointLight *)pLight)->GetPosition();
-			lightViewMat.BuildCameraLookAtMatrix(pos, -pos, CVector3(0, 1, 0));
-			CMatrix4 lightProMat;
-			lightProMat.BuildProjectionMatrixPerspectiveFovRH(PI / 2.f, 1.f * 800 / 600, 1.f, 1000.f);
 
-			CMatrix4 shadow_mat = lightViewMat * lightProMat * scaleMat4;
-			CVector3 vTest(-50, 0, 50);
-			float out[4];
-			shadow_mat.TransformVect(out, vTest);
-			um["shadow_matrix"] = (void *)((lightViewMat * lightProMat * scaleMat4).m);
+			ICamera *pLightCam = pScene->GetLightCamera(0);
+			if (pLightCam)
+			{
+				CMatrix4 shadow_mat = pLightCam->GetViewProjectionMatrix() * scaleMat4;
+				um["shadow_matrix"] = (void *)(shadow_mat.m);
+			}
 
 			CVector3 lightPos = pos;
 			pCam->GetViewMatrix().TransformVect(lightPos);

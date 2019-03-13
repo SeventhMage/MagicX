@@ -8,6 +8,11 @@ namespace mx
 			:CRenderObject(pRenderer)
 		{
 			memcpy(m_fColor, fColor, 4 * sizeof(float));
+			if (m_pShaderProgram)
+			{
+				m_pShaderProgram->CreateStandShader(ESS_SHADER_POINT_LIGHT_DIFF);
+				m_pShaderProgram->SetUniform("vColor", m_fColor);
+			}
 		}
 
 		CColorPointLightObject::~CColorPointLightObject()
@@ -17,11 +22,10 @@ namespace mx
 
 		void CColorPointLightObject::Create(IRenderable *pRenderable)
 		{
-			IShaderProgram *pShaderProgram = pRenderable->GetShaderProgram();
-			if (pShaderProgram)
+			if (m_pShaderProgram)
 			{
-				pShaderProgram->CreateStandShader(ESS_SHADER_POINT_LIGHT_DIFF);
-				pShaderProgram->SetUniform("vColor", m_fColor);
+				pRenderable->SetShaderProgram(m_pShaderProgram);
+				m_pShaderProgram->SetUniform("vColor", m_fColor);
 			}
 		}
 

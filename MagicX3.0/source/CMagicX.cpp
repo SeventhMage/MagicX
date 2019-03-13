@@ -5,6 +5,7 @@
 #include "resource/CImageManager.h"
 #include "render/opengl//COpenGLRenderer.h"
 #include "render/renderphase/CRenderPhaseManager.h"
+#include "render/CMaterialManager.h"
 
 
 
@@ -35,8 +36,9 @@ namespace mx
 		m_pResourceMgr[RT_MESH] = 0;
 		m_pResourceMgr[RT_SOUND] = 0;
 
+		m_pMaterialMgr = new CMaterialManager();
+
 		m_pRenderPhaseMgr = new CRenderPhaseManager();
-		m_pRenderPhaseMgr->Initialize(m_pRenderer, width, height);
 		CEventManager::NewInstance();
 	}
 
@@ -53,6 +55,12 @@ namespace mx
 		}
 
 		CEventManager::DeleteInstance();
+	}
+
+	void CMagicX::Initialize()
+	{
+		m_pMaterialMgr->LoadMaterial("material/root.xml");
+		m_pRenderPhaseMgr->Initialize(m_pRenderer, GetDevice()->GetWindowWidth(), GetDevice()->GetWindowHeight());
 	}
 
 	ISceneManager * CMagicX::GetSceneManager()

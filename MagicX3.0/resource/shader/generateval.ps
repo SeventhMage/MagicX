@@ -6,14 +6,13 @@ in vec3 normal;
 in vec2 texCoord0;
 in vec3 position;
 
-layout (location = 0) out vec4 vOutFragColor;  
+layout (location = 0) out vec4 vOutColorData;  
 layout (location = 1) out vec3 vOutPositionData;  
 layout (location = 2) out vec3 vOutNormalData;  
-layout (location = 3) out vec3 vOutColorData;  
 
 void main()
 {
-    vOutPositionData = Position;
-    vOutNormalData = Normal;
+    vOutPositionData = position;
+    vOutNormalData = normal;
     vOutColorData = texture2D(textureUnit0, texCoord0);
 }

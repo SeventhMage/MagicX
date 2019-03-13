@@ -22,6 +22,7 @@ namespace mx
 
 			virtual void Bind();
 			virtual void BindAttributeLocation(int argc, ...);
+			virtual void BindAttributeLocation(int index, const char *name);
 		private:
 			void GetShaderUniform();
 

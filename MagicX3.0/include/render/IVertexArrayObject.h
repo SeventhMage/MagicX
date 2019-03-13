@@ -32,6 +32,7 @@ namespace mx
 			//‰÷»æ
 			virtual void Render() = 0;
 			virtual void EndRender() = 0;
+
 		};
 	}
 }

@@ -51,6 +51,14 @@ namespace mx
 			m_renderableList.clear();
 		}
 
+		void CRenderList::SetShaderProgram(IShaderProgram *pShaderProgram)
+		{
+			for (auto &renderable : m_renderableList)
+			{
+				renderable->SetShaderProgram(pShaderProgram);
+			}
+		}
+
 
 
 	}

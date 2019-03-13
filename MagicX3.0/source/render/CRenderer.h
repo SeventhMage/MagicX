@@ -21,15 +21,11 @@ namespace mx
 			virtual IRenderable *CreateRenderable(IRenderList *pRenderList);
 			virtual void DestroyRenderable(IRenderable *pRenderable);
 
-			virtual IMaterial *CreateMaterial();
 			virtual void DestroyMaterial(IMaterial *pMaterial);
 
 			virtual void Render();
 			virtual void EndRender();
 
-
-			virtual void SetRenderShadowMap(bool rend) { m_bRendShadow = rend; }
-			virtual bool IsRenderShadowMap() { return m_bRendShadow; }
 		protected:
 			virtual void AddVertexArrayObject(IVertexArrayObject *pObject);
 			virtual void RemoveVertexArrayObject(IVertexArrayObject *pObject);
@@ -37,8 +33,6 @@ namespace mx
 			IRenderDriver *m_pRenderDriver;								//渲染驱动			
 
 			std::vector<IVertexArrayObject *> m_vecVertexArray;			//顶点数组
-
-			bool m_bRendShadow;											//当前渲染为阴影图
 		};
 	}
 }

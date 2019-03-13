@@ -3,6 +3,7 @@
 #include "CSceneGraphPhase.h"
 #include "CPostProcessPhase.h"
 #include "CSceneOutcomePhase.h"
+#include "CGlobalIlluminationPhase.h"
 #include "mx.h"
 
 
@@ -12,6 +13,7 @@ namespace mx
 	{
 		CRenderPhaseManager::CRenderPhaseManager()
 		{
+			m_vecRenderPhase.push_back(new CGlobalIlluminationPhase(this));
 			m_vecRenderPhase.push_back(new CShadowMapPhase(this));
 			m_vecRenderPhase.push_back(new CSceneGraphPhase(this));
 			m_vecRenderPhase.push_back(new CPostProcessPhase(this));

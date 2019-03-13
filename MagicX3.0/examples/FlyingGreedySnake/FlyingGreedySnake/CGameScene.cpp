@@ -32,6 +32,7 @@ void CGameScene::InitScene()
  	float yellow[] = { 8.f, .8f, .1f, 1.f };
 	CPointLight *pLight = (CPointLight *)m_pScene->SetupLight(0, LT_POINT, yellow);
 	pLight->SetPosition(CVector3(100, 100, 100));
+	m_pScene->SetupLightCamera(0, pLight->GetPosition(), -pLight->GetPosition(), CVector3(0, 1, 0), PI * 0.5f, 1.f, 1.f, 1000.f);
 
 	for (int i = 0; i < INIT_NPC_NUM; ++i)
 	{

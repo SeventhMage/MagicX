@@ -1,0 +1,4 @@
+<MaterialRoot>
+	<Material id= "1" name="material/val.xml"/>
+	<Material id= "2" name="material/gishade.xml"/>
+</MaterialRoot>

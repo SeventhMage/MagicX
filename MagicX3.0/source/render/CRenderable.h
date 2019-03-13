@@ -30,7 +30,7 @@ namespace mx
 			virtual IBufferObject *GetIndexBufferObject() { return m_pIBO; }
 
 			virtual IShaderProgram *GetShaderProgram() { return m_pShaderProgram; }
-			virtual IShaderProgram *GetShadowShaderProgram() { return m_pShadowShaderProgram; }
+			virtual void SetShaderProgram(IShaderProgram *program);
 
 			virtual void SetTexture(int slot, ITexture *pTexture);
 
@@ -43,7 +43,6 @@ namespace mx
 			virtual bool IsEnabled(RenderAttribute attr) { return m_bRenderAttrs[attr]; }
 		private:
 			IShaderProgram *m_pShaderProgram;			//shader程序
-			IShaderProgram *m_pShadowShaderProgram;		//阴影shader
 			IRenderList *m_pRenderList;					//渲染列表
 			IBufferObject *m_pVBO;						//顶点缓冲区对象
 			IBufferObject *m_pIBO;						//索引缓冲区对象

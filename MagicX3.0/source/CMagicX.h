@@ -15,6 +15,7 @@ namespace mx
 		CMagicX(device::EDeviceType deviceType, render::ERenderDriverType  renderDriver, int x, int y, int width, int height, bool bFullScreen = false);
 		~CMagicX();
 
+		virtual void Initialize();
 		virtual IDevice *GetDevice();
 		virtual IDeviceManager *GetDeviceManager();
 		virtual ISceneManager *GetSceneManager();
@@ -27,6 +28,7 @@ namespace mx
 		ISceneManager *m_pSceneMgr;
 		IResourceManager *m_pResourceMgr[RT_COUNT];
 		IRenderer *m_pRenderer;
+		IMaterialManager *m_pMaterialMgr;
 		IRenderPhaseManager *m_pRenderPhaseMgr;
 	};
 }

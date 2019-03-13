@@ -63,15 +63,7 @@ namespace mx
 			virtual IShaderProgram *CreateShaderProgram() = 0;
 			virtual void DestroyShaderProgram(IShaderProgram *pShaderProgram) = 0;
 
-			//材质
-			virtual IMaterial *CreateMaterial() = 0;
-			virtual void DestroyMaterial(IMaterial *pMaterial) = 0;
-
 			virtual IShadowMap *GetShadowMap() = 0;
-
-			//阴影图渲染标志
-			virtual void SetRenderShadowMap(bool rend) = 0;
-			virtual bool IsRenderShadowMap() = 0;
 
 			virtual IRenderTargetManager *GetRenderTargetManager() const = 0;
 		private:

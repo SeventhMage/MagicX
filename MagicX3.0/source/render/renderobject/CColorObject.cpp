@@ -9,6 +9,11 @@ namespace mx
 			:CRenderObject(pRenderer)
 		{
 			memcpy(m_fColor, fColor, 4 * sizeof(float));
+			if (m_pShaderProgram)
+			{
+				m_pShaderProgram->CreateStandShader(ESS_SHADER_FLAT);
+				m_pShaderProgram->SetUniform("vColor", m_fColor);
+			}
 		}
 
 		CColorFlatObject::~CColorFlatObject()
@@ -18,11 +23,9 @@ namespace mx
 
 		void CColorFlatObject::Create(IRenderable *pRenderable)
 		{			
-			IShaderProgram *pShaderProgram = pRenderable->GetShaderProgram();
-			if (pShaderProgram)
+			if (m_pShaderProgram)
 			{			
-				pShaderProgram->CreateStandShader(ESS_SHADER_FLAT);
-				pShaderProgram->SetUniform("vColor", m_fColor);
+				pRenderable->SetShaderProgram(m_pShaderProgram);
 			}
 		}
 

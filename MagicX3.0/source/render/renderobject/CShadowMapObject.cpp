@@ -9,7 +9,24 @@ namespace mx
 		CShadowMapObject::CShadowMapObject(IRenderer *pRenderer)
 			:CRenderObject(pRenderer)
 		{
+			if (m_pShaderProgram)
+			{
+				m_pShaderProgram->Attach("shader/shadowrender.vs", ST_VERTEX);
+				m_pShaderProgram->Attach("shader/shadowrender.ps", ST_FRAGMENT);
+				m_pShaderProgram->BindAttributeLocation(2, VAL_POSITION, VAL_NORMAL);
+				m_pShaderProgram->Link();
 
+				float ambient[] = { .1f, .1f, .1f };
+				float diffuse[] = { .8f, .8f, .6f };
+				float specular[] = { .6f, .6f, .4f };
+				m_pShaderProgram->SetUniform("material_ambient", ambient);
+				m_pShaderProgram->SetUniform("material_diffuse", diffuse);
+				m_pShaderProgram->SetUniform("material_specular", specular);
+				float power = 128;
+				m_pShaderProgram->SetUniform("material_specular_power", &power);
+
+
+			}
 		}
 
 		CShadowMapObject::~CShadowMapObject()
@@ -19,24 +36,9 @@ namespace mx
 
 		void CShadowMapObject::Create(IRenderable *pRenderable)
 		{
-			IShaderProgram *pShaderProgram = pRenderable->GetShaderProgram();
-			if (pShaderProgram)
+			if (m_pShaderProgram)
 			{
-				pShaderProgram->Attach("shader/shadowrender.vs", ST_VERTEX);
-				pShaderProgram->Attach("shader/shadowrender.ps", ST_FRAGMENT);
-				pShaderProgram->BindAttributeLocation(2, VAL_POSITION, VAL_NORMAL);
-				pShaderProgram->Link();
-
-				float ambient[] = {.1f, .1f, .1f};
-				float diffuse[] = { .8f, .8f, .6f };
-				float specular[] = { .6f, .6f, .4f };
-				pShaderProgram->SetUniform("material_ambient", ambient);
-				pShaderProgram->SetUniform("material_diffuse", diffuse);
-				pShaderProgram->SetUniform("material_specular", specular);
-				float power = 128;
-				pShaderProgram->SetUniform("material_specular_power", &power);
-
-				
+				pRenderable->SetShaderProgram(m_pShaderProgram);
 			}
 		}
 

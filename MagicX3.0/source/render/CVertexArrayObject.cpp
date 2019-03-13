@@ -10,18 +10,14 @@ namespace mx
 	{		
 
 		CVertexArrayObject::CVertexArrayObject()
-		{
-			
+		{	
 			m_pRenderList = new CRenderList();
-			m_pMaterial = new CMaterial();
 		}
 
 		CVertexArrayObject::~CVertexArrayObject()
 		{			
 			SAFE_DEL(m_pRenderList);
-			SAFE_DEL(m_pMaterial);
 		}
-
 		
 		void CVertexArrayObject::Render()
 		{			

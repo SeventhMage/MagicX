@@ -14,6 +14,7 @@ namespace mx
 			m_pMode = new CModel();
 			m_pVAO =  RENDERER->CreateVertexArrayObject();
 			m_pRenderable = RENDERER->CreateRenderable(m_pVAO->GetRenderList());
+			m_pShaderProgram = RENDERER->CreateShaderProgram();
 		}
 
 		CUnit::CUnit(IVertex *pVertex, const char *texfile)			
@@ -23,6 +24,7 @@ namespace mx
 			m_pVAO = RENDERER->CreateVertexArrayObject();
 			m_pRenderable = RENDERER->CreateRenderable(m_pVAO->GetRenderList());
 
+			m_pShaderProgram = RENDERER->CreateShaderProgram();
 			CreateRenderable(pVertex, texfile);
 		}
 
@@ -143,33 +145,33 @@ namespace mx
 			{				
 				m_pVAO->Bind();
 
-				IShaderProgram *pShaderProgram = m_pRenderable->GetShaderProgram();
-				if (pShaderProgram)
+				if (m_pShaderProgram)
 				{
+					m_pRenderable->SetShaderProgram(m_pShaderProgram);
 					if (vertAttr == VF_POSITION)
-						pShaderProgram->CreateStandShader(ESS_SHADER_IDENTITY);
+						m_pShaderProgram->CreateStandShader(ESS_SHADER_IDENTITY);
 					else if (vertAttr == (VF_POSITION | VF_COLOR))
-						pShaderProgram->CreateStandShader(ESS_SHADER_FLAT);
+						m_pShaderProgram->CreateStandShader(ESS_SHADER_FLAT);
 					else if (vertAttr == (VF_POSITION | VF_TEXCOORD))
-						pShaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_REPLACE);
+						m_pShaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_REPLACE);
 					else if (vertAttr == (VF_POSITION | VF_COLOR))
-						pShaderProgram->CreateStandShader(ESS_SHADER_SHADED);
+						m_pShaderProgram->CreateStandShader(ESS_SHADER_SHADED);
 					else if (vertAttr == (VF_POSITION | VF_COLOR | VF_TEXCOORD))
-						pShaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_MODULATE);
+						m_pShaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_MODULATE);
 					else if (vertAttr == (VF_POSITION | VF_TEXCOORD | VF_NORMAL))
-						pShaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_REPLACE);
+						m_pShaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_REPLACE);
 					else if (vertAttr == (VF_POSITION | VF_COLOR | VF_NORMAL | VF_TEXCOORD))
-						pShaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_REPLACE);
+						m_pShaderProgram->CreateStandShader(ESS_SHADER_TEXTURE_REPLACE);
 
 
 					m_pTexture = RENDERER->CreateTexture(texfile);
 					m_pRenderable->SetTexture(0, m_pTexture);
 
 					uint pUnit = 0;
-					pShaderProgram->SetUniform("textureUnit0", &pUnit);
+					m_pShaderProgram->SetUniform("textureUnit0", &pUnit);
 
 					float vColor[] = { 1, 1, 1, 1 };
-					pShaderProgram->SetUniform("vColor", vColor);
+					m_pShaderProgram->SetUniform("vColor", vColor);
 
 	
 					m_pRenderable->CreateVertexBufferObject(pVertex->GetVertexData(), pVertex->GetVerticeSize(), 0, pVertex->GetVerticeCount(), GBM_TRIANGLES, GBU_DYNAMIC_DRAW);

@@ -435,6 +435,11 @@ namespace mx
 			va_end(argp);
 		}
 
+		void COpenGLShaderProgram::BindAttributeLocation(int index, const char * name)
+		{
+			GLDebug(glBindAttribLocation(m_hProgram, index, name));
+		}
+
 		void COpenGLShaderProgram::CreateStandShader(E_STAND_SHADER standShader)
 		{	
 			switch (standShader)

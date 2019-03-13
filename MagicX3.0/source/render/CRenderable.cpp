@@ -11,28 +11,17 @@ namespace mx
 			, m_pVBO(nullptr)
 			, m_pIBO(nullptr)
 			,m_pRenderer(pRenderer)
+			,m_pShaderProgram(nullptr)
 		{
 			memset(m_pTexture, 0, sizeof(ITexture *)* TU_TEXTURE_NUM);	
 			for (int i = 0; i < RA_NUM; ++i)
 				m_bRenderAttrs[i] = true;
-
-			m_pShaderProgram = pRenderer->CreateShaderProgram();
-
-			//绘制阴影图时使用的shader
-			m_pShadowShaderProgram = pRenderer->CreateShaderProgram();
-			m_pShadowShaderProgram->Attach("shader/shadow.vs", ST_VERTEX);
-			m_pShadowShaderProgram->Attach("shader/shadow.ps", ST_FRAGMENT);
-			m_pShadowShaderProgram->BindAttributeLocation(1, VAL_POSITION);
-			m_pShadowShaderProgram->Link();
 		}
 
 		CRenderable::~CRenderable()
 		{
 			m_pRenderer->DestroyBufferObject(m_pVBO);
 			m_pRenderer->DestroyBufferObject(m_pIBO);
-
-			m_pRenderer->DestroyShaderProgram(m_pShaderProgram);
-			m_pRenderer->DestroyShaderProgram(m_pShadowShaderProgram);
 		}
 
 		void CRenderable::SumbitToRenderList()
@@ -53,16 +42,8 @@ namespace mx
 			if (m_pIBO)
 				m_pIBO->Bind();
 
-			if (m_pRenderer->IsRenderShadowMap())
-			{
-				if (m_pShadowShaderProgram)
-					m_pShadowShaderProgram->Bind();
-			}
-			else
-			{
-				if (m_pShaderProgram)
-					m_pShaderProgram->Bind();
-			}
+			if (m_pShaderProgram)
+				m_pShaderProgram->Bind();
 
 
 			for (int i = 0; i < TU_TEXTURE_NUM; ++i)
@@ -96,6 +77,11 @@ namespace mx
 		{
 			m_pIBO = m_pRenderer->CreateIndexBufferObject(indices, idsCount, idsType, mode, usage);
 			return m_pIBO;
+		}
+
+		void CRenderable::SetShaderProgram(IShaderProgram *program)
+		{
+			m_pShaderProgram = program;
 		}
 
 		void CRenderable::SetTexture(int slot, ITexture *pTexture)

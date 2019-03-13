@@ -24,6 +24,7 @@ namespace mx
 			virtual void SetUniform(int location, void *value) = 0;
 			//virtual void BindUniform() = 0;
 			virtual void BindAttributeLocation(int argc, ...) = 0;
+			virtual void BindAttributeLocation(int index, const char *name) = 0;
 			virtual uint GetHandle() = 0;
 		};
 	}

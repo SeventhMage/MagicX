@@ -74,9 +74,7 @@ namespace mx
 			
 			GLDebug(glEnable(GL_POLYGON_OFFSET_FILL));
 			GLDebug(glPolygonOffset(2.0f, 4.0f));
-			RENDERER->SetRenderShadowMap(true);
 			RENDERER->Render();
-			RENDERER->SetRenderShadowMap(false);
 			GLDebug(glDisable(GL_POLYGON_OFFSET_FILL));
 
 			GLDebug(glBindFramebuffer(GL_FRAMEBUFFER, 0));

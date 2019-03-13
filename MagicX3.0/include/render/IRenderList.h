@@ -24,6 +24,8 @@ namespace mx
 			
 			virtual void Clear() = 0;
 
+			virtual void SetShaderProgram(IShaderProgram *) = 0;
+
 			//÷¥––‰÷»æ
 			virtual void Render() = 0;
 

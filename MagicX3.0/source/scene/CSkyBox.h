@@ -9,6 +9,7 @@
 #include "render/ITexture.h"
 #include "math/CMatrix4.h"
 #include "mxType.h"
+#include "render/IShaderProgram.h"
 
 
 
@@ -34,6 +35,7 @@ namespace mx
 			render::ITexture *m_pTexture;
 			render::IVertexArrayObject *m_pVAO;
 			render::IRenderable *m_pRenderable;
+			render::IShaderProgram *m_pShaderProgram;
 			IScene *m_pParentScene;
 			float *m_pBoxData;			
 			float m_fRadius;

@@ -8,6 +8,13 @@ namespace mx
 		CTextureMapObject::CTextureMapObject(IRenderer *pRenderer)
 			:CRenderObject(pRenderer)
 		{
+			if (m_pShaderProgram)
+			{
+				m_pShaderProgram->Attach("shader/texturemap.vs", ST_VERTEX);
+				m_pShaderProgram->Attach("shader/texturemap.ps", ST_FRAGMENT);
+				m_pShaderProgram->BindAttributeLocation(2, VAL_POSITION, VAL_TEXTURE0);
+				m_pShaderProgram->Link();
+			}
 		}
 
 		CTextureMapObject::~CTextureMapObject()
@@ -17,13 +24,9 @@ namespace mx
 
 		void CTextureMapObject::Create(IRenderable *pRenderable)
 		{
-			IShaderProgram *pShaderProgram = pRenderable->GetShaderProgram();
-			if (pShaderProgram)
+			if (m_pShaderProgram)
 			{
-				pShaderProgram->Attach("shader/texturemap.vs", ST_VERTEX);
-				pShaderProgram->Attach("shader/texturemap.ps", ST_FRAGMENT);
-				pShaderProgram->BindAttributeLocation(2, VAL_POSITION, VAL_TEXTURE0);
-				pShaderProgram->Link();
+				pRenderable->SetShaderProgram(m_pShaderProgram);
 			}
 		}
 
