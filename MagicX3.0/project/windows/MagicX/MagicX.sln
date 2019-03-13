@@ -25,6 +25,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlyingGreedySnake", "..\..\
 		{AABC5704-3BD5-4CE9-A996-9EFA8EB8A6D0} = {AABC5704-3BD5-4CE9-A996-9EFA8EB8A6D0}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GIDemo", "..\..\..\examples\GIDemo\GIDemo.vcxproj", "{DDC82924-F47E-47DE-963F-74080699ECF9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AABC5704-3BD5-4CE9-A996-9EFA8EB8A6D0} = {AABC5704-3BD5-4CE9-A996-9EFA8EB8A6D0}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -63,6 +68,14 @@ Global
 		{8DFEA7B1-A747-4284-ABFF-7AEF03652F20}.Release|Win32.ActiveCfg = Release|Win32
 		{8DFEA7B1-A747-4284-ABFF-7AEF03652F20}.Release|Win32.Build.0 = Release|Win32
 		{8DFEA7B1-A747-4284-ABFF-7AEF03652F20}.Release|x64.ActiveCfg = Release|Win32
+		{DDC82924-F47E-47DE-963F-74080699ECF9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DDC82924-F47E-47DE-963F-74080699ECF9}.Debug|Win32.Build.0 = Debug|Win32
+		{DDC82924-F47E-47DE-963F-74080699ECF9}.Debug|x64.ActiveCfg = Debug|x64
+		{DDC82924-F47E-47DE-963F-74080699ECF9}.Debug|x64.Build.0 = Debug|x64
+		{DDC82924-F47E-47DE-963F-74080699ECF9}.Release|Win32.ActiveCfg = Release|Win32
+		{DDC82924-F47E-47DE-963F-74080699ECF9}.Release|Win32.Build.0 = Release|Win32
+		{DDC82924-F47E-47DE-963F-74080699ECF9}.Release|x64.ActiveCfg = Release|x64
+		{DDC82924-F47E-47DE-963F-74080699ECF9}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

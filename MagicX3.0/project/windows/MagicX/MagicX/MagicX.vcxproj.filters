@@ -231,6 +231,15 @@
     <ClCompile Include="..\..\..\..\source\render\renderobject\CTextureMapObject.cpp">
       <Filter>source\render\renderobject</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\renderphase\CGlobalIlluminationPhase.cpp">
+      <Filter>source\render\renderphase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\renderobject\CGIObject.cpp">
+      <Filter>source\render\renderobject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\CMaterialManager.cpp">
+      <Filter>source\render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\include\mx.h">
@@ -556,6 +565,18 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\render\renderobject\CTextureMapObject.h">
       <Filter>include\render\renderobject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\renderphase\CGlobalIlluminationPhase.h">
+      <Filter>source\render\renderphase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\renderobject\CGIObject.h">
+      <Filter>include\render\renderobject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IMaterialManager.h">
+      <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\CMaterialManager.h">
+      <Filter>source\render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

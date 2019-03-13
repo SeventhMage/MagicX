@@ -72,6 +72,7 @@ namespace mx
 							um["mvMatrix"] = mvMat4.m;
 							um["normalMatrix"] = normalMat3;
 							um["mInverseMatrix"] = camInvMat4.m;
+
 							UniformMap sum;
 							CPointLight *pLight = (CPointLight *)pScene->GetLight(0);
 							if (pLight)
@@ -87,7 +88,7 @@ namespace mx
 									sum["mvpMatrix"] = smvpMat4.m;
 								}
 							}			
-
+							m_pReflectObject->SetTexture(m_pRenderable);
 							m_pReflectObject->Update(m_pRenderable, um, &sum);
 						}
 						m_pRenderable->SumbitToRenderList();

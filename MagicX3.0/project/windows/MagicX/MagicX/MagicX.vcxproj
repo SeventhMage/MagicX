@@ -54,7 +54,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../../../../include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../dependencies/rapidxml-1.13/;../../../../include/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -96,6 +96,7 @@
     <ClCompile Include="..\..\..\..\source\device\win32\CDeviceWin32.cpp" />
     <ClCompile Include="..\..\..\..\source\mx.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CMaterial.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\CMaterialManager.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CRenderable.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CRenderer.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CRenderList.cpp" />
@@ -114,10 +115,12 @@
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLRenderTargetManager.cpp" />
     <ClCompile Include="..\..\..\..\source\render\renderobject\CColorObject.cpp" />
     <ClCompile Include="..\..\..\..\source\render\renderobject\CColorPointLightObject.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\renderobject\CGIObject.cpp" />
     <ClCompile Include="..\..\..\..\source\render\renderobject\CReflectObject.cpp" />
     <ClCompile Include="..\..\..\..\source\render\renderobject\CRenderObject.cpp" />
     <ClCompile Include="..\..\..\..\source\render\renderobject\CShadowMapObject.cpp" />
     <ClCompile Include="..\..\..\..\source\render\renderobject\CTextureMapObject.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\renderphase\CGlobalIlluminationPhase.cpp" />
     <ClCompile Include="..\..\..\..\source\render\renderphase\CPostProcessPhase.cpp" />
     <ClCompile Include="..\..\..\..\source\render\renderphase\CRenderPhase.cpp" />
     <ClCompile Include="..\..\..\..\source\render\renderphase\CRenderPhaseManager.cpp" />
@@ -166,6 +169,7 @@
     <ClInclude Include="..\..\..\..\include\render\IBufferData.h" />
     <ClInclude Include="..\..\..\..\include\render\IBufferObject.h" />
     <ClInclude Include="..\..\..\..\include\render\IMaterial.h" />
+    <ClInclude Include="..\..\..\..\include\render\IMaterialManager.h" />
     <ClInclude Include="..\..\..\..\include\render\IRenderable.h" />
     <ClInclude Include="..\..\..\..\include\render\IRenderDriver.h" />
     <ClInclude Include="..\..\..\..\include\render\IRenderer.h" />
@@ -179,6 +183,7 @@
     <ClInclude Include="..\..\..\..\include\render\IVertexArrayObject.h" />
     <ClInclude Include="..\..\..\..\include\render\renderobject\CColorFlatObject.h" />
     <ClInclude Include="..\..\..\..\include\render\renderobject\CColorPointLightObject.h" />
+    <ClInclude Include="..\..\..\..\include\render\renderobject\CGIObject.h" />
     <ClInclude Include="..\..\..\..\include\render\renderobject\CReflectObject.h" />
     <ClInclude Include="..\..\..\..\include\render\renderobject\CRenderObject.h" />
     <ClInclude Include="..\..\..\..\include\render\renderobject\CShadowMapObject.h" />
@@ -215,6 +220,7 @@
     <ClInclude Include="..\..\..\..\source\device\CKeyEvent.h" />
     <ClInclude Include="..\..\..\..\source\device\win32\CDeviceWin32.h" />
     <ClInclude Include="..\..\..\..\source\render\CMaterial.h" />
+    <ClInclude Include="..\..\..\..\source\render\CMaterialManager.h" />
     <ClInclude Include="..\..\..\..\source\render\CRenderable.h" />
     <ClInclude Include="..\..\..\..\source\render\CRenderer.h" />
     <ClInclude Include="..\..\..\..\source\render\CRenderList.h" />
@@ -233,6 +239,7 @@
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLVertexBufferObject.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\GLDebug.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\OpenGLType.h" />
+    <ClInclude Include="..\..\..\..\source\render\renderphase\CGlobalIlluminationPhase.h" />
     <ClInclude Include="..\..\..\..\source\render\renderphase\CPostProcessPhase.h" />
     <ClInclude Include="..\..\..\..\source\render\renderphase\CRenderPhase.h" />
     <ClInclude Include="..\..\..\..\source\render\renderphase\CRenderPhaseManager.h" />
