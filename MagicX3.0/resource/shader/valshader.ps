@@ -1,9 +1,48 @@
 #version 330 core
 
-varying vec2 vTex;
-uniform sampler2D textureUnit0;
+uniform sampler2D textureColor;
+uniform sampler2D texturePosition;
+uniform sampler2D textureNormal;
+
+uniform sampler2DShadow depth_texture[64];
+
+in vec2 texCoord0;
+
+in VS_FS_INTERFACE
+{
+	vec4 shadow_coord;
+	vec3 world_coord;
+	vec3 eye_coord;
+	vec3 normal;
+}fragment;
 
 void main()
 {	
-	gl_FragColor = texture2D(textureUnit0, vTex);
+	for (int i=0; i<64; ++i)
+	{
+		float x = mod(i, 8.0) / 8.0;
+		float y = floor(i / 8.0) / 8.0;
+		vec2 tex = vec2(x, y);
+		vec4 color = texture2D(textureColor, tex);
+		vec4 position = texture2D(texturePosition, tex);
+		vec4 normal = texture2D(textureNormal, tex);
+		
+			
+		vec3 N = fragment.normal;	
+		vec3 L = normalize(position - fragment.eye_coord);
+		vec3 R = reflect(-L, N);
+		vec3 E = normalize(fragment.eye_coord);
+		
+		float NdotL = dot(N, L);
+		float EdotR = dot(-E, R);
+
+		float diffuse = max(NdotL, 0.0);
+
+		float specular = max(pow(EdotR, material_specular_power), 0.0);
+
+		float f = textureProj(depth_texture[i], fragment.shadow_coord);
+
+		color += vec4(material_ambient + f * (material_diffuse * diffuse + material_specular * specular), 1.0);
+	}
+
 }
