@@ -1,0 +1,11 @@
+<Material>
+	<ShaderProgram vs="shader/texturemap.vs" ps="shader/texturemap.ps">
+		<VertexAttribute>
+			<Location index="0" name="vPosition"/>
+			<Location index="2" name="vTexCoord0"/>
+		</VertexAttribute>
+		<Uniform>
+			<Property name="textureUnit0" type="UF_TEXTURE" count="1" value="0"/>
+		</Uniform>
+	</ShaderProgram> 
+</Material>

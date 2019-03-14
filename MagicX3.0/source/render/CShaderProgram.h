@@ -58,11 +58,11 @@ namespace mx
 
 			virtual void SetUniform(const char *name, void *value);
 			virtual void SetUniform(int location, void *value);
+			virtual int GetUniformLocation(const char *name) const;
+			virtual int GetUniformTypeSizeByLocation(int location) const;
 			virtual void Bind(){};
 			virtual void BindAttributeLocation(int argc, ...){};
 			virtual void BindAttributeLocation(int index, const char *name) {}
-		private:
-			int GetUniformLocation(const char *name) const;
 		protected:
 			UniformArray m_uniforms;
 		};

@@ -14,6 +14,9 @@
 #include "IShaderProgram.h"
 #include "IShadowMap.h"
 #include "IRenderTargetManager.h"
+#include "renderphase/IRenderPhaseManager.h"
+#include "IMaterialManager.h"
+#include "IRenderQueue.h"
 
 namespace mx
 {
@@ -23,6 +26,9 @@ namespace mx
 		{
 		public:
 			virtual ~IRenderer(){};
+
+
+			virtual void Initialize(int width, int height) = 0;
 
 			//获取渲染器驱动程序
 			virtual IRenderDriver *GetRenderDriver() = 0;
@@ -38,6 +44,8 @@ namespace mx
 
 			//创建渲染实体
 			virtual IRenderable *CreateRenderable(IRenderList *pObject) = 0;
+			virtual IRenderable *CreateRenderable(IRenderQueue *pQueue) = 0;
+
 			//销毁渲染实体
 			virtual void DestroyRenderable(IRenderable *pRenderable) = 0;
 
@@ -65,7 +73,12 @@ namespace mx
 
 			virtual IShadowMap *GetShadowMap() = 0;
 
+			//manager
 			virtual IRenderTargetManager *GetRenderTargetManager() const = 0;
+			virtual IRenderPhaseManager *GetRenderPhaseManager() const = 0;
+			virtual void ProcessRenderPhase() const = 0;
+			virtual IMaterialManager *GetMaterialManager() const = 0;
+
 		private:
 			
 		};

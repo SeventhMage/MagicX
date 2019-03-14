@@ -99,7 +99,7 @@ namespace mx
 							for (rapidxml::xml_node<> * node = vertexAttributeNode->first_node("Location"); node; node = node->next_sibling())
 							{
 								int index  = atoi(node->first_attribute("index")->value());
-								char *name = node->first_attribute("name")->value();
+								const char *name = node->first_attribute("name")->value();
 								pShaderProgram->BindAttributeLocation(index, name);
 							}
 						}
@@ -119,6 +119,7 @@ namespace mx
 					}
 				}
 			}
+			return pMaterial;
 		}
 
 	}

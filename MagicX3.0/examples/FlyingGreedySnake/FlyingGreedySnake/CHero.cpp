@@ -3,6 +3,7 @@
 CHero::CHero()
 :m_bBeginMove(false)
 , m_vMoveDir(0, 0, -1)
+, m_fSpeed(1.5f)
 {
 
 }
@@ -17,7 +18,7 @@ void CHero::Update(int delta)
 {	
 	if (m_bBeginMove)
 	{
-		SetPosition(GetPosition() + m_vMoveDir * 1.5f);
+		SetPosition(GetPosition() + m_vMoveDir * m_fSpeed);
 	}
 	CPlayer::Update(delta);
 }

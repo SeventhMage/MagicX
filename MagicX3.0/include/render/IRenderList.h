@@ -2,16 +2,16 @@
 /* 渲染列表接口                                                         */
 /************************************************************************/
 
-#ifndef _MX_RENDER_I_RENDER_QUEUE_H_
-#define _MX_RENDER_I_RENDER_QUEUE_H_
+#ifndef _MX_RENDER_I_RENDER_LIST_H_
+#define _MX_RENDER_I_RENDER_LIST_H_
 
-#include "IRenderable.h"
 
 namespace mx
 {
 	namespace render
 	{
-
+		class IRenderable;
+		class IShaderProgram;
 		class IRenderList
 		{
 		public:			

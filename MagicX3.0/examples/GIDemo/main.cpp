@@ -16,7 +16,6 @@ int main(int argc, char *argv[])
 
 	float yellow[] = { 8.f, .8f, .1f, 1.f };
 	float gray[] = { .8f, .8f, .8f, 1.f };
-	IRenderObject *pColorFlatGray = new CColorFlatObject(RENDERER, gray);
 	IRenderObject *pColorFlatYellow = new CColorFlatObject(RENDERER, yellow);
 	IRenderObject *pColorPoint = new CColorPointLightObject(RENDERER, gray);
 	CSphereEntity *pSphere = nullptr;

@@ -1,0 +1,10 @@
+<Material>
+	<ShaderProgram vs="shader/shadow.vs" ps="shader/shadow.ps">
+		<VertexAttribute>
+			<Location index="0" name="vVertex"/>
+		</VertexAttribute>
+		<Uniform>
+			<Property name="textureUnit0" type="" count="" value="0"/>
+		</Uniform>
+	</ShaderProgram> 
+</Material>

@@ -1,0 +1,3 @@
+<RenderPhase>
+	<RenderQueue materialid="4" materialname="material/postprocess.xml"/>
+</RenderPhase>

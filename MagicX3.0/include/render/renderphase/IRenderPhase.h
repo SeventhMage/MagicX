@@ -2,7 +2,6 @@
 #define _MX_RENDER_I_RENDER_PHASE_H_
 
 #include "render/IRenderTarget.h"
-#include "render/IRenderer.h"
 
 namespace mx
 {
@@ -15,8 +14,11 @@ namespace mx
 			ERPI_SCENEGRAPH,
 			ERPI_POSTPROCESS,
 			ERPI_SCENEOUTCOME,
-		};
 
+			ERPI_COUNT,
+		};
+		class IRenderQueue;
+		class IRenderer;
 		class IRenderPhase
 		{
 		public:
@@ -28,6 +30,8 @@ namespace mx
 			virtual void SetEnable(bool bEnable) = 0;
 			virtual bool IsEnable() const = 0;
 			virtual IRenderTarget *GetRenderTarget() const = 0;
+			virtual IRenderQueue *CreateRenderQueue(int materialId) = 0;
+			virtual IRenderQueue *GetRenderQueue(int materialId) = 0;
 		};
 	}
 }

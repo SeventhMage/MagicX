@@ -47,6 +47,16 @@ namespace mx
 			return -1;
 		}
 
+		int  CShaderProgram::GetUniformTypeSizeByLocation(int location) const
+		{
+			auto it = m_uniforms.find(location);
+			if (it != m_uniforms.end())
+			{
+				return it->second.m_size;
+			}
+			return -1;
+		}
+
 	}
 }
 

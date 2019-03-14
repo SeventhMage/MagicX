@@ -14,6 +14,7 @@ namespace mx
 {
 	namespace render
 	{
+		class IVertexArrayObject;
 		class IRenderable
 		{
 		public:
@@ -27,16 +28,22 @@ namespace mx
 			virtual IBufferObject *GetVertexBufferObject() = 0;
 			virtual IBufferObject *GetIndexBufferObject() = 0;
 
+			virtual IVertexArrayObject *GetVertexArrayObject() = 0;
+
 			virtual IShaderProgram *GetShaderProgram() = 0;
 
 			virtual void SetShaderProgram(IShaderProgram *program) = 0;
-
+			virtual void SetUniform(const char *name, void *value) = 0;
+			virtual void SetUniform(int location, void *value, uint size) = 0;
 			//设置纹理
 			virtual void SetTexture(int slot, ITexture *pTexture) = 0;
 
 			//提交数据到渲染队列
 			virtual void SumbitToRenderList() = 0;
 			virtual void RemoveFromRenderList() = 0;
+
+			virtual void SumbitToRenderQueue() = 0;
+
 			//绑定当前数据, 使渲染程序知道正在处理的是谁
 			virtual void Bind() = 0;
 			//解绑

@@ -99,7 +99,9 @@
     <ClCompile Include="..\..\..\..\source\render\CMaterialManager.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CRenderable.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CRenderer.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\CRenderInput.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CRenderList.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\CRenderQueue.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CShaderProgram.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CVertexArrayObject.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLDriver.cpp" />
@@ -131,6 +133,7 @@
     <ClCompile Include="..\..\..\..\source\resource\CResourceManager.cpp" />
     <ClCompile Include="..\..\..\..\source\resource\CTGAImage.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CCamera.cpp" />
+    <ClCompile Include="..\..\..\..\source\scene\CEntity.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CModel.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CModelManager.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CScene.cpp" />
@@ -173,7 +176,9 @@
     <ClInclude Include="..\..\..\..\include\render\IRenderable.h" />
     <ClInclude Include="..\..\..\..\include\render\IRenderDriver.h" />
     <ClInclude Include="..\..\..\..\include\render\IRenderer.h" />
+    <ClInclude Include="..\..\..\..\include\render\IRenderInput.h" />
     <ClInclude Include="..\..\..\..\include\render\IRenderList.h" />
+    <ClInclude Include="..\..\..\..\include\render\IRenderQueue.h" />
     <ClInclude Include="..\..\..\..\include\render\IRenderTarget.h" />
     <ClInclude Include="..\..\..\..\include\render\IRenderTargetManager.h" />
     <ClInclude Include="..\..\..\..\include\render\IShader.h" />
@@ -223,7 +228,9 @@
     <ClInclude Include="..\..\..\..\source\render\CMaterialManager.h" />
     <ClInclude Include="..\..\..\..\source\render\CRenderable.h" />
     <ClInclude Include="..\..\..\..\source\render\CRenderer.h" />
+    <ClInclude Include="..\..\..\..\source\render\CRenderInput.h" />
     <ClInclude Include="..\..\..\..\source\render\CRenderList.h" />
+    <ClInclude Include="..\..\..\..\source\render\CRenderQueue.h" />
     <ClInclude Include="..\..\..\..\source\render\CShaderProgram.h" />
     <ClInclude Include="..\..\..\..\source\render\CVertexArrayObject.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLDriver.h" />

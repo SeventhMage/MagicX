@@ -15,9 +15,13 @@ namespace mx
 			CRenderPhaseManager();
 			~CRenderPhaseManager();
 
+			void LoadRenderPhase(const char *filename);
 			void Initialize(IRenderer *pRenderer, int width, int height);
 			void ProcessRenderPhase();
 			IRenderPhase *GetRenderPhase(ERenderPhaseID id);
+
+		private:
+			IRenderPhase *CreateRenderPhase(int id, const char *filename);
 		private:
 			std::vector<IRenderPhase *> m_vecRenderPhase;
 		};

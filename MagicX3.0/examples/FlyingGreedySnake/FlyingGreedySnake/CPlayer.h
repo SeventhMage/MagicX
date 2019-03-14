@@ -50,6 +50,7 @@ private:
 	CVector3 m_vHeadPosRecord;
 	std::vector<CVector3>m_vecBodyPosRecord;
 
+
 };
 
 #endif

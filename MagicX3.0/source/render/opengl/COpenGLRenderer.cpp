@@ -32,6 +32,7 @@ namespace mx
 		COpenGLRenderer::~COpenGLRenderer()
 		{
 			SAFE_DEL(m_pShadowMap);
+			SAFE_DEL(m_pRenderTargetMgr);
 		}
 
 		void COpenGLRenderer::Render(IRenderable *pRenderable)

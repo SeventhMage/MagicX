@@ -1,0 +1,12 @@
+<Material>
+	<ShaderProgram vs="shader/common.vs" ps="shader/common.ps">
+		<VertexAttribute>
+			<Location index="0" name="vPosition"/>
+			<Location index="1" name="vNormal"/>
+			<Location index="2" name="vTexCoord0"/>
+		</VertexAttribute>
+		<Uniform>
+			<Property name="textureUnit0" type="" count="" value="0"/>
+		</Uniform>
+	</ShaderProgram> 
+</Material>

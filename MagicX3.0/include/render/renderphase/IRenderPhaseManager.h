@@ -10,6 +10,7 @@ namespace mx
 		class IRenderPhaseManager
 		{
 		public:
+			virtual void LoadRenderPhase(const char *filename) = 0;
 			virtual void Initialize(IRenderer *pRenderer, int width, int height) = 0;
 			virtual void ProcessRenderPhase() = 0;
 			virtual IRenderPhase *GetRenderPhase(ERenderPhaseID id) = 0;

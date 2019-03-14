@@ -22,6 +22,8 @@ namespace mx
 			virtual void Bind() = 0;
 			virtual void SetUniform(const char *name, void *value) = 0;
 			virtual void SetUniform(int location, void *value) = 0;
+			virtual int GetUniformLocation(const char *name) const = 0;
+			virtual int GetUniformTypeSizeByLocation(int location) const = 0;
 			//virtual void BindUniform() = 0;
 			virtual void BindAttributeLocation(int argc, ...) = 0;
 			virtual void BindAttributeLocation(int index, const char *name) = 0;

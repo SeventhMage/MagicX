@@ -22,6 +22,7 @@ public:
 private:
 	bool m_bBeginMove;
 	CVector3 m_vMoveDir;
+	float m_fSpeed;
 };
 
 #endif

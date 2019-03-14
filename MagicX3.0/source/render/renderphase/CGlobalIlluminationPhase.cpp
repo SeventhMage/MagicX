@@ -32,7 +32,7 @@ namespace mx
 			if (m_pRenderTarget)
 			{
 				m_pRenderTarget->BeginTarget();
-				RENDERER->Render();
+				//RENDERER->Render();
 				m_pRenderTarget->EndTarget();
 			}
 		}

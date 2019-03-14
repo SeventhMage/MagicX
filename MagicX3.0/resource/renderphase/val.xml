@@ -1,0 +1,4 @@
+<RenderPhase>
+	<RenderTarget flag="15">
+	<RenderQueue materialid="1" materialname="material/val.xml"/>
+</RenderPhase>

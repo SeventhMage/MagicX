@@ -3,6 +3,8 @@
 #include "CRenderList.h"
 #include "CRenderable.h"
 #include "CMaterial.h"
+#include "CMaterialManager.h"
+#include "renderphase/CRenderPhaseManager.h"
 
 namespace mx
 {
@@ -13,7 +15,8 @@ namespace mx
 		CRenderer::CRenderer(IRenderDriver *pRenderDriver)
 			:m_pRenderDriver(pRenderDriver)
 		{
-			
+			m_pMaterialMgr = new CMaterialManager();
+			m_pRenderPhaseMgr = new CRenderPhaseManager();
 		}
 
 		CRenderer::~CRenderer()
@@ -27,11 +30,26 @@ namespace mx
 					delete (*it);
 			}
 			m_vecVertexArray.clear();
+
+			SAFE_DEL(m_pMaterialMgr);
+			SAFE_DEL(m_pRenderPhaseMgr);
+		}
+
+		void CRenderer::Initialize(int width, int height)
+		{
+			m_pMaterialMgr->LoadMaterial("material/root.xml");
+			m_pRenderPhaseMgr->LoadRenderPhase("phase/renderphase.xml");
+			m_pRenderPhaseMgr->Initialize(this, width, height);
 		}
 
 		IRenderable * CRenderer::CreateRenderable(IRenderList *pRenderList)
 		{
 			return new CRenderable(pRenderList, this);
+		}
+
+		IRenderable * CRenderer::CreateRenderable(IRenderQueue * pQueue)
+		{
+			return new CRenderable(pQueue, this);
 		}
 
 		void CRenderer::DestroyRenderable(IRenderable *pRenderable)
@@ -88,6 +106,11 @@ namespace mx
 					(*it)->EndRender();
 				}
 			}
+		}
+
+		void CRenderer::ProcessRenderPhase() const
+		{
+			m_pRenderPhaseMgr->ProcessRenderPhase();
 		}
 
 	}

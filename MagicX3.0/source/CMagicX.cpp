@@ -36,9 +36,6 @@ namespace mx
 		m_pResourceMgr[RT_MESH] = 0;
 		m_pResourceMgr[RT_SOUND] = 0;
 
-		m_pMaterialMgr = new CMaterialManager();
-
-		m_pRenderPhaseMgr = new CRenderPhaseManager();
 		CEventManager::NewInstance();
 	}
 
@@ -59,8 +56,7 @@ namespace mx
 
 	void CMagicX::Initialize()
 	{
-		m_pMaterialMgr->LoadMaterial("material/root.xml");
-		m_pRenderPhaseMgr->Initialize(m_pRenderer, GetDevice()->GetWindowWidth(), GetDevice()->GetWindowHeight());
+		m_pRenderer->Initialize(GetDevice()->GetWindowWidth(), GetDevice()->GetWindowHeight());
 	}
 
 	ISceneManager * CMagicX::GetSceneManager()
@@ -83,11 +79,6 @@ namespace mx
 		return m_pDeviceMgr;
 	}
 
-	IRenderPhaseManager * CMagicX::GetRenderPhaseManager()
-	{
-		return m_pRenderPhaseMgr;
-	}
-
 	IRenderer * CMagicX::GetRenderer()
 	{
 		return m_pRenderer;
@@ -96,7 +87,7 @@ namespace mx
 	void CMagicX::Run(int delta)
 	{
 		m_pSceneMgr->Update(delta);
-		m_pRenderPhaseMgr->ProcessRenderPhase();
+		m_pRenderer->ProcessRenderPhase();
 		GetDevice()->SwapBuffers();
 	}
 }

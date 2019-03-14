@@ -24,23 +24,11 @@ namespace mx
 		{
 			if (pRenderable)
 			{
-				IShaderProgram *pShaderProgram = pRenderable->GetShaderProgram();
-				if (pShaderProgram)
-				{
-					for (auto it = param.begin(); it != param.end(); ++it)
-					{
-						pShaderProgram->SetUniform(it->first, it->second);
-					}
-				}
 
-				//IShaderProgram *pShadowShaderProgram = pRenderable->GetShadowShaderProgram();
-				//if (pShadowShaderProgram && shadowParam)
-				//{
-				//	for (auto it = shadowParam->begin(); it != shadowParam->end(); ++it)
-				//	{
-				//		pShadowShaderProgram->SetUniform(it->first, it->second);
-				//	}
-				//}
+				for (auto it = param.begin(); it != param.end(); ++it)
+				{
+					pRenderable->SetUniform(it->first, it->second);
+				}
 			}
 		}
 
