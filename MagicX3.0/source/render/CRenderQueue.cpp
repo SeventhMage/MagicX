@@ -8,14 +8,19 @@ namespace mx
 	{
 		CRenderQueue::CRenderQueue(int materialId)
 			:m_materialId(materialId)
-			,m_phaseQuote(0)
+			, m_phaseQuote(0)
 		{
 		}
 		CRenderQueue::~CRenderQueue()
 		{
+	
 		}
 		void CRenderQueue::AddRenderable(IRenderable *renderable)
 		{
+			for (auto texture : m_mapSlotTexture)
+			{
+				renderable->SetTexture(texture.first, texture.second.texture);
+			}
 			m_vecRenderables.push_back(renderable);
 		}
 
@@ -42,8 +47,43 @@ namespace mx
 			IMaterial *pMaterial = RENDERER->GetMaterialManager()->GetMaterial(m_materialId);
 			if (pMaterial)
 			{
+				IShaderProgram *pShaderProgram = pMaterial->GetShaderProgram();
+				IRenderPhase *pRenderPhase = RENDERER->GetRenderPhaseManager()->GetRenderPhase(m_phaseQuote);
+				if (pShaderProgram && pRenderPhase)
+				{
+					IRenderTarget *pRenderTarget = pRenderPhase->GetRenderTarget();
+					if (pRenderTarget)
+					{
+						for (auto &texture : m_mapSlotTexture)
+						{
+							if (texture.second.flag & ERTF_COLOR_TEXTURE)
+							{
+								ITexture *pTexture = pRenderTarget->GetTexture(ERTF_COLOR_TEXTURE);
+								if (pTexture)
+								{ 
+									int slot = texture.first;
+									pShaderProgram->SetUniform(texture.second.name.c_str(), &slot);
+									texture.second.texture = pTexture;
+								}
+							}
+						}
+					}
 
+				}
 			}
+		}
+
+		void CRenderQueue::SetPhaseTexture(const char *name, int slot, int flag)
+		{
+			m_mapSlotTexture[slot].flag = flag;
+			m_mapSlotTexture[slot].name = name;
+			m_mapSlotTexture[slot].texture = nullptr;
+		}
+
+
+		IMaterial * CRenderQueue::GetMaterial() const
+		{
+			return RENDERER->GetMaterialManager()->GetMaterial(m_materialId);
 		}
 
 	}

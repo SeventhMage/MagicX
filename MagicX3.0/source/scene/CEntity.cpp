@@ -25,10 +25,16 @@ namespace mx
 			if (std::find(m_PhaseQueue[phaseId].begin(), m_PhaseQueue[phaseId].end(), materialid) == m_PhaseQueue[phaseId].end())
 			{
 				m_PhaseQueue[phaseId].push_back(materialid);
-				IRenderPhase *pPhase = RENDERER->GetRenderPhaseManager()->GetRenderPhase((render::ERenderPhaseID)(phaseId));
+				IRenderPhase *pPhase = RENDERER->GetRenderPhaseManager()->GetRenderPhase(phaseId);
 				if (pPhase)
 				{
+					IRenderQueue *pRenderQueue = pPhase->GetRenderQueue(materialid);
 					IRenderable *pRenderable = RENDERER->CreateRenderable(pPhase->GetRenderQueue(materialid));
+					IMaterial *pMaterial = RENDERER->GetMaterialManager()->GetMaterial(materialid);
+					if (pMaterial)
+					{
+						pRenderable->SetShaderProgram(pMaterial->GetShaderProgram());
+					}
 					m_vecRenderables.push_back(pRenderable);
 				}
 			}
@@ -76,7 +82,7 @@ namespace mx
 					{
 						if (renderable)
 						{
-							renderable->Bind();
+							//renderable->Bind();
 							{
 								UniformMap um;
 								um["mvpMatrix"] = mvpMat4.m;
@@ -109,7 +115,7 @@ namespace mx
 
 							renderable->SumbitToRenderQueue();
 
-							renderable->UnBind();
+							//renderable->UnBind();
 						}
 
 					}

@@ -1,7 +1,11 @@
 <MaterialRoot>
+	<Material id= "3" name="material/scenemap.xml"/>
+	<Material id= "5" name="material/screenalignedquad.xml"/>
+	<!--
 	<Material id= "1" name="material/val.xml"/>
 	<Material id= "2" name="material/shadowmap.xml"/>
-	<Material id= "3" name="material/scenemap.xml"/>
+	
 	<Material id= "4" name="material/postprocess.xml"/>
-	<Material id= "5" name="material/screenalignedquad.xml"/>
+	-->
+	
 </MaterialRoot>

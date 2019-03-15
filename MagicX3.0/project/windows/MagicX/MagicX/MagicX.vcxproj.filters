@@ -240,14 +240,20 @@
     <ClCompile Include="..\..\..\..\source\render\CMaterialManager.cpp">
       <Filter>source\render</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\source\render\CRenderQueue.cpp">
-      <Filter>source\render</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\source\render\CRenderInput.cpp">
       <Filter>source\render</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\scene\CEntity.cpp">
       <Filter>source\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene\CScreenAlignedQuad.cpp">
+      <Filter>source\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\CRenderQueue.cpp">
+      <Filter>source\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\SUniform.cpp">
+      <Filter>include\render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -593,11 +599,17 @@
     <ClInclude Include="..\..\..\..\include\render\IRenderQueue.h">
       <Filter>include\render</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\CRenderInput.h">
+      <Filter>source\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\CScreenAlignedQuad.h">
+      <Filter>include\scene</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\..\source\render\CRenderQueue.h">
       <Filter>source\render</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\source\render\CRenderInput.h">
-      <Filter>source\render</Filter>
+    <ClInclude Include="..\..\..\..\source\render\SUniform.h">
+      <Filter>include\render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -17,5 +17,9 @@ namespace mx
 			SAFE_DEL(m_pShaderProgram);
 		}
 
+		void CMaterial::BindConstantUniform()
+		{
+		}
+
 	}
 }

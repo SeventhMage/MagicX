@@ -80,7 +80,7 @@ namespace mx
 			RENDERER->EndRender();
 		}
 
-		IRenderPhase * CRenderPhaseManager::GetRenderPhase(ERenderPhaseID id)
+		IRenderPhase * CRenderPhaseManager::GetRenderPhase(int id)
 		{
 			for (auto phase : m_vecRenderPhase)
 			{
@@ -124,9 +124,15 @@ namespace mx
 						{
 							for (rapidxml::xml_node<> * quoteNode = node->first_node("PhaseQuote"); quoteNode; quoteNode = quoteNode->next_sibling())
 							{
-								int quoteid = atoi(node->first_attribute("id")->value());
-								int texflag = atoi(node->first_attribute("textureflag")->value());
-								queue->SetPhaseQuote(quoteid, texflag);
+								int quoteid = atoi(quoteNode->first_attribute("id")->value());
+								queue->SetPhaseQuote(quoteid);
+								for (rapidxml::xml_node<> * uniformNode = quoteNode->first_node("TextureUniform"); uniformNode; uniformNode = uniformNode->next_sibling())
+								{
+									const char *name = uniformNode->first_attribute("name")->value();
+									int slot = atoi(uniformNode->first_attribute("slot")->value());
+									int flag = atoi(uniformNode->first_attribute("flag")->value());
+									queue->SetPhaseTexture(name, slot, flag);
+								}
 							}
 						}
 

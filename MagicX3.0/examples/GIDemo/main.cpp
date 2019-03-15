@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
 	ex::CSphereEntity *pSphereSun = nullptr;
 	CPointLight *pPointLight = nullptr;
 	ICamera *camera = nullptr;
+	CScreenAlignedQuad *pScreenAlignedQuad = new CScreenAlignedQuad(2, 5);
 	if (scene)
 	{
 
@@ -58,7 +59,7 @@ int main(int argc, char *argv[])
 		if (sleep_time <= 0)
 		{
 			next_game_tick = GetTickCount() + SKIP_TICKS;
-
+			pScreenAlignedQuad->Render();
 			mx->Run(SKIP_TICKS - sleep_time);
 
 			if (event)

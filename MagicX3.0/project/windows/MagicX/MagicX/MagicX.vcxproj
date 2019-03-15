@@ -103,6 +103,7 @@
     <ClCompile Include="..\..\..\..\source\render\CRenderList.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CRenderQueue.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CShaderProgram.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\SUniform.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CVertexArrayObject.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLDriver.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLIndexBufferObject.cpp" />
@@ -139,6 +140,7 @@
     <ClCompile Include="..\..\..\..\source\scene\CScene.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSceneManager.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSceneNode.cpp" />
+    <ClCompile Include="..\..\..\..\source\scene\CScreenAlignedQuad.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSkyBox.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSphere.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSphereEntiy.cpp" />
@@ -204,6 +206,7 @@
     <ClInclude Include="..\..\..\..\include\resource\IResource.h" />
     <ClInclude Include="..\..\..\..\include\resource\IResourceManager.h" />
     <ClInclude Include="..\..\..\..\include\scene\CSceneNode.h" />
+    <ClInclude Include="..\..\..\..\include\scene\CScreenAlignedQuad.h" />
     <ClInclude Include="..\..\..\..\include\scene\CSphere.h" />
     <ClInclude Include="..\..\..\..\include\scene\CSphereEntiy.h" />
     <ClInclude Include="..\..\..\..\include\scene\CUnit.h" />
@@ -232,6 +235,7 @@
     <ClInclude Include="..\..\..\..\source\render\CRenderList.h" />
     <ClInclude Include="..\..\..\..\source\render\CRenderQueue.h" />
     <ClInclude Include="..\..\..\..\source\render\CShaderProgram.h" />
+    <ClInclude Include="..\..\..\..\source\render\SUniform.h" />
     <ClInclude Include="..\..\..\..\source\render\CVertexArrayObject.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLDriver.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLIndexBufferObject.h" />

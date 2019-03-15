@@ -23,6 +23,7 @@ namespace mx
 			virtual void EndTarget() = 0;
 			virtual ITexture *GetBindTexture() const = 0;
 			virtual ITexture *GetDepthTexture() const = 0;
+			virtual ITexture *GetTexture(int flag) const = 0;
 		};
 	}
 }

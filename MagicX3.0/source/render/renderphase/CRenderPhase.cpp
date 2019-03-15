@@ -33,6 +33,10 @@ namespace mx
 		void CRenderPhase::Initialize(IRenderer *pRenderer, int width, int height)
 		{
 			m_pRenderTarget = pRenderer->GetRenderTargetManager()->CreateRenderTarget(m_renderTargetFlag, width, height);
+			for (auto queue : m_renderQueueGroup)
+			{
+				queue.second->BindPhaseUniform();
+			}
 		}
 
 		void CRenderPhase::Destroy()
@@ -49,6 +53,7 @@ namespace mx
 				for (auto queue : m_renderQueueGroup)
 				{
 					queue.second->Render();
+					queue.second->Clear();
 				}
 				
 				m_pRenderTarget->EndTarget();

@@ -4,6 +4,7 @@
 #include "render/IRenderTarget.h"
 #include "COpenGLTexture.h"
 
+#include <map>
 
 namespace mx
 {
@@ -18,17 +19,11 @@ namespace mx
 			virtual void EndTarget();
 			virtual ITexture *GetBindTexture() const;
 			virtual ITexture *GetDepthTexture() const;
+			virtual ITexture *GetTexture(int flag) const;
 		private:
-			enum ETextureFlag
-			{
-				ETF_COLOR = 0,
-				ETF_POSITION,
-				ETF_NORMAL,
-				ETF_DEPTH,
 
-				ETF_NUM,
-			};
-			COpenGLTexture *m_Texture[ETF_NUM];
+			
+			std::map<int, ITexture *>m_Texture;
 			int m_iWidth;
 			int m_iHeight;
 			GLuint m_fbo;

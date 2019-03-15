@@ -12,7 +12,6 @@ namespace mx
 		COpenGLRenderTarget::COpenGLRenderTarget(int renderTargetFlag, int width, int height)
 			:m_iWidth(width), m_iHeight(height), m_fbo(0)
 		{
-			memset(m_Texture, 0, sizeof(m_Texture));
 			if (renderTargetFlag != 0)
 			{
 				GLDebug(glGenFramebuffers(1, &m_fbo));
@@ -22,37 +21,37 @@ namespace mx
 				int textureCount = 0;
 				if (renderTargetFlag & ERTF_COLOR_TEXTURE)
 				{
-					m_Texture[ETF_COLOR] = new COpenGLTexture();
-					m_Texture[ETF_COLOR]->Create2D(GL_RGBA, m_iWidth, m_iHeight, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
-					m_Texture[ETF_COLOR]->Bind(0);
-					GLDebug(glFramebufferTexture2D(GL_FRAMEBUFFER, drawBuffers[textureCount++], GL_TEXTURE_2D, m_Texture[ETF_COLOR]->GetHandle(), 0));
-					m_Texture[ETF_COLOR]->UnBind();
+					m_Texture[ERTF_COLOR_TEXTURE] = new COpenGLTexture();
+					m_Texture[ERTF_COLOR_TEXTURE]->Create2D(GL_RGBA, m_iWidth, m_iHeight, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+					m_Texture[ERTF_COLOR_TEXTURE]->Bind(0);
+					GLDebug(glFramebufferTexture2D(GL_FRAMEBUFFER, drawBuffers[textureCount++], GL_TEXTURE_2D, m_Texture[ERTF_COLOR_TEXTURE]->GetHandle(), 0));
+					m_Texture[ERTF_COLOR_TEXTURE]->UnBind();
 				}
 
 				if (renderTargetFlag & ERTF_POSITION_TEXTURE)
 				{
-					m_Texture[ETF_POSITION] = new COpenGLTexture();
-					m_Texture[ETF_POSITION]->Create2D(GL_RGBA, m_iWidth, m_iHeight, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
-					m_Texture[ETF_POSITION]->Bind(0);
-					GLDebug(glFramebufferTexture2D(GL_FRAMEBUFFER, drawBuffers[textureCount++], GL_TEXTURE_2D, m_Texture[ETF_POSITION]->GetHandle(), 0));
-					m_Texture[ETF_POSITION]->UnBind();
+					m_Texture[ERTF_POSITION_TEXTURE] = new COpenGLTexture();
+					m_Texture[ERTF_POSITION_TEXTURE]->Create2D(GL_RGBA, m_iWidth, m_iHeight, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+					m_Texture[ERTF_POSITION_TEXTURE]->Bind(0);
+					GLDebug(glFramebufferTexture2D(GL_FRAMEBUFFER, drawBuffers[textureCount++], GL_TEXTURE_2D, m_Texture[ERTF_POSITION_TEXTURE]->GetHandle(), 0));
+					m_Texture[ERTF_POSITION_TEXTURE]->UnBind();
 				}
 
 				if (renderTargetFlag & ERTF_NORMAL_TEXTURE)
 				{
-					m_Texture[ETF_NORMAL] = new COpenGLTexture();
-					m_Texture[ETF_NORMAL]->Create2D(GL_RGBA, m_iWidth, m_iHeight, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
-					m_Texture[ETF_NORMAL]->Bind(0);
-					GLDebug(glFramebufferTexture2D(GL_FRAMEBUFFER, drawBuffers[textureCount++], GL_TEXTURE_2D, m_Texture[ETF_NORMAL]->GetHandle(), 0));
-					m_Texture[ETF_NORMAL]->UnBind();
+					m_Texture[ERTF_NORMAL_TEXTURE] = new COpenGLTexture();
+					m_Texture[ERTF_NORMAL_TEXTURE]->Create2D(GL_RGBA, m_iWidth, m_iHeight, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+					m_Texture[ERTF_NORMAL_TEXTURE]->Bind(0);
+					GLDebug(glFramebufferTexture2D(GL_FRAMEBUFFER, drawBuffers[textureCount++], GL_TEXTURE_2D, m_Texture[ERTF_NORMAL_TEXTURE]->GetHandle(), 0));
+					m_Texture[ERTF_NORMAL_TEXTURE]->UnBind();
 				}
 
 				if (renderTargetFlag & ERTF_DEPTH_TEXTURE)
 				{
-					m_Texture[ETF_DEPTH] = new COpenGLTexture();
-					m_Texture[ETF_DEPTH]->CreateDepth(m_iWidth, m_iHeight);
+					m_Texture[ERTF_DEPTH_TEXTURE] = new COpenGLTexture();
+					m_Texture[ERTF_DEPTH_TEXTURE]->CreateDepth(m_iWidth, m_iHeight);
 					GLDebug(glBindFramebuffer(GL_FRAMEBUFFER, m_fbo));
-					GLDebug(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_Texture[ETF_DEPTH]->GetHandle(), 0));
+					GLDebug(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_Texture[ERTF_DEPTH_TEXTURE]->GetHandle(), 0));
 				}				
 				
 				if (textureCount > 0)
@@ -70,9 +69,9 @@ namespace mx
 		}
 		COpenGLRenderTarget::~COpenGLRenderTarget()
 		{
-			for (int i = 0; i < ETF_NUM; ++i)
+			for (auto it : m_Texture)
 			{
-				SAFE_DEL(m_Texture[i]);
+				SAFE_DEL(it.second);
 			}
 
 			glDeleteFramebuffers(1, &m_fbo);
@@ -90,11 +89,24 @@ namespace mx
 		}
 		ITexture * COpenGLRenderTarget::GetBindTexture() const
 		{
-			return m_Texture[ETF_COLOR];
+			return nullptr;
+			//return m_Texture[ERTF_COLOR_TEXTURE];
 		}
 		ITexture * COpenGLRenderTarget::GetDepthTexture() const
 		{
-			return m_Texture[ETF_DEPTH];
+			return nullptr;
+			//return m_Texture[ERTF_DEPTH_TEXTURE];
 		}
+
+		mx::render::ITexture * COpenGLRenderTarget::GetTexture(int flag) const
+		{
+			auto it = m_Texture.find(flag);
+			if (it != m_Texture.end())
+			{
+				return it->second;
+			}
+			return nullptr;
+		}
+
 	}
 }

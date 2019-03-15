@@ -9,6 +9,7 @@ namespace mx
 {
 	namespace render
 	{
+		class IMaterial;
 		class IRenderQueue
 		{
 		public:
@@ -18,6 +19,7 @@ namespace mx
 			virtual IMaterial *GetMaterial() const = 0;
 			virtual void SetPhaseQuote(int phaseId) = 0;
 			virtual void BindPhaseUniform() = 0;
+			virtual void SetPhaseTexture(const char *name, int slot, int flag) = 0;
 		};
 		typedef std::map<int, IRenderQueue *> RenderQueueGroup;	//k:materialid
 	}

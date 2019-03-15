@@ -18,7 +18,7 @@ namespace mx
 			void LoadRenderPhase(const char *filename);
 			void Initialize(IRenderer *pRenderer, int width, int height);
 			void ProcessRenderPhase();
-			IRenderPhase *GetRenderPhase(ERenderPhaseID id);
+			IRenderPhase *GetRenderPhase(int id);
 
 		private:
 			IRenderPhase *CreateRenderPhase(int id, const char *filename);
