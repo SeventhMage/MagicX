@@ -19,7 +19,7 @@ namespace mx
 			virtual void Initialize(IRenderer *pRenderer, int width, int height);
 			virtual void Destroy();
 			virtual void Render();
-			virtual int GetPhaseID() const { return 0; }
+			virtual int GetPhaseID() const { return m_Id; }
 
 			virtual void SetEnable(bool bEnable);
 			virtual bool IsEnable() const;

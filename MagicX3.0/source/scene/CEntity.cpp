@@ -34,7 +34,7 @@ namespace mx
 			}
 		}
 
-		void CEntity::SetGlobalUniform()
+		void CEntity::UpdateImp(int delta)
 		{
 			IScene *pScene = SCENEMGR->GetCurrentScene();
 			if (pScene)
@@ -71,7 +71,7 @@ namespace mx
 					float normalMat3[] = { normalMat4.m[0], normalMat4.m[1], normalMat4.m[2],
 						normalMat4.m[4], normalMat4.m[5], normalMat4.m[6],
 						normalMat4.m[8], normalMat4.m[9], normalMat4.m[10] };
-					
+
 					for (auto renderable : m_vecRenderables)
 					{
 						if (renderable)
@@ -107,17 +107,16 @@ namespace mx
 								}
 							}
 
-							renderable->SumbitToRenderList();
+							renderable->SumbitToRenderQueue();
 
 							renderable->UnBind();
-						} 
+						}
 
 					}
-	
+
 
 				}
 			}
-
 		}
 
 	}

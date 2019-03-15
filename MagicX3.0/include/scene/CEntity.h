@@ -21,7 +21,7 @@ namespace mx
 			CEntity();
 			virtual ~CEntity();
 			void AddRenderPhase(int phaseId, int materialid);
-			void SetGlobalUniform();
+			void UpdateImp(int delta);
 		protected:
 			typedef std::vector<int> RENDER_QUEUE;
 			typedef std::map<int, RENDER_QUEUE> PHASE_MAP;

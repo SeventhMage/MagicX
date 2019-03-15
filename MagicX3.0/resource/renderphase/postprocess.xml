@@ -1,3 +1,4 @@
 <RenderPhase>
+	<RenderTarget flag="1"/>
 	<RenderQueue materialid="4" materialname="material/postprocess.xml"/>
 </RenderPhase>

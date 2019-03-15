@@ -1,3 +1,4 @@
 <RenderPhase>
-	<Material name="material/shadowmap.xml"/>
+	<RenderTarget flag="8"/>
+	<RenderQueue materialid="2" materialname="material/shadowmap.xml"/>
 </RenderPhase>

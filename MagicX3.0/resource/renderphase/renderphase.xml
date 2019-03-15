@@ -1,7 +1,7 @@
 <RenderPhase>
-	<Pass id="1" phase="phase/val.xml"/>
-	<Pass id="2" phase="phase/shadowmap.xml"/>
-	<Pass id="3" phase="phase/postprocess.xml"/>
-	<Pass id="4" phase="phase/scenemap.xml"/>
-	<Pass id="5" phase="phase/screenalignedquad.xml"/>
+	<Pass id="1" phase="renderphase/val.xml"/>
+	<Pass id="2" phase="renderphase/shadowmap.xml"/>
+	<Pass id="3" phase="renderphase/scenemap.xml"/>
+	<Pass id="4" phase="renderphase/postprocess.xml"/>	
+	<Pass id="5" phase="renderphase/screenalignedquad.xml"/>
 </RenderPhase>

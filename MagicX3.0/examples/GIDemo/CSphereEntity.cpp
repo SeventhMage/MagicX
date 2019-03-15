@@ -8,11 +8,11 @@ namespace mx
 		CSphereEntity::CSphereEntity(float fRadius, int iSlices, int iStacks)
 		{
 			m_pSphere = new scene::CSphere(fRadius, iSlices, iStacks);
-			AddRenderPhase(1, 1);
-			AddRenderPhase(2, 2);
+			//AddRenderPhase(1, 1);
+			//AddRenderPhase(2, 2);
 			AddRenderPhase(3, 3);
-			AddRenderPhase(4, 4);
-			AddRenderPhase(5, 5);
+			//AddRenderPhase(4, 4);
+			//AddRenderPhase(5, 5);
 		}
 
 		CSphereEntity::~CSphereEntity()
@@ -22,22 +22,15 @@ namespace mx
 
 		void CSphereEntity::UpdateImp(int delta)
 		{
-			for (auto renderable : m_vecRenderables)
-			{
-				
-				if (renderable)
-					renderable->SumbitToRenderQueue();
-			}
-
+			CEntity::UpdateImp(delta);
 		}
 
 		void CSphereEntity::Create()
 		{
-
 			for (auto renderable : m_vecRenderables)
 			{
 				IVertexArrayObject *pVAO = renderable->GetVertexArrayObject();
-				
+				pVAO->Bind();
 				IBufferObject *bufferObject = renderable->CreateVertexBufferObject(NULL, m_pSphere->GetVertexSize() * 2, 0, m_pSphere->GetVertexCount(), GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
 				if (bufferObject)
 				{
@@ -51,7 +44,6 @@ namespace mx
 				bufferObject->UnBind();
 				pVAO->UnBind();
 			}
-
 		}
 	}
 

@@ -1,10 +1,8 @@
 #version 330 core
 
-
-in vec3 vOutNormal;
-in vec2 vOutTexCoord0;
-
-uniform mat4 mvMat4;
+in vec3 normal;
+in vec2 texCoord0;
+in vec3 position;
 
 uniform vec4 ambientColor = vec4(1.0, 0.75, 0.75, 0.75);
 uniform vec4 diffuseColor = vec4(1.0, 0.75, 0.75, 0.75);
@@ -12,5 +10,5 @@ uniform vec4 directionalColor = vec4(1.0, 0.75, 0.75, 0.75);
 
 void main()
 {
-	
+	gl_FragColor = vec4(1.0, 1.0, 0.0, 1.0);
 }

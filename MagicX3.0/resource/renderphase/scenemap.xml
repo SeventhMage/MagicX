@@ -1,3 +1,4 @@
 <RenderPhase>
-	<Material name="material/scenemap.xml"/>
+	<RenderTarget flag="0"/>
+	<RenderQueue materialid="3" materialname="material/scenemap.xml"/>
 </RenderPhase>

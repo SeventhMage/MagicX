@@ -38,7 +38,7 @@ namespace mx
 		void CRenderer::Initialize(int width, int height)
 		{
 			m_pMaterialMgr->LoadMaterial("material/root.xml");
-			m_pRenderPhaseMgr->LoadRenderPhase("phase/renderphase.xml");
+			m_pRenderPhaseMgr->LoadRenderPhase("renderphase/renderphase.xml");
 			m_pRenderPhaseMgr->Initialize(this, width, height);
 		}
 

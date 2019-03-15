@@ -1,4 +1,5 @@
 #include "mx.h"
+#include "CSphereEntity.h"
 #include <Windows.h>
 
 using namespace mx;
@@ -16,17 +17,16 @@ int main(int argc, char *argv[])
 
 	float yellow[] = { 8.f, .8f, .1f, 1.f };
 	float gray[] = { .8f, .8f, .8f, 1.f };
-	IRenderObject *pColorFlatYellow = new CColorFlatObject(RENDERER, yellow);
-	IRenderObject *pColorPoint = new CColorPointLightObject(RENDERER, gray);
-	CSphereEntity *pSphere = nullptr;
-	CSphereEntity *pSphereSun = nullptr;
+
+	ex::CSphereEntity *pSphere = nullptr;
+	ex::CSphereEntity *pSphereSun = nullptr;
 	CPointLight *pPointLight = nullptr;
 	ICamera *camera = nullptr;
 	if (scene)
 	{
 
-		pSphere = new CSphereEntity(pColorPoint, 5, 52, 26);
-		pSphereSun = new CSphereEntity(pColorFlatYellow, 2, 26, 13);
+		pSphere = new ex::CSphereEntity(5, 52, 26);
+		pSphereSun = new ex::CSphereEntity(2, 26, 13);
 
 		CVector3 vDir(0, -1, -1);
 		CVector3 vUp(0, 1, 0);
