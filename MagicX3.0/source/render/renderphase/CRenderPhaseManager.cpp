@@ -118,7 +118,18 @@ namespace mx
 					{
 						int id  = atoi(node->first_attribute("materialid")->value());
 						const char *name = node->first_attribute("materialname")->value();
-						pRenderPhase->CreateRenderQueue(id);
+						IRenderQueue *queue = pRenderPhase->CreateRenderQueue(id);
+
+						if (queue)
+						{
+							for (rapidxml::xml_node<> * quoteNode = node->first_node("PhaseQuote"); quoteNode; quoteNode = quoteNode->next_sibling())
+							{
+								int quoteid = atoi(node->first_attribute("id")->value());
+								int texflag = atoi(node->first_attribute("textureflag")->value());
+								queue->SetPhaseQuote(quoteid, texflag);
+							}
+						}
+
 					}
 
 				}

@@ -8,6 +8,7 @@ namespace mx
 	{
 		CRenderQueue::CRenderQueue(int materialId)
 			:m_materialId(materialId)
+			,m_phaseQuote(0)
 		{
 		}
 		CRenderQueue::~CRenderQueue()
@@ -28,6 +29,20 @@ namespace mx
 			for (auto &renderable : m_vecRenderables)
 			{
 				RENDERER->Render(renderable);
+			}
+		}
+
+		void CRenderQueue::SetPhaseQuote(int phaseId)
+		{
+			m_phaseQuote = phaseId;
+		}
+
+		void CRenderQueue::BindPhaseUniform()
+		{
+			IMaterial *pMaterial = RENDERER->GetMaterialManager()->GetMaterial(m_materialId);
+			if (pMaterial)
+			{
+
 			}
 		}
 

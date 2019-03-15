@@ -16,6 +16,8 @@ namespace mx
 			virtual void Clear() = 0;
 			virtual void Render() = 0;
 			virtual IMaterial *GetMaterial() const = 0;
+			virtual void SetPhaseQuote(int phaseId) = 0;
+			virtual void BindPhaseUniform() = 0;
 		};
 		typedef std::map<int, IRenderQueue *> RenderQueueGroup;	//k:materialid
 	}

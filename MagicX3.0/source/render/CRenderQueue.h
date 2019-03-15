@@ -17,9 +17,12 @@ namespace mx
 			virtual void AddRenderable(IRenderable *renderable);
 			virtual void Clear();
 			virtual void Render();
+			virtual void SetPhaseQuote(int phaseId);
+			virtual void BindPhaseUniform();
 		private:
 			int m_materialId;
 			std::vector<IRenderable *>m_vecRenderables;
+			int m_phaseQuote;
 		};
 	}
 }
