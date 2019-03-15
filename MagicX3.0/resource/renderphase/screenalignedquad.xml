@@ -1,4 +1,6 @@
 <RenderPhase>
 	<RenderTarget flag="0"/>
-	<RenderQueue materialid="5" materialname="material/screenalignedquad.xml"/>
+	<RenderQueue materialid="5" materialname="material/screenalignedquad.xml">
+		<PhaseQuote id="1">
+	</RenderQueue>
 </RenderPhase>
