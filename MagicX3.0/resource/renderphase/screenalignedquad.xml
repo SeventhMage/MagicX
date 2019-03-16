@@ -1,7 +1,7 @@
 <RenderPhase>
 	<RenderTarget flag="0"/>
 	<RenderQueue materialid="5" materialname="material/screenalignedquad.xml">
-		<PhaseQuote id="2">
+		<PhaseQuote id="1">
 			<TextureUniform name="textureUnit0" slot="0" flag="1"/>
 		</PhaseQuote>
 	</RenderQueue>
