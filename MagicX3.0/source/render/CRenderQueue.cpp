@@ -56,16 +56,22 @@ namespace mx
 					{
 						for (auto &texture : m_mapSlotTexture)
 						{
-							if (texture.second.flag & ERTF_COLOR_TEXTURE)
+							int flag = ERTF_COLOR_TEXTURE;
+							do 
 							{
-								ITexture *pTexture = pRenderTarget->GetTexture(ERTF_COLOR_TEXTURE);
-								if (pTexture)
-								{ 
-									int slot = texture.first;
-									pShaderProgram->SetUniform(texture.second.name.c_str(), &slot);
-									texture.second.texture = pTexture;
+								if (texture.second.flag & flag)
+								{
+									ITexture *pTexture = pRenderTarget->GetTexture(flag);
+									if (pTexture)
+									{
+										int slot = texture.first;
+										pShaderProgram->SetUniform(texture.second.name.c_str(), &slot);
+										texture.second.texture = pTexture;
+										break;
+									}
 								}
-							}
+								flag <<= 1;
+							} while (flag <= ERTF_MAX_FLAG);
 						}
 					}
 

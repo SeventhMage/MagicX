@@ -1,7 +1,7 @@
 <Material>
 	<ShaderProgram vs="shader/common.vs" ps="shader/generateval.ps">
 		<Uniform>
-			<Property name="" type="" count="" value=""/>
+			
 		</Uniform>
 	</ShaderProgram> 
 </Material>

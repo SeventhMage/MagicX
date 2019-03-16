@@ -7,12 +7,12 @@ in vec2 texCoord0;
 in vec3 position;
 
 layout (location = 0) out vec4 vOutColorData;  
-layout (location = 1) out vec3 vOutPositionData;  
-layout (location = 2) out vec3 vOutNormalData;  
+layout (location = 1) out vec4 vOutPositionData;  
+layout (location = 2) out vec4 vOutNormalData;  
 
 void main()
 {
-    vOutPositionData = position;
-    vOutNormalData = normal;
-    vOutColorData = texture2D(textureUnit0, texCoord0);
+    vOutPositionData = vec4(position.xyz, 1.0);
+    vOutNormalData = vec4(normal.xyz, 1.0);
+    vOutColorData = vec4(0.4, 0.9, 0.7, 1.0);//texture2D(textureUnit0, texCoord0);
 }

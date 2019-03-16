@@ -14,6 +14,8 @@ namespace mx
 			ERTF_POSITION_TEXTURE = 1 << 1,
 			ERTF_NORMAL_TEXTURE = 1 << 2,
 			ERTF_DEPTH_TEXTURE = 1 << 3,
+
+			ERTF_MAX_FLAG = ERTF_DEPTH_TEXTURE,
 		};
 
 		class IRenderTarget

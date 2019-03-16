@@ -29,7 +29,8 @@ namespace mx
 				if (pPhase)
 				{
 					IRenderQueue *pRenderQueue = pPhase->GetRenderQueue(materialid);
-					IRenderable *pRenderable = RENDERER->CreateRenderable(pPhase->GetRenderQueue(materialid));
+					assert(pRenderQueue);
+					IRenderable *pRenderable = RENDERER->CreateRenderable(pRenderQueue);
 					IMaterial *pMaterial = RENDERER->GetMaterialManager()->GetMaterial(materialid);
 					if (pMaterial)
 					{

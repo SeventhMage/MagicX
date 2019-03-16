@@ -1,9 +1,10 @@
 <RenderPhase>
 	<RenderTarget flag="1"/>
-	<RenderQueue materialid="3" materialname="material/scenemap.xml"/>
-	<PhaseQuote id="1">
-		<TextureUniform name="textureUnit0" slot="0" flag="1"/>
-		<TextureUniform name="textureUnit1" slot="1" flag="2"/>
-		<TextureUniform name="textureUnit2" slot="2" flag="4"/>
-	</PhaseQuote>
+	<RenderQueue materialid="3" materialname="material/scenemap.xml">
+		<PhaseQuote id="1">
+			<TextureUniform name="textureUnit0" slot="0" flag="1"/>
+			<TextureUniform name="textureUnit1" slot="1" flag="2"/>
+			<TextureUniform name="textureUnit2" slot="2" flag="4"/>
+		</PhaseQuote>
+	</RenderQueue>
 </RenderPhase>
