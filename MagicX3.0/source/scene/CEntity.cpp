@@ -79,47 +79,20 @@ namespace mx
 						normalMat4.m[4], normalMat4.m[5], normalMat4.m[6],
 						normalMat4.m[8], normalMat4.m[9], normalMat4.m[10] };
 
+
+
+
 					for (auto renderable : m_vecRenderables)
 					{
 						if (renderable)
 						{
-							//renderable->Bind();
-							{
-								UniformMap um;
-								um["mvpMatrix"] = mvpMat4.m;
-								um["mvMatrix"] = mvMat4.m;
-								um["viewMatrix"] = pCam->GetViewMatrix().m;
-								um["projMatrix"] = pCam->GetProjectionMatrix().m;
-								um["modelMatrix"] = GetAbsluateTransformation().m;
-								um["normalMatrix"] = normalMat3;
-								um["mInverseMatrix"] = camInvMat4.m;
-
-								UniformMap sum;
-								CPointLight *pLight = (CPointLight *)pScene->GetLight(0);
-								if (pLight)
-								{
-									CVector3 vLightPos = pLight->GetPosition();
-									pCam->GetViewMatrix().TransformVect(vLightPos);
-									um["vLightPos"] = vLightPos.v;
-
-									ICamera *pLightCam = pScene->GetLightCamera(0);
-									if (pLightCam)
-									{
-										CMatrix4 smvpMat4 = GetAbsluateTransformation() * pLightCam->GetViewProjectionMatrix();
-										sum["mvpMatrix"] = smvpMat4.m;
-									}
-								}
-								//renderable->SetTexture(m_pRenderable);
-
-								for (auto it = um.begin(); it != um.end(); ++it)
-								{
-									renderable->SetUniform(it->first, it->second);
-								}
-							}
+							renderable->SetUniform("viewMatrix", pCam->GetViewMatrix().m);
+							renderable->SetUniform("projMatrix", pCam->GetProjectionMatrix().m);
+							renderable->SetUniform("modelMatrix", GetAbsluateTransformation().m);
+							renderable->SetUniform("normalMatrix", normalMat3);
+							renderable->SetUniform("mInverseMatrix", camInvMat4.m);
 
 							renderable->SumbitToRenderQueue();
-
-							//renderable->UnBind();
 						}
 
 					}

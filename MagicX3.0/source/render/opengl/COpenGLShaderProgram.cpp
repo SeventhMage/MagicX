@@ -4,6 +4,7 @@
 #include "OpenGLType.h"
 #include "GLDebug.h"
 #include "render/SVertexAttribute.h"
+#include "base/StringHelper.h"
 
 #include <stdarg.h>
 
@@ -399,8 +400,9 @@ namespace mx
 					{
 						printf("GetUniformFormat:UF_UNKNOWN [%s:%d]", __FILE__, __LINE__);
 					}
-					strncpy(uniform.m_name, name, MAX_FILE_NAME - 1);
-					uniform.m_size = GetUniformTypeSize(uniform.m_format);
+					std::string sname = base::Replace(name, "[0]", "");
+					strncpy(uniform.m_name, sname.c_str(), MAX_FILE_NAME - 1);
+					uniform.m_size = GetUniformTypeSize(uniform.m_format) * uniform.m_count;
 					uniform.m_location = i;
 
 					m_uniforms[i] = uniform;

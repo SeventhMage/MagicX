@@ -31,6 +31,18 @@ namespace mx
 					m_pRenderable->SetShaderProgram(pMaterial->GetShaderProgram());
 				}
 
+				CVector3 lightPos[64];
+				CVector3 lightColor[64];
+
+				for (int i = 0; i < 64; ++i)
+				{
+					lightPos[i].set(rand() % 100 - 100, rand() % 100 - 100, rand() % 100 - 100);
+					lightColor[i].set(rand() % 256 / 256, rand() % 256 / 256, rand() % 256 / 256);
+				}
+
+				m_pRenderable->SetUniform("lightPosition", lightPos);
+				m_pRenderable->SetUniform("lightColor", lightColor);
+
 				IVertexArrayObject *pVAO = m_pRenderable->GetVertexArrayObject();
 				pVAO->Bind();
 				IBufferObject *bufferObject = m_pRenderable->CreateVertexBufferObject(vertex, sizeof(vertex), 0, sizeof(vertex) / sizeof(float), GBM_TRIANGLES, GBU_DYNAMIC_DRAW);

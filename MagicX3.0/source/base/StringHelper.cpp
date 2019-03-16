@@ -44,5 +44,18 @@ namespace mx
 			
 			return strRet;
 		}
+		std::string Replace(const std::string & str, const std::string & src, const std::string & dst)
+		{
+			if (src == dst)
+				return str;
+			std::string out = str;
+			size_t pos = str.find(src, 0);
+			while (pos != std::string::npos)
+			{
+				out.replace(pos, src.size(), dst);
+				pos = out.find(src, pos + dst.size());
+			}
+			return out;
+		}
 	}
 }
