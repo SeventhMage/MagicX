@@ -89,6 +89,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\base\CVirtualTraceBall.cpp" />
     <ClCompile Include="..\..\..\..\source\base\mxString.cpp" />
+    <ClCompile Include="..\..\..\..\source\base\StringHelper.cpp" />
     <ClCompile Include="..\..\..\..\source\CMagicX.cpp" />
     <ClCompile Include="..\..\..\..\source\device\CDeviceManager.cpp" />
     <ClCompile Include="..\..\..\..\source\device\CEventManager.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="..\..\..\..\include\base\CSingleton.h" />
     <ClInclude Include="..\..\..\..\include\base\CVirtualTraceBall.h" />
     <ClInclude Include="..\..\..\..\include\base\mxString.h" />
+    <ClInclude Include="..\..\..\..\include\base\StringHelper.h" />
     <ClInclude Include="..\..\..\..\include\device\CEventManager.h" />
     <ClInclude Include="..\..\..\..\include\device\EEvent.h" />
     <ClInclude Include="..\..\..\..\include\device\IDevice.h" />

@@ -15,7 +15,7 @@ namespace mx
 {
 	namespace render
 	{
-		typedef std::map<const char *, void *> UniformMap;
+		typedef std::map<const char *, const void *> UniformMap;
 		using namespace render;
 		class IRenderObject
 		{

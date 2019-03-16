@@ -1,5 +1,7 @@
 #include "mx.h"
 #include "CSphereEntity.h"
+
+#include <time.h>
 #include <Windows.h>
 
 using namespace mx;
@@ -47,6 +49,18 @@ int main(int argc, char *argv[])
 		pPointLight->SetPosition(pSphereSun->GetPosition());
 		scene->SetupLightCamera(0, pPointLight->GetPosition(), -pPointLight->GetPosition(), CVector3(0, 1, 0), PI * 0.5f, 1.f, 1.f, 1000.f);
 	}
+	srand(time(0));
+	for (int i = 0; i < 100; ++i)
+	{
+		ex::CSphereEntity *pSphere = new ex::CSphereEntity(5, 52, 26);
+		float x = rand() % 100 - 100;
+		float y = rand() % 100 - 100;
+		float z = rand() % 100 - 100;
+		pSphere->Create();
+		pSphere->SetPosition(CVector3(x, y, z));
+		scene->GetRootNode()->AddChild(pSphere);
+	}
+	
 	
 	UINT next_game_tick = GetTickCount();
 	int sleep_time = 0;

@@ -87,6 +87,9 @@ namespace mx
 								UniformMap um;
 								um["mvpMatrix"] = mvpMat4.m;
 								um["mvMatrix"] = mvMat4.m;
+								um["viewMatrix"] = pCam->GetViewMatrix().m;
+								um["projMatrix"] = pCam->GetProjectionMatrix().m;
+								um["modelMatrix"] = GetAbsluateTransformation().m;
 								um["normalMatrix"] = normalMat3;
 								um["mInverseMatrix"] = camInvMat4.m;
 

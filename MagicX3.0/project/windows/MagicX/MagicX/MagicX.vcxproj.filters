@@ -255,6 +255,9 @@
     <ClCompile Include="..\..\..\..\source\render\SUniform.cpp">
       <Filter>include\render</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\base\StringHelper.cpp">
+      <Filter>source\base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\include\mx.h">
@@ -610,6 +613,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\render\SUniform.h">
       <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\base\StringHelper.h">
+      <Filter>include\base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

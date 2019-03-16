@@ -4,11 +4,21 @@ in vec3 normal;
 in vec2 texCoord0;
 in vec3 position;
 
+uniform vec4 color;
 uniform vec4 ambientColor = vec4(1.0, 0.75, 0.75, 0.75);
 uniform vec4 diffuseColor = vec4(1.0, 0.75, 0.75, 0.75);
 uniform vec4 directionalColor = vec4(1.0, 0.75, 0.75, 0.75);
 
+uniform vec3 lightPosition = vec3(10.0, 10.0, 10.0);
+
+uniform Sample2D textureUnit0;
+uniform Sample2D textureUnit1;
+uniform Sample2D textureUnit2;
+
 void main()
 {
-	gl_FragColor = vec4(1.0, 1.0, 0.0, 1.0);
+	vec3 lightDir = normalize(lightPosition - position);
+	
+	float rate = max(dot(normal, lightDir), 0.0);
+	gl_FragColor.rgb = rate * color.rgb;
 }

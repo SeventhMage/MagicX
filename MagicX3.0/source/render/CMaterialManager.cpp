@@ -2,6 +2,7 @@
 #include "mxDef.h"
 #include "rapidxml.hpp"
 #include "CMaterial.h"
+#include "base/StringHelper.h"
 
 #include <fstream>
 
@@ -111,9 +112,18 @@ namespace mx
 						{
 							for (rapidxml::xml_node<> * node = uniformNode->first_node("Property"); node; node = node->next_sibling())
 							{
-								//char *name = node->first_attribute("name")->value();
-								//char *value = node->first_attribute("value")->value();
-								//pShaderProgram->SetUniform(name, value);
+								const char *name = node->first_attribute("name")->value();
+								const char *value = node->first_attribute("value")->value();
+								int size = atoi(node->first_attribute("size")->value());
+								int count = atoi(node->first_attribute("count")->value());
+								StringArray values = base::Split(value, " ");
+								float valueBuf[64] = {0.f};
+								int index = 0;
+								for (auto value : values)
+								{
+									valueBuf[index++] = atof(value.c_str());
+								}
+								pShaderProgram->SetUniform(name, valueBuf);
 							}
 						}
 					}

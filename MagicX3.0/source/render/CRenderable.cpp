@@ -112,7 +112,7 @@ namespace mx
 			m_pShaderProgram = program;
 		}
 
-		void CRenderable::SetUniform(const char *name, void *value)
+		void CRenderable::SetUniform(const char *name, const void *value)
 		{
 			if (m_pShaderProgram)
 			{
@@ -125,7 +125,7 @@ namespace mx
 			}
 		}
 
-		void CRenderable::SetUniform(int location, void *value, uint size)
+		void CRenderable::SetUniform(int location, const void *value, uint size)
 		{
 			//if (m_uniforms.find(location) != m_uniforms.end())
 			m_uniforms[location].SetValue(value, size);

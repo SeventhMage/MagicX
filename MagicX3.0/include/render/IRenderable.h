@@ -33,8 +33,8 @@ namespace mx
 			virtual IShaderProgram *GetShaderProgram() = 0;
 
 			virtual void SetShaderProgram(IShaderProgram *program) = 0;
-			virtual void SetUniform(const char *name, void *value) = 0;
-			virtual void SetUniform(int location, void *value, uint size) = 0;
+			virtual void SetUniform(const char *name, const void *value) = 0;
+			virtual void SetUniform(int location, const void *value, uint size) = 0;
 			//…Ë÷√Œ∆¿Ì
 			virtual void SetTexture(int slot, ITexture *pTexture) = 0;
 
