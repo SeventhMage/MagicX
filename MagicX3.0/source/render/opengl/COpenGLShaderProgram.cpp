@@ -387,6 +387,7 @@ namespace mx
 				GLint maxLength;
 				GLDebug(glGetProgramiv(m_hProgram, GL_ACTIVE_UNIFORM_MAX_LENGTH, &maxLength));
 				char *name = new char[maxLength];
+				int locationAppend = 0;
 				for (int i = 0; i < uniformsNum; ++i)
 				{
 
@@ -403,9 +404,13 @@ namespace mx
 					std::string sname = base::Replace(name, "[0]", "");
 					strncpy(uniform.m_name, sname.c_str(), MAX_FILE_NAME - 1);
 					uniform.m_size = GetUniformTypeSize(uniform.m_format) * uniform.m_count;
-					uniform.m_location = i;
 
-					m_uniforms[i] = uniform;
+					uniform.m_location = i + locationAppend;
+					
+					if (uniform.m_count > 1)
+						locationAppend += uniform.m_count - 1;
+
+					m_uniforms[uniform.m_location] = uniform;
 				}
 				delete name;
 			}
