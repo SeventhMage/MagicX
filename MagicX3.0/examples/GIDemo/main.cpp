@@ -1,8 +1,10 @@
 #include "mx.h"
 #include "CSphereEntity.h"
+#include "CHouse.h"
 
 #include <time.h>
 #include <Windows.h>
+
 
 using namespace mx;
 
@@ -20,42 +22,45 @@ int main(int argc, char *argv[])
 	float yellow[] = { 8.f, .8f, .1f, 1.f };
 	float gray[] = { .8f, .8f, .8f, 1.f };
 
-	ex::CSphereEntity *pSphere = nullptr;
-	ex::CSphereEntity *pSphereSun = nullptr;
+
+	ex::CHouse *pHouse = new ex::CHouse(100, 100, 100);
 	CPointLight *pPointLight = nullptr;
 	ICamera *camera = nullptr;
 	CScreenAlignedQuad *pScreenAlignedQuad = new CScreenAlignedQuad(3, 5);
 	if (scene)
 	{
-
-		pSphere = new ex::CSphereEntity(5, 52, 26);
-		pSphereSun = new ex::CSphereEntity(2, 26, 13);
-
-		CVector3 vDir(0, -1, -1);
+		CVector3 vPos(0, 0, 10);
+		CVector3 vDir(0, 0, -1);
 		CVector3 vUp(0, 1, 0);
-		//camera = scene->SetupCamera(CVector3(0, 0, 5), vDir, vUp, PI / 3, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
-		camera = scene->SetupCamera(100.f, pSphere, vDir, vUp, PI / 3, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
+		camera = scene->SetupCamera(vPos, vDir, vUp, PI / 3, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
 		//scene->SetupSkyBox("texture/TropicalSunnyDayLeft2048.tga", "texture/TropicalSunnyDayRight2048.tga", "texture/TropicalSunnyDayUp2048.tga", "texture/TropicalSunnyDayDown2048.tga", "texture/TropicalSunnyDayFront2048.tga", "texture/TropicalSunnyDayBack2048.tga", 256);		
-		pPointLight = (CPointLight *)scene->SetupLight(0, LT_POINT, yellow);
 
-		pSphere->Create();
-		pSphere->SetPosition(CVector3(0, 30, 0));
-		scene->GetRootNode()->AddChild(pSphere);
 
-		pSphereSun->Create();
-		pSphereSun->SetPosition(CVector3(10, 50, -10));
-		scene->GetRootNode()->AddChild(pSphereSun);
 
-		pPointLight->SetPosition(pSphereSun->GetPosition());
-		scene->SetupLightCamera(0, pPointLight->GetPosition(), -pPointLight->GetPosition(), CVector3(0, 1, 0), PI * 0.5f, 1.f, 1.f, 1000.f);
+		srand(time(0));
+		for (int i = 0; i < 64; ++i)
+		{
+			CVector3 lightPos(rand() % 100 - 50, rand() % 100 - 50, rand() % 100 - 50);
+			CVector3 lightColor(1.f * (rand() % 256) / 25600, 1.f * (rand() % 256) / 25600, 1.f * (rand() % 256) / 25600);
+			lightPos.set(0, 20, -110);
+			lightColor.set(1, 1, 1);
+			CPointLight *pLight = (CPointLight *)scene->SetupLight(i, LT_POINT, lightColor.v);
+			pLight->SetPosition(lightPos);
+			scene->SetupLightCamera(i, lightPos, -lightPos, CVector3(0, 1, 0), PI * 0.5f, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1, 1000.f);
+		}
+
+
+		pHouse->SetPosition(CVector3(0, 0, -150));
+		scene->GetRootNode()->AddChild(pHouse);
+
 	}
 	srand(time(0));
 	for (int i = 0; i < 10; ++i)
 	{
 		ex::CSphereEntity *pSphere = new ex::CSphereEntity(5, 52, 26);
-		float x = rand() % 100 - 100;
-		float y = rand() % 100 - 100;
-		float z = rand() % 100 - 100;
+		float x = rand() % 100 - 50;
+		float y = rand() % 100 - 50;
+		float z = -130.f;
 		pSphere->Create();
 		pSphere->SetPosition(CVector3(x, y, z));
 		scene->GetRootNode()->AddChild(pSphere);

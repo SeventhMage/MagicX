@@ -15,9 +15,15 @@
     <ClCompile Include="CSphereEntity.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="CHouse.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CSphereEntity.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="CHouse.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
