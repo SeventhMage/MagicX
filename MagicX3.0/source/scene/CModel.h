@@ -6,7 +6,7 @@
 #define _MX_SCENE_C_MODEL_H_
 
 #include "scene/IModel.h"
-#include "resource/IMesh.h"
+#include "scene/IMesh.h"
 #include "render/renderobject/IRenderObject.h"
 
 namespace mx

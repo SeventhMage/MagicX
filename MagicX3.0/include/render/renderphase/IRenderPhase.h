@@ -32,6 +32,7 @@ namespace mx
 			virtual IRenderTarget *GetRenderTarget() const = 0;
 			virtual IRenderQueue *CreateRenderQueue(int materialId) = 0;
 			virtual IRenderQueue *GetRenderQueue(int materialId) = 0;
+			virtual void SetCameraType(const char *camType) = 0;
 		};
 	}
 }

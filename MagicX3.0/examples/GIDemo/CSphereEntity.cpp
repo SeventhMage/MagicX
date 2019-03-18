@@ -8,11 +8,10 @@ namespace mx
 		CSphereEntity::CSphereEntity(float fRadius, int iSlices, int iStacks)
 		{
 			m_pSphere = new scene::CSphere(fRadius, iSlices, iStacks);
-			//AddRenderPhase(1, 1);
-			//AddRenderPhase(2, 2);
+	
 			AddRenderPhase(1, 1);
-			//AddRenderPhase(4, 4);
-			//AddRenderPhase(5, 5);
+			AddRenderPhase(2, 2);
+
 		}
 
 		CSphereEntity::~CSphereEntity()

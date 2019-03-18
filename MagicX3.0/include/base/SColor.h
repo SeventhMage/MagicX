@@ -1,13 +1,13 @@
-#ifndef _MX_RENDER_SCOLOR_H_
-#define _MX_RENDER_SCOLOR_H_
+#ifndef _MX_BASE_SCOLOR_H_
+#define _MX_BASE_SCOLOR_H_
 
 #include "mxType.h"
 
 namespace mx
 {
-	namespace render
+	namespace base
 	{
-		struct SColor
+		typedef struct SColor
 		{
 			SColor() : color(((255 & 0xff) << 24) | ((255 & 0xff) << 16) | ((255 & 0xff) << 8) | ((255 & 0xff))){}
 			SColor(uint a, uint r, uint g, uint b)
@@ -22,7 +22,7 @@ namespace mx
 			void SetGreen(uint g) { color = ((g & 0xff) << 8) | (color & 0xffff00ff); }
 			void SetBlue(uint b) { color = (b & 0xff) | (color & 0xffffff00); }
 			uint color;
-		};
+		}Color;
 	}
 }
 

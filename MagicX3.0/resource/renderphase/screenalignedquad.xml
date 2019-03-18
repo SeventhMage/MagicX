@@ -6,5 +6,9 @@
 			<TextureUniform name="textureUnit1" slot="1" flag="2"/>
 			<TextureUniform name="textureUnit2" slot="2" flag="4"/>
 		</PhaseQuote>
+		
+		<PhaseQuote id="2">
+			<TextureUniform name="depthTexture" slot="3" flag="8"/>
+		</PhaseQuote>
 	</RenderQueue>
 </RenderPhase>

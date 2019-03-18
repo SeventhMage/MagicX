@@ -26,6 +26,7 @@ namespace mx
 			virtual IRenderTarget *GetRenderTarget() const;
 			virtual IRenderQueue *CreateRenderQueue(int materialId);
 			virtual IRenderQueue *GetRenderQueue(int materialId);
+			virtual void SetCameraType(const char *camType) { m_cameraType = camType; }
 		protected:
 			bool m_bEnabled;
 			IRenderTarget *m_pRenderTarget;
@@ -33,6 +34,7 @@ namespace mx
 			RenderQueueGroup m_renderQueueGroup;
 			int m_Id;
 			int m_renderTargetFlag;
+			std::string m_cameraType;
 		};
 	}
 }

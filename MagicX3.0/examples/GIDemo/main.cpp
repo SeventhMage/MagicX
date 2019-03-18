@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 	ex::CSphereEntity *pSphereSun = nullptr;
 	CPointLight *pPointLight = nullptr;
 	ICamera *camera = nullptr;
-	CScreenAlignedQuad *pScreenAlignedQuad = new CScreenAlignedQuad(2, 5);
+	CScreenAlignedQuad *pScreenAlignedQuad = new CScreenAlignedQuad(3, 5);
 	if (scene)
 	{
 
@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 		scene->SetupLightCamera(0, pPointLight->GetPosition(), -pPointLight->GetPosition(), CVector3(0, 1, 0), PI * 0.5f, 1.f, 1.f, 1000.f);
 	}
 	srand(time(0));
-	for (int i = 0; i < 200; ++i)
+	for (int i = 0; i < 10; ++i)
 	{
 		ex::CSphereEntity *pSphere = new ex::CSphereEntity(5, 52, 26);
 		float x = rand() % 100 - 100;

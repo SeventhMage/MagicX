@@ -125,7 +125,7 @@ namespace mx
 							for (rapidxml::xml_node<> * quoteNode = node->first_node("PhaseQuote"); quoteNode; quoteNode = quoteNode->next_sibling())
 							{
 								int quoteid = atoi(quoteNode->first_attribute("id")->value());
-								queue->SetPhaseQuote(quoteid);
+								queue->AddPhaseQuote(quoteid);
 								for (rapidxml::xml_node<> * uniformNode = quoteNode->first_node("TextureUniform"); uniformNode; uniformNode = uniformNode->next_sibling())
 								{
 									const char *name = uniformNode->first_attribute("name")->value();
@@ -139,6 +139,13 @@ namespace mx
 					}
 
 				}
+				rapidxml::xml_node<> * camNode = rootNode->first_node("Camera");
+				if (camNode)
+				{
+					const char *type = camNode->first_attribute("type")->value();
+					pRenderPhase->SetCameraType(type);
+				}
+
 			}
 			return pRenderPhase;
 		}

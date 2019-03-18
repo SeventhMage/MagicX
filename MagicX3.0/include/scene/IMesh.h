@@ -5,13 +5,16 @@
 #ifndef _MX_RESOURCE_I_MESH_H_
 #define _MX_RESOURCE_I_MESH_H_
 
-#include "IResource.h"
 #include "math/CVector2.h"
 #include "math/CVector3.h"
+#include "math/CMatrix4.h"
+#include "math/CRay.h"
+#include "base/SColor.h"
+#include "mxType.h"
 
 namespace mx
 {
-	namespace resource
+	namespace scene
 	{
 		using namespace math;
 		//顶点结构
@@ -42,15 +45,12 @@ namespace mx
 		}Triangle, *PTriangle;
 
 		//网格数据
-		class IMesh : public IResource
+		class IMesh
 		{
 		public:			
 			virtual ~IMesh(){}
-
-			//是否有索引，用于渲染器判断是否创建索引缓存
-			virtual bool HaveIndex() = 0;
-			virtual PTriangle GetMesh() = 0;
-			virtual int GetStride() = 0;
+			virtual bool Intersect(const math::CRay &ray, const math::CMatrix4 &transform, float *distance = nullptr, math::CVector3 *hitPoint = nullptr, math::CVector2 *uv = nullptr, uint *triIndex = nullptr) = 0;
+			virtual void GetSurfaceData(const uint &triIndex, const math::CVector2 &uv, math::CVector3 &hitNormal, base::Color &hitColor) = 0;
 		};
 	}
 }

@@ -2,9 +2,11 @@
 
 in vec4 vVertex;
 
-uniform mat4 mvpMatrix;
+uniform mat4 modelMatrix;
+uniform mat4 viewLightMatrix;
+uniform mat4 projLightMatrix;
 
 void main()
 {
-	gl_Position = mvpMatrix * vVertex;
+	gl_Position = projLightMatrix * viewLightMatrix * modelMatrix * vVertex;
 }

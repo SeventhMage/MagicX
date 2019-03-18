@@ -7,16 +7,20 @@
 
 #include "math/CVector3.h"
 #include "math/CVector2.h"
+#include "IMesh.h"
 
 namespace mx
 {
 	namespace scene
 	{
-		class CSphere
+		class CSphere : public IMesh
 		{
 		public:
 			CSphere(float fRadius, int iSlices, int iStacks);
 			~CSphere();
+
+			virtual bool Intersect(const math::CRay &ray, const math::CMatrix4 &transform, float *distance = nullptr, math::CVector3 *hitPoint = nullptr, math::CVector2 *uv = nullptr, uint *triIndex = nullptr);
+			virtual void GetSurfaceData(const uint &triIndex, const math::CVector2 &uv, math::CVector3 &hitNormal, base::Color &hitColor);
 
 			math::CVector3 *GetVertices() { return m_vertices; }
 			math::CVector3 *GetNormals() { return m_normals; }

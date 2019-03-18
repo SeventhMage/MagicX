@@ -92,6 +92,16 @@ namespace mx
 							renderable->SetUniform("normalMatrix", normalMat3);
 							renderable->SetUniform("mInverseMatrix", camInvMat4.m);
 
+							for (int i = 0; i < MAX_LIGHT_NUM; ++i)
+							{
+								ICamera *pLightCam = pScene->GetLightCamera(i);
+								if (pLightCam)
+								{
+									renderable->SetUniform("viewLightMatrix", pLightCam->GetViewMatrix().m);
+									renderable->SetUniform("projLightMatrix", pLightCam->GetProjectionMatrix().m);
+								}
+							}
+
 							renderable->SumbitToRenderQueue();
 						}
 

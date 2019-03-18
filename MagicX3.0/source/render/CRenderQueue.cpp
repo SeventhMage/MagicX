@@ -8,7 +8,6 @@ namespace mx
 	{
 		CRenderQueue::CRenderQueue(int materialId)
 			:m_materialId(materialId)
-			, m_phaseQuote(0)
 		{
 		}
 		CRenderQueue::~CRenderQueue()
@@ -37,9 +36,12 @@ namespace mx
 			}
 		}
 
-		void CRenderQueue::SetPhaseQuote(int phaseId)
+		void CRenderQueue::AddPhaseQuote(int phaseId)
 		{
-			m_phaseQuote = phaseId;
+			if (std::find(m_vecPhaseQuote.begin(), m_vecPhaseQuote.end(), phaseId) == m_vecPhaseQuote.end())
+			{
+				m_vecPhaseQuote.push_back(phaseId);
+			}
 		}
 
 		void CRenderQueue::BindPhaseUniform()
@@ -48,33 +50,36 @@ namespace mx
 			if (pMaterial)
 			{
 				IShaderProgram *pShaderProgram = pMaterial->GetShaderProgram();
-				IRenderPhase *pRenderPhase = RENDERER->GetRenderPhaseManager()->GetRenderPhase(m_phaseQuote);
-				if (pShaderProgram && pRenderPhase)
+				for (auto phaseid : m_vecPhaseQuote)
 				{
-					IRenderTarget *pRenderTarget = pRenderPhase->GetRenderTarget();
-					if (pRenderTarget)
+					IRenderPhase *pRenderPhase = RENDERER->GetRenderPhaseManager()->GetRenderPhase(phaseid);
+					if (pShaderProgram && pRenderPhase)
 					{
-						for (auto &texture : m_mapSlotTexture)
+						IRenderTarget *pRenderTarget = pRenderPhase->GetRenderTarget();
+						if (pRenderTarget)
 						{
-							int flag = ERTF_COLOR_TEXTURE;
-							do 
+							for (auto &texture : m_mapSlotTexture)
 							{
-								if (texture.second.flag & flag)
+								int flag = ERTF_COLOR_TEXTURE;
+								do
 								{
-									ITexture *pTexture = pRenderTarget->GetTexture(flag);
-									if (pTexture)
+									if (texture.second.flag & flag)
 									{
-										int slot = texture.first;
-										pShaderProgram->SetUniform(texture.second.name.c_str(), &slot);
-										texture.second.texture = pTexture;
-										break;
+										ITexture *pTexture = pRenderTarget->GetTexture(flag);
+										if (pTexture)
+										{
+											int slot = texture.first;
+											pShaderProgram->SetUniform(texture.second.name.c_str(), &slot);
+											texture.second.texture = pTexture;
+											break;
+										}
 									}
-								}
-								flag <<= 1;
-							} while (flag <= ERTF_MAX_FLAG);
+									flag <<= 1;
+								} while (flag <= ERTF_MAX_FLAG);
+							}
 						}
-					}
 
+					}
 				}
 			}
 		}

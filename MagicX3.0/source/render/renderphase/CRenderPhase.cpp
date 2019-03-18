@@ -17,6 +17,7 @@ namespace mx
 			,m_pRenderPhaseManager(pPhaseMgr)
 			,m_Id(id)
 			, m_renderTargetFlag(renderTargetFlag)
+			, m_cameraType("")
 		{
 
 		}
@@ -46,6 +47,7 @@ namespace mx
 
 		void CRenderPhase::Render()
 		{
+			if (!IsEnable()) return;
 			if (m_pRenderTarget)
 			{
 				m_pRenderTarget->BeginTarget();

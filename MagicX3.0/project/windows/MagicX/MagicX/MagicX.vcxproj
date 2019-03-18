@@ -149,9 +149,11 @@
     <ClCompile Include="..\..\..\..\source\scene\light\CPointLight.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\include\base\base.h" />
     <ClInclude Include="..\..\..\..\include\base\CSingleton.h" />
     <ClInclude Include="..\..\..\..\include\base\CVirtualTraceBall.h" />
     <ClInclude Include="..\..\..\..\include\base\mxString.h" />
+    <ClInclude Include="..\..\..\..\include\base\SColor.h" />
     <ClInclude Include="..\..\..\..\include\base\StringHelper.h" />
     <ClInclude Include="..\..\..\..\include\device\CEventManager.h" />
     <ClInclude Include="..\..\..\..\include\device\EEvent.h" />
@@ -165,6 +167,7 @@
     <ClInclude Include="..\..\..\..\include\math\CMatrix4.h" />
     <ClInclude Include="..\..\..\..\include\math\CPlane3.h" />
     <ClInclude Include="..\..\..\..\include\math\CQuaternion.h" />
+    <ClInclude Include="..\..\..\..\include\math\CRay.h" />
     <ClInclude Include="..\..\..\..\include\math\CVector2.h" />
     <ClInclude Include="..\..\..\..\include\math\CVector3.h" />
     <ClInclude Include="..\..\..\..\include\mx.h" />
@@ -200,11 +203,9 @@
     <ClInclude Include="..\..\..\..\include\render\renderobject\IRenderObject.h" />
     <ClInclude Include="..\..\..\..\include\render\renderphase\IRenderPhase.h" />
     <ClInclude Include="..\..\..\..\include\render\renderphase\IRenderPhaseManager.h" />
-    <ClInclude Include="..\..\..\..\include\render\SColor.h" />
     <ClInclude Include="..\..\..\..\include\render\SVertexAttribute.h" />
     <ClInclude Include="..\..\..\..\include\resource\IImage.h" />
     <ClInclude Include="..\..\..\..\include\resource\IImageManager.h" />
-    <ClInclude Include="..\..\..\..\include\resource\IMesh.h" />
     <ClInclude Include="..\..\..\..\include\resource\IResource.h" />
     <ClInclude Include="..\..\..\..\include\resource\IResourceManager.h" />
     <ClInclude Include="..\..\..\..\include\scene\CSceneNode.h" />
@@ -214,6 +215,7 @@
     <ClInclude Include="..\..\..\..\include\scene\CUnit.h" />
     <ClInclude Include="..\..\..\..\include\scene\ICamera.h" />
     <ClInclude Include="..\..\..\..\include\scene\CEntity.h" />
+    <ClInclude Include="..\..\..\..\include\scene\IMesh.h" />
     <ClInclude Include="..\..\..\..\include\scene\IModel.h" />
     <ClInclude Include="..\..\..\..\include\scene\IModelManager.h" />
     <ClInclude Include="..\..\..\..\include\scene\IScene.h" />

@@ -284,9 +284,6 @@
     <ClInclude Include="..\..\..\..\include\resource\IResource.h">
       <Filter>include\resource</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\include\resource\IMesh.h">
-      <Filter>include\resource</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\include\math\CFrustum.h">
       <Filter>include\math</Filter>
     </ClInclude>
@@ -512,9 +509,6 @@
     <ClInclude Include="..\..\..\..\include\scene\light\CSpotLight.h">
       <Filter>include\scene\light</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\include\render\SColor.h">
-      <Filter>include\render</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\source\render\CMaterial.h">
       <Filter>source\render</Filter>
     </ClInclude>
@@ -615,6 +609,18 @@
       <Filter>include\render</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\base\StringHelper.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\math\CRay.h">
+      <Filter>include\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\scene\IMesh.h">
+      <Filter>include\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\base\SColor.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\base\base.h">
       <Filter>include\base</Filter>
     </ClInclude>
   </ItemGroup>
