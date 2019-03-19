@@ -10,85 +10,70 @@ namespace mx
 		{
 			AddRenderPhase(1, 1);
 			AddRenderPhase(2, 2);
+			AddRenderPhase(3, 3);
 
 			float halfW = w * 0.5f;
 			float halfH = h * 0.5f;
 			float halfD = d * 0.5f;
 
 			float vertices[] = {
-				//front
 				-halfW, -halfH, halfD,
 				halfW, -halfH, halfD, 
 				halfW, halfH, halfD,
 				-halfW, halfH, halfD,
 
-				//back
-				halfW, -halfH, -halfD, 
-				-halfW, -halfH, -halfD,
-				-halfW, halfH, -halfD,
-				halfW, halfH, -halfD,
-
-				//left
-				-halfW, -halfH, -halfD, 
-				-halfW, -halfH, halfD,
-				-halfW, halfH, halfD, 
-				-halfW, halfH, -halfD,
-
-				//right
-				halfW, -halfH, halfD,
-				halfW, -halfH, -halfD, 
-				halfW, halfH, -halfD, 
-				halfW, halfH, halfD,
-
-				//top
-				-halfW, halfH, halfD, 
-				halfW, halfH, halfD,
-				halfW, halfH, -halfD,
-				-halfW, halfH, -halfD,
-
-				//bottom
 				-halfW, -halfH, -halfD,
 				halfW, -halfH, -halfD, 
-				halfW, -halfH, halfD,
-				-halfW, -halfH, halfD,
+				halfW, halfH, -halfD,
+				-halfW, halfH, -halfD
+
+				////back
+				//halfW, -halfH, -halfD, 
+				//-halfW, -halfH, -halfD,
+				//-halfW, halfH, -halfD,
+				//halfW, halfH, -halfD,
 			};
 			float normals[] = {
-				-1.0, -1.0, 1.0,
-				1.0, -1.0, 1.0,
+				1.0, 1.0, .0,
+				-1.0, 1.0, .0,
+				-1.0, -1.0, .0,
+				1.0, -1.0, .0,
+
 				1.0, 1.0, 1.0,
 				-1.0, 1.0, 1.0,
+				-1.0, -1.0, 1.0,
+				1.0, -1.0, 1.0,
 
-				
-				1.0, -1.0, -1.0,
-				-1.0, -1.0, -1.0,
-				-1.0, 1.0, -1.0,
-				1.0, 1.0, -1.0
+				//1.0, -1.0, -1.0,
+				//-1.0, -1.0, -1.0,
+				//-1.0, 1.0, -1.0,
+				//1.0, 1.0, -1.0
 			};
+
 			uint indices[] = {
-				////front
-				//0, 1, 2, 0, 1, 2, 
-				//0, 2, 3, 0, 2, 3,
 
 				//back
-				4, 5, 6, 4, 5, 6,
-				4, 6, 7, 4, 6, 7,
+				4, 5, 6,
+				4, 6, 7, 
 
-				////left
-				//8, 9, 10, 4, 0, 3,
-				//8, 10, 11,4, 3, 7,
 
-				////right
-				//12, 13, 14, 1, 4, 6,
-				//12, 14, 15, 1, 6, 3,
+				//left
+				0, 4, 7,
+				0, 7, 3,
+				
+				//right
+				5, 1, 2, 
+				5, 2, 6,
 
-				////top
-				//16, 17, 18, 3, 2, 6,
-				//16, 18, 19, 3, 6, 7,
+				//top
+				7, 6, 2,
+				7, 2, 3,
 
-				////bottom
-				//20, 21, 22, 1, 0, 4,
-				//20, 22, 23, 1, 4, 5,
+				//bottom
+				0, 1, 5,
+				0, 5, 4,
 			};
+
 
 			for (auto renderable : m_vecRenderables)
 			{
@@ -103,7 +88,6 @@ namespace mx
 				renderable->CreateIndexBufferObject(indices, sizeof(indices) / sizeof(uint), RVT_UINT, GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
 				pVAO->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, 0, 0);
 				pVAO->EnableVertexAttrib(render::VAL_NORMAL, 3, render::RVT_FLOAT, 0, sizeof(vertices));
-				renderable->Disable(RA_CULL_FACE);
 				pVAO->UnBind();
 			}
 
@@ -115,6 +99,14 @@ namespace mx
 
 		void CHouse::UpdateImp(int delta)
 		{
+			static float color[] = {0.8, 0.0, 0.0};
+			for (auto renderable : m_vecRenderables)
+			{
+				renderable->SetUniform("color", color);
+				//CMatrix4 rot;
+				//rot.SetRotationRadians(30 * PI / 180.f, CVector3(0, 1, 0));
+				//renderable->SetUniform("modelMatrix", (rot * GetAbsluateTransformation()).m);
+			}
 			CEntity::UpdateImp(delta);
 		}
 

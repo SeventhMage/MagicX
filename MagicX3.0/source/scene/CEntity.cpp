@@ -97,8 +97,8 @@ namespace mx
 								ICamera *pLightCam = pScene->GetLightCamera(i);
 								if (pLightCam)
 								{
-									renderable->SetUniform("viewLightMatrix", pLightCam->GetViewMatrix().m);
-									renderable->SetUniform("projLightMatrix", pLightCam->GetProjectionMatrix().m);
+									renderable->SetUniform("lightViewMatrix", pLightCam->GetViewMatrix().m);
+									renderable->SetUniform("lightProjMatrix", pLightCam->GetProjectionMatrix().m);
 								}
 							}
 

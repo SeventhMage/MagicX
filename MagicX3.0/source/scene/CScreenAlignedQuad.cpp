@@ -68,7 +68,7 @@ namespace mx
 				CPointLight *pLight = (CPointLight *)SCENEMGR->GetCurrentScene()->GetLight(i);
 				if (pLight)
 				{
-					lightPos[i] = pLight->GetPosition();
+					SCENEMGR->GetCurrentScene()->GetCamera()->GetViewMatrix().TransformVect(lightPos[i], pLight->GetPosition());
 					memcpy(lightColor[i].v, pLight->GetColor(), sizeof(lightColor[i].v));
 				}
 				ICamera *pLightCam = SCENEMGR->GetCurrentScene()->GetLightCamera(i);

@@ -23,10 +23,12 @@ int main(int argc, char *argv[])
 	float gray[] = { .8f, .8f, .8f, 1.f };
 
 
-	ex::CHouse *pHouse = new ex::CHouse(100, 100, 100);
+	CPointLight *pLight[MAX_LIGHT_NUM] = { 0 };
+	ICamera *pLightCamera[MAX_LIGHT_NUM] = {0};
+	ex::CHouse *pHouse = new ex::CHouse(10, 10, 10);
 	CPointLight *pPointLight = nullptr;
 	ICamera *camera = nullptr;
-	CScreenAlignedQuad *pScreenAlignedQuad = new CScreenAlignedQuad(3, 5);
+	CScreenAlignedQuad *pScreenAlignedQuad = new CScreenAlignedQuad(4, 5);
 	if (scene)
 	{
 		CVector3 vPos(0, 0, 10);
@@ -36,36 +38,36 @@ int main(int argc, char *argv[])
 		//scene->SetupSkyBox("texture/TropicalSunnyDayLeft2048.tga", "texture/TropicalSunnyDayRight2048.tga", "texture/TropicalSunnyDayUp2048.tga", "texture/TropicalSunnyDayDown2048.tga", "texture/TropicalSunnyDayFront2048.tga", "texture/TropicalSunnyDayBack2048.tga", 256);		
 
 
-
 		srand(time(0));
-		for (int i = 0; i < 64; ++i)
-		{
-			CVector3 lightPos(rand() % 100 - 50, rand() % 100 - 50, rand() % 100 - 50);
-			CVector3 lightColor(1.f * (rand() % 256) / 25600, 1.f * (rand() % 256) / 25600, 1.f * (rand() % 256) / 25600);
-			lightPos.set(0, 0, 0);
-			lightColor.set(1, 1, 1);
-			CPointLight *pLight = (CPointLight *)scene->SetupLight(i, LT_POINT, lightColor.v);
-			pLight->SetPosition(lightPos);
-			scene->SetupLightCamera(i, lightPos, -lightPos, CVector3(0, 1, 0), PI * 0.5f, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1, 1000.f);
-		}
+		CVector3 lightPos;
+		CVector3 lightColor;
+		lightPos.set(0, 4, 10);
+		lightColor.set(0.9, 0.9, 0.8);
+		pLight[0] = (CPointLight *)scene->SetupLight(0, LT_POINT, lightColor.v);
+		pLight[0]->SetPosition(lightPos);
+		pLightCamera[0] = scene->SetupLightCamera(0, lightPos, -lightPos, CVector3(0, 1, 0), PI * 0.5f, 1.0f, 1, 1000.f);
 
 
-		pHouse->SetPosition(CVector3(0, 0, -150));
+		pHouse->SetPosition(CVector3(0, 0, -10));
 		scene->GetRootNode()->AddChild(pHouse);
 
 	}
-	srand(time(0));
-	for (int i = 0; i < 10; ++i)
-	{
-		ex::CSphereEntity *pSphere = new ex::CSphereEntity(5, 52, 26);
-		float x = rand() % 100 - 50;
-		float y = rand() % 100 - 50;
-		float z = -130.f;
-		pSphere->Create();
-		pSphere->SetPosition(CVector3(x, y, z));
-		scene->GetRootNode()->AddChild(pSphere);
-	}
-	
+	//srand(time(0));
+	//for (int i = 0; i < 1; ++i)
+	//{
+	//	ex::CSphereEntity *pSphere = new ex::CSphereEntity(5, 52, 26);
+	//	float x = rand() % 100 - 50;
+	//	float y = rand() % 100 - 50;
+	//	float z = -130.f;
+	//	pSphere->Create();
+	//	pSphere->SetPosition(CVector3(x, y, z));
+	//	scene->GetRootNode()->AddChild(pSphere);
+	//}
+
+	ex::CSphereEntity *mainSphere = new ex::CSphereEntity(2, 52, 26);
+	mainSphere->Create();
+	mainSphere->SetPosition(CVector3(0, 0, -5));
+	scene->GetRootNode()->AddChild(mainSphere);
 	
 	UINT next_game_tick = GetTickCount();
 	int sleep_time = 0;
@@ -112,6 +114,27 @@ int main(int argc, char *argv[])
 					}
 
 				}
+
+				CVector3 spherePos = mainSphere->GetPosition();
+				float step = .5f;
+				if (event->IsPress(device::EKP_KEYBOARD_A))
+				{
+					spherePos.x -= step;
+				}
+				if (event->IsPress(device::EKP_KEYBOARD_D))
+				{
+					spherePos.x += step;
+				}
+				if (event->IsPress(device::EKP_KEYBOARD_W))
+				{
+					spherePos.z -= step;
+				}
+				if (event->IsPress(device::EKP_KEYBOARD_S))
+				{
+					spherePos.z += step;
+				}
+
+				mainSphere->SetPosition(spherePos);
 
 				if (event->IsPress(EKP_KEYBOARD_ESC))
 				{

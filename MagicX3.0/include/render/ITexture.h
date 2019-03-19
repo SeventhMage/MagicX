@@ -47,7 +47,7 @@ namespace mx
 
 			//创建深度纹理
 			virtual void CreateDepth(int width, int height) = 0;
-			
+
 			virtual void Create(uint target, uint handle) = 0;
 
 			//返回纹理句柄

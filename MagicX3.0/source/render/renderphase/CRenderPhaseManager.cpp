@@ -112,7 +112,14 @@ namespace mx
 				if (renderTargetNode)
 				{
 					int flag  = atoi(renderTargetNode->first_attribute("flag")->value());
-					pRenderPhase = new CRenderPhase(this, id, flag);
+					int width = -1;
+					int height = -1;
+					if (renderTargetNode->first_attribute("width"))
+					{
+						width = atoi(renderTargetNode->first_attribute("width")->value());
+						height = atoi(renderTargetNode->first_attribute("height")->value());
+					}
+					pRenderPhase = new CRenderPhase(this, id, flag, width, height);
 
 					for (rapidxml::xml_node<> * node = rootNode->first_node("RenderQueue"); node; node = node->next_sibling())
 					{

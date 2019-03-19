@@ -120,7 +120,8 @@ namespace mx
 				if (location >= 0)
 				{
 					int size = m_pShaderProgram->GetUniformTypeSizeByLocation(location);
-					SetUniform(location, value, size);
+					strncpy(m_uniforms[location].m_name, name, sizeof(m_uniforms[location].m_name));
+					m_uniforms[location].SetValue(value, size);
 				}
 			}
 		}

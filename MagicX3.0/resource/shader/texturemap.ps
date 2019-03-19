@@ -5,10 +5,15 @@ uniform sampler2D textureUnit1;
 uniform sampler2D textureUnit2;
 
 uniform sampler2DShadow depthTexture;
-uniform mat4 shadowMatrix[64];
 
-uniform vec3 lightPosition[64];
-uniform vec3 lightColor[64];
+uniform mat4 shadowMatrix;
+
+uniform vec3 lightPosition;
+uniform vec3 lightColor;
+
+uniform sampler2D textureColor;
+uniform sampler2D texturePosition;
+uniform sampler2D textureNormal;
 
 in vec2 vOutTexCoord0;
 
@@ -17,18 +22,27 @@ void main()
 	vec4 color = texture2D(textureUnit0, vOutTexCoord0);	
 	vec4 position = texture2D(textureUnit1, vOutTexCoord0);	
 	vec4 normal = texture2D(textureUnit2, vOutTexCoord0);	
-
-
 	
-	vec3 lightCTotal = vec3(0.0, 0.0, 0.0);
-	for (int i=0; i<1; ++i)
+	float f = textureProj(depthTexture, shadowMatrix * position);
+	vec3 mainLightDir = normalize(lightPosition - position.xyz);
+	float mainRate = max(dot(mainLightDir, normal.xyz), 0);
+	vec3 lightCTotal =  mainRate * lightColor * f;
+	
+	float cdiv = 1.0;
+	for (int i=0; i<64; ++i)
 	{
-		vec3 lightP = lightPosition[i];
-		vec3 lightC = lightColor[i];
-		vec3 dir = normalize(lightP - position.xyz);
-		float rate = max((dot(dir, normal.xyz)), 0);
-		float f = textureProj(depthTexture, shadowMatrix[i] * position);
-		lightCTotal += rate * lightC * f;
+		float x = mod(i, 8.0) / 8.0;
+		float y = floor(i / 8.0) / 8.0;
+		vec2 tex = vec2(x, y);
+		vec4 lightC = texture2D(textureColor, tex);
+		vec4 lightP = texture2D(texturePosition, tex);
+		vec4 lightN = texture2D(textureNormal, tex);
+		
+		vec3 dir = normalize(lightP.xyz - position.xyz);
+		float rate = max((dot(dir, normal.xyz)), 0.0) * (max(dot(-dir, lightN.xyz), 0.0));
+		//float f = textureProj(depthTexture, vec3(shadowMatrix[i] * position, i));
+		lightCTotal += (rate * lightC.xyz * cdiv) / distance(lightP, position);
 	}
 	gl_FragColor = vec4(lightCTotal.xyz, 1.0) * color;
+
 }

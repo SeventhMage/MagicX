@@ -14,7 +14,7 @@ namespace mx
 		{
 		public:
 			CRenderPhase(IRenderPhaseManager *pPhaseMgr);
-			CRenderPhase(IRenderPhaseManager *pPhaseMgr, int id, int rendrTargetFlag);
+			CRenderPhase(IRenderPhaseManager *pPhaseMgr, int id, int rendrTargetFlag, int width, int height);
 			~CRenderPhase();
 			virtual void Initialize(IRenderer *pRenderer, int width, int height);
 			virtual void Destroy();
@@ -34,6 +34,8 @@ namespace mx
 			RenderQueueGroup m_renderQueueGroup;
 			int m_Id;
 			int m_renderTargetFlag;
+			int m_iWidth;
+			int m_iHeight;
 			std::string m_cameraType;
 		};
 	}

@@ -1,6 +1,6 @@
 #version 330 core
 
-uniform sampler2D textureUnit0;
+uniform vec3 color;
 
 in vec3 normal;
 in vec2 texCoord0;
@@ -14,5 +14,5 @@ void main()
 {
     vOutPositionData = vec4(position.xyz, 1.0);
     vOutNormalData = vec4(normalize(normal).xyz, 1.0);
-    vOutColorData = vec4(0.4, 0.9, 0.7, 1.0);//texture2D(textureUnit0, texCoord0);
+    vOutColorData = vec4(color.xyz, 1.0);//vec4(0.4, 0.9, 0.7, 1.0);//texture2D(textureUnit0, texCoord0);
 }

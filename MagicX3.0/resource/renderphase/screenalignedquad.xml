@@ -2,13 +2,17 @@
 	<RenderTarget flag="0"/>
 	<RenderQueue materialid="5" materialname="material/screenalignedquad.xml">
 		<PhaseQuote id="1">
+			<TextureUniform name="textureColor" slot="4" flag="1"/>
+			<TextureUniform name="texturePosition" slot="5" flag="2"/>
+			<TextureUniform name="textureNormal" slot="6" flag="4"/>
+		</PhaseQuote>
+		<PhaseQuote id="2">
+			<TextureUniform name="depthTexture" slot="3" flag="8"/>
+		</PhaseQuote>
+		<PhaseQuote id="3">
 			<TextureUniform name="textureUnit0" slot="0" flag="1"/>
 			<TextureUniform name="textureUnit1" slot="1" flag="2"/>
 			<TextureUniform name="textureUnit2" slot="2" flag="4"/>
-		</PhaseQuote>
-		
-		<PhaseQuote id="2">
-			<TextureUniform name="depthTexture" slot="3" flag="8"/>
 		</PhaseQuote>
 	</RenderQueue>
 </RenderPhase>

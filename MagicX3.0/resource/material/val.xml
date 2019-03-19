@@ -1,5 +1,5 @@
 <Material>
-	<ShaderProgram vs="shader/common.vs" ps="shader/generateval.ps">
+	<ShaderProgram vs="shader/genval.vs" ps="shader/gbufferoutput.ps">
 		<VertexAttribute>
 			<Location index="0" name="vPosition"/>
 			<Location index="2" name="vNormal"/>

@@ -11,6 +11,7 @@ namespace mx
 	
 			AddRenderPhase(1, 1);
 			AddRenderPhase(2, 2);
+			AddRenderPhase(3, 3);
 
 		}
 
@@ -22,6 +23,11 @@ namespace mx
 		void CSphereEntity::UpdateImp(int delta)
 		{
 			CEntity::UpdateImp(delta);
+			static float color[] = { .7, .7, .7 };
+			for (auto renderable : m_vecRenderables)
+			{
+				renderable->SetUniform("color", color);
+			}
 		}
 
 		void CSphereEntity::Create()

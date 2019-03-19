@@ -9,16 +9,16 @@ out vec2 texCoord0;
 out vec3 position;
 
 uniform mat4 modelMatrix;
-uniform mat4 viewMatrix;
-uniform mat4 projMatrix;
+uniform mat4 lightViewMatrix;
+uniform mat4 lightProjMatrix;
 
 void main()
 {
-	normal = normalize(mat3(viewMatrix * modelMatrix) * normalize(vNormal));	
+	normal = normalize(mat3(lightViewMatrix * modelMatrix) * normalize(vNormal));	
 	texCoord0 = vTexCoord0;
-	vec4 pos = viewMatrix * modelMatrix * vPosition;
+	vec4 pos = lightViewMatrix * modelMatrix * vPosition;
 	position = pos.xyz;
-	gl_Position = projMatrix * pos;
+	gl_Position = lightProjMatrix * pos;
 }
 
 

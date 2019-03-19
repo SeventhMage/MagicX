@@ -69,6 +69,7 @@ namespace mx
 										if (pTexture)
 										{
 											int slot = texture.first;
+											
 											pShaderProgram->SetUniform(texture.second.name.c_str(), &slot);
 											texture.second.texture = pTexture;
 											break;
