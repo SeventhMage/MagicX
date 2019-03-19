@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
 		{
 			CVector3 lightPos(rand() % 100 - 50, rand() % 100 - 50, rand() % 100 - 50);
 			CVector3 lightColor(1.f * (rand() % 256) / 25600, 1.f * (rand() % 256) / 25600, 1.f * (rand() % 256) / 25600);
-			lightPos.set(0, 20, -110);
+			lightPos.set(0, 0, 0);
 			lightColor.set(1, 1, 1);
 			CPointLight *pLight = (CPointLight *)scene->SetupLight(i, LT_POINT, lightColor.v);
 			pLight->SetPosition(lightPos);

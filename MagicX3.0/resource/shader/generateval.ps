@@ -13,6 +13,6 @@ layout (location = 2) out vec4 vOutNormalData;
 void main()
 {
     vOutPositionData = vec4(position.xyz, 1.0);
-    vOutNormalData = vec4(normal.xyz, 1.0);
+    vOutNormalData = vec4(normalize(normal).xyz, 1.0);
     vOutColorData = vec4(0.4, 0.9, 0.7, 1.0);//texture2D(textureUnit0, texCoord0);
 }
