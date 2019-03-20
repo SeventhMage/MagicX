@@ -72,6 +72,7 @@ namespace mx
 
 		void CRenderPhaseManager::ProcessRenderPhase()
 		{
+			RENDERER->BeginRender();
 			for (auto phase : m_vecRenderPhase)
 			{
 				if (phase)

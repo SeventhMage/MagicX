@@ -34,6 +34,8 @@ namespace mx
 			virtual void Sleep(unsigned long ms) = 0;
 			virtual void OnSize(int iPosX, int iPosY, int iWidth, int iHeight) = 0;
 
+			virtual void SetWindowTitle(const wchar_t *title) = 0;
+
 			virtual bool Run() = 0;
 		};
 	}

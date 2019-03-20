@@ -8,7 +8,7 @@
 
 using namespace mx;
 
-static const int FRAMES_PER_SECOND = 60;      ///< FPS:50
+static const int FRAMES_PER_SECOND = 120;      ///< FPS:50
 static const int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
 
 int main(int argc, char *argv[])
@@ -37,12 +37,11 @@ int main(int argc, char *argv[])
 		camera = scene->SetupCamera(vPos, vDir, vUp, PI / 3, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
 		//scene->SetupSkyBox("texture/TropicalSunnyDayLeft2048.tga", "texture/TropicalSunnyDayRight2048.tga", "texture/TropicalSunnyDayUp2048.tga", "texture/TropicalSunnyDayDown2048.tga", "texture/TropicalSunnyDayFront2048.tga", "texture/TropicalSunnyDayBack2048.tga", 256);		
 
-
 		srand(time(0));
 		CVector3 lightPos;
 		CVector3 lightColor;
-		lightPos.set(0, 4, 10);
-		lightColor.set(0.9, 0.9, 0.8);
+		lightPos.set(0, 20, 10);
+		lightColor.set(0.9, 0.9, 0.9);
 		pLight[0] = (CPointLight *)scene->SetupLight(0, LT_POINT, lightColor.v);
 		pLight[0]->SetPosition(lightPos);
 		pLightCamera[0] = scene->SetupLightCamera(0, lightPos, -lightPos, CVector3(0, 1, 0), PI * 0.5f, 1.0f, 1, 1000.f);
@@ -64,14 +63,14 @@ int main(int argc, char *argv[])
 	//	scene->GetRootNode()->AddChild(pSphere);
 	//}
 
-	ex::CSphereEntity *mainSphere = new ex::CSphereEntity(2, 52, 26);
+	ex::CSphereEntity *mainSphere =  new ex::CSphereEntity(2, 52, 26);
 	mainSphere->Create();
-	mainSphere->SetPosition(CVector3(0, 0, -5));
+	mainSphere->SetPosition(CVector3(0, 0, -10));
 	scene->GetRootNode()->AddChild(mainSphere);
 	
 	UINT next_game_tick = GetTickCount();
 	int sleep_time = 0;
-
+	wchar_t title[64] = { 0 };
 	bool bQuit = false;
 	while (device->Run())
 	{
@@ -79,9 +78,12 @@ int main(int argc, char *argv[])
 		sleep_time = next_game_tick - cur_time;
 		if (sleep_time <= 0)
 		{
-			next_game_tick = GetTickCount() + SKIP_TICKS;
+			next_game_tick = cur_time + SKIP_TICKS;
 			pScreenAlignedQuad->Render();
-			mx->Run(SKIP_TICKS - sleep_time);
+			int delta = 1000 / (SKIP_TICKS - sleep_time);
+			_snwprintf_s(title, sizeof(title), L"FPS:%d TriangleNum:%d", delta, mx->GetRenderer()->GetTriangleNum());
+			mx->Run(delta);
+			device->SetWindowTitle(title);
 
 			if (event)
 			{
@@ -115,26 +117,30 @@ int main(int argc, char *argv[])
 
 				}
 
-				CVector3 spherePos = mainSphere->GetPosition();
-				float step = .5f;
-				if (event->IsPress(device::EKP_KEYBOARD_A))
+				if (mainSphere)
 				{
-					spherePos.x -= step;
-				}
-				if (event->IsPress(device::EKP_KEYBOARD_D))
-				{
-					spherePos.x += step;
-				}
-				if (event->IsPress(device::EKP_KEYBOARD_W))
-				{
-					spherePos.z -= step;
-				}
-				if (event->IsPress(device::EKP_KEYBOARD_S))
-				{
-					spherePos.z += step;
+					CVector3 spherePos = mainSphere->GetPosition();
+					float step = .1f;
+					if (event->IsPress(device::EKP_KEYBOARD_A))
+					{
+						spherePos.x -= step;
+					}
+					if (event->IsPress(device::EKP_KEYBOARD_D))
+					{
+						spherePos.x += step;
+					}
+					if (event->IsPress(device::EKP_KEYBOARD_W))
+					{
+						spherePos.y -= step;
+					}
+					if (event->IsPress(device::EKP_KEYBOARD_S))
+					{
+						spherePos.y += step;
+					}
+
+					mainSphere->SetPosition(spherePos);
 				}
 
-				mainSphere->SetPosition(spherePos);
 
 				if (event->IsPress(EKP_KEYBOARD_ESC))
 				{

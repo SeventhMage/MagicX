@@ -32,12 +32,13 @@ namespace mx
 			virtual ITexture *CreateCubeTexture(const char *right, const char *left, const char *top, const char *bottom, const char *front, const char *back);
 			virtual void DestroyTexture(ITexture *pTexture);
 			virtual IShaderProgram *CreateShaderProgram();
+			virtual int GetTriangleNum() { return m_triangleNum; }
 			virtual void DestroyShaderProgram(IShaderProgram *pShaderProgram);
-			virtual IShadowMap *GetShadowMap() { return m_pShadowMap; }
 			virtual IRenderTargetManager *GetRenderTargetManager() const { return m_pRenderTargetMgr; }
 		private:
 			IShadowMap *m_pShadowMap;
 			IRenderTargetManager *m_pRenderTargetMgr;
+			int m_triangleNum;
 		};
 	}
 }

@@ -28,7 +28,7 @@ void main()
 	float mainRate = max(dot(mainLightDir, normal.xyz), 0);
 	vec3 lightCTotal =  mainRate * lightColor * f;
 	
-	float cdiv = 1.0;
+	float cdiv = 1.0 / 64.0;
 	for (int i=0; i<64; ++i)
 	{
 		float x = mod(i, 8.0) / 8.0;
@@ -41,7 +41,7 @@ void main()
 		vec3 dir = normalize(lightP.xyz - position.xyz);
 		float rate = max((dot(dir, normal.xyz)), 0.0) * (max(dot(-dir, lightN.xyz), 0.0));
 		//float f = textureProj(depthTexture, vec3(shadowMatrix[i] * position, i));
-		lightCTotal += (rate * lightC.xyz * cdiv) / distance(lightP, position);
+		//lightCTotal += (rate * lightC.xyz * cdiv) / distance(lightP, position);
 	}
 	gl_FragColor = vec4(lightCTotal.xyz, 1.0) * color;
 

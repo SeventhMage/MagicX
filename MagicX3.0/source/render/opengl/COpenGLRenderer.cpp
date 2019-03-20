@@ -24,6 +24,7 @@ namespace mx
 		COpenGLRenderer::COpenGLRenderer()
 			:CRenderer(new COpenGLDriver())
 			, m_pShadowMap(nullptr)
+			, m_triangleNum(0)
 		{
 			//m_pShadowMap = new COpenGLShadowMap();
 			m_pRenderTargetMgr = new COpenGLRenderTargetManager();
@@ -49,10 +50,12 @@ namespace mx
 				}
 
 				pRenderable->Bind();
+
 				COpenGLIndexBufferObject *ibo = dynamic_cast<COpenGLIndexBufferObject *>(pRenderable->GetIndexBufferObject());
 				if (ibo)
 				{
 					GLDebug(glDrawElements(ibo->GetGPUBufferMode(), ibo->GetIndicesNum(), ibo->GetIndexType(), 0));
+					m_triangleNum += ibo->GetIndicesNum()/ 3;
 				}
 				else
 				{
@@ -60,6 +63,7 @@ namespace mx
 					if (vbo)
 					{
 						GLDebug(glDrawArrays(vbo->GetGPUBufferMode(), vbo->GetGLGPUBufferFirst(), vbo->GetVertexNum()));
+						m_triangleNum += vbo->GetVertexNum()/ 3;
 					}
 				}
 				pRenderable->UnBind();
@@ -164,6 +168,7 @@ namespace mx
 		void COpenGLRenderer::BeginRender()
 		{
 			GLDebug(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+			m_triangleNum = 0;
 		}
 
 		IShaderProgram * COpenGLRenderer::CreateShaderProgram()

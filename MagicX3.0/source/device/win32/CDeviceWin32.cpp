@@ -343,5 +343,10 @@ namespace mx
 		}
 
 
+		void CDeviceWin32::SetWindowTitle(const wchar_t *title)
+		{
+			::SetWindowText(m_hWnd, title);
+		}
+
 	}
 }

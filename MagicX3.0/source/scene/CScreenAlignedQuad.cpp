@@ -36,7 +36,7 @@ namespace mx
 
 				IVertexArrayObject *pVAO = m_pRenderable->GetVertexArrayObject();
 				pVAO->Bind();
-				IBufferObject *bufferObject = m_pRenderable->CreateVertexBufferObject(vertex, sizeof(vertex), 0, sizeof(vertex) / sizeof(float), GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
+				IBufferObject *bufferObject = m_pRenderable->CreateVertexBufferObject(vertex, sizeof(vertex), 0, 6, GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
 
 
 				pVAO->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, 5 * sizeof(float), 0);
@@ -68,7 +68,7 @@ namespace mx
 				CPointLight *pLight = (CPointLight *)SCENEMGR->GetCurrentScene()->GetLight(i);
 				if (pLight)
 				{
-					SCENEMGR->GetCurrentScene()->GetCamera()->GetViewMatrix().TransformVect(lightPos[i], pLight->GetPosition());
+					lightPos[i] = pLight->GetPosition();
 					memcpy(lightColor[i].v, pLight->GetColor(), sizeof(lightColor[i].v));
 				}
 				ICamera *pLightCam = SCENEMGR->GetCurrentScene()->GetLightCamera(i);
@@ -78,9 +78,9 @@ namespace mx
 				}
 			}
 
-			m_pRenderable->SetUniform("shadowMatrix", lightMatrix);
-			m_pRenderable->SetUniform("lightPosition", lightPos);
-			m_pRenderable->SetUniform("lightColor", lightColor);
+			m_pRenderable->SetUniform("shadowMatrix", lightMatrix[0].m);
+			m_pRenderable->SetUniform("lightPosition", lightPos[0].v);
+			m_pRenderable->SetUniform("lightColor", lightColor[0].v);
 
 			if (m_pRenderable)
 				m_pRenderable->SumbitToRenderQueue();

@@ -37,12 +37,6 @@ namespace mx
 
 		void CScene::Draw()
 		{	
-			IShadowMap *pShadowMap = RENDERER->GetShadowMap();
-			if (pShadowMap)
-			{
-				pShadowMap->Render();
-			}
-
 			RENDERER->BeginRender();						
 
 			RENDERER->Render();

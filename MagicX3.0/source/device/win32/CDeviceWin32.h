@@ -24,6 +24,8 @@ namespace mx
 			virtual void OnSize(int iPosX, int iPosY, int iWidth, int iHeight);
 		
 			virtual bool Run();
+			
+			virtual void SetWindowTitle(const wchar_t *title);
 
 			HWND GetHWnd() { return m_hWnd; }
 			

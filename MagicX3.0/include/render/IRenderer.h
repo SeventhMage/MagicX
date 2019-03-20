@@ -71,7 +71,8 @@ namespace mx
 			virtual IShaderProgram *CreateShaderProgram() = 0;
 			virtual void DestroyShaderProgram(IShaderProgram *pShaderProgram) = 0;
 
-			virtual IShadowMap *GetShadowMap() = 0;
+			virtual int GetTriangleNum() = 0;
+
 
 			//manager
 			virtual IRenderTargetManager *GetRenderTargetManager() const = 0;
