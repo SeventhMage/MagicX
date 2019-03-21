@@ -36,13 +36,6 @@ namespace mx
 			}
 		}
 
-		void CRenderQueue::AddPhaseQuote(int phaseId)
-		{
-			if (std::find(m_vecPhaseQuote.begin(), m_vecPhaseQuote.end(), phaseId) == m_vecPhaseQuote.end())
-			{
-				m_vecPhaseQuote.push_back(phaseId);
-			}
-		}
 
 		void CRenderQueue::BindPhaseUniform()
 		{
@@ -50,43 +43,29 @@ namespace mx
 			if (pMaterial)
 			{
 				IShaderProgram *pShaderProgram = pMaterial->GetShaderProgram();
-				for (auto phaseid : m_vecPhaseQuote)
+				for (auto &texturePhase : m_mapSlotTexture)
 				{
+					int phaseid = texturePhase.second.phaseid;
 					IRenderPhase *pRenderPhase = RENDERER->GetRenderPhaseManager()->GetRenderPhase(phaseid);
 					if (pShaderProgram && pRenderPhase)
 					{
+						int slot = texturePhase.first;
+						pShaderProgram->SetUniform(texturePhase.second.name.c_str(), &slot);
 						IRenderTarget *pRenderTarget = pRenderPhase->GetRenderTarget();
 						if (pRenderTarget)
 						{
-							for (auto &texture : m_mapSlotTexture)
-							{
-								int flag = ERTF_COLOR_TEXTURE;
-								do
-								{
-									if (texture.second.flag & flag)
-									{
-										ITexture *pTexture = pRenderTarget->GetTexture(flag);
-										if (pTexture)
-										{
-											int slot = texture.first;
-											
-											pShaderProgram->SetUniform(texture.second.name.c_str(), &slot);
-											texture.second.texture = pTexture;
-											break;
-										}
-									}
-									flag <<= 1;
-								} while (flag <= ERTF_MAX_FLAG);
-							}
+							texturePhase.second.texture =pRenderTarget->GetTexture(texturePhase.second.flag);
 						}
 
 					}
+
 				}
 			}
 		}
 
-		void CRenderQueue::SetPhaseTexture(const char *name, int slot, int flag)
+		void CRenderQueue::SetPhaseTexture(const char *name,int phaseid,  int slot, int flag)
 		{
+			m_mapSlotTexture[slot].phaseid = phaseid;
 			m_mapSlotTexture[slot].flag = flag;
 			m_mapSlotTexture[slot].name = name;
 			m_mapSlotTexture[slot].texture = nullptr;

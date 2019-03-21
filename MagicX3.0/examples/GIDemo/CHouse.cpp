@@ -86,6 +86,7 @@ namespace mx
 					pBufferObject->BufferSubData(normals, sizeof(normals), sizeof(vertices));
 				}
 				renderable->CreateIndexBufferObject(indices, sizeof(indices) / sizeof(uint), RVT_UINT, GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
+				renderable->Disable(RA_CULL_FACE);
 				pVAO->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, 0, 0);
 				pVAO->EnableVertexAttrib(render::VAL_NORMAL, 3, render::RVT_FLOAT, 0, sizeof(vertices));
 				pVAO->UnBind();

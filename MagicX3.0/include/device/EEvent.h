@@ -20,6 +20,8 @@ namespace mx
 			EKP_KEYBOARD_S,
 			EKP_KEYBOARD_D,
 			EKP_KEYBOARD_W,
+			EKP_KEYBOARD_Q,
+			EKP_KEYBOARD_E,
 
 			EKP_NUM,
 		};

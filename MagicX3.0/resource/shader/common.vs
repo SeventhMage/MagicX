@@ -14,11 +14,11 @@ uniform mat4 projMatrix;
 
 void main()
 {
-	normal = normalize(mat3(viewMatrix * modelMatrix) * normalize(vNormal));	
+	normal = normalize(mat3(modelMatrix) * normalize(vNormal));	
 	texCoord0 = vTexCoord0;
-	vec4 pos = viewMatrix * modelMatrix * vPosition;
+	vec4 pos = modelMatrix * vPosition;
 	position = pos.xyz;
-	gl_Position = projMatrix * pos;
+	gl_Position = projMatrix * viewMatrix * pos;
 }
 
 

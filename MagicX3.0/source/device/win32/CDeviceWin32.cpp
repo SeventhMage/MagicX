@@ -12,11 +12,11 @@ namespace mx
 			{
 			case WM_PAINT:
 			{
-							 PAINTSTRUCT ps;
-							 BeginPaint(hWnd, &ps);
-							 EndPaint(hWnd, &ps);
+				PAINTSTRUCT ps;
+				BeginPaint(hWnd, &ps);
+				EndPaint(hWnd, &ps);
 			}
-				return 0;
+			return 0;
 			case WM_ERASEBKGND:
 				return 0;
 
@@ -25,92 +25,112 @@ namespace mx
 				return 0;
 			case WM_KEYDOWN:
 			{
-							   IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
-							   if (event)
-							   {
-								   switch (wParam)
-								   {
-								   case VK_SPACE:
-									   event->OnPress(EKP_KEYBOARD_SPACE);
-									   break;
-								   case VK_ESCAPE:
-									   event->OnPress(EKP_KEYBOARD_ESC);
-								   case 'N':
-								   case 'n':
-									   event->OnPress(EKP_KEYBOARD_N);
-									   break;
-								   case 'A':
-								   case 'a':
-									   event->OnPress(EKP_KEYBOARD_A);
-									   break;
-								   case 'D':
-								   case 'd':
-									   event->OnPress(EKP_KEYBOARD_D);
-									   break;
-								   case 'W':
-								   case 'w':
-									   event->OnPress(EKP_KEYBOARD_W);
-									   break;
-								   case 'S':
-								   case 's':
-									   event->OnPress(EKP_KEYBOARD_S);
-									   break;
-								   }
+				IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+				if (event)
+				{
+					switch (wParam)
+					{
+					case VK_SPACE:
+						event->OnPress(EKP_KEYBOARD_SPACE);
+						break;
+					case VK_ESCAPE:
+						event->OnPress(EKP_KEYBOARD_ESC);
+					case 'N':
+					case 'n':
+						event->OnPress(EKP_KEYBOARD_N);
+						break;
+					case 'A':
+					case 'a':
+						event->OnPress(EKP_KEYBOARD_A);
+						break;
+					case 'D':
+					case 'd':
+						event->OnPress(EKP_KEYBOARD_D);
+						break;
+					case 'W':
+					case 'w':
+						event->OnPress(EKP_KEYBOARD_W);
+						break;
+					case 'S':
+					case 's':
+						event->OnPress(EKP_KEYBOARD_S);
+						break;
+					case 'Q':
+					case 'q':
+						event->OnPress(EKP_KEYBOARD_Q);
+						break;
+					case 'E':
+					case 'e':
+						event->OnPress(EKP_KEYBOARD_E);
+						break;
+					default:
+						break;
+					}
 
-							   }
+				}
 			}
-				return 0;
+			return 0;
 			case WM_KEYUP:
 			{
-							 IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
-							 if (event)
-							 {
-								 switch (wParam)
-								 {
-								 case VK_SPACE:
-									 event->OnUp(EKP_KEYBOARD_SPACE);
-									 break;
-								 case 'N':
-								 case 'n':
-									 event->OnUp(EKP_KEYBOARD_N);
-									 break;
-								 case 'A':
-								 case 'a':
-									 event->OnUp(EKP_KEYBOARD_A);
-									 break;
-								 case 'D':
-								 case 'd':
-									 event->OnUp(EKP_KEYBOARD_D);
-									 break;
-								 case 'W':
-								 case 'w':
-									 event->OnUp(EKP_KEYBOARD_W);
-									 break;
-								 case 'S':
-								 case 's':
-									 event->OnUp(EKP_KEYBOARD_S);
-									 break;
-								 }
+				IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+				if (event)
+				{
+					switch (wParam)
+					{
+					case VK_SPACE:
+						event->OnUp(EKP_KEYBOARD_SPACE);
+						break;
+					case 'N':
+					case 'n':
+						event->OnUp(EKP_KEYBOARD_N);
+						break;
+					case 'A':
+					case 'a':
+						event->OnUp(EKP_KEYBOARD_A);
+						break;
+					case 'D':
+					case 'd':
+						event->OnUp(EKP_KEYBOARD_D);
+						break;
+					case 'W':
+					case 'w':
+						event->OnUp(EKP_KEYBOARD_W);
+						break;
+					case 'S':
+					case 's':
+						event->OnUp(EKP_KEYBOARD_S);
+						break;
+					case 'Q':
+					case 'q':
+						event->OnUp(EKP_KEYBOARD_Q);
+						break;
+					case 'E':
+					case 'e':
+						event->OnUp(EKP_KEYBOARD_E);
+						break;
+					default:
+						break;
+					}
 
-							 }
+				}
 
 			}
-				return 0;
+			return 0;
 			case WM_MOUSEWHEEL:
 			{
-								  IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
-								  if (event)
-								  {
-									  short zDelta = HIWORD(wParam);
-									  event->OnWheel(zDelta);
-								  }								   				
+				IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+				if (event)
+				{
+					short zDelta = HIWORD(wParam);
+					event->OnWheel(zDelta);
+				}
 			}
-				return 0;
+			return 0;
 			case WM_SIZE:
 			{
-							CEventManager::Instance()->OnSize(0, 0, LOWORD(lParam), HIWORD(lParam));
+				CEventManager::Instance()->OnSize(0, 0, LOWORD(lParam), HIWORD(lParam));
 			}
-				return 0;
+			return 0;
 
 			case WM_DESTROY:
 				PostQuitMessage(0);
@@ -145,54 +165,54 @@ namespace mx
 				return 0;
 			case WM_LBUTTONDOWN:
 			{
-								   IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
-								   if (event)
-								   {
-									   event->OnPress(EKP_MOUSE_LBUTTON);
-								   }
+				IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+				if (event)
+				{
+					event->OnPress(EKP_MOUSE_LBUTTON);
+				}
 			}
 
-				return 0;
+			return 0;
 			case WM_LBUTTONUP:
 			{
-								 IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
-								 if (event)
-								 {
-									 event->OnUp(EKP_MOUSE_LBUTTON);
-								 }
+				IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+				if (event)
+				{
+					event->OnUp(EKP_MOUSE_LBUTTON);
+				}
 			}
-				return 0;
+			return 0;
 			case WM_LBUTTONDBLCLK:
 				return 0;
 			case WM_RBUTTONDOWN:
 			{
-								   IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
-								   if (event)
-								   {
-									   event->OnPress(EKP_MOUSE_RBUTTON);
-								   }
+				IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+				if (event)
+				{
+					event->OnPress(EKP_MOUSE_RBUTTON);
+				}
 			}
-				return 0;
+			return 0;
 			case WM_RBUTTONUP:
 			{
-								 IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
-								 if (event)
-								 {
-									 event->OnUp(EKP_MOUSE_RBUTTON);
-								 }
+				IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+				if (event)
+				{
+					event->OnUp(EKP_MOUSE_RBUTTON);
+				}
 			}
-				return 0;
+			return 0;
 			case WM_MOUSEMOVE:
 			{
-								 IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
-								 if (event)
-								 {
-									 int x = LOWORD(lParam);
-									 int y = HIWORD(lParam);
-									 event->SetMousePosition(x, y);
-								 }
+				IKeyEvent *event = CEventManager::Instance()->GetKeyEvent();
+				if (event)
+				{
+					int x = LOWORD(lParam);
+					int y = HIWORD(lParam);
+					event->SetMousePosition(x, y);
+				}
 			}
-				return 0;
+			return 0;
 			}
 
 			return DefWindowProc(hWnd, message, wParam, lParam);
@@ -273,24 +293,24 @@ namespace mx
 			// create window
 			m_hWnd = CreateWindow(ClassName, __TEXT(""), style, windowLeft, windowTop,
 				realWidth, realHeight, NULL, NULL, hInstance, NULL);
-			
+
 			//³õÊ¼»¯äÖÈ¾Æ÷Çý¶¯
 			HDC hDC = GetDC(m_hWnd);
 			pRenderDriver->InitDriverWin32(hDC);
 			ReleaseDC(m_hWnd, hDC);
 
 			ShowWindow(m_hWnd, SW_SHOWNORMAL);
-			UpdateWindow(m_hWnd);			
+			UpdateWindow(m_hWnd);
 
 			// fix ugly ATI driver bugs.
 			MoveWindow(m_hWnd, windowLeft, windowTop, realWidth, realHeight, TRUE);
 
-			ShowCursor(TRUE);			
+			ShowCursor(TRUE);
 		}
 
 		CDeviceWin32::~CDeviceWin32()
 		{
-			
+
 		}
 
 		void CDeviceWin32::SwapBuffers()

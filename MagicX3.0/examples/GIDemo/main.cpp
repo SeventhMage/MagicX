@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 	CScreenAlignedQuad *pScreenAlignedQuad = new CScreenAlignedQuad(4, 5);
 	if (scene)
 	{
-		CVector3 vPos(0, 0, 10);
+		CVector3 vPos(0, 0, 0);
 		CVector3 vDir(0, 0, -1);
 		CVector3 vUp(0, 1, 0);
 		camera = scene->SetupCamera(vPos, vDir, vUp, PI / 3, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
@@ -40,14 +40,13 @@ int main(int argc, char *argv[])
 		srand(time(0));
 		CVector3 lightPos;
 		CVector3 lightColor;
-		lightPos.set(0, 20, 10);
+		lightPos.set(0, 100, 100);
 		lightColor.set(0.9, 0.9, 0.9);
 		pLight[0] = (CPointLight *)scene->SetupLight(0, LT_POINT, lightColor.v);
 		pLight[0]->SetPosition(lightPos);
-		pLightCamera[0] = scene->SetupLightCamera(0, lightPos, -lightPos, CVector3(0, 1, 0), PI * 0.5f, 1.0f, 1, 1000.f);
+		pLightCamera[0] = scene->SetupLightCamera(0, lightPos, -lightPos.normalize(), CVector3(0, 1, 0), PI / 2.0, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.f, 5000.f);
 
-
-		pHouse->SetPosition(CVector3(0, 0, -10));
+		pHouse->SetPosition(CVector3(0, 0, -20));
 		scene->GetRootNode()->AddChild(pHouse);
 
 	}
@@ -65,9 +64,14 @@ int main(int argc, char *argv[])
 
 	ex::CSphereEntity *mainSphere =  new ex::CSphereEntity(2, 52, 26);
 	mainSphere->Create();
-	mainSphere->SetPosition(CVector3(0, 0, -10));
+	mainSphere->SetPosition(CVector3(0, 0, -20));
 	scene->GetRootNode()->AddChild(mainSphere);
-	
+
+	//ex::CSphereEntity *tmpSphere = new ex::CSphereEntity(1, 52, 26);
+	//tmpSphere->Create();
+	//tmpSphere->SetPosition(pLight[0]->GetPosition());
+	//scene->GetRootNode()->AddChild(tmpSphere);
+
 	UINT next_game_tick = GetTickCount();
 	int sleep_time = 0;
 	wchar_t title[64] = { 0 };
@@ -100,7 +104,13 @@ int main(int argc, char *argv[])
 
 				if (event->IsPress(EKP_MOUSE_LBUTTON))
 				{
-
+					if (!ISZERO(rotX) || !ISZERO(rotY))
+					{
+						CVector3 pRot = pHouse->GetRotation();
+						pRot.x += rotX * PI / 10;
+						pRot.y += rotY * PI / 10;
+						pHouse->SetRotation(pRot);
+					}
 				}
 				if (event->IsPress(EKP_MOUSE_RBUTTON))
 				{
@@ -131,14 +141,24 @@ int main(int argc, char *argv[])
 					}
 					if (event->IsPress(device::EKP_KEYBOARD_W))
 					{
-						spherePos.y -= step;
+						spherePos.z -= step;
 					}
 					if (event->IsPress(device::EKP_KEYBOARD_S))
 					{
-						spherePos.y += step;
+						spherePos.z += step;
 					}
 
+					if (event->IsPress(device::EKP_KEYBOARD_Q))
+					{
+						spherePos.y += step;
+					}
+					if (event->IsPress(device::EKP_KEYBOARD_E))
+					{
+						spherePos.y -= step;
+					}
 					mainSphere->SetPosition(spherePos);
+					//pLight[0]->SetPosition(spherePos);
+					//pLightCamera[0]->SetPosition(spherePos);
 				}
 
 

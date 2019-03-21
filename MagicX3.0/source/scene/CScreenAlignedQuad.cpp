@@ -78,9 +78,9 @@ namespace mx
 				}
 			}
 
-			m_pRenderable->SetUniform("shadowMatrix", lightMatrix[0].m);
-			m_pRenderable->SetUniform("lightPosition", lightPos[0].v);
-			m_pRenderable->SetUniform("lightColor", lightColor[0].v);
+			m_pRenderable->SetUniform("shadowMatrix", lightMatrix);
+			m_pRenderable->SetUniform("lightPosition", lightPos);
+			m_pRenderable->SetUniform("lightColor", lightColor);
 
 			if (m_pRenderable)
 				m_pRenderable->SumbitToRenderQueue();

@@ -21,12 +21,11 @@ namespace mx
 			virtual ITexture *GetDepthTexture() const;
 			virtual ITexture *GetTexture(int flag) const;
 		private:
-
-			
 			std::map<int, ITexture *>m_Texture;
 			int m_iWidth;
 			int m_iHeight;
 			GLuint m_fbo;
+			int m_renderTargetFlag;
 		};
 	}
 }

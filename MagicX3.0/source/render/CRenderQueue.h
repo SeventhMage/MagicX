@@ -20,16 +20,15 @@ namespace mx
 			virtual void Clear();
 			virtual void Render();
 			virtual IMaterial *GetMaterial() const;
-			virtual void AddPhaseQuote(int phaseId);
 			virtual void BindPhaseUniform();
-			virtual void SetPhaseTexture(const char *name, int slot, int flag);
+			virtual void SetPhaseTexture(const char *name, int phaseid, int slot, int flag);
 		private:
 			int m_materialId;
 			std::vector<IRenderable *>m_vecRenderables;
-			std::vector<int> m_vecPhaseQuote;
 			struct PhaseTexture 
 			{
 				std::string name;
+				int phaseid;
 				int flag;
 				ITexture *texture;
 			};

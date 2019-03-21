@@ -133,13 +133,12 @@ namespace mx
 							for (rapidxml::xml_node<> * quoteNode = node->first_node("PhaseQuote"); quoteNode; quoteNode = quoteNode->next_sibling())
 							{
 								int quoteid = atoi(quoteNode->first_attribute("id")->value());
-								queue->AddPhaseQuote(quoteid);
 								for (rapidxml::xml_node<> * uniformNode = quoteNode->first_node("TextureUniform"); uniformNode; uniformNode = uniformNode->next_sibling())
 								{
 									const char *name = uniformNode->first_attribute("name")->value();
 									int slot = atoi(uniformNode->first_attribute("slot")->value());
 									int flag = atoi(uniformNode->first_attribute("flag")->value());
-									queue->SetPhaseTexture(name, slot, flag);
+									queue->SetPhaseTexture(name, quoteid, slot, flag);
 								}
 							}
 						}
