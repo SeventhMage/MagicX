@@ -243,7 +243,7 @@ namespace mx
 				xaxis.normalize();
 
 				CVector3 yaxis = zaxis.crossProduct(xaxis);
-
+				yaxis.normalize();
 
 				m[0] = (float)xaxis.x;
 				m[1] = (float)yaxis.x;

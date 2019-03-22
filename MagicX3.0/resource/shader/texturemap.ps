@@ -26,13 +26,13 @@ void main()
 	float f = textureProj(depthTexture, shadowMatrix * position);
 	vec3 mainLightDir = normalize(lightPosition - position.xyz);
 	float mainRate = max(dot(mainLightDir, normal.xyz), 0);
-	vec3 lightCTotal =  mainRate * lightColor * f;
+	vec3 lightCTotal =  mainRate * lightColor;
 	
 	float cdiv = 1.0 ;
-	for (int i=0; i<64; ++i)
+	for (int i=0; i<256; ++i)
 	{
-		float x = mod(i, 8.0) / 8.0;
-		float y = floor(i / 8.0) / 8.0;
+		float x = mod(i, 16.0) / 16;
+		float y = floor(i / 16.0) / 16;
 		vec2 tex = vec2(x, y);
 		vec4 lightC = texture2D(textureColor, tex);
 		vec4 lightP = texture2D(texturePosition, tex);
@@ -41,7 +41,7 @@ void main()
 		vec3 dir = normalize(lightP.xyz - position.xyz);
 		float rate = max((dot(dir, normal.xyz)), 0.0) * (max(dot(-dir, lightN.xyz), 0.0));
 		//float f = textureProj(depthTexture, vec3(shadowMatrix * position, i));
-		lightCTotal += (rate * lightC.xyz * cdiv) / distance(lightP, position);
+		lightCTotal += (rate * lightC.xyz * cdiv) / distance(position, lightP) ;
 	}
 	gl_FragColor = vec4(lightCTotal.xyz, 1.0) * color;
 

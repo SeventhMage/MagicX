@@ -39,12 +39,13 @@ int main(int argc, char *argv[])
 
 		srand(time(0));
 		CVector3 lightPos;
+		CVector3 lightDir(0, 0, -1);
 		CVector3 lightColor;
-		lightPos.set(0, 100, 100);
+		lightPos.set(0, 0, 10);
 		lightColor.set(0.9, 0.9, 0.9);
 		pLight[0] = (CPointLight *)scene->SetupLight(0, LT_POINT, lightColor.v);
 		pLight[0]->SetPosition(lightPos);
-		pLightCamera[0] = scene->SetupLightCamera(0, lightPos, -lightPos.normalize(), CVector3(0, 1, 0), PI / 2.0, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.f, 5000.f);
+		pLightCamera[0] = scene->SetupLightCamera(0, lightPos, lightDir, CVector3(0, 1, 0), PI / 2.0, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.f, 5000.f);
 
 		pHouse->SetPosition(CVector3(0, 0, -20));
 		scene->GetRootNode()->AddChild(pHouse);
@@ -62,15 +63,15 @@ int main(int argc, char *argv[])
 	//	scene->GetRootNode()->AddChild(pSphere);
 	//}
 
-	ex::CSphereEntity *mainSphere =  new ex::CSphereEntity(2, 52, 26);
+	ex::CSphereEntity *mainSphere =  new ex::CSphereEntity(2, 52, 26, CVector3(.6, 0, 0));
 	mainSphere->Create();
 	mainSphere->SetPosition(CVector3(0, 0, -20));
 	scene->GetRootNode()->AddChild(mainSphere);
 
-	//ex::CSphereEntity *tmpSphere = new ex::CSphereEntity(1, 52, 26);
-	//tmpSphere->Create();
-	//tmpSphere->SetPosition(pLight[0]->GetPosition());
-	//scene->GetRootNode()->AddChild(tmpSphere);
+	ex::CSphereEntity *tmpSphere = new ex::CSphereEntity(1, 52, 26, CVector3(0, .6, 0));
+	tmpSphere->Create();
+	tmpSphere->SetPosition(CVector3(0, 2, -20));
+	scene->GetRootNode()->AddChild(tmpSphere);
 
 	UINT next_game_tick = GetTickCount();
 	int sleep_time = 0;

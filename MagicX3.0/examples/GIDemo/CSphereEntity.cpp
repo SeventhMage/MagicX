@@ -5,10 +5,11 @@ namespace mx
 {
 	namespace ex
 	{
-		CSphereEntity::CSphereEntity(float fRadius, int iSlices, int iStacks)
+		CSphereEntity::CSphereEntity(float fRadius, int iSlices, int iStacks, const CVector3 &color /* = CVector3(1.0f, 1.0f, 1.0f) */)
+			:m_vColor(color)
 		{
 			m_pSphere = new scene::CSphere(fRadius, iSlices, iStacks);
-	
+			
 			AddRenderPhase(1, 1);
 			AddRenderPhase(2, 2);
 			AddRenderPhase(3, 3);
@@ -23,10 +24,9 @@ namespace mx
 		void CSphereEntity::UpdateImp(int delta)
 		{
 			CEntity::UpdateImp(delta);
-			static float color[] = { .7, .7, .7 };
 			for (auto renderable : m_vecRenderables)
 			{
-				renderable->SetUniform("color", color);
+				renderable->SetUniform("color", m_vColor.v);
 			}
 		}
 

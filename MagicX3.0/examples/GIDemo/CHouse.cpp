@@ -100,7 +100,7 @@ namespace mx
 
 		void CHouse::UpdateImp(int delta)
 		{
-			static float color[] = {0.8, 0.0, 0.0};
+			static float color[] = {0.9, 0.9, 0.9};
 			for (auto renderable : m_vecRenderables)
 			{
 				renderable->SetUniform("color", color);
