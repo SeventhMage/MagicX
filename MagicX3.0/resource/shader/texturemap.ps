@@ -28,6 +28,35 @@ void main()
 	float mainRate = max(dot(mainLightDir, normal.xyz), 0);
 	vec3 lightCTotal =  mainRate * lightColor;
 	
+	vec4 positionOfVal = shadowMatrix * position;
+	vec2 texPos = positionOfVal.xy / positionOfVal.w;
+
+	float width = 512;
+	float height = 512;
+	float scale = 80;
+
+	vec3 indirectLC = vec3(0.0, 0.0, 0.0);
+	for (int i=0; i<scale; i+=10)
+	{
+		for (int j=0; j<scale; j+=10)
+		{
+			float x = min(max(i / width + texPos.x - 0.5 * scale / width, 0.0), 1.0);
+			float y = min(max(j / height + texPos.y - 0.5 * scale / height, 0.0), 1.0);
+			vec2 tex = vec2(x, y);
+			vec4 lightC = texture2D(textureColor, tex) * 0.1;
+			vec4 lightP = texture2D(texturePosition, tex);
+			vec4 lightN = texture2D(textureNormal, tex);
+			float lightRate = max(dot(mainLightDir, lightN.xyz), 0);
+			
+			vec3 dir = normalize(lightP.xyz - position.xyz);
+			
+			float rate = max((dot(dir, normal.xyz)), 0.0) * (max(sign(dot(-dir, lightN.xyz)), 0.0));
+			indirectLC += (rate * lightC.xyz * lightRate) / distance(position, lightP);
+		}
+	}
+	
+	//lightCTotal = indirectLC + lightCTotal;
+	/*
 	float cdiv = 1.0 ;
 	for (int i=0; i<256; ++i)
 	{
@@ -43,6 +72,7 @@ void main()
 		//float f = textureProj(depthTexture, vec3(shadowMatrix * position, i));
 		lightCTotal += (rate * lightC.xyz * cdiv) / distance(position, lightP) ;
 	}
-	gl_FragColor = vec4(lightCTotal.xyz, 1.0) * color;
+	*/
+	gl_FragColor = mix(vec4(lightCTotal.xyz, 1.0) * color, vec4(indirectLC, 1.0), 0.5);
 
 }
