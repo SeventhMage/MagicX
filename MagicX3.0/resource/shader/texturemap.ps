@@ -15,6 +15,7 @@ uniform sampler2D textureColor;
 uniform sampler2D texturePosition;
 uniform sampler2D textureNormal;
 
+
 in vec2 vOutTexCoord0;
 
 void main()
@@ -31,48 +32,40 @@ void main()
 	vec4 positionOfVal = shadowMatrix * position;
 	vec2 texPos = positionOfVal.xy / positionOfVal.w;
 
-	float width = 512;
-	float height = 512;
-	float scale = 80;
+	float width = 16;
+	float height = 16;
+	float scale = 16;
+	
+	float xoffset = 0.5 * scale / width;
+	float yoffset = 0.5 * scale / height;
 
 	vec3 indirectLC = vec3(0.0, 0.0, 0.0);
-	for (int i=0; i<scale; i+=10)
+	for (int i=0; i<scale; i+=1)
 	{
-		for (int j=0; j<scale; j+=10)
+		for (int j=0; j<scale; j+=1)
 		{
-			float x = min(max(i / width + texPos.x - 0.5 * scale / width, 0.0), 1.0);
-			float y = min(max(j / height + texPos.y - 0.5 * scale / height, 0.0), 1.0);
-			vec2 tex = vec2(x, y);
-			vec4 lightC = texture2D(textureColor, tex) * 0.1;
+			float x = min(max(i / width + texPos.x - xoffset, 0.0), 1.0);
+			float y = min(max(j / height + texPos.y - yoffset, 0.0), 1.0);
+			vec2 tex = vec2(x, y);//vec2(i * 1.0 / width, j * 1.0 / height);
+			vec4 lightC = texture2D(textureColor, tex);
 			vec4 lightP = texture2D(texturePosition, tex);
 			vec4 lightN = texture2D(textureNormal, tex);
 			float lightRate = max(dot(mainLightDir, lightN.xyz), 0);
 			
 			vec3 dir = normalize(lightP.xyz - position.xyz);
 			
+			vec3 shootColor = max(dot(-dir, lightN.xyz), 0) * lightC.rgb;
+			vec3 irradiance = shootColor * max(dot(normal.xyz, (lightP - position).xyz), 0) / pow(distance(lightP.xyz, position.xyz), 3.0);
+			indirectLC += irradiance;
+			
 			float rate = max((dot(dir, normal.xyz)), 0.0) * (max(sign(dot(-dir, lightN.xyz)), 0.0));
-			indirectLC += (rate * lightC.xyz * lightRate) / distance(position, lightP);
+			//indirectLC += (rate * lightC.xyz * lightRate) / pow(distance(position.xyz, lightP.xyz), 3.0);
 		}
 	}
 	
-	//lightCTotal = indirectLC + lightCTotal;
-	/*
-	float cdiv = 1.0 ;
-	for (int i=0; i<256; ++i)
-	{
-		float x = mod(i, 16.0) / 16;
-		float y = floor(i / 16.0) / 16;
-		vec2 tex = vec2(x, y);
-		vec4 lightC = texture2D(textureColor, tex);
-		vec4 lightP = texture2D(texturePosition, tex);
-		vec4 lightN = texture2D(textureNormal, tex);
-		
-		vec3 dir = normalize(lightP.xyz - position.xyz);
-		float rate = max((dot(dir, normal.xyz)), 0.0) * (max(dot(-dir, lightN.xyz), 0.0));
-		//float f = textureProj(depthTexture, vec3(shadowMatrix * position, i));
-		lightCTotal += (rate * lightC.xyz * cdiv) / distance(position, lightP) ;
-	}
-	*/
-	gl_FragColor = mix(vec4(lightCTotal.xyz, 1.0) * color, vec4(indirectLC, 1.0), 0.5);
+	lightCTotal += indirectLC;
 
+	//gl_FragColor = mix(vec4(lightCTotal.xyz, 1.0) * color, vec4(indirectLC, 1.0), 0.5);
+	//gl_FragColor = vec4(indirectLC * color.xyz, 1.0);
+	gl_FragColor = vec4(lightCTotal * color.xyz, 1.0);
 }

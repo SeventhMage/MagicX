@@ -15,18 +15,18 @@ namespace mx
 		class CPointLight : public ILight
 		{
 		public:
-			CPointLight(float fColor[4]);
+			CPointLight(float fColor[3]);
 			virtual ~CPointLight();
 
 			virtual ELightType GetLightType() { return LT_POINT; }
-			virtual void SetColor(float fColor[4]);
+			virtual void SetColor(float fColor[3]);
 			virtual float *GetColor() { return m_fColor; }
 
 			void SetPosition(const math::CVector3 &position);
 			const math::CVector3 &GetPosition() { return m_vPosition; }
 		private:
 			math::CVector3 m_vPosition;
-			float m_fColor[4];
+			float m_fColor[3];
 		};
 
 	}

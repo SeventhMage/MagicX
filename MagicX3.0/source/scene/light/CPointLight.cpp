@@ -5,9 +5,9 @@ namespace mx
 {
 	namespace scene
 	{
-		CPointLight::CPointLight(float fColor[4])
+		CPointLight::CPointLight(float fColor[3])
 		{
-			memcpy(m_fColor, fColor, 4 * sizeof(float));
+			memcpy(m_fColor, fColor, 3 * sizeof(float));
 		}
 
 		CPointLight::~CPointLight()
@@ -15,9 +15,9 @@ namespace mx
 
 		}
 
-		void CPointLight::SetColor(float fColor[4])
+		void CPointLight::SetColor(float fColor[3])
 		{
-			memcpy(m_fColor, fColor, 4 * sizeof(float));
+			memcpy(m_fColor, fColor, 3 * sizeof(float));
 		}
 
 		void CPointLight::SetPosition(const math::CVector3 &position)

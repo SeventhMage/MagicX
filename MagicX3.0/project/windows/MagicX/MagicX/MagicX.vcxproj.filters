@@ -258,6 +258,9 @@
     <ClCompile Include="..\..\..\..\source\base\StringHelper.cpp">
       <Filter>source\base</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene\light\CDirectionalLight.cpp">
+      <Filter>source\scene\light</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\include\mx.h">

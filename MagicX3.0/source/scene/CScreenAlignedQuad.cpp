@@ -56,6 +56,7 @@ namespace mx
 		void CScreenAlignedQuad::Render()
 		{
 			CVector3 lightPos[64];
+			CVector3 lightDir[64];
 			CVector3 lightColor[64];
 			CMatrix4 lightMatrix[64];
 			CMatrix4 scaleMat4(.5f, .0f, .0f, .0f,
@@ -65,12 +66,28 @@ namespace mx
 
 			for (int i = 0; i < MAX_LIGHT_NUM; ++i)
 			{
-				CPointLight *pLight = (CPointLight *)SCENEMGR->GetCurrentScene()->GetLight(i);
+				ILight *pLight = SCENEMGR->GetCurrentScene()->GetLight(i);
 				if (pLight)
 				{
-					lightPos[i] = pLight->GetPosition();
+					switch (pLight->GetLightType())
+					{
+					case LT_DIRECTIONAL:
+					{
+						CDirectionalLight *pPointLight = (CDirectionalLight*)pLight;
+						lightDir[i] = pPointLight->GetDirection();
+					}
+					break;
+					case LT_POINT:
+					{
+						CPointLight *pPointLight = (CPointLight*)pLight;
+						lightPos[i] = pPointLight->GetPosition();
+					}
+					break;
+					}
+
 					memcpy(lightColor[i].v, pLight->GetColor(), sizeof(lightColor[i].v));
 				}
+
 				ICamera *pLightCam = SCENEMGR->GetCurrentScene()->GetLightCamera(i);
 				if (pLightCam)
 				{
@@ -80,6 +97,7 @@ namespace mx
 
 			m_pRenderable->SetUniform("shadowMatrix", lightMatrix);
 			m_pRenderable->SetUniform("lightPosition", lightPos);
+			m_pRenderable->SetUniform("lightDir", lightDir);
 			m_pRenderable->SetUniform("lightColor", lightColor);
 
 			if (m_pRenderable)

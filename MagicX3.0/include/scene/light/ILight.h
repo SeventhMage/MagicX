@@ -25,7 +25,7 @@ namespace mx
 			virtual ELightType GetLightType() = 0;
 
 			//¹âµÄÑÕÉ«
-			virtual void SetColor(float fColor[4]) = 0;
+			virtual void SetColor(float fColor[3]) = 0;
 			virtual float *GetColor() = 0;
 
 		};

@@ -146,6 +146,7 @@
     <ClCompile Include="..\..\..\..\source\scene\CSphere.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSphereEntiy.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CUnit.cpp" />
+    <ClCompile Include="..\..\..\..\source\scene\light\CDirectionalLight.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\light\CPointLight.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -89,7 +89,7 @@ namespace mx
 			return m_pSkyBox;
 		}
 
-		ILight * CScene::SetupLight(int slot, ELightType type, float lightColor[4])
+		ILight * CScene::SetupLight(int slot, ELightType type, float lightColor[3])
 		{
 			if (slot < 0 || slot > MAX_LIGHT_NUM)
 				return nullptr;
@@ -98,7 +98,7 @@ namespace mx
 			switch (type)
 			{
 			case mx::scene::LT_DIRECTIONAL:
-				//m_pLights[slot] = new CDirectionalLight();
+				m_pLights[slot] = new CDirectionalLight(lightColor);
 				break;
 			case mx::scene::LT_POINT:
 				m_pLights[slot] = new CPointLight(lightColor);
@@ -115,7 +115,23 @@ namespace mx
 		ICamera * CScene::SetupLightCamera(int slot, const CVector3 &position, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float nearClip, float farClip)
 		{
 			SAFE_DEL(m_pLightCameras[slot]);
-			m_pLightCameras[slot] = new CCamera(position, direction, up, fov, aspect, nearClip, farClip);
+			switch (m_pLights[slot]->GetLightType())
+			{
+			case LT_POINT:
+				m_pLightCameras[slot] = new CCamera(position, direction, up, fov, aspect, nearClip, farClip);
+				break;
+			case LT_DIRECTIONAL:
+				m_pLightCameras[slot] = new CCamera(position, direction, up, fov, aspect, nearClip, farClip);
+				break;
+
+			}
+			return m_pLightCameras[slot];
+		}
+
+		ICamera * CScene::SetupLightCamera(int slot)
+		{
+			if (slot >= 0 &&slot < MAX_LIGHT_NUM)
+				m_pLightCameras[slot] = new CCamera();
 			return m_pLightCameras[slot];
 		}
 

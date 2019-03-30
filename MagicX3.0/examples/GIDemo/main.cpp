@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 	mainSphere->SetPosition(CVector3(0, 0, -20));
 	scene->GetRootNode()->AddChild(mainSphere);
 
-	ex::CSphereEntity *tmpSphere = new ex::CSphereEntity(1, 52, 26, CVector3(1.0, 1., 1.0));
+	ex::CSphereEntity *tmpSphere = new ex::CSphereEntity(3, 52, 26, CVector3(.0, .5, .5));
 	tmpSphere->Create();
 	tmpSphere->SetPosition(CVector3(0, 2, -20));
 	scene->GetRootNode()->AddChild(tmpSphere);
