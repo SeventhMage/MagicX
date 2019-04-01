@@ -59,6 +59,8 @@ namespace mx
 			CVector3 lightDir[64];
 			CVector3 lightColor[64];
 			CMatrix4 lightMatrix[64];
+			CMatrix4 lightViewMatrix[64];
+			CMatrix4 lightProjectMatrix[64];
 			CMatrix4 scaleMat4(.5f, .0f, .0f, .0f,
 				.0f, .5f, .0f, .0f,
 				.0f, .0f, .5f, .0f,
@@ -92,10 +94,15 @@ namespace mx
 				if (pLightCam)
 				{
 					lightMatrix[i] = pLightCam->GetViewProjectionMatrix() * scaleMat4;
+					lightViewMatrix[i] = pLightCam->GetViewMatrix();
+					lightProjectMatrix[i] = pLightCam->GetProjectionMatrix();
 				}
 			}
 
 			m_pRenderable->SetUniform("shadowMatrix", lightMatrix);
+			m_pRenderable->SetUniform("lightViewMatrix", lightViewMatrix);
+			m_pRenderable->SetUniform("lightProjectMatrix", lightProjectMatrix);
+			m_pRenderable->SetUniform("scaleMatrix", scaleMat4.m);
 			m_pRenderable->SetUniform("lightPosition", lightPos);
 			m_pRenderable->SetUniform("lightDir", lightDir);
 			m_pRenderable->SetUniform("lightColor", lightColor);

@@ -63,6 +63,9 @@ namespace mx
 					case 'e':
 						event->OnPress(EKP_KEYBOARD_E);
 						break;
+					case 'Z':
+					case 'z':
+						event->OnPress(EKP_KEYBOARD_Z);
 					default:
 						break;
 					}
@@ -108,6 +111,9 @@ namespace mx
 					case 'e':
 						event->OnUp(EKP_KEYBOARD_E);
 						break;
+					case 'Z':
+					case 'z':
+						event->OnUp(EKP_KEYBOARD_Z);
 					default:
 						break;
 					}

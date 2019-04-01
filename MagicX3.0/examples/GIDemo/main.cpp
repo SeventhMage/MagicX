@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 	mainSphere->SetPosition(CVector3(0, 0, -20));
 	scene->GetRootNode()->AddChild(mainSphere);
 
-	ex::CSphereEntity *tmpSphere = new ex::CSphereEntity(3, 52, 26, CVector3(.0, .5, .5));
+	ex::CSphereEntity *tmpSphere = new ex::CSphereEntity(3, 52, 26, CVector3(.0, .6, .0));
 	tmpSphere->Create();
 	tmpSphere->SetPosition(CVector3(0, 2, -20));
 	scene->GetRootNode()->AddChild(tmpSphere);
@@ -149,11 +149,11 @@ int main(int argc, char *argv[])
 						spherePos.z += step;
 					}
 
-					if (event->IsPress(device::EKP_KEYBOARD_Q))
+					if (event->IsPress(device::EKP_KEYBOARD_SPACE))
 					{
 						spherePos.y += step;
 					}
-					if (event->IsPress(device::EKP_KEYBOARD_E))
+					if (event->IsPress(device::EKP_KEYBOARD_Z))
 					{
 						spherePos.y -= step;
 					}
