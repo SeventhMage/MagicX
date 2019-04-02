@@ -23,15 +23,14 @@ int main(int argc, char *argv[])
 	float gray[] = { .8f, .8f, .8f, 1.f };
 
 
-	CPointLight *pLight[MAX_LIGHT_NUM] = { 0 };
+	ILight *pLight[MAX_LIGHT_NUM] = { 0 };
 	ICamera *pLightCamera[MAX_LIGHT_NUM] = {0};
 	ex::CHouse *pHouse = new ex::CHouse(10, 10, 10);
-	CPointLight *pPointLight = nullptr;
 	ICamera *camera = nullptr;
 	CScreenAlignedQuad *pScreenAlignedQuad = new CScreenAlignedQuad(4, 5);
 	if (scene)
 	{
-		CVector3 vPos(0, 0, 0);
+		CVector3 vPos(0, 0, 20);
 		CVector3 vDir(0, 0, -1);
 		CVector3 vUp(0, 1, 0);
 		camera = scene->SetupCamera(vPos, vDir, vUp, PI / 3, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
@@ -40,14 +39,15 @@ int main(int argc, char *argv[])
 		srand(time(0));
 		CVector3 lightPos;
 		CVector3 lightDir(0, 0, -1);
+		CVector3 lightUp(0, 1, 0);
 		CVector3 lightColor;
-		lightPos.set(0, 0, 10);
-		lightColor.set(0.9, 0.9, 0.9);
-		pLight[0] = (CPointLight *)scene->SetupLight(0, LT_POINT, lightColor.v);
-		pLight[0]->SetPosition(lightPos);
-		pLightCamera[0] = scene->SetupLightCamera(0, lightPos, lightDir, CVector3(0, 1, 0), PI / 2.0, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.f, 5000.f);
+		lightPos.set(0, 0, 20);
+		lightColor.set(1.0, 1.0, 1.0);
+		pLight[0] = (CDirectionalLight *)scene->SetupLight(0, LT_DIRECTIONAL, lightColor.v);
+		//pLight[0]->SetPosition(lightPos);
+		pLightCamera[0] = scene->SetupLightCamera(0, lightPos, lightDir, lightUp, 20, 20, 1.f, 5000.f);
 
-		pHouse->SetPosition(CVector3(0, 0, -20));
+		pHouse->SetPosition(CVector3(0, 0, 0));
 		scene->GetRootNode()->AddChild(pHouse);
 
 	}
@@ -65,12 +65,12 @@ int main(int argc, char *argv[])
 
 	ex::CSphereEntity *mainSphere =  new ex::CSphereEntity(2, 52, 26, CVector3(.6, 0, 0));
 	mainSphere->Create();
-	mainSphere->SetPosition(CVector3(0, 0, -20));
+	mainSphere->SetPosition(CVector3(3, -3, 0));
 	scene->GetRootNode()->AddChild(mainSphere);
 
-	ex::CSphereEntity *tmpSphere = new ex::CSphereEntity(3, 52, 26, CVector3(.0, .6, .0));
+	ex::CSphereEntity *tmpSphere = new ex::CSphereEntity(3, 52, 26, CVector3(.0, 1.0, .0));
 	tmpSphere->Create();
-	tmpSphere->SetPosition(CVector3(0, 2, -20));
+	tmpSphere->SetPosition(CVector3(0, 1.5, 0));
 	scene->GetRootNode()->AddChild(tmpSphere);
 
 	UINT next_game_tick = GetTickCount();
@@ -124,6 +124,7 @@ int main(int argc, char *argv[])
 
 						camDir.normalize();
 						camera->SetDirection(camDir);
+						camera->SetPosition(-camDir * camera->GetPosition().getLength());
 					}
 
 				}

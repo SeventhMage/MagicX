@@ -121,7 +121,7 @@ namespace mx
 				m_pLightCameras[slot] = new CCamera(position, direction, up, fov, aspect, nearClip, farClip);
 				break;
 			case LT_DIRECTIONAL:
-				m_pLightCameras[slot] = new CCamera(position, direction, up, fov, aspect, nearClip, farClip);
+				m_pLightCameras[slot] = new CCamera(position, direction, up, fov, aspect, nearClip, farClip, true);
 				break;
 
 			}

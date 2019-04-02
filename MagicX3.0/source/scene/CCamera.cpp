@@ -18,15 +18,17 @@ namespace mx
 
 		}
 
-		CCamera::CCamera(const CVector3 &position, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float near, float far)
+		CCamera::CCamera(const CVector3 &position, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float near, float far, bool bOriho)
 			:m_bNeedUpdateProj(true)
 			,m_bNeedUpdateView(true)
-			,m_bOrtho(false)
+			,m_bOrtho(bOriho)
 			,m_position(position)
 			,m_direction(direction)
 			,m_up(up)
 			,m_fov(fov)
 			,m_aspect(aspect)
+			, m_width(fov)
+			, m_height(aspect)
 			,m_nearClip(near)
 			,m_farClip(far)
 			, m_pFocus(NULL)

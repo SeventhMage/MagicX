@@ -107,6 +107,15 @@ namespace mx
 			m_pRenderable->SetUniform("lightDir", lightDir);
 			m_pRenderable->SetUniform("lightColor", lightColor);
 
+			static float randNum[200] = { 0 };
+			for (int i = 0; i < 200; ++i)
+			{
+				if (randNum[i] > 0)
+					break;
+				randNum[i] = (rand() % 100) / 100.f;
+			}
+			m_pRenderable->SetUniform("randNum", randNum);
+
 			if (m_pRenderable)
 				m_pRenderable->SumbitToRenderQueue();
 		}

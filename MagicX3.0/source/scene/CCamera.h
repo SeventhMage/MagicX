@@ -15,7 +15,7 @@ namespace mx
 		{
 		public:
 			CCamera();
-			CCamera(const CVector3 &position, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float near, float far);
+			CCamera(const CVector3 &position, const CVector3 &direction, const CVector3 &up, float fov, float aspect, float near, float far, bool bOriho = false);
 			CCamera(float fDistance, ISceneNode *pFocusNode, const CVector3 &vDirection, const CVector3 &vUp, float fov, float aspect, float nearClip, float farClip);
 			virtual ~CCamera();
 			
