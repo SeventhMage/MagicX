@@ -1,4 +1,4 @@
 <RenderPhase>
-	<RenderTarget flag="15" width="512" height="512"/>
+	<RenderTarget flag="15" width="256" height="256"/>
 	<RenderQueue materialid="1" materialname="material/val.xml"/>
 </RenderPhase>

@@ -107,14 +107,20 @@ namespace mx
 			m_pRenderable->SetUniform("lightDir", lightDir);
 			m_pRenderable->SetUniform("lightColor", lightColor);
 
-			static float randNum[200] = { 0 };
-			for (int i = 0; i < 200; ++i)
+			static const int RAND_NUM = 256;
+			static float fSRandNum[RAND_NUM] = { 0 };
+			static float fCRandNum[RAND_NUM] = { 0 };
+			for (int i = 0; i < RAND_NUM; ++i)
 			{
-				if (randNum[i] > 0)
+				if (fSRandNum[i] > 0)
 					break;
-				randNum[i] = (rand() % 100) / 100.f;
+				float randRadius = 1.f * rand() / RAND_MAX;
+				float randRadian = 1.f * rand() / RAND_MAX;
+				fSRandNum[i] = randRadius * sin(PI_2 * randRadian);
+				fCRandNum[i] = randRadius * cos(PI_2 * randRadian);
 			}
-			m_pRenderable->SetUniform("randNum", randNum);
+			m_pRenderable->SetUniform("fSRandNum", fSRandNum);
+			m_pRenderable->SetUniform("fCRandNum", fCRandNum);
 
 			if (m_pRenderable)
 				m_pRenderable->SumbitToRenderQueue();

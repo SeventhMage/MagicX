@@ -12,6 +12,7 @@ namespace mx
 	const double ROUNDING_ERROR_DOUBLE = 0.00000001;
 
 	const float PI = 3.14159265359f;
+	const float PI_2 = 2 * PI;
 	const double PI64 = 3.1415926535897932384626433832795028841971693993751;
 
 	const float DEGTORAD = PI / 180.0f;

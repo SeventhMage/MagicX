@@ -33,19 +33,24 @@ int main(int argc, char *argv[])
 		CVector3 vPos(0, 0, 20);
 		CVector3 vDir(0, 0, -1);
 		CVector3 vUp(0, 1, 0);
-		camera = scene->SetupCamera(vPos, vDir, vUp, PI / 3, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
+		float screenRate = 1.f * device->GetWindowWidth() / device->GetWindowHeight();
+		camera = scene->SetupCamera(vPos, vDir, vUp, PI / 3, screenRate, 1.0f, 1000.0f);
 		//scene->SetupSkyBox("texture/TropicalSunnyDayLeft2048.tga", "texture/TropicalSunnyDayRight2048.tga", "texture/TropicalSunnyDayUp2048.tga", "texture/TropicalSunnyDayDown2048.tga", "texture/TropicalSunnyDayFront2048.tga", "texture/TropicalSunnyDayBack2048.tga", 256);		
 
 		srand(time(0));
 		CVector3 lightPos;
-		CVector3 lightDir(0, 0, -1);
-		CVector3 lightUp(0, 1, 0);
+		CVector3 lightDir(0, -1, 0);
+		CVector3 lightUp(0, 0, -1);
 		CVector3 lightColor;
-		lightPos.set(0, 0, 20);
+		lightPos.set(0, 4.9, 0);
 		lightColor.set(1.0, 1.0, 1.0);
 		pLight[0] = (CDirectionalLight *)scene->SetupLight(0, LT_DIRECTIONAL, lightColor.v);
-		//pLight[0]->SetPosition(lightPos);
-		pLightCamera[0] = scene->SetupLightCamera(0, lightPos, lightDir, lightUp, 20, 20, 1.f, 5000.f);
+		((CDirectionalLight *)pLight[0])->SetDirection(lightDir);
+		pLightCamera[0] = scene->SetupLightCamera(0, lightPos, lightDir, lightUp, 20 * screenRate, 20, 1.f, 100.f);
+			
+		//pLight[0] = scene->SetupLight(0, LT_POINT, lightColor.v);
+		//((CPointLight *)pLight[0])->SetPosition(lightPos);
+		//pLightCamera[0] = scene->SetupLightCamera(0, lightPos, lightDir, lightUp, 2 * PI / 3, screenRate, 0.1f, 1000.f);
 
 		pHouse->SetPosition(CVector3(0, 0, 0));
 		scene->GetRootNode()->AddChild(pHouse);
@@ -63,14 +68,14 @@ int main(int argc, char *argv[])
 	//	scene->GetRootNode()->AddChild(pSphere);
 	//}
 
-	ex::CSphereEntity *mainSphere =  new ex::CSphereEntity(2, 52, 26, CVector3(.6, 0, 0));
+	ex::CSphereEntity *mainSphere =  new ex::CSphereEntity(2, 52, 26, CVector3(1.f, 0.0f, 0.0f));
 	mainSphere->Create();
 	mainSphere->SetPosition(CVector3(3, -3, 0));
 	scene->GetRootNode()->AddChild(mainSphere);
 
-	ex::CSphereEntity *tmpSphere = new ex::CSphereEntity(3, 52, 26, CVector3(.0, 1.0, .0));
+	ex::CSphereEntity *tmpSphere = new ex::CSphereEntity(3, 52, 26, CVector3(.5f, .8f, .5f));
 	tmpSphere->Create();
-	tmpSphere->SetPosition(CVector3(0, 1.5, 0));
+	tmpSphere->SetPosition(CVector3(-2.0, -1.5, 0));
 	scene->GetRootNode()->AddChild(tmpSphere);
 
 	UINT next_game_tick = GetTickCount();

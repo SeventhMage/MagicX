@@ -157,7 +157,10 @@ namespace mx
 			if (m_bNeedUpdateProj || m_bNeedUpdateView)
 			{
 				m_matVP = m_matView * m_matProj;
+				float out[4];
 				
+				m_matVP.TransformVect(out, CVector3(0, 10, 0));
+				m_matVP.TransformVect(out, CVector3(0, 5, 0));
 				//frustum¸üÐÂ
 				
 

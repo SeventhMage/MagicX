@@ -194,12 +194,12 @@ namespace mx
 
 				m[8] = 0;
 				m[9] = 0;
-				m[10] = (float)(1 / (zNear - zFar));
+				m[10] = (float)(2 / (zNear - zFar));
 				m[11] = 0;
 
 				m[12] = 0;
 				m[13] = 0;
-				m[14] = (float)(zNear / (zNear - zFar));
+				m[14] = (float)((zNear + zFar) / (zNear - zFar));
 				m[15] = 1;
 
 				return *this;
