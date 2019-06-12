@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 	CScreenAlignedQuad *pScreenAlignedQuad = new CScreenAlignedQuad(4, 5);
 	if (scene)
 	{
-		CVector3 vPos(0, 0, 20);
+		CVector3 vPos(0, 0, 15);
 		CVector3 vDir(0, 0, -1);
 		CVector3 vUp(0, 1, 0);
 		float screenRate = 1.f * device->GetWindowWidth() / device->GetWindowHeight();
@@ -68,14 +68,14 @@ int main(int argc, char *argv[])
 	//	scene->GetRootNode()->AddChild(pSphere);
 	//}
 
-	ex::CSphereEntity *mainSphere =  new ex::CSphereEntity(2, 52, 26, CVector3(1.f, 0.0f, 0.0f));
+	ex::CSphereEntity *mainSphere =  new ex::CSphereEntity(1.5, 52, 26, CVector3(1.f, 0.0f, 0.0f));
 	mainSphere->Create();
 	mainSphere->SetPosition(CVector3(3, -3, 0));
 	scene->GetRootNode()->AddChild(mainSphere);
 
 	ex::CSphereEntity *tmpSphere = new ex::CSphereEntity(3, 52, 26, CVector3(.5f, .8f, .5f));
 	tmpSphere->Create();
-	tmpSphere->SetPosition(CVector3(-2.0, -1.5, 0));
+	tmpSphere->SetPosition(CVector3(-1.5, -1.5, 0));
 	scene->GetRootNode()->AddChild(tmpSphere);
 
 	UINT next_game_tick = GetTickCount();
