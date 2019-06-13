@@ -4,6 +4,7 @@
 #include "IRenderable.h"
 
 #include <map>
+#include <vector>
 
 namespace mx
 {
@@ -21,6 +22,7 @@ namespace mx
 			virtual void SetPhaseTexture(const char *name,int phaseid, int slot, int flag) = 0;
 		};
 		typedef std::map<int, IRenderQueue *> RenderQueueGroup;	//k:materialid
+		typedef std::vector<IRenderQueue *> RenderQueueArray;
 	}
 }
 

@@ -104,6 +104,12 @@
     <ClCompile Include="..\..\..\..\source\render\CRenderList.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CRenderQueue.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CShaderProgram.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\screenalignedquad\CDirectLightMap.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\screenalignedquad\CGuassianHBlur.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\screenalignedquad\CGuassianVBlur.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\screenalignedquad\CScreenAlignedQuad.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\screenalignedquad\CScreenAlignedQuadManager.cpp" />
+    <ClCompile Include="..\..\..\..\source\render\screenalignedquad\CIndirectLightMap.cpp" />
     <ClCompile Include="..\..\..\..\source\render\SUniform.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CVertexArrayObject.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLDriver.cpp" />
@@ -141,7 +147,6 @@
     <ClCompile Include="..\..\..\..\source\scene\CScene.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSceneManager.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSceneNode.cpp" />
-    <ClCompile Include="..\..\..\..\source\scene\CScreenAlignedQuad.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSkyBox.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSphere.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CSphereEntiy.cpp" />
@@ -189,6 +194,7 @@
     <ClInclude Include="..\..\..\..\include\render\IRenderQueue.h" />
     <ClInclude Include="..\..\..\..\include\render\IRenderTarget.h" />
     <ClInclude Include="..\..\..\..\include\render\IRenderTargetManager.h" />
+    <ClInclude Include="..\..\..\..\include\render\IScreenAlignedQuadManager.h" />
     <ClInclude Include="..\..\..\..\include\render\IShader.h" />
     <ClInclude Include="..\..\..\..\include\render\IShaderProgram.h" />
     <ClInclude Include="..\..\..\..\include\render\IShadowMap.h" />
@@ -210,7 +216,6 @@
     <ClInclude Include="..\..\..\..\include\resource\IResource.h" />
     <ClInclude Include="..\..\..\..\include\resource\IResourceManager.h" />
     <ClInclude Include="..\..\..\..\include\scene\CSceneNode.h" />
-    <ClInclude Include="..\..\..\..\include\scene\CScreenAlignedQuad.h" />
     <ClInclude Include="..\..\..\..\include\scene\CSphere.h" />
     <ClInclude Include="..\..\..\..\include\scene\CSphereEntiy.h" />
     <ClInclude Include="..\..\..\..\include\scene\CUnit.h" />
@@ -240,6 +245,12 @@
     <ClInclude Include="..\..\..\..\source\render\CRenderList.h" />
     <ClInclude Include="..\..\..\..\source\render\CRenderQueue.h" />
     <ClInclude Include="..\..\..\..\source\render\CShaderProgram.h" />
+    <ClInclude Include="..\..\..\..\source\render\screenalignedquad\CDirectLightMap.h" />
+    <ClInclude Include="..\..\..\..\source\render\screenalignedquad\CGuassianHBlur.h" />
+    <ClInclude Include="..\..\..\..\source\render\screenalignedquad\CGuassianVBlur.h" />
+    <ClInclude Include="..\..\..\..\source\render\screenalignedquad\CScreenAlignedQuad.h" />
+    <ClInclude Include="..\..\..\..\source\render\screenalignedquad\CScreenAlignedQuadManager.h" />
+    <ClInclude Include="..\..\..\..\source\render\screenalignedquad\CIndirectLightMap.h" />
     <ClInclude Include="..\..\..\..\source\render\SUniform.h" />
     <ClInclude Include="..\..\..\..\source\render\CVertexArrayObject.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLDriver.h" />

@@ -17,6 +17,7 @@
 #include "renderphase/IRenderPhaseManager.h"
 #include "IMaterialManager.h"
 #include "IRenderQueue.h"
+#include "IScreenAlignedQuadManager.h"
 
 namespace mx
 {
@@ -79,6 +80,9 @@ namespace mx
 			virtual IRenderPhaseManager *GetRenderPhaseManager() const = 0;
 			virtual void ProcessRenderPhase() const = 0;
 			virtual IMaterialManager *GetMaterialManager() const = 0;
+
+			virtual IScreenAlignedQuadManager *GetScreenAlignedQuadManager() const = 0;
+			virtual void SubmitScreenAlignedQuad() const = 0;
 
 		private:
 			

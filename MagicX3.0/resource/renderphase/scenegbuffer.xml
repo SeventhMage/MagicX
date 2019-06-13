@@ -1,5 +1,5 @@
 <RenderPhase>
 	<RenderTarget flag="15"/>
-	<RenderQueue materialid="3" materialname="material/scenemap.xml">
+	<RenderQueue materialid="3" materialname="material/scenegbuffer.xml">
 	</RenderQueue>
 </RenderPhase>

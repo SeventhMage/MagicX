@@ -1,0 +1,17 @@
+#version 330 core
+
+uniform sampler2D textureColor;
+uniform vec4 uKernel[15];
+
+in vec2 vOutTexCoord0;
+
+void main()
+{
+	vec4 c = vec4(0.0, 0.0, 0.0, 0.0);
+	for (int u=0; u<15; ++u)
+	{
+		vec3 v = uKernel[u].xyz;
+		c += texture2D(textureColor, vOutTexCoord0 + v.xy).xyzw * v.z;
+	}
+	gl_FragColor = c;
+}

@@ -76,6 +76,9 @@
     <Filter Include="source\render\renderphase">
       <UniqueIdentifier>{a7b1beba-bd58-4199-bf31-45a214dca20e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\render\screenalignedquad">
+      <UniqueIdentifier>{9a37ba2d-4b4a-4178-8874-db7fa9d3440a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\mx.cpp">
@@ -246,9 +249,6 @@
     <ClCompile Include="..\..\..\..\source\scene\CEntity.cpp">
       <Filter>source\scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\source\scene\CScreenAlignedQuad.cpp">
-      <Filter>source\scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\source\render\CRenderQueue.cpp">
       <Filter>source\render</Filter>
     </ClCompile>
@@ -260,6 +260,24 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\scene\light\CDirectionalLight.cpp">
       <Filter>source\scene\light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\screenalignedquad\CScreenAlignedQuadManager.cpp">
+      <Filter>source\render\screenalignedquad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\screenalignedquad\CScreenAlignedQuad.cpp">
+      <Filter>source\render\screenalignedquad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\screenalignedquad\CGuassianHBlur.cpp">
+      <Filter>source\render\screenalignedquad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\screenalignedquad\CGuassianVBlur.cpp">
+      <Filter>source\render\screenalignedquad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\screenalignedquad\CDirectLightMap.cpp">
+      <Filter>source\render\screenalignedquad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render\screenalignedquad\CIndirectLightMap.cpp">
+      <Filter>source\render\screenalignedquad</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -602,9 +620,6 @@
     <ClInclude Include="..\..\..\..\source\render\CRenderInput.h">
       <Filter>source\render</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\include\scene\CScreenAlignedQuad.h">
-      <Filter>include\scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\source\render\CRenderQueue.h">
       <Filter>source\render</Filter>
     </ClInclude>
@@ -625,6 +640,27 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\base\base.h">
       <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\screenalignedquad\CScreenAlignedQuadManager.h">
+      <Filter>source\render\screenalignedquad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\screenalignedquad\CScreenAlignedQuad.h">
+      <Filter>source\render\screenalignedquad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\render\IScreenAlignedQuadManager.h">
+      <Filter>include\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\screenalignedquad\CGuassianHBlur.h">
+      <Filter>source\render\screenalignedquad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\screenalignedquad\CGuassianVBlur.h">
+      <Filter>source\render\screenalignedquad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\screenalignedquad\CDirectLightMap.h">
+      <Filter>source\render\screenalignedquad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render\screenalignedquad\CIndirectLightMap.h">
+      <Filter>source\render\screenalignedquad</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

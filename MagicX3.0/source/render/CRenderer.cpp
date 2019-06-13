@@ -17,6 +17,7 @@ namespace mx
 		{
 			m_pMaterialMgr = new CMaterialManager();
 			m_pRenderPhaseMgr = new CRenderPhaseManager();
+			m_pScreenAlignedQuadManager = new CScreenAlignedQuadManager();
 		}
 
 		CRenderer::~CRenderer()
@@ -33,6 +34,7 @@ namespace mx
 
 			SAFE_DEL(m_pMaterialMgr);
 			SAFE_DEL(m_pRenderPhaseMgr);
+			SAFE_DEL(m_pScreenAlignedQuadManager);
 		}
 
 		void CRenderer::Initialize(int width, int height)
@@ -111,6 +113,11 @@ namespace mx
 		void CRenderer::ProcessRenderPhase() const
 		{
 			m_pRenderPhaseMgr->ProcessRenderPhase();
+		}
+
+		void CRenderer::SubmitScreenAlignedQuad() const
+		{
+			m_pScreenAlignedQuadManager->Render();
 		}
 
 	}

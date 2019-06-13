@@ -1,5 +1,5 @@
 <Material>
-	<ShaderProgram vs="shader/screenalignedquad.vs" ps="shader/screenalignedquad.ps">
+	<ShaderProgram vs="shader/screenalignedquad.vs" ps="shader/indirectlightmap.ps">
 		<VertexAttribute>
 			<Location index="0" name="vPosition"/>
 			<Location index="3" name="vTexCoord0"/>

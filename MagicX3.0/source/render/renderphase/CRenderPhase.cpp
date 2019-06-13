@@ -63,10 +63,10 @@ namespace mx
 			{
 				m_pRenderTarget->BeginTarget();
 
-				for (auto queue : m_renderQueueGroup)
+				for (auto queue : m_renderQueueArray)
 				{
-					queue.second->Render();
-					queue.second->Clear();
+					queue->Render();
+					queue->Clear();
 				}
 				
 				m_pRenderTarget->EndTarget();
@@ -92,6 +92,7 @@ namespace mx
 			{	
 				pRenderQueue = new CRenderQueue(materialId);
 				m_renderQueueGroup[materialId] = pRenderQueue;
+				m_renderQueueArray.push_back(pRenderQueue);
 			}
 			return pRenderQueue;
 		}

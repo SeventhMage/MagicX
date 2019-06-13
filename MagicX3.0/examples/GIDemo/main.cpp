@@ -27,7 +27,6 @@ int main(int argc, char *argv[])
 	ICamera *pLightCamera[MAX_LIGHT_NUM] = {0};
 	ex::CHouse *pHouse = new ex::CHouse(10, 10, 10);
 	ICamera *camera = nullptr;
-	CScreenAlignedQuad *pScreenAlignedQuad = new CScreenAlignedQuad(4, 5);
 	if (scene)
 	{
 		CVector3 vPos(0, 0, 15);
@@ -68,12 +67,12 @@ int main(int argc, char *argv[])
 	//	scene->GetRootNode()->AddChild(pSphere);
 	//}
 
-	ex::CSphereEntity *mainSphere =  new ex::CSphereEntity(1.5, 52, 26, CVector3(1.f, 0.0f, 0.0f));
+	ex::CSphereEntity *mainSphere =  new ex::CSphereEntity(1.5, 24, 12, CVector3(1.f, 0.0f, 0.0f));
 	mainSphere->Create();
 	mainSphere->SetPosition(CVector3(3, -3, 0));
 	scene->GetRootNode()->AddChild(mainSphere);
 
-	ex::CSphereEntity *tmpSphere = new ex::CSphereEntity(3, 52, 26, CVector3(.5f, .8f, .5f));
+	ex::CSphereEntity *tmpSphere = new ex::CSphereEntity(3, 24, 12, CVector3(.5f, .8f, .5f));
 	tmpSphere->Create();
 	tmpSphere->SetPosition(CVector3(-1.5, -1.5, 0));
 	scene->GetRootNode()->AddChild(tmpSphere);
@@ -89,7 +88,6 @@ int main(int argc, char *argv[])
 		if (sleep_time <= 0)
 		{
 			next_game_tick = cur_time + SKIP_TICKS;
-			pScreenAlignedQuad->Render();
 			int delta = 1000 / (SKIP_TICKS - sleep_time);
 			_snwprintf_s(title, sizeof(title), L"FPS:%d TriangleNum:%d", delta, mx->GetRenderer()->GetTriangleNum());
 			mx->Run(delta);

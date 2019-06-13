@@ -87,6 +87,7 @@ namespace mx
 	void CMagicX::Run(int delta)
 	{
 		m_pSceneMgr->Update(delta);
+		m_pRenderer->SubmitScreenAlignedQuad();
 		m_pRenderer->ProcessRenderPhase();
 		GetDevice()->SwapBuffers();
 	}

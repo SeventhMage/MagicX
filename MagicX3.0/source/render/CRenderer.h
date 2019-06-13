@@ -6,8 +6,10 @@
 
 #include "render/IRenderer.h"
 #include "render/IMaterialManager.h"
+#include "screenalignedquad/CScreenAlignedQuadManager.h"
 
 #include <vector>
+
 namespace mx
 {
 	namespace render
@@ -35,7 +37,8 @@ namespace mx
 
 			virtual IMaterialManager *GetMaterialManager() const { return m_pMaterialMgr; }
 
-
+			virtual IScreenAlignedQuadManager *GetScreenAlignedQuadManager() const { return m_pScreenAlignedQuadManager; }
+			virtual void SubmitScreenAlignedQuad() const;
 		protected:
 			virtual void AddVertexArrayObject(IVertexArrayObject *pObject);
 			virtual void RemoveVertexArrayObject(IVertexArrayObject *pObject);
@@ -47,6 +50,8 @@ namespace mx
 			IMaterialManager *m_pMaterialMgr;
 
 			IRenderPhaseManager *m_pRenderPhaseMgr;
+
+			CScreenAlignedQuadManager *m_pScreenAlignedQuadManager;
 
 		};
 	}

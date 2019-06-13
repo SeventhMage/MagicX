@@ -124,12 +124,18 @@ namespace mx
 
 					for (rapidxml::xml_node<> * node = rootNode->first_node("RenderQueue"); node; node = node->next_sibling())
 					{
-						int id  = atoi(node->first_attribute("materialid")->value());
-						const char *name = node->first_attribute("materialname")->value();
-						IRenderQueue *queue = pRenderPhase->CreateRenderQueue(id);
+						int materialid  = atoi(node->first_attribute("materialid")->value());
+						IRenderQueue *queue = pRenderPhase->CreateRenderQueue(materialid);
 
 						if (queue)
 						{
+							const char *name = node->first_attribute("materialname")->value();
+							if (node->first_attribute("for"))
+							{
+								const char *specialfor = node->first_attribute("for")->value();
+								RENDERER->GetScreenAlignedQuadManager()->CreateScreenAlignedQuad(specialfor, queue);
+							}
+
 							for (rapidxml::xml_node<> * quoteNode = node->first_node("PhaseQuote"); quoteNode; quoteNode = quoteNode->next_sibling())
 							{
 								int quoteid = atoi(quoteNode->first_attribute("id")->value());

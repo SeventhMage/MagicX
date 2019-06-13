@@ -1,20 +1,14 @@
 <RenderPhase>
 	<RenderTarget flag="0"/>
-	<RenderQueue materialid="5" materialname="material/screenalignedquad.xml">
-		<PhaseQuote id="1">
-			<TextureUniform name="textureColor" slot="4" flag="1"/>
-			<TextureUniform name="texturePosition" slot="5" flag="2"/>
-			<TextureUniform name="textureNormal" slot="6" flag="4"/>
-		</PhaseQuote>
-		<!--
-		<PhaseQuote id="2">
-			<TextureUniform name="depthTexture" slot="3" flag="8"/>
-		</PhaseQuote>
-	-->
+	<RenderQueue materialid="5" materialname="material/screenalignedquad.xml" for="ScreenAlignedQuad">
 		<PhaseQuote id="3">
-			<TextureUniform name="textureUnit0" slot="0" flag="1"/>
-			<TextureUniform name="textureUnit1" slot="1" flag="2"/>
-			<TextureUniform name="textureUnit2" slot="2" flag="4"/>
+			<TextureUniform name="tSceneMap" slot="0" flag="1"/>
+		</PhaseQuote>
+		<PhaseQuote id="4">
+			<TextureUniform name="tDirectLightMap" slot="1" flag="1"/>
+		</PhaseQuote>
+		<PhaseQuote id="7">
+			<TextureUniform name="tIndirectLightMap" slot="2" flag="1"/>
 		</PhaseQuote>
 	</RenderQueue>
 </RenderPhase>

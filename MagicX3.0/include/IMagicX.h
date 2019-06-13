@@ -53,7 +53,6 @@
 #include "scene/IScene.h"
 #include "scene/ISceneNode.h"
 #include "scene/IVertex.h"
-#include "scene/CScreenAlignedQuad.h"
 
 //physics
 

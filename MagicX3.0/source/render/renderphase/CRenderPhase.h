@@ -32,6 +32,7 @@ namespace mx
 			IRenderTarget *m_pRenderTarget;
 			IRenderPhaseManager *m_pRenderPhaseManager;
 			RenderQueueGroup m_renderQueueGroup;
+			RenderQueueArray m_renderQueueArray;
 			int m_Id;
 			int m_renderTargetFlag;
 			int m_iWidth;
