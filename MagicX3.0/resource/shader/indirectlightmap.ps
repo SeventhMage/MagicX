@@ -29,8 +29,8 @@ void main()
 	
 	vec3 mainLightDir = -normalize(lightDir);//normalize(lightPosition - position.xyz);
 
-	float rowSampleNum = 16;
-	float colSampleNum = 16;
+	float rowSampleNum = 8;
+	float colSampleNum = 8;
 	float sampleTotalNum = rowSampleNum * colSampleNum;
 	float valRowNum = 800;
 	float valColNum = 600;
@@ -61,8 +61,9 @@ void main()
 		vec3 irradiance = shootColor * max(dot(normal.xyz, -shootDir), 0) / (pow(dis, 4.0) + 4 * pow(dis, 2.0) + 6 * dis + 4.0);
 		
 		indirectLC += irradiance;
-		float v =  (dot(shootDir, valN.xyz) < 0.0 && dot(-shootDir, normal.xyz) > 0.0) ? 1.0 : 0.0;
-		shelter += v * dot(-shootDir, normal.xyz);// / (dis);
+		
+		float v = (1.0 - step(0.0, dot(shootDir, valN.xyz))) * step(0.0, dot(-shootDir, normal.xyz));
+		shelter += v * max(dot(-shootDir, normal.xyz), 0.0);// / (dis);
 	}
 	//indirectLC /= sampleTotalNum;
 
