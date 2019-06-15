@@ -1,5 +1,5 @@
 <RenderPhase>
-	<RenderTarget flag="1"/>
+	<RenderTarget flag="1" width="200" height="150"/>
 	<RenderQueue materialid="7" materialname="material/gaussianblur.xml" for="GaussianHBlur">
 		<PhaseQuote id="5">
 			<TextureUniform name="textureColor" slot="0" flag="1"/>

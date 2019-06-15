@@ -1,0 +1,9 @@
+<Material>
+	<ShaderProgram vs="shader/genval.vs" ps="shader/gbufferoutput_c.ps">
+		<VertexAttribute>
+			<Location index="0" name="vPosition"/>
+			<Location index="2" name="vNormal"/>
+			<Location index="3" name="vTexCoord0"/>
+		</VertexAttribute>
+	</ShaderProgram> 
+</Material>

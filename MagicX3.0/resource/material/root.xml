@@ -7,4 +7,6 @@
 	<Material id= "6" name="material/indirectlightmap.xml"/>
 	<Material id= "7" name="material/gaussianblur.xml"/>
 	<Material id= "8" name="material/directlightmap.xml"/>
+	<Material id= "9" name="material/scenegbuffer_c.xml"/>
+	<Material id= "10" name="material/val_c.xml"/>
 </MaterialRoot>

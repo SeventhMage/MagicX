@@ -2,4 +2,6 @@
 	<RenderTarget flag="15"/>
 	<RenderQueue materialid="3" materialname="material/scenegbuffer.xml">
 	</RenderQueue>
+	<RenderQueue materialid="9" materialname="material/scenegbuffer_c.xml">
+	</RenderQueue>
 </RenderPhase>

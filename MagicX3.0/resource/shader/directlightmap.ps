@@ -3,10 +3,13 @@
 uniform sampler2D tGColor;
 uniform sampler2D tGPosition;
 uniform sampler2D tGNormal;
+//uniform sampler2DShadow tDepthTexture;
 
 uniform vec3 lightPosition;
 uniform vec3 lightDir;
 uniform vec3 lightColor;
+
+//uniform mat4 shadowMatrix;
 
 in vec2 vOutTexCoord0;
 
@@ -16,9 +19,11 @@ void main()
 	vec4 position = texture2D(tGPosition, vOutTexCoord0);	
 	vec4 normal = texture2D(tGNormal, vOutTexCoord0);	
 	
+	//float f = textureProj(tDepthTexture, shadowMatrix * position);
+
 	vec3 mainLightDir = -normalize(lightDir);//normalize(lightPosition - position.xyz);
 	float mainRate = max(dot(mainLightDir, normal.xyz), 0);
-	vec3 lightC =  mainRate * lightColor;
+	vec3 lightC =  mainRate * lightColor;// * f;
 
 	gl_FragColor = vec4(lightC, 1.0);
 }

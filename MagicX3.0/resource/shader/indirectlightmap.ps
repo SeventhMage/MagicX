@@ -58,7 +58,7 @@ void main()
 		vec3 shootColor = valC.rgb * valRate * max(dot(shootDir, valN.xyz), 0);// / 3.14;
 		
 		float dis = max(distance(valP.xyz, position.xyz), 1.0);
-		vec3 irradiance = shootColor * max(dot(normal.xyz, -shootDir), 0) / (pow(dis, 4.0) + 4 * pow(dis, 2.0) + 6 * dis + 4.0);
+		vec3 irradiance = shootColor * max(dot(normal.xyz, -shootDir), 0) / (pow(dis, 4.0));// + 2 * pow(dis, 2.0) + 3 * dis + 4.0);
 		
 		indirectLC += irradiance;
 		

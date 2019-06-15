@@ -6,5 +6,10 @@
 			<TextureUniform name="tGPosition" slot="1" flag="2"/>
 			<TextureUniform name="tGNormal" slot="2" flag="4"/>
 		</PhaseQuote>
+		<!--
+		<PhaseQuote id="2">
+			<TextureUniform name="tDepthTexture" slot="3" flag="8"/>
+		</PhaseQuote>
+	-->
 	</RenderQueue>
 </RenderPhase>
