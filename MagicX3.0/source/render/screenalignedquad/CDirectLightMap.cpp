@@ -25,6 +25,11 @@ namespace mx
 			CVector3 lightPos[MAX_LIGHT_NUM];
 			CVector3 lightDir[MAX_LIGHT_NUM];
 			CVector3 lightColor[MAX_LIGHT_NUM];
+			CMatrix4 lightMatrix[MAX_LIGHT_NUM];
+			CMatrix4 scaleMat4(.5f, .0f, .0f, .0f,
+				.0f, .5f, .0f, .0f,
+				.0f, .0f, .5f, .0f,
+				.5f, .5f, .5f, 1.f);
 
 			for (int i = 0; i < MAX_LIGHT_NUM; ++i)
 			{
@@ -47,10 +52,18 @@ namespace mx
 					break;
 					}
 
+					ICamera *pLightCam = SCENEMGR->GetCurrentScene()->GetLightCamera(i);
+					if (pLightCam)
+					{
+						lightMatrix[i] = pLightCam->GetViewProjectionMatrix() * scaleMat4;
+					
+					}
+
 					memcpy(lightColor[i].v, pLight->GetColor(), sizeof(lightColor[i].v));
 				}
 			}
 
+			m_pRenderable->SetUniform("shadowMatrix", lightMatrix);
 			m_pRenderable->SetUniform("lightPosition", lightPos);
 			m_pRenderable->SetUniform("lightDir", lightDir);
 			m_pRenderable->SetUniform("lightColor", lightColor);
