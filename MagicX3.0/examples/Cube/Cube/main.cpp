@@ -15,23 +15,35 @@ int main(int argc, char *argv[])
 
 	ICamera *camera = nullptr;
 	CubeVertex cubeVertice;
-	
+	ILight *pLight = nullptr;
+	ICamera *pLightCamera = nullptr;
 	CUnit *cube = new CUnit(&cubeVertice, "texture/crate.tga");
 	if (scene)
 	{
-		CUnit *cube2 = new CUnit(&cubeVertice, "texture/crate.tga");
+		CUnit *cube2 = new CUnit(&cubeVertice, "texture/neg_x.tga");
 		CVector3 vDir(0, 0, -1);
 		CVector3 vUp(0, 1, 0);
-		//camera = scene->SetupCamera(CVector3(0, 0, 5), vDir, vUp, PI / 6, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
-		camera = scene->SetupCamera(20.f, cube, vDir, vUp, PI / 2, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
+		float screenRate = 1.0f * device->GetWindowWidth() / device->GetWindowHeight();
+		//camera = scene->SetupCamera(CVector3(0, 0, 10), vDir, vUp, PI / 6, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
+		camera = scene->SetupCamera(20.f, cube, vDir, vUp, PI / 2, screenRate, 1.0f, 5000.0f);
 		ISceneNode *rootNode = scene->GetRootNode();
 		if (rootNode)
 		{									
 			rootNode->AddChild(cube);
 			cube->SetPosition(CVector3(0, 0, -20));
 			rootNode->AddChild(cube2);
-			cube2->SetPosition(CVector3(-15, -15, -30));
+			cube2->SetPosition(CVector3(-10, -10, -20));
 		}
+
+		CVector3 lightPos;
+		CVector3 lightDir(0, 0, -1);
+		CVector3 lightUp(0, 1, 0);
+		CVector3 lightColor;
+		lightPos.set(0, 0, 20);
+		lightColor.set(1.0, 1.0, 1.0);
+		pLight = (CDirectionalLight *)scene->SetupLight(0, LT_DIRECTIONAL, lightColor.v);
+		((CDirectionalLight *)pLight)->SetDirection(lightDir);
+		pLightCamera = scene->SetupLightCamera(0, lightPos, lightDir, lightUp, 100 * screenRate, 100, 1.f, 100.f);
 	}
 
 	UINT next_game_tick = GetTickCount();
@@ -94,6 +106,34 @@ int main(int argc, char *argv[])
 				{
 					exit(1);
 				}
+				CVector3 mainPos = cube->GetPosition();
+				float step = .1f;
+				if (event->IsPress(device::EKP_KEYBOARD_A))
+				{
+					mainPos.x -= step;
+				}
+				if (event->IsPress(device::EKP_KEYBOARD_D))
+				{
+					mainPos.x += step;
+				}
+				if (event->IsPress(device::EKP_KEYBOARD_W))
+				{
+					mainPos.z -= step;
+				}
+				if (event->IsPress(device::EKP_KEYBOARD_S))
+				{
+					mainPos.z += step;
+				}
+
+				if (event->IsPress(device::EKP_KEYBOARD_SPACE))
+				{
+					mainPos.y += step;
+				}
+				if (event->IsPress(device::EKP_KEYBOARD_Z))
+				{
+					mainPos.y -= step;
+				}
+				cube->SetPosition(mainPos);
 
 				lastX = event->GetMousePositonX();
 				lastY = event->GetMousePositionY();

@@ -10,10 +10,10 @@ namespace mx
 		{
 			m_pSphere = new scene::CSphere(fRadius, iSlices, iStacks);
 			
-			AddRenderPhase(1, 1);
-			AddRenderPhase(2, 2);
-			AddRenderPhase(3, 3);
 
+			AddRenderPhase(1, 10);
+			AddRenderPhase(2, 2);
+			AddRenderPhase(3, 9);
 		}
 
 		CSphereEntity::~CSphereEntity()

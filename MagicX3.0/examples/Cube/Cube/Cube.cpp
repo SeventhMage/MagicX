@@ -6,40 +6,40 @@ CubeVertex::CubeVertex()
 
 	float vertice[] = {
 		//front
-		-halfWide, -halfWide, halfWide, 0, 0,
-		halfWide, -halfWide, halfWide, 1, 0,
-		halfWide, halfWide, halfWide, 1, 1,
-		-halfWide, halfWide, halfWide, 0, 1,
+		-halfWide, -halfWide, halfWide, 0, 0, -halfWide, -halfWide, halfWide,
+		halfWide, -halfWide, halfWide, 1, 0, halfWide, -halfWide, halfWide,
+		halfWide, halfWide, halfWide, 1, 1, halfWide, halfWide, halfWide,
+		-halfWide, halfWide, halfWide, 0, 1,-halfWide, halfWide, halfWide,
 
 		//back
-		halfWide, -halfWide, -halfWide, 0, 0,
-		-halfWide, -halfWide, -halfWide, 1, 0,
-		-halfWide, halfWide, -halfWide, 1, 1,
-		halfWide, halfWide, -halfWide, 0, 1,
+		halfWide, -halfWide, -halfWide, 0, 0, halfWide, -halfWide, -halfWide, 
+		-halfWide, -halfWide, -halfWide, 1, 0,-halfWide, -halfWide, -halfWide,
+		-halfWide, halfWide, -halfWide, 1, 1,-halfWide, halfWide, -halfWide,
+		halfWide, halfWide, -halfWide, 0, 1,halfWide, halfWide, -halfWide,
 
 		//left
-		-halfWide, -halfWide, -halfWide, 0, 0,
-		-halfWide, -halfWide, halfWide, 1, 0,
-		-halfWide, halfWide, halfWide, 1, 1,
-		-halfWide, halfWide, -halfWide, 0,1,
+		-halfWide, -halfWide, -halfWide, 0, 0,-halfWide, -halfWide, -halfWide,
+		-halfWide, -halfWide, halfWide, 1, 0,-halfWide, -halfWide, halfWide,
+		-halfWide, halfWide, halfWide, 1, 1,-halfWide, halfWide, halfWide,
+		-halfWide, halfWide, -halfWide, 0,1,-halfWide, halfWide, -halfWide,
 
 		//right
-		halfWide, -halfWide, halfWide, 0, 0,
-		halfWide, -halfWide, -halfWide, 1, 0,
-		halfWide, halfWide, -halfWide, 1, 1,
-		halfWide, halfWide, halfWide, 0, 1,
+		halfWide, -halfWide, halfWide, 0, 0,halfWide, -halfWide, halfWide,
+		halfWide, -halfWide, -halfWide, 1, 0,halfWide, -halfWide, -halfWide,
+		halfWide, halfWide, -halfWide, 1, 1,halfWide, halfWide, -halfWide,
+		halfWide, halfWide, halfWide, 0, 1,halfWide, halfWide, halfWide,
 
 		//top
-		-halfWide, halfWide, halfWide, 0, 0,
-		halfWide, halfWide, halfWide, 1, 0,
-		halfWide, halfWide, -halfWide, 1, 1,
-		-halfWide, halfWide, -halfWide, 0, 1,
+		-halfWide, halfWide, halfWide, 0, 0,-halfWide, halfWide, halfWide, 
+		halfWide, halfWide, halfWide, 1, 0, halfWide, halfWide, halfWide,
+		halfWide, halfWide, -halfWide, 1, 1, halfWide, halfWide, -halfWide,
+		-halfWide, halfWide, -halfWide, 0, 1, -halfWide, halfWide, -halfWide,
 
 		//bottom
-		-halfWide, -halfWide, -halfWide, 0, 0,
-		halfWide, -halfWide, -halfWide, 1, 0,
-		halfWide, -halfWide, halfWide, 1, 1,
-		-halfWide, -halfWide, halfWide, 0, 1,
+		-halfWide, -halfWide, -halfWide, 0, 0,-halfWide, -halfWide, -halfWide,
+		halfWide, -halfWide, -halfWide, 1, 0,halfWide, -halfWide, -halfWide,
+		halfWide, -halfWide, halfWide, 1, 1,halfWide, -halfWide, halfWide,
+		-halfWide, -halfWide, halfWide, 0, 1,-halfWide, -halfWide, halfWide, 
 
 	};
 	m_verCount = sizeof(vertice) / sizeof(float);
@@ -84,5 +84,5 @@ CubeVertex::~CubeVertex()
 
 mx::scene::EVertexAttribute CubeVertex::GetVertexAttribute()
 {
-	return EVertexAttribute(VF_POSITION | VF_TEXCOORD);
+	return EVertexAttribute(VF_POSITION | VF_TEXCOORD | VF_NORMAL);
 }

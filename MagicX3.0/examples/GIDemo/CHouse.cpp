@@ -8,9 +8,9 @@ namespace mx
 
 		CHouse::CHouse(float w, float h, float d)
 		{
-			AddRenderPhase(1, 1);
+			AddRenderPhase(1, 10);
 			AddRenderPhase(2, 2);
-			AddRenderPhase(3, 3);
+			AddRenderPhase(3, 9);
 
 			float halfW = w * 0.5f;
 			float halfH = h * 0.5f;
