@@ -4,4 +4,6 @@
 	</RenderQueue>
 	<RenderQueue materialid="9" materialname="material/scenegbuffer_c.xml">
 	</RenderQueue>
+	<RenderQueue materialid="11" materialname="material/skybox.xml">
+	</RenderQueue>
 </RenderPhase>

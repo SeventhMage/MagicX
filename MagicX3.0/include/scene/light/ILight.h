@@ -15,6 +15,7 @@ namespace mx
 			LT_DIRECTIONAL,
 			LT_POINT,
 			LT_SPOT,
+			LT_AMBIENT,
 		};
 
 		class ILight

@@ -7,6 +7,7 @@
 #include "scene/light/CDirectionalLight.h"
 #include "scene/light/CPointLight.h"
 #include "scene/light/CSpotLight.h"
+#include "scene/light/CAmbientLight.h"
 
 namespace mx
 {
@@ -55,8 +56,6 @@ namespace mx
 				else
 					break;
 			}
-			if (m_pSkyBox)
-				m_pSkyBox->Update(delta);
 			if (m_pRootNode)
 				m_pRootNode->Update(delta);
 
@@ -103,6 +102,8 @@ namespace mx
 			case mx::scene::LT_POINT:
 				m_pLights[slot] = new CPointLight(lightColor);
 				break;
+			case mx::scene::LT_AMBIENT:
+				m_pLights[slot] = new CAmbientLight(lightColor);
 			case mx::scene::LT_SPOT:
 				//m_pLights[slot] = new CSpotLight();
 				break;
@@ -148,6 +149,7 @@ namespace mx
 				return nullptr;
 			return m_pLightCameras[slot];
 		}
+
 
 	}
 }

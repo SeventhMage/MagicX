@@ -19,7 +19,6 @@ namespace mx
 			virtual bool Create(const char *right, const char *left, const char *top, const char *bottom, const char *front, const char *back) = 0;
 			virtual render::ITexture *GetTexture() = 0;
 			virtual const CMatrix4 &GetModelMatrix() = 0;
-			virtual void Update(int delta) = 0;			
 		};
 	}
 }

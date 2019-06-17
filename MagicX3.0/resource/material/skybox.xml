@@ -1,0 +1,7 @@
+<Material>
+	<ShaderProgram vs="shader/skybox.vs" ps="shader/skybox.ps">
+		<VertexAttribute>
+			<Location index="0" name="vPosition"/>
+		</VertexAttribute>
+	</ShaderProgram> 
+</Material>

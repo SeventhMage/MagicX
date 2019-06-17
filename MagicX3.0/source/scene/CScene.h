@@ -32,6 +32,7 @@ namespace mx
 			virtual ICamera *SetupLightCamera(int slot);
 			virtual ILight *GetLight(int slot);
 			virtual ICamera *GetLightCamera(int slot);
+
 			virtual void Update(int delta);
 			virtual void Draw();
 

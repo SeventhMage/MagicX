@@ -10,7 +10,6 @@ namespace mx
 	{
 		CSkyBox::CSkyBox(IScene *pScene, float r)			
 			: m_pTexture(NULL)			
-			, m_pRenderable(NULL)
 			, m_fRadius(r)
 			, m_pParentScene(pScene)
 		{
@@ -118,15 +117,12 @@ namespace mx
 			};
 			memcpy(m_pBoxData, vertex, sizeof(float) * 108);	
 
-			m_pVAO = RENDERER->CreateVertexArrayObject();
-			m_pRenderable = RENDERER->CreateRenderable(m_pVAO->GetRenderList());
-			m_pShaderProgram = RENDERER->CreateShaderProgram();
+			AddRenderPhase(3, 11);
 		}
 
 		CSkyBox::~CSkyBox()
 		{
 			RENDERER->DestroyTexture(m_pTexture);
-			RENDERER->DestroyVertexArrayObject(m_pVAO);
 			SAFE_DEL_ARRAY(m_pBoxData);
 		}
 
@@ -137,41 +133,38 @@ namespace mx
 
 		bool CSkyBox::Create(const char *right, const char *left, const char *top, const char *bottom, const char *front, const char *back)
 		{			
-			if (m_pVAO)
-			{	
-				m_pVAO->Bind();
-
-				if (m_pRenderable)
+			for (auto renderable : m_vecRenderables)
+			{
+				IVertexArrayObject *pVAO = renderable->GetVertexArrayObject();
+				if (pVAO)
 				{
-					if (m_pShaderProgram)
+					pVAO->Bind();
+
+					if (renderable)
 					{
-						m_pRenderable->SetShaderProgram(m_pShaderProgram);
-						m_pShaderProgram->Attach("shader/skybox.vs", render::ST_VERTEX);
-						m_pShaderProgram->Attach("shader/skybox.ps", render::ST_FRAGMENT);
-						m_pShaderProgram->BindAttributeLocation(1, render::VAL_POSITION);
-						m_pShaderProgram->Link();
-
 						int iTextureUnit = 0;
-						m_pShaderProgram->SetUniform("cubeMap", &iTextureUnit);
+						renderable->SetUniform("cubeMap", &iTextureUnit);
+
+						renderable->CreateVertexBufferObject(m_pBoxData, sizeof(float) * 108, 0, 108, render::GBM_TRIANGLES, render::GBU_DYNAMIC_DRAW);
+						//m_pRenderableObject->Disable(render::RA_CULL_FACE);
+
+						pVAO->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, 0, 0);
+						m_pTexture = RENDERER->CreateCubeTexture(right, left, top, bottom, front, back);
+						renderable->SetTexture(0, m_pTexture);
+						renderable->Disable(RA_CULL_FACE);
 					}
-
-					m_pRenderable->CreateVertexBufferObject(m_pBoxData, sizeof(float)* 108, 0, 108, render::GBM_TRIANGLES, render::GBU_DYNAMIC_DRAW);
-					//m_pRenderableObject->Disable(render::RA_CULL_FACE);
-					
-					m_pVAO->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, 0, 0);
-					m_pTexture = RENDERER->CreateCubeTexture(right, left, top, bottom, front, back);
-					m_pRenderable->SetTexture(0, m_pTexture);
-					m_pRenderable->Disable(RA_CULL_FACE);
+					pVAO->UnBind();
 				}
-				m_pVAO->UnBind();
-			}			
-
-			return false;
+			}
+		
+			m_pParentScene->GetRootNode()->AddChild(this);
+			return true;
 		}
 
 
-		void CSkyBox::Update(int delta)
+		void CSkyBox::UpdateImp(int delta)
 		{
+			CEntity::UpdateImp(delta);
 			static float rotY = .0f;
 			if (rotY > PI * 2)
 				rotY = .0f;
@@ -182,16 +175,10 @@ namespace mx
 				math::CMatrix4 vpMat4 = pCamera->GetViewProjectionMatrix();		
 				m_modelMatr4.SetRotationRadiansRH(0, rotY, 0);
 				math::CMatrix4 mat4 = m_modelMatr4 * vpMat4;
-
-				if (m_pVAO && m_pRenderable)
+				for (auto renderable : m_vecRenderables)
 				{
-					render::IShaderProgram *shaderProgram = m_pRenderable->GetShaderProgram();
-					if (shaderProgram)
-					{
-						shaderProgram->SetUniform("mvpMatrix", (void *)mat4.m);
-					}
-					m_pRenderable->SumbitToRenderList();
-				}				
+					renderable->SetUniform("mvpMatrix", (void *)mat4.m);
+				}
 			}			 			
 		}
 	}

@@ -14,8 +14,16 @@ namespace mx
 		class CAmbientLight : public ILight
 		{
 		public:
-			CAmbientLight();
-			virtual ~CAmbientLight();
+			CAmbientLight(float lightColor[3])
+			{
+				memcpy(m_fColor, lightColor, sizeof(m_fColor));
+			}
+			virtual ~CAmbientLight(){}
+			virtual ELightType GetLightType() { return LT_AMBIENT; }
+			virtual void SetColor(float fColor[3]) { memcpy(m_fColor, fColor, sizeof(m_fColor)); }
+			virtual float *GetColor() { return m_fColor; }
+		private:
+			float m_fColor[3];
 		};
 	}
 }
