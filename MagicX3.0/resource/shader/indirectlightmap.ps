@@ -29,9 +29,7 @@ void main()
 	
 	vec3 mainLightDir = -normalize(lightDir);//normalize(lightPosition - position.xyz);
 
-	float rowSampleNum = 8;
-	float colSampleNum = 8;
-	float sampleTotalNum = rowSampleNum * colSampleNum;
+	int sampleTotalNum = 120;
 	float valRowNum = 800;
 	float valColNum = 600;
 	
@@ -39,14 +37,14 @@ void main()
 
 	vec2 texCoordInValMap = posInValMap.xy / posInValMap.w;
 
-	float rxmax = 60.0 / valRowNum;
-	float rymax = 50.0 / valColNum;
+	float rxmax = 30.0 / valRowNum;
+	float rymax = 20.0 / valColNum;
 	vec3 indirectLC = vec3(0.0, 0.0, 0.0);
 	float shelter = 0.0;
 	for (int i = 0; i< sampleTotalNum; i+=1)
 	{
 		float x = texCoordInValMap.x + rxmax * fSRandNum[i];
-		float y = texCoordInValMap.y + rxmax * fCRandNum[i];
+		float y = texCoordInValMap.y + rymax * fCRandNum[i];
 		vec2 tex = vec2(x, y);
 		vec4 valC = texture2D(tRSMFlux, tex);
 		vec4 valP = texture2D(tRSMPosition, tex);

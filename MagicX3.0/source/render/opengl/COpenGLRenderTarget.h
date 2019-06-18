@@ -13,19 +13,20 @@ namespace mx
 		class COpenGLRenderTarget : public IRenderTarget
 		{
 		public:
-			COpenGLRenderTarget(int renderTargetFlag, int width, int height);
+			COpenGLRenderTarget(int textureCount, int width, int height, bool bHaveDepth = false);
 			~COpenGLRenderTarget();
 			virtual void BeginTarget();
 			virtual void EndTarget();
-			virtual ITexture *GetBindTexture() const;
+			virtual ITexture *GetBindTexture(int index) const;
 			virtual ITexture *GetDepthTexture() const;
-			virtual ITexture *GetTexture(int flag) const;
+			virtual ITexture *GetTexture(int index) const;
 		private:
-			std::map<int, ITexture *>m_Texture;
+			std::vector<ITexture *>m_bindTexture;
+			ITexture *m_depthTexture;
 			int m_iWidth;
 			int m_iHeight;
 			GLuint m_fbo;
-			int m_renderTargetFlag;
+			int m_textureCount;
 		};
 	}
 }

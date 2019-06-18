@@ -5,9 +5,9 @@ namespace mx
 {
 	namespace render
 	{
-		IRenderTarget * COpenGLRenderTargetManager::CreateRenderTarget(int flag, int width, int height)
+		IRenderTarget * COpenGLRenderTargetManager::CreateRenderTarget(int textureCount, int width, int height, bool bHaveDepth)
 		{
-			return new COpenGLRenderTarget(flag, width, height);
+			return new COpenGLRenderTarget(textureCount, width, height, bHaveDepth);
 		}
 	}
 }

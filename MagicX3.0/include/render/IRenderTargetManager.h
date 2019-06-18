@@ -11,7 +11,7 @@ namespace mx
 		class IRenderTargetManager
 		{
 		public:
-			virtual IRenderTarget *CreateRenderTarget(int flag, int width, int height) = 0;
+			virtual IRenderTarget *CreateRenderTarget(int textureCount, int width, int height, bool bHaveDepth) = 0;
 		};
 	}
 }

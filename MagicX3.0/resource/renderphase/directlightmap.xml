@@ -1,14 +1,15 @@
 <RenderPhase>
-	<RenderTarget flag="1"/>
+	<RenderTarget texture="1" depth="0"/>
 	<RenderQueue materialid="8" materialname="material/directlightmap.xml" for="DirectLightMap">
 		<PhaseQuote id="3">
-			<TextureUniform name="tGColor" slot="0" flag="1"/>
-			<TextureUniform name="tGPosition" slot="1" flag="2"/>
-			<TextureUniform name="tGNormal" slot="2" flag="4"/>
+			<TextureUniform name="tGColor" slot="0" index="0"/>
+			<TextureUniform name="tGPosition" slot="1" index="1"/>
+			<TextureUniform name="tGNormal" slot="2" index="2"/>
 		</PhaseQuote>
+		
 		<!--
 		<PhaseQuote id="2">
-			<TextureUniform name="tDepthTexture" slot="3" flag="8"/>
+			<TextureUniform name="tDepthTexture" slot="3" index="-1"/>
 		</PhaseQuote>
 	-->
 	</RenderQueue>

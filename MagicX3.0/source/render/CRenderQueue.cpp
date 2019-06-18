@@ -54,19 +54,18 @@ namespace mx
 						IRenderTarget *pRenderTarget = pRenderPhase->GetRenderTarget();
 						if (pRenderTarget)
 						{
-							texturePhase.second.texture =pRenderTarget->GetTexture(texturePhase.second.flag);
+							texturePhase.second.texture = pRenderTarget->GetTexture(texturePhase.second.index);
 						}
-
 					}
 
 				}
 			}
 		}
 
-		void CRenderQueue::SetPhaseTexture(const char *name,int phaseid,  int slot, int flag)
+		void CRenderQueue::SetPhaseTexture(const char *name,int phaseid,  int slot, int index)
 		{
 			m_mapSlotTexture[slot].phaseid = phaseid;
-			m_mapSlotTexture[slot].flag = flag;
+			m_mapSlotTexture[slot].index = index;
 			m_mapSlotTexture[slot].name = name;
 			m_mapSlotTexture[slot].texture = nullptr;
 		}

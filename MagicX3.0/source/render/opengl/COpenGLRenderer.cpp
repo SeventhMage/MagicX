@@ -167,7 +167,6 @@ namespace mx
 
 		void COpenGLRenderer::BeginRender()
 		{
-			GLDebug(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 			m_triangleNum = 0;
 		}
 

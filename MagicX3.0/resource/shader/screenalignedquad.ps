@@ -1,6 +1,6 @@
 #version 330 core
 
-uniform sampler2D tSceneMap;
+uniform sampler2D tSceneMapColor;
 uniform sampler2D tDirectLightMap;
 uniform sampler2D tIndirectLightMap;
 
@@ -8,9 +8,9 @@ in vec2 vOutTexCoord0;
 
 void main()
 {
-	vec4 baseColor = texture2D(tSceneMap, vOutTexCoord0);
+	vec4 baseColor = texture2D(tSceneMapColor, vOutTexCoord0);
 	vec4 directLightColor = texture2D(tDirectLightMap, vOutTexCoord0);
 	vec4 indirectLightColor = texture2D(tIndirectLightMap, vOutTexCoord0);
-	gl_FragColor.rgb = baseColor.rgb * (directLightColor.rgb * indirectLightColor.a + indirectLightColor.rgb) ;
+	gl_FragColor.rgb = baseColor.rgb * (directLightColor.rgb * indirectLightColor.a + indirectLightColor.rgb);
 	gl_FragColor.a = 1.0;
 }

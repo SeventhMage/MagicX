@@ -1,5 +1,5 @@
 <RenderPhase>
 	<Camera type="LIGHT_CAMERA"/>
-	<RenderTarget flag="8" width="1024" height="1024"/>
+	<RenderTarget texture="0" depth="1" width="256" height="256"/>
 	<RenderQueue materialid="2" materialname="material/shadowmap.xml"/>
 </RenderPhase>

@@ -1,9 +1,5 @@
 #include "CRenderPhaseManager.h"
-#include "CShadowMapPhase.h"
-#include "CSceneGraphPhase.h"
-#include "CPostProcessPhase.h"
-#include "CSceneOutcomePhase.h"
-#include "CGlobalIlluminationPhase.h"
+#include "CRenderPhase.h"
 #include "rapidxml.hpp"
 #include "mx.h"
 
@@ -72,13 +68,11 @@ namespace mx
 
 		void CRenderPhaseManager::ProcessRenderPhase()
 		{
-			RENDERER->BeginRender();
 			for (auto phase : m_vecRenderPhase)
 			{
 				if (phase)
 					phase->Render();
 			}
-			RENDERER->EndRender();
 		}
 
 		IRenderPhase * CRenderPhaseManager::GetRenderPhase(int id)
@@ -112,15 +106,23 @@ namespace mx
 				rapidxml::xml_node<> * renderTargetNode = rootNode->first_node("RenderTarget");
 				if (renderTargetNode)
 				{
-					int flag  = atoi(renderTargetNode->first_attribute("flag")->value());
+					int textureCount  = atoi(renderTargetNode->first_attribute("texture")->value());
+					int depth = atoi(renderTargetNode->first_attribute("depth")->value());
 					int width = -1;
 					int height = -1;
+					float scale = 1.f;
 					if (renderTargetNode->first_attribute("width"))
 					{
 						width = atoi(renderTargetNode->first_attribute("width")->value());
 						height = atoi(renderTargetNode->first_attribute("height")->value());
 					}
-					pRenderPhase = new CRenderPhase(this, id, flag, width, height);
+
+					if (renderTargetNode->first_attribute("scale"))
+					{
+						scale = atof(renderTargetNode->first_attribute("depth")->value());
+					}
+
+					pRenderPhase = new CRenderPhase(this, id, textureCount, width, height, scale, depth == 1);
 
 					for (rapidxml::xml_node<> * node = rootNode->first_node("RenderQueue"); node; node = node->next_sibling())
 					{
@@ -143,8 +145,8 @@ namespace mx
 								{
 									const char *name = uniformNode->first_attribute("name")->value();
 									int slot = atoi(uniformNode->first_attribute("slot")->value());
-									int flag = atoi(uniformNode->first_attribute("flag")->value());
-									queue->SetPhaseTexture(name, quoteid, slot, flag);
+									int index = atoi(uniformNode->first_attribute("index")->value());
+									queue->SetPhaseTexture(name, quoteid, slot, index);
 								}
 							}
 						}

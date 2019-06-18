@@ -168,7 +168,7 @@ namespace mx
 			static float rotY = .0f;
 			if (rotY > PI * 2)
 				rotY = .0f;
-			rotY += 0.01f * delta / 1000;
+			rotY += 0.005f * delta / 1000;
 			ICamera *pCamera = m_pParentScene->GetCamera();
 			if (pCamera)
 			{

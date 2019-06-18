@@ -10,7 +10,7 @@ namespace mx
 		class COpenGLRenderTargetManager : public IRenderTargetManager
 		{
 		public:
-			virtual IRenderTarget *CreateRenderTarget(int flag, int width, int height);
+			virtual IRenderTarget *CreateRenderTarget(int textureCount, int width, int height, bool bHaveDepth);
 		};
 	}
 }

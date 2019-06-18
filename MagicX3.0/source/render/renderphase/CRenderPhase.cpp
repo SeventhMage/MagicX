@@ -10,21 +10,25 @@ namespace mx
 			:m_pRenderTarget(nullptr)
 			,m_pRenderPhaseManager(pPhaseMgr)
 			, m_Id(0)
-			, m_renderTargetFlag(0)
+			, m_textureCount(0)
 			, m_cameraType("")
 			, m_iWidth(-1)
 			, m_iHeight(-1)
+			, m_bHaveDepth(false)
+			, m_fScale(1.f)
 		{
 		}
 
-		CRenderPhase::CRenderPhase(IRenderPhaseManager *pPhaseMgr, int id, int renderTargetFlag, int width, int height)
+		CRenderPhase::CRenderPhase(IRenderPhaseManager *pPhaseMgr, int id, int textureCount, int width, int height, float scale, bool bHaveDepth)
 			:m_pRenderTarget(nullptr)
 			,m_pRenderPhaseManager(pPhaseMgr)
 			,m_Id(id)
-			, m_renderTargetFlag(renderTargetFlag)
+			, m_textureCount(textureCount)
 			, m_cameraType("")
 			,m_iWidth(width)
 			,m_iHeight(height)
+			, m_bHaveDepth(bHaveDepth)
+			, m_fScale(scale)
 		{
 
 		}
@@ -44,7 +48,7 @@ namespace mx
 				m_iWidth = width;
 			if (m_iHeight <= 0)
 				m_iHeight = height;
-			m_pRenderTarget = pRenderer->GetRenderTargetManager()->CreateRenderTarget(m_renderTargetFlag, m_iWidth, m_iHeight);
+			m_pRenderTarget = pRenderer->GetRenderTargetManager()->CreateRenderTarget(m_textureCount, m_iWidth, m_iHeight, m_bHaveDepth);
 			for (auto queue : m_renderQueueGroup)
 			{
 				queue.second->BindPhaseUniform();

@@ -7,5 +7,5 @@ in vec3 vVaryingTexCoord;
 
 void main()
 {	
-	vFragColor = textureCube(cubeMap, vVaryingTexCoord);
+	vFragColor = texture(cubeMap, vVaryingTexCoord);
 }

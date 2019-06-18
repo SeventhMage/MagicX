@@ -14,7 +14,7 @@ namespace mx
 		{
 		public:
 			CRenderPhase(IRenderPhaseManager *pPhaseMgr);
-			CRenderPhase(IRenderPhaseManager *pPhaseMgr, int id, int rendrTargetFlag, int width, int height);
+			CRenderPhase(IRenderPhaseManager *pPhaseMgr, int id, int textureCount, int width, int height, float scale, bool bHaveDepth);
 			~CRenderPhase();
 			virtual void Initialize(IRenderer *pRenderer, int width, int height);
 			virtual void Destroy();
@@ -34,9 +34,11 @@ namespace mx
 			RenderQueueGroup m_renderQueueGroup;
 			RenderQueueArray m_renderQueueArray;
 			int m_Id;
-			int m_renderTargetFlag;
+			int m_textureCount;
+			bool m_bHaveDepth;
 			int m_iWidth;
 			int m_iHeight;
+			float m_fScale;
 			std::string m_cameraType;
 		};
 	}
