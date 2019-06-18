@@ -207,18 +207,6 @@
     <ClCompile Include="..\..\..\..\source\base\CVirtualTraceBall.cpp">
       <Filter>source\base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\source\render\renderphase\CShadowMapPhase.cpp">
-      <Filter>source\render\renderphase</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\render\renderphase\CSceneGraphPhase.cpp">
-      <Filter>source\render\renderphase</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\render\renderphase\CPostProcessPhase.cpp">
-      <Filter>source\render\renderphase</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\render\renderphase\CSceneOutcomePhase.cpp">
-      <Filter>source\render\renderphase</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\source\render\renderphase\CRenderPhase.cpp">
       <Filter>source\render\renderphase</Filter>
     </ClCompile>
@@ -233,9 +221,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\render\renderobject\CTextureMapObject.cpp">
       <Filter>source\render\renderobject</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\render\renderphase\CGlobalIlluminationPhase.cpp">
-      <Filter>source\render\renderphase</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\render\renderobject\CGIObject.cpp">
       <Filter>source\render\renderobject</Filter>
@@ -563,18 +548,6 @@
     <ClInclude Include="..\..\..\..\include\render\renderphase\IRenderPhase.h">
       <Filter>include\render\renderphase</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\source\render\renderphase\CShadowMapPhase.h">
-      <Filter>source\render\renderphase</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\render\renderphase\CSceneGraphPhase.h">
-      <Filter>source\render\renderphase</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\render\renderphase\CPostProcessPhase.h">
-      <Filter>source\render\renderphase</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\render\renderphase\CSceneOutcomePhase.h">
-      <Filter>source\render\renderphase</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\source\render\renderphase\CRenderPhase.h">
       <Filter>source\render\renderphase</Filter>
     </ClInclude>
@@ -598,9 +571,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\render\renderobject\CTextureMapObject.h">
       <Filter>include\render\renderobject</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\render\renderphase\CGlobalIlluminationPhase.h">
-      <Filter>source\render\renderphase</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\render\renderobject\CGIObject.h">
       <Filter>include\render\renderobject</Filter>

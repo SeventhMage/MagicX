@@ -130,13 +130,8 @@
     <ClCompile Include="..\..\..\..\source\render\renderobject\CRenderObject.cpp" />
     <ClCompile Include="..\..\..\..\source\render\renderobject\CShadowMapObject.cpp" />
     <ClCompile Include="..\..\..\..\source\render\renderobject\CTextureMapObject.cpp" />
-    <ClCompile Include="..\..\..\..\source\render\renderphase\CGlobalIlluminationPhase.cpp" />
-    <ClCompile Include="..\..\..\..\source\render\renderphase\CPostProcessPhase.cpp" />
     <ClCompile Include="..\..\..\..\source\render\renderphase\CRenderPhase.cpp" />
     <ClCompile Include="..\..\..\..\source\render\renderphase\CRenderPhaseManager.cpp" />
-    <ClCompile Include="..\..\..\..\source\render\renderphase\CSceneGraphPhase.cpp" />
-    <ClCompile Include="..\..\..\..\source\render\renderphase\CSceneOutcomePhase.cpp" />
-    <ClCompile Include="..\..\..\..\source\render\renderphase\CShadowMapPhase.cpp" />
     <ClCompile Include="..\..\..\..\source\resource\CImageManager.cpp" />
     <ClCompile Include="..\..\..\..\source\resource\CResourceManager.cpp" />
     <ClCompile Include="..\..\..\..\source\resource\CTGAImage.cpp" />
@@ -266,13 +261,8 @@
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLVertexBufferObject.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\GLDebug.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\OpenGLType.h" />
-    <ClInclude Include="..\..\..\..\source\render\renderphase\CGlobalIlluminationPhase.h" />
-    <ClInclude Include="..\..\..\..\source\render\renderphase\CPostProcessPhase.h" />
     <ClInclude Include="..\..\..\..\source\render\renderphase\CRenderPhase.h" />
     <ClInclude Include="..\..\..\..\source\render\renderphase\CRenderPhaseManager.h" />
-    <ClInclude Include="..\..\..\..\source\render\renderphase\CSceneGraphPhase.h" />
-    <ClInclude Include="..\..\..\..\source\render\renderphase\CSceneOutcomePhase.h" />
-    <ClInclude Include="..\..\..\..\source\render\renderphase\CShadowMapPhase.h" />
     <ClInclude Include="..\..\..\..\source\resource\CImageManager.h" />
     <ClInclude Include="..\..\..\..\source\resource\CResourceManager.h" />
     <ClInclude Include="..\..\..\..\source\resource\CTGAImage.h" />
