@@ -22,7 +22,7 @@ namespace mx
 				for (int i = 0; i < textureCount; ++i)
 				{
 					ITexture *pTexture = new COpenGLTexture();
-					pTexture->Create2D(GL_RGBA8, m_iWidth, m_iHeight, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+					pTexture->Create2D(GL_RGBA16F, m_iWidth, m_iHeight, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 					pTexture->Bind(0);
 					GLDebug(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, pTexture->GetHandle(), 0));
 					pTexture->UnBind();
