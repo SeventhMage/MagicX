@@ -41,7 +41,6 @@ namespace mx
 			virtual ICamera *GetLightCamera(int slot) = 0;
 
 			virtual void Update(int delta) = 0;
-			virtual void Draw() = 0;
 		};
 	}
 }

@@ -15,20 +15,20 @@ namespace mx
 	namespace scene
 	{
 		using namespace render;
-		class CSphereEntity : public CEntity
+		using namespace math;
+		class CSphereEntity : public scene::CEntity
 		{
 		public:
-			CSphereEntity(IRenderObject *pRenderObject, float fRadius, int iSlices, int iStacks);
+			CSphereEntity(float fRadius, int iSlices, int iStacks, const CVector3 &color = CVector3(1.0f, 1.0f, 1.0f));
 			virtual ~CSphereEntity();
-			virtual void UpdateImp(int delta);			
-			
+			virtual void UpdateImp(int delta);
+
 			void Create();
-			float GetRadius(){ return m_fRadius; }
+			float GetRadius() { return m_fRadius; }
 		private:
-			CSphere *m_pSphere;
-			IRenderObject *m_pReflectObject;
-			IRenderable *m_pRenderable;
+			scene::CSphere *m_pSphere;
 			float m_fRadius;
+			CVector3 m_vColor;
 		};
 	}
 }

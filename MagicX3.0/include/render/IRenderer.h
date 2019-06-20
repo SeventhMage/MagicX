@@ -36,15 +36,12 @@ namespace mx
 
 			//开始渲染清理工作
 			virtual void BeginRender() = 0;
-			virtual void Render() = 0;
-			//清空渲染列表
 			virtual void EndRender() = 0;
 
 			//渲染对象
 			virtual void Render(IRenderable *pRenderable) = 0;
 
 			//创建渲染实体
-			virtual IRenderable *CreateRenderable(IRenderList *pObject) = 0;
 			virtual IRenderable *CreateRenderable(IRenderQueue *pQueue) = 0;
 
 			//销毁渲染实体
@@ -78,7 +75,7 @@ namespace mx
 			//manager
 			virtual IRenderTargetManager *GetRenderTargetManager() const = 0;
 			virtual IRenderPhaseManager *GetRenderPhaseManager() const = 0;
-			virtual void ProcessRenderPhase() const = 0;
+			virtual void ProcessRenderPhase() = 0;
 			virtual IMaterialManager *GetMaterialManager() const = 0;
 
 			virtual IScreenAlignedQuadManager *GetScreenAlignedQuadManager() const = 0;

@@ -29,6 +29,12 @@ namespace mx
 		{
 			return (x * x);
 		}
+
+		inline float Random(float a, float b)
+		{
+			float r = 1.f * rand() / RAND_MAX;
+			return (a + r * (b - a));
+		}
 	}
 }
 

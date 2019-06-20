@@ -9,7 +9,6 @@
 #include "COpenGLTexture.h"
 #include "resource/IImageManager.h"
 #include "resource/IImage.h"
-#include "COpenGLShadowMap.h"
 #include "COpenGLRenderTargetManager.h"
 #include "mx.h"
 

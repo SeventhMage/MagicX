@@ -35,37 +35,73 @@ namespace mx
 						break;
 					case VK_ESCAPE:
 						event->OnPress(EKP_KEYBOARD_ESC);
-					case 'N':
+					case 'a':
+					case 'b':
+					case 'c':
+					case 'd':
+					case 'e':
+					case 'f':
+					case 'g':
+					case 'h':
+					case 'i':
+					case 'j':
+					case 'k':
+					case 'l':
+					case 'm':
 					case 'n':
-						event->OnPress(EKP_KEYBOARD_N);
+					case 'o':
+					case 'p':
+					case 'q':
+					case 'r':
+					case 's':
+					case 't':
+					case 'u':
+					case 'v':
+					case 'w':
+					case 'x':
+					case 'y':
+					case 'z':
+						event->OnPress((EVENT_KEYPRESS)((char)wParam - 'a' + (char)EKP_KEYBOARD_A));
 						break;
 					case 'A':
-					case 'a':
-						event->OnPress(EKP_KEYBOARD_A);
-						break;
+					case 'B':
+					case 'C':
 					case 'D':
-					case 'd':
-						event->OnPress(EKP_KEYBOARD_D);
-						break;
-					case 'W':
-					case 'w':
-						event->OnPress(EKP_KEYBOARD_W);
-						break;
-					case 'S':
-					case 's':
-						event->OnPress(EKP_KEYBOARD_S);
-						break;
-					case 'Q':
-					case 'q':
-						event->OnPress(EKP_KEYBOARD_Q);
-						break;
 					case 'E':
-					case 'e':
-						event->OnPress(EKP_KEYBOARD_E);
-						break;
+					case 'F':
+					case 'G':
+					case 'H':
+					case 'I':
+					case 'J':
+					case 'K':
+					case 'L':
+					case 'M':
+					case 'N':
+					case 'O':
+					case 'P':
+					case 'Q':
+					case 'R':
+					case 'S':
+					case 'T':
+					case 'U':
+					case 'V':
+					case 'W':
+					case 'X':
+					case 'Y':
 					case 'Z':
-					case 'z':
-						event->OnPress(EKP_KEYBOARD_Z);
+						event->OnPress((EVENT_KEYPRESS)((char)wParam - 'A' + (char)EKP_KEYBOARD_A));
+						break;
+					case '0':
+					case '1':
+					case '2':
+					case '3':
+					case '4':
+					case '5':
+					case '6':
+					case '7':
+					case '8':
+					case '9':
+						event->OnPress((EVENT_KEYPRESS)((char)wParam - '0' + (char)EKP_KEYBOARD_0));
 					default:
 						break;
 					}
@@ -83,37 +119,73 @@ namespace mx
 					case VK_SPACE:
 						event->OnUp(EKP_KEYBOARD_SPACE);
 						break;
-					case 'N':
+					case 'a':
+					case 'b':
+					case 'c':
+					case 'd':
+					case 'e':
+					case 'f':
+					case 'g':
+					case 'h':
+					case 'i':
+					case 'j':
+					case 'k':
+					case 'l':
+					case 'm':
 					case 'n':
-						event->OnUp(EKP_KEYBOARD_N);
+					case 'o':
+					case 'p':
+					case 'q':
+					case 'r':
+					case 's':
+					case 't':
+					case 'u':
+					case 'v':
+					case 'w':
+					case 'x':
+					case 'y':
+					case 'z':
+						event->OnUp((EVENT_KEYPRESS)((char)wParam - 'a' + (char)EKP_KEYBOARD_A));
 						break;
 					case 'A':
-					case 'a':
-						event->OnUp(EKP_KEYBOARD_A);
-						break;
+					case 'B':
+					case 'C':
 					case 'D':
-					case 'd':
-						event->OnUp(EKP_KEYBOARD_D);
-						break;
-					case 'W':
-					case 'w':
-						event->OnUp(EKP_KEYBOARD_W);
-						break;
-					case 'S':
-					case 's':
-						event->OnUp(EKP_KEYBOARD_S);
-						break;
-					case 'Q':
-					case 'q':
-						event->OnUp(EKP_KEYBOARD_Q);
-						break;
 					case 'E':
-					case 'e':
-						event->OnUp(EKP_KEYBOARD_E);
-						break;
+					case 'F':
+					case 'G':
+					case 'H':
+					case 'I':
+					case 'J':
+					case 'K':
+					case 'L':
+					case 'M':
+					case 'N':
+					case 'O':
+					case 'P':
+					case 'Q':
+					case 'R':
+					case 'S':
+					case 'T':
+					case 'U':
+					case 'V':
+					case 'W':
+					case 'X':
+					case 'Y':
 					case 'Z':
-					case 'z':
-						event->OnUp(EKP_KEYBOARD_Z);
+						event->OnUp((EVENT_KEYPRESS)((char)wParam - 'A' + (char)EKP_KEYBOARD_A));
+						break;
+					case '0':
+					case '1':
+					case '2':
+					case '3':
+					case '4':
+					case '5':
+					case '6':
+					case '7':
+					case '8':
+					case '9':
+						event->OnUp((EVENT_KEYPRESS)((char)wParam - '0' + (char)EKP_KEYBOARD_0));
 					default:
 						break;
 					}

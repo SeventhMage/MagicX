@@ -132,9 +132,6 @@
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLRenderer.cpp">
       <Filter>source\render\opengl</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\source\render\CRenderList.cpp">
-      <Filter>source\render</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLVertexBufferObject.cpp">
       <Filter>source\render\opengl</Filter>
     </ClCompile>
@@ -185,9 +182,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\scene\light\CPointLight.cpp">
       <Filter>source\scene\light</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLShadowMap.cpp">
-      <Filter>source\render\opengl</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\render\renderobject\CColorPointLightObject.cpp">
       <Filter>source\render\renderobject</Filter>
@@ -419,12 +413,6 @@
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLRenderer.h">
       <Filter>source\render\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\include\render\IRenderList.h">
-      <Filter>include\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\render\CRenderList.h">
-      <Filter>source\render</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLVertexBufferObject.h">
       <Filter>source\render\opengl</Filter>
     </ClInclude>
@@ -517,9 +505,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\render\CMaterial.h">
       <Filter>source\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLShadowMap.h">
-      <Filter>source\render\opengl</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\render\IShadowMap.h">
       <Filter>include\render</Filter>

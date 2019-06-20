@@ -23,17 +23,15 @@ namespace mx
 			virtual void Initialize(int width, int height);
 
 			virtual IRenderDriver *GetRenderDriver() { return m_pRenderDriver; }			
-			virtual IRenderable *CreateRenderable(IRenderList *pRenderList);
 			virtual IRenderable *CreateRenderable(IRenderQueue *pQueue);
 			virtual void DestroyRenderable(IRenderable *pRenderable);
 
 			virtual void DestroyMaterial(IMaterial *pMaterial);
 
-			virtual void Render();
 			virtual void EndRender();
 
 			virtual IRenderPhaseManager *GetRenderPhaseManager() const { return m_pRenderPhaseMgr; }
-			virtual void ProcessRenderPhase() const;
+			virtual void ProcessRenderPhase();
 
 			virtual IMaterialManager *GetMaterialManager() const { return m_pMaterialMgr; }
 

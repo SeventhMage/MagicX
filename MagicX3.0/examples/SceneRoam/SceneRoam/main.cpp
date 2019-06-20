@@ -22,13 +22,13 @@ int main(int argc, char *argv[])
 	ICamera *camera = nullptr;
 	if (scene)
 	{		
-		pSphere = new CSphereEntity(pRenderObject, 5, 52, 26);
+		pSphere = new CSphereEntity(5, 52, 26, math::CVector3(0.8f, 0.7f, 0.6f));
 		
 
 		CVector3 vDir(0, 0, -1);
 		CVector3 vUp(0, 1, 0);
-		camera = scene->SetupCamera(CVector3(0, 0, 0), vDir, vUp, PI / 3, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 1000.0f);
-		//camera = scene->SetupCamera(30, pSphere, vDir, vUp, PI / 3, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
+		//camera = scene->SetupCamera(CVector3(0, 0, 0), vDir, vUp, PI / 3, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 1000.0f);
+		camera = scene->SetupCamera(30, pSphere, vDir, vUp, PI / 3, 1.0f * device->GetWindowWidth() / device->GetWindowHeight(), 1.0f, 5000.0f);
 		//scene->SetupSkyBox("texture/pos_x.tga", "texture/neg_x.tga", "texture/pos_y.tga", "texture/neg_y.tga", "texture/pos_z.tga", "texture/neg_z.tga", 512.0);
 		scene->SetupSkyBox("texture/FullMoonLeft.tga", "texture/FullMoonRight.tga", "texture/FullMoonUp.tga", "texture/FullMoonDown.tga", "texture/FullMoonFront.tga", "texture/FullMoonBack.tga", 512);
 		//scene->SetupSkyBox("texture/CloudyLightRaysLeft2048.tga", "texture/CloudyLightRaysRight2048.tga", "texture/CloudyLightRaysUp2048.tga", "texture/CloudyLightRaysDown2048.tga", "texture/CloudyLightRaysFront2048.tga", "texture/CloudyLightRaysBack2048.tga", 512);
@@ -37,16 +37,18 @@ int main(int argc, char *argv[])
 		//scene->SetupSkyBox("texture/ThickCloudsWaterLeft2048.tga", "texture/ThickCloudsWaterRight2048.tga", "texture/ThickCloudsWaterUp2048.tga", "texture/ThickCloudsWaterDown2048.tga", "texture/ThickCloudsWaterFront2048.tga", "texture/ThickCloudsWaterBack2048.tga", 512);
 		//scene->SetupSkyBox("texture/TropicalSunnyDayLeft2048.tga", "texture/TropicalSunnyDayRight2048.tga", "texture/TropicalSunnyDayUp2048.tga", "texture/TropicalSunnyDayDown2048.tga", "texture/TropicalSunnyDayFront2048.tga", "texture/TropicalSunnyDayBack2048.tga", 512);
 
-	/*	pSphere->Create();
+		pSphere->Create();
 		pSphere->SetPosition(CVector3(0, 0, 0));
-		scene->GetRootNode()->AddChild(pSphere);*/
+		scene->GetRootNode()->AddChild(pSphere);
 		CVector3 lightPos;
-		CVector3 lightDir(0, 0, -1);
-		CVector3 lightUp(0, 1, 0);
+		CVector3 lightDir(0, -1, 0);
+		CVector3 lightUp(0, 0, -1);
 		CVector3 lightColor;
-		lightPos.set(0, 0, 20);
+		lightPos.set(0, 0, 100);
 		lightColor.set(1.0, 1.0, 1.0);
-		pLight = (CDirectionalLight *)scene->SetupLight(0, LT_AMBIENT, lightColor.v);
+		scene->SetupLight(1, LT_AMBIENT, CVector3(0.4, 0.4, 0.4).v);
+		pLight = scene->SetupLight(0, LT_DIRECTIONAL, CVector3(0.6, 0.6, 0.6).v);
+		((CDirectionalLight *)pLight)->SetDirection(lightDir);
 		pLightCamera = scene->SetupLightCamera(0, lightPos, lightDir, lightUp, 100.0f * device->GetWindowWidth() / device->GetWindowHeight(), 100, 1.f, 100.f);
 	}
 
@@ -74,7 +76,7 @@ int main(int argc, char *argv[])
 				float rotX = (currentY - lastY) * 2.0f * PI / device->GetWindowHeight();
 
 				CVector3 camDir = camera->GetDirection();
-				CVector3 curRot;// = pSphere->GetRotation();
+				CVector3 curRot = pSphere->GetRotation();
 				if (event->IsPress(EKP_MOUSE_LBUTTON))
 				{				
 					if (!ISZERO(rotX) || !ISZERO(rotY))

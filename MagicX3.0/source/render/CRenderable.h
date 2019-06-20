@@ -8,7 +8,6 @@
 #include "render/IRenderable.h"
 #include "render/ITexture.h"
 #include "render/IShaderProgram.h"
-#include "render/IRenderList.h"
 #include "render/IRenderer.h"
 #include "mxDef.h"
 
@@ -67,7 +66,6 @@ namespace mx
 			};
 			typedef std::map<int, Uniform> UniformArray;
 
-			CRenderable(IRenderList *pRenderList, IRenderer *pRenderer);
 			CRenderable(IRenderQueue *pQueue, IRenderer *pRenderer);
 			virtual ~CRenderable();
 
@@ -89,9 +87,8 @@ namespace mx
 
 			virtual void SetTexture(int slot, ITexture *pTexture);
 
-			virtual void SumbitToRenderList();
-			virtual void RemoveFromRenderList();
 			virtual void SumbitToRenderQueue();
+			virtual void RemoveFromeRenderQueue();
 			virtual void Bind();
 			virtual void UnBind();
 			virtual void Enable(RenderAttribute attr) { m_bRenderAttrs[attr] = true; }
@@ -100,7 +97,6 @@ namespace mx
 		private:
 			IShaderProgram *m_pShaderProgram;			//shader程序
 			UniformArray m_uniforms;
-			IRenderList *m_pRenderList;					//渲染列表
 			IRenderQueue *m_pRenderQueue;
 			IVertexArrayObject *m_pVAO;
 			IBufferObject *m_pVBO;						//顶点缓冲区对象

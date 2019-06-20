@@ -20,7 +20,6 @@ namespace mx
 			virtual void Update(int delta);
 			virtual IScene *LoadScene(const char *filename);
 			virtual IScene *GetCurrentScene() { return m_pCurrentScene; }
-			virtual void Draw();
 		private:
 			IScene *m_pCurrentScene;
 		};

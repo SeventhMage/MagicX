@@ -30,6 +30,7 @@ void CGreedySnake::Run()
 	uint next_game_tick = GetTickCount();
 	int sleep_time = 0;
 
+	wchar_t title[64] = { 0 };
 	IDevice *device = DEVICEMGR->GetDevice();
 	bool bQuit = false;
 	while (device->Run())
@@ -40,6 +41,9 @@ void CGreedySnake::Run()
 		{
 			next_game_tick = GetTickCount() + SKIP_TICKS;
 			bQuit = Update(SKIP_TICKS - sleep_time);			
+			int delta = 1000 / (SKIP_TICKS - sleep_time);
+			_snwprintf_s(title, sizeof(title), L"FPS:%d TriangleNum:%d", delta, MagicX->GetRenderer()->GetTriangleNum());
+			device->SetWindowTitle(title);
 		}
 		else
 		{
@@ -116,36 +120,39 @@ bool CGreedySnake::Update(int delta)
 				camera->SetDistance(dis);
 			}
 		}
-
+		float speed = 0.f;
 		if (event->IsPress(EKP_KEYBOARD_A))
 		{
-			//CVector3 leftDir = camDir;
-			//leftDir.rotateXZBy(PI / 2);
-			//pHero->SetPosition(pHero->GetPosition() + CVector3(leftDir.x, 0, leftDir.z) * 1.5f);
-			pHero->LeftMove();
+			pHero->LeftRotate();
+			speed = pHero->GetLevel();
 		}
-
-		if (event->IsPress(EKP_KEYBOARD_D))
+		else if (event->IsPress(EKP_KEYBOARD_D))
 		{
-			//CVector3 rightDir = camDir;
-			//rightDir.rotateXZBy(PI / 2);
-			//pHero->SetPosition(pHero->GetPosition() - CVector3(rightDir.x, 0, rightDir.z) * 1.5f);
-			pHero->RightMove();
+			pHero->RightRotate();
+			speed = pHero->GetLevel();
 		}
 
 		if (event->IsPress(EKP_KEYBOARD_W))
 		{
-			//pHero->SetPosition(pHero->GetPosition() + CVector3(camDir.x, 0, camDir.z) * 1.5f);
+			speed = pHero->GetLevel();
 		}
-
-		if (event->IsPress(EKP_KEYBOARD_S))
+		else if (event->IsPress(EKP_KEYBOARD_S))
 		{
-			//pHero->SetPosition(pHero->GetPosition() - CVector3(camDir.x, 0, camDir.z) * 1.5f);
+			speed = -pHero->GetLevel();
 		}
+		pHero->SetSpeed(speed);
 
 		if (event->IsPress(EKP_KEYBOARD_ESC))
 		{
 			return false;
+		}
+		for (int i = 0; i < 9; ++i)
+		{
+			if (event->IsPress(EVENT_KEYPRESS((int)EKP_KEYBOARD_1 + i)))
+			{
+				pHero->SetLevel(i + 1);
+				break;
+			}
 		}
 
 		lastX = event->GetMousePositonX();

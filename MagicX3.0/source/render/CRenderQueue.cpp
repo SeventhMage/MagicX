@@ -23,6 +23,18 @@ namespace mx
 			m_vecRenderables.push_back(renderable);
 		}
 
+		void CRenderQueue::RemoveRenderable(IRenderable *renderable)
+		{
+			for (auto it = m_vecRenderables.begin(); it != m_vecRenderables.end(); ++it)
+			{
+				if (*it == renderable)
+				{
+					m_vecRenderables.erase(it);
+					break;
+				}
+			}
+		}
+
 		void CRenderQueue::Clear()
 		{
 			m_vecRenderables.clear();

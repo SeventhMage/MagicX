@@ -15,11 +15,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cube", "..\..\..\examples\C
 		{AABC5704-3BD5-4CE9-A996-9EFA8EB8A6D0} = {AABC5704-3BD5-4CE9-A996-9EFA8EB8A6D0}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shadow", "..\..\..\examples\Shadow\Shadow\Shadow.vcxproj", "{F4FCE0A2-E611-45BA-A0F9-D04239AF94E5}"
-	ProjectSection(ProjectDependencies) = postProject
-		{AABC5704-3BD5-4CE9-A996-9EFA8EB8A6D0} = {AABC5704-3BD5-4CE9-A996-9EFA8EB8A6D0}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlyingGreedySnake", "..\..\..\examples\FlyingGreedySnake\FlyingGreedySnake\FlyingGreedySnake.vcxproj", "{8DFEA7B1-A747-4284-ABFF-7AEF03652F20}"
 	ProjectSection(ProjectDependencies) = postProject
 		{AABC5704-3BD5-4CE9-A996-9EFA8EB8A6D0} = {AABC5704-3BD5-4CE9-A996-9EFA8EB8A6D0}
@@ -56,12 +51,6 @@ Global
 		{B8960EEB-70E2-41E0-9211-97E228FE66B1}.Release|Win32.ActiveCfg = Release|Win32
 		{B8960EEB-70E2-41E0-9211-97E228FE66B1}.Release|Win32.Build.0 = Release|Win32
 		{B8960EEB-70E2-41E0-9211-97E228FE66B1}.Release|x64.ActiveCfg = Release|Win32
-		{F4FCE0A2-E611-45BA-A0F9-D04239AF94E5}.Debug|Win32.ActiveCfg = Debug|Win32
-		{F4FCE0A2-E611-45BA-A0F9-D04239AF94E5}.Debug|Win32.Build.0 = Debug|Win32
-		{F4FCE0A2-E611-45BA-A0F9-D04239AF94E5}.Debug|x64.ActiveCfg = Debug|Win32
-		{F4FCE0A2-E611-45BA-A0F9-D04239AF94E5}.Release|Win32.ActiveCfg = Release|Win32
-		{F4FCE0A2-E611-45BA-A0F9-D04239AF94E5}.Release|Win32.Build.0 = Release|Win32
-		{F4FCE0A2-E611-45BA-A0F9-D04239AF94E5}.Release|x64.ActiveCfg = Release|Win32
 		{8DFEA7B1-A747-4284-ABFF-7AEF03652F20}.Debug|Win32.ActiveCfg = Debug|Win32
 		{8DFEA7B1-A747-4284-ABFF-7AEF03652F20}.Debug|Win32.Build.0 = Debug|Win32
 		{8DFEA7B1-A747-4284-ABFF-7AEF03652F20}.Debug|x64.ActiveCfg = Debug|Win32

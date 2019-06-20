@@ -34,7 +34,6 @@ namespace mx
 			virtual ICamera *GetLightCamera(int slot);
 
 			virtual void Update(int delta);
-			virtual void Draw();
 
 		private:
 			ISceneNode *m_pRootNode;

@@ -1,10 +1,10 @@
 #include "CNPC.h"
 
 
-CNPC::CNPC(float color[4], float radius)
+CNPC::CNPC(const CVector3 &color, float radius)
+	:m_vColor(color)
 {
-	m_pColorLightObject = new CColorPointLightObject(RENDERER, color);
-	m_pBody = new CSphereEntity(m_pColorLightObject, radius, 50, 25);
+	m_pBody = new CSphereEntity(radius, 50, 25, color);
 	m_pBody->Create();
 
 	ISceneNode *pRootNode = SCENEMGR->GetCurrentScene()->GetRootNode();
@@ -14,16 +14,17 @@ CNPC::CNPC(float color[4], float radius)
 CNPC::~CNPC()
 {
 	SAFE_DEL(m_pBody);
-	SAFE_DEL(m_pColorLightObject);
 }
 
 void CNPC::SetPosition(const CVector3 &pos)
 {
+	CGameUnit::SetPosition(pos);
 	if (m_pBody)
 		m_pBody->SetPosition(pos);
 }
 
-mx::math::CVector3 CNPC::GetPosition()
+
+void CNPC::Update(int delta)
 {
-	return m_pBody ? m_pBody->GetPosition() : CVector3(0, 0, 0);
+	CGameUnit::Update(delta);
 }

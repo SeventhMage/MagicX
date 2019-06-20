@@ -1,5 +1,4 @@
 #include "mx.h"
-#include "CSphereEntity.h"
 #include "CHouse.h"
 
 #include <time.h>
@@ -67,12 +66,12 @@ int main(int argc, char *argv[])
 	//	scene->GetRootNode()->AddChild(pSphere);
 	//}
 
-	ex::CSphereEntity *mainSphere =  new ex::CSphereEntity(1.5, 24, 12, CVector3(1.f, 0.0f, 0.0f));
+	CSphereEntity *mainSphere =  new CSphereEntity(1.5, 24, 12, CVector3(1.f, 0.0f, 0.0f));
 	mainSphere->Create();
 	mainSphere->SetPosition(CVector3(3, -3, 0));
 	scene->GetRootNode()->AddChild(mainSphere);
 
-	ex::CSphereEntity *tmpSphere = new ex::CSphereEntity(3, 24, 12, CVector3(.5f, .8f, .5f));
+	CSphereEntity *tmpSphere = new CSphereEntity(3, 24, 12, CVector3(.5f, .8f, .5f));
 	tmpSphere->Create();
 	tmpSphere->SetPosition(CVector3(-1.5, -1.5, 0));
 	scene->GetRootNode()->AddChild(tmpSphere);

@@ -9,7 +9,6 @@
 #include "ERender.h"
 #include "IRenderable.h"
 #include "IShaderProgram.h"
-#include "IRenderList.h"
 
 namespace mx
 {
@@ -24,14 +23,9 @@ namespace mx
 			virtual void EnableVertexAttrib(VertexAttributeLocation vai, int size,
 				RendererVariableType vertType, int stride, int offset) = 0;
 			
-			virtual IRenderList *GetRenderList() = 0;
 
 			virtual void Bind() = 0;
 			virtual void UnBind() = 0;
-
-			//‰÷»æ
-			virtual void Render() = 0;
-			virtual void EndRender() = 0;
 
 		};
 	}

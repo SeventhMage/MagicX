@@ -1,6 +1,5 @@
 #include "CRenderer.h"
 #include "opengl/COpenGLDriver.h"
-#include "CRenderList.h"
 #include "CRenderable.h"
 #include "CMaterial.h"
 #include "CMaterialManager.h"
@@ -44,11 +43,6 @@ namespace mx
 			m_pRenderPhaseMgr->Initialize(this, width, height);
 		}
 
-		IRenderable * CRenderer::CreateRenderable(IRenderList *pRenderList)
-		{
-			return new CRenderable(pRenderList, this);
-		}
-
 		IRenderable * CRenderer::CreateRenderable(IRenderQueue * pQueue)
 		{
 			return new CRenderable(pQueue, this);
@@ -58,7 +52,7 @@ namespace mx
 		{
 			if (pRenderable)
 			{				
-				pRenderable->RemoveFromRenderList();
+				
 				delete pRenderable;
 			}
 		}
@@ -88,31 +82,15 @@ namespace mx
 				delete pMaterial;
 		}
 
-		void CRenderer::Render()
-		{
-			for (auto it = m_vecVertexArray.begin(); it != m_vecVertexArray.end(); ++it)
-			{
-				if (*it)
-				{					
-					(*it)->Render();
-				}
-			}
-		}
-
 		void CRenderer::EndRender()
 		{
-			for (auto it = m_vecVertexArray.begin(); it != m_vecVertexArray.end(); ++it)
-			{
-				if (*it)
-				{
-					(*it)->EndRender();
-				}
-			}
 		}
 
-		void CRenderer::ProcessRenderPhase() const
+		void CRenderer::ProcessRenderPhase()
 		{
+			BeginRender();
 			m_pRenderPhaseMgr->ProcessRenderPhase();
+			EndRender();
 		}
 
 		void CRenderer::SubmitScreenAlignedQuad() const

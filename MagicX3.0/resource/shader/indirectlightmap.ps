@@ -37,8 +37,8 @@ void main()
 
 	vec2 texCoordInValMap = posInValMap.xy / posInValMap.w;
 
-	float rxmax = 30.0 / valRowNum;
-	float rymax = 20.0 / valColNum;
+	float rxmax = 8.0 / valRowNum;
+	float rymax = 6.0 / valColNum;
 	vec3 indirectLC = vec3(0.0, 0.0, 0.0);
 	float shelter = 0.0;
 	for (int i = 0; i< sampleTotalNum; i+=1)
@@ -53,7 +53,7 @@ void main()
 		
 		vec3 shootDir = normalize(position.xyz - valP.xyz);
 		
-		vec3 shootColor = valC.rgb * valRate * max(dot(shootDir, valN.xyz), 0);// / 3.14;
+		vec3 shootColor = valC.rgb * valRate * max(dot(shootDir, valN.xyz), 0) / 3.14;
 		
 		float dis = max(distance(valP.xyz, position.xyz), 1.0);
 		vec3 irradiance = shootColor * max(dot(normal.xyz, -shootDir), 0) / (pow(dis, 4.0));// + 2 * pow(dis, 2.0) + 3 * dis + 4.0);
@@ -61,11 +61,11 @@ void main()
 		indirectLC += irradiance;
 		
 		float v = (1.0 - step(0.0, dot(shootDir, valN.xyz))) * step(0.0, dot(-shootDir, normal.xyz));
-		shelter += v * max(dot(-shootDir, normal.xyz), 0.0);// / (dis);
+		shelter +=  v * max(dot(-shootDir, normal.xyz), 0.0);// / (dis);
 	}
 	//indirectLC /= sampleTotalNum;
 
 	shelter  /= sampleTotalNum;
 
-	gl_FragColor = vec4(indirectLC, 1 - shelter);
+	gl_FragColor = vec4(indirectLC, 1.0 - shelter);
 }

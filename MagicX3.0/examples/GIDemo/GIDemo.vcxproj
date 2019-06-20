@@ -125,12 +125,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CHouse.cpp" />
-    <ClCompile Include="CSphereEntity.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CHouse.h" />
-    <ClInclude Include="CSphereEntity.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

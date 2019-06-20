@@ -1,5 +1,5 @@
 <RenderPhase>
-	<RenderTarget texture="3" depth="1"/>
+	<RenderTarget texture="3" depth="1" scale="1.0"/>
 	<RenderQueue materialid="3" materialname="material/scenegbuffer.xml">
 	</RenderQueue>
 	<RenderQueue materialid="9" materialname="material/scenegbuffer_c.xml">

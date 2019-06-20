@@ -1,11 +1,8 @@
 #include "CHero.h"
 
 CHero::CHero()
-:m_bBeginMove(false)
-, m_vMoveDir(0, 0, -1)
-, m_fSpeed(1.5f)
 {
-
+	Create();
 }
 
 CHero::~CHero()
@@ -16,34 +13,16 @@ CHero::~CHero()
 
 void CHero::Update(int delta)
 {	
-	if (m_bBeginMove)
-	{
-		SetPosition(GetPosition() + m_vMoveDir * m_fSpeed);
-	}
 	CPlayer::Update(delta);
 }
 
-
-void CHero::BeginMove()
+void CHero::LeftRotate()
 {
-	m_bBeginMove = true;
+	m_vDirection.rotateXZBy(0.01f * GetLevel());
 }
 
-void CHero::SetMoveDir(const CVector3 &vDir)
-{	
-	m_vMoveDir = vDir;
-	m_vMoveDir.normalize();
-}
-
-void CHero::LeftMove()
+void CHero::RightRotate()
 {
-	if (m_bBeginMove)
-		m_vMoveDir.rotateXZBy(0.2f);
-}
-
-void CHero::RightMove()
-{
-	if (m_bBeginMove)
-		m_vMoveDir.rotateXZBy(-0.2f);
+	m_vDirection.rotateXZBy(-0.01f * GetLevel());
 }
 

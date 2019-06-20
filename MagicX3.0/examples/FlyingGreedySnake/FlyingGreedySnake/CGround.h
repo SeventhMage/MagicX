@@ -18,10 +18,8 @@ public:
 
 	virtual void UpdateImp(int delta);
 
-	void Create();
+	void Create(float width);
 private:
-	IRenderObject *m_pRenderObject;
-	IRenderable *m_pRenderable;
 };
 
 #endif

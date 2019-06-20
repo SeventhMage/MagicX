@@ -26,8 +26,6 @@ namespace mx
 			//返回当前场景
 			virtual IScene *GetCurrentScene() = 0;
 
-			//绘制场景
-			virtual void Draw() = 0;
 		};
 	}
 }

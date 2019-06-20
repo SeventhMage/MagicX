@@ -15,14 +15,8 @@ public:
 
 	virtual void Update(int delta);
 
-	void BeginMove();
-	void SetMoveDir(const CVector3 &vDir);
-	void LeftMove();
-	void RightMove();	
-private:
-	bool m_bBeginMove;
-	CVector3 m_vMoveDir;
-	float m_fSpeed;
+	void LeftRotate();
+	void RightRotate();	
 };
 
 #endif

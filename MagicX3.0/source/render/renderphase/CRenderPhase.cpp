@@ -48,7 +48,7 @@ namespace mx
 				m_iWidth = width;
 			if (m_iHeight <= 0)
 				m_iHeight = height;
-			m_pRenderTarget = pRenderer->GetRenderTargetManager()->CreateRenderTarget(m_textureCount, m_iWidth, m_iHeight, m_bHaveDepth);
+			m_pRenderTarget = pRenderer->GetRenderTargetManager()->CreateRenderTarget(m_textureCount, m_iWidth * m_fScale, m_iHeight * m_fScale, m_bHaveDepth);
 			for (auto queue : m_renderQueueGroup)
 			{
 				queue.second->BindPhaseUniform();

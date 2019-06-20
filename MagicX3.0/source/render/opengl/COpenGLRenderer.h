@@ -6,7 +6,6 @@
 #define _MX_RENDER_C_OPENGL_RENDERER_H_
 
 #include "../CRenderer.h"
-#include "render/IRenderList.h"
 #include "render/IShaderProgram.h"
 
 namespace mx

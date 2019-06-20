@@ -15,6 +15,7 @@ namespace mx
 		{
 		public:
 			virtual void AddRenderable(IRenderable *) = 0;
+			virtual void RemoveRenderable(IRenderable *) = 0;
 			virtual void Clear() = 0;
 			virtual void Render() = 0;
 			virtual IMaterial *GetMaterial() const = 0;

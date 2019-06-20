@@ -6,18 +6,6 @@ namespace mx
 	namespace render
 	{
 
-		CRenderable::CRenderable(IRenderList *pRenderList, IRenderer *pRenderer)
-			:m_pRenderList(pRenderList)
-			, m_pVBO(nullptr)
-			, m_pIBO(nullptr)
-			,m_pRenderer(pRenderer)
-			,m_pShaderProgram(nullptr)
-		{
-			memset(m_pTexture, 0, sizeof(ITexture *)* TU_TEXTURE_NUM);	
-			for (int i = 0; i < RA_NUM; ++i)
-				m_bRenderAttrs[i] = true;
-		}
-
 		CRenderable::CRenderable(IRenderQueue *pQueue, IRenderer *pRenderer)		
 			:m_pRenderQueue(pQueue)
 			, m_pVBO(nullptr)
@@ -38,20 +26,14 @@ namespace mx
 			m_pRenderer->DestroyVertexArrayObject(m_pVAO);
 		}
 
-		void CRenderable::SumbitToRenderList()
-		{
-			if (m_pRenderList)
-				m_pRenderList->AddRenderable(this);
-		}
-
-		void CRenderable::RemoveFromRenderList()
-		{
-			m_pRenderList->RemoveRenderable(this);
-		}
-
 		void CRenderable::SumbitToRenderQueue()
 		{
 			m_pRenderQueue->AddRenderable(this);
+		}
+
+		void CRenderable::RemoveFromeRenderQueue()
+		{
+			m_pRenderQueue->RemoveRenderable(this);
 		}
 
 		void CRenderable::Bind()

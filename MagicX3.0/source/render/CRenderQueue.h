@@ -17,6 +17,7 @@ namespace mx
 			CRenderQueue(int materiadId);
 			~CRenderQueue();
 			virtual void AddRenderable(IRenderable *renderable);
+			virtual void RemoveRenderable(IRenderable *renderable);
 			virtual void Clear();
 			virtual void Render();
 			virtual IMaterial *GetMaterial() const;

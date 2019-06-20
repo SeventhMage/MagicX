@@ -1,65 +1,36 @@
 #include "CPlayer.h"
 
 CPlayer::CPlayer()
-: m_pHead(nullptr)
-, m_pTail(nullptr)
+	: m_pHead(nullptr)
+	, m_pTail(nullptr)
 {
-	m_pReflectObject = new CReflectObject(RENDERER);
-
-	float color[4] = { 0 };	
-	for (int i = 0; i < 4; ++i)
-	{
-		color[i] = (rand() % 255) / 255.0f;
-	}
-	m_pColorLightObject = new CColorPointLightObject(RENDERER, color);
-
-	Increase();
-	Increase();
 }
 
 CPlayer::~CPlayer()
 {
 	SAFE_DEL(m_pHead);
-	SAFE_DEL(m_pColorLightObject);
-	SAFE_DEL(m_pReflectObject);
-;}
+}
 
-void CPlayer::Increase()
+void CPlayer::Increase(const CVector3 &color)
 {
-	if (!m_pHead)
-	{			
-		m_pHead = new CSphereEntity(m_pReflectObject, GetHeadRadius(), GetSlice(), GetSlice());
+	CSphereEntity *body = new CSphereEntity(GetBodyRadius(), GetSlice(), GetSlice(), color);
+	body->Create();
+	CVector3 vBackBody = m_listBody.back()->GetPosition();
+	CVector3 vSrcTail = m_pTail->GetPosition();
+	body->SetPosition(vSrcTail);
+	m_listBody.push_back(body);
+	CVector3 dir = vSrcTail - vBackBody;
+	dir.normalize();
+	m_pTail->SetPosition(vSrcTail + 1.5f * dir);
 
-		CSphereEntity *pBody = new CSphereEntity(m_pColorLightObject, GetBodyRadius(), GetSlice(), GetSlice());
-		pBody->Create();
-		m_listBody.push_back(pBody);
-		m_pTail = new CSphereEntity(m_pColorLightObject, GetBodyRadius(), GetSlice(), GetSlice());
-		m_pTail->Create();
-
-		ISceneNode *pRootNode = SCENEMGR->GetCurrentScene()->GetRootNode();
-		pRootNode->AddChild(pBody);
-		pRootNode->AddChild(m_pTail);
-		InitPosition();
-	}
-	else
-	{
-		CSphereEntity *body = new CSphereEntity(m_pColorLightObject, GetBodyRadius(), GetSlice(), GetSlice());
-		body->Create();			
-		CVector3 vBackBody = m_listBody.back()->GetPosition();
-		CVector3 vSrcTail = m_pTail->GetPosition();
-		body->SetPosition(vSrcTail);
-		m_listBody.push_back(body);
-		m_pTail->SetPosition(vBackBody + 1.5f * (vSrcTail - vBackBody));
-
-		ISceneNode *pRootNode = SCENEMGR->GetCurrentScene()->GetRootNode();
-		pRootNode->AddChild(body);
-	}
+	ISceneNode *pRootNode = SCENEMGR->GetCurrentScene()->GetRootNode();
+	pRootNode->AddChild(body);
 }
 
 
 void CPlayer::UpdatePosition()
 {
-	CVector3 headPos = m_pHead->GetPosition();	
+	CVector3 headPos = m_pHead->GetPosition();
 	if (headPos != m_vHeadPosRecord)
 	{
 		CVector3 vRecord = m_vHeadPosRecord;
@@ -71,7 +42,7 @@ void CPlayer::UpdatePosition()
 			CVector3 dir = (vRecord - vFront).normalize();
 			vFront = vFront + dir * 1.5f;
 			(*it)->SetPosition(vFront);
-			vRecord = vTemp;			
+			vRecord = vTemp;
 		}
 		CVector3 dir = (vRecord - vFront).normalize();
 		vFront = vFront + dir * 1.5f;
@@ -113,25 +84,33 @@ void CPlayer::InitPosition()
 
 void CPlayer::SetPosition(const CVector3 &pos)
 {
+	CGameUnit::SetPosition(pos);
 	if (m_pHead)
 		m_pHead->SetPosition(CVector3(pos.x, GetHeadRadius(), pos.z));
 }
 
-const CVector3 &CPlayer::GetPosition()
-{
-	return m_pHead->GetPosition();
-}
 
 void CPlayer::Create()
 {
+	m_pHead = new CSphereEntity(GetHeadRadius(), GetSlice(), GetSlice(), CVector3(Random(0.f, 1.f), Random(0.f, 1.f), Random(0.f, 1.f)));
 	m_pHead->Create();
+	CSphereEntity *pBody = new CSphereEntity(GetBodyRadius(), GetSlice(), GetSlice(), CVector3(Random(0.f, 1.f), Random(0.f, 1.f), Random(0.f, 1.f)));
+	pBody->Create();
+	m_listBody.push_back(pBody);
+	m_pTail = new CSphereEntity(GetBodyRadius(), GetSlice(), GetSlice(), CVector3(Random(0.f, 1.f), Random(0.f, 1.f), Random(0.f, 1.f)));
+	m_pTail->Create();
+
 	ISceneNode *pRootNode = SCENEMGR->GetCurrentScene()->GetRootNode();
 	pRootNode->AddChild(m_pHead);
-	
+	pRootNode->AddChild(pBody);
+	pRootNode->AddChild(m_pTail);
+	InitPosition();
+
 }
 
 void CPlayer::Update(int delta)
 {
+	CGameUnit::Update(delta);
 	UpdatePosition();
 }
 

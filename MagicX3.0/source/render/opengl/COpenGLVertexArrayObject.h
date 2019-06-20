@@ -18,7 +18,6 @@ namespace mx
 			COpenGLVertexArrayObject();
 			virtual ~COpenGLVertexArrayObject();			
 
-			virtual void EndRender();
 			virtual void Bind();			
 			virtual void UnBind();
 			virtual void EnableVertexAttrib(VertexAttributeLocation vai, int size,

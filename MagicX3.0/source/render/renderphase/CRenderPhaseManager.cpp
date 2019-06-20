@@ -119,7 +119,7 @@ namespace mx
 
 					if (renderTargetNode->first_attribute("scale"))
 					{
-						scale = atof(renderTargetNode->first_attribute("depth")->value());
+						scale = atof(renderTargetNode->first_attribute("scale")->value());
 					}
 
 					pRenderPhase = new CRenderPhase(this, id, textureCount, width, height, scale, depth == 1);

@@ -18,14 +18,7 @@ namespace mx
 			CVertexArrayObject();
 			virtual ~CVertexArrayObject();								
 
-
-			virtual IRenderList *GetRenderList() { return m_pRenderList; }
-			
-			virtual void Render();			
-		
 		protected:
-			IRenderList *m_pRenderList;					//‰÷»æ¡–±Ì				
-			int m_materialId;							//≤ƒ÷ 
 		};
 	}
 }

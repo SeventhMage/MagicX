@@ -32,11 +32,5 @@ namespace mx
 			return m_pCurrentScene;
 		}
 
-		void CSceneManager::Draw()
-		{			
-			if (m_pCurrentScene)
-				m_pCurrentScene->Draw();
-		}
-
 	}
 }

@@ -36,15 +36,6 @@ namespace mx
 			}
 		}
 
-		void CScene::Draw()
-		{	
-			RENDERER->BeginRender();						
-
-			RENDERER->Render();
-
-			RENDERER->EndRender();
-		}
-
 		void CScene::Update(int delta)
 		{
 			if (m_pCamera)

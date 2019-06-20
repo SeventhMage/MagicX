@@ -17,11 +17,9 @@ public:
 	virtual ~CPlayer();
 
 	virtual void SetPosition(const CVector3 &pos);
-	virtual const CVector3 &GetPosition();
 	virtual void Update(int delta);
 
-	void Create();
-	void Increase();
+	void Increase(const CVector3 &color);
 	void UpdatePosition();
 
 	CSphereEntity *GetHead(){ return m_pHead; }
@@ -36,14 +34,11 @@ protected:
 	//≥ı ºªØŒª÷√
 	void InitPosition();
 
+	void Create();
 private:
 	CSphereEntity *m_pHead;	
 	std::list<CSphereEntity *>m_listBody;
 	CSphereEntity *m_pTail;
-	
-
-	CReflectObject *m_pReflectObject;
-	CColorPointLightObject *m_pColorLightObject;
 
 	CPlayerData m_playerData;
 

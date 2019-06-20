@@ -101,7 +101,6 @@
     <ClCompile Include="..\..\..\..\source\render\CRenderable.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CRenderer.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CRenderInput.cpp" />
-    <ClCompile Include="..\..\..\..\source\render\CRenderList.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CRenderQueue.cpp" />
     <ClCompile Include="..\..\..\..\source\render\CShaderProgram.cpp" />
     <ClCompile Include="..\..\..\..\source\render\screenalignedquad\CDirectLightMap.cpp" />
@@ -117,7 +116,6 @@
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLRenderer.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLShader.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLShaderProgram.cpp" />
-    <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLShadowMap.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLRenderTarget.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLTexture.cpp" />
     <ClCompile Include="..\..\..\..\source\render\opengl\COpenGLVertexArrayObject.cpp" />
@@ -185,7 +183,6 @@
     <ClInclude Include="..\..\..\..\include\render\IRenderDriver.h" />
     <ClInclude Include="..\..\..\..\include\render\IRenderer.h" />
     <ClInclude Include="..\..\..\..\include\render\IRenderInput.h" />
-    <ClInclude Include="..\..\..\..\include\render\IRenderList.h" />
     <ClInclude Include="..\..\..\..\include\render\IRenderQueue.h" />
     <ClInclude Include="..\..\..\..\include\render\IRenderTarget.h" />
     <ClInclude Include="..\..\..\..\include\render\IRenderTargetManager.h" />
@@ -237,7 +234,6 @@
     <ClInclude Include="..\..\..\..\source\render\CRenderable.h" />
     <ClInclude Include="..\..\..\..\source\render\CRenderer.h" />
     <ClInclude Include="..\..\..\..\source\render\CRenderInput.h" />
-    <ClInclude Include="..\..\..\..\source\render\CRenderList.h" />
     <ClInclude Include="..\..\..\..\source\render\CRenderQueue.h" />
     <ClInclude Include="..\..\..\..\source\render\CShaderProgram.h" />
     <ClInclude Include="..\..\..\..\source\render\screenalignedquad\CDirectLightMap.h" />
@@ -255,7 +251,6 @@
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLRenderTargetManager.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLShader.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLShaderProgram.h" />
-    <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLShadowMap.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLTexture.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLVertexArrayObject.h" />
     <ClInclude Include="..\..\..\..\source\render\opengl\COpenGLVertexBufferObject.h" />
