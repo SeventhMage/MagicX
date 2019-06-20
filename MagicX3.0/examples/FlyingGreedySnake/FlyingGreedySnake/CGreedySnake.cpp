@@ -124,23 +124,30 @@ bool CGreedySnake::Update(int delta)
 		if (event->IsPress(EKP_KEYBOARD_A))
 		{
 			pHero->LeftRotate();
-			speed = pHero->GetLevel();
+			speed = pHero->GetLevel() * 10;
 		}
 		else if (event->IsPress(EKP_KEYBOARD_D))
 		{
 			pHero->RightRotate();
-			speed = pHero->GetLevel();
+			speed = pHero->GetLevel() * 10;
 		}
-
+/*
 		if (event->IsPress(EKP_KEYBOARD_W))
 		{
-			speed = pHero->GetLevel();
+			speed = pHero->GetLevel() * 10;
 		}
 		else if (event->IsPress(EKP_KEYBOARD_S))
 		{
-			speed = -pHero->GetLevel();
+			speed = -pHero->GetLevel() * 10;
 		}
+*/
 		pHero->SetSpeed(speed);
+
+
+		if (event->IsPress(EKP_KEYBOARD_L))
+		{
+			pHero->Increase(CVector3(Random(0.f, 1.f), Random(0.f, 1.f), Random(0.f, 1.f)));
+		}
 
 		if (event->IsPress(EKP_KEYBOARD_ESC))
 		{

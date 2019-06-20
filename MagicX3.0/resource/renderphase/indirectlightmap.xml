@@ -1,5 +1,5 @@
 <RenderPhase>
-	<RenderTarget texture="1" depth="0"/>
+	<RenderTarget texture="1" depth="0" scale="0.5"/>
 	<RenderQueue materialid="6" materialname="material/indirectlightmap.xml" for="IndirectLightMap">
 		<PhaseQuote id="1">
 			<TextureUniform name="tRSMFlux" slot="4" index="0"/>

@@ -65,7 +65,7 @@ void main()
 	}
 	//indirectLC /= sampleTotalNum;
 
-	shelter  /= sampleTotalNum;
+	shelter  /= float(sampleTotalNum);
 
 	gl_FragColor = vec4(indirectLC, 1.0 - shelter);
 }

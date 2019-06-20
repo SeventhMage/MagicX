@@ -18,6 +18,7 @@ public:
 
 	virtual void SetPosition(const CVector3 &pos);
 	virtual void Update(int delta);
+	virtual void SetLevel(int level);
 
 	void Increase(const CVector3 &color);
 	void UpdatePosition();

@@ -2,8 +2,8 @@
 
 CGameUnit::CGameUnit()
 : m_bAlive(true)
-, m_fMaxSpeed(10.f)
-, m_fCurSpeed(0.f)
+, m_fMaxSpeed(100.f)
+, m_fCurSpeed(10.f)
 , m_vDirection(CVector3(0.f, 0.f, -1.f))
 , m_level(1)
 {

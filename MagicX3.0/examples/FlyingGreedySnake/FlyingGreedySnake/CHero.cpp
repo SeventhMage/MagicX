@@ -18,11 +18,11 @@ void CHero::Update(int delta)
 
 void CHero::LeftRotate()
 {
-	m_vDirection.rotateXZBy(0.01f * GetLevel());
+	m_vDirection.rotateXZBy(0.02f * GetLevel());
 }
 
 void CHero::RightRotate()
 {
-	m_vDirection.rotateXZBy(-0.01f * GetLevel());
+	m_vDirection.rotateXZBy(-0.02f * GetLevel());
 }
 

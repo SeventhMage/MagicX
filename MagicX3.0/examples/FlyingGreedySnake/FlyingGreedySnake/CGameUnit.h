@@ -19,6 +19,7 @@ public:
 	virtual const CVector3 &GetPosition() { return m_vPosition; }
 	virtual void SetDirection(const CVector3 &dir) { m_vDirection = dir; }
 	virtual const CVector3 &GetDirection() { return m_vDirection; }
+	virtual void SetLevel(int level) { m_level = level; }
 
 	void SetAlive(bool bAlive) { m_bAlive = bAlive; }
 	bool IsAlive() { return m_bAlive; }
@@ -26,7 +27,6 @@ public:
 	float GetSpeed() { return m_fCurSpeed; }
 	void SetMaxSpeed(float fSpeed) { m_fMaxSpeed = fSpeed; }
 	float GetMaxSpeed() { return m_fMaxSpeed; }
-	void SetLevel(int level) { m_level = level; }
 	int GetLevel() { return m_level; }
 protected:
 	bool m_bAlive;

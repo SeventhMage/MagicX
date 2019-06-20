@@ -39,12 +39,13 @@ void CPlayer::UpdatePosition()
 		for (auto it = m_listBody.begin(); it != m_listBody.end(); ++it)
 		{
 			CVector3 vTemp = (*it)->GetPosition();
-			CVector3 dir = (vRecord - vFront).normalize();
+			CVector3 dir = (vTemp - vFront).normalize();
 			vFront = vFront + dir * 1.5f;
 			(*it)->SetPosition(vFront);
 			vRecord = vTemp;
 		}
-		CVector3 dir = (vRecord - vFront).normalize();
+		CVector3 vTemp = m_pTail->GetPosition();
+		CVector3 dir = (vTemp - vFront).normalize();
 		vFront = vFront + dir * 1.5f;
 		m_pTail->SetPosition(vFront);
 		m_vHeadPosRecord = headPos;
@@ -54,12 +55,12 @@ void CPlayer::UpdatePosition()
 
 float CPlayer::GetHeadRadius()
 {
-	return 1;// m_playerData.GetLevel() * 3.f;
+	return 1.1f;
 }
 
 float CPlayer::GetBodyRadius()
 {
-	return 1;// m_playerData.GetLevel() * 2.f;
+	return 1.f;
 }
 
 int CPlayer::GetSlice()
@@ -114,5 +115,9 @@ void CPlayer::Update(int delta)
 	UpdatePosition();
 }
 
+void CPlayer::SetLevel(int level)
+{
+	CGameUnit::SetLevel(level);
+}
 
 
