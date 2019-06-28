@@ -1,0 +1,11 @@
+<table>
+	<record id="1" level="1" maxmovespeed="4" acceleratedspeed="4.0" rotatespeed="20" scale="0.6" levelupexp="10"/>
+	<record id="2" level="2" maxmovespeed="5" acceleratedspeed="4.5" rotatespeed="22" scale="1.1" levelupexp="20"/>
+	<record id="3" level="3" maxmovespeed="6" acceleratedspeed="5.5" rotatespeed="24" scale="1.4" levelupexp="30"/>
+	<record id="4" level="4" maxmovespeed="7" acceleratedspeed="6.5" rotatespeed="28" scale="1.8" levelupexp="40"/>
+	<record id="5" level="5" maxmovespeed="8" acceleratedspeed="7.5" rotatespeed="32" scale="2.5" levelupexp="50"/>
+	<record id="6" level="6" maxmovespeed="9" acceleratedspeed="8.5" rotatespeed="36" scale="3.0" levelupexp="60"/>
+	<record id="7" level="7" maxmovespeed="10" acceleratedspeed="9.5" rotatespeed="40" scale="3.5" levelupexp="70"/>
+	<record id="8" level="8" maxmovespeed="11" acceleratedspeed="10.5" rotatespeed="48" scale="4.0" levelupexp="80"/>
+	<record id="9" level="9" maxmovespeed="12" acceleratedspeed="11.5" rotatespeed="56" scale="5.0" levelupexp="999999"/>
+</table>

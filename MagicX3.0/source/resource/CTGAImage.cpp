@@ -83,6 +83,7 @@ namespace mx
 			if (fread(m_pData, m_lImageSize, 1, pFile) != 1)
 			{
 				free(m_pData);
+				m_pData = NULL;
 				return NULL;
 			}
 

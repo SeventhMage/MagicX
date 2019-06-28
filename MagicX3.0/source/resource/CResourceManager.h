@@ -18,6 +18,7 @@ namespace mx
 			virtual ~CResourceManager();
 
 			virtual IResource *LoadResource(const char *filename);
+			virtual void UnLoadResource(IResource *pResource);
 		};
 	}
 }

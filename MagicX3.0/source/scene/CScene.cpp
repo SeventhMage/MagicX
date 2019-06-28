@@ -26,9 +26,9 @@ namespace mx
 
 		CScene::~CScene()
 		{
+			SAFE_DEL(m_pSkyBox);
 			SAFE_DEL(m_pRootNode);
 			SAFE_DEL(m_pCamera);
-			SAFE_DEL(m_pSkyBox);
 			for (int i = 0; i < MAX_LIGHT_NUM; ++i)
 			{	
 				SAFE_DEL(m_pLights[i]);

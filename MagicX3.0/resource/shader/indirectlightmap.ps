@@ -1,6 +1,5 @@
 #version 330 core
 
-uniform sampler2D tGColor;
 uniform sampler2D tGPosition;
 uniform sampler2D tGNormal;
 
@@ -18,54 +17,51 @@ uniform vec3 lightColor;
 uniform float fSRandNum[256];
 uniform float fCRandNum[256];
 
-
 in vec2 vOutTexCoord0;
 
-void main()
+void calcIndirectLight(int i, vec2 texCoordInValMap, float stepRate, vec3 gPosition, vec3 gNormal, inout vec3 indirectLC, inout float shelter)
 {
-	vec4 color = texture2D(tGColor, vOutTexCoord0);	
-	vec4 position = texture2D(tGPosition, vOutTexCoord0);	
-	vec4 normal = texture2D(tGNormal, vOutTexCoord0);	
-	
-	vec3 mainLightDir = -normalize(lightDir);//normalize(lightPosition - position.xyz);
-
-	int sampleTotalNum = 120;
-	float valRowNum = 800;
-	float valColNum = 600;
-	
-	vec4 posInValMap = shadowMatrix * position;
-
-	vec2 texCoordInValMap = posInValMap.xy / posInValMap.w;
-
-	float rxmax = 8.0 / valRowNum;
-	float rymax = 6.0 / valColNum;
-	vec3 indirectLC = vec3(0.0, 0.0, 0.0);
-	float shelter = 0.0;
-	for (int i = 0; i< sampleTotalNum; i+=1)
-	{
-		float x = texCoordInValMap.x + rxmax * fSRandNum[i];
-		float y = texCoordInValMap.y + rymax * fCRandNum[i];
+		float x = texCoordInValMap.x + stepRate * fSRandNum[i];
+		float y = texCoordInValMap.y + stepRate * fCRandNum[i];
 		vec2 tex = vec2(x, y);
-		vec4 valC = texture2D(tRSMFlux, tex);
-		vec4 valP = texture2D(tRSMPosition, tex);
-		vec4 valN = texture2D(tRSMNormal, tex);
-		float valRate = max(dot(mainLightDir, valN.xyz), 0.0);
+		vec4 valC = texture(tRSMFlux, tex);
+		vec4 valP = texture(tRSMPosition, tex);
+		vec4 valN = texture(tRSMNormal, tex);
+		float valRate = max(dot(-lightDir, valN.xyz), 0.0);
 		
-		vec3 shootDir = normalize(position.xyz - valP.xyz);
+		vec3 shootDir = normalize(gPosition - valP.xyz);
 		
-		vec3 shootColor = valC.rgb * valRate * max(dot(shootDir, valN.xyz), 0) / 3.14;
+		vec3 shootColor = valC.rgb * valRate * max(dot(shootDir, valN.xyz), 0.0) / 3.14;
 		
-		float dis = max(distance(valP.xyz, position.xyz), 1.0);
-		vec3 irradiance = shootColor * max(dot(normal.xyz, -shootDir), 0) / (pow(dis, 4.0));// + 2 * pow(dis, 2.0) + 3 * dis + 4.0);
+		float dis = max(distance(valP.xyz, gPosition), 1.0);
+		vec3 irradiance = shootColor * max(dot(gNormal, -shootDir), 0.0) / (pow(dis, 4.0));// + 2.0 * pow(dis, 2.0) + 3.0 * dis + 4.0);
 		
 		indirectLC += irradiance;
 		
-		float v = (1.0 - step(0.0, dot(shootDir, valN.xyz))) * step(0.0, dot(-shootDir, normal.xyz));
-		shelter +=  v * max(dot(-shootDir, normal.xyz), 0.0);// / (dis);
+		float v = (1.0 - step(0.0, dot(shootDir, valN.xyz))) * step(0.0, dot(-shootDir, gNormal.xyz));
+		shelter += max(dot(-shootDir, gNormal.xyz), 0);// / dis * dis);	
+}
+
+
+void main()
+{
+	vec4 gPosition = texture(tGPosition, vOutTexCoord0);	
+	vec4 gNormal = texture(tGNormal, vOutTexCoord0);	
+	
+	vec3 mainLightDir = -normalize(lightDir);//normalize(lightPosition - position.xyz);
+	
+	vec4 posInValMap = shadowMatrix * gPosition;
+	vec2 texCoordInValMap = posInValMap.xy / posInValMap.w;
+
+	float stepRate = 0.1;
+	int samplingTotalNum = 128;
+	vec3 indirectLC = vec3(0.0, 0.0, 0.0);
+	float shelter = 0.0;
+	for (int i = 0; i< samplingTotalNum; ++i)
+	{
+		calcIndirectLight(i, texCoordInValMap, stepRate, gPosition.xyz, gNormal.xyz, indirectLC, shelter);
 	}
-	//indirectLC /= sampleTotalNum;
 
-	shelter  /= float(sampleTotalNum);
-
+	shelter /= float(samplingTotalNum);
 	gl_FragColor = vec4(indirectLC, 1.0 - shelter);
 }

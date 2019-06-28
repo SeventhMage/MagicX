@@ -19,7 +19,7 @@ CGreedySnake::~CGreedySnake()
 
 void CGreedySnake::InitGame(int width, int height, bool fullscreen)
 {
-	CreateMagicX(RDT_OPENGL, 0, 0, 800, 600, fullscreen);
+	CreateMagicX(RDT_OPENGL, 0, 0, width, height, fullscreen);
 	m_pGameScene = new CGameScene();
 	m_pGameScene->InitScene();
 }
@@ -123,13 +123,18 @@ bool CGreedySnake::Update(int delta)
 		float speed = 0.f;
 		if (event->IsPress(EKP_KEYBOARD_A))
 		{
-			pHero->LeftRotate();
-			speed = pHero->GetLevel() * 10;
+			pHero->SetRotate(CGameUnit::ERS_LEFT);
+			pHero->SetMoved(true);
 		}
 		else if (event->IsPress(EKP_KEYBOARD_D))
 		{
-			pHero->RightRotate();
-			speed = pHero->GetLevel() * 10;
+			pHero->SetRotate(CGameUnit::ERS_RIGHT);
+			pHero->SetMoved(true);
+		}
+		else
+		{
+			pHero->SetRotate(CGameUnit::ERS_NONE);
+			pHero->SetMoved(false);
 		}
 /*
 		if (event->IsPress(EKP_KEYBOARD_W))
@@ -141,7 +146,6 @@ bool CGreedySnake::Update(int delta)
 			speed = -pHero->GetLevel() * 10;
 		}
 */
-		pHero->SetSpeed(speed);
 
 
 		if (event->IsPress(EKP_KEYBOARD_L))

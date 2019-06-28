@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 
 	CGreedySnake::NewInstance();
 	
-	CGreedySnake::Instance()->InitGame(800, 600, false);
+	CGreedySnake::Instance()->InitGame(1280, 720, false);
 	CGreedySnake::Instance()->Run();
 
 	CGreedySnake::DeleteInstance();

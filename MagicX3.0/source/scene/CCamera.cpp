@@ -53,7 +53,7 @@ namespace mx
 			CVector3 vDir = -m_direction;
 			vDir.normalize();
 			if (pFocusNode)
-				m_position = pFocusNode->GetPosition() + vDir * fDistance;
+				m_position = pFocusNode->GetAbslutePosition() + vDir * fDistance;
 			Update(0);
 		}
 
@@ -125,7 +125,7 @@ namespace mx
 		{
 			if (m_pFocus)
 			{
-				CVector3 vPos = m_pFocus->GetPosition() + -m_direction * m_fDistance;
+				CVector3 vPos = m_pFocus->GetAbslutePosition() + -m_direction * m_fDistance;
 				if (vPos != m_position)
 				{
 					SetPosition(vPos);

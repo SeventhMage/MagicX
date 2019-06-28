@@ -258,6 +258,12 @@
     <ClCompile Include="..\..\..\..\source\render\screenalignedquad\CIndirectLightMap.cpp">
       <Filter>source\render\screenalignedquad</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\resource\CTableConfig.cpp">
+      <Filter>source\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\resource\CTableConfigManager.cpp">
+      <Filter>source\resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\include\mx.h">
@@ -616,6 +622,18 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\render\screenalignedquad\CIndirectLightMap.h">
       <Filter>source\render\screenalignedquad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\resource\ITableConfig.h">
+      <Filter>include\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\resource\CTableConfig.h">
+      <Filter>source\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\resource\CTableConfigManager.h">
+      <Filter>source\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\resource\ITableConfigManager.h">
+      <Filter>include\resource</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

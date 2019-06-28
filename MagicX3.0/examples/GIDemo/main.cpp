@@ -131,6 +131,13 @@ int main(int argc, char *argv[])
 
 				}
 
+				int delta = event->GetWheelDelta();
+				if (delta)
+				{
+					CVector3 camPos = camera->GetPosition() + camera->GetDirection() * delta * 0.005f;
+					camera->SetPosition(camPos);
+				}
+
 				if (mainSphere)
 				{
 					CVector3 spherePos = mainSphere->GetPosition();

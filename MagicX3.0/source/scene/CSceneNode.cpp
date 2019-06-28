@@ -18,7 +18,8 @@ namespace mx
 
 		CSceneNode::~CSceneNode()
 		{
-
+			RemoveAll();
+			Remove();
 		}
 
 		void CSceneNode::UpdateImp(int delta)

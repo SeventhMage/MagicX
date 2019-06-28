@@ -3,8 +3,8 @@
 
 CGround::CGround()
 {
-	AddRenderPhase(1, 10);
-	AddRenderPhase(3, 9);
+	AddRenderPhase(1, 1);
+	AddRenderPhase(3, 3);
 }
 
 CGround::~CGround()
@@ -24,21 +24,23 @@ void CGround::Create(float width)
 		if (pVAO)
 		{
 			pVAO->Bind();
+			ITexture *pTexture = RENDERER->CreateTexture("texture/floor.tga");
+			renderable->SetTexture(0, pTexture);
+
+			float vertex[] = { -width, 0, width, 0, 1, 0, 0, 0,
+				width, 0, width, 0, 1, 0, 20, 0,
+				width, 0, -width, 0, 1, 0, 20, 20,
 
 
-			float vertex[] = { -width, 0, width, 0, 1, 0,
-				width, 0, width, 0, 1, 0,
-				width, 0, -width, 0, 1, 0,
-
-
-				-width, 0, width, 0, 1, 0,
-				width, 0, -width, 0, 1, 0,
-				-width, 0, -width, 0, 1, 0, };
+				-width, 0, width, 0, 1, 0, 0, 0,
+				width, 0, -width, 0, 1, 0, 20, 20,
+				-width, 0, -width, 0, 1, 0, 0, 20};
 
 			IBufferObject *bufferObject = renderable->CreateVertexBufferObject(vertex, sizeof(vertex), 0, sizeof(vertex) / sizeof(float), GBM_TRIANGLES, GBU_DYNAMIC_DRAW);
 
-			pVAO->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, 6 * sizeof(float), 0);
-			pVAO->EnableVertexAttrib(render::VAL_NORMAL, 3, render::RVT_FLOAT, 6 * sizeof(float), 3 * sizeof(float));
+			pVAO->EnableVertexAttrib(render::VAL_POSITION, 3, render::RVT_FLOAT, 8 * sizeof(float), 0);
+			pVAO->EnableVertexAttrib(render::VAL_NORMAL, 3, render::RVT_FLOAT, 8 * sizeof(float), 3 * sizeof(float));
+			pVAO->EnableVertexAttrib(render::VAL_TEXTURE0, 2, render::RVT_FLOAT, 8 * sizeof(float), 6 * sizeof(float));
 
 			renderable->Disable(RA_CULL_FACE);
 

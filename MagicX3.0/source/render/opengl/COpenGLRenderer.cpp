@@ -106,7 +106,7 @@ namespace mx
 
 		ITexture * COpenGLRenderer::CreateTexture(const char *filename)
 		{
-			resource::IImageManager *pIMageMgr = (IImageManager *)RESOURCEMGR(RT_IMAGE);
+			resource::IImageManager *pIMageMgr = RESOURCEMGR(IImageManager, RT_IMAGE);
 			if (pIMageMgr)
 			{
 				resource::IImage *pImage = (resource::IImage *)pIMageMgr->LoadResource(filename);
@@ -124,7 +124,7 @@ namespace mx
 
 		ITexture * COpenGLRenderer::CreateCubeTexture(const char *right, const char *left, const char *top, const char *bottom, const char *front, const char *back)
 		{
-			resource::IImageManager *pIMageMgr = (IImageManager *)RESOURCEMGR(RT_IMAGE);
+			resource::IImageManager *pIMageMgr = RESOURCEMGR(IImageManager, RT_IMAGE);
 			if (pIMageMgr)
 			{
 				const char *file[6] = { right, left, top, bottom, front, back };

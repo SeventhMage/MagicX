@@ -132,6 +132,8 @@
     <ClCompile Include="..\..\..\..\source\render\renderphase\CRenderPhaseManager.cpp" />
     <ClCompile Include="..\..\..\..\source\resource\CImageManager.cpp" />
     <ClCompile Include="..\..\..\..\source\resource\CResourceManager.cpp" />
+    <ClCompile Include="..\..\..\..\source\resource\CTableConfig.cpp" />
+    <ClCompile Include="..\..\..\..\source\resource\CTableConfigManager.cpp" />
     <ClCompile Include="..\..\..\..\source\resource\CTGAImage.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CCamera.cpp" />
     <ClCompile Include="..\..\..\..\source\scene\CEntity.cpp" />
@@ -207,6 +209,8 @@
     <ClInclude Include="..\..\..\..\include\resource\IImageManager.h" />
     <ClInclude Include="..\..\..\..\include\resource\IResource.h" />
     <ClInclude Include="..\..\..\..\include\resource\IResourceManager.h" />
+    <ClInclude Include="..\..\..\..\include\resource\ITableConfig.h" />
+    <ClInclude Include="..\..\..\..\include\resource\ITableConfigManager.h" />
     <ClInclude Include="..\..\..\..\include\scene\CSceneNode.h" />
     <ClInclude Include="..\..\..\..\include\scene\CSphere.h" />
     <ClInclude Include="..\..\..\..\include\scene\CSphereEntiy.h" />
@@ -260,6 +264,8 @@
     <ClInclude Include="..\..\..\..\source\render\renderphase\CRenderPhaseManager.h" />
     <ClInclude Include="..\..\..\..\source\resource\CImageManager.h" />
     <ClInclude Include="..\..\..\..\source\resource\CResourceManager.h" />
+    <ClInclude Include="..\..\..\..\source\resource\CTableConfig.h" />
+    <ClInclude Include="..\..\..\..\source\resource\CTableConfigManager.h" />
     <ClInclude Include="..\..\..\..\source\resource\CTGAImage.h" />
     <ClInclude Include="..\..\..\..\source\scene\CCamera.h" />
     <ClInclude Include="..\..\..\..\source\scene\CModel.h" />

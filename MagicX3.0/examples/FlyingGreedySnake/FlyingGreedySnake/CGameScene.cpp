@@ -27,7 +27,7 @@ void CGameScene::InitScene()
 	CVector3 vDir(0, -1, -1);
 	CVector3 vUp(0, 1, 0);
 	m_pScene->SetupCamera(100.f, m_pHero->GetHead(), vDir, vUp, PI / 3, 1.0f * DEVICEMGR->GetDevice()->GetWindowWidth() / DEVICEMGR->GetDevice()->GetWindowHeight(), 1.0f, 5000.0f);
-	m_pScene->SetupSkyBox("texture/FullMoonLeft.tga", "texture/FullMoonRight.tga", "texture/FullMoonUp.tga", "texture/FullMoonDown.tga", "texture/FullMoonFront.tga", "texture/FullMoonBack.tga", 1.f * SCENE_RADIUS);
+	m_pScene->SetupSkyBox("texture/neg_x.tga", "texture/pos_x.tga", "texture/pos_y.tga", "texture/neg_y.tga", "texture/pos_z.tga", "texture/neg_z.tga", 1.f * SCENE_RADIUS);
 	CVector3 lightPos;
 	CVector3 lightDir(0, -1, -1);
 	CVector3 lightUp(0, 0, -1);

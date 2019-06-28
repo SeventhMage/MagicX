@@ -15,8 +15,7 @@ public:
 
 	virtual void Update(int delta);
 
-	void LeftRotate();
-	void RightRotate();	
+	
 };
 
 #endif

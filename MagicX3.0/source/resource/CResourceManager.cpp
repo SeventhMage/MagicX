@@ -1,4 +1,5 @@
 #include "CResourceManager.h"
+#include "mxDef.h"
 
 namespace mx
 {
@@ -14,10 +15,15 @@ namespace mx
 
 		}
 
-		IResource * CResourceManager::LoadResource(const char *filename)
+		mx::resource::IResource * CResourceManager::LoadResource(const char *filename)
 		{
 			return nullptr;
 		}
+
+		void CResourceManager::UnLoadResource(IResource *pResource)
+		{
+		}
+
 	}
 
 

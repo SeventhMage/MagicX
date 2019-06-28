@@ -3,6 +3,7 @@
 #include "scene/CSceneManager.h"
 #include "resource/CResourceManager.h"
 #include "resource/CImageManager.h"
+#include "resource/CTableConfigManager.h"
 #include "render/opengl//COpenGLRenderer.h"
 #include "render/renderphase/CRenderPhaseManager.h"
 #include "render/CMaterialManager.h"
@@ -35,6 +36,7 @@ namespace mx
 		m_pResourceMgr[RT_IMAGE] = new CImageManager();
 		m_pResourceMgr[RT_MESH] = 0;
 		m_pResourceMgr[RT_SOUND] = 0;
+		m_pResourceMgr[RT_TABLE_CONFIG] = new CTableConfigManager();
 
 		CEventManager::NewInstance();
 	}

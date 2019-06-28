@@ -16,9 +16,11 @@ public:
 	CPlayer();
 	virtual ~CPlayer();
 
+	virtual void InitConfigTable();
 	virtual void SetPosition(const CVector3 &pos);
 	virtual void Update(int delta);
 	virtual void SetLevel(int level);
+	virtual void Release();
 
 	void Increase(const CVector3 &color);
 	void UpdatePosition();
@@ -45,7 +47,9 @@ private:
 
 	CVector3 m_vHeadPosRecord;
 	std::vector<CVector3>m_vecBodyPosRecord;
+	
 
+	float m_fVolume;
 
 };
 
