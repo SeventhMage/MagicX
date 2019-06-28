@@ -63,8 +63,11 @@ void CGameUnit::Update(int delta)
 
 void CGameUnit::SetLevel(int level)
 {
-	m_level = level;
-	InitConfigTable();
+	if (m_level != level)
+	{
+		m_level = level;
+		InitConfigTable();
+	}
 }
 
 void CGameUnit::SetRotate(ERotateState state)

@@ -25,10 +25,12 @@ namespace mx
 			CVector3 &operator-=(const CVector3 &other) { x -= other.x; y -= other.y; z -= other.z; return *this; }
 
 			CVector3 operator*(const float v) const { return CVector3(x * v, y * v, z * v); }
+			CVector3 operator*(const CVector3 &other) const { return CVector3(x * other.x, y * other.y, z * other.z); }
 			CVector3 &operator*=(const float v) { x *= v; y *= v; z *= v; return *this; }
 
 			CVector3 operator/(const float v) const { float tmp = (float)(1.0 / v); return CVector3(x * tmp, y * tmp, z * tmp); }
 			CVector3 &operator/=(const float v) { float tmp = (float)(1.0 / v); x *= tmp; y *= tmp; z *= tmp; return *this; }
+			CVector3 operator/(const CVector3 &other) const { return CVector3(x / other.x, y / other.y, z / other.z); }
 
 			bool operator==(const CVector3 &other) const { return equals(other); }
 			bool operator!=(const CVector3 &other) const { return !equals(other); }
