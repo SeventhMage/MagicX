@@ -2,6 +2,7 @@
 #define _MX_CORE_CVECTOR2_H_
 
 #include "base/base.h"
+#include <math.h>
 
 namespace se
 {

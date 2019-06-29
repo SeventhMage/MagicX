@@ -31,7 +31,7 @@ namespace se
             return m_iHeight;
         }
         
-        long CDeviceApple::GetSystemRunTime()
+        unsigned long long CDeviceApple::GetSystemRunTime()
         {
             return 0;
         }

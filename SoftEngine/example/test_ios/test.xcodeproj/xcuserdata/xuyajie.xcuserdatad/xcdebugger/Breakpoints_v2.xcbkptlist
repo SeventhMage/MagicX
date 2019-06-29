@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "test/ViewController.mm"
-            timestampString = "525526440.682614"
+            timestampString = "583500830.8759741"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
             landmarkName = "-Run"
             landmarkType = "7">
          </BreakpointContent>
@@ -25,29 +25,29 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../src/render/software/CSoftRenderer.cpp"
-            timestampString = "525526453.342605"
+            filePath = "../../src/render/CRenderQueue.cpp"
+            timestampString = "583500931.05036"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
-            landmarkName = "CSoftRenderer::Render()"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "CRenderQueue::Render(scene::ICamera *pCamera)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../src/render/software/CSoftRenderer.cpp"
-            timestampString = "525526490.556539"
+            timestampString = "583501042.515584"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "308"
-            endingLineNumber = "308"
-            landmarkName = "CSoftRenderer::Render(IShaderProgram *pShaderProgram, uint materialId, uint bufferId, uint textureId)"
+            startingLineNumber = "559"
+            endingLineNumber = "559"
+            landmarkName = "CSoftRenderer::DrawElements()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -57,13 +57,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../src/render/software/CIlluminationRender.cpp"
-            timestampString = "525526859.339658"
+            filePath = "../../src/render/software/CSoftRenderer.cpp"
+            timestampString = "583501105.7827539"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "CIlluminationRender::Calculate(const render::Color &amp;srcColor, const math::CVector3 &amp;lightDir, const math::CVector3 &amp;viewDir, const math::CVector3 &amp;normalDir, float ambientCoefficient, float diffuseCoefficient, float specularCoefficient, int specularityCoefficient, float lightDistance)"
+            startingLineNumber = "496"
+            endingLineNumber = "496"
+            landmarkName = "CSoftRenderer::DrawElements()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -72,15 +72,14 @@
          <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
-            condition = "specual.r&gt;0"
             continueAfterRunningActions = "No"
-            filePath = "../../src/render/software/CIlluminationRender.cpp"
-            timestampString = "525527561.309859"
+            filePath = "../../src/render/software/CRasterizer.cpp"
+            timestampString = "583501233.708603"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "CIlluminationRender::Calculate(const render::Color &amp;srcColor, const math::CVector3 &amp;lightDir, const math::CVector3 &amp;viewDir, const math::CVector3 &amp;normalDir, float ambientCoefficient, float diffuseCoefficient, float specularCoefficient, int specularityCoefficient, float lightDistance)"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
+            landmarkName = "CRasterizer::DrawTopTriangle(const CVector4 &amp;p0, const CVector2 &amp;t0, const render::SColor &amp;c0, const CVector4 &amp;p1, const CVector2 &amp;t1, const render::SColor &amp;c1, const CVector4 &amp;p2, const CVector2 &amp;t2, const render::SColor &amp;c2)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
