@@ -79,6 +79,9 @@
     <Filter Include="source\render\screenalignedquad">
       <UniqueIdentifier>{9a37ba2d-4b4a-4178-8874-db7fa9d3440a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\ui">
+      <UniqueIdentifier>{2b9cb372-33f2-4129-9607-d354ef903563}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\mx.cpp">
@@ -634,6 +637,21 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\resource\ITableConfigManager.h">
       <Filter>include\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\ui\IImage.h">
+      <Filter>include\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\ui\IText.h">
+      <Filter>include\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\ui\IWindow.h">
+      <Filter>include\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\ui\IWindowManager.h">
+      <Filter>include\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\ui\IButton.h">
+      <Filter>include\ui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

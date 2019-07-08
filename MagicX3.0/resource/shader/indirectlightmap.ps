@@ -46,7 +46,10 @@ void calcIndirectLight(int i, vec2 texCoordInValMap, float stepRate, vec3 gPosit
 void main()
 {
 	vec4 gPosition = texture(tGPosition, vOutTexCoord0);	
-	vec4 gNormal = texture(tGNormal, vOutTexCoord0);	
+	vec4 gNormal = texture(tGNormal, vOutTexCoord0);
+
+	float dataflag = step(0.001, dot(gNormal.xyz, gNormal.xyz));
+
 	
 	vec3 mainLightDir = -normalize(lightDir);//normalize(lightPosition - position.xyz);
 	
@@ -54,7 +57,7 @@ void main()
 	vec2 texCoordInValMap = posInValMap.xy / posInValMap.w;
 
 	float stepRate = 0.1;
-	int samplingTotalNum = 128;
+	int samplingTotalNum = int(256.0 * dataflag);
 	vec3 indirectLC = vec3(0.0, 0.0, 0.0);
 	float shelter = 0.0;
 	for (int i = 0; i< samplingTotalNum; ++i)
@@ -62,6 +65,6 @@ void main()
 		calcIndirectLight(i, texCoordInValMap, stepRate, gPosition.xyz, gNormal.xyz, indirectLC, shelter);
 	}
 
-	shelter /= float(samplingTotalNum);
+	shelter /= max(float(samplingTotalNum), 1.0);
 	gl_FragColor = vec4(indirectLC, 1.0 - shelter);
 }

@@ -229,6 +229,11 @@
     <ClInclude Include="..\..\..\..\include\scene\light\CPointLight.h" />
     <ClInclude Include="..\..\..\..\include\scene\light\CSpotLight.h" />
     <ClInclude Include="..\..\..\..\include\scene\light\ILight.h" />
+    <ClInclude Include="..\..\..\..\include\ui\IButton.h" />
+    <ClInclude Include="..\..\..\..\include\ui\IImage.h" />
+    <ClInclude Include="..\..\..\..\include\ui\IText.h" />
+    <ClInclude Include="..\..\..\..\include\ui\IWindow.h" />
+    <ClInclude Include="..\..\..\..\include\ui\IWindowManager.h" />
     <ClInclude Include="..\..\..\..\source\CMagicX.h" />
     <ClInclude Include="..\..\..\..\source\device\CDeviceManager.h" />
     <ClInclude Include="..\..\..\..\source\device\CKeyEvent.h" />
