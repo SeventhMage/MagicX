@@ -28,6 +28,7 @@ namespace mx
 				RendererVariableType idsType, GPUBufferMode mode, GPUBufferUsage usage);
 			virtual void DestroyBufferObject(IBufferObject *object);
 			virtual ITexture *CreateTexture(const char *filename);
+			virtual ITexture *CreateTexture(resource::EColorFormat internalformat, int width, int height, resource::EColorFormat format, resource::EPixelType type, void *data);
 			virtual ITexture *CreateCubeTexture(const char *right, const char *left, const char *top, const char *bottom, const char *front, const char *back);
 			virtual void DestroyTexture(ITexture *pTexture);
 			virtual IShaderProgram *CreateShaderProgram();

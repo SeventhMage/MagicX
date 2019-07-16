@@ -122,6 +122,13 @@ namespace mx
 			return nullptr;
 		}
 
+		ITexture * COpenGLRenderer::CreateTexture(resource::EColorFormat internalformat, int width, int height, resource::EColorFormat format, resource::EPixelType type, void *data)
+		{
+			ITexture *pTexture = new COpenGLTexture();
+			pTexture->Create2D(GetGLColorFormat(internalformat), width, height, GetGLColorFormat(format), GetGLPixelType(type), data);
+			return pTexture;
+		}
+
 		ITexture * COpenGLRenderer::CreateCubeTexture(const char *right, const char *left, const char *top, const char *bottom, const char *front, const char *back)
 		{
 			resource::IImageManager *pIMageMgr = RESOURCEMGR(IImageManager, RT_IMAGE);

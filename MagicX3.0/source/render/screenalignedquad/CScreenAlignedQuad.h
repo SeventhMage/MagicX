@@ -16,6 +16,7 @@ namespace mx
 			virtual void Render();
 		protected:
 			render::IRenderable *m_pRenderable;
+			ITexture *m_pRandNumTex;
 		};
 	}
 }

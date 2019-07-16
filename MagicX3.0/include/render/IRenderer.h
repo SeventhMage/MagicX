@@ -62,6 +62,7 @@ namespace mx
 
 			//¥¥Ω®Œ∆¿Ì
 			virtual ITexture *CreateTexture(const char *filename) = 0;
+			virtual ITexture *CreateTexture(resource::EColorFormat internalformat, int width, int height, resource::EColorFormat format, resource::EPixelType type, void *data) = 0;
 			virtual ITexture *CreateCubeTexture(const char *right, const char *left, const char *top, const char *bottom, const char *front, const char *back) = 0;
 			virtual void DestroyTexture(ITexture *pTexture) = 0;
 

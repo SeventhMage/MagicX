@@ -18,6 +18,7 @@ namespace mx
 			CF_ALPHA,
 			CF_RGB,
 			CF_RGBA,
+			CF_RGB16F,
 			CF_BGR,
 			CF_BGRA,
 			CF_LUMINANCE,

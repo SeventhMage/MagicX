@@ -8,16 +8,36 @@ namespace mx
 {
 	namespace render
 	{
+		static const int RAND_WIDTH = 16;
 		using namespace mx::math;
 		CIndirectLightMap::CIndirectLightMap(IRenderQueue *pRenderQueue)
 			:CScreenAlignedQuad(pRenderQueue)
 		{
+			static const int RAND_NUM = RAND_WIDTH * RAND_WIDTH;
+			byte vRandNum[RAND_NUM * 3] = { 0 };
+			for (int i = 0; i < RAND_NUM; ++i)
+			{
+				float randRadius = 1.f * rand() / RAND_MAX;
+				float randRadian = 1.f * rand() / RAND_MAX;
+				float randRadian2 = 1.f * rand() / RAND_MAX;
+				randRadian += randRadian2;
+				vRandNum[3 * i] = (randRadius * sin(PI_2 * randRadian) * 127.f);
+				vRandNum[3 * i + 1] = (randRadius * cos(PI_2 * randRadian) * 127.f);
+			}
 
+			m_pRandNumTex = RENDERER->CreateTexture(CF_RGB, RAND_WIDTH, RAND_WIDTH, CF_RGB, PT_UNSIGNED_BYTE, (void*)vRandNum);
+			if (m_pRandNumTex)
+			{
+				int iTextureUnit = 0;
+				m_pRenderable->SetTexture(iTextureUnit, m_pRandNumTex);
+				m_pRenderable->GetShaderProgram()->SetUniform("tRandNum", &iTextureUnit);
+			}
 		}
 
 		CIndirectLightMap::~CIndirectLightMap()
 		{
-
+			RENDERER->DestroyTexture(m_pRandNumTex);
+			m_pRandNumTex = nullptr;
 		}
 
 		void CIndirectLightMap::Render()
@@ -73,23 +93,9 @@ namespace mx
 			m_pRenderable->SetUniform("lightPosition", lightPos);
 			m_pRenderable->SetUniform("lightDir", lightDir);
 			m_pRenderable->SetUniform("lightColor", lightColor);
+			m_pRenderable->SetUniform("samplingColCount", &RAND_WIDTH);
+			
 
-			static const int RAND_NUM = 256;
-			static float fSRandNum[RAND_NUM] = { 0 };
-			static float fCRandNum[RAND_NUM] = { 0 };
-			for (int i = 0; i < RAND_NUM; ++i)
-			{
-				if (fSRandNum[i] > 0)
-					break;
-				float randRadius = 1.f * rand() / RAND_MAX;
-				float randRadian = 1.f * rand() / RAND_MAX;
-				float randRadian2 = 1.f * rand() / RAND_MAX;
-				randRadian += randRadian2;
-				fSRandNum[i] = randRadius * sin(PI_2 * randRadian);
-				fCRandNum[i] = randRadius * cos(PI_2 * randRadian);
-			}
-			m_pRenderable->SetUniform("fSRandNum", fSRandNum);
-			m_pRenderable->SetUniform("fCRandNum", fCRandNum);
 
 			m_pRenderable->SumbitToRenderQueue();
 		}

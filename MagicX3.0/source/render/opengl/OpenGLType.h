@@ -312,6 +312,8 @@ namespace mx
 				return GL_RGB;
 			case resource::CF_RGBA:
 				return GL_RGBA;
+			case resource::CF_RGB16F:
+				return GL_RGB16F;
 			case resource::CF_BGR:
 				return GL_BGR;
 			case resource::CF_BGRA:
